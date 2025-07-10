@@ -810,7 +810,7 @@ bool Log::writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		return txtObj;
 	};
 
-	QTextDocument *doc     = tc->document();
+	QTextDocument &doc     = *tc->document();
 	bool isAnyCustomTxtObj = false;
 	// Track the end of the previous custom text object and thereby where to move the start of the search to
 	// as well as what HTML is between the currently processed custom text object and the previous one:
@@ -852,13 +852,13 @@ bool Log::writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 		obj->setProperty("characterPos", tc->position());
 		obj->setProperty("fileExtension", fileExt);
 		obj->setProperty("objectType", objType);
-		QVariant customObjectsProperty = doc->property("customObjects");
+		QVariant customObjectsProperty = doc.property("customObjects");
 		auto customObjects             = customObjectsProperty.isValid()
 								 ? qvariant_cast< QList< QObject * > >(customObjectsProperty)
 								 : QList< QObject * >();
 		obj->setProperty("customObjectIndex", customObjects.size());
 		customObjects.append(obj);
-		doc->setProperty("customObjects", QVariant::fromValue(customObjects));
+		doc.setProperty("customObjects", QVariant::fromValue(customObjects));
 
 		// Set marker (zero-width space) for custom text object used when copying from selection at least:
 		tc->insertHtml("&#8203;");
@@ -871,9 +871,9 @@ bool Log::writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
 	return isAnyCustomTxtObj;
 }
 
-QString Log::setHtml(const QString &html, QTextCursor *tc, std::function< void() > baseClear) {
-	LogTextBrowser::clear(tc->document(), baseClear);
-	return writeHtml(html, tc);
+QString Log::setHtml(const QString &html, QTextCursor &tc, std::function< void() > baseClear) {
+	LogTextBrowser::clear(*tc.document(), baseClear);
+	return writeHtml(html, &tc);
 }
 
 QString Log::writeHtml(const QString &html, QTextCursor *tc) {

@@ -28,25 +28,25 @@ QWidget *LogTextBrowser::widgetInFullScreen = nullptr;
 
 LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
 	connect(
-		this, &QTextEdit::textChanged, this, [this]() { registerCustomTextObjects(document()); },
+		this, &QTextEdit::textChanged, this, [this]() { registerCustomTextObjects(*document()); },
 		Qt::SingleShotConnection);
 }
 
-void LogTextBrowser::registerCustomTextObjects(QTextDocument *doc) {
-	QAbstractTextDocumentLayout *layout = doc->documentLayout();
+void LogTextBrowser::registerCustomTextObjects(QTextDocument &doc) {
+	QAbstractTextDocumentLayout *layout = doc.documentLayout();
 	layout->registerHandler(static_cast< int >(Log::TextObjectType::ImageAnimation), new ImageAnimationTextObject(doc));
-	doc->setProperty("customObjectFocusIndex", -1);
+	doc.setProperty("customObjectFocusIndex", -1);
 }
 
-void LogTextBrowser::highlightSelectedObject(QTextDocument *doc, QPainter *painter, const QRect &rect,
-											 QObject *propertyHolder) {
-	if (doc->property("customObjectFocusIndex").toInt() != propertyHolder->property("customObjectIndex").toInt()) {
+void LogTextBrowser::highlightSelectedObject(const QTextDocument &doc, QPainter &painter, const QRect &rect,
+											 const QObject &propertyHolder) {
+	if (doc.property("customObjectFocusIndex").toInt() != propertyHolder.property("customObjectIndex").toInt()) {
 		return;
 	}
-	painter->save();
-	painter->setPen(QPen(QColor(50, 50, 200), 2));
-	painter->drawRect(rect.adjusted(-1, -1, 1, 1));
-	painter->restore();
+	painter.save();
+	painter.setPen(QPen(QColor(50, 50, 200), 2));
+	painter.drawRect(rect.adjusted(-1, -1, 1, 1));
+	painter.restore();
 }
 
 QRect LogTextBrowser::calcRectScaledToScreen(const QSize &size) {
@@ -84,19 +84,19 @@ void LogTextBrowser::toggleFullScreen(QWidget *widget) {
 	widgetInFullScreen = widget;
 }
 
-bool LogTextBrowser::mousePressCustomTextObjects(QTextDocument *doc, QMouseEvent *mouseEvt) {
-	QPoint mouseDocPos          = mouseEvt->pos() + getScrollPos(doc);
-	Qt::MouseButton mouseButton = mouseEvt->button();
+bool LogTextBrowser::mousePressCustomTextObjects(const QTextDocument &doc, const QMouseEvent &mouseEvt) {
+	QPoint mouseDocPos          = mouseEvt.pos() + getScrollPos(doc);
+	Qt::MouseButton mouseButton = mouseEvt.button();
 	bool isAction               = false;
 
 	QObject *obj                           = customObjectAt(doc, mouseDocPos);
-	QAbstractTextDocumentLayout *docLayout = doc->documentLayout();
+	QAbstractTextDocumentLayout *docLayout = doc.documentLayout();
 	if (obj != nullptr) {
 		int type = obj->property("objectType").toInt();
 		switch (static_cast< Log::TextObjectType >(type)) {
 			case Log::TextObjectType::ImageAnimation: {
 				auto animationHandler = (ImageAnimationTextObject *) docLayout->handlerForObject(type);
-				isAction = animationHandler->mousePress(mouseDocPos, mouseButton, qobject_cast< QMovie * >(obj));
+				isAction = animationHandler->mousePress(mouseDocPos, mouseButton, *qobject_cast< QMovie * >(obj));
 				break;
 			}
 			case Log::TextObjectType::NoCustomObject:
@@ -106,19 +106,19 @@ bool LogTextBrowser::mousePressCustomTextObjects(QTextDocument *doc, QMouseEvent
 	return isAction;
 }
 
-bool LogTextBrowser::scrollCustomTextObjects(QTextDocument *doc, QWheelEvent *wheelEvt) {
-	QPoint mouseDocPos = wheelEvt->position().toPoint() + getScrollPos(doc);
-	bool isScrollingUp = wheelEvt->angleDelta().y() > 0;
+bool LogTextBrowser::scrollCustomTextObjects(const QTextDocument &doc, const QWheelEvent &wheelEvt) {
+	QPoint mouseDocPos = wheelEvt.position().toPoint() + getScrollPos(doc);
+	bool isScrollingUp = wheelEvt.angleDelta().y() > 0;
 	bool isAction      = false;
 
 	QObject *obj                           = customObjectAt(doc, mouseDocPos);
-	QAbstractTextDocumentLayout *docLayout = doc->documentLayout();
+	QAbstractTextDocumentLayout *docLayout = doc.documentLayout();
 	if (obj != nullptr) {
 		int type = obj->property("objectType").toInt();
 		switch (static_cast< Log::TextObjectType >(type)) {
 			case Log::TextObjectType::ImageAnimation: {
 				auto animationHandler = (ImageAnimationTextObject *) docLayout->handlerForObject(type);
-				isAction = animationHandler->scroll(mouseDocPos, isScrollingUp, qobject_cast< QMovie * >(obj));
+				isAction = animationHandler->scroll(mouseDocPos, isScrollingUp, *qobject_cast< QMovie * >(obj));
 				break;
 			}
 			default:
@@ -128,15 +128,16 @@ bool LogTextBrowser::scrollCustomTextObjects(QTextDocument *doc, QWheelEvent *wh
 	return isAction;
 }
 
-bool LogTextBrowser::keyPressCustomTextObjects(QTextDocument *doc, QKeyEvent *keyEvt, bool isObjSelectionChanged) {
-	auto key      = static_cast< Qt::Key >(keyEvt->key());
+bool LogTextBrowser::keyPressCustomTextObjects(const QTextDocument &doc, const QKeyEvent &keyEvt,
+											   bool isObjSelectionChanged) {
+	auto key      = static_cast< Qt::Key >(keyEvt.key());
 	bool isAction = false;
 
-	auto customObjects = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
-	QObject *obj       = customObjects[doc->property("customObjectFocusIndex").toInt()];
+	auto customObjects = qvariant_cast< QList< QObject * > >(doc.property("customObjects"));
+	QObject *obj       = customObjects[doc.property("customObjectFocusIndex").toInt()];
 	switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
 		case Log::TextObjectType::ImageAnimation:
-			isAction = ImageAnimationTextObject::keyPress(qobject_cast< QMovie * >(obj), key, isObjSelectionChanged);
+			isAction = ImageAnimationTextObject::keyPress(*qobject_cast< QMovie * >(obj), key, isObjSelectionChanged);
 			break;
 		case Log::TextObjectType::NoCustomObject:
 			break;
@@ -144,16 +145,17 @@ bool LogTextBrowser::keyPressCustomTextObjects(QTextDocument *doc, QKeyEvent *ke
 	return isAction;
 }
 
-QString LogTextBrowser::addedCustomTextObjectsToHtml(const QString &html, QTextCursor *tc, bool isLimitedToSelection) {
-	auto customObjects   = qvariant_cast< QList< QObject * > >(tc->document()->property("customObjects"));
+QString LogTextBrowser::addedCustomTextObjectsToHtml(const QString &html, const QTextCursor &tc,
+													 bool isLimitedToSelection) {
+	auto customObjects   = qvariant_cast< QList< QObject * > >(tc.document()->property("customObjects"));
 	qsizetype htmlLength = html.size();
 	QString htmlWithCustomTextObjects;
 	htmlWithCustomTextObjects.reserve(htmlLength);
 
 	qsizetype lastObjIndex      = customObjects.size() - 1;
 	qsizetype objIndex          = -1;
-	int selectionStartIndex     = tc->selectionStart();
-	int selectionEndIndex       = tc->selectionEnd();
+	int selectionStartIndex     = tc.selectionStart();
+	int selectionEndIndex       = tc.selectionEnd();
 	qsizetype txtObjIndex       = 0;
 	qsizetype previousHtmlIndex = 0;
 	while (objIndex < lastObjIndex) {
@@ -177,7 +179,7 @@ QString LogTextBrowser::addedCustomTextObjectsToHtml(const QString &html, QTextC
 			continue;
 		}
 
-		auto *animation          = qobject_cast< QMovie * >(obj);
+		auto animation           = qobject_cast< QMovie * >(obj);
 		QIODevice *device        = animation->device();
 		qint64 previousDevicePos = device->pos();
 		device->reset();
@@ -209,71 +211,71 @@ QString LogTextBrowser::addedCustomTextObjectsToHtml(const QString &html, QTextC
 	return htmlWithCustomTextObjects;
 }
 
-void LogTextBrowser::clear(QTextDocument *doc, std::function< void() > baseClear) {
-	auto customObjects = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
+void LogTextBrowser::clear(QTextDocument &doc, std::function< void() > baseClear) {
+	auto customObjects = qvariant_cast< QList< QObject * > >(doc.property("customObjects"));
 	for (QObject *obj : customObjects) {
 		obj->deleteLater();
 	}
 	customObjects.clear();
-	doc->setProperty("customObjects", QVariant::fromValue(customObjects));
-	doc->setProperty("customObjectFocusIndex", -1);
+	doc.setProperty("customObjects", QVariant::fromValue(customObjects));
+	doc.setProperty("customObjectFocusIndex", -1);
 	if (baseClear != nullptr) {
 		return baseClear();
 	}
-	doc->clear();
+	doc.clear();
 }
 
-int LogTextBrowser::getScrollX(QTextDocument *doc) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+int LogTextBrowser::getScrollX(const QTextDocument &doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	return scrollArea != nullptr ? scrollArea->horizontalScrollBar()->value() : -1;
 }
 
-int LogTextBrowser::getScrollY(QTextDocument *doc) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+int LogTextBrowser::getScrollY(const QTextDocument &doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	return scrollArea != nullptr ? scrollArea->verticalScrollBar()->value() : -1;
 }
 
-QPoint LogTextBrowser::getScrollPos(QTextDocument *doc) {
+QPoint LogTextBrowser::getScrollPos(const QTextDocument &doc) {
 	return QPoint(getScrollX(doc), getScrollY(doc));
 }
 
-QRect LogTextBrowser::getDocumentViewRect(QTextDocument *doc) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+QRect LogTextBrowser::getDocumentViewRect(const QTextDocument &doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	return scrollArea != nullptr ? QRect(getScrollPos(doc), scrollArea->viewport()->size()) : QRect();
 }
 
-void LogTextBrowser::setScrollX(QTextDocument *doc, int scrollPos) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+void LogTextBrowser::setScrollX(const QTextDocument &doc, int scrollPos) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	if (scrollArea != nullptr) {
 		scrollArea->horizontalScrollBar()->setValue(scrollPos);
 	}
 }
 
-void LogTextBrowser::setScrollY(QTextDocument *doc, int scrollPos) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+void LogTextBrowser::setScrollY(const QTextDocument &doc, int scrollPos) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	if (scrollArea != nullptr) {
 		scrollArea->verticalScrollBar()->setValue(scrollPos);
 	}
 }
 
-void LogTextBrowser::changeScrollX(QTextDocument *doc, int change) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+void LogTextBrowser::changeScrollX(const QTextDocument &doc, int change) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	if (scrollArea != nullptr) {
 		QScrollBar *scrollBar = scrollArea->horizontalScrollBar();
 		scrollBar->setValue(scrollBar->value() + change);
 	}
 }
 
-void LogTextBrowser::changeScrollY(QTextDocument *doc, int change) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+void LogTextBrowser::changeScrollY(const QTextDocument &doc, int change) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	if (scrollArea != nullptr) {
 		QScrollBar *scrollBar = scrollArea->verticalScrollBar();
 		scrollBar->setValue(scrollBar->value() + change);
 	}
 }
 
-bool LogTextBrowser::isScrolledToBottom(QTextDocument *doc) {
-	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc->parent());
+bool LogTextBrowser::isScrolledToBottom(const QTextDocument &doc) {
+	auto scrollArea = qobject_cast< QAbstractScrollArea * >(doc.parent());
 	if (scrollArea != nullptr) {
 		QScrollBar *scrollBar = scrollArea->verticalScrollBar();
 		return scrollBar->value() == scrollBar->maximum();
@@ -281,7 +283,7 @@ bool LogTextBrowser::isScrolledToBottom(QTextDocument *doc) {
 	return false;
 }
 
-void LogTextBrowser::scrollAreaIntoView(QTextDocument *doc, const QRect &rect) {
+void LogTextBrowser::scrollAreaIntoView(const QTextDocument &doc, const QRect &rect) {
 	QRect viewRect          = getDocumentViewRect(doc);
 	int rectXWithWidth      = rect.x() + rect.width();
 	int viewRectXWithWidth  = viewRect.x() + viewRect.width();
@@ -319,8 +321,8 @@ void LogTextBrowser::scrollAreaIntoView(QTextDocument *doc, const QRect &rect) {
 	}
 }
 
-QObject *LogTextBrowser::customObjectAt(QTextDocument *doc, const QPoint &pos) {
-	QTextFormat fmt = doc->documentLayout()->formatAt(pos);
+QObject *LogTextBrowser::customObjectAt(const QTextDocument &doc, const QPoint &pos) {
+	QTextFormat fmt = doc.documentLayout()->formatAt(pos);
 	if (!fmt.hasProperty(1)) {
 		return nullptr;
 	}
@@ -334,16 +336,16 @@ QObject *LogTextBrowser::customObjectAt(QTextDocument *doc, const QPoint &pos) {
 	return obj;
 }
 
-void LogTextBrowser::update(QTextDocument *doc, const QRect &rect) {
-	emit doc->documentLayout()->update(!rect.isEmpty() ? rect : getDocumentViewRect(doc));
+void LogTextBrowser::update(const QTextDocument &doc, const QRect &rect) {
+	emit doc.documentLayout()->update(!rect.isEmpty() ? rect : getDocumentViewRect(doc));
 }
 
-void LogTextBrowser::reflow(QTextDocument *doc) {
-	doc->markContentsDirty(0, doc->characterCount());
+void LogTextBrowser::reflow(QTextDocument &doc) {
+	doc.markContentsDirty(0, doc.characterCount());
 }
 
 void LogTextBrowser::clear() {
-	clear(document(), std::bind(&QTextBrowser::clear, this));
+	clear(*document(), std::bind(&QTextBrowser::clear, this));
 }
 
 int LogTextBrowser::getScrollX() {
@@ -371,41 +373,41 @@ void LogTextBrowser::setScrollY(int scrollPos) {
 }
 
 void LogTextBrowser::changeScrollX(int change) {
-	changeScrollX(document(), change);
+	changeScrollX(*document(), change);
 }
 
 void LogTextBrowser::changeScrollY(int change) {
-	changeScrollY(document(), change);
+	changeScrollY(*document(), change);
 }
 
 void LogTextBrowser::scrollAreaIntoView(const QRect &rect) {
-	scrollAreaIntoView(document(), rect);
+	scrollAreaIntoView(*document(), rect);
 }
 
 bool LogTextBrowser::isScrolledToBottom() {
-	return isScrolledToBottom(document());
+	return isScrolledToBottom(*document());
 }
 
 QObject *LogTextBrowser::customObjectAt(const QPoint &pos) {
-	return customObjectAt(document(), pos);
+	return customObjectAt(*document(), pos);
 }
 
 void LogTextBrowser::update(const QRect &rect) {
-	update(document(), rect);
+	update(*document(), rect);
 }
 
 void LogTextBrowser::reflow() {
-	reflow(document());
+	reflow(*document());
 }
 
 void LogTextBrowser::mousePressEvent(QMouseEvent *mouseEvt) {
-	if (mousePressCustomTextObjects(document(), mouseEvt)) {
+	if (mousePressCustomTextObjects(*document(), *mouseEvt)) {
 		mouseEvt->accept();
 	}
 }
 
 void LogTextBrowser::wheelEvent(QWheelEvent *wheelEvt) {
-	if (!scrollCustomTextObjects(document(), wheelEvt)) {
+	if (!scrollCustomTextObjects(*document(), *wheelEvt)) {
 		QTextBrowser::wheelEvent(wheelEvt);
 	}
 }
@@ -413,13 +415,13 @@ void LogTextBrowser::wheelEvent(QWheelEvent *wheelEvt) {
 void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
 	auto key                        = static_cast< Qt::Key >(keyEvt->key());
 	Qt::KeyboardModifiers modifiers = QApplication::keyboardModifiers();
-	QTextDocument *doc              = document();
+	QTextDocument &doc              = *document();
 	int viewHeight                  = height();
 	int docHeight                   = verticalScrollBar()->maximum();
-	auto customObjects              = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
+	auto customObjects              = qvariant_cast< QList< QObject * > >(doc.property("customObjects"));
 
 	int lastIndex  = customObjects.size() - 1;
-	int focusIndex = doc->property("customObjectFocusIndex").toInt();
+	int focusIndex = doc.property("customObjectFocusIndex").toInt();
 	int scrollStep = 15;
 	if (modifiers.testFlag(Qt::ControlModifier)) {
 		switch (key) {
@@ -472,24 +474,24 @@ void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
 		case Qt::Key_Enter:
 			if (lastIndex != -1) {
 				int indexMovedBy = focusIndex == lastIndex ? -lastIndex : 1;
-				doc->setProperty("customObjectFocusIndex", focusIndex + indexMovedBy);
+				doc.setProperty("customObjectFocusIndex", focusIndex + indexMovedBy);
 			}
 			break;
 		case Qt::Key_Backspace:
 			if (lastIndex != -1) {
 				int indexMovedBy = focusIndex < 1 ? lastIndex + (focusIndex == -1 ? 1 : 0) : -1;
-				doc->setProperty("customObjectFocusIndex", focusIndex + indexMovedBy);
+				doc.setProperty("customObjectFocusIndex", focusIndex + indexMovedBy);
 			}
 			break;
 		case Qt::Key_Escape:
-			doc->setProperty("customObjectFocusIndex", -1);
+			doc.setProperty("customObjectFocusIndex", -1);
 			return update();
 		default:
 			break;
 	}
-	int newFocusIndex = doc->property("customObjectFocusIndex").toInt();
+	int newFocusIndex = doc.property("customObjectFocusIndex").toInt();
 	if (newFocusIndex != -1) {
-		keyPressCustomTextObjects(doc, keyEvt, newFocusIndex != focusIndex);
+		keyPressCustomTextObjects(doc, *keyEvt, newFocusIndex != focusIndex);
 	}
 }
 
@@ -519,7 +521,7 @@ void LogTextBrowser::keyReleaseEvent(QKeyEvent *keyEvt) {
 QMimeData *LogTextBrowser::createMimeDataFromSelection() const {
 	QMimeData *mime = QTextEdit::createMimeDataFromSelection();
 	QTextCursor tc  = textCursor();
-	mime->setHtml(addedCustomTextObjectsToHtml(mime->html(), &tc));
+	mime->setHtml(addedCustomTextObjectsToHtml(mime->html(), tc));
 	return mime;
 }
 
@@ -712,9 +714,7 @@ bool ChatbarTextEdit::emitPastedImage(const QImage &image, const QString &filePa
 		}
 		if (!isReadError || isImageBa) {
 			QByteArray animationBa = isImageBa ? imageBa : file.readAll();
-			bool isAnimation       = true;
-			ImageAnimationTextObject::createImageAnimation(animationBa, nullptr, isAnimation);
-			if (isAnimation) {
+			if (ImageAnimationTextObject::testImageAnimation(animationBa)) {
 				auto base64Image = qvariant_cast< QString >(animationBa.toBase64());
 				QString img      = QLatin1String("<img src=\"data:image/%2;base64,%1\" />").arg(base64Image, fileExt);
 				emit pastedImage("<br/>" + img);
@@ -758,8 +758,8 @@ int VideoUtils::calcPosOnAxisFromOffset(int offset, int start, int length) {
 	return start + offset + (offset < 0 ? length : 0);
 }
 
-QRect VideoUtils::calcVideoControlsRect(QObject *propertyHolder) {
-	QRect rect         = propertyHolder->property("posAndSize").toRect();
+QRect VideoUtils::calcVideoControlsRect(const QObject &propertyHolder) {
+	QRect rect         = propertyHolder.property("posAndSize").toRect();
 	int videoControlsY = rect.y() + rect.height() - videoControlsHeight;
 	return QRect(rect.x(), videoControlsY, rect.width(), videoControlsHeight);
 }
@@ -829,8 +829,9 @@ double VideoUtils::videoBarProportionAt(const QPoint &pos, const QRect &rect) {
 	return (pos.x() - rect.x()) / (double) rect.width();
 }
 
-void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject *propertyHolder, double opacity) {
-	painter->save();
+void VideoUtils::drawVideoControls(QPainter &painter, const QRect &rect, const QObject &propertyHolder,
+								   double opacity) {
+	painter.save();
 	auto convertUnit = [](int integer, int exponent, int decimalAmount = 0) -> double {
 		bool noDecimals              = decimalAmount == 0;
 		int exponentForDecimalAmount = exponent < 0 ? exponent + decimalAmount : exponent - decimalAmount;
@@ -903,8 +904,8 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 		return timeStr;
 	};
 
-	auto objType         = qvariant_cast< Log::TextObjectType >(propertyHolder->property("objectType"));
-	bool isFullScreen    = propertyHolder->property("isFullScreen").toBool();
+	auto objType         = qvariant_cast< Log::TextObjectType >(propertyHolder.property("objectType"));
+	bool isFullScreen    = propertyHolder.property("isFullScreen").toBool();
 	auto calcXFromOffset = [&rect](int offsetX) { return calcPosOnAxisFromOffset(offsetX, rect.x(), rect.width()); };
 	int cacheX           = calcXFromOffset(cacheOffsetX);
 	int loopModeX        = calcXFromOffset(loopModeOffsetX);
@@ -925,8 +926,8 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 	int currentMs       = -1;
 	switch (objType) {
 		case Log::TextObjectType::ImageAnimation: {
-			auto *animation = qobject_cast< QMovie * >(propertyHolder);
-			int frameIndex  = animation->currentFrameNumber();
+			auto animation = qobject_cast< const QMovie * >(&propertyHolder);
+			int frameIndex = animation->currentFrameNumber();
 			wasPaused = animation->state() != QMovie::Running && !animation->property("isPlayingInReverse").toBool();
 			wasCached = animation->cacheMode() == QMovie::CacheAll;
 			speedPercentage = animation->speed();
@@ -948,11 +949,11 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 	QBrush videoControlsBackgroundBrush(QColor(50, 50, 50, isFullScreen ? std::min(alpha, alphaFsVcBg) : alpha));
 	QBrush videoBarBackgroundBrush(wasCached ? QColor(120, 120, 120, alpha) : QColor(90, 90, 90, alpha));
 	QBrush videoBarBrush(QColor(0, 0, 200, alpha));
-	painter->fillRect(videoBarX, videoBarY, rect.width(), videoControlsHeight, videoControlsBackgroundBrush);
-	painter->fillRect(videoBarX, videoBarY, rect.width(), videoBarHeight, videoBarBackgroundBrush);
-	painter->fillRect(videoBarX, videoBarY, videoBarWidth, videoBarHeight, videoBarBrush);
+	painter.fillRect(videoBarX, videoBarY, rect.width(), videoControlsHeight, videoControlsBackgroundBrush);
+	painter.fillRect(videoBarX, videoBarY, rect.width(), videoBarHeight, videoBarBackgroundBrush);
+	painter.fillRect(videoBarX, videoBarY, videoBarWidth, videoBarHeight, videoBarBrush);
 
-	painter->setPen(QColor(149, 165, 166, alpha));
+	painter.setPen(QColor(149, 165, 166, alpha));
 	QPoint fullScreenPos(fullScreenX, underVideoBarWithSmallMarginY);
 	int cornerLength                 = 4;
 	int cornerGap                    = 6;
@@ -975,40 +976,40 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 			QPoint offset(i == 0 || i == 2 ? cornerLength : -cornerLength, i < 2 ? cornerLength : -cornerLength);
 			corner[1] += offset;
 		}
-		painter->drawPolyline(corner);
+		painter.drawPolyline(corner);
 	}
 
 	QString speedStr = padDecimals(QString::number(convertUnit(speedPercentage, -2)), 2);
 	QPoint speedPos(speedX, underVideoBarWithSmallMarginY);
-	painter->drawText(speedPos.x() + 26, speedPos.y() + 11, speedStr);
+	painter.drawText(speedPos.x() + 26, speedPos.y() + 11, speedStr);
 	// Draw the plus "+":
-	painter->drawLine(speedPos.x() + 17, speedPos.y(), speedPos.x() + 17, speedPos.y() + 8);
-	painter->drawLine(speedPos.x() + 13, speedPos.y() + 4, speedPos.x() + 21, speedPos.y() + 4);
+	painter.drawLine(speedPos.x() + 17, speedPos.y(), speedPos.x() + 17, speedPos.y() + 8);
+	painter.drawLine(speedPos.x() + 13, speedPos.y() + 4, speedPos.x() + 21, speedPos.y() + 4);
 	// Draw the minus "-":
-	painter->drawLine(speedPos.x() + 13, speedPos.y() + 13, speedPos.x() + 21, speedPos.y() + 13);
+	painter.drawLine(speedPos.x() + 13, speedPos.y() + 13, speedPos.x() + 21, speedPos.y() + 13);
 	// Draw the circle "o":
-	painter->drawEllipse(speedPos.x(), speedPos.y() + 5, 6, 6);
+	painter.drawEllipse(speedPos.x(), speedPos.y() + 5, 6, 6);
 
 	QPoint frameTraversalPos(frameTraversalX, underVideoBarWithMediumMarginY);
-	painter->drawText(frameTraversalPos, "<  >");
+	painter.drawText(frameTraversalPos, "<  >");
 
-	QFont font = painter->font();
+	QFont font = painter.font();
 	switch (objType) {
 		case Log::TextObjectType::ImageAnimation: {
-			auto loopMode = qvariant_cast< ImageAnimationTextObject::LoopMode >(propertyHolder->property("LoopMode"));
+			auto loopMode = qvariant_cast< ImageAnimationTextObject::LoopMode >(propertyHolder.property("LoopMode"));
 			QString loopModeStr         = ImageAnimationTextObject::loopModeToString(loopMode);
 			qsizetype loopModeStrLength = loopModeStr.size();
 			int loopModeStrOffset       = loopModeStrLength > 7 ? 12 : loopModeStrLength > 4 ? 5 : 0;
 			double fontSizeSmall        = 0.7;
 			font.setPointSize((int) round(font.pointSize() * fontSizeSmall));
-			painter->setFont(font);
-			painter->drawText(QPoint(loopModeX, underVideoBarY + 8), "Mode:");
-			painter->drawText(QPoint(loopModeX - loopModeStrOffset, underVideoBarY + 17), loopModeStr);
+			painter.setFont(font);
+			painter.drawText(QPoint(loopModeX, underVideoBarY + 8), "Mode:");
+			painter.drawText(QPoint(loopModeX - loopModeStrOffset, underVideoBarY + 17), loopModeStr);
 
-			painter->drawText(QPoint(cacheX, underVideoBarY + 8), "Cache:");
-			painter->drawText(QPoint(cacheX + 5, underVideoBarY + 17), QLatin1String(wasCached ? "On" : "Off"));
+			painter.drawText(QPoint(cacheX, underVideoBarY + 8), "Cache:");
+			painter.drawText(QPoint(cacheX + 5, underVideoBarY + 17), QLatin1String(wasCached ? "On" : "Off"));
 			font.setPointSize((int) round(font.pointSize() / fontSizeSmall));
-			painter->setFont(font);
+			painter.setFont(font);
 			break;
 		}
 		default:
@@ -1020,13 +1021,13 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 	double fontSizeLarge   = 1.2;
 	if (isFullScreen) {
 		font.setPointSize((int) round(font.pointSize() * fontSizeLarge));
-		painter->setFont(font);
+		painter.setFont(font);
 	}
-	painter->drawText(QPoint(videoBarX + 20, underVideoBarWithMediumMarginY + (isFullScreen ? 1 : 0)),
-					  QLatin1String("%1 / %2").arg(currentTimeStr, totalTimeStr));
+	painter.drawText(QPoint(videoBarX + 20, underVideoBarWithMediumMarginY + (isFullScreen ? 1 : 0)),
+					 QLatin1String("%1 / %2").arg(currentTimeStr, totalTimeStr));
 	if (isFullScreen) {
 		font.setPointSize((int) round(font.pointSize() / fontSizeLarge));
-		painter->setFont(font);
+		painter.setFont(font);
 	}
 
 	QPoint iconTopPos(videoBarX + 2, underVideoBarY + 2);
@@ -1035,20 +1036,20 @@ void VideoUtils::drawVideoControls(QPainter *painter, const QRect &rect, QObject
 		// Add a play-icon, which is a right-pointing triangle, like this "▶":
 		QPolygon playIcon(
 			{ iconTopPos, QPoint(videoBarX + 15, underVideoBarY + 10), QPoint(videoBarX + 2, underVideoBarY + 18) });
-		painter->setPen(Qt::NoPen);
-		painter->setBrush(playIconBrush);
-		painter->drawConvexPolygon(playIcon);
+		painter.setPen(Qt::NoPen);
+		painter.setBrush(playIconBrush);
+		painter.drawConvexPolygon(playIcon);
 	} else {
 		// Add a pause-icon, which is two vertical rectangles next to each other, like this "||":
 		QSize pauseBarSize(4, 16);
-		painter->fillRect(QRect(iconTopPos, pauseBarSize), playIconBrush);
-		painter->fillRect(QRect(QPoint(iconTopPos.x() + 9, iconTopPos.y()), pauseBarSize), playIconBrush);
+		painter.fillRect(QRect(iconTopPos, pauseBarSize), playIconBrush);
+		painter.fillRect(QRect(QPoint(iconTopPos.x() + 9, iconTopPos.y()), pauseBarSize), playIconBrush);
 	}
-	painter->restore();
+	painter.restore();
 }
 
-void VideoUtils::drawCenteredPlayIcon(QPainter *painter, const QRect &rect) {
-	painter->save();
+void VideoUtils::drawCenteredPlayIcon(QPainter &painter, const QRect &rect) {
+	painter.save();
 	auto [width, height] = rect.size();
 	int centerX          = (int) round(rect.x() + width / (double) 2);
 	int centerY          = (int) round(rect.y() + height / (double) 2);
@@ -1064,106 +1065,108 @@ void VideoUtils::drawCenteredPlayIcon(QPainter *painter, const QRect &rect) {
 	QPolygon playIcon({ QPoint(centerX - vertexLeftOffsetX, centerY - vertexLeftOffsetY),
 						QPoint(centerX + vertexRightOffsetX, centerY),
 						QPoint(centerX - vertexLeftOffsetX, centerY + vertexLeftOffsetY) });
-	painter->setPen(Qt::NoPen);
-	painter->setBrush(QBrush(Qt::white));
-	painter->drawConvexPolygon(playIcon);
-	painter->setBrush(Qt::NoBrush);
+	painter.setPen(Qt::NoPen);
+	painter.setBrush(QBrush(Qt::white));
+	painter.drawConvexPolygon(playIcon);
+	painter.setBrush(Qt::NoBrush);
 	// Add outline contrast to the triangle:
-	painter->setPen(QPen(Qt::black, 0.3));
-	painter->drawConvexPolygon(playIcon);
+	painter.setPen(QPen(Qt::black, 0.3));
+	painter.drawConvexPolygon(playIcon);
 
-	auto drawCenteredCircle = [painter, centerX, centerY](int diameter) {
+	auto drawCenteredCircle = [&painter, &centerX, &centerY](int diameter) {
 		int radius = diameter / 2;
-		painter->drawEllipse(centerX - radius, centerY - radius, diameter, diameter);
+		painter.drawEllipse(centerX - radius, centerY - radius, diameter, diameter);
 	};
 	// Add a ring around the triangle:
-	painter->setPen(QPen(Qt::white, ringWidth));
+	painter.setPen(QPen(Qt::white, ringWidth));
 	drawCenteredCircle(ringDiameter);
 	// Add outline contrast to the ring:
-	painter->setPen(QPen(Qt::black, 0.25));
+	painter.setPen(QPen(Qt::black, 0.25));
 	drawCenteredCircle(ringDiameter - ringOutlineOffset);
 	drawCenteredCircle(ringDiameter + ringOutlineOffset);
-	painter->restore();
+	painter.restore();
 }
 
-void VideoUtils::addVideoControlsTransition(QObject *propertyHolder, QWidget *area, bool isIdleCursorHidden) {
+void VideoUtils::addVideoControlsTransition(QObject &propertyHolder, QWidget &area, bool isIdleCursorHidden) {
 	static const int transitionTimerInterval = 25;
 	static const double proportionPerChange  = 0.2;
-	QTimer *transitionTimer                  = new QTimer(area);
+	QWidget *areaPtr                         = &area;
+	QTimer *transitionTimer                  = new QTimer(areaPtr);
 
-	propertyHolder->setProperty("isVideoControlsTransitionOn", false);
-	propertyHolder->setProperty("isVideoControlsFadeIn", true);
-	propertyHolder->setProperty("videoControlsOpacity", (double) 0);
-	QObject::connect(transitionTimer, &QTimer::timeout, area, [propertyHolder, area, isIdleCursorHidden]() {
-		if (!propertyHolder->property("isVideoControlsTransitionOn").toBool()) {
+	propertyHolder.setProperty("isVideoControlsTransitionOn", false);
+	propertyHolder.setProperty("isVideoControlsFadeIn", true);
+	propertyHolder.setProperty("videoControlsOpacity", (double) 0);
+	QObject *propertyHolderPtr = &propertyHolder;
+	QObject::connect(transitionTimer, &QTimer::timeout, areaPtr, [propertyHolderPtr, areaPtr, isIdleCursorHidden]() {
+		QObject &propertyHolder = *propertyHolderPtr;
+		if (!propertyHolder.property("isVideoControlsTransitionOn").toBool()) {
 			return;
 		}
-		bool isFadeIn = propertyHolder->property("isVideoControlsFadeIn").toBool();
+		bool isFadeIn = propertyHolder.property("isVideoControlsFadeIn").toBool();
 		if (!isFadeIn) {
-			int delay = propertyHolder->property("videoControlsRevertDelay").toInt();
+			int delay = propertyHolder.property("videoControlsRevertDelay").toInt();
 			if (delay == -1) {
 				return;
 			}
 			if (delay > 0) {
-				propertyHolder->setProperty("videoControlsRevertDelay", delay - transitionTimerInterval);
+				propertyHolder.setProperty("videoControlsRevertDelay", delay - transitionTimerInterval);
 				return;
 			}
 		}
 
-		double opacity = propertyHolder->property("videoControlsOpacity").toDouble();
+		double opacity = propertyHolder.property("videoControlsOpacity").toDouble();
 		opacity += isFadeIn ? proportionPerChange : -proportionPerChange;
-		propertyHolder->setProperty("videoControlsOpacity", opacity);
+		propertyHolder.setProperty("videoControlsOpacity", opacity);
 		if (opacity >= 1 || opacity <= 0) {
-			propertyHolder->setProperty("isVideoControlsFadeIn", !isFadeIn);
+			propertyHolder.setProperty("isVideoControlsFadeIn", !isFadeIn);
 			if (isFadeIn) {
-				propertyHolder->setProperty("videoControlsRevertDelay", videoControlsRevertDelay);
+				propertyHolder.setProperty("videoControlsRevertDelay", videoControlsRevertDelay);
 			} else {
-				propertyHolder->setProperty("isVideoControlsTransitionOn", false);
+				propertyHolder.setProperty("isVideoControlsTransitionOn", false);
 				if (isIdleCursorHidden) {
-					area->setCursor(Qt::BlankCursor);
+					areaPtr->setCursor(Qt::BlankCursor);
 				}
 			}
 		}
-		updateVideoControls(propertyHolder, area);
+		updateVideoControls(propertyHolder, areaPtr, QMargins(0, 2, 0, 2));
 	});
 	transitionTimer->start(transitionTimerInterval);
 	if (isIdleCursorHidden) {
-		area->setCursor(Qt::BlankCursor);
+		areaPtr->setCursor(Qt::BlankCursor);
 	}
 }
 
-void VideoUtils::startOrHoldVideoControlsTransition(QObject *propertyHolder, const QPoint &hoveredPos,
+void VideoUtils::startOrHoldVideoControlsTransition(QObject &propertyHolder, const QPoint &hoveredPos,
 													QWidget *cursorArea) {
-	double opacity               = propertyHolder->property("videoControlsOpacity").toDouble();
+	double opacity               = propertyHolder.property("videoControlsOpacity").toDouble();
 	bool areVideoControlsHovered = isInBounds(hoveredPos, calcVideoControlsRect(propertyHolder));
 	if (opacity >= 1) {
 		int revertDelay = !areVideoControlsHovered ? videoControlsRevertDelay : -1;
-		propertyHolder->setProperty("videoControlsRevertDelay", revertDelay);
+		propertyHolder.setProperty("videoControlsRevertDelay", revertDelay);
 	} else {
-		propertyHolder->setProperty("isVideoControlsTransitionOn", true);
+		propertyHolder.setProperty("isVideoControlsTransitionOn", true);
 	}
 	if (cursorArea != nullptr) {
 		cursorArea->unsetCursor();
 	}
 }
 
-void VideoUtils::updateVideoControls(QObject *propertyHolder, QWidget *area) {
+void VideoUtils::updateVideoControls(const QObject &propertyHolder, QWidget *area, const QMargins &margins) {
 	QRect videoControlsRect = calcVideoControlsRect(propertyHolder);
-	int padding             = 2;
-	videoControlsRect.adjust(0, -padding, 0, padding);
+	videoControlsRect += margins;
 	if (area != nullptr) {
 		emit area->update(videoControlsRect);
 	} else {
-		auto *doc = qobject_cast< QTextDocument * >(propertyHolder->parent());
+		auto &doc = *qobject_cast< QTextDocument * >(propertyHolder.parent());
 		LogTextBrowser::update(doc, videoControlsRect);
 	}
 }
 
-void VideoUtils::updatePropertyRect(QObject *propertyHolder, const QRect &rect) {
-	QVariant propertyRect = propertyHolder->property("posAndSize");
+void VideoUtils::updatePropertyRect(QObject &propertyHolder, const QRect &rect) {
+	QVariant propertyRect = propertyHolder.property("posAndSize");
 	QRect posAndSize      = propertyRect.isValid() ? propertyRect.toRect() : QRect();
 	if (posAndSize != rect) {
-		propertyHolder->setProperty("posAndSize", rect);
+		propertyHolder.setProperty("posAndSize", rect);
 	}
 }
 
@@ -1176,16 +1179,16 @@ QSizeF VideoUtils::calcIntrinsicSize(const QSize &size, bool areVideoControlsSho
 	return QSizeF(areVideoControlsShown ? QSize(videoControlsWidth, maxHeight) : size);
 }
 
-void VideoUtils::setPropertyFullScreen(QObject *propertyHolder, bool on) {
-	propertyHolder->setProperty("isFullScreen", on);
-	if (!on) {
-		propertyHolder->setProperty("baseSize", {});
+void VideoUtils::setPropertyFullScreen(QObject &propertyHolder, bool isShown) {
+	propertyHolder.setProperty("isFullScreen", isShown);
+	if (!isShown) {
+		propertyHolder.setProperty("baseSize", {});
 	}
 }
 
-void VideoUtils::setAttributesWidthAndHeight(QObject *propertyHolder, QSize &size) {
-	QVariant propertyWidth       = propertyHolder->property("overrideWidth");
-	QVariant propertyHeight      = propertyHolder->property("overrideHeight");
+void VideoUtils::setAttributesWidthAndHeight(const QObject &propertyHolder, QSize &size) {
+	QVariant propertyWidth       = propertyHolder.property("overrideWidth");
+	QVariant propertyHeight      = propertyHolder.property("overrideHeight");
 	bool isWidth                 = propertyWidth.isValid();
 	bool isHeight                = propertyHeight.isValid();
 	auto [baseWidth, baseHeight] = size;
@@ -1207,11 +1210,11 @@ void VideoUtils::setAttributesWidthAndHeight(QObject *propertyHolder, QSize &siz
 }
 
 
-ImageAnimationTextObject::ImageAnimationTextObject(QTextDocument *parentDoc) : QObject(parentDoc) {
+ImageAnimationTextObject::ImageAnimationTextObject(QTextDocument &parentDoc) : QObject(&parentDoc) {
 }
 
-QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc,
-														bool &isAnimationCheckOnly) {
+QObject *ImageAnimationTextObject::createImageAnimation(bool &isAnimationCheckOnly, const QByteArray &animationBa,
+														QTextDocument *parentDoc) {
 	auto *animation = new QMovie(parentDoc);
 	auto *buffer    = new QBuffer(animation);
 	buffer->setData(animationBa);
@@ -1275,7 +1278,7 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
             int margin           = (int) round((width > height ? width : height) * (marginPercentage / (double) 100));
             rect.adjust(-margin, -margin, margin, margin);
         }
-        LogTextBrowser::update(parentDoc, rect);
+        LogTextBrowser::update(*parentDoc, rect);
 	};
 	auto getLoopMode = [animation]() { return qvariant_cast< LoopMode >(animation->property("LoopMode")); };
 	// Refresh the image on change:
@@ -1320,8 +1323,9 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
 										   if (!isRunningAtFrameWithNoLoop(frameIndex)) {
 											   return;
 										   }
-										   setFrame(animation, frameIndex);
-										   stopPlayback(animation);
+										   QMovie &animationRef = *animation;
+										   setFrame(animationRef, frameIndex);
+										   stopPlayback(animationRef);
 									   });
 				};
 
@@ -1339,14 +1343,15 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
 										   if (!isRunningAtFrame(frameIndex)) {
 											   return;
 										   }
-										   bool wasCached = animation->cacheMode() == QMovie::CacheAll;
+										   QMovie &animationRef = *animation;
+										   bool wasCached       = animationRef.cacheMode() == QMovie::CacheAll;
 										   if (!wasCached) {
-											   animation->setProperty("isTraversingFrames", true);
+											   animationRef.setProperty("isTraversingFrames", true);
 										   }
-										   setFrame(animation, precedingFrameIndex);
+										   setFrame(animationRef, precedingFrameIndex);
 										   if (!wasCached) {
-											   animation->setProperty("isTraversingFrames", false);
-											   emit animation->frameChanged(precedingFrameIndex);
+											   animationRef.setProperty("isTraversingFrames", false);
+											   emit animationRef.frameChanged(precedingFrameIndex);
 										   }
 									   });
 				} else if (isRunningAtFrameWithNoLoop(lastFrameIndex)) {
@@ -1356,15 +1361,21 @@ QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animat
 	return animation;
 }
 
-QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, QTextDocument *parentDoc) {
+QObject *ImageAnimationTextObject::createImageAnimation(const QByteArray &animationBa, QTextDocument &parentDoc) {
 	bool isAnimationCheckOnly = false;
-	return createImageAnimation(animationBa, parentDoc, isAnimationCheckOnly);
+	return createImageAnimation(isAnimationCheckOnly, animationBa, &parentDoc);
 }
 
-bool ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouseDocPos,
+bool ImageAnimationTextObject::testImageAnimation(const QByteArray &animationBa) {
+	bool isAnimationCheckOnly = true;
+	createImageAnimation(isAnimationCheckOnly, animationBa);
+	return isAnimationCheckOnly;
+}
+
+bool ImageAnimationTextObject::mousePress(QMovie &animation, const QPoint &mouseDocPos,
 										  const Qt::MouseButton &mouseButton, bool areVideoControlsShown) {
-	bool isFullScreen                    = animation->property("isFullScreen").toBool();
-	bool areVideoControlsShownFullScreen = animation->property("areVideoControlsShownFullScreen").toBool();
+	bool isFullScreen                    = animation.property("isFullScreen").toBool();
+	bool areVideoControlsShownFullScreen = animation.property("areVideoControlsShownFullScreen").toBool();
 	bool isLeftMouseButtonPressed        = mouseButton == Qt::LeftButton;
 	bool isMiddleMouseButtonPressed      = mouseButton == Qt::MiddleButton;
 	if ((!isFullScreen && !areVideoControlsShown) || (isFullScreen && !areVideoControlsShownFullScreen)) {
@@ -1379,8 +1390,7 @@ bool ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouse
 	}
 
 	bool isAction                         = true;
-	QRect rect                            = animation->property("posAndSize").toRect();
-	auto *doc                             = qobject_cast< QTextDocument * >(animation->parent());
+	QRect rect                            = animation.property("posAndSize").toRect();
 	VideoUtils::VideoControl videoControl = VideoUtils::videoControlAt(mouseDocPos, rect);
 	if (isLeftMouseButtonPressed) {
 		switch (videoControl) {
@@ -1413,7 +1423,8 @@ bool ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouse
 				changeSpeed(animation, 10);
 				break;
 			case VideoUtils::VideoControl::FullScreen:
-				if (animation->property("isFullScreen").toBool()) {
+				if (animation.property("isFullScreen").toBool()) {
+					auto &doc = *qobject_cast< QTextDocument * >(animation.parent());
 					VideoUtils::setPropertyFullScreen(animation, false);
 					LogTextBrowser::update(doc);
 					QApplication::processEvents();
@@ -1455,15 +1466,15 @@ bool ImageAnimationTextObject::mousePress(QMovie *animation, const QPoint &mouse
 	return isAction;
 }
 
-bool ImageAnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocPos, bool isScrollingUp,
+bool ImageAnimationTextObject::scroll(QMovie &animation, const QPoint &mouseDocPos, bool isScrollingUp,
 									  bool areVideoControlsShown) {
-	bool isFullScreen                    = animation->property("isFullScreen").toBool();
-	bool areVideoControlsShownFullScreen = animation->property("areVideoControlsShownFullScreen").toBool();
+	bool isFullScreen                    = animation.property("isFullScreen").toBool();
+	bool areVideoControlsShownFullScreen = animation.property("areVideoControlsShownFullScreen").toBool();
 	if ((!isFullScreen && !areVideoControlsShown) || (isFullScreen && !areVideoControlsShownFullScreen)) {
 		return false;
 	}
 
-	QRect rect                            = animation->property("posAndSize").toRect();
+	QRect rect                            = animation.property("posAndSize").toRect();
 	VideoUtils::VideoControl videoControl = VideoUtils::videoControlAt(mouseDocPos, rect);
 	bool isCustomScrollAction             = true;
 	if (isScrollingUp) {
@@ -1531,12 +1542,12 @@ bool ImageAnimationTextObject::scroll(QMovie *animation, const QPoint &mouseDocP
 	return isCustomScrollAction;
 }
 
-bool ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, bool isObjectSelectionChanged) {
+bool ImageAnimationTextObject::keyPress(QMovie &animation, const Qt::Key &key, bool isObjectSelectionChanged) {
 	bool isKeyBoundToAction           = true;
 	Qt::KeyboardModifiers modifiers   = QApplication::keyboardModifiers();
-	auto *doc                         = qobject_cast< QTextDocument * >(animation->parent());
+	auto &doc                         = *qobject_cast< QTextDocument * >(animation.parent());
 	auto scrollToObjectInteractedWith = [&doc, &animation]() {
-		LogTextBrowser::scrollAreaIntoView(doc, animation->property("posAndSize").toRect());
+		LogTextBrowser::scrollAreaIntoView(doc, animation.property("posAndSize").toRect());
 	};
 	if (modifiers.testFlag(Qt::NoModifier) || modifiers.testFlag(Qt::KeypadModifier)) {
 		switch (key) {
@@ -1548,10 +1559,10 @@ bool ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, b
 				resetPlayback(animation);
 				break;
 			case Qt::Key_V:
-				if (animation->property("isFullScreen").toBool()) {
+				if (animation.property("isFullScreen").toBool()) {
 					toggleVideoControlsFullScreen(animation);
 				} else {
-					auto animationHandler = (ImageAnimationTextObject *) doc->documentLayout()->handlerForObject(
+					auto animationHandler = (ImageAnimationTextObject *) doc.documentLayout()->handlerForObject(
 						static_cast< int >(Log::TextObjectType::ImageAnimation));
 					animationHandler->toggleVideoControls();
 				}
@@ -1640,7 +1651,7 @@ bool ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, b
 				setFrameByProportion(animation, 0.9);
 				break;
 			case Qt::Key_F:
-				if (animation->property("isFullScreen").toBool()) {
+				if (animation.property("isFullScreen").toBool()) {
 					// Turn off the full screen indicator before the text object is visible:
 					VideoUtils::setPropertyFullScreen(animation, false);
 					LogTextBrowser::update(doc);
@@ -1653,7 +1664,7 @@ bool ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, b
 				toggleFullScreen(animation);
 				break;
 			case Qt::Key_Escape:
-				if (animation->property("isFullScreen").toBool()) {
+				if (animation.property("isFullScreen").toBool()) {
 					VideoUtils::setPropertyFullScreen(animation, false);
 					LogTextBrowser::update(doc);
 					QApplication::processEvents();
@@ -1667,7 +1678,7 @@ bool ImageAnimationTextObject::keyPress(QMovie *animation, const Qt::Key &key, b
 	} else {
 		isKeyBoundToAction = false;
 	}
-	if ((isKeyBoundToAction || isObjectSelectionChanged) && !animation->property("isFullScreen").toBool()) {
+	if ((isKeyBoundToAction || isObjectSelectionChanged) && !animation.property("isFullScreen").toBool()) {
 		scrollToObjectInteractedWith();
 	}
 	return isKeyBoundToAction;
@@ -1685,13 +1696,13 @@ QString ImageAnimationTextObject::loopModeToString(LoopMode mode) {
 	return "Undefined";
 }
 
-int ImageAnimationTextObject::getTotalTime(QObject *propertyHolder) {
-	return propertyHolder->property("totalMs").toInt();
+int ImageAnimationTextObject::getTotalTime(const QObject &propertyHolder) {
+	return propertyHolder.property("totalMs").toInt();
 }
 
-int ImageAnimationTextObject::getCurrentTime(QObject *propertyHolder, int frameIndex) {
-	int lastFrameIndex            = propertyHolder->property("lastFrameIndex").toInt();
-	QList< QVariant > frameDelays = propertyHolder->property("frameDelays").toList();
+int ImageAnimationTextObject::getCurrentTime(const QObject &propertyHolder, int frameIndex) {
+	int lastFrameIndex            = propertyHolder.property("lastFrameIndex").toInt();
+	QList< QVariant > frameDelays = propertyHolder.property("frameDelays").toList();
 	int msUntilCurrentFrame       = 0;
 	// Determine the time until the current frame or the time until the end of the last frame
 	// if on the last frame, so as to show a clear time for the start and end:
@@ -1701,29 +1712,29 @@ int ImageAnimationTextObject::getCurrentTime(QObject *propertyHolder, int frameI
 	return msUntilCurrentFrame;
 }
 
-void ImageAnimationTextObject::setFrame(QMovie *animation, int frameIndex) {
-	int lastFrameIndex       = animation->property("lastFrameIndex").toInt();
+void ImageAnimationTextObject::setFrame(QMovie &animation, int frameIndex) {
+	int lastFrameIndex       = animation.property("lastFrameIndex").toInt();
 	bool isFrameIndexTooLow  = frameIndex < 0;
 	bool isFrameIndexTooHigh = frameIndex > lastFrameIndex;
 	if (isFrameIndexTooLow || isFrameIndexTooHigh) {
 		frameIndex = isFrameIndexTooLow ? 0 : lastFrameIndex;
 	}
-	if (animation->cacheMode() == QMovie::CacheAll) {
-		animation->jumpToFrame(frameIndex);
+	if (animation.cacheMode() == QMovie::CacheAll) {
+		animation.jumpToFrame(frameIndex);
 		return;
 	}
 
-	bool wasRunning = animation->state() == QMovie::Running;
+	bool wasRunning = animation.state() == QMovie::Running;
 	if (!wasRunning) {
-		animation->setPaused(false);
+		animation.setPaused(false);
 	}
 	bool isStartTried = false;
 	// Can only load the target frame by traversing in sequential order when the frames are not cached:
-	while (animation->currentFrameNumber() != frameIndex) {
-		if (!animation->jumpToNextFrame()) {
+	while (animation.currentFrameNumber() != frameIndex) {
+		if (!animation.jumpToNextFrame()) {
 			// Continue traversing the animation if it either is stopped or does stop after one or more iterations:
-			if (animation->state() == QMovie::NotRunning && !isStartTried) {
-				animation->start();
+			if (animation.state() == QMovie::NotRunning && !isStartTried) {
+				animation.start();
 				isStartTried = true;
 				continue;
 			}
@@ -1731,18 +1742,18 @@ void ImageAnimationTextObject::setFrame(QMovie *animation, int frameIndex) {
 		}
 	}
 	if (!wasRunning) {
-		animation->setPaused(true);
+		animation.setPaused(true);
 	}
 }
 
-void ImageAnimationTextObject::setFrameByTime(QMovie *animation, int milliseconds) {
+void ImageAnimationTextObject::setFrameByTime(QMovie &animation, int milliseconds) {
 	int totalMs            = getTotalTime(animation);
 	bool isTimeAfterEnd    = milliseconds > totalMs;
 	bool isTimeBeforeStart = milliseconds < 0;
 	if (isTimeAfterEnd || isTimeBeforeStart) {
 		milliseconds = isTimeAfterEnd ? totalMs : 0;
 	}
-	QList< QVariant > frameDelays = animation->property("frameDelays").toList();
+	QList< QVariant > frameDelays = animation.property("frameDelays").toList();
 	qsizetype frameDelayAmount    = frameDelays.size();
 	int msUntilCurrentFrame       = 0;
 
@@ -1769,80 +1780,80 @@ void ImageAnimationTextObject::setFrameByTime(QMovie *animation, int millisecond
 	setFrame(animation, frameIndex);
 }
 
-void ImageAnimationTextObject::setFrameByProportion(QMovie *animation, double proportion) {
+void ImageAnimationTextObject::setFrameByProportion(QMovie &animation, double proportion) {
 	int msPassedAtProportion = (int) round(proportion * getTotalTime(animation));
 	setFrameByTime(animation, msPassedAtProportion);
 }
 
-void ImageAnimationTextObject::changeFrame(QMovie *animation, int amount) {
-	int lastFrameIndex   = animation->property("lastFrameIndex").toInt();
-	int frameIndex       = animation->currentFrameNumber() + amount;
+void ImageAnimationTextObject::changeFrame(QMovie &animation, int amount) {
+	int lastFrameIndex   = animation.property("lastFrameIndex").toInt();
+	int frameIndex       = animation.currentFrameNumber() + amount;
 	int frameIndexResult = frameIndex > lastFrameIndex ? lastFrameIndex : frameIndex < 0 ? 0 : frameIndex;
 	setFrame(animation, frameIndexResult);
 }
 
-void ImageAnimationTextObject::changeFrameByTime(QMovie *animation, int milliseconds) {
-	setFrameByTime(animation, getCurrentTime(animation, animation->currentFrameNumber()) + milliseconds);
+void ImageAnimationTextObject::changeFrameByTime(QMovie &animation, int milliseconds) {
+	setFrameByTime(animation, getCurrentTime(animation, animation.currentFrameNumber()) + milliseconds);
 }
 
-void ImageAnimationTextObject::togglePause(QMovie *animation) {
-	int lastFrameIndex            = animation->property("lastFrameIndex").toInt();
-	QMovie::MovieState state      = animation->state();
+void ImageAnimationTextObject::togglePause(QMovie &animation) {
+	int lastFrameIndex            = animation.property("lastFrameIndex").toInt();
+	QMovie::MovieState state      = animation.state();
 	bool wasStoppedOrNeverStarted = state == QMovie::NotRunning;
-	if (animation->speed() < 0) {
-		int frameIndex           = animation->currentFrameNumber();
+	if (animation.speed() < 0) {
+		int frameIndex           = animation.currentFrameNumber();
 		int frameIndexToSwitchTo = wasStoppedOrNeverStarted && frameIndex == 0 ? lastFrameIndex : frameIndex;
 		if (wasStoppedOrNeverStarted) {
-			animation->start();
-			animation->setPaused(true);
+			animation.start();
+			animation.setPaused(true);
 			setFrame(animation, frameIndexToSwitchTo);
 		}
-		bool wasPlayingInReverse = animation->property("isPlayingInReverse").toBool();
-		animation->setProperty("isPlayingInReverse", !wasPlayingInReverse);
+		bool wasPlayingInReverse = animation.property("isPlayingInReverse").toBool();
+		animation.setProperty("isPlayingInReverse", !wasPlayingInReverse);
 		if (wasPlayingInReverse) {
-			emit animation->stateChanged(state);
+			emit animation.stateChanged(state);
 		} else {
-			emit animation->frameChanged(frameIndexToSwitchTo);
+			emit animation.frameChanged(frameIndexToSwitchTo);
 		}
 	} else if (wasStoppedOrNeverStarted) {
-		animation->start();
+		animation.start();
 		// Ensure the animation starts on the first attempt to do so:
-		animation->setPaused(false);
+		animation.setPaused(false);
 	} else {
-		animation->setPaused(state != QMovie::Paused);
+		animation.setPaused(state != QMovie::Paused);
 	}
 }
 
-void ImageAnimationTextObject::toggleCache(QMovie *animation) {
-	int lastFrameIndex                  = animation->property("lastFrameIndex").toInt();
-	bool wasCached                      = animation->cacheMode() == QMovie::CacheAll;
+void ImageAnimationTextObject::toggleCache(QMovie &animation) {
+	int lastFrameIndex                  = animation.property("lastFrameIndex").toInt();
+	bool wasCached                      = animation.cacheMode() == QMovie::CacheAll;
 	QMovie::CacheMode previousCacheMode = wasCached ? QMovie::CacheNone : QMovie::CacheAll;
-	QMovie::MovieState state            = animation->state();
+	QMovie::MovieState state            = animation.state();
 	bool wasPaused                      = state == QMovie::Paused;
 	bool wasRunning                     = state == QMovie::Running;
 
-	int previousFrame = animation->currentFrameNumber();
+	int previousFrame = animation.currentFrameNumber();
 	// Turning caching on or off requires reloading the animation, which is done via `setDevice`,
 	// otherwise it will not play properly or dispose of the cache when it is not to be used:
-	QIODevice *device = animation->device();
+	QIODevice *device = animation.device();
 	// Prepare the animation to be loaded when starting for the first time:
 	device->reset();
-	animation->setDevice(device);
-	animation->setCacheMode(previousCacheMode);
-	animation->start();
+	animation.setDevice(device);
+	animation.setCacheMode(previousCacheMode);
+	animation.start();
 
 	// Restore the state of the animation playback to what it was before reloading it
 	// but ensure it can be resumed when caching is off by pausing it if it is not at the start or end:
 	setFrame(animation, previousFrame);
 	if (wasPaused || (!wasRunning && previousFrame != 0 && previousFrame != lastFrameIndex)) {
-		animation->setPaused(true);
+		animation.setPaused(true);
 	} else if (!wasRunning) {
-		animation->stop();
+		animation.stop();
 	}
 	VideoUtils::updateVideoControls(animation);
 }
 
-void ImageAnimationTextObject::toggleFullScreen(QMovie *animation) {
+void ImageAnimationTextObject::toggleFullScreen(QMovie &animation) {
 	QWidget *fsAnimation = LogTextBrowser::isWidgetInFullScreen() ? nullptr : new FullScreenImageAnimation(animation);
 	LogTextBrowser::toggleFullScreen(fsAnimation);
 }
@@ -1853,74 +1864,74 @@ void ImageAnimationTextObject::escapeFullScreen() {
 	}
 }
 
-void ImageAnimationTextObject::stopPlayback(QMovie *animation) {
-	animation->stop();
-	animation->setProperty("isPlayingInReverse", false);
+void ImageAnimationTextObject::stopPlayback(QMovie &animation) {
+	animation.stop();
+	animation.setProperty("isPlayingInReverse", false);
 }
 
-void ImageAnimationTextObject::resetPlayback(QMovie *animation) {
+void ImageAnimationTextObject::resetPlayback(QMovie &animation) {
 	// Show the first frame that the animation would continue from if started again
 	// without caching anyway, indicating that the animation was reset instead of paused:
 	setFrame(animation, 0);
 	stopPlayback(animation);
 }
 
-void ImageAnimationTextObject::setSpeed(QMovie *animation, int percentage) {
+void ImageAnimationTextObject::setSpeed(QMovie &animation, int percentage) {
 	// Pausing the animation should only be done via the play state to avoid confusion:
 	if (percentage == 0) {
 		return;
 	}
-	animation->setSpeed(percentage);
+	animation.setSpeed(percentage);
 	VideoUtils::updateVideoControls(animation);
 	// `QMovie` does not itself support reverse playback but this can be and is implemented using it:
-	bool wasPlayingInReverse = animation->property("isPlayingInReverse").toBool();
-	bool wasRunning          = animation->state() == QMovie::Running || wasPlayingInReverse;
+	bool wasPlayingInReverse = animation.property("isPlayingInReverse").toBool();
+	bool wasRunning          = animation.state() == QMovie::Running || wasPlayingInReverse;
 	if (percentage < 0) {
 		if (wasPlayingInReverse) {
 			return;
 		}
-		animation->setPaused(true);
-		animation->setProperty("isPlayingInReverse", wasRunning);
+		animation.setPaused(true);
+		animation.setProperty("isPlayingInReverse", wasRunning);
 		if (wasRunning) {
 			// Trigger the signal `frameChanged` where the handler also supports reverse playback:
-			emit animation->frameChanged(animation->currentFrameNumber());
+			emit animation.frameChanged(animation.currentFrameNumber());
 		}
 	} else if (wasPlayingInReverse) {
-		animation->setProperty("isPlayingInReverse", false);
-		animation->setPaused(!wasRunning);
+		animation.setProperty("isPlayingInReverse", false);
+		animation.setPaused(!wasRunning);
 	}
 }
 
-void ImageAnimationTextObject::resetSpeed(QMovie *animation) {
-	QVariant propertySpeedAtPreviousSpeedReset = animation->property("speedAtPreviousSpeedReset");
+void ImageAnimationTextObject::resetSpeed(QMovie &animation) {
+	QVariant propertySpeedAtPreviousSpeedReset = animation.property("speedAtPreviousSpeedReset");
 	bool isSpeedPreviouslyReset                = propertySpeedAtPreviousSpeedReset.isValid();
-	int currentSpeed                           = animation->speed();
+	int currentSpeed                           = animation.speed();
 
 	bool isOriginalSpeed = currentSpeed == 100;
 	int previousSpeed    = isOriginalSpeed && isSpeedPreviouslyReset ? propertySpeedAtPreviousSpeedReset.toInt() : 100;
 	if (!isOriginalSpeed) {
-		animation->setProperty("speedAtPreviousSpeedReset", currentSpeed);
+		animation.setProperty("speedAtPreviousSpeedReset", currentSpeed);
 	}
 	setSpeed(animation, isOriginalSpeed ? previousSpeed : 100);
 }
 
-void ImageAnimationTextObject::invertSpeed(QMovie *animation) {
-	setSpeed(animation, animation->speed() * -1);
+void ImageAnimationTextObject::invertSpeed(QMovie &animation) {
+	setSpeed(animation, animation.speed() * -1);
 }
 
-void ImageAnimationTextObject::changeSpeed(QMovie *animation, int percentageStep) {
-	int speed          = animation->speed();
+void ImageAnimationTextObject::changeSpeed(QMovie &animation, int percentageStep) {
+	int speed          = animation.speed();
 	int nextPercentage = speed + percentageStep;
 	setSpeed(animation, speed + percentageStep * (nextPercentage != 0 ? 1 : 2));
 }
 
-void ImageAnimationTextObject::setLoopMode(QMovie *animation, LoopMode mode) {
-	animation->setProperty("LoopMode", QVariant::fromValue(mode));
+void ImageAnimationTextObject::setLoopMode(QMovie &animation, LoopMode mode) {
+	animation.setProperty("LoopMode", QVariant::fromValue(mode));
 	VideoUtils::updateVideoControls(animation);
 }
 
-void ImageAnimationTextObject::changeLoopMode(QMovie *animation, int steps) {
-	auto loopMode         = qvariant_cast< LoopMode >(animation->property("LoopMode"));
+void ImageAnimationTextObject::changeLoopMode(QMovie &animation, int steps) {
+	auto loopMode         = qvariant_cast< LoopMode >(animation.property("LoopMode"));
 	int lastLoopModeInt   = static_cast< int >(LoopMode::NoLoop);
 	int loopModeChangedTo = static_cast< int >(loopMode) + steps;
 	int loopModeResult =
@@ -1928,45 +1939,46 @@ void ImageAnimationTextObject::changeLoopMode(QMovie *animation, int steps) {
 	setLoopMode(animation, static_cast< LoopMode >(loopModeResult));
 }
 
-void ImageAnimationTextObject::toggleVideoControlsFullScreen(QObject *propertyHolder) {
-	bool areVideoControlsShownFullScreen = propertyHolder->property("areVideoControlsShownFullScreen").toBool();
-	propertyHolder->setProperty("areVideoControlsShownFullScreen", !areVideoControlsShownFullScreen);
+void ImageAnimationTextObject::toggleVideoControlsFullScreen(QObject &propertyHolder) {
+	bool areVideoControlsShownFullScreen = propertyHolder.property("areVideoControlsShownFullScreen").toBool();
+	propertyHolder.setProperty("areVideoControlsShownFullScreen", !areVideoControlsShownFullScreen);
 }
 
 void ImageAnimationTextObject::toggleVideoControls() {
 	areVideoControlsShown = !areVideoControlsShown;
 	// Update document layout manually when resizing custom text objects:
-	LogTextBrowser::reflow(qobject_cast< QTextDocument * >(parent()));
+	LogTextBrowser::reflow(*qobject_cast< QTextDocument * >(parent()));
 }
 
-bool ImageAnimationTextObject::mousePress(const QPoint &mouseDocPos, const Qt::MouseButton &button, QMovie *animation) {
+bool ImageAnimationTextObject::mousePress(const QPoint &mouseDocPos, const Qt::MouseButton &button, QMovie &animation) {
 	return mousePress(animation, mouseDocPos, button, areVideoControlsShown);
 }
 
-bool ImageAnimationTextObject::scroll(const QPoint &mouseDocPos, bool isScrollingUp, QMovie *animation) {
+bool ImageAnimationTextObject::scroll(const QPoint &mouseDocPos, bool isScrollingUp, QMovie &animation) {
 	return scroll(animation, mouseDocPos, isScrollingUp, areVideoControlsShown);
 }
 
 QSizeF ImageAnimationTextObject::intrinsicSize(QTextDocument *, int, const QTextFormat &fmt) {
-	auto *animation = qvariant_cast< QMovie * >(fmt.property(1));
-	QSize size      = animation->frameRect().size();
+	auto &animation = *qvariant_cast< QMovie * >(fmt.property(1));
+	QSize size      = animation.frameRect().size();
 	VideoUtils::setAttributesWidthAndHeight(animation, size);
 	return VideoUtils::calcIntrinsicSize(size, areVideoControlsShown);
 }
 
-void ImageAnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF, QTextDocument *doc, int,
+void ImageAnimationTextObject::drawObject(QPainter *painterPtr, const QRectF &rectF, QTextDocument *doc, int,
 										  const QTextFormat &fmt) {
-	auto *animation = qvariant_cast< QMovie * >(fmt.property(1));
-	QRect rect      = rectF.toRect();
-	if (!animation->property("isFullScreen").toBool()) {
+	QPainter &painter = *painterPtr;
+	auto &animation   = *qvariant_cast< QMovie * >(fmt.property(1));
+	QRect rect        = rectF.toRect();
+	if (!animation.property("isFullScreen").toBool()) {
 		VideoUtils::updatePropertyRect(animation, rect);
 	}
-	QPixmap frame   = animation->currentPixmap();
-	bool wasRunning = animation->state() == QMovie::Running || animation->property("isPlayingInReverse").toBool();
+	const QPixmap &frame = animation.currentPixmap();
+	bool wasRunning      = animation.state() == QMovie::Running || animation.property("isPlayingInReverse").toBool();
 
-	painter->setRenderHint(QPainter::Antialiasing);
-	LogTextBrowser::highlightSelectedObject(doc, painter, rect, animation);
-	painter->drawPixmap(areVideoControlsShown ? rect.adjusted(0, 0, 0, -VideoUtils::videoControlsHeight) : rect, frame);
+	painter.setRenderHint(QPainter::Antialiasing);
+	LogTextBrowser::highlightSelectedObject(*doc, painter, rect, animation);
+	painter.drawPixmap(areVideoControlsShown ? rect.adjusted(0, 0, 0, -VideoUtils::videoControlsHeight) : rect, frame);
 	if (areVideoControlsShown) {
 		VideoUtils::drawVideoControls(painter, rect, animation);
 	} else if (!wasRunning) {
@@ -1975,72 +1987,74 @@ void ImageAnimationTextObject::drawObject(QPainter *painter, const QRectF &rectF
 }
 
 
-FullScreenImageAnimation::FullScreenImageAnimation(QMovie *animation, QWidget *parentWidget) : QLabel(parentWidget) {
+FullScreenImageAnimation::FullScreenImageAnimation(QMovie &animation, QWidget *parentWidget) : QLabel(parentWidget) {
+	QMovie *animationPtr = &animation;
 	// Set the animated image viewer to fill all available space:
 	setScaledContents(true);
-	setMovie(animation);
+	setMovie(animationPtr);
 
-	if (!animation->property("areVideoControlsShownFullScreen").isValid()) {
-		animation->setProperty("areVideoControlsShownFullScreen", true);
+	if (!animation.property("areVideoControlsShownFullScreen").isValid()) {
+		animation.setProperty("areVideoControlsShownFullScreen", true);
 	}
 	VideoUtils::setPropertyFullScreen(animation, true);
-	connect(this, &FullScreenImageAnimation::destroyed, animation,
-			[animation]() { VideoUtils::setPropertyFullScreen(animation, false); });
-	connect(animation, &QMovie::stateChanged, this, [animation, this]() {
-		VideoUtils::updateVideoControls(animation, this);
+	connect(this, &FullScreenImageAnimation::destroyed, animationPtr,
+			[animationPtr]() { VideoUtils::setPropertyFullScreen(*animationPtr, false); });
+	connect(animationPtr, &QMovie::stateChanged, this, [animationPtr, this]() {
+		QMovie &animation = *animationPtr;
+		VideoUtils::updateVideoControls(animation, this, QMargins(0, 2, 0, 2));
 		VideoUtils::startOrHoldVideoControlsTransition(animation);
 	});
-	VideoUtils::addVideoControlsTransition(animation, this);
+	VideoUtils::addVideoControlsTransition(animation, *this);
 }
 
 void FullScreenImageAnimation::mousePressEvent(QMouseEvent *mouseEvt) {
-	QMovie *animation     = movie();
+	QMovie &animation     = *movie();
 	QPoint widgetClickPos = mouseEvt->pos();
 	ImageAnimationTextObject::mousePress(animation, widgetClickPos, mouseEvt->button());
-	VideoUtils::updateVideoControls(animation, this);
+	VideoUtils::updateVideoControls(animation, this, QMargins(0, 2, 0, 2));
 	VideoUtils::startOrHoldVideoControlsTransition(animation, widgetClickPos, this);
 }
 
 void FullScreenImageAnimation::mouseMoveEvent(QMouseEvent *mouseEvt) {
-	VideoUtils::startOrHoldVideoControlsTransition(movie(), mouseEvt->pos(), this);
+	VideoUtils::startOrHoldVideoControlsTransition(*movie(), mouseEvt->pos(), this);
 }
 
 void FullScreenImageAnimation::wheelEvent(QWheelEvent *wheelEvt) {
-	QMovie *animation  = movie();
+	QMovie &animation  = *movie();
 	QPoint mouseDocPos = wheelEvt->position().toPoint();
 	bool isScrollingUp = wheelEvt->angleDelta().y() > 0;
 	if (ImageAnimationTextObject::scroll(animation, mouseDocPos, isScrollingUp)) {
-		VideoUtils::updateVideoControls(animation, this);
+		VideoUtils::updateVideoControls(animation, this, QMargins(0, 2, 0, 2));
 	}
 }
 
 void FullScreenImageAnimation::keyPressEvent(QKeyEvent *keyEvt) {
-	QMovie *animation = movie();
+	QMovie &animation = *movie();
 	ImageAnimationTextObject::keyPress(animation, static_cast< Qt::Key >(keyEvt->key()));
-	VideoUtils::updateVideoControls(animation, this);
+	VideoUtils::updateVideoControls(animation, this, QMargins(0, 2, 0, 2));
 	VideoUtils::startOrHoldVideoControlsTransition(animation);
 }
 
 void FullScreenImageAnimation::paintEvent(QPaintEvent *) {
 	QPainter painter(this);
-	QMovie *animation = movie();
-	QPixmap frame     = animation->currentPixmap();
-	QSize frameSize   = frame.size();
+	QMovie &animation      = *movie();
+	const QPixmap &frame   = animation.currentPixmap();
+	const QSize &frameSize = frame.size();
 
-	QRect posAndSize          = animation->property("posAndSize").toRect();
-	QVariant propertyBaseSize = animation->property("baseSize");
+	QRect posAndSize          = animation.property("posAndSize").toRect();
+	QVariant propertyBaseSize = animation.property("baseSize");
 	bool isRectChanged        = !propertyBaseSize.isValid() || propertyBaseSize.toSize() != frameSize;
 	QRect rect                = isRectChanged ? LogTextBrowser::calcRectScaledToScreen(frameSize) : posAndSize;
 	if (isRectChanged) {
-		animation->setProperty("baseSize", frameSize);
-		animation->setProperty("posAndSize", rect);
+		animation.setProperty("baseSize", frameSize);
+		animation.setProperty("posAndSize", rect);
 	}
 
 	painter.setRenderHint(QPainter::Antialiasing);
 	painter.drawPixmap(rect, frame);
-	double opacity = animation->property("videoControlsOpacity").toDouble();
-	if (opacity > 0 && animation->property("areVideoControlsShownFullScreen").toBool()) {
-		VideoUtils::drawVideoControls(&painter, rect, animation, opacity);
+	double opacity = animation.property("videoControlsOpacity").toDouble();
+	if (opacity > 0 && animation.property("areVideoControlsShownFullScreen").toBool()) {
+		VideoUtils::drawVideoControls(painter, rect, animation, opacity);
 	}
 }
 
