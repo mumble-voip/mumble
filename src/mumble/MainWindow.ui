@@ -245,6 +245,14 @@
     </layout>
    </widget>
   </widget>
+  <widget class="CommentViewWidget" name="qdwCommentView">
+   <property name="windowTitle">
+    <string>Comment</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+  </widget>
   <action name="qaQuit">
    <property name="text">
     <string>&amp;Quit Mumble</string>
@@ -1085,6 +1093,12 @@ the channel's context menu.</string>
    <class>LogTextBrowser</class>
    <extends>QTextBrowser</extends>
    <header>CustomElements.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CommentViewWidget</class>
+   <extends>QDockWidget</extends>
+   <header>CommentViewWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
