@@ -177,7 +177,7 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::transmissionModeChanged, this, &MainWindow::updateTransmitModeComboBox);
 
 	// Explicitly add actions to mainwindow so their shortcuts are available
-	// if only the main window is visible (e.Global::get(). minimal mode)
+	// if only the main window is visible (e.g. Global::get(). minimal mode)
 	addActions(findChildren< QAction * >());
 
 	on_qmServer_aboutToShow();
@@ -1036,6 +1036,9 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	if (cursor.charFormat().isImageFormat()) {
 		menu->addSeparator();
 		menu->addAction(tr("Save Image As..."), this, SLOT(saveImageAs(void)));
+
+		QAction *testItem = menu->addAction(tr("Open Image"));
+		connect(testItem, &QAction::triggered, this, &MainWindow::showImageDialog);
 
 		qtcSaveImageCursor = cursor;
 	}
@@ -4218,5 +4221,66 @@ void MainWindow::on_muteCuePopup_triggered() {
 
 	if (mb.clickedButton() == reject) {
 		Global::get().s.bTxMuteCue = false;
+	}
+}
+
+void MainWindow::showImageDialog() {
+	if (!qtcSaveImageCursor.isNull() && qtcSaveImageCursor.charFormat().isImageFormat()) {
+		QTextImageFormat imgFmt = qtcSaveImageCursor.charFormat().toImageFormat();
+		QString resName = imgFmt.name();
+		QVariant res = qteLog->document()->resource(QTextDocument::ImageResource, resName);
+		QImage img = res.value<QImage>();
+		
+		if (!img.isNull()) {
+			class ResponsiveImageDialog : public QDialog {
+				QLabel *label;
+				QPixmap pixmap;
+			public:
+				ResponsiveImageDialog(const QPixmap &px, QWidget *parent = nullptr) : QDialog(parent), pixmap(px) {
+					setWindowTitle(tr("Image Preview"));
+					setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+					setMinimumSize(200, 150);
+					setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+					
+					QVBoxLayout *layout = new QVBoxLayout(this);
+					layout->setContentsMargins(10, 10, 10, 10);
+					layout->setSpacing(0);
+					
+					QScrollArea *scrollArea = new QScrollArea(this);
+					scrollArea->setWidgetResizable(true);
+					scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+					scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+					scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+					
+					label = new QLabel(this);
+					label->setAlignment(Qt::AlignCenter);
+					label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+					label->setMinimumSize(100, 75);
+					label->setScaledContents(true); // Allow stretching
+					label->setPixmap(pixmap);
+					
+					scrollArea->setWidget(label);
+					layout->addWidget(scrollArea);
+					
+					// Set initial size to image size, but clamp to reasonable min/max
+					int initialWidth = qBound(300, pixmap.width() + 60, 1200);
+					int initialHeight = qBound(200, pixmap.height() + 60, 900);
+					resize(initialWidth, initialHeight);
+				}
+			protected:
+				void resizeEvent(QResizeEvent *event) override {
+					QDialog::resizeEvent(event);
+					// No aspect ratio: let QLabel::setScaledContents handle stretching
+					// No need to manually scale pixmap
+					label->setPixmap(pixmap);
+				}
+			};
+			QPixmap pixmap = QPixmap::fromImage(img);
+			ResponsiveImageDialog *dlg = new ResponsiveImageDialog(pixmap, this);
+			dlg->exec();
+			delete dlg;
+		} else {
+			QMessageBox::warning(this, tr("Error"), tr("Failed to decode image."));
+		}
 	}
 }
