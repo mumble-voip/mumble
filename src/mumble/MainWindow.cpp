@@ -82,6 +82,7 @@
 #include <QtWidgets/QWhatsThis>
 
 #include "widgets/SemanticSlider.h"
+#include "widgets/ResponsiveImageDialog.h"
 
 #ifdef Q_OS_WIN
 #	include <dbt.h>
@@ -177,7 +178,7 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::transmissionModeChanged, this, &MainWindow::updateTransmitModeComboBox);
 
 	// Explicitly add actions to mainwindow so their shortcuts are available
-	// if only the main window is visible (e.Global::get(). minimal mode)
+	// if only the main window is visible (e.g. Global::get(). minimal mode)
 	addActions(findChildren< QAction * >());
 
 	on_qmServer_aboutToShow();
@@ -1036,6 +1037,9 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	if (cursor.charFormat().isImageFormat()) {
 		menu->addSeparator();
 		menu->addAction(tr("Save Image As..."), this, SLOT(saveImageAs(void)));
+
+		QAction *testItem = menu->addAction(tr("Open Image"));
+		connect(testItem, &QAction::triggered, this, &MainWindow::showImageDialog);
 
 		qtcSaveImageCursor = cursor;
 	}
@@ -4218,5 +4222,23 @@ void MainWindow::on_muteCuePopup_triggered() {
 
 	if (mb.clickedButton() == reject) {
 		Global::get().s.bTxMuteCue = false;
+	}
+}
+
+void MainWindow::showImageDialog() {
+	if (!qtcSaveImageCursor.isNull() && qtcSaveImageCursor.charFormat().isImageFormat()) {
+		QTextImageFormat imgFmt = qtcSaveImageCursor.charFormat().toImageFormat();
+		QString resName = imgFmt.name();
+		QVariant res = qteLog->document()->resource(QTextDocument::ImageResource, resName);
+		QImage img = res.value<QImage>();
+		
+		if (!img.isNull()) {
+			QPixmap pixmap = QPixmap::fromImage(img);
+			ResponsiveImageDialog *dlg = new ResponsiveImageDialog(pixmap, this);
+			dlg->exec();
+			delete dlg;
+		} else {
+			QMessageBox::warning(this, tr("Error"), tr("Failed to decode image."));
+		}
 	}
 }
