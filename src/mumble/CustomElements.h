@@ -58,6 +58,7 @@ public:
 	static bool isScrolledToBottom(const QTextDocument &doc);
 	static void scrollAreaIntoView(const QTextDocument &doc, const QRect &rect);
 	static QObject *customObjectAt(const QTextDocument &doc, const QPoint &pos);
+	static QObject *customObjectOfFormat(const QTextFormat &fmt, const QPoint &pos);
 	static void update(const QTextDocument &doc, const QRect &rect = QRect());
 	static void reflow(QTextDocument &doc);
 

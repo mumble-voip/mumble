@@ -323,17 +323,18 @@ void LogTextBrowser::scrollAreaIntoView(const QTextDocument &doc, const QRect &r
 
 QObject *LogTextBrowser::customObjectAt(const QTextDocument &doc, const QPoint &pos) {
 	QTextFormat fmt = doc.documentLayout()->formatAt(pos);
+	return customObjectOfFormat(fmt, pos);
+}
+
+QObject *LogTextBrowser::customObjectOfFormat(const QTextFormat &fmt, const QPoint &pos) {
 	if (!fmt.hasProperty(1)) {
 		return nullptr;
 	}
 	auto *obj  = qvariant_cast< QObject * >(fmt.property(1));
 	QRect rect = obj->property("posAndSize").toRect();
-	// Ensure the selection was within the text object's vertical space,
-	// such as if an inline animated image is not as tall as the content before it:
-	if (!VideoUtils::isInBoundsOnAxis(pos.y(), rect.y(), rect.height())) {
-		return nullptr;
-	}
-	return obj;
+	// Ensure the selection was within the text object's vertical space, such as if an
+	// inline animated image is not as tall as the content next to it on the same line:
+	return VideoUtils::isInBoundsOnAxis(pos.y(), rect.y(), rect.height()) ? obj : nullptr;
 }
 
 void LogTextBrowser::update(const QTextDocument &doc, const QRect &rect) {

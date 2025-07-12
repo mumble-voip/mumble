@@ -1026,7 +1026,8 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	QAbstractTextDocumentLayout *docLayout = doc->documentLayout();
 	QTextFormat fmt                        = docLayout->formatAt(docPos);
 	int objType                            = fmt.objectType();
-	bool isAnimation                       = objType == static_cast< int >(Log::TextObjectType::ImageAnimation);
+	bool isCustomObj                       = LogTextBrowser::customObjectOfFormat(fmt, docPos) != nullptr;
+	bool isAnimation = isCustomObj && objType == static_cast< int >(Log::TextObjectType::ImageAnimation);
 	if (fmt.isImageFormat() || isAnimation) {
 		menu->addSeparator();
 		menu->addAction(tr("Save Image As..."), this, &MainWindow::saveImageAs);
@@ -1034,7 +1035,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 		saveImageTextObject = fmt;
 	}
 	if (isAnimation) {
-		((ImageAnimationTextObject *)docLayout->handlerForObject(objType))->addVideoControlsSwitch(*menu);
+		((ImageAnimationTextObject *) docLayout->handlerForObject(objType))->addVideoControlsSwitch(*menu);
 	}
 
 	menu->addSeparator();
