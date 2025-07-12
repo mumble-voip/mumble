@@ -82,6 +82,7 @@
 #include <QtWidgets/QWhatsThis>
 
 #include "widgets/SemanticSlider.h"
+#include "widgets/ResponsiveImageDialog.h"
 
 #ifdef Q_OS_WIN
 #	include <dbt.h>
@@ -4232,49 +4233,6 @@ void MainWindow::showImageDialog() {
 		QImage img = res.value<QImage>();
 		
 		if (!img.isNull()) {
-			class ResponsiveImageDialog : public QDialog {
-				QLabel *label;
-				QPixmap pixmap;
-			public:
-				ResponsiveImageDialog(const QPixmap &px, QWidget *parent = nullptr) : QDialog(parent), pixmap(px) {
-					setWindowTitle(tr("Image Preview"));
-					setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-					setMinimumSize(200, 150);
-					setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
-					
-					QVBoxLayout *layout = new QVBoxLayout(this);
-					layout->setContentsMargins(10, 10, 10, 10);
-					layout->setSpacing(0);
-					
-					QScrollArea *scrollArea = new QScrollArea(this);
-					scrollArea->setWidgetResizable(true);
-					scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-					scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-					scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-					
-					label = new QLabel(this);
-					label->setAlignment(Qt::AlignCenter);
-					label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-					label->setMinimumSize(100, 75);
-					label->setScaledContents(true); // Allow stretching
-					label->setPixmap(pixmap);
-					
-					scrollArea->setWidget(label);
-					layout->addWidget(scrollArea);
-					
-					// Set initial size to image size, but clamp to reasonable min/max
-					int initialWidth = qBound(300, pixmap.width() + 60, 1200);
-					int initialHeight = qBound(200, pixmap.height() + 60, 900);
-					resize(initialWidth, initialHeight);
-				}
-			protected:
-				void resizeEvent(QResizeEvent *event) override {
-					QDialog::resizeEvent(event);
-					// No aspect ratio: let QLabel::setScaledContents handle stretching
-					// No need to manually scale pixmap
-					label->setPixmap(pixmap);
-				}
-			};
 			QPixmap pixmap = QPixmap::fromImage(img);
 			ResponsiveImageDialog *dlg = new ResponsiveImageDialog(pixmap, this);
 			dlg->exec();
