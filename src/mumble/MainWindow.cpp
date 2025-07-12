@@ -1034,11 +1034,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 		saveImageTextObject = fmt;
 	}
 	if (isAnimation) {
-		QTextObjectInterface *objHandler = docLayout->handlerForObject(objType);
-		auto animationHandler            = (ImageAnimationTextObject *) objHandler;
-		QString firstWord                = animationHandler->areVideoControlsShown ? tr("Hide") : tr("Show");
-		menu->addAction(tr("%1 Video Controls").arg(firstWord), doc,
-						[animationHandler]() { animationHandler->toggleVideoControls(); });
+		((ImageAnimationTextObject *)docLayout->handlerForObject(objType))->addVideoControlsSwitch(*menu);
 	}
 
 	menu->addSeparator();

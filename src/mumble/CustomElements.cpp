@@ -1950,6 +1950,11 @@ void ImageAnimationTextObject::toggleVideoControls() {
 	LogTextBrowser::reflow(*qobject_cast< QTextDocument * >(parent()));
 }
 
+void ImageAnimationTextObject::addVideoControlsSwitch(QMenu &menu) {
+	QString firstWord = areVideoControlsShown ? tr("Hide") : tr("Show");
+	menu.addAction(tr("%1 Video Controls").arg(firstWord), this, [this]() { toggleVideoControls(); });
+}
+
 bool ImageAnimationTextObject::mousePress(const QPoint &mouseDocPos, const Qt::MouseButton &button, QMovie &animation) {
 	return mousePress(animation, mouseDocPos, button, areVideoControlsShown);
 }

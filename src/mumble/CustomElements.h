@@ -226,6 +226,7 @@ public:
 	static void toggleVideoControlsFullScreen(QObject &propertyHolder);
 
 	void toggleVideoControls();
+	void addVideoControlsSwitch(QMenu &menu);
 	bool mousePress(const QPoint &mouseDocPos, const Qt::MouseButton &button, QMovie &animation);
 	bool scroll(const QPoint &mouseDocPos, bool isScrollingUp, QMovie &animation);
 };
