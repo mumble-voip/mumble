@@ -338,7 +338,7 @@ bool processHTMLFontWithColor(Markdown::Items &items) {
 /// @param items A reference to the items to work on
 /// @returns Whether a replacement has been made
 bool processLaTeXColor(Markdown::Items &items) {
-	// Color in format $\color{color-code}\text{text}$ or $\color{color-code}{\text{text}}$
+	// Color in format $\color{color-code}\text{text-input}$ or $\color{color-code}{\text{text-input}}$
 	if (items.inputStr[items.offset] != '$') {
 		return false;
 	}
