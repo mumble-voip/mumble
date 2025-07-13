@@ -286,7 +286,7 @@ UserModel::~UserModel() {
 QString UserModel::mergeIconsToImg(const QList< QPair< QIcon, QRect > > &iconsWithRect, const QSize &fullSize,
 								   const QString &format) {
 	QImage image = QImage(fullSize, QImage::Format_ARGB32);
-	image.fill(QColor(0, 0, 0, 0));
+	image.fill(Qt::transparent);
 	QPainter painter(&image);
 	painter.setRenderHint(QPainter::Antialiasing);
 	for (auto [icon, rect] : iconsWithRect) {
