@@ -92,7 +92,7 @@ bool regexMatchAndReplace(
 							  : QLatin1String(contentWrapper).arg(findFirstMatchedGroup(match).toHtmlEscaped());
 	bool isReplacement = replacement != doNoReplacementSign;
 	if (isReplacement) {
-		items.html.append(replacement);
+		items.html += replacement;
 		items.offset = match.capturedEnd();
 	}
 	return isReplacement;
@@ -111,7 +111,7 @@ bool escapeCharacter(Markdown::Items &items) {
 		return false;
 	}
 
-	items.html.append(escapedChar);
+	items.html += escapedChar;
 	++offset;
 	return true;
 }
@@ -209,7 +209,7 @@ void processFormatting(Markdown::Items &items, QList< std::function< bool(Markdo
 		}
 		if (!(isReplacementAtOffset || processPlainLinebreaks(items) || processEscapedChar(items)
 			  || escapeCharacter(items))) {
-			items.html.append(inputStr[offset++]);
+			items.html += inputStr[offset++];
 		}
 	}
 }
@@ -711,7 +711,7 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 			placeholderSize += sizeIncrease;
 		}
 
-		html.replace(imageOffset, placeholderSize, isImage ? img : !alt.isEmpty() ? img.append(alt) : "");
+		html.replace(imageOffset, placeholderSize, isImage ? img : !alt.isEmpty() ? img + alt : "");
 	}
 	// Enable chat input again, where the status text is cleared elsewhere when the message is sent:
 	chatbar->setEnabled(true);
@@ -1339,7 +1339,7 @@ bool processMarkdownDescriptionList(Markdown::Items &items) {
 					isDetail ? QLatin1String("<dd>%1</dd>").arg(content)
 							 : QLatin1String("<dt><h3 style=\"%2\">%1</h3></dt>").arg(content, headerStyle));
 				if (isFirstIteration) {
-					headerStyle.append("margin-top:0;");
+					headerStyle += "margin-top:0;";
 					isFirstIteration = false;
 				}
 			}
@@ -1454,7 +1454,7 @@ bool processMarkdownBlockQuote(Markdown::Items &items) {
 					int indicatorLength = line.size() > 1 && line[1].isSpace() ? 2 : 1;
 					line.remove(0, indicatorLength);
 				}
-				quote += line.append(QLatin1String(i != lastLineIndex ? "\n" : ""));
+				quote += line + QLatin1String(i != lastLineIndex ? "\n" : "");
 			}
 
 			processFormatting(quote, items,
