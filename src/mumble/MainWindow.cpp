@@ -1039,7 +1039,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	}
 
 	menu->addSeparator();
-	menu->addAction(tr("Clear"), qteLog, qOverload< void >(&LogTextBrowser::clear));
+	menu->addAction(tr("Clear"), qteLog, static_cast< void (LogTextBrowser::*)(void) >(&LogTextBrowser::clear));
 	menu->exec(qteLog->mapToGlobal(mpos));
 	delete menu;
 }

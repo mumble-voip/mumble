@@ -421,7 +421,7 @@ void LogTextBrowser::keyPressEvent(QKeyEvent *keyEvt) {
 	int docHeight                   = verticalScrollBar()->maximum();
 	auto customObjects              = qvariant_cast< QList< QObject * > >(doc.property("customObjects"));
 
-	int lastIndex  = customObjects.size() - 1;
+	int lastIndex  = static_cast< int >(customObjects.size() - 1);
 	int focusIndex = doc.property("customObjectFocusIndex").toInt();
 	int scrollStep = 15;
 	if (modifiers.testFlag(Qt::ControlModifier)) {
@@ -504,7 +504,7 @@ void LogTextBrowser::keyReleaseEvent(QKeyEvent *keyEvt) {
 
 	QTextDocument *doc = document();
 	auto customObjects = qvariant_cast< QList< QObject * > >(doc->property("customObjects"));
-	int lastIndex      = customObjects.size() - 1;
+	int lastIndex      = static_cast< int >(customObjects.size() - 1);
 	bool isFocusIndex;
 	int inputFocusIndex      = queuedNumericInput.toInt(&isFocusIndex);
 	bool isFocusIndexTooHigh = !isFocusIndex || inputFocusIndex > lastIndex;
@@ -1953,7 +1953,7 @@ void ImageAnimationTextObject::toggleVideoControls() {
 
 void ImageAnimationTextObject::addVideoControlsSwitch(QMenu &menu) {
 	QString firstWord = areVideoControlsShown ? tr("Hide") : tr("Show");
-	menu.addAction(tr("%1 Video Controls").arg(firstWord), this, [this]() { toggleVideoControls(); });
+	menu.addAction(tr("%1 Video Controls").arg(firstWord), this, &ImageAnimationTextObject::toggleVideoControls);
 }
 
 bool ImageAnimationTextObject::mousePress(const QPoint &mouseDocPos, const Qt::MouseButton &button, QMovie &animation) {
