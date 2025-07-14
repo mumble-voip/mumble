@@ -10,12 +10,14 @@
 #include "MainWindow.h"
 #include "Global.h"
 
-#include <QEventLoop>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QRegularExpression>
-#include <QRegularExpressionMatch>
-#include <QTextDocument>
+#include <QtCore/QEventLoop>
+#include <QtCore/QRegularExpression>
+#include <QtCore/QRegularExpressionMatch>
+#include <QtGui/QImageReader>
+#include <QtGui/QMovie>
+#include <QtGui/QTextDocument>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 
 namespace Markdown {
 struct Image {
@@ -603,26 +605,31 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 							 QByteArray imageBa = reply->readAll();
 							 QImage image;
 							 if (image.loadFromData(imageBa)) {
-								 int imageIndex = reply->property("index").toInt();
-
 								 qsizetype imageSize       = imageBa.size();
 								 qsizetype base64ImageSize = imageSize * 4 / 3;
-								 QString imageHeader = imageSize > 2 ? qvariant_cast< QString >(imageBa.first(3)) : "";
-								 bool isAnimation    = imageHeader == "GIF";
-								 QString img         = isAnimation ? qvariant_cast< QString >(imageBa.toBase64())
-														   : Log::imageToImg(image, (int) remainingImageMessageLength);
+								 QBuffer buffer(&imageBa);
+								 QByteArray detectedFormat;
+								 bool isAnimationSupport = false;
+								 if (buffer.open(QIODevice::ReadOnly)) {
+									 detectedFormat     = QImageReader::imageFormat(&buffer);
+									 isAnimationSupport = QMovie::supportedFormats().contains(detectedFormat);
+								 }
+								 bool isDetectedFormat = !detectedFormat.isEmpty();
+								 QString formatStr     = isDetectedFormat ? QString::fromUtf8(detectedFormat) : "jpg";
+								 QString img           = !isAnimationSupport
+												   ? Log::imageToImg(image, (int) remainingImageMessageLength)
+												   : qvariant_cast< QString >(imageBa.toBase64());
 
-								 base64Images[imageIndex] = { img, image.size(), isAnimation ? imageHeader : "JPEG" };
-								 remainingImageMessageLength -= isAnimation ? base64ImageSize : img.size();
+								 int imageIndex           = reply->property("index").toInt();
+								 base64Images[imageIndex] = { img, image.size(), formatStr };
+								 remainingImageMessageLength -= !isAnimationSupport ? img.size() : base64ImageSize;
 							 }
 						 }
 
 						 QString firstWord = reply->property("processingFirstWord").toString();
-						 reply->close();
 						 reply->deleteLater();
 						 if (++repliesFinished == imageAmount) {
-							 loop.quit();
-							 return;
+							 return loop.quit();
 						 }
 						 chatbar->setHtml(processingIndicator.arg(firstWord).arg(repliesFinished).arg(imageAmount));
 					 });
@@ -711,7 +718,7 @@ void processQueuedMarkdownImages(Markdown::Items &items) {
 			placeholderSize += sizeIncrease;
 		}
 
-		html.replace(imageOffset, placeholderSize, isImage ? img : !alt.isEmpty() ? img + alt : "");
+		html.replace(imageOffset, placeholderSize, isImage ? img : !alt.isEmpty() ? img.append(alt) : "");
 	}
 	// Enable chat input again, where the status text is cleared elsewhere when the message is sent:
 	chatbar->setEnabled(true);
