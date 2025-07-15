@@ -32,7 +32,7 @@ public:
 		// Qt 5.14 introduced QAtomicInteger::loadRelaxed() which deprecates QAtomicInteger::load()
 		while (m_running->load() == 1) {
 #endif
-			for (int i = 0; i < 1024; i++) {
+			for (int i = 0; i < 64; i++) {
 				if (m_seed) {
 					RAND_seed(buf, sizeof(buf));
 				} else {
