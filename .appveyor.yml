@@ -20,6 +20,16 @@ environment:
     MUMBLE_SOURCE_REPOSITORY: '%APPVEYOR_BUILD_FOLDER%'
     MUMBLE_BUILD_DIRECTORY: '%MUMBLE_SOURCE_REPOSITORY%/build'
     MUMBLE_USE_ELEVATION: 'ON'
+    MUMBLE_SKIP_MSI_REBUILD: 'OFF'
+    SIGNPATH_PROJECT_SLUG: 'mumble'
+    SIGNPATH_SIGNING_POLICY: 'release-signing'
+    SIGNPATH_ARTIFACT_CONFIGURATION_STAGE_1: 'sign-msi'
+    SIGNPATH_ARTIFACT_CONFIGURATION_STAGE_2: 'sign-engine'
+    SIGNPATH_ARTIFACT_CONFIGURATION_STAGE_3: 'sign-bundle'
+    SIGNPATH_ORGANIZATION_ID: '79916aba-7a9f-448d-91c6-fb83593b59d3'
+    SIGNPATH_API_TOKEN:
+      secure: WKbGSfFSHTtODf6eHRSHPAobctJli48O/VoMpCYTuIlITl2piOpCH6igCRDX4EuJTzgDX45H34tVfPuNzSMdLA==
+
 
   matrix:
     - MUMBLE_ENVIRONMENT_TRIPLET: 'x64-windows-static-md-release'
@@ -31,6 +41,7 @@ init:
 
 install:
   - ps: .ci/install-environment_windows.ps1
+  - ps: Install-Module -Name SignPath
 
 before_build:
   - cmd: cd %APPVEYOR_BUILD_FOLDER% && git submodule update --init --recursive
@@ -39,7 +50,35 @@ build_script:
   - cmd: .ci/build_windows.bat
 
 after_build:
-  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a binaries.zip *.exe *.dll *.pdb plugins/*.dll plugins/*.pdb installer/client/*client*.exe installer/server/*server*.exe
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a unsigned_msi.zip installer\client\*client*.msi installer\server\*server*.msi
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && del installer\client\*.msi && del installer\server\*.msi && del installer\client\*client*.exe && del installer\server\*server*.exe
+  - ps: |
+      $API_KEY = "$env:SIGNPATH_API_TOKEN" -replace '^bearer\s*',''
+
+      Submit-SigningRequest `
+        -InputArtifactPath "$env:MUMBLE_BUILD_DIRECTORY\unsigned_msi.zip" `
+        -ProjectSlug $env:SIGNPATH_PROJECT_SLUG -ArtifactConfigurationSlug $env:SIGNPATH_ARTIFACT_CONFIGURATION_STAGE_1 -SigningPolicySlug $env:SIGNPATH_SIGNING_POLICY `
+        -WaitForCompletion -OutputArtifactPath "$env:MUMBLE_BUILD_DIRECTORY\signed_msi.zip" `
+        -OrganizationId $env:SIGNPATH_ORGANIZATION_ID -ApiToken "$API_KEY"
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z x "signed_msi.zip" -o"."
+  - cmd: set MUMBLE_SKIP_MSI_REBUILD=ON && call .ci\build_windows.bat
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && C:\WixSharp\Wix_bin\insignia.exe -ib installer\client\*client*.exe -o installer\client\engine.exe
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && C:\WixSharp\Wix_bin\insignia.exe -ib installer\server\*server*.exe -o installer\server\engine.exe
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a unsigned_engine.zip installer\client\engine.exe installer\server\engine.exe
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && del installer\client\engine.exe && del installer\server\engine.exe
+  - ps: |
+      $API_KEY = "$env:SIGNPATH_API_TOKEN" -replace '^bearer\s*',''
+
+      Submit-SigningRequest `
+        -InputArtifactPath "$env:MUMBLE_BUILD_DIRECTORY\unsiged_engine.zip" `
+        -ProjectSlug $env:SIGNPATH_PROJECT_SLUG -ArtifactConfigurationSlug $env:SIGNPATH_ARTIFACT_CONFIGURATION_STAGE_2 -SigningPolicySlug $env:SIGNPATH_SIGNING_POLICY `
+        -WaitForCompletion -OutputArtifactPath "$env:MUMBLE_BUILD_DIRECTORY\signed_engine.zip" `
+        -OrganizationId $env:SIGNPATH_ORGANIZATION_ID -ApiToken "$API_KEY"
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z x "signed_engine.zip" -o"."
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && C:\WixSharp\Wix_bin\insignia.exe -ab installer\client\engine.exe installer\client\*client*.exe -o installer\client\*client*.exe
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && C:\WixSharp\Wix_bin\insignia.exe -ab installer\server\engine.exe installer\server\*server*.exe -o installer\server\*client*.exe
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && del installer\client\engine.exe && del installer\server\engine.exe
+  - cmd: cd "%MUMBLE_BUILD_DIRECTORY%" && 7z a binaries.zip *.exe *.dll *.pdb plugins\*.dll plugins\*.pdb installer\client\*.exe installer\server\*.exe installer\client\*.msi installer\server\*.msi
 
 artifacts:
   - path: 'build/binaries.zip'
@@ -47,6 +86,5 @@ artifacts:
 
 deploy:
   - provider: Webhook
-    url: https://app.signpath.io/API/v1/79916aba-7a9f-448d-91c6-fb83593b59d3/Integrations/AppVeyor?ProjectSlug=mumble&SigningPolicySlug=release-signing
-    authorization:
-      secure: WKbGSfFSHTtODf6eHRSHPAobctJli48O/VoMpCYTuIlITl2piOpCH6igCRDX4EuJTzgDX45H34tVfPuNzSMdLA==
+    url: https://app.signpath.io/API/v1/%SIGNPATH_ORGANIZATION_ID%/Integrations/AppVeyor?ProjectSlug=%SIGNPATH_PROJECT_SLUG%&SigningPolicySlug=%SIGNPATH_SIGNING_POLICY%&ArtifactConfigurationSlug=%SIGNPATH_ARTIFACT_CONFIGURATION_STAGE_3%
+    authorization: '%SIGNPATH_API_TOKEN%'
