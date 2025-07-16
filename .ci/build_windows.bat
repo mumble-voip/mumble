@@ -20,6 +20,8 @@
 ::  VCVARS_PATH                  - Path to the Visual Studio environment initialization script.
 ::  MUMBLE_USE_ELEVATION         - Whether to build the Mumble client with elevated permissions (required to make shortcuts work with privileged
 ::                                 applications)
+::  MUMBLE_SKIP_MSI_REBUILD      - Whether to skip rebuilding the installer MSI files. Skipping MSI rebuild is needed to sign the MSI files and
+::                                 bundle them again.
 ::
 
 @echo on
@@ -49,13 +51,15 @@ if not defined MUMBLE_USE_ELEVATION (
 	set MUMBLE_USE_ELEVATION=OFF
 )
 
+echo Skip MSI Rebuild: %MUMBLE_SKIP_MSI_REBUILD%
+
 cmake -G Ninja -DCMAKE_TOOLCHAIN_FILE="%MUMBLE_ENVIRONMENT_TOOLCHAIN%" -DVCPKG_TARGET_TRIPLET=%MUMBLE_ENVIRONMENT_TRIPLET% ^
       -DIce_HOME="%MUMBLE_ENVIRONMENT_PATH%\installed\%MUMBLE_ENVIRONMENT_TRIPLET%" ^
       -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe ^
       -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DBUILD_NUMBER=%BUILD_NUMBER% ^
       -Dpackaging=ON -Dtests=ON -Dstatic=ON -Dsymbols=ON -Dasio=ON -Dg15=ON -Dtest-lto=OFF ^
       -Ddisplay-install-paths=ON -Ddatabase-sqlite-tests=ON -Ddatabase-mysql-tests=ON -Ddatabase-postgresql-tests=ON ^
-	  -Delevation=%MUMBLE_USE_ELEVATION% %MUMBLE_SOURCE_REPOSITORY%
+	  -Delevation=%MUMBLE_USE_ELEVATION% -Dskip-msi-rebuild=%MUMBLE_SKIP_MSI_REBUILD% %MUMBLE_SOURCE_REPOSITORY%
 
 if errorlevel 1 (
 	exit /b %errorlevel%
