@@ -13,10 +13,86 @@
 #include "UserModel.h"
 #include "Global.h"
 
+#include <QtCore/QPropertyAnimation>
 #include <QtGui/QDesktopServices>
 #include <QtGui/QHelpEvent>
 #include <QtGui/QPainter>
 #include <QtWidgets/QWhatsThis>
+
+RichTooltip::RichTooltip(QWidget &parentWidget) : QTextEdit(&parentWidget) {
+	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	setTextInteractionFlags(Qt::NoTextInteraction);
+	setFocusPolicy(Qt::NoFocus);
+	setAttribute(Qt::WA_TransparentForMouseEvents);
+	setAttribute(Qt::WA_ShowWithoutActivating);
+	setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+}
+
+QSize RichTooltip::getDocumentSize() {
+	QTextDocument *doc = document();
+	return QSizeF(doc->idealWidth() + 5, doc->size().height()).toSize();
+}
+
+void RichTooltip::show(const QString &text, const QPoint &pos, bool isAnimated) {
+	QTextDocument *doc = document();
+	QTextCursor tc     = textCursor();
+	doc->setPageSize(QSizeF());
+	Log::setHtml(text, tc, std::bind(&QTextEdit::clear, this));
+	for (QObject *obj : qvariant_cast< QList< QObject * > >(doc->property("customObjects"))) {
+		switch (qvariant_cast< Log::TextObjectType >(obj->property("objectType"))) {
+			case Log::TextObjectType::ImageAnimation: {
+				QMovie *animation = qobject_cast< QMovie * >(obj);
+				animation->start();
+				animation->setPaused(false);
+				break;
+			}
+			case Log::TextObjectType::NoCustomObject:
+				break;
+		}
+	}
+	move(pos, false);
+	QWidget::show();
+
+	setMinimumHeight(0);
+	QSize docSize = getDocumentSize();
+	doc->setPageSize(docSize);
+	QPropertyAnimation *animation = nullptr;
+	if (isAnimated) {
+		animation = new QPropertyAnimation(this, "size", this);
+		animation->setDuration(150);
+		animation->setStartValue(QSize(docSize.width(), 0));
+		animation->setEndValue(docSize);
+	}
+	move(pos);
+	if (isAnimated) {
+		animation->start(QAbstractAnimation::DeleteWhenStopped);
+	} else {
+		resize(docSize);
+	}
+}
+
+void RichTooltip::move(const QPoint &pos, bool isVisible) {
+	QWidget *parentWidget = qobject_cast< QWidget * >(parent());
+	int docWidth          = getDocumentSize().width();
+	bool fitsToTheRight   = pos.x() + docWidth <= parentWidget->x() + parentWidget->width();
+	QWidget::move(!fitsToTheRight ? pos - QPoint(docWidth, 0) : pos);
+	setVisible(isVisible);
+}
+
+void RichTooltip::destruct(bool isAnimated) {
+	if (!isAnimated) {
+		return deleteLater();
+	}
+
+	QSize docSize  = getDocumentSize();
+	auto animation = new QPropertyAnimation(this, "size", this);
+	animation->setDuration(150);
+	animation->setStartValue(docSize);
+	animation->setEndValue(QSize(docSize.width(), 0));
+	connect(animation, &QAbstractAnimation::finished, this, &QObject::deleteLater);
+	animation->start();
+}
 
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
@@ -96,22 +172,35 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 
 bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QStyleOptionViewItem &option,
 							 const QModelIndex &index) {
+	bool isTooltip = richTooltip != nullptr;
 	if (index.isValid()) {
-		const QAbstractItemModel *m      = index.model();
-		const QModelIndex firstColumnIdx = index.sibling(index.row(), 1);
-		QVariant data                    = m->data(firstColumnIdx);
-		QList< QVariant > iconList       = data.toList();
-		const auto offset                = static_cast< int >(iconList.size() * -m_iconTotalDimension);
-		const int firstIconPos           = option.rect.topRight().x() + offset;
-
-		if (evt->pos().x() >= firstIconPos) {
-			return QStyledItemDelegate::helpEvent(evt, view, option, firstColumnIdx);
+		quintptr itemId           = index.internalId();
+		bool isAnotherItemHovered = previousItemId != itemId;
+		if (isAnotherItemHovered) {
+			previousItemId = itemId;
 		}
+		QPoint tooltipPos = evt->globalPos() + QPoint(0, 10);
+		if (isTooltip && !isAnotherItemHovered) {
+			richTooltip->move(tooltipPos);
+		} else {
+			if (!isTooltip) {
+				UserView *userView = Global::get().mw->qtvUsers;
+				richTooltip        = new RichTooltip(*userView);
+			}
+			richTooltip->show(index.data(Qt::ToolTipRole).toString(), tooltipPos, !isTooltip);
+		}
+		return true;
+	}
+	if (isTooltip) {
+		richTooltip->destruct();
+		richTooltip = nullptr;
 	}
 	return QStyledItemDelegate::helpEvent(evt, view, option, index);
 }
 
 UserView::UserView(QWidget *p) : QTreeView(p), m_userDelegate(make_qt_unique< UserDelegate >(this)) {
+	// This attribute is a way to make the `HoverLeave` event work with the theme set to "None" too.
+	setAttribute(Qt::WA_Hover);
 	adjustIcons();
 	setItemDelegate(m_userDelegate.get());
 
@@ -136,13 +225,33 @@ void UserView::adjustIcons() {
 
 /**
  * This implementation contains a special handler to display
- * custom what's this entries for items. All other events are
- * passed on.
+ * custom what's this entries for items and to remove the
+ * custom tooltip when no longer hovering the user view.
+ * All other events are passed on.
  */
 bool UserView::event(QEvent *evt) {
-	if (evt->type() == QEvent::WhatsThisClicked) {
-		QWhatsThisClickedEvent *qwtce = static_cast< QWhatsThisClickedEvent * >(evt);
-		QDesktopServices::openUrl(qwtce->href());
+	bool isAction = true;
+	switch (evt->type()) {
+		case QEvent::WhatsThisClicked: {
+			QWhatsThisClickedEvent *qwtce = static_cast< QWhatsThisClickedEvent * >(evt);
+			QDesktopServices::openUrl(qwtce->href());
+			break;
+		}
+		case QEvent::HoverLeave: {
+			RichTooltip *tooltip = m_userDelegate->richTooltip;
+			if (tooltip != nullptr) {
+				tooltip->destruct();
+				m_userDelegate->richTooltip = nullptr;
+			} else {
+				isAction = false;
+			}
+			break;
+		}
+		default:
+			isAction = false;
+			break;
+	}
+	if (isAction) {
 		evt->accept();
 		return true;
 	}
@@ -157,79 +266,91 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 	QPoint clickPosition = evt->pos();
 
 	QModelIndex idx = indexAt(clickPosition);
-	if ((evt->button() == Qt::LeftButton) && idx.isValid()) {
-		UserModel *userModel         = qobject_cast< UserModel * >(model());
-		const ClientUser *clientUser = userModel->getUser(idx);
-		const Channel *channel       = userModel->getChannel(idx);
-
-		// This is the x offset of the _beginning_ of the comment icon starting from the
-		// right.
-		// Thus if the comment icon is the last icon that is displayed, this is equal to
-		// the negative width of a icon's width (which it is initialized to here). For
-		// every icon that is displayed to the right of the comment icon, we have to subtract
-		// m_iconTotalDimension once.
-		int commentIconPxOffset = -m_iconTotalDimension;
-		bool hasComment         = false;
-
-		if (clientUser && !clientUser->qbaCommentHash.isEmpty()) {
-			hasComment = true;
-
-			if (clientUser->bLocalIgnore)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bRecording)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bPrioritySpeaker)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bMute)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bSuppress)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bSelfMute)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bLocalMute)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bSelfDeaf)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->bDeaf)
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (!clientUser->qsFriendName.isEmpty())
-				commentIconPxOffset -= m_iconTotalDimension;
-			if (clientUser->iId >= 0)
-				commentIconPxOffset -= m_iconTotalDimension;
-
-		} else if (channel && !channel->qbaDescHash.isEmpty()) {
-			hasComment = true;
-
-			switch (channel->m_filterMode) {
-				case ChannelFilterMode::PIN:
-				case ChannelFilterMode::HIDE:
-					commentIconPxOffset -= m_iconTotalDimension;
-					break;
-				case ChannelFilterMode::NORMAL:
-					// NOOP
-					break;
-			}
-
-			if (channel->hasEnterRestrictions) {
-				commentIconPxOffset -= m_iconTotalDimension;
-			}
+	if (idx.isValid()) {
+		RichTooltip *tooltip = m_userDelegate->richTooltip;
+		if (tooltip != nullptr) {
+			tooltip->destruct(false);
+			m_userDelegate->richTooltip = nullptr;
 		}
 
-		if (hasComment) {
-			QRect r                    = visualRect(idx);
-			const int commentIconPxPos = r.topRight().x() + commentIconPxOffset;
+		if (evt->button() == Qt::LeftButton) {
+			UserModel *userModel         = qobject_cast< UserModel * >(model());
+			const ClientUser *clientUser = userModel->getUser(idx);
+			const Channel *channel       = userModel->getChannel(idx);
 
-			if ((clickPosition.x() >= commentIconPxPos)
-				&& (clickPosition.x() <= (commentIconPxPos + m_iconTotalDimension))) {
-				// Clicked comment icon
-				QString str = userModel->data(idx, Qt::ToolTipRole).toString();
-				if (str.isEmpty()) {
-					userModel->bClicked = true;
-				} else {
-					QWhatsThis::showText(viewport()->mapToGlobal(r.bottomRight()), str, this);
-					userModel->seenComment(idx);
+			// This is the x offset of the _beginning_ of the comment icon starting from the
+			// right.
+			// Thus if the comment icon is the last icon that is displayed, this is equal to
+			// the negative width of a icon's width (which it is initialized to here). For
+			// every icon that is displayed to the right of the comment icon, we have to subtract
+			// m_iconTotalDimension once.
+			int commentIconPxOffset = -m_iconTotalDimension;
+			bool hasComment         = false;
+
+			if (clientUser && !clientUser->qbaCommentHash.isEmpty()) {
+				hasComment = true;
+
+				if (clientUser->bLocalIgnore)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bRecording)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bPrioritySpeaker)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bMute)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bSuppress)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bSelfMute)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bLocalMute)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bSelfDeaf)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->bDeaf)
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (!clientUser->qsFriendName.isEmpty())
+					commentIconPxOffset -= m_iconTotalDimension;
+				if (clientUser->iId >= 0)
+					commentIconPxOffset -= m_iconTotalDimension;
+
+			} else if (channel && !channel->qbaDescHash.isEmpty()) {
+				hasComment = true;
+
+				switch (channel->m_filterMode) {
+					case ChannelFilterMode::PIN:
+					case ChannelFilterMode::HIDE:
+						commentIconPxOffset -= m_iconTotalDimension;
+						break;
+					case ChannelFilterMode::NORMAL:
+						// NOOP
+						break;
 				}
-				return;
+
+				if (channel->hasEnterRestrictions) {
+					commentIconPxOffset -= m_iconTotalDimension;
+				}
+			}
+
+			if (hasComment) {
+				QRect r                    = visualRect(idx);
+				const int commentIconPxPos = r.topRight().x() + commentIconPxOffset;
+
+				if ((clickPosition.x() >= commentIconPxPos)
+					&& (clickPosition.x() <= (commentIconPxPos + m_iconTotalDimension))) {
+					// Clicked comment icon
+					QString str = userModel->data(idx, Qt::ToolTipRole).toString();
+					if (str.isEmpty()) {
+						userModel->bClicked = true;
+					} else {
+						if (m_userDelegate->richTooltip == nullptr) {
+							UserView *userView          = Global::get().mw->qtvUsers;
+							m_userDelegate->richTooltip = new RichTooltip(*userView);
+						}
+						m_userDelegate->richTooltip->show(str, viewport()->mapToGlobal(r.bottomRight()));
+						userModel->seenComment(idx);
+					}
+					return;
+				}
 			}
 		}
 	}

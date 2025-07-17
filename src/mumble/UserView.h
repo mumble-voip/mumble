@@ -8,10 +8,23 @@
 
 #include <QtCore/QtGlobal>
 #include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTreeView>
 
 #include "QtUtils.h"
 #include "Timer.h"
+
+class RichTooltip : public QTextEdit {
+private:
+	Q_OBJECT
+
+public:
+	RichTooltip(QWidget &parentWidget);
+	QSize getDocumentSize();
+	void show(const QString &text, const QPoint &pos, bool isAnimated = true);
+	void move(const QPoint &pos, bool isVisible = true);
+	void destruct(bool isAnimated = true);
+};
 
 class UserDelegate : public QStyledItemDelegate {
 private:
@@ -21,8 +34,10 @@ private:
 	int m_iconTotalDimension;
 	int m_iconIconPadding;
 	int m_iconIconDimension;
+	quintptr previousItemId = 0;
 
 public:
+	RichTooltip *richTooltip = nullptr;
 	UserDelegate(QObject *parent);
 	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 	void adjustIcons(int iconTotalDimension, int iconIconPadding, int iconIconDimension);
