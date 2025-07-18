@@ -234,6 +234,7 @@ protected:
 public slots:
 	void on_qmServer_aboutToShow();
 	void on_qaServerConnect_triggered(bool autoconnect = false);
+	void on_qaServerAdd_triggered();
 	void on_qaServerDisconnect_triggered();
 	void on_qaServerBanList_triggered();
 	void on_qaServerUserList_triggered();
@@ -450,6 +451,7 @@ public:
 
 	void openServerConnectDialog(bool autoconnect = false);
 	void disconnectFromServer();
+	void addServerAsFavorite();
 	void openServerInformationDialog();
 	void openServerTokensDialog();
 	void openServerUserListDialog();
