@@ -2233,7 +2233,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Push</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -2942,15 +2942,19 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3711,7 +3715,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%{name} rihapi raportimin %{target}</translation>
     </message>
     <message>
         <source>checked</source>
@@ -3839,6 +3843,21 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Mouse</source>
         <translation>Mi</translation>
+    </message>
+</context>
+<context>
+    <name>ImageAnimationTextObject</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5823,10 +5842,6 @@ Valid actions are:
         <translation>Ruaje listë si një kartelë</translation>
     </message>
     <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Could not save image: %1</source>
         <translation>S’u ruajtën dot widget-et vijuese: %s.</translation>
     </message>
@@ -7048,6 +7063,22 @@ Valid options are:
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

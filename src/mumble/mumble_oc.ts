@@ -2960,15 +2960,19 @@ Are you sure you wish to replace your certificate?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3863,6 +3867,21 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Mouse</source>
         <translation>Mirga</translation>
+    </message>
+</context>
+<context>
+    <name>ImageAnimationTextObject</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5462,10 +5481,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Imatges (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7080,6 +7095,22 @@ Valid options are:
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
