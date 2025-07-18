@@ -2236,11 +2236,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistema de entrada de áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositivo de entrada de áudio</translation>
     </message>
     <message>
         <source>Select audio output device</source>
@@ -3000,16 +3000,20 @@ Você tem certeza de que quer substituir o seu certificado?
         <translation>&lt;center&gt;Digite a mensagem aqui&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>Impossível enviar imagem: grande demais.</translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>Impossível enviar imagem %1: grande demais.</translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
         <translation>Este servidor não permite o envio de imagens.</translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3914,6 +3918,21 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     <message>
         <source>Mouse</source>
         <translation>Mouse</translation>
+    </message>
+</context>
+<context>
+    <name>ImageAnimationTextObject</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5525,10 +5544,6 @@ Caso contrário, aborte e verifique seu certificado e nome de usuário.</transla
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Senha de servidor incorreta para conta de usuário não registrada, por favor tente novamente.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Imagens (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7173,6 +7188,22 @@ Valid options are:
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

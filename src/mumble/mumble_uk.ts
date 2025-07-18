@@ -3001,16 +3001,20 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;center&gt;Введіть тут повідомлення чату&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>Неможливо надіслати зображення: завелике.</translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>Неможливо надіслати зображення %1: завелике.</translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
         <translation>Цей сервер не дозволяє надсилати зображення.</translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3915,6 +3919,21 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Mouse</source>
         <translation>миша</translation>
+    </message>
+</context>
+<context>
+    <name>ImageAnimationTextObject</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5526,10 +5545,6 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Неправильний пароль сервера для незареєстрованого облікового запису користувача, спробуйте ще раз.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Зображення (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7237,6 +7252,22 @@ mumble://[&lt;ім&apos;я користувача&gt;[:&lt;пароль&gt;]@]&l
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
         <translation>Це зменшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

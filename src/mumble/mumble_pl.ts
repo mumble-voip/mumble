@@ -3001,16 +3001,20 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
         <translation>&lt;center&gt;Wpisz tutaj wiadomość&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>Nie można wysłać obrazu: zbyt duży.</translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>Nie można wysłać obrazu %1: zbyt duży.</translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
         <translation>Ten serwer nie pozwala na wysyłanie obrazów.</translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3915,6 +3919,21 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     <message>
         <source>Mouse</source>
         <translation>Mysz</translation>
+    </message>
+</context>
+<context>
+    <name>ImageAnimationTextObject</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5526,10 +5545,6 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Podałeś złe hasło dla niezarejestrowanych użytkowników, spróbuj jeszcze raz.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Obrazy (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7237,6 +7252,22 @@ Prawidłowe opcje to:
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
         <translation>Zmniejsza to tłumienie słuchaczy kanału o 10 punktów procentowych</translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

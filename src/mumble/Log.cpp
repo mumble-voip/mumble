@@ -413,7 +413,7 @@ QVector< LogMessage > Log::qvDeferredLogs;
 
 
 Log::Log(QObject *p) : QObject(p) {
-	qRegisterMetaType< Log::MsgType >();
+	qRegisterMetaType< MsgType >();
 
 #ifndef USE_NO_TTS
 	tts = new TextToSpeech(this);
@@ -584,59 +584,299 @@ void Log::clearIgnore() {
 
 QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 	QString fmt = QLatin1String(format);
-
 	if (fmt.isEmpty())
 		fmt = QLatin1String("qt");
+	QString img = QLatin1String(image.toBase64());
 
-	QByteArray rawbase = image.toBase64();
-	QByteArray encoded;
-	int i     = 0;
-	int begin = 0, end = 0;
-	do {
-		begin = i * 72;
-		end   = begin + 72;
-
-		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin, 72))));
-		if (end < rawbase.length())
-			encoded.append('\n');
-
-		++i;
-	} while (end < rawbase.length());
-
-	return QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(fmt).arg(QLatin1String(encoded));
+	return QLatin1String("<img src=\"data:image/%1;base64,%2\" />").arg(fmt, img);
 }
 
-QString Log::imageToImg(QImage img, int maxSize) {
+QString Log::imageToImg(QImage img, int maxSize, const QByteArray &format) {
 	constexpr int MAX_WIDTH  = 1600;
 	constexpr int MAX_HEIGHT = 1000;
-
-	if ((img.width() > MAX_WIDTH) || (img.height() > MAX_HEIGHT)) {
+	if (img.width() > MAX_WIDTH || img.height() > MAX_HEIGHT) {
 		img = img.scaled(MAX_WIDTH, MAX_HEIGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 	}
 
 	int quality       = 100;
-	QByteArray format = "JPEG";
-
+	bool isFallbackOn = false;
+	QByteArray fallbackFormat("jpg");
 	QByteArray qba;
 	QString result;
-	while (quality > 0) {
+	do {
 		qba.clear();
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
 
-		QImageWriter imgwrite(&qb, format);
-		imgwrite.setQuality(quality);
-		imgwrite.write(img);
+		QImageWriter imageWriter(&qb, isFallbackOn ? fallbackFormat : format);
+		imageWriter.setQuality(quality);
+		if (!imageWriter.write(img)) {
+			if (isFallbackOn) {
+				return imageWriter.errorString().prepend("Error: ");
+			}
+			isFallbackOn = true;
+			continue;
+		}
 		result = imageToImg(format, qba);
 		if (result.length() < maxSize || maxSize == 0) {
 			return result;
 		}
+
 		quality -= 10;
-	}
+		if (quality == 0 && imageWriter.format() != fallbackFormat) {
+			quality      = 100;
+			isFallbackOn = true;
+		}
+	} while (quality > 0);
 	return QString();
 }
 
-QString Log::validHtml(const QString &html, QTextCursor *tc) {
+bool Log::isFileExtension(const QByteArray &ext, const QByteArray &header) {
+	qsizetype headerLength = header.size();
+	QByteArray objExt;
+	bool isExtAvif = ext == "avif";
+	bool isExtIco  = ext == "ico";
+	bool isExtCur  = ext == "cur";
+	if (ext == "gif") {
+		return header.startsWith(ext.toUpper());
+	} else if ((ext == "webp" || isExtAvif) && headerLength > 11) {
+		objExt = header.sliced(8, 4);
+		if (isExtAvif) {
+			// The last character in the extension name in the header may be "s" instead of "f"
+			// which stands for "sequence" instead of "file", where the former is for an animation:
+			return objExt == ext || objExt == QByteArray(ext).replace(3, 1, "s");
+		}
+	} else if ((ext == "png" || ext == "apng" || ext == "mng") && headerLength > 3) {
+		objExt = header.sliced(1, 3);
+		if (ext.startsWith('a')) {
+			return ext.endsWith(objExt.toLower());
+		}
+	} else if ((ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jfif" || ext == "jif") && headerLength > 9) {
+		objExt = header.sliced(6, 4);
+		return objExt == "JFIF" || objExt == "Exif";
+	} else if (ext == "jp2" && headerLength > 5) {
+		return header.sliced(4, 2) == "jp";
+	} else if (ext == "bmp") {
+		return header.startsWith("BM");
+	} else if (ext == "pbm") {
+		return header.startsWith("P4");
+	} else if (ext == "pgm") {
+		return header.startsWith("P5");
+	} else if (ext == "ppm") {
+		return header.startsWith("P6");
+	} else if (ext == "tif" || ext == "tiff") {
+		return header.startsWith("II") || header.startsWith("MM");
+	} else if (ext == "wbmp" && headerLength > 3) {
+		return header[3] == '0';
+	} else if (ext == "tga" && headerLength > 2) {
+		return static_cast< int >(header[2]) == 10;
+	} else if (ext == "icns") {
+		return header.startsWith(ext);
+	} else if (ext == "xbm") {
+		return header.startsWith("#define ");
+	} else if (ext == "xpm" && headerLength > 5) {
+		objExt = header.sliced(3, 3);
+	} else if (ext == "svg" || ext == "svgz") {
+		return header.contains("<svg ") || header.contains("<svg\n") || header.contains("<svg\r\n")
+			   || header.contains("<svg\r");
+	} else if ((isExtIco || isExtCur) && headerLength > 2) {
+		int imageType = static_cast< int >(header[2]);
+		return (isExtIco && imageType == 1) || (isExtCur && imageType == 2);
+	}
+	return objExt.toLower() == ext;
+}
+
+QString Log::findFileExtension(const QByteArray &header) {
+	for (const QByteArray &ext : QImageReader::supportedImageFormats()) {
+		if (isFileExtension(ext, header)) {
+			return QString::fromUtf8(ext);
+		}
+	}
+	return QLatin1String();
+}
+
+Log::TextObjectType Log::findTextObjectType(const QString &fileExt) {
+	TextObjectType txtObjType{};
+	for (auto i = txtObjTypeToFileExtsFuncMap.cbegin(); i != txtObjTypeToFileExtsFuncMap.cend(); ++i) {
+		if (i.value()().contains(fileExt.toUtf8())) {
+			txtObjType = i.key();
+			break;
+		}
+	}
+	return txtObjType;
+}
+
+std::tuple< Log::TextObjectType, QString > Log::findTextObjectTypeAndFileExtension(const QByteArray &header) {
+	std::tuple< TextObjectType, QString > txtObjTypeAndFileExt{ TextObjectType::NoCustomObject, "" };
+	bool isCompatibleExt = false;
+	for (auto i = txtObjTypeToFileExtsFuncMap.cbegin(); i != txtObjTypeToFileExtsFuncMap.cend(); ++i) {
+		for (const QByteArray &ext : i.value()()) {
+			isCompatibleExt = isFileExtension(ext, header);
+			if (isCompatibleExt) {
+				txtObjTypeAndFileExt = { i.key(), QString::fromUtf8(ext) };
+				break;
+			}
+		}
+		if (isCompatibleExt) {
+			break;
+		}
+	}
+	return txtObjTypeAndFileExt;
+}
+
+bool Log::writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc) {
+	qsizetype htmlEndIndex = html.length() - 1;
+	// Return early if input is too small to contain any tag:
+	if (htmlEndIndex < 2) {
+		return false;
+	}
+
+	struct TextObject {
+		TextObjectType type = TextObjectType::NoCustomObject;
+		QByteArray ba;
+		QString fileExt;
+		qsizetype imgStartIndex;
+		qsizetype imgEndIndex;
+		int overrideWidth;
+		int overrideHeight;
+	};
+	auto findRange = [&html](const QString &start, const QChar &wrapperStart, const QChar &wrapperEnd,
+							 const qsizetype &searchStartIndex,
+							 const qsizetype &searchEndIndex) -> std::tuple< qsizetype, qsizetype > {
+		bool isWrapperStart           = !wrapperStart.isNull();
+		qsizetype startOffset         = start.size() + (isWrapperStart ? 1 : 0);
+		qsizetype startInvalid        = -1 + startOffset;
+		qsizetype endInvalid          = -2;
+		QString startWithWrapperStart = isWrapperStart ? start + wrapperStart : start;
+
+		qsizetype startIndex = html.indexOf(startWithWrapperStart, searchStartIndex) + startOffset;
+		qsizetype endIndex   = startIndex < searchEndIndex ? html.indexOf(wrapperEnd, startIndex) - 1 : -1;
+		return { startIndex != startInvalid && startIndex <= searchEndIndex ? startIndex : -1,
+				 endIndex != endInvalid && endIndex <= searchEndIndex ? endIndex : -1 };
+	};
+	auto findQuoteRange =
+		[&findRange](const QString &start, const qsizetype &searchStartIndex, const qsizetype &searchEndIndex,
+					 bool mayBeUnquotedAndEndWithSpace = false) -> std::tuple< qsizetype, qsizetype > {
+		auto [startIndex, endIndex] = findRange(start, '"', '"', searchStartIndex, searchEndIndex);
+		if (startIndex == -1 || endIndex == -1) {
+			std::tie(startIndex, endIndex) = findRange(start, '\'', '\'', searchStartIndex, searchEndIndex);
+		}
+		if (mayBeUnquotedAndEndWithSpace && (startIndex == -1 || endIndex == -1)) {
+			std::tie(startIndex, endIndex) = findRange(start, '\0', ' ', searchStartIndex, searchEndIndex);
+		}
+		return { startIndex, endIndex };
+	};
+	auto findTextObjectData = [&html, &findQuoteRange](const qsizetype &previousImgEndIndex) -> TextObject {
+		TextObject txtObj;
+		qsizetype imgStartIndex;
+		qsizetype imgEndIndex = previousImgEndIndex;
+		bool isCompatibleExt  = false;
+		do {
+			imgStartIndex                     = html.indexOf("<img ", imgEndIndex + 1);
+			imgEndIndex                       = html.indexOf('>', imgStartIndex);
+			auto [srcStartIndex, srcEndIndex] = findQuoteRange(" src=", imgStartIndex, imgEndIndex, true);
+			qsizetype base64StartIndex        = html.indexOf("base64,", srcStartIndex) + 7;
+			if (srcStartIndex == -1 || srcEndIndex == -1 || base64StartIndex == 6 || base64StartIndex > srcEndIndex) {
+				continue;
+			}
+
+			int width                               = 0;
+			int height                              = 0;
+			auto [widthStartIndex, widthEndIndex]   = findQuoteRange(" width=", imgStartIndex, imgEndIndex, true);
+			auto [heightStartIndex, heightEndIndex] = findQuoteRange(" height=", imgStartIndex, imgEndIndex, true);
+			if (widthStartIndex != -1 && widthEndIndex != -1) {
+				width = html.sliced(widthStartIndex, widthEndIndex - widthStartIndex + 1).toInt();
+			}
+			if (heightStartIndex != -1 && heightEndIndex != -1) {
+				height = html.sliced(heightStartIndex, heightEndIndex - heightStartIndex + 1).toInt();
+			}
+
+			qsizetype base64Size = srcEndIndex - base64StartIndex + 1;
+			QString base64Header = html.sliced(base64StartIndex, std::min((qsizetype) 16, base64Size));
+			QByteArray header    = QByteArray::fromBase64(qvariant_cast< QByteArray >(base64Header));
+			auto [type, fileExt] = findTextObjectTypeAndFileExtension(header);
+			isCompatibleExt      = type != TextObjectType::NoCustomObject;
+			if (isCompatibleExt) {
+				QByteArray base64 = qvariant_cast< QByteArray >(html.sliced(base64StartIndex, base64Size));
+				QByteArray ba;
+				bool isPercentEncoded = base64.contains('%');
+				if (isPercentEncoded) {
+					ba = QByteArray::fromPercentEncoding(base64);
+				}
+				ba     = QByteArray::fromBase64(isPercentEncoded ? ba : base64);
+				txtObj = { type, ba, fileExt, imgStartIndex, imgEndIndex, width, height };
+			}
+		} while (!isCompatibleExt && imgStartIndex != -1);
+		return txtObj;
+	};
+
+	QTextDocument &doc     = *tc->document();
+	bool isAnyCustomTxtObj = false;
+	// Track the end of the previous custom text object and thereby where to move the start of the search to
+	// as well as what HTML is between the currently processed custom text object and the previous one:
+	qsizetype previousImgEndIndex = -1;
+	do {
+		auto [type, ba, fileExt, imgStartIndex, imgEndIndex, width, height] = findTextObjectData(previousImgEndIndex);
+		if (type == TextObjectType::NoCustomObject) {
+			break;
+		}
+		isAnyCustomTxtObj = true;
+
+		QObject *obj = nullptr;
+		switch (type) {
+			case TextObjectType::ImageAnimation:
+				obj = ImageAnimationTextObject::createImageAnimation(ba, doc);
+				break;
+			case TextObjectType::NoCustomObject:
+				break;
+		}
+		bool isObj                   = obj != nullptr;
+		qsizetype previousHtmlLength = (isObj ? imgStartIndex - 1 : imgEndIndex) - previousImgEndIndex;
+		QString previousHtml = previousHtmlLength > 0 ? html.sliced(previousImgEndIndex + 1, previousHtmlLength) : "";
+		tc->insertHtml(previousHtml);
+		previousImgEndIndex = imgEndIndex;
+		if (!isObj) {
+			continue;
+		}
+
+		QTextCharFormat fmt;
+		int objType = static_cast< int >(type);
+		fmt.setObjectType(objType);
+		fmt.setProperty(1, QVariant::fromValue(obj));
+		if (width > 0) {
+			obj->setProperty("overrideWidth", width);
+		}
+		if (height > 0) {
+			obj->setProperty("overrideHeight", height);
+		}
+		obj->setProperty("characterPos", tc->position());
+		obj->setProperty("fileExtension", fileExt);
+		obj->setProperty("objectType", objType);
+		QVariant customObjectsProperty = doc.property("customObjects");
+		auto customObjects             = customObjectsProperty.isValid()
+								 ? qvariant_cast< QList< QObject * > >(customObjectsProperty)
+								 : QList< QObject * >();
+		obj->setProperty("customObjectIndex", customObjects.size());
+		customObjects.append(obj);
+		doc.setProperty("customObjects", QVariant::fromValue(customObjects));
+
+		// Set marker (zero-width space) for custom text object used when copying from selection at least:
+		tc->insertHtml("&#8203;");
+		tc->insertText(QString(QChar::ObjectReplacementCharacter), fmt);
+	} while (true);
+	if (isAnyCustomTxtObj) {
+		QString remainingHtml = previousImgEndIndex < htmlEndIndex ? html.sliced(previousImgEndIndex + 1) : "";
+		tc->insertHtml(remainingHtml);
+	}
+	return isAnyCustomTxtObj;
+}
+
+QString Log::setHtml(const QString &html, QTextCursor &tc, std::function< void() > baseClear) {
+	LogTextBrowser::clear(*tc.document(), baseClear);
+	return writeHtml(html, &tc);
+}
+
+QString Log::writeHtml(const QString &html, QTextCursor *tc) {
 	LogDocument qtd;
 
 	QRectF qr = Mumble::Screen::screenFromWidget(*Global::get().mw)->availableGeometry();
@@ -650,7 +890,12 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	// allowing our validation checks for things such as
 	// data URL images to run.
 	(void) qtd.documentLayout();
-	qtd.setHtml(html);
+	// Parse and insert custom text objects along with the rest of the HTML
+	// if a tag, header and valid data for any is detected, otherwise write
+	// the HTML in the usual way:
+	if (tc == nullptr || !writeHtmlWithCustomTextObjects(html, tc)) {
+		qtd.setHtml(html);
+	}
 
 	QStringList qslAllowed = allowedSchemes();
 	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
@@ -747,7 +992,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		qttf.setBottomMargin(msgMargin);
 
 		LogTextBrowser *tlog     = Global::get().mw->qteLog;
-		const int oldscrollvalue = tlog->getLogScroll();
+		const int oldscrollvalue = tlog->getScrollY();
 		// Restore the previous scroll position after inserting a new message
 		// if the message was not sent by the user AND the chat log is not
 		// scrolled all the way down.
@@ -798,15 +1043,15 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			dt.time().toString(QLatin1String(Global::get().s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timeString.toHtmlEscaped()), Log::Time));
 
-		validHtml(console, &tc);
+		writeHtml(console, &tc);
 		tc.movePosition(QTextCursor::End);
-		Global::get().mw->qteLog->setTextCursor(tc);
+		tlog->setTextCursor(tc);
 
 		// Set the line height of the trailing blank line to zero
 		tc.setBlockFormat(bf);
 
 		if (restoreScroll) {
-			tlog->setLogScroll(oldscrollvalue);
+			tlog->setScrollY(oldscrollvalue);
 		}
 	}
 

@@ -130,9 +130,9 @@ public:
 	/// Restart the client after shutdown
 	bool restartOnQuit;
 
-	/// Contains the cursor whose position is immediately before the image to
-	/// save when activating the "Save Image As..." context menu item.
-	QTextCursor qtcSaveImageCursor;
+	/// Contains the text object of the image to save
+	/// when activating the "Save Image As..." context menu item.
+	QTextFormat saveImageTextObject;
 
 	QPointer< Channel > cContextChannel;
 	QPointer< ClientUser > cuContextUser;

@@ -3000,16 +3000,20 @@ Are you sure you wish to replace your certificate?
         <translation>&lt;center&gt;Saisir un message ici&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation>Impossible d&apos;envoyer l&apos;image : trop lourde.</translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation>Impossible d&apos;envoyer l&apos;image %1 : trop lourde.</translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
         <translation>Ce serveur n&apos;autorise pas l&apos;envoi d&apos;image.</translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3914,6 +3918,21 @@ Sans cette option, l&apos;utilisation des raccourcis globaux de Mumble dans les 
     <message>
         <source>Mouse</source>
         <translation>Souris</translation>
+    </message>
+</context>
+<context>
+    <name>ImageAnimationTextObject</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5525,10 +5544,6 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Images (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7235,6 +7250,22 @@ Les options valides sont&#xa0;:
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

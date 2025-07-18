@@ -3001,15 +3001,19 @@ Jste si jisti, že chcete certifikát nahradit?
         <translation>&lt;center&gt;Zde zadejte chatovou zprávu&lt;/center&gt;</translation>
     </message>
     <message>
-        <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This server does not allow sending images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to send image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>too large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cannot read file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3908,6 +3912,21 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Mouse</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImageAnimationTextObject</name>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 Video Controls</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5518,10 +5537,6 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Špatné heslo serveru pro účet neregistrovaného uživatele, prosím zkuste znovu.</translation>
-    </message>
-    <message>
-        <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Obrázky (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <source>C&amp;onfigure</source>
@@ -7141,6 +7156,22 @@ Valid options are:
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animated Cursors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images (*.png *.jpg *.jpeg *.gif)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

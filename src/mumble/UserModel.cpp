@@ -682,7 +682,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								}
 							}
 							const_cast< UserModel * >(this)->seenComment(idx);
-							QString base = Log::validHtml(p->qsComment);
+							QString base = Log::writeHtml(p->qsComment);
 							if (!qsImage.isEmpty())
 								return QString::fromLatin1(
 										   "<table><tr><td valign=\"top\">%1</td><td>%2</td></tr></table>")
@@ -706,7 +706,7 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 							}
 
 							const_cast< UserModel * >(this)->seenComment(idx);
-							return Log::validHtml(c->qsDesc);
+							return Log::writeHtml(c->qsDesc);
 						}
 					}
 				} break;
