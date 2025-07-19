@@ -91,6 +91,8 @@ set(MUMBLE_SOURCES
 	"ACLEditor.ui"
 	"API_v_1_x_x.cpp"
 	"API.h"
+	"ArgumentParser.cpp"
+	"ArgumentParser.h"
 	"AudioConfigDialog.cpp"
 	"AudioConfigDialog.h"
 	"Audio.cpp"
