@@ -87,6 +87,7 @@ class BuildInstaller
 		string arch = "";
 		string vcRedistRequired = "";
 		bool isAllLangs = false;
+		bool skipMSIRebuild = false;
 
 		for (int i = 0; i < args.Length; i++) {
 			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){2}[0-9]+$")) {
@@ -104,15 +105,24 @@ class BuildInstaller
 			if (args[i] == "--vc-redist-required") {
 				vcRedistRequired = args[i + 1];
 			}
+
+			if (args[i] == "--skip-msi-rebuild") {
+				skipMSIRebuild = true;
+			}
 		}
 
 		if (version != null && arch != null) {
 			var srvInstaller = new ServerInstaller(version, arch);
 			srvInstaller.Version = new Version(version);
+			string msiPath;
 
-			var msiPath = isAllLangs
-			            ? srvInstaller.BuildMultilanguageMsi()
-			            : srvInstaller.BuildMsi();
+			if (!skipMSIRebuild) {
+				msiPath = isAllLangs
+							? srvInstaller.BuildMultilanguageMsi()
+							: srvInstaller.BuildMsi();
+			} else {
+				msiPath = srvInstaller.GetMSIPath();
+			}
 
 			srvInstaller.BundleMsi(msiPath, vcRedistRequired)
 			            .Build(msiPath.PathChangeExtension(".exe"));

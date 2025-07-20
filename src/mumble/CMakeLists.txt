@@ -1211,6 +1211,12 @@ if(packaging AND WIN32)
 		)
 	endif()
 
+	if(skip-msi-rebuild)
+		list(APPEND installer_vars
+			"--skip-msi-rebuild"
+		)
+	endif()
+
 	file(COPY
 		${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
 		${CMAKE_SOURCE_DIR}/installer/ClientInstaller.cs
