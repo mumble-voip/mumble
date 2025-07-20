@@ -62,7 +62,7 @@ esac
 
 buildDir="${GITHUB_WORKSPACE}/build"
 
-mkdir "$buildDir"
+mkdir -p "$buildDir"
 
 cd "$buildDir"
 

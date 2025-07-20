@@ -25,8 +25,15 @@ public struct Features {
 }
 
 public class ClientInstaller : MumbleInstall {
+
+	public const string s_Name = "Mumble (client)";
+	public const string s_UpgradeGuid = "D269FC55-4F2C-4285-9AA9-4D034AF305C4";
+
+	public static string GetMSIPath(string version, string arch) {
+		return System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, "mumble_client-" + new Version(version) + "-" + arch) + ".msi");
+	}
+
 	public ClientInstaller(string version, string arch, Features features) {
-		string upgradeGuid = "D269FC55-4F2C-4285-9AA9-4D034AF305C4";
 		List<string> binaries = new List<string>();
 		string[] plugins = {
 			"amongus.dll",
@@ -130,8 +137,8 @@ public class ClientInstaller : MumbleInstall {
 			}
 		}
 
-		this.Name = "Mumble (client)";
-		this.UpgradeCode = Guid.Parse(upgradeGuid);
+		this.Name = ClientInstaller.s_Name;
+		this.UpgradeCode = Guid.Parse(ClientInstaller.s_UpgradeGuid);
 		this.Version = new Version(version);
 		this.OutFileName = "mumble_client-" + this.Version + "-" + arch;
 		this.Media.First().Cabinet = "Mumble.cab";
@@ -204,6 +211,7 @@ class BuildInstaller
 		string vcRedistRequired = "";
 		bool isAllLangs = false;
 		Features features = new Features();
+		bool skipMSIRebuild = false;
 
 		for (int i = 0; i < args.Length; i++) {
 			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){2}[0-9]+$")) {
@@ -233,17 +241,27 @@ class BuildInstaller
 			if (args[i] == "--rnnoise") {
 				features.rnnoise = true;
 			}
+
+			if (args[i] == "--skip-msi-rebuild") {
+				skipMSIRebuild = true;
+			}
 		}
 
 		if (version != null && arch != null) {
-			var clInstaller = new ClientInstaller(version, arch, features);
-			clInstaller.Version = new Version(version);
+			string msiPath;
 
-			var msiPath = isAllLangs
-			            ? clInstaller.BuildMultilanguageMsi()
-			            : clInstaller.BuildMsi();
+			if (!skipMSIRebuild) {
+				var clInstaller = new ClientInstaller(version, arch, features);
+				clInstaller.Version = new Version(version);
+				msiPath = isAllLangs
+							? clInstaller.BuildMultilanguageMsi()
+							: clInstaller.BuildMsi();
+			} else {
+				Console.WriteLine("INFO - Skipping MSI rebuild.");
+				msiPath = ClientInstaller.GetMSIPath(version, arch);
+			}
 
-			clInstaller.BundleMsi(msiPath, vcRedistRequired)
+			MumbleInstall.BundleMsi(ClientInstaller.s_Name, Guid.Parse(ClientInstaller.s_UpgradeGuid), msiPath, vcRedistRequired)
 			           .Build(msiPath.PathChangeExtension(".exe"));
 		} else {
 			Console.WriteLine("ERROR - Values for arch or version are null or incorrect!");
