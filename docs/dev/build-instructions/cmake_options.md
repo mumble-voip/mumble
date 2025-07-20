@@ -204,6 +204,11 @@ Build redacted (outdated) plugins as well
 Build the server (Murmur)
 (Default: ON)
 
+### skip-msi-rebuild
+
+Prevent rebuilding installer MSI files from source. Used to be able to include signed MSI files in the bundle.
+(Default: OFF)
+
 ### speechd
 
 Build support for Speech Dispatcher.

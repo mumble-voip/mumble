@@ -14,8 +14,15 @@ using WixSharp;
 using WixSharp.CommonTasks;
 
 public class ServerInstaller : MumbleInstall {
+
+	public const string s_Name = "Mumble Server";
+	public const string s_UpgradeGuid = "03E9476F-0F75-4661-BFC9-A9DAEB23D3A0";
+
+	public static string GetMSIPath(string version, string arch) {
+		return System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, "mumble_server-" + new Version(version) + "-" + arch) + ".msi");
+	}
+
 	public ServerInstaller(string version, string arch) {
-		string upgradeGuid = "03E9476F-0F75-4661-BFC9-A9DAEB23D3A0";
 		string[] binaries = {
 			"mumble-server.exe",
 			"MumbleServer.ice"
@@ -38,8 +45,8 @@ public class ServerInstaller : MumbleInstall {
 			this.Platform = WixSharp.Platform.x86;
 		}
 
-		this.Name = "Mumble Server";
-		this.UpgradeCode = Guid.Parse(upgradeGuid);
+		this.Name = ServerInstaller.s_Name;
+		this.UpgradeCode = Guid.Parse(ServerInstaller.s_UpgradeGuid);
 		this.Version = new Version(version);
 		this.OutFileName = "mumble_server-" + this.Version + "-" + arch;
 		this.Media.First().Cabinet = "Mumble.cab";
@@ -87,6 +94,7 @@ class BuildInstaller
 		string arch = "";
 		string vcRedistRequired = "";
 		bool isAllLangs = false;
+		bool skipMSIRebuild = false;
 
 		for (int i = 0; i < args.Length; i++) {
 			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){2}[0-9]+$")) {
@@ -104,17 +112,27 @@ class BuildInstaller
 			if (args[i] == "--vc-redist-required") {
 				vcRedistRequired = args[i + 1];
 			}
+
+			if (args[i] == "--skip-msi-rebuild") {
+				skipMSIRebuild = true;
+			}
 		}
 
 		if (version != null && arch != null) {
-			var srvInstaller = new ServerInstaller(version, arch);
-			srvInstaller.Version = new Version(version);
+			string msiPath;
 
-			var msiPath = isAllLangs
-			            ? srvInstaller.BuildMultilanguageMsi()
-			            : srvInstaller.BuildMsi();
+			if (!skipMSIRebuild) {
+				var srvInstaller = new ServerInstaller(version, arch);
+				srvInstaller.Version = new Version(version);
+				msiPath = isAllLangs
+							? srvInstaller.BuildMultilanguageMsi()
+							: srvInstaller.BuildMsi();
+			} else {
+				Console.WriteLine("INFO - Skipping MSI rebuild.");
+				msiPath = ServerInstaller.GetMSIPath(version, arch);
+			}
 
-			srvInstaller.BundleMsi(msiPath, vcRedistRequired)
+			MumbleInstall.BundleMsi(ServerInstaller.s_Name, Guid.Parse(ServerInstaller.s_UpgradeGuid), msiPath, vcRedistRequired)
 			            .Build(msiPath.PathChangeExtension(".exe"));
 
 		} else {

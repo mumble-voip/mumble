@@ -299,6 +299,12 @@ if(packaging)
 			"--vc-redist-required" "${VC_REDIST_VERSION}"
 		)
 
+		if(skip-msi-rebuild)
+			list(APPEND installer_vars
+				"--skip-msi-rebuild"
+			)
+		endif()
+
 		file(COPY
 			${CMAKE_SOURCE_DIR}/installer/MumbleInstall.cs
 			${CMAKE_SOURCE_DIR}/installer/ServerInstaller.cs
