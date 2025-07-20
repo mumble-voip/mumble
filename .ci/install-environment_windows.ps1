@@ -141,7 +141,7 @@ Write-Host "Available services:"
 Get-Service | Format-Table -Auto
 
 Write-Host "Configuring PostgreSQL..."
-Set-Service -Name "postgresql-x64-17" -StartupType Manual -Status Running
+Set-Service -Name "postgresql-x64-16" -StartupType Manual -Status Running
 
 $env:PATH += ";$env:PGBIN"
 $env:PGPASSWORD="root"
