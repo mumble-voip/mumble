@@ -292,6 +292,7 @@ set(MUMBLE_SOURCES
 
 	"widgets/AccessibleQGroupBox.cpp"
 	"widgets/AccessibleQGroupBox.h"
+	"widgets/ClickableLabel.h"
 	"widgets/CompletablePage.cpp"
 	"widgets/CompletablePage.h"
 	"widgets/EventFilters.cpp"

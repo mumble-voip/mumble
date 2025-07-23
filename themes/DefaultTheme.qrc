@@ -31,6 +31,9 @@
     <file alias="layout_custom.svg">Default/layout_custom.svg</file>
     <file alias="layout_hybrid.svg">Default/layout_hybrid.svg</file>
     <file alias="layout_stacked.svg">Default/layout_stacked.svg</file>
+    <file alias="theme_light.svg">Default/theme_light.svg</file>
+    <file alias="theme_dark.svg">Default/theme_dark.svg</file>
+    <file alias="theme_auto.svg">Default/theme_auto.svg</file>
     <file alias="Dark.qss">Default/Dark.qss</file>
     <file alias="Lite.qss">Default/Lite.qss</file>
 	<file alias="lock_locked.svg">Default/lock_locked.svg</file>

@@ -82,6 +82,11 @@ public:
 	QString defaultStyle;
 };
 
+inline bool operator==(const ThemeInfo::StyleInfo &lhs, const ThemeInfo::StyleInfo &rhs) {
+	return lhs.themeName == rhs.themeName && lhs.name == rhs.name && lhs.defaultQss == rhs.defaultQss
+		   && lhs.qssFiles == rhs.qssFiles;
+}
+
 Q_DECLARE_METATYPE(ThemeInfo)
 Q_DECLARE_METATYPE(ThemeInfo::StyleInfo)
 
