@@ -16,6 +16,12 @@ public:
 	/// Returns the style configured in the given settings structure
 	static std::optional< ThemeInfo::StyleInfo > getConfiguredStyle(const Settings &settings);
 
+	/// Returns the style configured in the given settings structure
+	static std::optional< ThemeInfo::StyleInfo > getThemeStyle(const Settings &settings, bool darkMode);
+
+	static bool setConfiguredStyleHelper(QString &themeName, QString &themeStyleName,
+										 std::optional< ThemeInfo::StyleInfo > style);
+
 	/// Updates the given settings object to be configured to the given style
 	///
 	/// @note Does not apply the theme @see apply
@@ -23,12 +29,24 @@ public:
 	/// @param settings Settings object to update
 	/// @param style Style to set
 	/// @param outChanged Will be set to true if the style in settings actually changed. Will not be changed otherwise.
-	static void setConfiguredStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style, bool &outChanged);
+	static bool setConfiguredStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style);
+
+	/// Updates the given settings object to be configured to the given dark style
+	///
+	/// @note Does not apply the theme @see apply
+	///
+	/// @param settings Settings object to update
+	/// @param style Style to set
+	/// @param outChanged Will be set to true if the style in settings actually changed. Will not be changed otherwise.
+	static bool setConfiguredDarkStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style);
 
 	/// Applies the theme
 	///
 	/// @note Can only apply a theme before MainWindow etc. is opened
 	static bool apply();
+
+	/// Detects current OS theme
+	static bool detectSystemDarkTheme();
 
 	/// Return a theme name to theme map
 	static ThemeMap getThemes();

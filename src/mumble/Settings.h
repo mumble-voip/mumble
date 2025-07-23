@@ -35,6 +35,8 @@
 
 #include <array>
 
+enum class StyleType { Auto, Light, Dark };
+
 class QSettings;
 struct MigratedPath;
 
@@ -403,10 +405,15 @@ struct Settings {
 
 	QString qsLanguage = {};
 
+	StyleType styleType = StyleType::Auto;
 	/// Name of the theme to use. @see Themes
 	QString themeName = QStringLiteral("Mumble");
 	/// Name of the style to use from theme. @see Themes
 	QString themeStyleName = QStringLiteral("Lite");
+	/// Name of the theme to use. @see Themes
+	QString themeDarkName = QStringLiteral("Mumble");
+	/// Name of the style to use from theme. @see Themes
+	QString themeDarkStyleName = QStringLiteral("Dark");
 
 	QByteArray qbaMainWindowGeometry     = {};
 	QByteArray qbaMainWindowState        = {};
@@ -560,7 +567,9 @@ struct Settings {
 	float dMaxPacketDelay  = 0.0f;
 	/// If true settings in this structure require a client restart to apply fully
 	bool requireRestartToApply = false;
-	QString settingsLocation   = {};
+	/// If true settings in this structure require a client redraw
+	bool requireThemeApplication = false;
+	QString settingsLocation     = {};
 	/// A flag indicating whether the current Mumble session has already backed up the settings it was started with,
 	/// before writing new ones.
 	mutable bool createdSettingsBackup = false;

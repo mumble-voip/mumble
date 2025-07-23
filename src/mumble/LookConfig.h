@@ -38,6 +38,10 @@ public slots:
 	void load(const Settings &r) Q_DECL_OVERRIDE;
 	void talkinguiBackgroundSet(QColor color);
 	void talkinguiBackgroundCleared();
+	void setActiveThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle,
+						 const std::optional< ThemeInfo::StyleInfo > configuredDarkStyle);
+	void setStyleType(StyleType styleType) const;
+	StyleType getStyleType() const;
 	void themeDirectoryChanged();
 	void on_qcbAbbreviateChannelNames_stateChanged(int state);
 	void on_qcbUsersAlwaysVisible_stateChanged(int state);
@@ -45,7 +49,7 @@ public slots:
 
 private:
 	/// Reload themes combobox and select given configuredStyle in it
-	void reloadThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle);
+	void reloadThemes();
 
 	/// Timer to prevent change event floods from triggering theme reloads
 	QTimer *m_themeDirectoryDebouncer;
