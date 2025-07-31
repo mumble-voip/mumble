@@ -22,6 +22,9 @@
 #include "VolumeAdjustment.h"
 #include "Global.h"
 
+#include <limits>
+#include <type_traits>
+
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QRegularExpression>
@@ -674,7 +677,7 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
 
-	if (!s.isValid()) {
+	if (!s.isValid() || s.width() == 0 || s.height() == 0) {
 		QString errorInvalidSizeMessage = tr("[[ Invalid size ]]");
 		if (tc) {
 			tc->insertText(errorInvalidSizeMessage);
@@ -684,10 +687,14 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 		}
 	}
 
-	int messageSize = static_cast< int >(s.width() * s.height());
-	int allowedSize = 2048 * 2048;
+	static constexpr unsigned int allowedSize = 2048 * 2048;
+	// This checks against negative sizes as well as sizes whose product overflows the integral type we use to represent
+	// the maximum allowed size
+	const bool saneSize =
+		s.width() > 0 && s.height() > 0 && s.width() < std::numeric_limits< decltype(allowedSize) >::max() / s.height();
+	const auto messageSize = static_cast< std::decay_t< decltype(allowedSize) > >(s.width() * s.height());
 
-	if (messageSize > allowedSize) {
+	if (!saneSize || messageSize > allowedSize) {
 		QString errorSizeMessage = tr("[[ Text object too large to display ]]");
 		if (tc) {
 			tc->insertText(errorSizeMessage);
