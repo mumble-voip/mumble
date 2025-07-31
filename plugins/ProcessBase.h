@@ -108,6 +108,7 @@ public:
 	procptr_t findPattern(const std::vector< uint8_t > &pattern, procptr_t address, const size_t size);
 
 	ProcessBase(const procid_t id, const std::string &name);
+	ProcessBase(ProcessBase &&other) = default;
 	virtual ~ProcessBase();
 };
 
