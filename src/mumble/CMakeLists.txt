@@ -312,6 +312,8 @@ set(MUMBLE_SOURCES
 	"widgets/SemanticSlider.h"
 	"widgets/TrayIcon.cpp"
 	"widgets/TrayIcon.h"
+	"widgets/ResponsiveImageDialog.cpp"
+	"widgets/ResponsiveImageDialog.h"
 
 
 	"${SHARED_SOURCE_DIR}/ACL.cpp"
