@@ -29,7 +29,7 @@ jobs:
       shell: bash
 
     - name: Check line endings
-      uses: erclu/check-crlf@v1
+      uses: erclu/check-crlf@master
       with:
           exclude: '3rdparty/'
 
