@@ -1656,14 +1656,6 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>Žádná</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Místní</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Server</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Výstup Zvuku</translation>
     </message>
@@ -1697,6 +1689,22 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     </message>
     <message>
         <source>meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3347,7 +3355,7 @@ Jste si jisti, že chcete certifikát nahradit?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Serveru</translation>
     </message>
 </context>
 <context>

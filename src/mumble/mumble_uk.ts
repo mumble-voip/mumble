@@ -1656,14 +1656,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Жодного</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Місцевий</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Сервер</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Аудіовихід</translation>
     </message>
@@ -1698,6 +1690,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>meters</source>
         <translation>метрів</translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

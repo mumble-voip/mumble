@@ -1656,14 +1656,6 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Нет</translation>
     </message>
     <message>
-        <source>Local</source>
-        <translation>Локально</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation>Сервер</translation>
-    </message>
-    <message>
         <source>Audio Output</source>
         <translation>Входящий звук</translation>
     </message>
@@ -1698,6 +1690,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>meters</source>
         <translation>метры</translation>
+    </message>
+    <message>
+        <source>Local (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Local (send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (don&apos;t send to others)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server (send to others)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7265,7 +7273,7 @@ Valid options are:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Графическое представление позиционного моделирования звука</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>

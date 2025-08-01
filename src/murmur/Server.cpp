@@ -1186,114 +1186,128 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 
 	buffer.clear();
 
-	if (audioData.targetOrContext == Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK) {
-		buffer.forceAddReceiver(*u, Mumble::Protocol::AudioContext::NORMAL, audioData.containsPositionalData);
-	} else if (audioData.targetOrContext == Mumble::Protocol::ReservedTargetIDs::REGULAR_SPEECH) {
-		Channel *c = u->cChannel;
+	switch (audioData.targetOrContext) {
+		case Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK_ONLY:
+			buffer.forceAddReceiver(*u, Mumble::Protocol::AudioContext::NORMAL, audioData.containsPositionalData);
+			break;
+		case Mumble::Protocol::ReservedTargetIDs::SERVER_LOOPBACK_REGULAR:
+			buffer.forceAddReceiver(*u, Mumble::Protocol::AudioContext::NORMAL, audioData.containsPositionalData);
+			[[fallthrough]];
+		case Mumble::Protocol::ReservedTargetIDs::REGULAR_SPEECH: {
+			Channel *c = u->cChannel;
 
-		// Send audio to all users that are listening to the channel
-		foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(c->iId)) {
-			ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
-			if (pDst) {
-				buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::LISTEN, audioData.containsPositionalData,
-								   m_channelListenerManager.getListenerVolumeAdjustment(pDst->uiSession, c->iId));
+			// Send audio to all users that are listening to the channel
+			foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(c->iId)) {
+				ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
+				if (pDst) {
+					buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::LISTEN,
+									   audioData.containsPositionalData,
+									   m_channelListenerManager.getListenerVolumeAdjustment(pDst->uiSession, c->iId));
+				}
 			}
-		}
 
-		// Send audio to all users in the same channel
-		for (User *p : c->qlUsers) {
-			ServerUser *pDst = static_cast< ServerUser * >(p);
+			// Send audio to all users in the same channel
+			for (User *p : c->qlUsers) {
+				ServerUser *pDst = static_cast< ServerUser * >(p);
 
-			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::NORMAL, audioData.containsPositionalData);
-		}
+				buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::NORMAL, audioData.containsPositionalData);
+			}
 
-		// Send audio to all linked channels the user has speak-permission
-		if (!c->qhLinks.isEmpty()) {
-			QSet< Channel * > chans = c->allLinks();
-			chans.remove(c);
+			// Send audio to all linked channels the user has speak-permission
+			if (!c->qhLinks.isEmpty()) {
+				QSet< Channel * > chans = c->allLinks();
+				chans.remove(c);
 
-			QMutexLocker qml(&qmCache);
+				QMutexLocker qml(&qmCache);
 
-			for (Channel *l : chans) {
-				if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
-					// Send the audio stream to all users that are listening to the linked channel
-					for (unsigned int currentSession : m_channelListenerManager.getListenersForChannel(l->iId)) {
-						ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
-						if (pDst) {
-							buffer.addReceiver(
-								*u, *pDst, Mumble::Protocol::AudioContext::LISTEN, audioData.containsPositionalData,
-								m_channelListenerManager.getListenerVolumeAdjustment(pDst->uiSession, l->iId));
+				for (Channel *l : chans) {
+					if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
+						// Send the audio stream to all users that are listening to the linked channel
+						for (unsigned int currentSession : m_channelListenerManager.getListenersForChannel(l->iId)) {
+							ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
+							if (pDst) {
+								buffer.addReceiver(
+									*u, *pDst, Mumble::Protocol::AudioContext::LISTEN, audioData.containsPositionalData,
+									m_channelListenerManager.getListenerVolumeAdjustment(pDst->uiSession, l->iId));
+							}
 						}
-					}
 
-					// Send audio to users in the linked channel
-					for (User *p : l->qlUsers) {
-						ServerUser *pDst = static_cast< ServerUser * >(p);
+						// Send audio to users in the linked channel
+						for (User *p : l->qlUsers) {
+							ServerUser *pDst = static_cast< ServerUser * >(p);
 
-						buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::NORMAL,
-										   audioData.containsPositionalData);
+							buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::NORMAL,
+											   audioData.containsPositionalData);
+						}
 					}
 				}
 			}
+
+			break;
 		}
-	} else if (u->qmTargets.contains(static_cast< int >(audioData.targetOrContext))) { // Whisper/Shout
-		QSet< ServerUser * > channel;
-		QSet< ServerUser * > direct;
-		QHash< ServerUser *, VolumeAdjustment > cachedListeners;
+		default:
+			if (u->qmTargets.contains(static_cast< int >(audioData.targetOrContext))) { // Whisper/Shout
+				QSet< ServerUser * > channel;
+				QSet< ServerUser * > direct;
+				QHash< ServerUser *, VolumeAdjustment > cachedListeners;
 
-		if (u->qmTargetCache.contains(static_cast< int >(audioData.targetOrContext))) {
-			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_STORE);
+				if (u->qmTargetCache.contains(static_cast< int >(audioData.targetOrContext))) {
+					ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_STORE);
 
-			const WhisperTargetCache &cache = u->qmTargetCache.value(static_cast< int >(audioData.targetOrContext));
-			channel                         = cache.channelTargets;
-			direct                          = cache.directTargets;
-			cachedListeners                 = cache.listeningTargets;
-		} else {
-			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_CREATE);
+					const WhisperTargetCache &cache =
+						u->qmTargetCache.value(static_cast< int >(audioData.targetOrContext));
+					channel         = cache.channelTargets;
+					direct          = cache.directTargets;
+					cachedListeners = cache.listeningTargets;
+				} else {
+					ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_CREATE);
 
-			const unsigned int uiSession = u->uiSession;
-			qrwlVoiceThread.unlock();
-			qrwlVoiceThread.lockForWrite();
+					const unsigned int uiSession = u->uiSession;
+					qrwlVoiceThread.unlock();
+					qrwlVoiceThread.lockForWrite();
 
-			if (!qhUsers.contains(uiSession)) {
-				return;
+					if (!qhUsers.contains(uiSession)) {
+						return;
+					}
+
+					// Create cache entry for the given target
+					// Note: We have to compute the cache entry and add it to the user's cache store in an atomic
+					// transaction (ensured by the lock) to avoid running into situations in which a user from the cache
+					// gets deleted without this particular cache entry being purged (which happens, if the cache entry
+					// is in the store at the point of deleting the user).
+					const WhisperTarget &wt  = u->qmTargets.value(static_cast< int >(audioData.targetOrContext));
+					WhisperTargetCache cache = createWhisperTargetCacheFor(*u, wt);
+
+					u->qmTargetCache.insert(static_cast< int >(audioData.targetOrContext), std::move(cache));
+
+
+					qrwlVoiceThread.unlock();
+					qrwlVoiceThread.lockForRead();
+					if (!qhUsers.contains(uiSession))
+						return;
+				}
+
+				// These users receive the audio because someone is shouting to their channel
+				for (ServerUser *pDst : channel) {
+					buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::SHOUT,
+									   audioData.containsPositionalData);
+				}
+				// These users receive audio because someone is whispering to them
+				for (ServerUser *pDst : direct) {
+					buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::WHISPER,
+									   audioData.containsPositionalData);
+				}
+				// These users receive audio because someone is sending audio to one of their listeners
+				QHashIterator< ServerUser *, VolumeAdjustment > it(cachedListeners);
+				while (it.hasNext()) {
+					it.next();
+					ServerUser *user                         = it.key();
+					const VolumeAdjustment &volumeAdjustment = it.value();
+
+					buffer.addReceiver(*u, *user, Mumble::Protocol::AudioContext::LISTEN,
+									   audioData.containsPositionalData, volumeAdjustment);
+				}
 			}
-
-			// Create cache entry for the given target
-			// Note: We have to compute the cache entry and add it to the user's cache store in an atomic
-			// transaction (ensured by the lock) to avoid running into situations in which a user from the cache
-			// gets deleted without this particular cache entry being purged (which happens, if the cache entry is
-			// in the store at the point of deleting the user).
-			const WhisperTarget &wt  = u->qmTargets.value(static_cast< int >(audioData.targetOrContext));
-			WhisperTargetCache cache = createWhisperTargetCacheFor(*u, wt);
-
-			u->qmTargetCache.insert(static_cast< int >(audioData.targetOrContext), std::move(cache));
-
-
-			qrwlVoiceThread.unlock();
-			qrwlVoiceThread.lockForRead();
-			if (!qhUsers.contains(uiSession))
-				return;
-		}
-
-		// These users receive the audio because someone is shouting to their channel
-		for (ServerUser *pDst : channel) {
-			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::SHOUT, audioData.containsPositionalData);
-		}
-		// These users receive audio because someone is whispering to them
-		for (ServerUser *pDst : direct) {
-			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::WHISPER, audioData.containsPositionalData);
-		}
-		// These users receive audio because someone is sending audio to one of their listeners
-		QHashIterator< ServerUser *, VolumeAdjustment > it(cachedListeners);
-		while (it.hasNext()) {
-			it.next();
-			ServerUser *user                         = it.key();
-			const VolumeAdjustment &volumeAdjustment = it.value();
-
-			buffer.addReceiver(*u, *user, Mumble::Protocol::AudioContext::LISTEN, audioData.containsPositionalData,
-							   volumeAdjustment);
-		}
 	}
 
 	ZoneNamedN(__tracy_scoped_zone2, TracyConstants::AUDIO_SENDOUT_ZONE, true);
