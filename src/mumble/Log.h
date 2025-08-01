@@ -10,6 +10,7 @@
 #include <QtCore/QDate>
 #include <QtCore/QMutex>
 #include <QtCore/QVector>
+#include <QtGui/QMovie>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextDocument>
 
@@ -119,6 +120,11 @@ public:
 	// versions.
 	static const MsgType msgOrder[];
 
+	enum class TextObjectType { NoCustomObject, ImageAnimation = QTextFormat::UserObject };
+	inline static const QHash< TextObjectType, std::function< QList< QByteArray >() > > txtObjTypeToFileExtsFuncMap = {
+		{ TextObjectType::ImageAnimation, QMovie::supportedFormats }
+	};
+
 protected:
 	/// Mutex for qvDeferredLogs
 	static QMutex qmDeferredLogs;
@@ -133,16 +139,24 @@ protected:
 #endif
 	unsigned int uiLastId;
 	QDate qdDate;
+	static bool writeHtmlWithCustomTextObjects(const QString &html, QTextCursor *tc);
 	static const QStringList allowedSchemes();
+	void postNotification(MsgType mt, const QString &plain);
+	void postQtNotification(MsgType mt, const QString &plain);
 
 public:
 	Log(QObject *p = nullptr);
 	QString msgName(MsgType t) const;
 	void setIgnore(MsgType t, int ignore = 1 << 30);
 	void clearIgnore();
-	static QString validHtml(const QString &html, QTextCursor *tc = nullptr);
+	static QString setHtml(const QString &html, QTextCursor &tc, std::function< void() > baseClear = nullptr);
+	static QString writeHtml(const QString &html, QTextCursor *tc = nullptr);
 	static QString imageToImg(const QByteArray &format, const QByteArray &image);
-	static QString imageToImg(QImage img, int maxSize = 0);
+	static QString imageToImg(QImage img, int maxSize = 0, const QByteArray &format = "jpg");
+	static bool isFileExtension(const QByteArray &ext, const QByteArray &header);
+	static QString findFileExtension(const QByteArray &header);
+	static TextObjectType findTextObjectType(const QString &fileExt);
+	static std::tuple< TextObjectType, QString > findTextObjectTypeAndFileExtension(const QByteArray &header);
 	static QString msgColor(const QString &text, LogColorType t);
 	static QString formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName = QString());
 	static QString formatChannel(::Channel *c);
