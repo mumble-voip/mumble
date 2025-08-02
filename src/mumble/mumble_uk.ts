@@ -7063,6 +7063,54 @@ Valid actions are:
         <translation>Це може бути спричинено одним із таких сценаріїв:&lt;ul&gt;&lt;li&gt;Ваш клієнт і сервер використовують різні стандарти шифрування. Це може бути тому, що ви використовуєте дуже старий клієнт або сервер, до якого ви підключаєтеся, дуже старий. У першому випадку вам слід оновити свій клієнт, а в другому – зв’язатися з адміністратором сервера, щоб він міг оновити свій сервер.&lt;/li&gt;&lt;li&gt;Ваш клієнт або сервер використовує стару операційну систему, яка не надають сучасні методи шифрування. У цьому випадку вам слід розглянути можливість оновлення вашої ОС або зв’язатися з адміністратором сервера, щоб він міг оновити свою.&lt;/li&gt;&lt;li&gt;Сервер, до якого ви під’єднуєтеся, насправді не є сервером Mumble. Переконайтеся, що використана адреса сервера справді належить серверу Mumble, а не напр. до ігрового сервера.&lt;/li&gt;&lt;li&gt;Порт, до якого ви підключаєтеся, не належить до сервера Mumble, а натомість прив’язаний до абсолютно непов’язаного процесу на стороні сервера. Ще раз перевірте, чи використано правильний порт.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
+        <source>M&amp;ove back</source>
+        <translation>&amp;Перемістити назад</translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation>Повертає вас до попереднього каналу</translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation>Рухатися назад</translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation>Це поверне вас до попереднього каналу</translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation>Канал, на якому ви були раніше, більше не існує на цьому сервері.</translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation>Режим ослаблення прослуховування циклу</translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation>Це циклічно перемикатиме різні режими ослаблення для прослуховувачів каналу</translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>Збільшення затухання слухача (+10%)</translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation>Це збільшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>Зменшення затухання слухача (-10%)</translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation>Це зменшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -7125,118 +7173,10 @@ Valid options are:
                 Mumble&apos;s settings.
   --hidden
                 Start Mumble hidden in the system tray.
+  --no-backup-prompt
+                Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation>Використання: mumble [параметри] [&lt;url&gt; | &lt;список плагінів&gt;] 
-
-&lt;url&gt; визначає URL-адресу для підключення після запуску замість показу 
-вікно підключення і має такий вигляд: 
-mumble://[&lt;ім&apos;я користувача&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;порт&gt;][/&lt;канал&gt;[/&lt;підканал&gt;...]][?version=&lt;x.y.z&gt;] 
-
-&lt;plugin_list&gt; — це список файлів плагінів, які потрібно встановити 
-Параметр запиту версії має бути встановлено, щоб викликати 
-правильна версія клієнта. Зараз за замовчуванням 1.2.0. 
-
-Допустимі варіанти: 
-  -h, --help Показати цей текст довідки та вийти. 
-  --version Вивести інформацію про версію та вийти 
-  -m, --множинні 
-                Дозволити запуск кількох екземплярів клієнта. 
-  -c, --config 
-                Вкажіть альтернативний файл конфігурації. 
-                Якщо ви використовуєте це для одночасного запуску кількох екземплярів Mumble, 
-                переконайтеся, що встановлено альтернативне значення «бази даних» у конфігурації. 
-  --default-certificate-dir &lt;каталог&gt; 
-                Укажіть альтернативний шлях сертифіката за замовчуванням. 
-                Цей шлях використовується, лише якщо сертифікат не завантажено 
-                з налаштувань. 
-  -n, --noidentity 
-                Припинити завантаження ідентифікаційних файлів (тобто сертифікатів). 
-  -jn, --jackname &lt;арг&gt; 
-                Встановіть власне ім’я клієнта Jack. 
-  --ліцензія 
-                Покажіть ліцензію Mumble. 
-  --автори 
-                Покажіть авторів Mumble. 
-  --ліцензії третіх сторін 
-                Показати ліцензії на стороннє програмне забезпечення, яке використовує Mumble. 
-  --window-title-ext &lt;арг&gt; 
-                Встановлює спеціальне розширення заголовка вікна. 
-  --dump-вхідні-потоки 
-                Дамп потоків PCM у різних частинах вхідного ланцюжка 
-                (корисно для цілей налагодження) 
-                - необроблений мікрофонний вхід 
-                - зчитування гучномовця для придушення луни 
-                - оброблений мікрофонний вхід 
-  --print-echocancel-queue 
-                Друкувати стан черги на скасування луни на stdout 
-                (корисно для цілей налагодження) 
-  --translation-dir &lt;каталог&gt; 
-                Визначає додатковий каталог перекладу &lt;dir&gt; 
-                у якому Mumble шукатиме файли перекладу, які 
-                перезаписати об’єднані 
-                Каталоги, додані таким чином, мають вищий пріоритет, ніж 
-                розташування за замовчуванням, що використовуються в іншому випадку 
-  --print-translation-dirs 
-                Роздрукуйте шляхи, за якими Mumble шукатиме 
-                файли перекладу, які перезаписують пакетні файли. 
-                (Корисно для перекладачів, які перевіряють свої переклади) 
-  --locale &lt;локаль&gt; 
-                Замініть локаль у налаштуваннях Mumble за допомогою a 
-                локаль, яка відповідає даному рядку локалі. 
-                Якщо формат недійсний, Mumble виведе помилку. 
-                Інакше локаль буде збережено назавжди 
-                Налаштування Mumble. 
-  --прихований 
-                Запустіть Mumble, прихований у системному треї.
-</translation>
-    </message>
-    <message>
-        <source>M&amp;ove back</source>
-        <translation>&amp;Перемістити назад</translation>
-    </message>
-    <message>
-        <source>Moves you back to the previous channel</source>
-        <translation>Повертає вас до попереднього каналу</translation>
-    </message>
-    <message>
-        <source>Move back</source>
-        <comment>Global shortcut</comment>
-        <translation>Рухатися назад</translation>
-    </message>
-    <message>
-        <source>This will move you back into your previous channel</source>
-        <translation>Це поверне вас до попереднього каналу</translation>
-    </message>
-    <message>
-        <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation>Канал, на якому ви були раніше, більше не існує на цьому сервері.</translation>
-    </message>
-    <message>
-        <source>Cycle listener attenuation mode</source>
-        <comment>Global shortcut</comment>
-        <translation>Режим ослаблення прослуховування циклу</translation>
-    </message>
-    <message>
-        <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation>Це циклічно перемикатиме різні режими ослаблення для прослуховувачів каналу</translation>
-    </message>
-    <message>
-        <source>Listener attenuation up (+10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>Збільшення затухання слухача (+10%)</translation>
-    </message>
-    <message>
-        <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation>Це збільшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
-    </message>
-    <message>
-        <source>Listener attenuation down (-10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>Зменшення затухання слухача (-10%)</translation>
-    </message>
-    <message>
-        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation>Це зменшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
