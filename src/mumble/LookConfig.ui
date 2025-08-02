@@ -1111,16 +1111,6 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="qlThemesDirectory">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="qliThemeStyle">
         <property name="text">
@@ -1252,6 +1242,16 @@
         </property>
        </widget>
       </item>
+      <item row="7" column="0" colspan="2">
+       <widget class="QPushButton" name="qpbThemesDirectory">
+        <property name="accessibleName">
+         <string>Open the themes directory in the systems file manager</string>
+        </property>
+        <property name="text">
+         <string>Open Themes Directory</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -1279,6 +1279,7 @@
   <tabstop>qrbAutoStyle</tabstop>
   <tabstop>qcbLightTheme</tabstop>
   <tabstop>qcbDarkTheme</tabstop>
+  <tabstop>qpbThemesDirectory</tabstop>
   <tabstop>qcbLanguage</tabstop>
   <tabstop>qcbHighContrast</tabstop>
   <tabstop>qcbShowTransmitModeComboBox</tabstop>
@@ -1313,8 +1314,8 @@
   <tabstop>qsbPostfixCharCount</tabstop>
   <tabstop>qleAbbreviationReplacement</tabstop>
   <tabstop>qbClearBackgroundColor</tabstop>
-  <tabstop>qbBackgroundColor</tabstop>
   <tabstop>qleChannelSeparator</tabstop>
+  <tabstop>qbBackgroundColor</tabstop>
  </tabstops>
  <resources/>
  <connections/>
