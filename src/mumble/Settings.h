@@ -576,8 +576,8 @@ struct Settings {
 	void save(const QString &path) const;
 	void save() const;
 
-	void load(const QString &path);
-	void load();
+	void load(const QString &path, bool skipSettingsBackupPrompt = false);
+	void load(bool skipSettingsBackupPrompt = false);
 
 	void legacyLoad(const QString &path = {});
 

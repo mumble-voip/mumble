@@ -216,7 +216,7 @@ void Settings::save() const {
 	}
 }
 
-void Settings::load(const QString &path) {
+void Settings::load(const QString &path, bool skipSettingsBackupPrompt) {
 	if (path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION))) {
 		// Trim away the backup extension
 		settingsLocation = path.left(path.size() - static_cast< int >(std::strlen(BACKUP_FILE_EXTENSION)));
@@ -232,7 +232,7 @@ void Settings::load(const QString &path) {
 
 		settingsJSON.get_to(*this);
 
-		if (!mumbleQuitNormally) {
+		if (!mumbleQuitNormally && !skipSettingsBackupPrompt) {
 			// These settings were saved without Mumble quitting normally afterwards. In order to prevent loading
 			// settings that are causing crashes, we check if we can load the backup instead.
 			if (!path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION))) {
@@ -254,7 +254,7 @@ void Settings::load(const QString &path) {
 					if (msgBox.exec() == QMessageBox::Yes) {
 						// Load the backup instead
 						qWarning() << "Loading backup settings from" << backupPath;
-						load(backupPath);
+						load(backupPath, skipSettingsBackupPrompt);
 					}
 				}
 			} else {
@@ -279,7 +279,7 @@ void Settings::load(const QString &path) {
 
 		if (!path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION)) && QFileInfo(path + BACKUP_FILE_EXTENSION).exists()) {
 			qWarning() << "Falling back to backup" << path + BACKUP_FILE_EXTENSION;
-			load(path + BACKUP_FILE_EXTENSION);
+			load(path + BACKUP_FILE_EXTENSION, skipSettingsBackupPrompt);
 		}
 	}
 
@@ -287,7 +287,7 @@ void Settings::load(const QString &path) {
 	mumbleQuitNormally = false;
 }
 
-void Settings::load() {
+void Settings::load(bool skipSettingsBackupPrompt) {
 	bool foundExisting = false;
 
 	QString settingsPath = findSettingsLocation(false, &foundExisting);
@@ -295,11 +295,11 @@ void Settings::load() {
 	if (foundExisting) {
 		// If we found a regular settings file, then use that and be done with it
 		qInfo() << "Loading settings from" << settingsPath;
-		load(settingsPath);
+		load(settingsPath, skipSettingsBackupPrompt);
 	} else if (QFileInfo(settingsPath + BACKUP_FILE_EXTENSION).exists()) {
 		// Load backup settings instead
 		qInfo() << "Loading backup settings from" << settingsPath + BACKUP_FILE_EXTENSION;
-		load(settingsPath + BACKUP_FILE_EXTENSION);
+		load(settingsPath + BACKUP_FILE_EXTENSION, skipSettingsBackupPrompt);
 	} else {
 		// Otherwise check for a legacy settings file and if that is found, load settings from there
 		QString legacySettingsPath = findSettingsLocation(true, &foundExisting);
