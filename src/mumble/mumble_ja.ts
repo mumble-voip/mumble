@@ -4436,7 +4436,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
@@ -4889,7 +4889,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">検索</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -6844,7 +6844,7 @@ Valid actions are:
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">はい</translation>
     </message>
     <message>
         <source>No</source>
@@ -7020,6 +7020,54 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>M&amp;ove back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -7082,55 +7130,9 @@ Valid options are:
                 Mumble&apos;s settings.
   --hidden
                 Start Mumble hidden in the system tray.
+  --no-backup-prompt
+                Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Move back</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cycle listener attenuation mode</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Listener attenuation up (+10%)</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Listener attenuation down (-10%)</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8064,7 +8066,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">有効</translation>
     </message>
     <message>
         <source>PA</source>
@@ -8771,7 +8773,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">検索</translation>
     </message>
     <message>
         <source>Enter search String...</source>

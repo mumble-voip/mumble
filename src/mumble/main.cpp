@@ -276,6 +276,7 @@ int main(int argc, char **argv) {
 	bool bRpcMode             = false;
 	bool printTranslationDirs = false;
 	bool startHiddenInTray    = false;
+	bool noBackupPrompt       = false;
 	QString rpcCommand;
 	QUrl url;
 	QDir qdCert(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
@@ -354,7 +355,9 @@ int main(int argc, char **argv) {
 								   "                Otherwise the locale will be permanently saved to\n"
 								   "                Mumble's settings.\n"
 								   "  --hidden\n"
-								   "                Start Mumble hidden in the system tray."
+								   "                Start Mumble hidden in the system tray.\n"
+								   "  --no-backup-prompt\n"
+								   "                Don't show the settings recovery dialog on startup after a crash."
 								   "\n");
 				QString rpcHelpBanner = MainWindow::tr("Remote controlling Mumble:\n"
 													   "\n");
@@ -489,6 +492,8 @@ int main(int argc, char **argv) {
 				// When Qt addresses hide() on macOS to use native hiding, this can be fixed.
 				qWarning("Can not start Mumble hidden in system tray on macOS");
 #endif
+			} else if (args.at(i) == QLatin1String("--no-backup-prompt")) {
+				noBackupPrompt = true;
 			} else if (args.at(i) == "--version") {
 				// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
 				// using e.g. qWarning
@@ -634,9 +639,9 @@ int main(int argc, char **argv) {
 
 	// Load preferences
 	if (settingsFile.isEmpty()) {
-		Global::get().s.load();
+		Global::get().s.load(noBackupPrompt);
 	} else {
-		Global::get().s.load(settingsFile);
+		Global::get().s.load(settingsFile, noBackupPrompt);
 	}
 	if (!Global::get().migratedDBPath.isEmpty()) {
 		// We have migrated the DB to a new location. Make sure that the settings hold the correct (new) path and that

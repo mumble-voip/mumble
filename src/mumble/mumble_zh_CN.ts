@@ -7061,6 +7061,54 @@ Valid actions are:
         <translation>这可能由下列情形之一导致：&lt;ul&gt;&lt;li&gt;客户端和服务器使用不同的加密标准。这可能是因为客户端版本太旧或者要连接到的服务器版本太旧。如果是第一种情况，则应该更新客户端。如果是第二种情况，则应该联系服务器管理员更新服务器。&lt;/li&gt;&lt;li&gt;客户端或服务器使用的旧版操作系统未提供足够新的加密方法。在这种情况下，您应该考虑更新操作系统，或联系服务器管理员更新服务器的操作系统。&lt;/li&gt;&lt;li&gt;您正在连接的服务器不是 Mumble 服务器。请确保所用的服务器地址确实属于 Mumble 服务器而不是游戏服务器等。&lt;/li&gt;&lt;li&gt;您正在连接的端口不属于 Mumble 服务器，而是绑定到服务端一个完全无关的进程。请再次确认您使用的是正确的端口。&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
+        <source>M&amp;ove back</source>
+        <translation>后退(&amp;O)</translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation>将您移动回之前的频道</translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation>后退</translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation>这会将您移动回之前所在的频道</translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation>您之前所在的频道已不存在于服务器上。</translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation>循环切换监听衰减模式</translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation>这会在频道监听者的不同衰减模式之间切换</translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>增大监听者衰减（+10%）</translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation>这会将频道监听者衰减增大百分之 10</translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>减小监听者衰减（-10%）</translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation>这会将频道监听者衰减减小百分之 10</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -7123,115 +7171,10 @@ Valid options are:
                 Mumble&apos;s settings.
   --hidden
                 Start Mumble hidden in the system tray.
+  --no-backup-prompt
+                Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation>用法：mumble [选项] [&lt;URL&gt; | &lt;插件列表&gt;]
-&lt;URL&gt; 指定启动时连接的 URL，而不是显示连接窗口，
-URL 的格式为：
-mumble://[&lt;用户名&gt;[:&lt;密码&gt;]@]&lt;主机名&gt;[:&lt;端口&gt;][/&lt;频道名&gt;[/&lt;子频道名&gt;...]][?version=&lt;x.y.z&gt;]
-&lt;插件列表&gt; 是需要安装的插件列表
-必须设置 version 请求参数以调用正确的客户端版本，
-当前的默认值为 1.2.0。
-可用的选项：
-  -h, --help    显示此帮助信息并退出。
-  --version     显示版本信息并退出
-  -m, --multiple
-                允许启动多个客户端实例。
-  -c, --config
-                指定替代配置文件。
-                如果您使用此参数同时运行多个 Mumble 实例，
-                请确保在配置文件内设置替代“database”选项。
-  --default-certificate-dir &lt;目录&gt;
-                指定替代的默认证书目录。
-                此路径仅在没有从设置中
-                加载证书时生效。
-  -n, --noidentity
-                禁止加载身份认证文件（即证书）。
-  -jn, --jackname &lt;参数&gt;
-                设置自定义 Jack 客户端名称。
-  --license
-                显示 Mumble 许可。
-  --authors
-                显示 Mumble 作者。
-  --third-party-licenses
-                显示 Mumble 使用的第三方软件的许可。
-  --window-title-ext &lt;参数&gt;
-                设置自定义窗口标题后缀名。
-  --dump-input-streams
-                转储输入链上各部分的 PCM 流。
-                （适用于调试目的）
-                - 原始麦克风输入
-                - 扬声器回声消除重读取
-                - 已处理的麦克风输入
-  --print-echocancel-queue
-                向标准输出打印回声消除队列状态。
-                （适用于调试目的）
-  --translation-dir &lt;目录&gt;
-                指定一个额外的目录，
-                Mumble 会在其中搜索翻译文件
-                来覆盖内置的翻译。
-                通过此方式添加的目录比其它情况
-                下的默认位置具有更高的优先级。
-  --print-translation-dirs
-                输出 Mumble 会在哪些目录搜索翻译文件
-                以覆盖内置翻译。
-                （适用于译者测试自己的翻译）
-  --locale &lt;区域语言代码&gt;
-                用指定字符串对应的语言
-                覆盖 Mumble 的语言设置。
-                如果字符串格式无效，Mumble 会出错。
-                否则，指定的语言会
-                永久保存到 Mumble 设置中。
-  --hidden
-                启动 Mumble 时隐藏到系统托盘。
-</translation>
-    </message>
-    <message>
-        <source>M&amp;ove back</source>
-        <translation>后退(&amp;O)</translation>
-    </message>
-    <message>
-        <source>Moves you back to the previous channel</source>
-        <translation>将您移动回之前的频道</translation>
-    </message>
-    <message>
-        <source>Move back</source>
-        <comment>Global shortcut</comment>
-        <translation>后退</translation>
-    </message>
-    <message>
-        <source>This will move you back into your previous channel</source>
-        <translation>这会将您移动回之前所在的频道</translation>
-    </message>
-    <message>
-        <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation>您之前所在的频道已不存在于服务器上。</translation>
-    </message>
-    <message>
-        <source>Cycle listener attenuation mode</source>
-        <comment>Global shortcut</comment>
-        <translation>循环切换监听衰减模式</translation>
-    </message>
-    <message>
-        <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation>这会在频道监听者的不同衰减模式之间切换</translation>
-    </message>
-    <message>
-        <source>Listener attenuation up (+10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>增大监听者衰减（+10%）</translation>
-    </message>
-    <message>
-        <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation>这会将频道监听者衰减增大百分之 10</translation>
-    </message>
-    <message>
-        <source>Listener attenuation down (-10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>减小监听者衰减（-10%）</translation>
-    </message>
-    <message>
-        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation>这会将频道监听者衰减减小百分之 10</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
