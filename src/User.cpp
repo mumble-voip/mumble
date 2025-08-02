@@ -35,3 +35,15 @@ bool User::lessThan(const User *first, const User *second) {
 
 	return result < 0;
 }
+
+void User::setComment(const QString &qsComment) {
+	m_qsComment = qsComment;
+}
+
+void User::clearComment() {
+	m_qsComment.clear();
+}
+
+const QString &User::qsComment() const {
+	return m_qsComment;
+}
