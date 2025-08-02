@@ -720,8 +720,8 @@ void Database::setDigest(const QString &hostname, unsigned short port, const QSt
 
 void Database::setPassword(const QString &hostname, unsigned short port, const QString &uname, const QString &pw) {
 	QSqlQuery query(db);
-	query.prepare(
-		QLatin1String("UPDATE `servers` SET `password` = ? WHERE `hostname` = ? AND `port` = ? AND `username` = ?"));
+	query.prepare(QLatin1String(
+		"UPDATE OR INSERT `servers` SET `password` = ? WHERE `hostname` = ? AND `port` = ? AND `username` = ?"));
 	query.addBindValue(pw);
 	query.addBindValue(hostname);
 	query.addBindValue(port);
