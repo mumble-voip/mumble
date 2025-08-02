@@ -88,6 +88,11 @@
 	PROCESS(Settings::RecordingMode, RecordingMultichannelAndTransport, "MultichannelAndTransport") \
 	PROCESS(Settings::RecordingMode, RecordingTransportStandalone, "TransportStandalone")
 
+#define STYLETYPE_VALUES               \
+	PROCESS(StyleType, Auto, "Auto")   \
+	PROCESS(StyleType, Light, "Light") \
+	PROCESS(StyleType, Dark, "Dark")
+
 #define SEARCH_USER_ACTION_VALUES                           \
 	PROCESS(Search::SearchDialog::UserAction, NONE, "None") \
 	PROCESS(Search::SearchDialog::UserAction, JOIN, "Join")
@@ -196,6 +201,9 @@
 	BEFORE_CODE(Settings::RecordingMode)               \
 	RECORDING_MODE_VALUES                              \
 	AFTER_CODE                                         \
+	BEFORE_CODE(StyleType)                             \
+	STYLETYPE_VALUES                                   \
+	AFTER_CODE                                         \
 	BEFORE_CODE(Search::SearchDialog::UserAction)      \
 	SEARCH_USER_ACTION_VALUES                          \
 	AFTER_CODE                                         \
@@ -263,6 +271,7 @@ PROCESS_ALL_ENUMS
 #undef SEARCH_CHANNEL_ACTION_VALUES
 #undef SEARCH_USER_ACTION_VALUES
 #undef RECORDING_MODE_VALUES
+#undef STYLETYPE_VALUES
 #undef WINDOW_LAYOUT_VALUES
 #undef ALWAYS_ON_TOP_VALUES
 #undef QUIT_VALUES

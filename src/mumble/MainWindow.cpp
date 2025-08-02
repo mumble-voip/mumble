@@ -753,6 +753,10 @@ void MainWindow::changeEvent(QEvent *e) {
 		return;
 	}
 
+	if (e->type() == QEvent::ThemeChange) {
+		Themes::apply();
+	}
+
 	QWidget::changeEvent(e);
 }
 
@@ -4139,6 +4143,11 @@ void MainWindow::openConfigDialog() {
 	Global::get().inConfigUI = true;
 
 	QObject::connect(dlg, &ConfigDialog::settingsAccepted, Global::get().talkingUI, &TalkingUI::on_settingsChanged);
+	QObject::connect(dlg, &ConfigDialog::settingsAccepted, []() {
+		if (Global::get().s.requireThemeApplication) {
+			Themes::apply();
+		}
+	});
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
