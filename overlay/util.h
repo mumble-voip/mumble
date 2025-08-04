@@ -7,6 +7,7 @@
 #define MUMBLE_UTIL_H_
 
 #include <algorithm>
+#include <iterator>
 #include <string>
 #include <vector>
 
