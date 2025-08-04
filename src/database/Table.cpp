@@ -416,7 +416,7 @@ namespace db {
 				THROW_FORMATERROR("Encountered non-string column type specification at position "
 								  + std::to_string(i + 1));
 			}
-			if (boost::contains(colNames[i].get< std::string >(), " ")) {
+			if (colNames[i].get< std::string >().find(' ') != std::string::npos) {
 				THROW_FORMATERROR("Invalid column name \"" + colNames[i].get< std::string >() + "\"");
 			}
 			try {
@@ -621,15 +621,15 @@ namespace db {
 
 	void Table::performCtorAssertions() {
 		// Names with spaces are not allowed as these cause issues
-		assert(!boost::contains(m_name, " "));
+		assert(m_name.find(' ') == std::string::npos);
 #ifndef NDEBUG
 		for (const Column &currentColumn : m_columns) {
-			assert(!boost::contains(currentColumn.getName(), " "));
+			assert(currentColumn.getName().find(' ') == std::string::npos);
 		}
 #endif
 
 		// We reserve the name for a table's backup (needed during migrations) right from the start
-		assert(!boost::ends_with(m_name, Table::BACKUP_SUFFIX));
+		assert(m_name.find(Table::BACKUP_SUFFIX) == std::string::npos);
 	}
 
 } // namespace db

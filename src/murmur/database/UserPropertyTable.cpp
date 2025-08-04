@@ -17,7 +17,6 @@
 #include "database/TransactionHolder.h"
 #include "database/Utils.h"
 
-#include <boost/optional/optional.hpp>
 #include <soci/soci.h>
 
 #include <cassert>

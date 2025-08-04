@@ -52,6 +52,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include <boost/algorithm/string.hpp>
+
 #include <cassert>
 #include <limits>
 #include <optional>

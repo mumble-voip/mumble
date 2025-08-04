@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <memory>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -521,9 +522,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			bool validListener = false;
 
 			// Initialize recorder if recording is enabled
-			boost::shared_array< float > recbuff;
+			std::shared_ptr< float[] > recbuff;
 			if (recorder) {
-				recbuff = boost::shared_array< float >(new float[frameCount]);
+				recbuff = std::make_shared< float[] >(frameCount);
 				memset(recbuff.get(), 0, sizeof(float) * frameCount);
 				recorder->prepareBufferAdds();
 			}
@@ -699,7 +700,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 						if (!recorder->isInMixDownMode()) {
 							recorder->addBuffer(speech->p, recbuff, static_cast< int >(frameCount));
-							recbuff = boost::shared_array< float >(new float[frameCount]);
+							recbuff = std::make_shared< float[] >(frameCount);
 							memset(recbuff.get(), 0, sizeof(float) * frameCount);
 						}
 

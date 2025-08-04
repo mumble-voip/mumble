@@ -28,10 +28,6 @@
 
 #include "database/ConnectionParameter.h"
 
-#ifndef Q_MOC_RUN
-#	include <boost/function.hpp>
-#endif
-
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
 #include <QtCore/QQueue>
@@ -54,6 +50,7 @@
 #	include <winsock2.h>
 #endif
 
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -90,10 +87,10 @@ class ExecEvent : public QEvent {
 	Q_DISABLE_COPY(ExecEvent)
 
 protected:
-	boost::function< void() > func;
+	std::function< void() > func;
 
 public:
-	ExecEvent(boost::function< void() >);
+	ExecEvent(std::function< void() >);
 	void execute();
 };
 
