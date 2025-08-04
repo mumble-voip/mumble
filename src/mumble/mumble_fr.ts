@@ -1634,19 +1634,19 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>à</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>pendant que quelqu&apos;un parle dans votre canal</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>toujours</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténue les auditeurs de...</translation>
     </message>
 </context>
 <context>
@@ -7213,29 +7213,29 @@ Les options valides sont&#xa0;:
     <message>
         <source>Cycle listener attenuation mode</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cycle parmi les modes d&apos;atténuation des auditeurs</translation>
     </message>
     <message>
         <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela cycle parmi les différents modes d&apos;atténuation des auditeurs du canal</translation>
     </message>
     <message>
         <source>Listener attenuation up (+10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Augmentation de l&apos;atténuation de l&apos;auditeur (+10%)</translation>
     </message>
     <message>
         <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela augmente l&apos;atténuation des auditeurs du canal de 10%</translation>
     </message>
     <message>
         <source>Listener attenuation down (-10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Diminution de 10% de l&apos;atténuation de l&apos;auditeur</translation>
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>Diminue l&apos;atténuation des auditeurs du canal de 10%</translation>
     </message>
 </context>
 <context>

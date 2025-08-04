@@ -476,7 +476,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijst van beschikbare toestemmingen</translation>
     </message>
 </context>
 <context>
@@ -2450,15 +2450,15 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersnaam te verbannen</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>IP address te verbannen</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Reden voor verbanning</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
@@ -2470,11 +2470,11 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificaat hash te verbannen</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijst van verbannen gebruikers</translation>
     </message>
 </context>
 <context>
@@ -2798,7 +2798,7 @@ Weet je zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Laat de huidige certificaten zien</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2814,7 +2814,7 @@ Weet je zeker dat je jouw certificaat wilt vervangen?
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Laat het geïmporteerde certificaat zien</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
