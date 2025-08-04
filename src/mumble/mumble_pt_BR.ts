@@ -2236,11 +2236,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sistema de entrada de áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositivo de entrada de áudio</translation>
     </message>
     <message>
         <source>Select audio output device</source>
@@ -4553,11 +4553,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
         <translation>Mover</translation>
     </message>
     <message>
-        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
-        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation>&lt;a href=&quot;%1&quot;&gt;Procurar&lt;/a&gt;</translation>
-    </message>
-    <message>
         <source>User Interface</source>
         <translation>Interface de usuário</translation>
     </message>
@@ -4733,10 +4728,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>Theme</source>
         <translation>Tema</translation>
-    </message>
-    <message>
-        <source>Theme to use to style the user interface</source>
-        <translation>Tema usado para estilizar a interface de usuario</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
@@ -5044,6 +5035,62 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Choose a Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark theme to use to style the user interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Light theme to use to style the user interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the theme automatically based on the system theme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic theme based on system theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the theme to the configured dark theme setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the theme to the configured light theme setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Light Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the themes directory in the systems file manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Themes Directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
