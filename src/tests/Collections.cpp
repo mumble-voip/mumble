@@ -41,8 +41,9 @@ int main(int argc, char **argv) {
 		usins = t.restart();
 		sum   = 0;
 		for (int j = 0; j < SL; j++)
-			foreach (int v, s)
+			for (int v, s) {
 				sum += v;
+			}
 		usiter = t.restart();
 	}
 	qWarning("QSet: %lldus insert, %lldus iterate: %d", usins, usiter, sum);
@@ -50,13 +51,16 @@ int main(int argc, char **argv) {
 	{
 		t.restart();
 		QList< int > s;
-		for (int i = 0; i < NE; i++)
+		for (int i = 0; i < NE; i++) {
 			s.append(i);
+		}
 		usins = t.restart();
 		sum   = 0;
-		for (int j = 0; j < SL; j++)
-			foreach (int v, s)
+		for (int j = 0; j < SL; j++) {
+			for (int v, s) {
 				sum += v;
+			}
+		}
 		usiter = t.restart();
 	}
 	qWarning("QList: %lldus insert, %lldus iterate: %d", usins, usiter, sum);
@@ -69,9 +73,11 @@ int main(int argc, char **argv) {
 			s.append(i);
 		usins = t.restart();
 		sum   = 0;
-		for (int j = 0; j < SL; j++)
-			foreach (int v, s)
+		for (int j = 0; j < SL; j++) {
+			for (int v : s) {
 				sum += v;
+			}
+		}
 		usiter = t.restart();
 	}
 	qWarning("QVector: %lldus insert, %lldus iterate: %d", usins, usiter, sum);
@@ -113,9 +119,11 @@ int main(int argc, char **argv) {
 			s.insert(i);
 		usins = t.restart();
 		sum   = 0;
-		for (int j = 0; j < SL; j++)
-			foreach (int v, s.l)
+		for (int j = 0; j < SL; j++) {
+			for (int v : s.l) {
 				sum += v;
+			}
+		}
 		usiter = t.restart();
 	}
 	qWarning("QListSet: %lldus insert, %lldus iterate: %d", usins, usiter, sum);

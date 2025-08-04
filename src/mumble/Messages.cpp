@@ -1138,7 +1138,7 @@ void MainWindow::removeContextAction(const MumbleProto::ContextActionModify &msg
 	qs += QSet< QAction * >(qlChannelActions.begin(), qlChannelActions.end());
 	qs += QSet< QAction * >(qlUserActions.begin(), qlUserActions.end());
 
-	foreach (QAction *a, qs) {
+	for (QAction *a : qs) {
 		if (a->data() == action) {
 			qlServerActions.removeOne(a);
 			qlChannelActions.removeOne(a);
@@ -1189,8 +1189,9 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 	Channel *current = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (msg.flush()) {
-		foreach (Channel *c, Channel::c_qhChannels)
+		for (Channel *c : Channel::c_qhChannels) {
 			c->uiPermissions = 0;
+		}
 
 		// We always need the permissions of the current focus channel
 		if (current && current->iId != msg.channel_id()) {

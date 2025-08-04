@@ -507,7 +507,9 @@ const QVector< const_plugin_ptr_t > PluginManager::getPlugins(bool sorted) const
 				   < 0;
 		});
 
-		foreach (plugin_id_t currentID, ids) { pluginList.append(m_pluginHashMap.value(currentID)); }
+		for (plugin_id_t currentID : ids) {
+			pluginList.append(m_pluginHashMap.value(currentID));
+		}
 	} else {
 		while (it != m_pluginHashMap.constEnd()) {
 			pluginList.append(it.value());

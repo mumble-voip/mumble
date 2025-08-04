@@ -703,7 +703,7 @@ int main(int argc, char **argv) {
 	}
 
 	if (!pluginsToBeInstalled.isEmpty()) {
-		foreach (QString currentPlugin, pluginsToBeInstalled) {
+		for (const QString &currentPlugin : pluginsToBeInstalled) {
 			try {
 				PluginInstaller installer(currentPlugin);
 				installer.exec();

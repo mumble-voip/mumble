@@ -303,9 +303,11 @@ void RichTextEditor::on_qteRichText_textChanged() {
 						QXmlStreamAttributes attr = qxsr.attributes();
 
 						qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
-						foreach (const QXmlStreamAttribute &a, qxsr.attributes())
-							if (a.name() != QLatin1String("src"))
+						for (const QXmlStreamAttribute &a : qxsr.attributes()) {
+							if (a.name() != QLatin1String("src")) {
 								qxsw.writeAttribute(a);
+							}
+						}
 					} else {
 						qxsw.writeCurrentToken(qxsr);
 					}

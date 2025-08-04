@@ -53,7 +53,7 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	// We can't check for QStyleSheetStyle so we have to search the children list search for a QWindowsVistaStyle
 	QList< QObject * > hierarchy = style->findChildren< QObject * >();
 	hierarchy.insert(0, style);
-	foreach (QObject *obj, hierarchy) {
+	for (QObject *obj : hierarchy) {
 		if (QString::fromUtf8(obj->metaObject()->className()) == QString::fromUtf8("QWindowsVistaStyle")) {
 			colorRole = QPalette::Text;
 			break;

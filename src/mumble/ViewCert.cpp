@@ -15,12 +15,16 @@
 
 static QStringList processQSslCertificateInfo(QStringList in) {
 	QStringList list;
-	foreach (QString str, in) { list << Mumble::QtUtils::decode_utf8_qssl_string(str); }
+	for (const QString &str : in) {
+		list << Mumble::QtUtils::decode_utf8_qssl_string(str);
+	}
 	return list;
 }
 
 static void addQSslCertificateInfo(QStringList &l, const QString &label, const QStringList &items) {
-	foreach (const QString &item, items) { l << QString(QLatin1String("%1: %2")).arg(label, item); }
+	for (const QString &item : items) {
+		l << QString(QLatin1String("%1: %2")).arg(label, item);
+	}
 }
 
 static QString certificateFriendlyName(const QSslCertificate &cert) {
@@ -56,7 +60,7 @@ ViewCert::ViewCert(QList< QSslCertificate > cl, QWidget *p) : QDialog(p) {
 
 	// load certs into a set as a hacky fix to #2141
 	QSet< QSslCertificate > qlCertSet;
-	foreach (QSslCertificate c, qlCerts) {
+	for (const QSslCertificate &c : qlCerts) {
 		if (!qlCertSet.contains(c)) {
 			qlwChain->addItem(certificateFriendlyName(c));
 			qlCertSet << c;

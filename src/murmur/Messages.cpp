@@ -140,7 +140,7 @@ public:
 				QMutexLocker qml(&server->qmCache);
 
 				// remove the temporary tokens
-				foreach (const QString &token, this->qslTemporaryTokens) {
+				for (const QString &token : this->qslTemporaryTokens) {
 					this->affectedUser->qslAccessTokens.removeOne(token);
 				}
 			}
@@ -157,7 +157,7 @@ public:
 /// @return Whether the provided channel has an ACL denying ENTER
 bool isChannelEnterRestricted(Channel *c) {
 	// A channel is enter restricted if there's an ACL denying enter privileges
-	foreach (ChanACL *acl, c->qlACL) {
+	for (ChanACL *acl : c->qlACL) {
 		if (acl->pDeny & ChanACL::Enter) {
 			return true;
 		}
@@ -244,7 +244,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	ServerUser *uOld = nullptr;
-	foreach (ServerUser *u, qhUsers) {
+	for (ServerUser *u : qhUsers) {
 		if (u == uSource)
 			continue;
 		if (((u->iId >= 0) && (u->iId == uSource->iId)) || (u->qsName.toLower() == uSource->qsName.toLower())) {
@@ -414,18 +414,20 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 		sendMessage(uSource, mpcs);
 
-		foreach (c, c->qlChannels)
-			q.enqueue(c);
+		for (Channel *chan : c->qlChannels) {
+			q.enqueue(chan);
+		}
 	}
 
 	// Transmit links
-	foreach (c, chans) {
-		if (c->qhLinks.count() > 0) {
+	for (Channel *chan : chans) {
+		if (chan->qhLinks.count() > 0) {
 			mpcs.Clear();
-			mpcs.set_channel_id(c->iId);
+			mpcs.set_channel_id(chan->iId);
 
-			foreach (Channel *l, c->qhLinks.keys())
+			for (Channel *l : chan->qhLinks.keys()) {
 				mpcs.add_links(l->iId);
+			}
 			sendMessage(uSource, mpcs);
 		}
 	}
@@ -481,7 +483,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	sendAll(mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
 
 	// Transmit other users profiles
-	foreach (ServerUser *u, qhUsers) {
+	for (ServerUser *u : qhUsers) {
 		if (u->sState != ServerUser::Authenticated)
 			continue;
 
@@ -1311,7 +1313,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 		if (p || (c && c->iId != 0)) {
 			Channel *cp = p ? p : c->cParent;
-			foreach (Channel *sibling, cp->qlChannels) {
+			for (Channel *sibling : cp->qlChannels) {
 				if (sibling->qsName == qsName) {
 					PERM_DENIED_TYPE(ChannelName);
 					return;
@@ -1459,7 +1461,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 			QString name = qsName.isNull() ? c->qsName : qsName;
 
-			foreach (Channel *sibling, p->qlChannels) {
+			for (Channel *sibling : p->qlChannels) {
 				if (sibling->qsName == name) {
 					PERM_DENIED_TYPE(ChannelName);
 					return;
@@ -1645,10 +1647,12 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		}
 
 		// Users directly in that channel
-		foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
+		for (User *p : c->qlUsers) {
+			users.insert(static_cast< ServerUser * >(p));
+		}
 
 		// Users only listening in that channel
-		foreach (unsigned int session, m_channelListenerManager.getListenersForChannel(c->iId)) {
+		for (unsigned int session : m_channelListenerManager.getListenersForChannel(c->iId)) {
 			ServerUser *currentUser = qhUsers.value(session);
 			if (currentUser) {
 				users.insert(currentUser);
@@ -1684,11 +1688,15 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	while (!q.isEmpty()) {
 		Channel *c = q.dequeue();
 		if (ChanACL::hasPermission(uSource, c, ChanACL::TextMessage, &acCache)) {
-			foreach (Channel *sub, c->qlChannels) { q.enqueue(sub); }
+			for (Channel *sub : c->qlChannels) {
+				q.enqueue(sub);
+			}
 			// Users directly in that channel
-			foreach (User *p, c->qlUsers) { users.insert(static_cast< ServerUser * >(p)); }
+			for (User *p : c->qlUsers) {
+				users.insert(static_cast< ServerUser * >(p));
+			}
 			// Users only listening in that channel
-			foreach (unsigned int session, m_channelListenerManager.getListenersForChannel(c->iId)) {
+			for (unsigned int session : m_channelListenerManager.getListenersForChannel(c->iId)) {
 				ServerUser *currentUser = qhUsers.value(session);
 				if (currentUser) {
 					users.insert(currentUser);
@@ -1716,7 +1724,9 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	users.remove(uSource);
 
 	// Actually send the original message to the affected users
-	foreach (ServerUser *u, users) { sendMessage(u, msg); }
+	for (ServerUser *u : users) {
+		sendMessage(u, msg);
+	}
 
 	// Emit the signal for RPC consumers
 	emit userTextMessage(uSource, tm);
@@ -1742,9 +1752,9 @@ void logGroups(Server *server, const Channel *c, QString prefix = QString()) {
 						.arg(c->iId));
 	}
 
-	foreach (Group *currentGroup, c->qhGroups) {
+	for (Group *currentGroup : c->qhGroups) {
 		QString memberList;
-		foreach (int m, currentGroup->members()) {
+		for (int m : currentGroup->members()) {
 			memberList += QString::fromLatin1("\"%1\"").arg(server->getRegisteredUserName(m));
 			memberList += ", ";
 		}
@@ -1773,7 +1783,7 @@ void logACLs(Server *server, const Channel *c, QString prefix = QString()) {
 		server->log(prefix);
 	}
 
-	foreach (const ChanACL *a, c->qlACL) {
+	for (const ChanACL *a : c->qlACL) {
 		server->log(QString::fromLatin1("%1%2")
 						.arg(prefix.isEmpty() ? QLatin1String("") : QLatin1String("\t"))
 						.arg(static_cast< QString >(*a)));
@@ -1808,7 +1818,6 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 	if (msg.has_query() && msg.query()) {
 		QStack< Channel * > chans;
 		Channel *p;
-		ChanACL *acl;
 
 		QSet< unsigned int > qsId;
 
@@ -1828,7 +1837,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 		while (!chans.isEmpty()) {
 			p = chans.pop();
-			foreach (acl, p->qlACL) {
+			for (ChanACL *acl : p->qlACL) {
 				if ((p == c) || (acl->bApplySubs)) {
 					MumbleProto::ACL_ChanACL *mpacl = msg.add_acls();
 
@@ -1848,7 +1857,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 
 		p                        = c->cParent;
 		QSet< QString > allnames = Group::groupNames(c);
-		foreach (const QString &name, allnames) {
+		for (const QString &name : allnames) {
 			Group *g  = c->qhGroups.value(name);
 			Group *pg = p ? Group::getGroup(p, name) : nullptr;
 
@@ -1858,17 +1867,17 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			group->set_inheritable(g ? g->bInheritable : true);
 			group->set_inherited(pg && pg->bInheritable);
 			if (g) {
-				foreach (int id, g->qsAdd) {
+				for (int id : g->qsAdd) {
 					qsId.insert(static_cast< unsigned int >(id));
 					group->add_add(static_cast< unsigned int >(id));
 				}
-				foreach (int id, g->qsRemove) {
+				for (int id : g->qsRemove) {
 					qsId.insert(static_cast< unsigned int >(id));
 					group->add_remove(static_cast< unsigned int >(id));
 				}
 			}
 			if (pg) {
-				foreach (int id, pg->members()) {
+				for (int id : pg->members()) {
 					qsId.insert(static_cast< unsigned int >(id));
 					group->add_inherited_members(static_cast< unsigned int >(id));
 				}
@@ -1878,7 +1887,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		sendMessage(uSource, msg);
 
 		MumbleProto::QueryUsers mpqu;
-		foreach (unsigned int id, qsId) {
+		for (unsigned int id : qsId) {
 			QString uname = getRegisteredUserName(static_cast< int >(id));
 			if (!uname.isEmpty()) {
 				mpqu.add_ids(id);
@@ -1888,9 +1897,6 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		if (mpqu.ids_size())
 			sendMessage(uSource, mpqu);
 	} else {
-		Group *g;
-		ChanACL *a;
-
 		{
 			QWriteLocker wl(&qrwlVoiceThread);
 
@@ -1904,7 +1910,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				logGroups(this, c, QLatin1String("These are the groups before applying the change:"));
 			}
 
-			foreach (g, c->qhGroups) {
+			for (Group *g : c->qhGroups) {
 				hOldTemp.insert(g->qsName, g->qsTemporary);
 				delete g;
 			}
@@ -1914,7 +1920,9 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			}
 
 			// Clear old ACLs
-			foreach (a, c->qlACL) { delete a; }
+			for (ChanACL *a : c->qlACL) {
+				delete a;
+			}
 
 			c->qhGroups.clear();
 			c->qlACL.clear();
@@ -1924,7 +1932,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			// Add new groups
 			for (int i = 0; i < msg.groups_size(); ++i) {
 				const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
-				g                                       = new Group(c, u8(group.name()));
+				Group *g                                = new Group(c, u8(group.name()));
 				g->bInherit                             = group.inherit();
 				g->bInheritable                         = group.inheritable();
 				for (int j = 0; j < group.add_size(); ++j)
@@ -1947,7 +1955,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				if (mpacl.has_user_id() && getRegisteredUserName(static_cast< int >(mpacl.user_id())).isEmpty())
 					continue;
 
-				a             = new ChanACL(c);
+				ChanACL *a    = new ChanACL(c);
 				a->bApplyHere = mpacl.apply_here();
 				a->bApplySubs = mpacl.apply_subs();
 				if (mpacl.has_user_id())
@@ -1969,7 +1977,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			{
 				QWriteLocker wl(&qrwlVoiceThread);
 
-				a             = new ChanACL(c);
+				ChanACL *a    = new ChanACL(c);
 				a->bApplyHere = true;
 				a->bApplySubs = false;
 				if (uSource->iId >= 0)
@@ -2188,7 +2196,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 					setUserProperties(static_cast< int >(id), info);
 
 					MumbleProto::UserState mpus;
-					foreach (ServerUser *serverUser, qhUsers) {
+					for (ServerUser *serverUser : qhUsers) {
 						if (serverUser->iId == static_cast< int >(id)) {
 							serverUser->qsName = name;
 							mpus.set_session(serverUser->uiSession);
@@ -2303,7 +2311,7 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 	msg.set_session(pDstServerUser->uiSession);
 
 	if (details) {
-		foreach (const QSslCertificate &cert, certs) {
+		for (const QSslCertificate &cert : certs) {
 			const QByteArray &der = cert.toDer();
 			msg.add_certificates(blob(der));
 		}
@@ -2378,8 +2386,9 @@ void Server::msgUserStats(ServerUser *uSource, MumbleProto::UserStats &msg) {
 				mpv->set_os_version(u8(pDstServerUser->qsOSVersion));
 		}
 
-		foreach (int v, pDstServerUser->qlCodecs)
+		for (int v : pDstServerUser->qlCodecs) {
 			msg.add_celt_versions(v);
+		}
 		msg.set_opus(pDstServerUser->bOpus);
 
 		msg.set_address(pDstServerUser->haAddress.toStdString());

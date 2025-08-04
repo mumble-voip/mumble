@@ -61,7 +61,7 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	}
 
 	AudioOutputRegistrar *r = nullptr;
-	foreach (AudioOutputRegistrar *aor, *qmNew)
+	for (AudioOutputRegistrar *aor : *qmNew)
 		if (!r || (aor->priority > r->priority))
 			r = aor;
 	if (r) {

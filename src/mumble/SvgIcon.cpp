@@ -24,7 +24,7 @@ void SvgIcon::addSvgPixmapsToIcon(QIcon &icon, QString fn) {
 	commonSizes << QSize(128, 128);
 	commonSizes << QSize(256, 256);
 
-	foreach (QSize size, commonSizes) {
+	for (const QSize &size : commonSizes) {
 		QPixmap pm(size);
 		pm.fill(Qt::transparent);
 

@@ -27,7 +27,7 @@
 
 template< typename T > QRectF OverlayGroup::boundingRect() const {
 	QRectF qr;
-	foreach (const QGraphicsItem *item, childItems())
+	for (const QGraphicsItem *item : childItems())
 		if (item->isVisible() && (item->type() == T::Type))
 			qr |= item->boundingRect().translated(item->pos());
 
@@ -43,12 +43,14 @@ OverlayUserGroup::~OverlayUserGroup() {
 }
 
 void OverlayUserGroup::reset() {
-	foreach (OverlayUser *ou, qlExampleUsers)
+	for (OverlayUser *ou : qlExampleUsers) {
 		delete ou;
+	}
 	qlExampleUsers.clear();
 
-	foreach (OverlayUser *ou, qmUsers)
+	for (OverlayUser *ou : qmUsers) {
 		delete ou;
+	}
 	qmUsers.clear();
 
 	delete qgeiHandle;
@@ -248,8 +250,9 @@ void OverlayUserGroup::updateUsers() {
 	unsigned int uiHeight = static_cast< unsigned int >(sr.height() + 0.5f);
 
 	QList< QGraphicsItem * > items;
-	foreach (QGraphicsItem *qgi, childItems())
+	for (QGraphicsItem *qgi : childItems()) {
 		items << qgi;
+	}
 
 	QList< OverlayUser * > users;
 	if (bShowExamples) {
@@ -262,8 +265,9 @@ void OverlayUserGroup::updateUsers() {
 		}
 
 		users = qlExampleUsers;
-		foreach (OverlayUser *ou, users)
+		for (OverlayUser *ou : users) {
 			items.removeAll(ou);
+		}
 
 		if (!qgeiHandle) {
 			qgeiHandle = new QGraphicsEllipseItem(QRectF(-4.0f, -4.0f, 8.0f, 8.0f));
@@ -289,19 +293,26 @@ void OverlayUserGroup::updateUsers() {
 
 		switch (os->osShow) {
 			case OverlaySettings::LinkedChannels:
-				foreach (Channel *c, home->allLinks())
-					foreach (User *p, c->qlUsers)
+				for (Channel *c : home->allLinks()) {
+					for (User *p : c->qlUsers) {
 						showusers << static_cast< ClientUser * >(p);
-				foreach (ClientUser *cu, ClientUser::getTalking())
-					if (!showusers.contains(cu))
+					}
+				}
+				for (ClientUser *cu : ClientUser::getTalking()) {
+					if (!showusers.contains(cu)) {
 						showusers << cu;
+					}
+				}
 				break;
 			case OverlaySettings::HomeChannel:
-				foreach (User *p, home->qlUsers)
+				for (User *p : home->qlUsers) {
 					showusers << static_cast< ClientUser * >(p);
-				foreach (ClientUser *cu, ClientUser::getTalking())
-					if (!showusers.contains(cu))
+				}
+				for (ClientUser *cu : ClientUser::getTalking()) {
+					if (!showusers.contains(cu)) {
 						showusers << cu;
+					}
+				}
 				break;
 			case OverlaySettings::Active:
 				showusers = ClientUser::getActive();
@@ -317,7 +328,7 @@ void OverlayUserGroup::updateUsers() {
 
 		ClientUser::sortUsersOverlay(showusers);
 
-		foreach (ClientUser *cu, showusers) {
+		for (ClientUser *cu : showusers) {
 			OverlayUser *ou = qmUsers.value(cu);
 			if (!ou) {
 				ou = new OverlayUser(cu, uiHeight, os);
@@ -331,7 +342,7 @@ void OverlayUserGroup::updateUsers() {
 		}
 	}
 
-	foreach (QGraphicsItem *qgi, items) {
+	for (QGraphicsItem *qgi : items) {
 		scene()->removeItem(qgi);
 		qgi->hide();
 	}
@@ -348,7 +359,7 @@ void OverlayUserGroup::updateUsers() {
 	int yPos = 0;
 	int xPos = 0;
 
-	foreach (OverlayUser *ou, users) {
+	for (OverlayUser *ou : users) {
 		if (!ou->parentItem())
 			ou->setParentItem(this);
 

@@ -130,7 +130,7 @@ void ProcessResolver::doResolve() {
 
 	bool ok;
 
-	foreach (const QString &currentEntry, entries) {
+	for (const QString &currentEntry : entries) {
 		uint64_t pid = static_cast< unsigned long long int >(currentEntry.toLongLong(&ok, 10));
 
 		if (!ok) {

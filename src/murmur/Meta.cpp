@@ -248,14 +248,14 @@ void MetaParams::read(QString fname) {
 
 	QString qsHost = qsSettings->value("host", QString()).toString();
 	if (!qsHost.isEmpty()) {
-		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
+		for (const QString &host : qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(host)) {
 				qlBind << qhaddr;
 			} else {
 				bool found   = false;
 				QHostInfo hi = QHostInfo::fromName(host);
-				foreach (QHostAddress qha, hi.addresses()) {
+				for (const QHostAddress &qha : hi.addresses()) {
 					if ((qha.protocol() == QAbstractSocket::IPv4Protocol)
 						|| (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
 						qlBind << qha;
@@ -267,8 +267,9 @@ void MetaParams::read(QString fname) {
 				}
 			}
 		}
-		foreach (const QHostAddress &qha, qlBind)
+		for (const QHostAddress &qha : qlBind) {
 			qWarning("Binding to address %s", qPrintable(qha.toString()));
+		}
 	}
 
 	if (qlBind.isEmpty()) {
@@ -396,7 +397,10 @@ void MetaParams::read(QString fname) {
 	}
 
 	QStringList hosts;
-	foreach (const QHostAddress &qha, qlBind) { hosts << qha.toString(); }
+	for (const QHostAddress &qha : qlBind) {
+		hosts << qha.toString();
+	}
+
 	qmConfig.insert(QLatin1String("host"), hosts.join(" "));
 	qmConfig.insert(QLatin1String("password"), qsPassword);
 	qmConfig.insert(QLatin1String("port"), QString::number(usPort));
@@ -548,7 +552,9 @@ bool MetaParams::loadSSLSettings() {
 			if (pem.isEmpty()) {
 				QStringList names = FFDHE::NamedGroups();
 				QStringList atNames;
-				foreach (QString name, names) { atNames << QLatin1String("@") + name; }
+				for (const QString &name : names) {
+					atNames << QLatin1String("@") + name;
+				}
 				QString supported = atNames.join(QLatin1String(", "));
 				qFatal("MetaParms: Diffie-Hellman parameters with name '%s' is not available. (Supported: %s)",
 					   qPrintable(qsSSLDHParams), qPrintable(supported));
@@ -599,7 +605,7 @@ bool MetaParams::loadSSLSettings() {
 		// use Qt's default Diffie-Hellman parameters.
 		{
 			QList< QSslCipher > filtered;
-			foreach (QSslCipher c, ciphers) {
+			for (const QSslCipher &c : ciphers) {
 				if (c.keyExchangeMethod() == QLatin1String("DH")) {
 					continue;
 				}
@@ -618,7 +624,9 @@ bool MetaParams::loadSSLSettings() {
 #endif
 
 		QStringList pref;
-		foreach (QSslCipher c, tmpCiphers) { pref << c.name(); }
+		for (const QSslCipher &c : tmpCiphers) {
+			pref << c.name();
+		}
 		qWarning("MetaParams: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
@@ -821,7 +829,7 @@ bool Meta::reloadSSLSettings() {
 	// Re-initialize certificates for all
 	// virtual servers using the Meta server's
 	// certificate and private key.
-	foreach (Server *s, qhServers) {
+	for (Server *s : qhServers) {
 		if (s->bUsingMetaCert) {
 			s->log("Reloading certificates...");
 			s->initializeCert();
@@ -901,9 +909,9 @@ bool Meta::boot(const ::mumble::db::ConnectionParameter &connectionParam, unsign
 
 #ifdef Q_OS_UNIX
 	unsigned int sockets = 19; // Base
-	foreach (s, qhServers) {
-		sockets += 11;                                        // Listen sockets, signal pipes etc.
-		sockets += static_cast< unsigned int >(s->iMaxUsers); // One per user
+	for (Server *server : qhServers) {
+		sockets += 11;                                             // Listen sockets, signal pipes etc.
+		sockets += static_cast< unsigned int >(server->iMaxUsers); // One per user
 	}
 
 	struct rlimit r;
@@ -941,7 +949,7 @@ void Meta::kill(unsigned int srvnum) {
 }
 
 void Meta::killAll() {
-	foreach (Server *s, qhServers) {
+	for (Server *s : qhServers) {
 		emit stopped(s);
 		delete s;
 	}

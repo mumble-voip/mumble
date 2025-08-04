@@ -42,7 +42,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qtb3rdPartyLicense->setAccessibleName(tr("Third-party license agreements"));
 
 	QList< LicenseInfo > thirdPartyLicenses = License::thirdPartyLicenses();
-	foreach (LicenseInfo li, thirdPartyLicenses) {
+	for (const LicenseInfo &li : thirdPartyLicenses) {
 		qtb3rdPartyLicense->append(QString::fromLatin1("<h3>%1 (<a href=\"%2\">%2</a>)</h3><pre>%3</pre>")
 									   .arg(li.name.toHtmlEscaped())
 									   .arg(li.url.toHtmlEscaped())

@@ -161,7 +161,7 @@ void LogConfig::updateSelectAllButtons() {
 #endif
 	bool allSoundChecked = true;
 	bool allLimitChecked = true;
-	foreach (QTreeWidgetItem *i, qlItems) {
+	for (QTreeWidgetItem *i : qlItems) {
 		if (i == allMessagesItem) {
 			continue;
 		}
@@ -224,7 +224,7 @@ QIcon LogConfig::icon() const {
 void LogConfig::load(const Settings &r) {
 	QList< QTreeWidgetItem * > qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
 
-	foreach (QTreeWidgetItem *i, qlItems) {
+	for (QTreeWidgetItem *i : qlItems) {
 		if (i == allMessagesItem) {
 			continue;
 		}
@@ -267,7 +267,7 @@ void LogConfig::load(const Settings &r) {
 
 void LogConfig::save() const {
 	QList< QTreeWidgetItem * > qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
-	foreach (QTreeWidgetItem *i, qlItems) {
+	for (QTreeWidgetItem *i : qlItems) {
 		if (i == allMessagesItem) {
 			continue;
 		}
@@ -343,7 +343,7 @@ void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
 		const QSignalBlocker blocker(qtwMessages);
 		// Select / Unselect all entries of that column
 		QList< QTreeWidgetItem * > qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
-		foreach (QTreeWidgetItem *item, qlItems) {
+		for (QTreeWidgetItem *item : qlItems) {
 			if (item != allMessagesItem) {
 				item->setCheckState(column, allMessagesItem->checkState(column));
 			}

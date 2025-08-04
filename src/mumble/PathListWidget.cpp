@@ -51,7 +51,7 @@ void PathListWidget::addFolderPath(const QString &path) {
 
 void PathListWidget::checkAcceptDragEvent(QDropEvent *event, bool store) {
 	if (event->mimeData()->hasUrls()) {
-		foreach (QUrl url, event->mimeData()->urls()) {
+		for (const QUrl &url : event->mimeData()->urls()) {
 			if (url.isLocalFile()) {
 				QFileInfo info(url.toLocalFile());
 				switch (pathType) {

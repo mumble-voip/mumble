@@ -62,7 +62,7 @@ void TestServerResolver::simpleSrv() {
 	HostAddress v4(QHostAddress(QLatin1String("127.0.0.1")));
 	HostAddress v6(QHostAddress(QLatin1String("::1")));
 
-	foreach (HostAddress ha, record.addresses()) {
+	for (const HostAddress &ha : record.addresses()) {
 		if (ha == v4) {
 			hasipv4 = true;
 		}
@@ -110,7 +110,7 @@ void TestServerResolver::srvCustomPort() {
 	HostAddress v4(QHostAddress(QLatin1String("127.0.0.1")));
 	HostAddress v6(QHostAddress(QLatin1String("::1")));
 
-	foreach (HostAddress ha, record.addresses()) {
+	for (const HostAddress &ha : record.addresses()) {
 		if (ha == v4) {
 			hasipv4 = true;
 		}
@@ -153,7 +153,7 @@ void TestServerResolver::simpleCNAME() {
 	HostAddress v4(QHostAddress(QLatin1String("127.0.0.1")));
 	HostAddress v6(QHostAddress(QLatin1String("::1")));
 
-	foreach (HostAddress ha, record.addresses()) {
+	for (const HostAddress &ha : record.addresses()) {
 		if (ha == v4) {
 			hasipv4 = true;
 		}

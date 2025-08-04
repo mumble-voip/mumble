@@ -151,8 +151,9 @@ static void channelToChannel(const ::Channel *c, ::MumbleServer::Channel &mc) {
 	mc.description = iceString(c->qsDesc);
 	mc.position    = c->iPosition;
 	mc.links.clear();
-	foreach (::Channel *chn, c->qsPermLinks)
+	for (::Channel *chn : c->qsPermLinks) {
 		mc.links.push_back(static_cast< int >(chn->iId));
+	}
 	mc.temporary = c->bTemporary;
 }
 
@@ -239,14 +240,17 @@ static void infoToInfo(const ::MumbleServer::UserInfoMap &im, QMap< int, QString
 static void textmessageToTextmessage(const ::TextMessage &tm, ::MumbleServer::TextMessage &tmdst) {
 	tmdst.text = iceString(tm.qsText);
 
-	foreach (unsigned int i, tm.qlSessions)
+	for (unsigned int i : tm.qlSessions) {
 		tmdst.sessions.push_back(static_cast< int >(i));
+	}
 
-	foreach (unsigned int i, tm.qlChannels)
+	for (unsigned int i : tm.qlChannels) {
 		tmdst.channels.push_back(static_cast< int >(i));
+	}
 
-	foreach (unsigned int i, tm.qlTrees)
+	for (unsigned int i : tm.qlTrees) {
 		tmdst.trees.push_back(static_cast< int >(i));
+	}
 }
 
 ::MumbleServer::DBState dbstateToDBState(::DBState state) {
@@ -289,7 +293,7 @@ MumbleServerIce::MumbleServerIce() {
 	Ice::PropertiesPtr ipp = Ice::createProperties();
 
 	::Meta::mp->qsSettings->beginGroup("Ice");
-	foreach (const QString &v, ::Meta::mp->qsSettings->childKeys()) {
+	for (const QString &v : ::Meta::mp->qsSettings->childKeys()) {
 		ipp->setProperty(iceString(v), iceString(::Meta::mp->qsSettings->value(v).toString()));
 	}
 	::Meta::mp->qsSettings->endGroup();
@@ -324,7 +328,7 @@ MumbleServerIce::MumbleServerIce() {
 		iopServer = new ServerI;
 
 		adapter->activate();
-		foreach (const Ice::EndpointPtr ep, mprx->ice_getEndpoints()) {
+		for (const Ice::EndpointPtr &ep : mprx->ice_getEndpoints()) {
 			qWarning("MumbleServerIce: Endpoint \"%s\" running", qPrintable(u8(ep->toString())));
 		}
 
@@ -493,7 +497,7 @@ void MumbleServerIce::started(::Server *s) {
 	if (qlList.isEmpty())
 		return;
 
-	foreach (const ::MumbleServer::MetaCallbackPrx &prx, qlList) {
+	for (const ::MumbleServer::MetaCallbackPrx &prx : qlList) {
 		try {
 			prx->started(idToProxy(s->iServerNum, adapter));
 		} catch (...) {
@@ -512,7 +516,7 @@ void MumbleServerIce::stopped(::Server *s) {
 	if (qmList.isEmpty())
 		return;
 
-	foreach (const ::MumbleServer::MetaCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::MetaCallbackPrx &prx : qmList) {
 		try {
 			prx->stopped(idToProxy(s->iServerNum, adapter));
 		} catch (...) {
@@ -532,7 +536,7 @@ void MumbleServerIce::userConnected(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	foreach (const ::MumbleServer::ServerCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
 		try {
 			prx->userConnected(mp);
 		} catch (...) {
@@ -554,7 +558,7 @@ void MumbleServerIce::userDisconnected(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	foreach (const ::MumbleServer::ServerCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
 		try {
 			prx->userDisconnected(mp);
 		} catch (...) {
@@ -574,7 +578,7 @@ void MumbleServerIce::userStateChanged(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	foreach (const ::MumbleServer::ServerCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
 		try {
 			prx->userStateChanged(mp);
 		} catch (...) {
@@ -597,7 +601,7 @@ void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &mess
 	::MumbleServer::TextMessage textMessage;
 	textmessageToTextmessage(message, textMessage);
 
-	foreach (const ::MumbleServer::ServerCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
 		try {
 			prx->userTextMessage(mp, textMessage);
 		} catch (...) {
@@ -617,7 +621,7 @@ void MumbleServerIce::channelCreated(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	foreach (const ::MumbleServer::ServerCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
 		try {
 			prx->channelCreated(mc);
 		} catch (...) {
@@ -637,7 +641,7 @@ void MumbleServerIce::channelRemoved(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	foreach (const ::MumbleServer::ServerCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
 		try {
 			prx->channelRemoved(mc);
 		} catch (...) {
@@ -657,7 +661,7 @@ void MumbleServerIce::channelStateChanged(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	foreach (const ::MumbleServer::ServerCallbackPrx &prx, qmList) {
+	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
 		try {
 			prx->channelStateChanged(mc);
 		} catch (...) {
@@ -773,7 +777,9 @@ void MumbleServerIce::authenticateSlot(int &res, QString &uname, int sessionId,
 		if (newname.length() > 0)
 			uname = u8(newname);
 		QStringList qsl;
-		foreach (const ::std::string &str, groups) { qsl << u8(str); }
+		for (const ::std::string &str : groups) {
+			qsl << u8(str);
+		}
 		if (!qsl.isEmpty())
 			server->setTempGroups(res, sessionId, nullptr, qsl);
 	}
@@ -1198,7 +1204,7 @@ static void impl_Server_getUsers(const ::MumbleServer::AMD_Server_getUsersPtr cb
 
 	NEED_SERVER;
 	::MumbleServer::UserMap pm;
-	foreach (const ::User *p, server->qhUsers) {
+	for (const ::User *p : server->qhUsers) {
 		::MumbleServer::User mp;
 		if (static_cast< const ServerUser * >(p)->sState == ::ServerUser::Authenticated) {
 			userToUser(p, mp);
@@ -1216,7 +1222,7 @@ static void impl_Server_getChannels(const ::MumbleServer::AMD_Server_getChannels
 
 	NEED_SERVER;
 	::MumbleServer::ChannelMap cm;
-	foreach (const ::Channel *c, server->qhChannels) {
+	for (const ::Channel *c : server->qhChannels) {
 		::MumbleServer::Channel mc;
 		channelToChannel(c, mc);
 		cm[static_cast< int >(c->iId)] = mc;
@@ -1240,7 +1246,7 @@ TreePtr recurseTree(const ::Channel *c) {
 	QList<::User * > users = c->qlUsers;
 	std::sort(users.begin(), users.end(), userSort);
 
-	foreach (const ::User *p, users) {
+	for (const ::User *p : users) {
 		::MumbleServer::User mp;
 		userToUser(p, mp);
 		t->users.push_back(mp);
@@ -1249,7 +1255,9 @@ TreePtr recurseTree(const ::Channel *c) {
 	QList<::Channel * > channels = c->qlChannels;
 	std::sort(channels.begin(), channels.end(), channelSort);
 
-	foreach (const ::Channel *chn, channels) { t->children.push_back(recurseTree(chn)); }
+	for (const ::Channel *chn : channels) {
+		t->children.push_back(recurseTree(chn));
+	}
 
 	return t;
 }
@@ -1316,7 +1324,7 @@ static void impl_Server_setBans(const ::MumbleServer::AMD_Server_setBansPtr cb, 
 	{
 		QWriteLocker wl(&server->qrwlVoiceThread);
 		server->m_bans.clear();
-		foreach (const ::MumbleServer::Ban &mb, bans) {
+		for (const ::MumbleServer::Ban &mb : bans) {
 			::Ban ban;
 			banToBan(mb, ban);
 			server->m_bans.push_back(std::move(ban));
@@ -1445,10 +1453,10 @@ static void impl_Server_removeContextCallback(const MumbleServer::AMD_Server_rem
 		const MumbleServer::ServerContextCallbackPrx &oneway = MumbleServer::ServerContextCallbackPrx::uncheckedCast(
 			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 
-		foreach (int session, qmPrx.keys()) {
+		for (int session : qmPrx.keys()) {
 			ServerUser *user = server->qhUsers.value(static_cast< unsigned int >(session));
 			const QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &qm = qmPrx[session];
-			foreach (const QString &act, qm.keys(oneway)) {
+			for (const QString &act : qm.keys(oneway)) {
 				mi->removeServerContextCallback(server, session, act);
 
 				// Ask clients to remove the clientside callbacks
@@ -1545,7 +1553,7 @@ static void impl_Server_setChannelState(const ::MumbleServer::AMD_Server_setChan
 	QString qsName = u8(state.name);
 
 	QSet<::Channel * > newset;
-	foreach (int linkid, state.links) {
+	for (int linkid : state.links) {
 		::Channel *cLink;
 		NEED_CHANNEL_VAR(cLink, linkid);
 		newset << cLink;
@@ -1628,7 +1636,6 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 
 	QStack<::Channel * > chans;
 	::Channel *p;
-	ChanACL *acl;
 	p = channel;
 	while (p) {
 		chans.push(p);
@@ -1642,7 +1649,7 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 
 	while (!chans.isEmpty()) {
 		p = chans.pop();
-		foreach (acl, p->qlACL) {
+		for (::ChanACL *acl : p->qlACL) {
 			if ((p == channel) || (acl->bApplySubs)) {
 				::MumbleServer::ACL ma;
 				ACLtoACL(acl, ma);
@@ -1655,7 +1662,7 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 
 	p                              = channel->cParent;
 	const QSet< QString > allnames = ::Group::groupNames(channel);
-	foreach (const QString &name, allnames) {
+	for (const QString &name : allnames) {
 		::Group *g  = channel->qhGroups.value(name);
 		::Group *pg = p ? ::Group::getGroup(p, name) : nullptr;
 		if (!g && !pg)
@@ -1699,24 +1706,22 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 	{
 		QWriteLocker locker(&server->qrwlVoiceThread);
 
-		::Group *g;
-		ChanACL *acl;
-
 		QHash< QString, QSet< int > > hOldTemp;
-		foreach (g, channel->qhGroups) {
+		for (::Group *g : channel->qhGroups) {
 			hOldTemp.insert(g->qsName, g->qsTemporary);
 			delete g;
 		}
-		foreach (acl, channel->qlACL)
+		for (::ChanACL *acl : channel->qlACL) {
 			delete acl;
+		}
 
 		channel->qhGroups.clear();
 		channel->qlACL.clear();
 
 		channel->bInheritACL = inherit;
-		foreach (const ::MumbleServer::Group &gi, groups) {
+		for (const ::MumbleServer::Group &gi : groups) {
 			QString name    = u8(gi.name);
-			g               = new ::Group(channel, name);
+			::Group *g      = new ::Group(channel, name);
 			g->bInherit     = gi.inherit;
 			g->bInheritable = gi.inheritable;
 			QVector< int > addVec(gi.add.begin(), gi.add.end());
@@ -1726,8 +1731,8 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 			g->qsRemove    = QSet< int >(removeVec.begin(), removeVec.end());
 			g->qsTemporary = hOldTemp.value(name);
 		}
-		foreach (const ::MumbleServer::ACL &ai, acls) {
-			acl             = new ChanACL(channel);
+		for (const ::MumbleServer::ACL &ai : acls) {
+			::ChanACL *acl  = new ChanACL(channel);
 			acl->bApplyHere = ai.applyHere;
 			acl->bApplySubs = ai.applySubs;
 			acl->iUserId    = ai.userid;
@@ -1768,7 +1773,7 @@ static void impl_Server_getUserIds(const ::MumbleServer::AMD_Server_getUserIdsPt
 
 	NEED_SERVER;
 	::MumbleServer::IdMap im;
-	foreach (const string &n, names) {
+	for (const string &n : names) {
 		QString name = u8(n);
 		im[n]        = server->getRegisteredUserID(name);
 	}
@@ -1836,7 +1841,7 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 	}
 
 	if (info.contains(static_cast< int >(::mumble::server::db::UserProperty::Comment))) {
-		foreach (ServerUser *u, server->qhUsers) {
+		for (ServerUser *u : server->qhUsers) {
 			if (u->iId == id)
 				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, u->qsName,
 									 info.value(static_cast< int >(::mumble::server::db::UserProperty::Comment)));
@@ -2104,7 +2109,7 @@ static void impl_Server_getListeningUsers(const ::MumbleServer::AMD_Server_getLi
 	NEED_CHANNEL;
 
 	::MumbleServer::IntList userSessions;
-	foreach (unsigned int currentSession, server->m_channelListenerManager.getListenersForChannel(channel->iId)) {
+	for (unsigned int currentSession : server->m_channelListenerManager.getListenersForChannel(channel->iId)) {
 		userSessions.push_back(static_cast< int >(currentSession));
 	}
 
@@ -2321,8 +2326,10 @@ static void impl_Meta_getBootedServers(const ::MumbleServer::AMD_Meta_getBootedS
 
 	::MumbleServer::ServerList sl;
 
-	foreach (unsigned int id, meta->qhServers.keys())
+	for (unsigned int id : meta->qhServers.keys()) {
 		sl.push_back(idToProxy(id, adapter));
+	}
+
 	cb->ice_response(sl);
 
 	ICE_IMPL_END

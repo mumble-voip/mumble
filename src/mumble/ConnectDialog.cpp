@@ -174,9 +174,11 @@ void ServerView::fixupName(ServerItem *si) {
 		else
 			cmpname = name;
 
-		foreach (ServerItem *f, siFavorite->qlChildren)
-			if (f->qsName == cmpname)
+		for (ServerItem *f : siFavorite->qlChildren) {
+			if (f->qsName == cmpname) {
 				found = true;
+			}
+		}
 
 		++tag;
 	} while (found);
@@ -343,8 +345,9 @@ ServerItem::~ServerItem() {
 	}
 
 	// This is just for cleanup when exiting the dialog, it won't stop pending DNS for the children.
-	foreach (ServerItem *si, qlChildren)
+	for (ServerItem *si : qlChildren) {
 		delete si;
+	}
 }
 
 ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, QWidget *p, bool convertHttpUrls) {
@@ -477,7 +480,7 @@ QVariant ServerItem::data(int column, int role) const {
 		} else if (role == Qt::ToolTipRole) {
 			QStringList ipv4List;
 			QStringList ipv6List;
-			foreach (const ServerAddress &addr, qlAddresses) {
+			for (const ServerAddress &addr : qlAddresses) {
 				const QString address = addr.host.toString(false).toHtmlEscaped();
 				if (addr.host.isV6()) {
 					ipv6List << address;
@@ -1051,7 +1054,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	QList< QTreeWidgetItem * > ql;
 	QList< FavoriteServer > favorites = Global::get().db->getFavorites();
 
-	foreach (const FavoriteServer &fs, favorites) {
+	for (const FavoriteServer &fs : favorites) {
 		ServerItem *si = new ServerItem(fs);
 		qlItems << si;
 		startDns(si);
@@ -1119,7 +1122,7 @@ ConnectDialog::~ConnectDialog() {
 	QList< FavoriteServer > ql;
 	qmPingCache.clear();
 
-	foreach (ServerItem *si, qlItems) {
+	for (ServerItem *si : qlItems) {
 		if (si->uiPing)
 			qmPingCache.insert(UnresolvedServerAddress(si->qsHostname, si->usPort), si->uiPing);
 
@@ -1167,7 +1170,7 @@ void ConnectDialog::OnSortChanged(int logicalIndex, Qt::SortOrder) {
 		return;
 	}
 
-	foreach (ServerItem *si, qlItems) {
+	for (ServerItem *si : qlItems) {
 		if (si->uiPing && (si->uiPing != si->uiPingSort)) {
 			si->uiPingSort = si->uiPing;
 			si->setDatas();
@@ -1377,7 +1380,9 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 
 	ServerItem *p = static_cast< ServerItem * >(item);
 
-	foreach (ServerItem *si, p->qlChildren) { startDns(si); }
+	for (ServerItem *si : p->qlChildren) {
+		startDns(si);
+	}
 }
 
 void ConnectDialog::on_qtwServers_itemCollapsed(QTreeWidgetItem *item) {
@@ -1405,7 +1410,7 @@ void ConnectDialog::initList() {
 #ifdef USE_ZEROCONF
 void ConnectDialog::onResolved(const BonjourRecord record, const QString host, const uint16_t port) {
 	qlBonjourActive.removeAll(record);
-	foreach (ServerItem *si, qlItems) {
+	for (ServerItem *si : qlItems) {
 		if (si->zeroconfRecord == record) {
 			unsigned short usport = static_cast< unsigned short >(port);
 			if ((host != si->qsHostname) || (usport != si->usPort)) {
@@ -1423,9 +1428,9 @@ void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 	QSet< ServerItem * > old =
 		QSet< ServerItem * >(qtwServers->siLAN->qlChildren.begin(), qtwServers->siLAN->qlChildren.end());
 
-	foreach (const BonjourRecord &record, list) {
+	for (const BonjourRecord &record : list) {
 		bool found = false;
-		foreach (ServerItem *si, old) {
+		for (ServerItem *si : old) {
 			if (si->zeroconfRecord == record) {
 				items.insert(si);
 				found = true;
@@ -1441,7 +1446,7 @@ void ConnectDialog::onUpdateLanList(const QList< BonjourRecord > &list) {
 		}
 	}
 	QSet< ServerItem * > remove = old.subtract(items);
-	foreach (ServerItem *si, remove) {
+	for (ServerItem *si : remove) {
 		stopDns(si);
 		qlItems.removeAll(si);
 		delete si;
@@ -1457,9 +1462,9 @@ void ConnectDialog::fillList() {
 	QList< QTreeWidgetItem * > ql;
 	QList< QTreeWidgetItem * > qlNew;
 
-	foreach (const PublicInfo &pi, qlPublicServers) {
+	for (const PublicInfo &pi : qlPublicServers) {
 		bool found = false;
-		foreach (ServerItem *si, qlItems) {
+		for (ServerItem *si : qlItems) {
 			if ((pi.qsIp == si->qsHostname) && (pi.usPort == si->usPort)) {
 				si->qsCountry       = pi.qsCountry;
 				si->qsCountryCode   = pi.qsCountryCode;
@@ -1482,7 +1487,7 @@ void ConnectDialog::fillList() {
 		qlItems << si;
 	}
 
-	foreach (QTreeWidgetItem *qtwi, qlNew) {
+	for (QTreeWidgetItem *qtwi : qlNew) {
 		ServerItem *si = static_cast< ServerItem * >(qtwi);
 		qtwServers->siPublic->addServerItem(si);
 		filterServer(si);
@@ -1512,7 +1517,7 @@ void ConnectDialog::timeTick() {
 
 	if (bAllowHostLookup) {
 		// Start DNS Lookup of first unknown hostname
-		foreach (const UnresolvedServerAddress &unresolved, qlDNSLookup) {
+		for (const UnresolvedServerAddress &unresolved : qlDNSLookup) {
 			if (qsDNSActive.contains(unresolved)) {
 				continue;
 			}
@@ -1590,7 +1595,9 @@ void ConnectDialog::timeTick() {
 
 void ConnectDialog::filterPublicServerList() const {
 	if (!Global::get().s.bDisablePublicList) {
-		foreach (ServerItem *const si, qtwServers->siPublic->qlChildren) { filterServer(si); }
+		for (ServerItem *const si : qtwServers->siPublic->qlChildren) {
+			filterServer(si);
+		}
 	}
 }
 
@@ -1618,13 +1625,13 @@ void ConnectDialog::filterServer(ServerItem *const si) const {
 void ConnectDialog::addCountriesToSearchLocation() const {
 	QMap< QString, QString > qmCountries;
 
-	foreach (const PublicInfo &pi, qlPublicServers) {
+	for (const PublicInfo &pi : qlPublicServers) {
 		if (pi.qsCountry != tr("Unknown") && !qmCountries.contains(pi.qsCountry)) {
 			qmCountries.insert(pi.qsCountry, pi.qsCountryCode);
 		}
 	}
 
-	foreach (auto location, qmCountries.keys()) {
+	for (const QString &location : qmCountries.keys()) {
 		// Set Icon, Text and Data
 		qcbSearchLocation->addItem(
 			ServerItem::loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qmCountries.value(location))), location,
@@ -1658,7 +1665,9 @@ void ConnectDialog::startDns(ServerItem *si) {
 		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(!si->qlAddresses.isEmpty());
 
 	if (!si->qlAddresses.isEmpty()) {
-		foreach (const ServerAddress &addr, si->qlAddresses) { qhPings[addr].insert(si); }
+		for (const ServerAddress &addr : si->qlAddresses) {
+			qhPings[addr].insert(si);
+		}
 		return;
 	}
 #ifdef USE_ZEROCONF
@@ -1684,7 +1693,7 @@ void ConnectDialog::stopDns(ServerItem *si) {
 		return;
 	}
 
-	foreach (const ServerAddress &addr, si->qlAddresses) {
+	for (const ServerAddress &addr : si->qlAddresses) {
 		if (qhPings.contains(addr)) {
 			qhPings[addr].remove(si);
 			if (qhPings[addr].isEmpty()) {
@@ -1723,13 +1732,17 @@ void ConnectDialog::lookedUp() {
 	}
 
 	QSet< ServerAddress > qs;
-	foreach (ServerResolverRecord record, sr->records()) {
-		foreach (const HostAddress &ha, record.addresses()) { qs.insert(ServerAddress(ha, record.port())); }
+	for (ServerResolverRecord record : sr->records()) {
+		for (const HostAddress &ha : record.addresses()) {
+			qs.insert(ServerAddress(ha, record.port()));
+		}
 	}
 
 	QSet< ServerItem * > waiting = qhDNSWait[unresolved];
-	foreach (ServerItem *si, waiting) {
-		foreach (const ServerAddress &addr, qs) { qhPings[addr].insert(si); }
+	for (ServerItem *si : waiting) {
+		for (const ServerAddress &addr : qs) {
+			qhPings[addr].insert(si);
+		}
 
 		si->qlAddresses = qs.values();
 	}
@@ -1738,7 +1751,7 @@ void ConnectDialog::lookedUp() {
 	qhDNSCache.insert(unresolved, qs.values());
 	qhDNSWait.remove(unresolved);
 
-	foreach (ServerItem *si, waiting) {
+	for (ServerItem *si : waiting) {
 		if (si == qtwServers->currentItem()) {
 			on_qtwServers_currentItemChanged(si, si);
 			if (si == siAutoConnect)
@@ -1780,8 +1793,9 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port, Vers
 
 	const QSet< ServerItem * > &qs = qhPings.value(addr);
 
-	foreach (ServerItem *si, qs)
+	for (ServerItem *si : qs) {
 		++si->uiSent;
+	}
 }
 
 bool ConnectDialog::writePing(const QHostAddress &host, unsigned short port, Version::full_t protocolVersion,

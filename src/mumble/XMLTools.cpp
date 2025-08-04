@@ -22,7 +22,7 @@ void XMLTools::recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, 
 		if (!styleref.isNull()) {
 			QString stylestring = styleref.toString();
 			QStringList styles  = stylestring.split(QLatin1String(";"), Qt::SkipEmptyParts);
-			foreach (QString s, styles) {
+			for (QString s : styles) {
 				s                 = s.simplified();
 				const auto idx    = s.indexOf(QLatin1Char(':'));
 				const QString key = (idx > 0) ? s.left(idx).simplified() : s;

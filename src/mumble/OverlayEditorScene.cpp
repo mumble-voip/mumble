@@ -281,7 +281,7 @@ QGraphicsPixmapItem *OverlayEditorScene::childAt(const QPointF &pos) {
 		}
 	}
 
-	foreach (QGraphicsItem *qgi, items(Qt::AscendingOrder)) {
+	for (QGraphicsItem *qgi : items(Qt::AscendingOrder)) {
 		if (!qgi->isVisible() || !qgraphicsitem_cast< QGraphicsPixmapItem * >(qgi))
 			continue;
 
@@ -514,7 +514,7 @@ void OverlayEditorScene::updateCursorShape(const QPointF &point) {
 	}
 
 
-	foreach (QGraphicsView *v, views()) {
+	for (QGraphicsView *v : views()) {
 		if (v->viewport()->cursor().shape() != cs) {
 			v->viewport()->setCursor(cs);
 

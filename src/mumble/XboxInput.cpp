@@ -26,7 +26,7 @@ XboxInput::XboxInput()
 	alternatives << QLatin1String("xinput1_2.dll");
 	alternatives << QLatin1String("xinput1_1.dll");
 
-	foreach (const QString &lib, alternatives) {
+	for (const QString &lib : alternatives) {
 		m_xinputlib = LoadLibraryW(reinterpret_cast< const wchar_t * >(lib.utf16()));
 		if (m_xinputlib) {
 			qWarning("XboxInput: using XInput DLL '%s'", qPrintable(lib));

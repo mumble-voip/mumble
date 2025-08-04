@@ -272,7 +272,7 @@ void OverlayConfig::load(const Settings &r) {
 			++i;
 		}
 #endif
-		foreach (QString str, builtinLaunchers) {
+		for (const QString &str : builtinLaunchers) {
 			OverlayAppInfo oai               = OverlayAppInfo::applicationInfoForId(str);
 			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwLaunchers);
 			qlwiApplication->setData(OVERLAYCONFIG_PATH_ROLE, QVariant(str));
@@ -292,7 +292,7 @@ void OverlayConfig::load(const Settings &r) {
 			}
 		}
 
-		foreach (QString str, s.os.qslLaunchers) {
+		for (const QString &str : s.os.qslLaunchers) {
 			if (builtinLaunchers.contains(str)) {
 				continue;
 			}
@@ -316,7 +316,7 @@ void OverlayConfig::load(const Settings &r) {
 			++i;
 		}
 #endif
-		foreach (QString str, builtinWhitelist) {
+		for (const QString &str : builtinWhitelist) {
 			OverlayAppInfo oai               = OverlayAppInfo::applicationInfoForId(str);
 			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwWhitelist);
 			qlwiApplication->setData(OVERLAYCONFIG_PATH_ROLE, QVariant(str));
@@ -336,7 +336,7 @@ void OverlayConfig::load(const Settings &r) {
 			}
 		}
 
-		foreach (QString str, s.os.qslWhitelist) {
+		for (const QString &str : s.os.qslWhitelist) {
 			if (builtinWhitelist.contains(str)) {
 				continue;
 			}
@@ -351,7 +351,7 @@ void OverlayConfig::load(const Settings &r) {
 	{
 		qlwPaths->clear();
 
-		foreach (QString str, s.os.qslPaths) {
+		for (const QString &str : s.os.qslPaths) {
 			QListWidgetItem *qlwiApplication = new QListWidgetItem(QIcon(), str, qlwPaths);
 			qlwiApplication->setData(OVERLAYCONFIG_PATH_ROLE, QVariant(str));
 			qlwiApplication->setData(OVERLAYCONFIG_BUILTIN_ROLE, QVariant(false));
@@ -371,7 +371,7 @@ void OverlayConfig::load(const Settings &r) {
 			++i;
 		}
 #endif
-		foreach (QString str, builtinBlacklist) {
+		for (const QString &str : builtinBlacklist) {
 			OverlayAppInfo oai               = OverlayAppInfo::applicationInfoForId(str);
 			QListWidgetItem *qlwiApplication = new QListWidgetItem(oai.qiIcon, oai.qsDisplayName, qlwBlacklist);
 			qlwiApplication->setData(OVERLAYCONFIG_PATH_ROLE, QVariant(str));
@@ -391,7 +391,7 @@ void OverlayConfig::load(const Settings &r) {
 			}
 		}
 
-		foreach (QString str, s.os.qslBlacklist) {
+		for (const QString &str : s.os.qslBlacklist) {
 			if (builtinBlacklist.contains(str)) {
 				continue;
 			}

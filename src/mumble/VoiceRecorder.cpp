@@ -117,7 +117,7 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 
 	// Reassemble and expand
 	bool first = true;
-	foreach (QString str, comp) {
+	for (const QString &str : comp) {
 		bool replacements = false;
 		QString tmp;
 
@@ -142,16 +142,14 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 				tmp += str[i];
 		}
 
-		str = tmp;
-
 		if (replacements)
-			str = sanitizeFilenameOrPathComponent(str);
+			tmp = sanitizeFilenameOrPathComponent(tmp);
 
 		if (first) {
 			first = false;
-			res.append(str);
+			res.append(tmp);
 		} else {
-			res.append(QLatin1Char('/') + str);
+			res.append(QLatin1Char('/') + tmp);
 		}
 	}
 	return res;

@@ -106,7 +106,7 @@ GKeyLibrary::GKeyLibrary() {
 	}
 
 	alternatives << QString::fromLatin1(GKEY_LOGITECH_DLL_DEFAULT_LOCATION);
-	foreach (const QString &lib, alternatives) {
+	for (const QString &lib : alternatives) {
 		qlLogiGkey.setFileName(lib);
 
 		if (qlLogiGkey.load()) {

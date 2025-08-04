@@ -152,7 +152,9 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 		QSslConfiguration::setDefaultConfiguration(config);
 
 		QStringList pref;
-		foreach (QSslCipher c, ciphers) { pref << c.name(); }
+		for (const QSslCipher &c : ciphers) {
+			pref << c.name();
+		}
 		qWarning("ServerHandler: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
@@ -371,8 +373,8 @@ void ServerHandler::hostnameResolved() {
 	// that the ServerHandler should try to connect to.
 	QList< ServerAddress > ql;
 	QHash< ServerAddress, QString > qh;
-	foreach (ServerResolverRecord record, records) {
-		foreach (HostAddress addr, record.addresses()) {
+	for (ServerResolverRecord &record : records) {
+		for (const HostAddress &addr : record.addresses()) {
 			auto sa = ServerAddress(addr, record.port());
 			ql.append(sa);
 			qh[sa] = record.hostname();
@@ -521,7 +523,7 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 #ifdef Q_OS_WIN
 	bool bRevalidate = false;
 	QList< QSslError > errorsToRemove;
-	foreach (const QSslError &e, errors) {
+	for (const QSslError &e : errors) {
 		switch (e.error()) {
 			case QSslError::UnableToGetLocalIssuerCertificate:
 			case QSslError::SelfSignedCertificateInChain:
@@ -537,7 +539,9 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 		QByteArray der    = qscCert.first().toDer();
 		DWORD errorStatus = WinVerifySslCert(der);
 		if (errorStatus == CERT_TRUST_NO_ERROR) {
-			foreach (const QSslError &e, errorsToRemove) { newErrors.removeOne(e); }
+			for (const QSslError &e : errorsToRemove) {
+				newErrors.removeOne(e);
+			}
 		}
 		if (newErrors.isEmpty()) {
 			connection->proceedAnyway();
@@ -793,8 +797,9 @@ void ServerHandler::serverConnectionConnected() {
 	mpa.set_password(u8(qsPassword));
 
 	QStringList tokens = database->getTokens(qbaDigest);
-	foreach (const QString &qs, tokens)
+	for (const QString &qs : tokens) {
 		mpa.add_tokens(u8(qs));
+	}
 
 	mpa.set_opus(true);
 	sendMessage(mpa);
@@ -903,7 +908,7 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel,
 	mpus.set_session(uiSession);
 	mpus.set_channel_id(channel);
 
-	foreach (const QString &tmpToken, temporaryAccessTokens) {
+	for (const QString &tmpToken : temporaryAccessTokens) {
 		mpus.add_temporary_access_tokens(tmpToken.toUtf8().constData());
 	}
 
@@ -1084,8 +1089,9 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 
 void ServerHandler::setTokens(const QStringList &tokens) {
 	MumbleProto::Authenticate msg;
-	foreach (const QString &qs, tokens)
+	for (const QString &qs : tokens) {
 		msg.add_tokens(u8(qs));
+	}
 	sendMessage(msg);
 }
 
