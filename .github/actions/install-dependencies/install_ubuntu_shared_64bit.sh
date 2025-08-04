@@ -44,7 +44,23 @@ then
 	sudo apt -y install libgl-dev \
 						libqt6svg6-dev \
 						qt6-l10n-tools \
-						qt6-tools-dev-tools
+						qt6-tools-dev-tools \
+						gcc-12 \
+						g++-12-multilib
+
+	# Ensure we're using GCC-12
+	# https://askubuntu.com/a/26518
+	sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10
+	sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 10
+
+	sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30
+	sudo update-alternatives --set cc /usr/bin/gcc
+
+	sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30
+	sudo update-alternatives --set c++ /usr/bin/g++
+
+	sudo update-alternatives --config gcc
+	sudo update-alternatives --config g++
 else
 	sudo apt -y install qt6-svg-dev
 fi
