@@ -6,7 +6,10 @@
 #ifndef MUMBLE_CRYPTSTATE_H_
 #define MUMBLE_CRYPTSTATE_H_
 
+#include <QtGlobal>
+
 #include "Timer.h"
+
 #include <chrono>
 #include <queue>
 #include <string>

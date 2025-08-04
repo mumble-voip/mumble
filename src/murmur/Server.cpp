@@ -1041,8 +1041,8 @@ bool Server::checkDecrypt(ServerUser *u, const unsigned char *encrypt, unsigned 
 		return true;
 	}
 
-	if (u->csCrypt->tLastGood.elapsed() > 5000000ULL) {
-		if (u->csCrypt->tLastRequest.elapsed() > 5000000ULL) {
+	if (u->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+		if (u->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
 			u->csCrypt->tLastRequest.restart();
 			emit reqSync(u->uiSession);
 		}

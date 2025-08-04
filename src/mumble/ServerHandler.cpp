@@ -41,6 +41,7 @@
 #include <openssl/crypto.h>
 
 #include <cassert>
+#include <chrono>
 
 #ifdef Q_OS_WIN
 // <delayimp.h> is not protected with an include guard on MinGW, resulting in
@@ -243,8 +244,8 @@ void ServerHandler::udpReady() {
 
 		if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(),
 										  buflen)) {
-			if (connection->csCrypt->tLastGood.elapsed() > 5000000ULL) {
-				if (connection->csCrypt->tLastRequest.elapsed() > 5000000ULL) {
+			if (connection->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+				if (connection->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
 					connection->csCrypt->tLastRequest.restart();
 					MumbleProto::CryptSetup mpcs;
 					sendMessage(mpcs);
@@ -258,7 +259,9 @@ void ServerHandler::udpReady() {
 				case Mumble::Protocol::UDPMessageType::Ping: {
 					const Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 
-					accUDP(static_cast< double >(tTimestamp.elapsed() - pingData.timestamp) / 1000.0);
+					accUDP(static_cast< double >(static_cast< std::uint64_t >(tTimestamp.elapsed().count())
+												 - pingData.timestamp)
+						   / 1000.0);
 
 					break;
 				}
@@ -575,7 +578,7 @@ void ServerHandler::sendPingInternal() {
 		return;
 	}
 
-	quint64 t = tTimestamp.elapsed();
+	quint64 t = static_cast< quint64 >(tTimestamp.elapsed().count());
 
 	if (qusUdp) {
 		Mumble::Protocol::PingData pingData;
@@ -643,10 +646,11 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 			connection->csCrypt->m_statsRemote.late   = msg.late();
 			connection->csCrypt->m_statsRemote.lost   = msg.lost();
 			connection->csCrypt->m_statsRemote.resync = msg.resync();
-			accTCP(static_cast< double >(tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+			accTCP(static_cast< double >(static_cast< std::uint64_t >(tTimestamp.elapsed().count()) - msg.timestamp())
+				   / 1000.0);
 
 			if (((connection->csCrypt->m_statsRemote.good == 0) || (connection->csCrypt->m_statsLocal.good == 0))
-				&& bUdp && (tTimestamp.elapsed() > 20000000ULL)) {
+				&& bUdp && (tTimestamp.elapsed() > std::chrono::seconds(20))) {
 				bUdp = false;
 				if (!NetworkConfig::TcpModeEnabled()) {
 					if ((connection->csCrypt->m_statsRemote.good == 0) && (connection->csCrypt->m_statsLocal.good == 0))

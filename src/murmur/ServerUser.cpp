@@ -13,6 +13,8 @@
 #	include "Utils.h"
 #endif
 
+#include <chrono>
+
 ServerUser::ServerUser(Server *p, QSslSocket *socket)
 	: Connection(p, socket), ServerUserInfo(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst),
 	  m_pluginMessageBucket(p->iPluginMessageLimit, p->iPluginMessageBurst) {
@@ -49,13 +51,13 @@ BandwidthRecord::BandwidthRecord() {
 bool BandwidthRecord::addFrame(int size, int maxpersec) {
 	QMutexLocker ml(&qmMutex);
 
-	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
+	long elapsed = a_qtWhen[iRecNum].elapsed().count();
 
 	if (elapsed == 0)
 		return false;
 
 	int nsum = iSum - a_iBW[iRecNum] + size;
-	int bw   = static_cast< int >((static_cast< quint64 >(nsum) * 1000000ULL) / elapsed);
+	int bw   = static_cast< int >((static_cast< long >(nsum) * 1000000L) / elapsed);
 
 	if (bw > maxpersec)
 		return false;
@@ -75,17 +77,17 @@ bool BandwidthRecord::addFrame(int size, int maxpersec) {
 int BandwidthRecord::onlineSeconds() const {
 	QMutexLocker ml(&qmMutex);
 
-	return static_cast< int >(tFirst.elapsed() / 1000000LL);
+	return static_cast< int >(tFirst.elapsed< std::chrono::seconds >().count());
 }
 
 int BandwidthRecord::idleSeconds() const {
 	QMutexLocker ml(&qmMutex);
 
-	quint64 iIdle = a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed();
+	std::chrono::microseconds iIdle = a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed();
 	if (tIdleControl.elapsed() < iIdle)
 		iIdle = tIdleControl.elapsed();
 
-	return static_cast< int >(iIdle / 1000000LL);
+	return static_cast< int >(std::chrono::duration_cast< std::chrono::seconds >(iIdle).count());
 }
 
 void BandwidthRecord::resetIdleSeconds() {
@@ -97,13 +99,13 @@ void BandwidthRecord::resetIdleSeconds() {
 int BandwidthRecord::bandwidth() const {
 	QMutexLocker ml(&qmMutex);
 
-	int sum         = 0;
-	quint64 elapsed = 0ULL;
+	int sum = 0;
+	std::chrono::microseconds elapsed{ 0 };
 
 	for (int i = 1; i < N_BANDWIDTH_SLOTS; ++i) {
-		int idx   = (iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS;
-		quint64 e = a_qtWhen[idx].elapsed();
-		if (e > 1000000ULL) {
+		int idx                     = (iRecNum + N_BANDWIDTH_SLOTS - i) % N_BANDWIDTH_SLOTS;
+		std::chrono::microseconds e = a_qtWhen[idx].elapsed();
+		if (e > std::chrono::seconds(1)) {
 			break;
 		} else {
 			sum += a_iBW[idx];
@@ -111,10 +113,10 @@ int BandwidthRecord::bandwidth() const {
 		}
 	}
 
-	if (elapsed < 250000ULL)
+	if (elapsed < std::chrono::milliseconds(250))
 		return 0;
 
-	return static_cast< int >((static_cast< quint64 >(sum) * 1000000ULL) / elapsed);
+	return static_cast< int >((static_cast< long long >(sum) * 1000000LL) / elapsed.count());
 }
 
 LeakyBucket::LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens)

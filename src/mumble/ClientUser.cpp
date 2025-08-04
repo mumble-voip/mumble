@@ -316,7 +316,7 @@ bool ClientUser::isActive() {
 	if (!tLastTalkStateChange.isStarted())
 		return false;
 
-	return tLastTalkStateChange.elapsed() < static_cast< unsigned int >(Global::get().s.os.uiActiveTime) * 1000000U;
+	return tLastTalkStateChange.elapsed() < std::chrono::seconds(Global::get().s.os.uiActiveTime);
 }
 
 /* From Channel.h

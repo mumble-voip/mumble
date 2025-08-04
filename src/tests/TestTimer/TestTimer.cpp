@@ -8,6 +8,8 @@
 
 #include "Timer.h"
 
+#include <chrono>
+
 class TestTimer : public QObject {
 	Q_OBJECT
 private slots:
@@ -24,9 +26,9 @@ void TestTimer::resolution() {
 
 	t.restart();
 
-	quint64 nchanges    = 0;
-	quint64 lastElapsed = 0;
-	quint64 curElapsed  = 0;
+	quint64 nchanges = 0;
+	std::chrono::microseconds lastElapsed{ 0 };
+	std::chrono::microseconds curElapsed{ 0 };
 
 	do {
 		curElapsed = t.elapsed();
@@ -34,12 +36,12 @@ void TestTimer::resolution() {
 			nchanges++;
 		}
 		lastElapsed = curElapsed;
-	} while (curElapsed < 150000); // 150 ms
+	} while (curElapsed < std::chrono::milliseconds(150));
 
-	quint64 totalElapsed  = t.elapsed();
-	double usecsPerChange = static_cast< double >(totalElapsed) / static_cast< double >(nchanges);
+	std::chrono::microseconds totalElapsed = t.elapsed();
+	double usecsPerChange = static_cast< double >(totalElapsed.count()) / static_cast< double >(nchanges);
 
-	qWarning("Total elapsed time: %llu microseconds", static_cast< unsigned long long >(totalElapsed));
+	qWarning("Total elapsed time: %llu microseconds", static_cast< unsigned long long >(totalElapsed.count()));
 	qWarning("Number of elapsed changes: %llu", static_cast< unsigned long long >(nchanges));
 	qWarning("Resolution: %.2f microseconds", usecsPerChange);
 
@@ -51,7 +53,7 @@ void TestTimer::resolution() {
 void TestTimer::order() {
 	Timer a;
 
-	while (a.elapsed() == 0) {
+	while (a.elapsed().count() == 0) {
 	};
 
 	Timer b;

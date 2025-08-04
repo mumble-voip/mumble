@@ -29,6 +29,7 @@
 #endif
 
 #include <cassert>
+#include <chrono>
 
 const QString GlobalShortcutConfig::name = QLatin1String("GlobalShortcutConfig");
 
@@ -984,7 +985,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 	else
 		qlDownButtons.removeAll(button);
 
-	if (tReset.elapsed() > 100000) {
+	if (tReset.elapsed() > std::chrono::milliseconds(100)) {
 		if (down) {
 			qlActiveButtons.removeAll(button);
 			qlActiveButtons << button;

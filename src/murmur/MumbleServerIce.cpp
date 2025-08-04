@@ -33,6 +33,7 @@
 #include <IceUtil/IceUtil.h>
 
 #include <cassert>
+#include <chrono>
 #include <limits>
 #include <sstream>
 
@@ -1973,7 +1974,7 @@ static void impl_Server_getUptime(const ::MumbleServer::AMD_Server_getUptimePtr 
 	ICE_IMPL_BEGIN
 
 	NEED_SERVER;
-	cb->ice_response(static_cast< int >(server->tUptime.elapsed() / 1000000LL));
+	cb->ice_response(static_cast< int >(server->tUptime.elapsed< std::chrono::seconds >().count()));
 
 	ICE_IMPL_END
 }
@@ -2375,7 +2376,7 @@ static void impl_Meta_removeCallback(const MumbleServer::AMD_Meta_removeCallback
 static void impl_Meta_getUptime(const ::MumbleServer::AMD_Meta_getUptimePtr cb, const Ice::ObjectAdapterPtr) {
 	ICE_IMPL_BEGIN
 
-	cb->ice_response(static_cast< int >(meta->tUptime.elapsed() / 1000000LL));
+	cb->ice_response(static_cast< int >(meta->tUptime.elapsed< std::chrono::seconds >().count()));
 
 	ICE_IMPL_END
 }

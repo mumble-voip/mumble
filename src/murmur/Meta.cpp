@@ -22,6 +22,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include <cassert>
+#include <chrono>
 #include <optional>
 
 #include <QDir>
@@ -966,7 +967,7 @@ bool Meta::banCheck(const QHostAddress &addr) {
 
 	if (qhBans.contains(addr)) {
 		Timer t = qhBans.value(addr);
-		if (t.elapsed() < (1000000ULL * static_cast< unsigned long long >(mp->iBanTime)))
+		if (t.elapsed() < std::chrono::seconds(mp->iBanTime))
 			return true;
 		qhBans.remove(addr);
 	}
@@ -974,7 +975,7 @@ bool Meta::banCheck(const QHostAddress &addr) {
 	QList< Timer > &ql = qhAttempts[addr];
 
 	ql.append(Timer());
-	while (!ql.isEmpty() && (ql.at(0).elapsed() > (1000000ULL * static_cast< unsigned long long >(mp->iBanTimeframe))))
+	while (!ql.isEmpty() && (ql.at(0).elapsed() > std::chrono::seconds(mp->iBanTimeframe)))
 		ql.removeFirst();
 
 	if (ql.count() > mp->iBanTries) {

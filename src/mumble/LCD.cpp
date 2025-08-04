@@ -13,6 +13,8 @@
 
 #include <QtGui/QPainter>
 
+#include <chrono>
+
 const QString LCDConfig::name = QLatin1String("LCDConfig");
 
 QList< LCDEngineNew > *LCDEngineRegistrar::qlInitializers;
@@ -280,7 +282,7 @@ void LCD::updateUserView() {
 
 		foreach (unsigned int session, qmOld.keys()) {
 			Timer t = qmOld.value(session);
-			if (t.elapsed() > 3000000) {
+			if (t.elapsed() > std::chrono::seconds(3)) {
 				qmNameCache.remove(session);
 			} else {
 				old.insert(session, qmOld.value(session));
@@ -304,7 +306,7 @@ void LCD::updateUserView() {
 					speaking.insert(p->uiSession, Timer());
 				} else if (qmSpeaking.contains(p->uiSession)) {
 					Timer t = qmSpeaking.value(p->uiSession);
-					if (t.elapsed() > 1000000)
+					if (t.elapsed() > std::chrono::seconds(1))
 						qmSpeaking.remove(p->uiSession);
 					else {
 						speaking.insert(p->uiSession, t);
@@ -315,7 +317,7 @@ void LCD::updateUserView() {
 					alert = true;
 					entries << ListEntry(p->qsName, true, (p->cChannel != me->cChannel));
 				} else if (c == me->cChannel) {
-					if (qmNew.value(p->uiSession).elapsed() < 3000000) {
+					if (qmNew.value(p->uiSession).elapsed() < std::chrono::seconds(3)) {
 						entries << ListEntry(QLatin1String("+") + p->qsName, false, false);
 						hasnew = true;
 					}

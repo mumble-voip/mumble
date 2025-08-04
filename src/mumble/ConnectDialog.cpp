@@ -46,6 +46,7 @@
 
 #include <algorithm>
 #include <array>
+#include <chrono>
 
 QMap< QString, QIcon > ServerItem::qmIcons;
 QList< PublicInfo > ConnectDialog::qlPublicServers;
@@ -966,7 +967,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	bAllowZeroconf   = Global::get().s.ptProxyType == Settings::NoProxy;
 	bAllowFilters    = Global::get().s.ptProxyType == Settings::NoProxy;
 
-	if (tPublicServers.elapsed() >= 60 * 24 * 1000000ULL) {
+	if (tPublicServers.elapsed() >= std::chrono::days(1)) {
 		qlPublicServers.clear();
 	}
 
@@ -1533,9 +1534,9 @@ void ConnectDialog::timeTick() {
 
 	ServerItem *si = nullptr;
 
-	if (tCurrent.elapsed() >= 1000000ULL)
+	if (tCurrent.elapsed() >= std::chrono::seconds(1))
 		si = current;
-	if (!si && (tHover.elapsed() >= 1000000ULL))
+	if (!si && (tHover.elapsed() >= std::chrono::seconds(1)))
 		si = hover;
 
 	if (si) {
@@ -1561,7 +1562,7 @@ void ConnectDialog::timeTick() {
 		do {
 			++iPingIndex;
 			if (iPingIndex >= qlItems.count()) {
-				if (tRestart.isElapsed(1000000ULL))
+				if (tRestart.isElapsed(std::chrono::seconds(1)))
 					iPingIndex = 0;
 				else
 					return;
@@ -1765,7 +1766,7 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port, Vers
 
 	Mumble::Protocol::PingData pingData;
 	// "Encrypt" the timestamp so that server's can't spoof the returned timestamp (easily) to fake a better ping
-	pingData.timestamp                    = tPing.elapsed() ^ uiRand;
+	pingData.timestamp                    = static_cast< quint64 >(tPing.elapsed().count()) ^ uiRand;
 	pingData.requestAdditionalInformation = true;
 
 	if (!writePing(host, port, protocolVersion, pingData)) {
@@ -1830,7 +1831,8 @@ void ConnectDialog::udpReply() {
 			if (qhPings.contains(address)) {
 				Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 
-				quint64 elapsed = tPing.elapsed() - (pingData.timestamp ^ qhPingRand.value(address));
+				quint64 elapsed =
+					static_cast< quint64 >(tPing.elapsed().count()) - (pingData.timestamp ^ qhPingRand.value(address));
 
 				for (ServerItem *si : qhPings.value(address)) {
 					si->m_version    = pingData.serverVersion;

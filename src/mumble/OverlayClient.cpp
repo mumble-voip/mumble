@@ -29,6 +29,8 @@
 #	include <psapi.h>
 #endif
 
+#include <chrono>
+
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	: QObject(p), framesPerSecond(0), ougUsers(&Global::get().s.os), iMouseX(0), iMouseY(0) {
 	qlsSocket = socket;
@@ -538,7 +540,7 @@ bool OverlayClient::update() {
 	updateTime();
 
 	if (qlsSocket->bytesToWrite() > 1024) {
-		return (t.elapsed() <= 5000000ULL);
+		return (t.elapsed() <= std::chrono::seconds(5));
 	} else {
 		t.restart();
 		return true;

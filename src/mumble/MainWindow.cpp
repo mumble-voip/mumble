@@ -2853,7 +2853,7 @@ void MainWindow::on_gsDeafSelf_down(QVariant v) {
 void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 	Global::get().iPrevTarget = 0;
 	if (down) {
-		Global::get().uiDoublePush = Global::get().tDoublePush.restart();
+		Global::get().uiDoublePush = static_cast< quint64 >(Global::get().tDoublePush.restart().count());
 		Global::get().iPushToTalk++;
 	} else if (Global::get().iPushToTalk > 0) {
 		QTimer::singleShot(static_cast< int >(Global::get().s.pttHold), this, SLOT(pttReleased()));

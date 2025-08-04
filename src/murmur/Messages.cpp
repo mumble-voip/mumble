@@ -92,10 +92,6 @@
 		sendMessage(uSource, mppd);                                               \
 	}
 
-auto get_elapsed_seconds(const Timer &timer) {
-	return timer.elapsed() / static_cast< decltype(timer.elapsed()) >(1e6);
-}
-
 /// A helper class for managing temporary access tokens.
 /// It will add the tokens in the comstructor and remove them again in the destructor effectively
 /// turning the tokens into a scope-based property.
@@ -305,7 +301,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if (uSource->iId >= 0) {
 		unsigned int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, static_cast< unsigned int >(uSource->iId),
 																  static_cast< unsigned int >(iRememberChanDuration),
-																  get_elapsed_seconds(tUptime));
+																  tUptime.elapsed< std::chrono::seconds >());
 		lc                         = qhChannels.value(lastChannelID);
 	}
 

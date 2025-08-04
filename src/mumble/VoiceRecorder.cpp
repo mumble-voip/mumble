@@ -402,8 +402,9 @@ void VoiceRecorder::stop(bool force) {
 }
 
 void VoiceRecorder::prepareBufferAdds() {
-	// Should be ms accurat
-	m_absoluteSampleEstimation = (m_timestamp->elapsed() / 1000) * (static_cast< quint64 >(m_config.sampleRate) / 1000);
+	// Should be ms accurate
+	m_absoluteSampleEstimation = static_cast< quint64 >(m_timestamp->elapsed< std::chrono::milliseconds >().count())
+								 * (static_cast< quint64 >(m_config.sampleRate) / 1000);
 }
 
 void VoiceRecorder::addBuffer(const ClientUser *clientUser, std::shared_ptr< float[] > buffer, int samples) {
@@ -436,7 +437,7 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser, std::shared_ptr< flo
 }
 
 quint64 VoiceRecorder::getElapsedTime() const {
-	return m_timestamp->elapsed();
+	return static_cast< quint64 >(m_timestamp->elapsed().count());
 }
 
 RecordUser &VoiceRecorder::getRecordUser() const {

@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <cmath>
 #include <memory>
 
@@ -286,14 +287,13 @@ AudioOutputToken AudioOutput::playSample(const QString &filename, float volume, 
 		return AudioOutputToken();
 
 	Timer t;
-	const quint64 oneSecond = 1000000;
 
-	while (!t.isElapsed(oneSecond) && (iMixerFreq == 0) && isAlive()) {
+	while (!t.isElapsed(std::chrono::seconds(1)) && (iMixerFreq == 0) && isAlive()) {
 		QThread::yieldCurrentThread();
 	}
 
 	// If we've waited for more than one second, we declare timeout.
-	if (t.isElapsed(oneSecond)) {
+	if (t.isElapsed(std::chrono::seconds(1))) {
 		qWarning("AudioOutput: playSample() timed out after 1 second: device not ready");
 		return AudioOutputToken();
 	}
