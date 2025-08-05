@@ -6969,6 +6969,54 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>M&amp;ove back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -7031,55 +7079,9 @@ Valid options are:
                 Mumble&apos;s settings.
   --hidden
                 Start Mumble hidden in the system tray.
+  --skip-settings-backup-prompt
+                Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Move back</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cycle listener attenuation mode</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Listener attenuation up (+10%)</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Listener attenuation down (-10%)</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

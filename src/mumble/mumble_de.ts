@@ -7062,6 +7062,54 @@ Mögliche Aktionen sind:
         <translation>Grund dafür könnte eines der folgenden Szenarien sein:&lt;ul&gt;&lt;li&gt;Ihr Client und der Sever nutzen unterschiedliche Verschlüsselungsstandarts. Das könnte daran liegen, dass der Client oder der Server stark veraltet ist. Im ersten Fall, aktualisieren Sie bitte Ihren Client. Falls der Server veraltet ist, kontaktieren Sie bitte den Server Administrator.&lt;/li&gt;&lt;li&gt;Entweder der Server oder Client nutzt ein altes Betriebssystem welche keine aktuellen Verschlüsselungsmethoden bietet. In diesem Fall sollten Sie Ihr Betriebssystem aktualisieren oder den Serveradministrator kontaktieren damit jener seines aktualisieren kann.&lt;/li&gt;&lt;li&gt;Der Server ist kein Mumble Server. Bitte stellen Sie sicher, dass er tatsächlich zu einem Mumble Server und nicht z.B. einem Videospiel gehört.&lt;/li&gt;&lt;li&gt;Der Port zu dem sie sich verbinden gehört nicht zu einem Mumble Server, sondern zu einem komplett anderen Prozess auf dem Server welcher nichts mit Mumble zu tun hat. Bitte kontrollieren Sie, dass Sie den korrekten Port angegeben haben.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
+        <source>M&amp;ove back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -7124,116 +7172,9 @@ Valid options are:
                 Mumble&apos;s settings.
   --hidden
                 Start Mumble hidden in the system tray.
+  --skip-settings-backup-prompt
+                Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished">Nutzung: mumble [Optionen] [&lt;url&gt; | &lt;plugin_liste&gt;]
-
-&lt;url&gt; definiert eine URL zu welcher eine Verbindung aufgebaut wird anstatt
-das Verbindungfenster zu zeigen, welche folgende Form hat:
-mumble://[&lt;Nutzername&gt;[:&lt;Passwort&gt;]@]&lt;Host&gt;[:&lt;Port&gt;][/&lt;Kanal&gt;[/&lt;Subkanal&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_liste&gt; Ist eine Liste an Plugin-Dateien welche installiert werden sollen.
-Der Versionsparameter muss gesetzt werden
-Um die korrekte Clientversion zu laden. Standartwert: 1.2.0.
-
-Verfügbare Optionen sind:
-  -h, --help    Zeigt diesen Text.
-  --version     Zeigt Versionsinformationen an.
-  -m, --multiple
-                Erlaubt mehrere Instanzen zeitgleich.
-  -c, --config
-                Definiert eine alternative Konfigurationsdatei.
-                Falls Sie dies nutzen, um mehrere Instanzen zeitgleich zu nutzen,
-                Stellen Sie sicher eine alternativen &apos;database&apos; Wert angegeben zu haben.
-  --default-certificate-dir &lt;dir&gt;
-                Definiert einen alternativen Zertifikatspfad.
-                Dieser Pfad wird nur genutzt wenn kein Zertifikat
-                von den Einstellungen geladen wird.
-  -n, --noidentity
-                Unterdrücken des Ladens von Identitätsdateien (d.h., Zertifikate.)
-  -jn, --jackname &lt;arg&gt;
-                Festlegen eines Benutzerdefinierten JACK names.
-  --license
-                Zeigt die Mumble Lizenz.
-  --authors
-                Zeigt die Mumble Autoren.
-  --third-party-licenses
-                Zeigt die Drittanbieterlizenzen.
-  --window-title-ext &lt;arg&gt;
-                Setzt eine Benutzerdefinierte Fenstertitelerweiterung.
-  --dump-input-streams
-                Dumpen von verschiedenen PCM Streams an versch. Stellen
-                in der Kette.
-                (nützlich für Debugging)
-                - roher Mikrofon input
-                - Sprecher readback für Rückkopplungsunterdrückung
-                - verarbeiteter Mikrofon input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Gibt ein zusätzliches Übersetzungsverzeichnis &lt;dir&gt;
-                an, in welchem Mumble nach Übersetzungen sucht welche
-                die integrierten überschreiben 
-                Hier angegebene Verzeichnisse haben höhere Priorität
-                Als die ansonsten benutzen Verzeichnisse
-  --print-translation-dirs
-                Gibt die Verzeichnisse an, welche für Übersetzungen genutzt werden.
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-  --hidden
-                Mumble versteckt im Tray starten.
-</translation>
-    </message>
-    <message>
-        <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Move back</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cycle listener attenuation mode</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Listener attenuation up (+10%)</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Listener attenuation down (-10%)</source>
-        <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
