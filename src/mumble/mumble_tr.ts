@@ -7061,6 +7061,54 @@ Geçerli eylemler şunlardır:
         <translation>Bunun nedeni şu durumlardan biri olabilir:&lt;ul&gt;&lt;li&gt;İstemciniz ve sunucunuz farklı şifreleme standartları kullanmaktadır. Bunun nedeni çok eski bir istemci kullanıyor olmanız veya bağlandığınız sunucunun çok eski olması olabilir. İlk durumda, istemcinizi güncellemelisiniz ve ikinci durumda sunucularını güncelleyebilmeleri için sunucu yöneticisiyle iletişime geçmelisiniz.&lt;/li&gt;&lt;li&gt;Ya istemciniz ya da sunucunuz güncel şifreleme yöntemleri sağlamayan eski bir işletim sistemi kullanıyordur. Bu durumda işletim sisteminizi güncellemeyi düşünmeli ya da sunucu yöneticisiyle iletişime geçerek kendi işletim sistemlerini güncellemelerini sağlamalısınız.&lt;/li&gt;&lt;li&gt;Bağlandığınız sunucu aslında bir Mumble sunucusu değil. Lütfen kullanılan sunucu adresinin gerçekten bir Mumble sunucusuna ait olduğundan ve örneğin bir oyun sunucusuna ait olmadığından emin olun.&lt;/li&gt;&lt;li&gt;Bağlandığınız bağlantı noktası bir Mumble sunucusuna ait değil, bunun yerine sunucu tarafında tamamen ilgisiz bir işleme bağlı. Lütfen doğru bağlantı noktasını kullandığınızı iki kez gözden geçirin.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
+        <source>M&amp;ove back</source>
+        <translation>G&amp;eri git</translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation>Sizi bir önceki kanala taşır</translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation>Geri git</translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation>Bu, sizi bir önceki kanalınıza taşıyacaktır</translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation>Daha önce içinde bulunduğunuz kanal artık bu sunucuda mevcut değildir.</translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation>Dinleyici kısma kipini döngüle</translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation>Bu, kanal dinleyicileri için çeşitli kısma kipleri arasında geçiş yapacaktır</translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>Dinleyici kısmasını arttır (+%10)</translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation>Bu, kanal dinleyicilerinin kısılmasını yüzde 10 değerinde arttırır</translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>Dinleyici kısmasını azalt (-%10)</translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation>Bu, kanal dinleyicilerinin kısmasını yüzde 10 değerinde azaltır</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -7123,118 +7171,10 @@ Valid options are:
                 Mumble&apos;s settings.
   --hidden
                 Start Mumble hidden in the system tray.
+  --skip-settings-backup-prompt
+                Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt; | &lt;eklenti_listesi&gt;]
-
-&lt;url&gt;, başlangıçtan sonra bağlantı penceresinin gösterilmesi yerine
-bağlanılacak bir URL belirtir, ve şu şekildedir:
-mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;bağlantı_noktası&gt;][/&lt;kanal&gt;[/&lt;alt_kanal&gt;...]][?sürüm=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt;, kurulacak eklenti dosyalarının bir listesidir
-Sürüm sorgulama parametresi doğru istemci sürümünün
-çağrılması için ayarlanmalıdır. Güncel olarak varsayılan şudur: 1.2.0.
-
-Geçerli seçenekler şunlardır:
-  -h, --help    Bu yardımı gösterir ve çıkar.
-  --version     Sürüm bilgilerini göster ve çık
-  -m, --multiple
-                İstemcinin çoklu örneklemelerinin başlatılmalarına izin verir.
-  -c, --config
-                Alternatif yapılandırma dosyası belirt.
-                Şayet bunu aynı zamanda Mumble&apos;ın çoklu örneklemelerini çalıştırmak
-                için kullanıyorsanız, yapılandırmada alternatif bir &apos;database&apos; değeri kullanın.
-  --default-certificate-dir &lt;dizin&gt;
-                Alternatif bir varsayılan sertifika yolu belirt.
-                Bu yol sadece ayarlardan hiçbir sertifika yüklenmedi ise
-                kullanılır.
-  -n, --noidentity
-                Kimlik dosyalarının (yani sertifikaların) yüklenmesini bastır.
-  -jn, --jackname &lt;arg&gt;
-                Kişiselleştirilmiş Jack istemci ismi ayarla.
-  --license
-                Mumble lisansını göster.
-  --authors
-                Mumble yazarlarını göster.
-  --third-party-licenses
-                Mumble tarafından kullanılan üçüncü taraf yazılımların lisanslarını göster.
-  --window-title-ext &lt;arg&gt;
-                Kişiselleştirilmiş bir pencere başlık uzantısı ayarla.
-  --dump-input-streams
-                PCM akımlarını girdi zincirinin çeşitli bölümlerine dök
-                (hata ayıklama için faydalıdır)
-                - ham mikrofon girdisi
-                - yankı iptali için hoparlör geri okuması
-                - işlenmiş mikrofon girdisi
-  --print-echocancel-queue
-                stdout üzerinde yankı iptal kuyruğunun durumunu yaz
-                (hata ayıklama için faydalıdır)
-  --translation-dir &lt;dizin&gt;
-                İlave bir tercüme dizini &lt;dizin&gt; belirtir, burada
-                Mumble kendisiyle gelen dosyaların yerine geçecek
-                tercüme dosyalarını arayacaktır.
-                Bu şekilde eklenen dizinler, diğer şartlarda kullanılan
-                varsayılan konumlardan daha yüksek öneliğe sahip olurlar.
-  --print-translation-dirs
-                Mumble&apos;ın kendisiyle gelen tercüme dosyalarını ezecek
-                dosyaları arayacağı yolları yaz.
-                (Tercümanların tercümelerini denemeleri için faydalıdır)
-  --locale &lt;locale&gt;
-                Mumble ayarlarındaki yerellik ayarını girilen yerellik dizesine
-                tekabül eden yerellik ayarıyla ez.
-                Şayet biçim geçersizse, Mumble bir hata gösterecektir.
-                Aksi takdirde yerellik ayarı Mumble ayarlarında daimi olarak
-                kaydedilecektir.
-  --hidden
-                Mumble&apos;ı sistem tepsisinde saklı başlat.
-</translation>
-    </message>
-    <message>
-        <source>M&amp;ove back</source>
-        <translation>G&amp;eri git</translation>
-    </message>
-    <message>
-        <source>Moves you back to the previous channel</source>
-        <translation>Sizi bir önceki kanala taşır</translation>
-    </message>
-    <message>
-        <source>Move back</source>
-        <comment>Global shortcut</comment>
-        <translation>Geri git</translation>
-    </message>
-    <message>
-        <source>This will move you back into your previous channel</source>
-        <translation>Bu, sizi bir önceki kanalınıza taşıyacaktır</translation>
-    </message>
-    <message>
-        <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation>Daha önce içinde bulunduğunuz kanal artık bu sunucuda mevcut değildir.</translation>
-    </message>
-    <message>
-        <source>Cycle listener attenuation mode</source>
-        <comment>Global shortcut</comment>
-        <translation>Dinleyici kısma kipini döngüle</translation>
-    </message>
-    <message>
-        <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation>Bu, kanal dinleyicileri için çeşitli kısma kipleri arasında geçiş yapacaktır</translation>
-    </message>
-    <message>
-        <source>Listener attenuation up (+10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>Dinleyici kısmasını arttır (+%10)</translation>
-    </message>
-    <message>
-        <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation>Bu, kanal dinleyicilerinin kısılmasını yüzde 10 değerinde arttırır</translation>
-    </message>
-    <message>
-        <source>Listener attenuation down (-10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>Dinleyici kısmasını azalt (-%10)</translation>
-    </message>
-    <message>
-        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation>Bu, kanal dinleyicilerinin kısmasını yüzde 10 değerinde azaltır</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

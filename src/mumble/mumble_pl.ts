@@ -7063,6 +7063,54 @@ toggledeaf
         <translation>Może to być spowodowane jednym z następujących scenariuszy:&lt;ul&gt;&lt;li&gt;Twój klient i serwer używają różnych standardów szyfrowania. Może to być spowodowane tym, że używasz bardzo starego klienta lub serwer, z którym się łączysz, jest bardzo stary. W pierwszym przypadku należy zaktualizować swojego klienta, a w drugim przypadku należy skontaktować się z administratorem serwera, aby mógł zaktualizować swój serwer.&lt;/li&gt;&lt;li&gt;Twój klient lub serwer używa starego systemu operacyjnego, który nie zapewnia aktualnych metod szyfrowania. W takim przypadku należy rozważyć aktualizację swojego systemu operacyjnego lub skontaktować się z administratorem serwera, aby mógł zaktualizować swój.&lt;/li&gt;&lt;li&gt;Serwer, z którym się łączysz, nie jest w rzeczywistości serwerem Mumble. Upewnij się, że używany adres serwera rzeczywiście należy do serwera Mumble, a nie np. do serwera gier.&lt;/li&gt;&lt;li&gt;Port, z którym się łączysz, nie należy do serwera Mumble, ale jest powiązany z zupełnie niezwiązanym procesem po stronie serwera. Sprawdź dokładnie, czy używasz prawidłowego portu.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
+        <source>M&amp;ove back</source>
+        <translation>Co&amp;fnij się</translation>
+    </message>
+    <message>
+        <source>Moves you back to the previous channel</source>
+        <translation>Przenosi z powrotem do poprzedniego kanału</translation>
+    </message>
+    <message>
+        <source>Move back</source>
+        <comment>Global shortcut</comment>
+        <translation>Cofnij się</translation>
+    </message>
+    <message>
+        <source>This will move you back into your previous channel</source>
+        <translation>Spowoduje to powrót do poprzedniego kanału</translation>
+    </message>
+    <message>
+        <source>The channel you have been in previously no longer exists on this server.</source>
+        <translation>Wcześniej odwiedzony kanał nie istnieje już na tym serwerze.</translation>
+    </message>
+    <message>
+        <source>Cycle listener attenuation mode</source>
+        <comment>Global shortcut</comment>
+        <translation>Przełączaj tryb tłumienia słuchaczy</translation>
+    </message>
+    <message>
+        <source>This will cycle through the different attenuation modes for channel listeners</source>
+        <translation>Spowoduje to przełączenie pomiędzy różnymi trybami tłumienia dla słuchaczy kanału</translation>
+    </message>
+    <message>
+        <source>Listener attenuation up (+10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>Zwiększenie tłumienia słuchaczy (+10%)</translation>
+    </message>
+    <message>
+        <source>This increases the attenuation of channel listeners by 10 percents points</source>
+        <translation>Zwiększa to tłumienie słuchaczy kanału o 10 punktów procentowych</translation>
+    </message>
+    <message>
+        <source>Listener attenuation down (-10%)</source>
+        <comment>Global shortcut</comment>
+        <translation>Zmniejszenie tłumienia słuchaczy (-10%)</translation>
+    </message>
+    <message>
+        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
+        <translation>Zmniejsza to tłumienie słuchaczy kanału o 10 punktów procentowych</translation>
+    </message>
+    <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -7125,118 +7173,10 @@ Valid options are:
                 Mumble&apos;s settings.
   --hidden
                 Start Mumble hidden in the system tray.
+  --skip-settings-backup-prompt
+                Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation>Użycie: mumble [opcje] [&lt;url&gt; | &lt;lista_wtyczek&gt;]
-
-&lt;url&gt; określa adres URL, z którym należy się połączyć po uruchomieniu, zamiast pokazywać
-okno połączenia, ma następującą postać:
-mumble://[&lt;nazwa użytkownika&gt;[:&lt;hasło&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanał&gt;[/&lt;podkanał&gt;...]][?wersja=&lt;x.y.z&gt;]
-
-&lt;lista_wtyczek&gt; to lista plików wtyczek, które mają zostać zainstalowane
-Aby wywołać poprawną wersję klienta, należy ustawić parametr
-zapytania o wersję. Obecnie domyślnie jest to 1.2.0.
-
-Prawidłowe opcje to:
-  -h, --help    Pokaż ten tekst pomocy i zakończ.
-  --version    Wyświetl informacje o wersji i zakończ
-  -m, --multiple
-                Zezwalaj na uruchamianie wielu instancji klienta.
-  -c, --config
-                Określ alternatywny plik konfiguracyjny.
-                Jeśli używasz tego do uruchamiania wielu wystąpień Mumble jednocześnie,
-                upewnij się, że ustawiono alternatywną wartość „bazy danych” w konfiguracji.
-  --default-certificate-dir &lt;kat.&gt;
-                Określ alternatywną domyślną ścieżkę certyfikatu.
-                Ta ścieżka jest używana tylko wtedy, gdy nie jest
-                załadowany żaden certyfikat z ustawień.
-  -n, --noidentity
-                Blokuj ładowanie plików tożsamości (tj. certyfikatów).
-  -jn, --jackname &lt;arg&gt;
-                Ustaw niestandardową nazwę klienta Jack.
-  --license
-                Pokaż licencję Mumble.
-  --authors
-                Pokaż autorów Mumble.
-  --third-party-licenses
-                Pokaż licencje na oprogramowanie innych firm używane przez Mumble.
-  --window-title-ext &lt;arg&gt;
-                Ustaw niestandardowe rozszerzenie tytułu okna.
-  --dump-input-stream
-                Zrzuć strumienie PCM w różnych częściach łańcucha wejściowego
-                (przydatne do debugowania)
-                - surowe wejście mikrofonowe
-                - odczyt głośnika w celu usunięcia echa
-                - przetworzone wejście mikrofonowe
-  --print-echocancel-queue
-                Wyświetl na stdout stan kolejki anulowania echa
-                (przydatne do debugowania)
-  --translation-dir &lt;kat.&gt;
-                Określ dodatkowy katalog tłumaczeń &lt;kat.&gt;, gdzie
-                Mumble będzie szukać plików tłumaczeń, które
-                nadpiszą te dołączone
-                Dodane w ten sposób katalogi mają wyższy priorytet niż
-                domyślne położenia
-  --print-translation-dirs
-                Wyświetl ścieżki, w których Mumble będzie szukał
-                plików tłumaczeń, które zastąpią dołączone pliki.
-                (Przydatne dla tłumaczy testujących swoje tłumaczenia)
-  --locale &lt;ust. reg,&gt;
-                Nadpisz ustawienia regionalne w ustawieniach Mumble za pomocą
-                ustawień reg., które odpowiada podanemu łańcuchowi ustawień reg.
-                Jeśli format jest nieprawidłowy, Mumble wyświetli błąd.
-                W przeciwnym razie ustawienia regionalne zostaną trwale zapisane
-                w ustawieniach Mumble.
-  --hidden
-                Uruchom Mumble ukryty w zasobniku systemowym.
-</translation>
-    </message>
-    <message>
-        <source>M&amp;ove back</source>
-        <translation>Co&amp;fnij się</translation>
-    </message>
-    <message>
-        <source>Moves you back to the previous channel</source>
-        <translation>Przenosi z powrotem do poprzedniego kanału</translation>
-    </message>
-    <message>
-        <source>Move back</source>
-        <comment>Global shortcut</comment>
-        <translation>Cofnij się</translation>
-    </message>
-    <message>
-        <source>This will move you back into your previous channel</source>
-        <translation>Spowoduje to powrót do poprzedniego kanału</translation>
-    </message>
-    <message>
-        <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation>Wcześniej odwiedzony kanał nie istnieje już na tym serwerze.</translation>
-    </message>
-    <message>
-        <source>Cycle listener attenuation mode</source>
-        <comment>Global shortcut</comment>
-        <translation>Przełączaj tryb tłumienia słuchaczy</translation>
-    </message>
-    <message>
-        <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation>Spowoduje to przełączenie pomiędzy różnymi trybami tłumienia dla słuchaczy kanału</translation>
-    </message>
-    <message>
-        <source>Listener attenuation up (+10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>Zwiększenie tłumienia słuchaczy (+10%)</translation>
-    </message>
-    <message>
-        <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation>Zwiększa to tłumienie słuchaczy kanału o 10 punktów procentowych</translation>
-    </message>
-    <message>
-        <source>Listener attenuation down (-10%)</source>
-        <comment>Global shortcut</comment>
-        <translation>Zmniejszenie tłumienia słuchaczy (-10%)</translation>
-    </message>
-    <message>
-        <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation>Zmniejsza to tłumienie słuchaczy kanału o 10 punktów procentowych</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
