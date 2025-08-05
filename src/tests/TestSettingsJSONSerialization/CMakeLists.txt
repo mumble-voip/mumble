@@ -10,19 +10,6 @@ find_pkg(Qt6 COMPONENTS Widgets REQUIRED)
 set(IGNORED_FIELDS
 	"kpCertificate,bSuppressIdentity,lmLoopMode,dPacketLoss,dMaxPacketDelay,requireRestartToApply,settingsLocation,createdSettingsBackup")
 
-include(FindPythonInterpreter)
-
-set(PYTHON_HINTS
-	"C:/Python39-x64" # Path on the AppVeyor CI server
-)
-
-find_python_interpreter(
-	VERSION 3
-	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
-	HINTS ${PYTHON_HINTS}
-	REQUIRED
-)
-
 set(TEST_CASE_SOURCE_FILE "${CMAKE_CURRENT_BINARY_DIR}/TestSettingsJSONSerialization.cpp")
 set(SETTINGS_HEADER "${CMAKE_SOURCE_DIR}/src/mumble/Settings.h")
 
@@ -33,7 +20,7 @@ endif()
 # Generate the test-case's source file
 add_custom_command(
 	OUTPUT "${TEST_CASE_SOURCE_FILE}"
-	COMMAND "${PYTHON_INTERPRETER}" "${CMAKE_CURRENT_SOURCE_DIR}/generate_test_case.py" --settings-header "${SETTINGS_HEADER}"
+	COMMAND Python::Interpreter "${CMAKE_CURRENT_SOURCE_DIR}/generate_test_case.py" --settings-header "${SETTINGS_HEADER}"
 		--settings-struct-nam Settings --ignore-fields "${IGNORED_FIELDS}" --output-file "${TEST_CASE_SOURCE_FILE}"
 	COMMENT "Generating test-case for 'SettingsJSONSerialization'"
 	DEPENDS "generate_test_case.py" "${CMAKE_SOURCE_DIR}/src/mumble/Settings.h"
