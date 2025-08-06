@@ -500,7 +500,7 @@ void ServerHandler::run() {
 		}
 
 		cConnection.reset();
-		while (!cptr.unique()) {
+		while (cptr.use_count() > 1) {
 			msleep(100);
 		}
 		delete qtsSock;

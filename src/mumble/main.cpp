@@ -934,7 +934,7 @@ int main(int argc, char **argv) {
 
 	Global::get().sh.reset();
 
-	while (sh && !sh.unique())
+	while (sh && sh.use_count() > 1)
 		QThread::yieldCurrentThread();
 	sh.reset();
 

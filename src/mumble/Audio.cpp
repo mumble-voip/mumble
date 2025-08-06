@@ -137,7 +137,7 @@ void Audio::stopOutput() {
 
 	// Wait until our copy of the AudioOutput shared pointer (ao)
 	// is the only one left.
-	while (ao.get() && !ao.unique()) {
+	while (ao.get() && ao.use_count() > 1) {
 		QThread::yieldCurrentThread();
 	}
 
@@ -170,7 +170,7 @@ void Audio::stopInput() {
 
 	// Wait until our copy of the AudioInput shared pointer (ai)
 	// is the only one left.
-	while (ai.get() && !ai.unique()) {
+	while (ai.get() && ai.use_count() > 1) {
 		QThread::yieldCurrentThread();
 	}
 
@@ -216,7 +216,7 @@ void Audio::stop() {
 
 	// Wait until our copies of the AudioInput and AudioOutput shared pointers
 	// (ai and ao) are the only ones left.
-	while ((ai.get() && !ai.unique()) || (ao.get() && !ao.unique())) {
+	while ((ai.get() && ai.use_count() > 1) || (ao.get() && ao.use_count() > 1)) {
 		QThread::yieldCurrentThread();
 	}
 
