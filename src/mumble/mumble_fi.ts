@@ -8048,6 +8048,21 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
 </context>
 <context>
+    <name>PasswordDialog</name>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Salasana</translation>
+    </message>
+    <message>
+        <source>If unchecked, your password will not be saved on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
@@ -8730,6 +8745,18 @@ Voit rekisteröidä ne uudelleen.</translation>
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Jos käytät Linuxia, tämä johtuu todennäköisesti siitä, että käytät versiota jakelusi pakettivarastosta, jolla on omat päivitysjaksonsa.&lt;/p&gt;&lt;p&gt;Jos haluat aina uusimman Mumble-version , sinun tulee harkita toisen asennustavan käyttöä.
 Katso &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;projektin tietovarastoista&lt;/a&gt;, mitä vaihtoehtoja on olemassa.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Suppress certificate and password storage setting enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password can&apos;t be saved: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

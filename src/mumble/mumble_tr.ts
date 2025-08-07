@@ -8047,6 +8047,21 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
 </context>
 <context>
+    <name>PasswordDialog</name>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Parola</translation>
+    </message>
+    <message>
+        <source>If unchecked, your password will not be saved on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
@@ -8729,6 +8744,18 @@ Bunları tekrar kaydedebilirsiniz.</translation>
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Linux kullanıyorsanız, bunun nedeni büyük olasılıkla dağıtımınızın kendi güncelleme döngülerine sahip paket deposundaki bir sürümü kullanıyor olmanızdır.&lt;/p&gt;&lt;p&gt;Her zaman en güncel Mumble sürümüne sahip olmak istiyorsanız, farklı bir kurulum yöntemi kullanmayı düşünmelisiniz.
 Hangi alternatiflerin olduğunu görmek için &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;proje deposuna&lt;/a&gt; bakın.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Suppress certificate and password storage setting enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password can&apos;t be saved: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

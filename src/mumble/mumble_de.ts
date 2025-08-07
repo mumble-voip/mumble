@@ -8048,6 +8048,21 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
 </context>
 <context>
+    <name>PasswordDialog</name>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Passwort</translation>
+    </message>
+    <message>
+        <source>If unchecked, your password will not be saved on this device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PluginConfig</name>
     <message>
         <source>Plugins</source>
@@ -8730,6 +8745,18 @@ Sie können sie jedoch erneut registrieren.</translation>
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
         <translation>&lt;p&gt; Wenn Sie Linux verwenden, ist dies wahrscheinlich, weil Sie eine Version aus dem Paket-Repository Ihrer Distribution verwenden, die eigene Update-Zyklen hat.&lt;/p&gt;&lt;p&gt; Wenn Sie immer die neueste Mumble-Version haben möchten, sollten Sie eine andere Methode der Installation erwägen.
 Besuchen Sie &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;das Projekt-Repository&lt;/a&gt; für Alternativen.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Suppress certificate and password storage setting enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password can&apos;t be saved: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
