@@ -82,8 +82,9 @@ void Tray::on_ShowLog_triggered() {
 
 	connect(le, SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
 
-	foreach (const QString &m, qlLog)
+	for (const QString &m : qlLog) {
 		tb->append(m);
+	}
 
 	mw->show();
 }

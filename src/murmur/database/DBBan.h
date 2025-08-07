@@ -12,8 +12,6 @@
 #include <optional>
 #include <string>
 
-#include <boost/algorithm/string.hpp>
-
 namespace mumble {
 namespace server {
 	namespace db {

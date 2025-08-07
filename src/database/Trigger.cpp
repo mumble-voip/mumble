@@ -18,11 +18,11 @@ namespace db {
 					 const std::string &triggerBody, const std::string &condition)
 		: m_name(name), m_timing(timing), m_event(event), m_triggerBody(triggerBody), m_condition(condition) {
 		// Ensure trigger body always ends in semicolon
-		if (!boost::ends_with(m_triggerBody, ";") && !m_triggerBody.empty()) {
+		if (!m_triggerBody.empty() && m_triggerBody.back() != ';') {
 			m_triggerBody += ";";
 		}
 		// Ensure condition never ends in semicolon
-		if (boost::ends_with(m_condition, ";")) {
+		if (!m_condition.empty() && m_condition.back() == ';') {
 			m_condition.erase(m_condition.size() - 1);
 		}
 	}
@@ -45,7 +45,7 @@ namespace db {
 		m_triggerBody = body;
 
 		// Ensure trigger body always ends in semicolon
-		if (!boost::ends_with(m_triggerBody, ";") && !m_triggerBody.empty()) {
+		if (!m_triggerBody.empty() && m_triggerBody.back() != ';') {
 			m_triggerBody += ";";
 		}
 	}
@@ -56,7 +56,7 @@ namespace db {
 		m_condition = condition;
 
 		// Ensure condition never ends in semicolon
-		if (boost::ends_with(m_condition, ";")) {
+		if (!m_condition.empty() && m_condition.back() == ';') {
 			m_condition.erase(m_condition.size() - 1);
 		}
 	}

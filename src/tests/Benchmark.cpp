@@ -315,14 +315,15 @@ void Container::tick() {
 	if (forceping || tickPing.isElapsed(5000000ULL)) {
 		forceping = false;
 
-		foreach (Client *c, clients)
+		for (Client *c : clients) {
 			c->ping();
+		}
 
 		if (live) {
 			int lost       = 0;
 			quint64 totrcv = 0;
 			int nrcv       = 0;
-			foreach (Client *c, clients) {
+			for (Client *c : clients) {
 				if (!c->sender) {
 					totrcv += c->rcvd;
 					lost += sent - c->rcvd;
@@ -338,7 +339,7 @@ void Container::tick() {
 	}
 
 	if (live && tickVoice.isElapsed(10000ULL)) {
-		foreach (Client *c, speakers) {
+		for (Client *c : speakers) {
 			sent++;
 			c->sendVoice();
 		}
@@ -368,8 +369,9 @@ void Container::tick() {
 			quint64 elapsed = tickSpawn.elapsed();
 			qWarning("Spawning took %lld ms (%lld us per client)", elapsed / 1000ULL,
 					 elapsed / (numsender + numudplistener + numtcplistener));
-			foreach (Client *c, clients)
+			for (Client *c : clients) {
 				c->rcvd = 0;
+			}
 			sent      = 0;
 			forceping = true;
 			qtTick.start(10);
@@ -378,8 +380,9 @@ void Container::tick() {
 }
 
 void Container::go() {
-	foreach (Client *c, clients)
+	for (Client *c : clients) {
 		c->start();
+	}
 	qtTick.start(10);
 	tickGo.restart();
 }

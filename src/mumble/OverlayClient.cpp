@@ -29,6 +29,8 @@
 #	include <psapi.h>
 #endif
 
+#include <chrono>
+
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	: QObject(p), framesPerSecond(0), ougUsers(&Global::get().s.os), iMouseX(0), iMouseY(0) {
 	qlsSocket = socket;
@@ -191,7 +193,7 @@ void OverlayClient::showGui() {
 
 	{
 		QWidgetList widgets = qApp->topLevelWidgets();
-		foreach (QWidget *w, widgets) {
+		for (QWidget *w : widgets) {
 			if (w->isHidden() && (w != Global::get().mw))
 				continue;
 			count++;
@@ -215,7 +217,7 @@ void OverlayClient::showGui() {
 		widgets.removeAll(Global::get().mw);
 		widgets.prepend(Global::get().mw);
 
-		foreach (QWidget *w, widgets) {
+		for (QWidget *w : widgets) {
 			if (!w->graphicsProxyWidget()) {
 				if ((w == Global::get().mw) || (!w->isHidden())) {
 					QGraphicsProxyWidget *qgpw = new QGraphicsProxyWidget(nullptr, Qt::Window);
@@ -280,7 +282,7 @@ void OverlayClient::hideGui() {
 
 	QList< QWidget * > widgetlist;
 
-	foreach (QGraphicsItem *qgi, qgs.items(Qt::DescendingOrder)) {
+	for (QGraphicsItem *qgi : qgs.items(Qt::DescendingOrder)) {
 		QGraphicsProxyWidget *qgpw = qgraphicsitem_cast< QGraphicsProxyWidget * >(qgi);
 		if (qgpw && qgpw->widget()) {
 			QWidget *w = qgpw->widget();
@@ -290,7 +292,7 @@ void OverlayClient::hideGui() {
 		}
 	}
 
-	foreach (QWidget *w, widgetlist) {
+	for (QWidget *w : widgetlist) {
 		QGraphicsProxyWidget *qgpw = w->graphicsProxyWidget();
 		if (qgpw) {
 			qgpw->setVisible(false);
@@ -302,7 +304,7 @@ void OverlayClient::hideGui() {
 	if (Global::get().ocIntercept == this)
 		Global::get().ocIntercept = nullptr;
 
-	foreach (QWidget *w, widgetlist) {
+	for (QWidget *w : widgetlist) {
 		if (bWasVisible)
 			w->show();
 	}
@@ -538,7 +540,7 @@ bool OverlayClient::update() {
 	updateTime();
 
 	if (qlsSocket->bytesToWrite() > 1024) {
-		return (t.elapsed() <= 5000000ULL);
+		return (t.elapsed() <= std::chrono::seconds(5));
 	} else {
 		t.restart();
 		return true;
@@ -566,7 +568,9 @@ void OverlayClient::render() {
 	if (region.isEmpty())
 		return;
 
-	foreach (const QRectF &r, region) { dirtyf |= r; }
+	for (const QRectF &r : region) {
+		dirtyf |= r;
+	}
 
 
 	QRect dirty = dirtyf.toAlignedRect();

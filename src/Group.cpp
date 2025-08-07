@@ -31,7 +31,6 @@ QSet< int > Group::members() {
 	QSet< int > m;
 	Channel *p;
 	Group *g;
-	int i;
 
 	p = c;
 	while (p) {
@@ -48,10 +47,12 @@ QSet< int > Group::members() {
 
 	while (!s.isEmpty()) {
 		g = s.pop();
-		foreach (i, g->qsAdd)
+		for (int i : g->qsAdd) {
 			m.insert(i);
-		foreach (i, g->qsRemove)
+		}
+		for (int i : g->qsRemove) {
 			m.remove(i);
+		}
 	}
 
 	return m;
@@ -78,7 +79,6 @@ QSet< QString > Group::groupNames(Channel *chan) {
 	QStack< Channel * > s;
 	QSet< QString > m;
 	Channel *c = chan;
-	Group *g;
 
 	while (c) {
 		s.push(c);
@@ -87,7 +87,7 @@ QSet< QString > Group::groupNames(Channel *chan) {
 
 	while (!s.isEmpty()) {
 		c = s.pop();
-		foreach (g, c->qhGroups) {
+		for (Group *g : c->qhGroups) {
 			if ((chan != c) && (!g->bInheritable))
 				m.remove(g->qsName);
 			else

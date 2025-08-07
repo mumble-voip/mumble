@@ -28,6 +28,7 @@ extern "C" {
 
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <exception>
 #include <limits>
 
@@ -195,7 +196,7 @@ AudioInputPtr AudioInputRegistrar::newFromChoice(QString choice) {
 	}
 
 	AudioInputRegistrar *r = nullptr;
-	foreach (AudioInputRegistrar *air, *qmNew)
+	for (AudioInputRegistrar *air : *qmNew)
 		if (!r || (air->priority > r->priority))
 			r = air;
 	if (r) {
@@ -976,7 +977,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 		// PTT is enabled, so check if it is currently active
 		bool doublePush = Global::get().s.uiDoublePush > 0
 						  && ((Global::get().uiDoublePush < Global::get().s.uiDoublePush)
-							  || (Global::get().tDoublePush.elapsed() < Global::get().s.uiDoublePush));
+							  || (static_cast< quint64 >(Global::get().tDoublePush.elapsed().count())
+								  < Global::get().s.uiDoublePush));
 
 		// With double push enabled, we might be in a PTT state without pressing any PTT key
 		isPTT     = isPTT || doublePush;
@@ -1050,7 +1052,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	if (!bIsSpeech && !bPreviousVoice) {
 		iBitrate = 0;
 
-		if ((tIdle.elapsed() / 1000000ULL) > Global::get().s.iIdleTime) {
+		if (tIdle.elapsed< std::chrono::seconds >().count() > Global::get().s.iIdleTime) {
 			activityState = ActivityStateIdle;
 			tIdle.restart();
 			if (Global::get().s.iaeIdleAction == Settings::Deafen && !Global::get().s.bDeaf) {

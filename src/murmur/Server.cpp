@@ -42,8 +42,6 @@
 #include <QtNetwork/QHostInfo>
 #include <QtNetwork/QSslConfiguration>
 
-#include <boost/bind/bind.hpp>
-
 #include "TracyConstants.h"
 #include <tracy/Tracy.hpp>
 #include <tracy/TracyC.h>
@@ -51,6 +49,7 @@
 #include <algorithm>
 #include <cassert>
 #include <chrono>
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -62,7 +61,7 @@
 #	include <poll.h>
 #endif
 
-ExecEvent::ExecEvent(boost::function< void() > f) : QEvent(static_cast< QEvent::Type >(EXEC_QEVENT)) {
+ExecEvent::ExecEvent(std::function< void() > f) : QEvent(static_cast< QEvent::Type >(EXEC_QEVENT)) {
 	func = f;
 }
 
@@ -112,7 +111,7 @@ Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &conne
 
 	readParams();
 
-	foreach (const QHostAddress &qha, qlBind) {
+	for (const QHostAddress &qha : qlBind) {
 		SslServer *ss = new SslServer(this);
 
 		connect(ss, SIGNAL(newConnection()), this, SLOT(newClient()), Qt::QueuedConnection);
@@ -129,7 +128,7 @@ Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &conne
 	if (!bValid)
 		return;
 
-	foreach (SslServer *ss, qlServer) {
+	for (SslServer *ss : qlServer) {
 		sockaddr_storage addr;
 #ifdef Q_OS_UNIX
 		int tcpsock   = static_cast< int >(ss->socketDescriptor());
@@ -262,8 +261,9 @@ void Server::startThread() {
 		log("Starting voice thread");
 		bRunning = true;
 
-		foreach (QSocketNotifier *qsn, qlUdpNotifier)
+		for (QSocketNotifier *qsn : qlUdpNotifier) {
 			qsn->setEnabled(false);
+		}
 		start(QThread::HighestPriority);
 #ifdef Q_OS_LINUX
 		// QThread::HighestPriority == Same as everything else...
@@ -296,8 +296,9 @@ void Server::stopThread() {
 #endif
 		wait();
 
-		foreach (QSocketNotifier *qsn, qlUdpNotifier)
+		for (QSocketNotifier *qsn : qlUdpNotifier) {
 			qsn->setEnabled(true);
+		}
 	}
 	qtTimeout->stop();
 }
@@ -309,11 +310,12 @@ Server::~Server() {
 
 	stopThread();
 
-	foreach (QSocketNotifier *qsn, qlUdpNotifier)
+	for (QSocketNotifier *qsn : qlUdpNotifier) {
 		delete qsn;
+	}
 
 #ifdef Q_OS_UNIX
-	foreach (int s, qlUdpSocket)
+	for (int s : qlUdpSocket)
 		close(s);
 
 	if (aiNotify[0] >= 0)
@@ -321,8 +323,9 @@ Server::~Server() {
 	if (aiNotify[1] >= 0)
 		close(aiNotify[1]);
 #else
-	foreach (SOCKET s, qlUdpSocket)
+	for (SOCKET s : qlUdpSocket) {
 		closesocket(s);
+	}
 	if (hNotify)
 		CloseHandle(hNotify);
 #endif
@@ -377,14 +380,14 @@ void Server::readParams() {
 
 	if (!qsHost.isEmpty()) {
 		qlBind.clear();
-		foreach (const QString &host, qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
+		for (const QString &host : qsHost.split(QRegularExpression(QLatin1String("\\s+")), Qt::SkipEmptyParts)) {
 			QHostAddress qhaddr;
 			if (qhaddr.setAddress(qsHost)) {
 				qlBind << qhaddr;
 			} else {
 				bool found   = false;
 				QHostInfo hi = QHostInfo::fromName(host);
-				foreach (QHostAddress qha, hi.addresses()) {
+				for (QHostAddress qha : hi.addresses()) {
 					if ((qha.protocol() == QAbstractSocket::IPv4Protocol)
 						|| (qha.protocol() == QAbstractSocket::IPv6Protocol)) {
 						qlBind << qha;
@@ -396,8 +399,9 @@ void Server::readParams() {
 				}
 			}
 		}
-		foreach (const QHostAddress &qha, qlBind)
+		for (const QHostAddress &qha : qlBind) {
 			log(QString("Binding to address %1").arg(qha.toString()));
+		}
 		if (qlBind.isEmpty())
 			qlBind = Meta::mp->qlBind;
 	}
@@ -951,7 +955,7 @@ void Server::run() {
 					ZoneScopedN(TracyConstants::DECRYPT_UNKNOWN_PEER_ZONE);
 
 					// Unknown peer
-					foreach (ServerUser *usr, qhHostUsers.value(ha)) {
+					for (ServerUser *usr : qhHostUsers.value(ha)) {
 						if (checkDecrypt(
 								usr, encrypt, buffer,
 								static_cast< unsigned int >(len))) { // checkDecrypt takes the User's qrwlCrypt lock.
@@ -1042,8 +1046,8 @@ bool Server::checkDecrypt(ServerUser *u, const unsigned char *encrypt, unsigned 
 		return true;
 	}
 
-	if (u->csCrypt->tLastGood.elapsed() > 5000000ULL) {
-		if (u->csCrypt->tLastRequest.elapsed() > 5000000ULL) {
+	if (u->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+		if (u->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
 			u->csCrypt->tLastRequest.restart();
 			emit reqSync(u->uiSession);
 		}
@@ -1192,7 +1196,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 		Channel *c = u->cChannel;
 
 		// Send audio to all users that are listening to the channel
-		foreach (unsigned int currentSession, m_channelListenerManager.getListenersForChannel(c->iId)) {
+		for (unsigned int currentSession : m_channelListenerManager.getListenersForChannel(c->iId)) {
 			ServerUser *pDst = static_cast< ServerUser * >(qhUsers.value(currentSession));
 			if (pDst) {
 				buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::LISTEN, audioData.containsPositionalData,
@@ -1547,7 +1551,7 @@ void Server::sslError(const QList< QSslError > &errors) {
 		return;
 
 	bool ok = true;
-	foreach (QSslError e, errors) {
+	for (const QSslError &e : errors) {
 		switch (e.error()) {
 			case QSslError::InvalidPurpose:
 				// Allow email certificates.
@@ -1674,9 +1678,10 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 			old->removeUser(u);
 	}
 
-	if (old && old->bTemporary && old->qlUsers.isEmpty())
-		QCoreApplication::instance()->postEvent(this,
-												new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
+	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
+		auto func_ptr = std::mem_fn< void(unsigned int) >(&Server::removeChannel);
+		QCoreApplication::instance()->postEvent(this, new ExecEvent(std::bind(func_ptr, this, old->iId)));
+	}
 
 	if (u->uiSession > 0 && u->uiSession < iMaxUsers * 2)
 		qqIds.enqueue(u->uiSession); // Reinsert session id into pool
@@ -1817,15 +1822,16 @@ void Server::checkTimeout() {
 	QList< ServerUser * > qlClose;
 
 	qrwlVoiceThread.lockForRead();
-	foreach (ServerUser *u, qhUsers) {
+	for (ServerUser *u : qhUsers) {
 		if (u->activityTime() > (iTimeout * 1000)) {
 			log(u, "Timeout");
 			qlClose.append(u);
 		}
 	}
 	qrwlVoiceThread.unlock();
-	foreach (ServerUser *u, qlClose)
+	for (ServerUser *u : qlClose) {
 		u->disconnectSocket(true);
+	}
 }
 
 void Server::tcpTransmitData(QByteArray a, unsigned int id) {
@@ -1870,7 +1876,7 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 							 Mumble::Protocol::TCPMessageType msgType, Version::full_t version,
 							 Version::CompareMode mode) {
 	QByteArray cache;
-	foreach (ServerUser *usr, qhUsers)
+	for (ServerUser *usr : qhUsers) {
 		if ((usr != u) && (usr->sState == ServerUser::Authenticated)) {
 			assert(mode == Version::CompareMode::AtLeast || mode == Version::CompareMode::LessThan);
 
@@ -1881,6 +1887,7 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 				usr->sendMessage(msg, msgType, cache);
 			}
 		}
+	}
 }
 
 void Server::removeChannel(unsigned int id) {
@@ -1890,9 +1897,6 @@ void Server::removeChannel(unsigned int id) {
 }
 
 void Server::removeChannel(Channel *chan, Channel *dest) {
-	Channel *c;
-	User *p;
-
 	if (!dest)
 		dest = chan->cParent;
 
@@ -1901,9 +1905,11 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		chan->unlink(nullptr);
 	}
 
-	foreach (c, chan->qlChannels) { removeChannel(c, dest); }
+	for (Channel *c : chan->qlChannels) {
+		removeChannel(c, dest);
+	}
 
-	foreach (p, chan->qlUsers) {
+	for (User *p : chan->qlUsers) {
 		{
 			QWriteLocker wl(&qrwlVoiceThread);
 			chan->removeUser(p);
@@ -1923,7 +1929,7 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		emit userStateChanged(p);
 	}
 
-	foreach (unsigned int userSession, m_channelListenerManager.getListenersForChannel(chan->iId)) {
+	for (unsigned int userSession : m_channelListenerManager.getListenersForChannel(chan->iId)) {
 		const ServerUser *user = qhUsers.value(userSession);
 		if (!user) {
 			continue;
@@ -2055,8 +2061,8 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
-		QCoreApplication::instance()->postEvent(this,
-												new ExecEvent(boost::bind(&Server::removeChannel, this, old->iId)));
+		auto func_ptr = std::mem_fn< void(unsigned int) >(&Server::removeChannel);
+		QCoreApplication::instance()->postEvent(this, new ExecEvent(std::bind(func_ptr, this, old->iId)));
 	}
 
 	sendClientPermission(static_cast< ServerUser * >(p), c);
@@ -2164,13 +2170,16 @@ void Server::clearACLCache(User *p) {
 
 			flushClientPermissionCache(static_cast< ServerUser * >(p), mppq);
 		} else {
-			foreach (ChanACL::ChanCache *h, acCache)
+			for (ChanACL::ChanCache *h : acCache) {
 				delete h;
+			}
 			acCache.clear();
 
-			foreach (ServerUser *u, qhUsers)
-				if (u->sState == ServerUser::Authenticated)
+			for (ServerUser *u : qhUsers) {
+				if (u->sState == ServerUser::Authenticated) {
 					flushClientPermissionCache(u, mppq);
+				}
+			}
 		}
 
 		// A change in ACLs could also change a user's suppression state
@@ -2207,7 +2216,9 @@ void Server::clearACLCache(User *p) {
 void Server::clearWhisperTargetCache() {
 	QWriteLocker lock(&qrwlVoiceThread);
 
-	foreach (ServerUser *u, qhUsers) { u->qmTargetCache.clear(); }
+	for (ServerUser *u : qhUsers) {
+		u->qmTargetCache.clear();
+	}
 }
 
 QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
@@ -2268,7 +2279,7 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 	int opus  = 0;
 
 	// Count how many users use which codec
-	foreach (ServerUser *u, qhUsers) {
+	for (ServerUser *u : qhUsers) {
 		if (u->qlCodecs.isEmpty() && !u->bOpus)
 			continue;
 
@@ -2276,7 +2287,7 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 		if (u->bOpus)
 			++opus;
 
-		foreach (int version, u->qlCodecs)
+		for (int version : u->qlCodecs)
 			++qmCodecUsercount[version];
 	}
 
@@ -2336,7 +2347,7 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 	sendAll(mpcv);
 
 	if (bOpus) {
-		foreach (ServerUser *u, qhUsers) {
+		for (ServerUser *u : qhUsers) {
 			// Prevent connected users that could not yet declare their opus capability during msgAuthenticate from
 			// being spammed. Only authenticated users and the currently connecting user (if recheck is called in
 			// that context) have a reliable u->bOpus.
@@ -2414,9 +2425,11 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 				case QXmlStreamReader::StartElement: {
 					if (qxsr.name() == QLatin1String("img")) {
 						qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
-						foreach (const QXmlStreamAttribute &a, qxsr.attributes())
-							if (a.name() != QLatin1String("src"))
+						for (const QXmlStreamAttribute &a : qxsr.attributes()) {
+							if (a.name() != QLatin1String("src")) {
 								qxsw.writeAttribute(a);
+							}
+						}
 					} else {
 						qxsw.writeCurrentToken(qxsr);
 					}

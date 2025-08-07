@@ -40,12 +40,11 @@ set(PLUGINS_DIR "${CMAKE_SOURCE_DIR}/plugins")
 list(APPEND CMAKE_MODULE_PATH
 	"${CMAKE_SOURCE_DIR}/cmake"
 	"${CMAKE_SOURCE_DIR}/cmake/FindModules"
-	"${3RDPARTY_DIR}/FindPythonInterpreter"
 	"${3RDPARTY_DIR}/cmake-compiler-flags"
 )
 
-if(NOT DEFINED CMAKE_CXX_STANDARD)
-	set(CMAKE_CXX_STANDARD 17)
+if(NOT DEFINED CMAKE_CXX_STANDARD OR CMAKE_CXX_STANDARD LESS 20)
+	set(CMAKE_CXX_STANDARD 20)
 endif()
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
@@ -55,20 +54,8 @@ include(pkg-utils)
 include(project-utils)
 include(TargetArch)
 include(CheckIPOSupported)
-include(FindPythonInterpreter)
 
-# Locate a usable Python3 interpreter
-set(PYTHON_HINTS
-	"C:/Python39-x64" # Path on the AppVeyor CI server
-)
-
-find_python_interpreter(
-	VERSION 3
-	INTERPRETER_OUT_VAR PYTHON_INTERPRETER
-	HINTS ${PYTHON_HINTS}
-	REQUIRED
-)
-
+find_package(Python 3 COMPONENTS Interpreter REQUIRED)
 
 
 check_ipo_supported(RESULT LTO_DEFAULT)

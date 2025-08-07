@@ -132,6 +132,7 @@ void Server::finished() {
 }
 
 void Server::regSslError(const QList< QSslError > &errs) {
-	foreach (const QSslError &e, errs)
+	for (const QSslError &e : errs) {
 		log(QString("Registration: SSL Handshake error: %1").arg(e.errorString()));
+	}
 }

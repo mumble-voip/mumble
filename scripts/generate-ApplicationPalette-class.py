@@ -60,10 +60,10 @@ paletteupdate_template ="""
 			}
 """
 
-variable_template = """		boost::optional<QBrush> m_%(prop)s;
+variable_template = """		std::optional<QBrush> m_%(prop)s;
 """
 
-reset_template = """			m_%(prop)s = boost::none;
+reset_template = """			m_%(prop)s = std::nullopt;
 """
 
 def rolename(role):

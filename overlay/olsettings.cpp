@@ -54,55 +54,57 @@ static std::vector< std::string > defaultLaunchersVector() {
 // Returns an empty vector on failure.
 static std::vector< std::string > regReadMultiString(HKEY key, const std::string &subKey,
 													 const std::string &valueName) {
-	LONG err = 0;
 	std::vector< std::string > out;
-	char *buf         = nullptr;
-	HKEY subKeyHandle = 0;
+	char *buf = nullptr;
 
-	err = RegOpenKeyExA(key, subKey.c_str(), 0, KEY_READ, &subKeyHandle);
-	if (err != ERROR_SUCCESS) {
-		goto err;
-	}
+	[&]() {
+		LONG err          = 0;
+		HKEY subKeyHandle = 0;
 
-	DWORD sz   = 0;
-	DWORD type = 0;
-	err        = RegQueryValueExA(subKeyHandle, valueName.c_str(), nullptr, &type, nullptr, &sz);
-	if (err != ERROR_SUCCESS) {
-		goto err;
-	}
-
-	if (type != REG_MULTI_SZ) {
-		goto err;
-	}
-
-	// If the size is longer than 4MB, treat it as an error.
-	if (sz > 4 * 1024 * 1024) {
-		goto err;
-	}
-
-	buf = reinterpret_cast< char * >(malloc(sz));
-	if (!buf) {
-		goto err;
-	}
-
-	err = RegQueryValueExA(subKeyHandle, valueName.c_str(), nullptr, &type, reinterpret_cast< BYTE * >(buf), &sz);
-	if (err != ERROR_SUCCESS) {
-		goto err;
-	}
-
-	size_t begin = 0;
-	for (size_t i = 0; i < sz; i++) {
-		if (buf[i] == 0) {
-			size_t len = i - begin;
-			if (len > 0) {
-				std::string s(&buf[begin], len);
-				out.push_back(s);
-			}
-			begin = i + 1;
+		err = RegOpenKeyExA(key, subKey.c_str(), 0, KEY_READ, &subKeyHandle);
+		if (err != ERROR_SUCCESS) {
+			return;
 		}
-	}
 
-err:
+		DWORD sz   = 0;
+		DWORD type = 0;
+		err        = RegQueryValueExA(subKeyHandle, valueName.c_str(), nullptr, &type, nullptr, &sz);
+		if (err != ERROR_SUCCESS) {
+			return;
+		}
+
+		if (type != REG_MULTI_SZ) {
+			return;
+		}
+
+		// If the size is longer than 4MB, treat it as an error.
+		if (sz > 4 * 1024 * 1024) {
+			return;
+		}
+
+		buf = reinterpret_cast< char * >(malloc(sz));
+		if (!buf) {
+			return;
+		}
+
+		err = RegQueryValueExA(subKeyHandle, valueName.c_str(), nullptr, &type, reinterpret_cast< BYTE * >(buf), &sz);
+		if (err != ERROR_SUCCESS) {
+			return;
+		}
+
+		size_t begin = 0;
+		for (size_t i = 0; i < sz; i++) {
+			if (buf[i] == 0) {
+				size_t len = i - begin;
+				if (len > 0) {
+					std::string s(&buf[begin], len);
+					out.push_back(s);
+				}
+				begin = i + 1;
+			}
+		}
+	}();
+
 	free(buf);
 	return out;
 }

@@ -143,7 +143,7 @@ bool UserListModel::setData(const QModelIndex &dataIndex, const QVariant &value,
 
 	MumbleProto::UserList_User &user = m_userList[dataIndex.row()];
 	if (newNick != user.name()) {
-		foreach (const MumbleProto::UserList_User &otherUser, m_userList) {
+		for (const MumbleProto::UserList_User &otherUser : m_userList) {
 			if (otherUser.name() == newNick) {
 				// Duplicate is not valid
 				return false;
@@ -195,7 +195,7 @@ void UserListModel::removeRowsInSelection(const QItemSelection &selection) {
 	std::vector< int > rows;
 	rows.reserve(static_cast< std::size_t >(indices.size()));
 
-	foreach (const QModelIndex &idx, indices) {
+	for (const QModelIndex &idx : indices) {
 		if (idx.column() != COL_NICK)
 			continue;
 

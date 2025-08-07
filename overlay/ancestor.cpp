@@ -81,22 +81,23 @@ static bool getModuleForParent(PROCESSENTRY32 *parent, MODULEENTRY32 *module) {
 	HANDLE hSnap = nullptr;
 	bool done    = false;
 
-	MODULEENTRY32 me;
-	me.dwSize = sizeof(me);
+	[&]() {
+		MODULEENTRY32 me;
+		me.dwSize = sizeof(me);
 
-	hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE32 | TH32CS_SNAPMODULE, parent->th32ProcessID);
-	if (hSnap == INVALID_HANDLE_VALUE) {
-		goto out;
-	}
+		hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE32 | TH32CS_SNAPMODULE, parent->th32ProcessID);
+		if (hSnap == INVALID_HANDLE_VALUE) {
+			return;
+		}
 
-	if (!Module32First(hSnap, &me)) {
-		goto out;
-	}
+		if (!Module32First(hSnap, &me)) {
+			return;
+		}
 
-	memcpy(module, &me, sizeof(me));
-	done = true;
+		memcpy(module, &me, sizeof(me));
+		done = true;
+	}();
 
-out:
 	CloseHandle(hSnap);
 	return done;
 }

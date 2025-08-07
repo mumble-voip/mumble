@@ -708,7 +708,7 @@ int main(int argc, char **argv) {
 	}
 
 	if (!pluginsToBeInstalled.isEmpty()) {
-		foreach (QString currentPlugin, pluginsToBeInstalled) {
+		for (const QString &currentPlugin : pluginsToBeInstalled) {
 			try {
 				PluginInstaller installer(currentPlugin);
 				installer.exec();
@@ -939,7 +939,7 @@ int main(int argc, char **argv) {
 
 	Global::get().sh.reset();
 
-	while (sh && !sh.unique())
+	while (sh && sh.use_count() > 1)
 		QThread::yieldCurrentThread();
 	sh.reset();
 

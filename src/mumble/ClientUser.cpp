@@ -43,7 +43,7 @@ QList< ClientUser * > ClientUser::getTalking() {
 QList< ClientUser * > ClientUser::getActive() {
 	QReadLocker lock(&c_qrwlUsers);
 	QList< ClientUser * > activeUsers;
-	foreach (ClientUser *cu, c_qmUsers) {
+	for (ClientUser *cu : c_qmUsers) {
 		if (cu->isActive())
 			activeUsers << cu;
 	}
@@ -72,8 +72,7 @@ ClientUser *ClientUser::add(unsigned int uiSession, QObject *po) {
 ClientUser *ClientUser::match(const ClientUser *other, bool matchname) {
 	QReadLocker lock(&c_qrwlUsers);
 
-	ClientUser *p;
-	foreach (p, c_qmUsers) {
+	for (ClientUser *p : c_qmUsers) {
 		if (p == other)
 			continue;
 		if ((p->iId >= 0) && (p->iId == other->iId))
@@ -316,7 +315,7 @@ bool ClientUser::isActive() {
 	if (!tLastTalkStateChange.isStarted())
 		return false;
 
-	return tLastTalkStateChange.elapsed() < static_cast< unsigned int >(Global::get().s.os.uiActiveTime) * 1000000U;
+	return tLastTalkStateChange.elapsed() < std::chrono::seconds(Global::get().s.os.uiActiveTime);
 }
 
 /* From Channel.h

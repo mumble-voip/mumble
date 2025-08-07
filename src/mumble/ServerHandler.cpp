@@ -41,6 +41,7 @@
 #include <openssl/crypto.h>
 
 #include <cassert>
+#include <chrono>
 
 #ifdef Q_OS_WIN
 // <delayimp.h> is not protected with an include guard on MinGW, resulting in
@@ -151,7 +152,9 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 		QSslConfiguration::setDefaultConfiguration(config);
 
 		QStringList pref;
-		foreach (QSslCipher c, ciphers) { pref << c.name(); }
+		for (const QSslCipher &c : ciphers) {
+			pref << c.name();
+		}
 		qWarning("ServerHandler: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
@@ -243,8 +246,8 @@ void ServerHandler::udpReady() {
 
 		if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(),
 										  buflen)) {
-			if (connection->csCrypt->tLastGood.elapsed() > 5000000ULL) {
-				if (connection->csCrypt->tLastRequest.elapsed() > 5000000ULL) {
+			if (connection->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+				if (connection->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
 					connection->csCrypt->tLastRequest.restart();
 					MumbleProto::CryptSetup mpcs;
 					sendMessage(mpcs);
@@ -258,7 +261,9 @@ void ServerHandler::udpReady() {
 				case Mumble::Protocol::UDPMessageType::Ping: {
 					const Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 
-					accUDP(static_cast< double >(tTimestamp.elapsed() - pingData.timestamp) / 1000.0);
+					accUDP(static_cast< double >(static_cast< std::uint64_t >(tTimestamp.elapsed().count())
+												 - pingData.timestamp)
+						   / 1000.0);
 
 					break;
 				}
@@ -368,8 +373,8 @@ void ServerHandler::hostnameResolved() {
 	// that the ServerHandler should try to connect to.
 	QList< ServerAddress > ql;
 	QHash< ServerAddress, QString > qh;
-	foreach (ServerResolverRecord record, records) {
-		foreach (HostAddress addr, record.addresses()) {
+	for (ServerResolverRecord &record : records) {
+		for (const HostAddress &addr : record.addresses()) {
 			auto sa = ServerAddress(addr, record.port());
 			ql.append(sa);
 			qh[sa] = record.hostname();
@@ -495,7 +500,7 @@ void ServerHandler::run() {
 		}
 
 		cConnection.reset();
-		while (!cptr.unique()) {
+		while (cptr.use_count() > 1) {
 			msleep(100);
 		}
 		delete qtsSock;
@@ -518,7 +523,7 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 #ifdef Q_OS_WIN
 	bool bRevalidate = false;
 	QList< QSslError > errorsToRemove;
-	foreach (const QSslError &e, errors) {
+	for (const QSslError &e : errors) {
 		switch (e.error()) {
 			case QSslError::UnableToGetLocalIssuerCertificate:
 			case QSslError::SelfSignedCertificateInChain:
@@ -534,7 +539,9 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 		QByteArray der    = qscCert.first().toDer();
 		DWORD errorStatus = WinVerifySslCert(der);
 		if (errorStatus == CERT_TRUST_NO_ERROR) {
-			foreach (const QSslError &e, errorsToRemove) { newErrors.removeOne(e); }
+			for (const QSslError &e : errorsToRemove) {
+				newErrors.removeOne(e);
+			}
 		}
 		if (newErrors.isEmpty()) {
 			connection->proceedAnyway();
@@ -575,7 +582,7 @@ void ServerHandler::sendPingInternal() {
 		return;
 	}
 
-	quint64 t = tTimestamp.elapsed();
+	quint64 t = static_cast< quint64 >(tTimestamp.elapsed().count());
 
 	if (qusUdp) {
 		Mumble::Protocol::PingData pingData;
@@ -643,10 +650,11 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 			connection->csCrypt->m_statsRemote.late   = msg.late();
 			connection->csCrypt->m_statsRemote.lost   = msg.lost();
 			connection->csCrypt->m_statsRemote.resync = msg.resync();
-			accTCP(static_cast< double >(tTimestamp.elapsed() - msg.timestamp()) / 1000.0);
+			accTCP(static_cast< double >(static_cast< std::uint64_t >(tTimestamp.elapsed().count()) - msg.timestamp())
+				   / 1000.0);
 
 			if (((connection->csCrypt->m_statsRemote.good == 0) || (connection->csCrypt->m_statsLocal.good == 0))
-				&& bUdp && (tTimestamp.elapsed() > 20000000ULL)) {
+				&& bUdp && (tTimestamp.elapsed() > std::chrono::seconds(20))) {
 				bUdp = false;
 				if (!NetworkConfig::TcpModeEnabled()) {
 					if ((connection->csCrypt->m_statsRemote.good == 0) && (connection->csCrypt->m_statsLocal.good == 0))
@@ -789,8 +797,9 @@ void ServerHandler::serverConnectionConnected() {
 	mpa.set_password(u8(qsPassword));
 
 	QStringList tokens = database->getTokens(qbaDigest);
-	foreach (const QString &qs, tokens)
+	for (const QString &qs : tokens) {
 		mpa.add_tokens(u8(qs));
+	}
 
 	mpa.set_opus(true);
 	sendMessage(mpa);
@@ -899,7 +908,7 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel,
 	mpus.set_session(uiSession);
 	mpus.set_channel_id(channel);
 
-	foreach (const QString &tmpToken, temporaryAccessTokens) {
+	for (const QString &tmpToken : temporaryAccessTokens) {
 		mpus.add_temporary_access_tokens(tmpToken.toUtf8().constData());
 	}
 
@@ -1080,8 +1089,9 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 
 void ServerHandler::setTokens(const QStringList &tokens) {
 	MumbleProto::Authenticate msg;
-	foreach (const QString &qs, tokens)
+	for (const QString &qs : tokens) {
 		msg.add_tokens(u8(qs));
+	}
 	sendMessage(msg);
 }
 

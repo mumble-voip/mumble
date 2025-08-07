@@ -135,7 +135,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 
 	if (links != oldset) {
 		// Remove
-		foreach (Channel *l, oldset) {
+		for (Channel *l : oldset) {
 			if (!links.contains(l)) {
 				unlinkChannels(*cChannel, *l);
 				mpcs.add_links_remove(l->iId);
@@ -143,7 +143,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 		}
 
 		// Add
-		foreach (Channel *l, links) {
+		for (Channel *l : links) {
 			if (!oldset.contains(l)) {
 				linkChannels(*cChannel, *l);
 				mpcs.add_links_add(l->iId);
@@ -205,13 +205,15 @@ void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, co
 			while (!q.isEmpty()) {
 				c = q.dequeue();
 				chans.insert(c);
-				foreach (c, c->qlChannels)
-					q.enqueue(c);
+				for (Channel *chan : c->qlChannels) {
+					q.enqueue(chan);
+				}
 			}
 		}
-		foreach (c, chans) {
-			foreach (User *p, c->qlUsers)
+		for (Channel *chan : chans) {
+			for (User *p : chan->qlUsers) {
 				sendMessage(static_cast< ServerUser * >(p), mptm);
+			}
 		}
 	}
 }
@@ -229,16 +231,14 @@ void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const Q
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
 
-		Group *g;
-		foreach (g, cChannel->qhGroups) {
+		for (Group *g : cChannel->qhGroups) {
 			g->qsTemporary.remove(userid);
 			if (sessionId != 0)
 				g->qsTemporary.remove(-sessionId);
 		}
 
-		QString gname;
-		foreach (gname, groups) {
-			g = cChannel->qhGroups.value(gname);
+		for (const QString &gname : groups) {
+			Group *g = cChannel->qhGroups.value(gname);
 			if (!g) {
 				g = new Group(cChannel, gname);
 			}
@@ -271,8 +271,7 @@ void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 
 		while (!qlChans.isEmpty()) {
 			Channel *chan = qlChans.takeLast();
-			Group *g;
-			foreach (g, chan->qhGroups) {
+			for (Group *g : chan->qhGroups) {
 				g->qsTemporary.remove(user->iId);
 				g->qsTemporary.remove(-static_cast< int >(user->uiSession));
 			}

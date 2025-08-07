@@ -13,6 +13,8 @@
 
 #include <QtGui/QPainter>
 
+#include <chrono>
+
 const QString LCDConfig::name = QLatin1String("LCDConfig");
 
 QList< LCDEngineNew > *LCDEngineRegistrar::qlInitializers;
@@ -49,11 +51,13 @@ public:
 
 void LCDDeviceManager::initialize() {
 	if (LCDEngineRegistrar::qlInitializers) {
-		foreach (LCDEngineNew engine, *LCDEngineRegistrar::qlInitializers) {
+		for (const LCDEngineNew &engine : *LCDEngineRegistrar::qlInitializers) {
 			LCDEngine *e = engine();
 			qlEngines.append(e);
 
-			foreach (LCDDevice *d, e->devices()) { qlDevices << d; }
+			for (LCDDevice *d : e->devices()) {
+				qlDevices << d;
+			}
 		}
 	}
 	if (qlDevices.count() > 0) {
@@ -65,7 +69,9 @@ void LCDDeviceManager::initialize() {
 
 void LCDDeviceManager::destroy() {
 	qlDevices.clear();
-	foreach (LCDEngine *e, qlEngines) { delete e; }
+	for (LCDEngine *e : qlEngines) {
+		delete e;
+	}
 	delete crLCD;
 }
 
@@ -78,7 +84,7 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
 	QTreeWidgetItem *qtwi;
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	for (LCDDevice *d : devmgr.qlDevices) {
 		qtwi = new QTreeWidgetItem(qtwDevices);
 
 		qtwi->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
@@ -110,7 +116,7 @@ QIcon LCDConfig::icon() const {
 
 void LCDConfig::load(const Settings &r) {
 	QList< QTreeWidgetItem * > qlItems = qtwDevices->findItems(QString(), Qt::MatchContains);
-	foreach (QTreeWidgetItem *qtwi, qlItems) {
+	for (QTreeWidgetItem *qtwi : qlItems) {
 		QString qsName = qtwi->text(0);
 		bool enabled   = r.qmLCDDevices.contains(qsName) ? r.qmLCDDevices.value(qsName) : true;
 		qtwi->setCheckState(2, enabled ? Qt::Checked : Qt::Unchecked);
@@ -123,7 +129,7 @@ void LCDConfig::load(const Settings &r) {
 void LCDConfig::save() const {
 	QList< QTreeWidgetItem * > qlItems = qtwDevices->findItems(QString(), Qt::MatchContains);
 
-	foreach (QTreeWidgetItem *qtwi, qlItems) {
+	for (QTreeWidgetItem *qtwi : qlItems) {
 		QString qsName = qtwi->text(0);
 		s.qmLCDDevices.insert(qsName, qtwi->checkState(2) == Qt::Checked);
 	}
@@ -133,7 +139,7 @@ void LCDConfig::save() const {
 }
 
 void LCDConfig::accept() const {
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	for (LCDDevice *d : devmgr.qlDevices) {
 		bool enabled = s.qmLCDDevices.value(d->name());
 		d->setEnabled(enabled);
 	}
@@ -181,7 +187,7 @@ LCD::LCD() : QObject() {
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
 
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	for (LCDDevice *d : devmgr.qlDevices) {
 		bool enabled =
 			Global::get().s.qmLCDDevices.contains(d->name()) ? Global::get().s.qmLCDDevices.value(d->name()) : true;
 		d->setEnabled(enabled);
@@ -199,7 +205,7 @@ void LCD::tick() {
 }
 
 void LCD::initBuffers() {
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	for (LCDDevice *d : devmgr.qlDevices) {
 		QSize size = d->size();
 		if (!qhImageBuffers.contains(size)) {
 			size_t buflen        = static_cast< std::size_t >(size.width() * size.height()) / 8;
@@ -210,12 +216,14 @@ void LCD::initBuffers() {
 }
 
 void LCD::destroyBuffers() {
-	foreach (QImage *img, qhImages)
+	for (QImage *img : qhImages) {
 		delete img;
+	}
 	qhImages.clear();
 
-	foreach (unsigned char *buf, qhImageBuffers)
+	for (unsigned char *buf : qhImageBuffers) {
 		delete[] buf;
+	}
 	qhImageBuffers.clear();
 }
 
@@ -239,7 +247,7 @@ void LCD::updateUserView() {
 	Channel *home = me ? me->cChannel : nullptr;
 	bool alert    = false;
 
-	foreach (const QSize &size, qhImages.keys()) {
+	for (const QSize &size : qhImages.keys()) {
 		QImage *img = qhImages.value(size);
 		QPainter painter(img);
 		painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing, false);
@@ -260,7 +268,7 @@ void LCD::updateUserView() {
 			continue;
 		}
 
-		foreach (User *p, me->cChannel->qlUsers) {
+		for (User *p : me->cChannel->qlUsers) {
 			if (!qmNew.contains(p->uiSession)) {
 				qmNew.insert(p->uiSession, Timer());
 				qmNameCache.insert(p->uiSession, p->qsName);
@@ -268,7 +276,7 @@ void LCD::updateUserView() {
 			}
 		}
 
-		foreach (unsigned int session, qmNew.keys()) {
+		for (unsigned int session : qmNew.keys()) {
 			User *p = ClientUser::get(session);
 			if (!p || (p->cChannel != me->cChannel)) {
 				qmNew.remove(session);
@@ -278,9 +286,9 @@ void LCD::updateUserView() {
 
 		QMap< unsigned int, Timer > old;
 
-		foreach (unsigned int session, qmOld.keys()) {
+		for (unsigned int session : qmOld.keys()) {
 			Timer t = qmOld.value(session);
-			if (t.elapsed() > 3000000) {
+			if (t.elapsed() > std::chrono::seconds(3)) {
 				qmNameCache.remove(session);
 			} else {
 				old.insert(session, qmOld.value(session));
@@ -296,15 +304,15 @@ void LCD::updateUserView() {
 
 		QMap< unsigned int, Timer > speaking;
 
-		foreach (Channel *c, home->allLinks()) {
-			foreach (User *p, c->qlUsers) {
+		for (Channel *c : home->allLinks()) {
+			for (User *p : c->qlUsers) {
 				ClientUser *u = static_cast< ClientUser * >(p);
 				bool bTalk    = (u->tsState != Settings::Passive);
 				if (bTalk) {
 					speaking.insert(p->uiSession, Timer());
 				} else if (qmSpeaking.contains(p->uiSession)) {
 					Timer t = qmSpeaking.value(p->uiSession);
-					if (t.elapsed() > 1000000)
+					if (t.elapsed() > std::chrono::seconds(1))
 						qmSpeaking.remove(p->uiSession);
 					else {
 						speaking.insert(p->uiSession, t);
@@ -315,7 +323,7 @@ void LCD::updateUserView() {
 					alert = true;
 					entries << ListEntry(p->qsName, true, (p->cChannel != me->cChannel));
 				} else if (c == me->cChannel) {
-					if (qmNew.value(p->uiSession).elapsed() < 3000000) {
+					if (qmNew.value(p->uiSession).elapsed() < std::chrono::seconds(3)) {
 						entries << ListEntry(QLatin1String("+") + p->qsName, false, false);
 						hasnew = true;
 					}
@@ -324,7 +332,7 @@ void LCD::updateUserView() {
 		}
 		qmSpeaking = speaking;
 
-		foreach (unsigned int session, qmOld.keys()) {
+		for (unsigned int session : qmOld.keys()) {
 			entries << ListEntry(QLatin1String("-") + qmNameCache.value(session), false, false);
 		}
 
@@ -355,7 +363,7 @@ void LCD::updateUserView() {
 		int row = 0, col = 0;
 
 
-		foreach (const ListEntry &le, entries) {
+		for (const ListEntry &le : entries) {
 			if (row >= iUsersPerColumn) {
 				row = 0;
 				++col;
@@ -380,7 +388,7 @@ void LCD::updateUserView() {
 		}
 	}
 
-	foreach (LCDDevice *d, devmgr.qlDevices) {
+	for (LCDDevice *d : devmgr.qlDevices) {
 		QImage *img = qhImages[d->size()];
 		if (!img)
 			continue;
@@ -402,8 +410,9 @@ LCDEngine::LCDEngine() : QObject() {
 }
 
 LCDEngine::~LCDEngine() {
-	foreach (LCDDevice *lcd, qlDevices)
+	for (LCDDevice *lcd : qlDevices) {
 		delete lcd;
+	}
 }
 
 LCDDevice::LCDDevice() {

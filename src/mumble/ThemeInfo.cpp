@@ -46,7 +46,7 @@ std::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConfig
 		return std::nullopt;
 	}
 
-	foreach (const QString &platformQssConfig, themeConfig.allKeys().filter(qssPlatformRegex)) {
+	for (const QString &platformQssConfig : themeConfig.allKeys().filter(qssPlatformRegex)) {
 		const QString platform = qssPlatformRegex.match(platformQssConfig).captured(1);
 
 		const auto platformQss = QFileInfo(themeDir.filePath(themeConfig.value(platformQssConfig).toString()));
@@ -69,7 +69,7 @@ std::optional< ThemeInfo > loadLegacyThemeInfo(const QDir &themeDirectory) {
 	QStringList filters;
 	filters << QLatin1String("*.qss");
 
-	foreach (const QFileInfo &qssFile, themeDirectory.entryInfoList(filters, QDir::Files)) {
+	for (const QFileInfo &qssFile : themeDirectory.entryInfoList(filters, QDir::Files)) {
 		ThemeInfo::StyleInfo style;
 		style.name       = qssFile.baseName();
 		style.themeName  = theme.name;
@@ -118,7 +118,7 @@ std::optional< ThemeInfo > ThemeInfo::load(const QDir &themeDirectory) {
 		return std::nullopt;
 	}
 
-	foreach (const QString &styleId, styleIds) {
+	for (const QString &styleId : styleIds) {
 		std::optional< ThemeInfo::StyleInfo > style = readStyleFromConfig(themeConfig, styleId, theme, themeDirectory);
 		if (!style) {
 			return std::nullopt;
@@ -141,7 +141,7 @@ ThemeInfo::StyleInfo ThemeInfo::getStyle(QString name_) const {
 ThemeMap ThemeInfo::scanDirectory(const QDir &themesDirectory) {
 	ThemeMap themes;
 
-	foreach (const QFileInfo &subdirInfo, themesDirectory.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot)) {
+	for (const QFileInfo &subdirInfo : themesDirectory.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot)) {
 		QDir subdir(subdirInfo.absoluteFilePath());
 
 		std::optional< ThemeInfo > theme = ThemeInfo::load(subdir);
@@ -158,8 +158,10 @@ ThemeMap ThemeInfo::scanDirectory(const QDir &themesDirectory) {
 ThemeMap ThemeInfo::scanDirectories(const QVector< QDir > &themesDirectories) {
 	ThemeMap themes;
 
-	foreach (const QDir &themesDirectory, themesDirectories) {
-		foreach (const ThemeInfo &theme, scanDirectory(themesDirectory)) { themes.insert(theme.name, theme); }
+	for (const QDir &themesDirectory : themesDirectories) {
+		for (const ThemeInfo &theme : scanDirectory(themesDirectory)) {
+			themes.insert(theme.name, theme);
+		}
 	}
 
 	return themes;

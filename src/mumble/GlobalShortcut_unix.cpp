@@ -352,7 +352,7 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 	}
 
 	QDir d(dir, QLatin1String("event*"), {}, QDir::System);
-	foreach (QFileInfo fi, d.entryInfoList()) {
+	for (const QFileInfo &fi : d.entryInfoList()) {
 		QString path = fi.absoluteFilePath();
 		if (!qmInputDevices.contains(path)) {
 			QFile *f = new QFile(path, this);

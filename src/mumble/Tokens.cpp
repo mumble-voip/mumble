@@ -15,7 +15,7 @@ Tokens::Tokens(QWidget *p) : QDialog(p) {
 	qbaDigest          = Global::get().sh->qbaDigest;
 	QStringList tokens = Global::get().db->getTokens(qbaDigest);
 	tokens.sort();
-	foreach (const QString &qs, tokens) {
+	for (const QString &qs : tokens) {
 		QListWidgetItem *qlwi = new QListWidgetItem(qs);
 		qlwi->setFlags(qlwi->flags() | Qt::ItemIsEditable);
 		qlwTokens->addItem(qlwi);
@@ -26,7 +26,7 @@ void Tokens::accept() {
 	QStringList qsl;
 
 	QList< QListWidgetItem * > items = qlwTokens->findItems(QString(), Qt::MatchStartsWith);
-	foreach (QListWidgetItem *qlwi, items) {
+	for (QListWidgetItem *qlwi : items) {
 		const QString &text = qlwi->text().trimmed();
 		if (!text.isEmpty())
 			qsl << text;
@@ -45,6 +45,6 @@ void Tokens::on_qpbAdd_clicked() {
 }
 
 void Tokens::on_qpbRemove_clicked() {
-	foreach (QListWidgetItem *qlwi, qlwTokens->selectedItems())
+	for (QListWidgetItem *qlwi : qlwTokens->selectedItems())
 		delete qlwi;
 }

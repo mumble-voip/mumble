@@ -169,8 +169,8 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 						QDir snapdir(Global::get().qdBasePath.absolutePath() + QLatin1String("/Snapshots/"), QString(),
 									 QDir::Name, QDir::Files);
 
-						foreach (const QFileInfo fileInfo,
-								 snapdir.entryInfoList(QStringList(), QDir::NoFilter, QDir::Time)) {
+						for (const QFileInfo &fileInfo :
+							 snapdir.entryInfoList(QStringList(), QDir::NoFilter, QDir::Time)) {
 							if (numberOfSnapshotsToKeep) {
 								--numberOfSnapshotsToKeep;
 								continue;

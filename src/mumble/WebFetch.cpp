@@ -60,7 +60,7 @@ void WebFetch::finished() {
 
 		QMap< QString, QString > headers;
 
-		foreach (const QByteArray &headerName, qnr->rawHeaderList()) {
+		for (const QByteArray &headerName : qnr->rawHeaderList()) {
 			QString name  = fromUtf8(headerName);
 			QString value = fromUtf8(qnr->rawHeader(headerName));
 			if (!name.isEmpty() && !value.isEmpty()) {

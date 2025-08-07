@@ -181,9 +181,9 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 
 	bOk = false;
 
-	ASIODev ad;
-
-	foreach (ad, qlDevs) { qcbDevice->addItem(ad.first, QVariant(ad.second)); }
+	for (const ASIODev &ad : qlDevs) {
+		qcbDevice->addItem(ad.first, QVariant(ad.second));
+	}
 
 	if (qlDevs.count() == 0) {
 		qpbQuery->setEnabled(false);
@@ -381,8 +381,7 @@ void ASIOConfig::save() const {
 
 void ASIOConfig::load(const Settings &r) {
 	int i = 0;
-	ASIODev ad;
-	foreach (ad, qlDevs) {
+	for (const ASIODev &ad : qlDevs) {
 		if (ad.second == r.qsASIOclass) {
 			loadComboBox(qcbDevice, i);
 		}

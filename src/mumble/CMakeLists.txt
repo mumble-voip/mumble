@@ -338,7 +338,7 @@ target_disable_warnings(smallft)
 
 add_custom_command(
 	OUTPUT "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
-	COMMAND ${PYTHON_INTERPRETER}
+	COMMAND Python::Interpreter
 	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_flag_qrc.py" --flag-dir "${CMAKE_SOURCE_DIR}/3rdparty/flag-icons/flags/4x3" --output "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
 	COMMENT "Generating mumble_flags.qrc"
 )
@@ -376,7 +376,7 @@ endif()
 
 add_custom_command(
 	OUTPUT "ApplicationPalette.h"
-	COMMAND ${PYTHON_INTERPRETER}
+	COMMAND Python::Interpreter
 	ARGS ${CMAKE_SOURCE_DIR}/scripts/generate-ApplicationPalette-class.py --template ${CMAKE_CURRENT_SOURCE_DIR}/ApplicationPaletteTemplate.h
 		--output ApplicationPalette.h
 	COMMENT "Generating ApplicationPalette.h"

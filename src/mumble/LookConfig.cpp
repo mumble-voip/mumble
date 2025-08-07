@@ -42,7 +42,7 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 
 	qcbLanguage->addItem(tr("System default"));
 	QDir d(QLatin1String(":"), QLatin1String("mumble_*.qm"), QDir::Name, QDir::Files);
-	foreach (const QString &key, d.entryList()) {
+	for (const QString &key : d.entryList()) {
 		QString cc        = key.mid(7, key.indexOf(QLatin1Char('.')) - 7);
 		QLocale tmpLocale = QLocale(cc);
 

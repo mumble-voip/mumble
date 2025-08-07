@@ -21,7 +21,9 @@
 
 #include <algorithm>
 #include <cassert>
+#include <chrono>
 #include <cmath>
+#include <memory>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -59,7 +61,7 @@ AudioOutputPtr AudioOutputRegistrar::newFromChoice(QString choice) {
 	}
 
 	AudioOutputRegistrar *r = nullptr;
-	foreach (AudioOutputRegistrar *aor, *qmNew)
+	for (AudioOutputRegistrar *aor : *qmNew)
 		if (!r || (aor->priority > r->priority))
 			r = aor;
 	if (r) {
@@ -285,14 +287,13 @@ AudioOutputToken AudioOutput::playSample(const QString &filename, float volume, 
 		return AudioOutputToken();
 
 	Timer t;
-	const quint64 oneSecond = 1000000;
 
-	while (!t.isElapsed(oneSecond) && (iMixerFreq == 0) && isAlive()) {
+	while (!t.isElapsed(std::chrono::seconds(1)) && (iMixerFreq == 0) && isAlive()) {
 		QThread::yieldCurrentThread();
 	}
 
 	// If we've waited for more than one second, we declare timeout.
-	if (t.isElapsed(oneSecond)) {
+	if (t.isElapsed(std::chrono::seconds(1))) {
 		qWarning("AudioOutput: playSample() timed out after 1 second: device not ready");
 		return AudioOutputToken();
 	}
@@ -521,9 +522,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 			bool validListener = false;
 
 			// Initialize recorder if recording is enabled
-			boost::shared_array< float > recbuff;
+			std::shared_ptr< float[] > recbuff;
 			if (recorder) {
-				recbuff = boost::shared_array< float >(new float[frameCount]);
+				recbuff = std::make_shared< float[] >(frameCount);
 				memset(recbuff.get(), 0, sizeof(float) * frameCount);
 				recorder->prepareBufferAdds();
 			}
@@ -699,7 +700,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 						if (!recorder->isInMixDownMode()) {
 							recorder->addBuffer(speech->p, recbuff, static_cast< int >(frameCount));
-							recbuff = boost::shared_array< float >(new float[frameCount]);
+							recbuff = std::make_shared< float[] >(frameCount);
 							memset(recbuff.get(), 0, sizeof(float) * frameCount);
 						}
 

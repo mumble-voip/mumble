@@ -104,10 +104,10 @@ void MumbleSSL::addSystemCA() {
 		QList< QSslCertificate > caList = sslCfg.caCertificates();
 
 		QList< QSslCertificate > filteredCaList;
-		foreach (QSslCertificate cert, caList) {
+		for (const QSslCertificate &cert : caList) {
 			QStringList orgs = cert.subjectInfo(QSslCertificate::Organization);
 			bool skip        = false;
-			foreach (QString ou, orgs) {
+			for (const QString &ou : orgs) {
 				if (ou.contains(QLatin1String("Skype"), Qt::CaseInsensitive)) {
 					skip = true;
 					break;

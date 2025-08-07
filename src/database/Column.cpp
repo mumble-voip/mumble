@@ -7,8 +7,6 @@
 
 #include <cassert>
 
-#include <boost/algorithm/string.hpp>
-
 namespace mumble {
 namespace db {
 
@@ -28,7 +26,7 @@ namespace db {
 	const std::string Column::getName() const { return m_name; }
 
 	void Column::setName(const std::string &name) {
-		assert(!boost::contains(name, " "));
+		assert(name.find(' ') == std::string::npos);
 
 		m_name = name;
 	}

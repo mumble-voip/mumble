@@ -9,7 +9,8 @@
 #include "Global.h"
 
 #include <QtCore/QMutexLocker>
-#include <boost/thread/once.hpp>
+
+#include <mutex>
 
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EDataFlow flow, ERole role,
 																		   LPCWSTR pwstrDefaultDevice) {
@@ -159,11 +160,11 @@ WASAPINotificationClient &WASAPINotificationClient::doGet() {
 	return instance;
 }
 
-static boost::once_flag notification_client_init_once = BOOST_ONCE_INIT;
+static std::once_flag notification_client_init_once;
 
 WASAPINotificationClient &WASAPINotificationClient::get() {
 	// Hacky way of making sure we get a thread-safe yet lazy initialization of the static.
-	boost::call_once(&WASAPINotificationClient::doGetOnce, notification_client_init_once);
+	std::call_once(notification_client_init_once, &WASAPINotificationClient::doGetOnce);
 	return doGet();
 }
 

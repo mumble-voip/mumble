@@ -52,6 +52,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include <boost/algorithm/string.hpp>
+
 #include <cassert>
 #include <limits>
 #include <optional>
@@ -1339,7 +1341,7 @@ void DBWrapper::setLastChannel(unsigned int serverID, unsigned int userID, unsig
 }
 
 unsigned int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int userID, unsigned int maxRememberDuration,
-										 std::size_t serverUptimeSecs) {
+										 std::chrono::seconds serverUptimeSecs) {
 	WRAPPER_BEGIN
 
 	assertValidID(serverID);
@@ -1359,7 +1361,7 @@ unsigned int DBWrapper::getLastChannelID(unsigned int serverID, unsigned int use
 		// This can happen, if the entire server is shut down while the user still was connected.
 		// In such cases, we instead take the server's up time as a reference point.
 		userData.lastDisconnect = std::chrono::system_clock::now();
-		userData.lastDisconnect -= std::chrono::seconds(serverUptimeSecs);
+		userData.lastDisconnect -= serverUptimeSecs;
 	}
 
 	long inactiveSeconds =

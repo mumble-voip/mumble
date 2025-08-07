@@ -48,7 +48,7 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), 
 void BanEditor::accept() {
 	MumbleProto::BanList msg;
 
-	foreach (const Ban &b, qlBans) {
+	for (const Ban &b : qlBans) {
 		MumbleProto::BanList_BanEntry *be = msg.add_bans();
 		be->set_address(b.haAddress.toStdString());
 		assert(b.iMask >= 0);
@@ -172,7 +172,7 @@ void BanEditor::refreshBanList() {
 
 	std::sort(qlBans.begin(), qlBans.end());
 
-	foreach (const Ban &ban, qlBans) {
+	for (const Ban &ban : qlBans) {
 		const QHostAddress &addr = ban.haAddress.toAddress();
 		if (ban.qsUsername.isEmpty())
 			qlwBans->addItem(addr.toString());
@@ -199,7 +199,7 @@ void BanEditor::on_qleSearch_textChanged(const QString &match) {
 	qdteStart->setDateTime(QDateTime::currentDateTime());
 	qdteEnd->setDateTime(QDateTime::currentDateTime());
 
-	foreach (QListWidgetItem *item, qlwBans->findItems(QString(), Qt::MatchContains)) {
+	for (QListWidgetItem *item : qlwBans->findItems(QString(), Qt::MatchContains)) {
 		if (!item->text().contains(match, Qt::CaseInsensitive))
 			item->setHidden(true);
 		else

@@ -133,7 +133,7 @@ set(SHARED_HEADERS
 
 add_custom_command(
 	OUTPUT "FFDHETable.h"
-	COMMAND ${PYTHON_INTERPRETER}
+	COMMAND Python::Interpreter
 	ARGS ${CMAKE_SOURCE_DIR}/scripts/generate-ffdhe.py --output FFDHETable.h
 	COMMENT "Generating FFDHETable.h"
 )
@@ -141,7 +141,7 @@ list(APPEND SHARED_HEADERS "FFDHETable.h")
 
 add_custom_command(
 	OUTPUT "licenses.h"
-	COMMAND ${PYTHON_INTERPRETER}
+	COMMAND Python::Interpreter
 	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_license_header.py" --output "licenses.h"
 	COMMENT "Generating licenses.h"
 )

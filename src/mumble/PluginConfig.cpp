@@ -216,7 +216,7 @@ void PluginConfig::refillPluginList() {
 	// get plugins already sorted according to their name
 	const QVector< const_plugin_ptr_t > plugins = Global::get().pluginManager->getPlugins(true);
 
-	foreach (const_plugin_ptr_t currentPlugin, plugins) {
+	for (const_plugin_ptr_t currentPlugin : plugins) {
 		QTreeWidgetItem *i = new QTreeWidgetItem(qtwPlugins);
 		i->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		i->setCheckState(1, currentPlugin->isLoaded() ? Qt::Checked : Qt::Unchecked);

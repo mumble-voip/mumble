@@ -57,7 +57,7 @@ bool Database::findOrCreateDatabase() {
 	datapaths.removeDuplicates();
 
 	// Try to find an existing database
-	foreach (const QString &datapath, datapaths) {
+	for (const QString &datapath : datapaths) {
 		// Try the legacy path first, and use it if it exists.
 		// If it doesn't, use the new, non-hidden version.
 		QFile legacyDatabaseFile(datapath + QLatin1String("/.mumble.sqlite"));
@@ -77,7 +77,7 @@ bool Database::findOrCreateDatabase() {
 	}
 
 	// There is no existing database, so we create one
-	foreach (const QString &datapath, datapaths) {
+	for (const QString &datapath : datapaths) {
 		QDir::root().mkpath(datapath);
 		QFile f(datapath + QLatin1String("/mumble.sqlite"));
 		db.setDatabaseName(f.fileName());
@@ -284,7 +284,7 @@ void Database::setFavorites(const QList< FavoriteServer > &servers) {
 
 	query.prepare(QLatin1String(
 		"REPLACE INTO `servers` (`name`, `hostname`, `port`, `username`, `password`, `url`) VALUES (?,?,?,?,?,?)"));
-	foreach (const FavoriteServer &s, servers) {
+	for (const FavoriteServer &s : servers) {
 		query.addBindValue(s.qsName);
 		query.addBindValue(s.qsHostname);
 		query.addBindValue(s.usPort);
@@ -558,7 +558,7 @@ void Database::setTokens(const QByteArray &digest, QStringList &tokens) {
 	execQueryAndLogFailure(query);
 
 	query.prepare(QLatin1String("INSERT INTO `tokens` (`digest`, `token`) VALUES (?,?)"));
-	foreach (const QString &qs, tokens) {
+	for (const QString &qs : tokens) {
 		query.addBindValue(digest);
 		query.addBindValue(qs);
 		execQueryAndLogFailure(query);

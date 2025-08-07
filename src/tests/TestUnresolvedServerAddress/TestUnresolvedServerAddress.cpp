@@ -91,7 +91,7 @@ void TestUnresolvedServerAddress::lessThan() {
 	std::sort(sorted.begin(), sorted.end());
 
 	int i = 0;
-	foreach (const UnresolvedServerAddress &unresolved, sorted) {
+	for (const UnresolvedServerAddress &unresolved : sorted) {
 		qWarning("%i -> %s:%i", i, qPrintable(unresolved.hostname), unresolved.port);
 		i += 1;
 	}
