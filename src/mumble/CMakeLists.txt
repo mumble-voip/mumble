@@ -386,6 +386,7 @@ target_sources(mumble PRIVATE "ApplicationPalette.h")
 target_include_directories(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
 target_link_libraries(mumble PRIVATE mumble_client_object_lib shared spdlog::spdlog)
+target_link_libraries(mumble PRIVATE CLI11::CLI11)
 
 target_compile_definitions(mumble_client_object_lib
 	PUBLIC
