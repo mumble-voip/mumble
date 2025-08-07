@@ -446,6 +446,12 @@ void MainWindow::createActions() {
 	gsListenerAttenuationDown->setObjectName("gsListenerAttenuationDown");
 	gsListenerAttenuationDown->qsWhatsThis =
 		tr("This decreases the attenuation of channel listeners by 10 percents points");
+
+	gsAdaptivePush = new GlobalShortcut(this, GlobalShortcutType::AdaptivePush, tr("Adaptive Push", "Global Shortcut"));
+	gsAdaptivePush->setObjectName("gsAdaptivePush");
+	gsAdaptivePush->qsToolTip = tr("When using the push-to-talk transmission mode, this will act as the push-to-talk "
+								   "action. Otherwise, it will act as a push-to-mute action.",
+								   "Global Shortcut");
 }
 
 void MainWindow::setupGui() {
@@ -3431,6 +3437,14 @@ void MainWindow::on_gsListenerAttenuationDown_triggered(bool down, QVariant) {
 	}
 
 	Global::get().s.listenerAttenuationFactor = std::max(Global::get().s.listenerAttenuationFactor - 0.1f, 0.0f);
+}
+
+void MainWindow::on_gsAdaptivePush_triggered(bool down, QVariant variant) {
+	if (Global::get().s.atTransmit == Settings::PushToTalk) {
+		on_PushToTalk_triggered(down, std::move(variant));
+	} else {
+		on_PushToMute_triggered(down, std::move(variant));
+	}
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
