@@ -11,6 +11,7 @@
 #include <QtNetwork/QAbstractSocket>
 #include <QtWidgets/QMainWindow>
 
+#include "CommentViewWidget.h"
 #include "CustomElements.h"
 #include "MUComboBox.h"
 #include "Mumble.pb.h"
@@ -153,6 +154,7 @@ public:
 	void storeState(bool minimalView);
 
 	void updateChatBar();
+	void updateCommentView() const;
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
 
@@ -161,6 +163,7 @@ public:
 	unsigned int uiNewHardware;
 #endif
 protected:
+	CommentViewWidget qlCommentViewWidget;
 	Usage uUsage;
 	QTimer *qtReconnect;
 
@@ -184,6 +187,7 @@ protected:
 	/// if a new VoiceTarget is needed. It will be used as the helper
 	/// number in qmTargetUse.
 	int iTargetCounter;
+	QMap< unsigned int, MumbleProto::UserStats > m_UserStats;
 	QMap< unsigned int, UserInformation * > qmUserInformations;
 
 	std::unique_ptr< PositionalAudioViewer > m_paViewer;
@@ -222,6 +226,8 @@ protected:
 	void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
 	void changeEvent(QEvent *e) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
+
+	void on_channelRenamed(int channelId);
 
 	QMenu *createPopupMenu() Q_DECL_OVERRIDE;
 

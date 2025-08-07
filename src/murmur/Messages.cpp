@@ -463,8 +463,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 		if (!uSource->qbaCommentHash.isEmpty()) {
 			mpus.set_comment_hash(blob(uSource->qbaCommentHash));
-		} else if (!uSource->qsComment.isEmpty()) {
-			mpus.set_comment(u8(uSource->qsComment));
+		} else if (!uSource->qsComment().isEmpty()) {
+			mpus.set_comment(u8(uSource->qsComment()));
 		}
 	}
 	if (!uSource->qsHash.isEmpty())
@@ -478,8 +478,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		&& (qFromBigEndian< unsigned int >(reinterpret_cast< const unsigned char * >(uSource->qbaTexture.constData()))
 			== 600 * 60 * 4))
 		mpus.set_texture(blob(uSource->qbaTexture));
-	if (!uSource->qsComment.isEmpty())
-		mpus.set_comment(u8(uSource->qsComment));
+	if (!uSource->qsComment().isEmpty())
+		mpus.set_comment(u8(uSource->qsComment()));
 	sendAll(mpus, Version::fromComponents(1, 2, 2), Version::CompareMode::LessThan);
 
 	// Transmit other users profiles
@@ -524,8 +524,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_self_mute(true);
 		if ((uSource->m_version >= Version::fromComponents(1, 2, 2)) && !u->qbaCommentHash.isEmpty())
 			mpus.set_comment_hash(blob(u->qbaCommentHash));
-		else if (!u->qsComment.isEmpty())
-			mpus.set_comment(u8(u->qsComment));
+		else if (!u->qsComment().isEmpty())
+			mpus.set_comment(u8(u->qsComment()));
 		if (!u->qsHash.isEmpty())
 			mpus.set_hash(u8(u->qsHash));
 
@@ -2440,9 +2440,9 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 		for (int i = 0; i < ncomments; ++i) {
 			unsigned int session = msg.session_comment(i);
 			ServerUser *su       = qhUsers.value(session);
-			if (su && !su->qsComment.isEmpty()) {
+			if (su && !su->qsComment().isEmpty()) {
 				mpus.set_session(session);
-				mpus.set_comment(u8(su->qsComment));
+				mpus.set_comment(u8(su->qsComment()));
 				sendMessage(uSource, mpus);
 			}
 		}

@@ -140,7 +140,9 @@ void UserView::adjustIcons() {
  * passed on.
  */
 bool UserView::event(QEvent *evt) {
-	if (evt->type() == QEvent::WhatsThisClicked) {
+	auto eventType = evt->type();
+	std::cout << "EventType: " << eventType << std::endl;
+	if (eventType == QEvent::WhatsThisClicked) {
 		QWhatsThisClickedEvent *qwtce = static_cast< QWhatsThisClickedEvent * >(evt);
 		QDesktopServices::openUrl(qwtce->href());
 		evt->accept();

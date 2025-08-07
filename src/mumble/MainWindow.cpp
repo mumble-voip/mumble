@@ -474,6 +474,7 @@ void MainWindow::setupGui() {
 	qteLog->setFrameStyle(QFrame::NoFrame);
 #endif
 
+
 	LogDocument *ld = new LogDocument(qteLog);
 	qteLog->setDocument(ld);
 
@@ -492,6 +493,11 @@ void MainWindow::setupGui() {
 	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged,
 					 pmModel, &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 	QObject::connect(pmModel, &UserModel::userMoved, this, &MainWindow::on_user_moved);
+
+	// connect slots for comment view
+
+	QObject::connect(pmModel, &UserModel::channelRenamed, this, &MainWindow::on_channelRenamed);
+
 
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
@@ -1431,6 +1437,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	switch (Global::get().s.wlWindowLayout) {
 		case Settings::LayoutClassic:
+			removeDockWidget(qdwCommentView);
 			removeDockWidget(qdwLog);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
@@ -1438,17 +1445,23 @@ void MainWindow::setupView(bool toggle_minimize) {
 			qdwChat->show();
 			break;
 		case Settings::LayoutStacked:
+			removeDockWidget(qdwCommentView);
 			removeDockWidget(qdwLog);
-			addDockWidget(Qt::BottomDockWidgetArea, qdwLog);
+			addDockWidget(Qt::BottomDockWidgetArea, qdwCommentView);
+			qdwCommentView->show();
+			splitDockWidget(qdwCommentView, qdwLog, Qt::Vertical);
 			qdwLog->show();
 			splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
 			qdwChat->show();
 			break;
 		case Settings::LayoutHybrid:
+			removeDockWidget(qdwCommentView);
 			removeDockWidget(qdwLog);
 			removeDockWidget(qdwChat);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
+			addDockWidget(Qt::RightDockWidgetArea, qdwCommentView);
+			qdwCommentView->show();
 			addDockWidget(Qt::BottomDockWidgetArea, qdwChat);
 			qdwChat->show();
 			break;
@@ -1531,6 +1544,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 	if (!showit) {
 		qdwLog->setVisible(false);
 		qdwChat->setVisible(false);
+		qdwCommentView->setVisible(false);
 		qtIconToolbar->setVisible(false);
 	}
 	menuBar()->setVisible(showit);
@@ -2084,9 +2098,9 @@ void MainWindow::on_qaUserCommentView_triggered() {
 	if (!p)
 		return;
 
-	if (!p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
-		p->qsComment = QString::fromUtf8(Global::get().db->blob(p->qbaCommentHash));
-		if (p->qsComment.isEmpty()) {
+	if (!p->qbaCommentHash.isEmpty() && p->qsComment().isEmpty()) {
+		p->setComment(QString::fromUtf8(Global::get().db->blob(p->qbaCommentHash)));
+		if (p->qsComment().isEmpty()) {
 			pmModel->uiSessionComment = ~(p->uiSession);
 			MumbleProto::RequestBlob mprb;
 			mprb.add_session_comment(p->uiSession);
@@ -2099,7 +2113,7 @@ void MainWindow::on_qaUserCommentView_triggered() {
 
 	::TextMessage *texm = new ::TextMessage(this, tr("View comment on user %1").arg(p->qsName));
 
-	texm->rteMessage->setText(p->qsComment, true);
+	texm->rteMessage->setText(p->qsComment(), true);
 	texm->setAttribute(Qt::WA_DeleteOnClose, true);
 	texm->show();
 }
@@ -2144,6 +2158,7 @@ void MainWindow::on_qaUserInformation_triggered() {
 	if (!p)
 		return;
 
+	qmUserInformations.insert(p->uiSession, nullptr);
 	Global::get().sh->requestUserStats(p->uiSession, false);
 }
 
@@ -2677,6 +2692,7 @@ void MainWindow::on_channelStateChanged(Channel *channel, bool forceUpdateTree) 
 
 	if (forceUpdateTree) {
 		pmModel->forceVisualUpdate();
+		updateCommentView();
 	}
 }
 
@@ -3804,12 +3820,18 @@ void MainWindow::on_qaTalkingUIToggle_triggered() {
 	Global::get().s.bShowTalkingUI = Global::get().talkingUI->isVisible();
 }
 
+void MainWindow::on_channelRenamed(int channelId) {
+	(void) channelId;
+	updateCommentView();
+}
+
 /**
  * This function updates the qteChat bar default text according to
  * the selected user/channel in the users treeview.
  */
 void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &) {
 	updateChatBar();
+	updateCommentView();
 }
 
 void MainWindow::updateChatBar() {
@@ -3831,6 +3853,15 @@ void MainWindow::updateChatBar() {
 	}
 
 	updateMenuPermissions();
+}
+
+void MainWindow::updateCommentView() const {
+	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
+	Channel *c    = pmModel->getChannel(qtvUsers->currentIndex());
+	if (p) {
+		qdwCommentView->updateUserStats(m_UserStats.value(p->uiSession));
+	}
+	qdwCommentView->updateCommentView(p, c);
 }
 
 void MainWindow::customEvent(QEvent *evt) {
@@ -4086,9 +4117,9 @@ void MainWindow::openSelfCommentDialog() {
 	if (!p)
 		return;
 
-	if (!p->qbaCommentHash.isEmpty() && p->qsComment.isEmpty()) {
-		p->qsComment = QString::fromUtf8(Global::get().db->blob(p->qbaCommentHash));
-		if (p->qsComment.isEmpty()) {
+	if (!p->qbaCommentHash.isEmpty() && p->qsComment().isEmpty()) {
+		p->setComment(QString::fromUtf8(Global::get().db->blob(p->qbaCommentHash)));
+		if (p->qsComment().isEmpty()) {
 			pmModel->uiSessionComment = ~(p->uiSession);
 			MumbleProto::RequestBlob mprb;
 			mprb.add_session_comment(p->uiSession);
@@ -4101,7 +4132,7 @@ void MainWindow::openSelfCommentDialog() {
 
 	::TextMessage *texm = new ::TextMessage(this, tr("Change your comment"));
 
-	texm->rteMessage->setText(p->qsComment);
+	texm->rteMessage->setText(p->qsComment());
 	int res = texm->exec();
 
 	p = ClientUser::get(session);

@@ -2368,6 +2368,14 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 			.arg(bOpus));
 }
 
+const QString &Server::hashAssign(QByteArray &hash, const QString &src) {
+	if (src.length() >= 128)
+		hash = sha1(src);
+	else
+		hash = QByteArray();
+	return src;
+}
+
 void Server::hashAssign(QString &dest, QByteArray &hash, const QString &src) {
 	dest = src;
 	if (src.length() >= 128)
@@ -2807,7 +2815,7 @@ QByteArray Server::getTexture(int userID) {
 }
 
 bool Server::setComment(ServerUser &user, const QString &comment) {
-	hashAssign(user.qsComment, user.qbaCommentHash, comment);
+	hashAssign(user.qbaCommentHash, comment);
 
 	if (user.iId <= 0) {
 		return false;
@@ -2833,7 +2841,7 @@ bool Server::setComment(ServerUser &user, const QString &comment) {
 
 void Server::loadComment(ServerUser &user) {
 	if (user.iId < 0) {
-		user.qsComment.clear();
+		user.clearComment();
 		user.qbaCommentHash.clear();
 
 		return;
@@ -2856,7 +2864,7 @@ void Server::loadComment(ServerUser &user) {
 																	 ::mumble::server::db::UserProperty::Comment));
 	}
 
-	hashAssign(user.qsComment, user.qbaCommentHash, comment);
+	user.setComment(hashAssign(user.qbaCommentHash, comment));
 }
 
 void Server::addChannelListener(const ServerUser &user, const Channel &channel) {
