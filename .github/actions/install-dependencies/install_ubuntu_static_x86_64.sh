@@ -56,8 +56,6 @@ echo "$MUMBLE_BUILD_ENV_PATH"
 echo "$envDir"
 echo "$MUMBLE_ENVIRONMENT_PA"
 
-ls -al "$envDir"
-
 if [[ -d "$envDir" && -n "$(ls -A '$envDir')" ]]; then
 	echo "Environment is cached"
 else
