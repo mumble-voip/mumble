@@ -47,7 +47,7 @@ jobs:
         matrix:
             os: [ubuntu-22.04, ubuntu-24.04]
             type: [shared] # Currently the "static" build doesn't work for Linux systems
-            arch: [64bit]
+            arch: [x86_64]
             
     runs-on: ${{ matrix.os }}
 

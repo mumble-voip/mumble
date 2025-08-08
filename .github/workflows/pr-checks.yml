@@ -37,7 +37,7 @@ jobs:
       with:
           type: shared
           os: ${{ matrix.os }}
-          arch: 64bit
+          arch: x86_64
 
     - name: Generate compile-command DB
       run: mkdir build; cd build; cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..; cd ..; ln -s build/compile_commands.json .

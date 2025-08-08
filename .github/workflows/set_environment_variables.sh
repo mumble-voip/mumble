@@ -69,10 +69,11 @@ if [[ "$build_type" == "static" ]]; then
 			;;
 	esac
 
-	if [[ "$arch" == "64bit" ]]; then
+	if [[ "$arch" == "x86_64" ]]; then
 		VCPKG_TARGET_TRIPLET="x64-$VCPKG_TARGET_TRIPLET"
 	else
-		VCPKG_TARGET_TRIPLET="x32-$VCPKG_TARGET_TRIPLET"
+		echo "Unknown architecture '$arch'"
+		exit 1
 	fi
 
 	VCPKG_CMAKE_OPTIONS="-DCMAKE_TOOLCHAIN_FILE='$MUMBLE_BUILD_ENV_PATH/scripts/buildsystems/vcpkg.cmake' 
