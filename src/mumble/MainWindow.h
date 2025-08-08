@@ -386,6 +386,9 @@ public slots:
 	/// Returns the path to the user's image directory, optionally with a
 	/// filename included.
 	QString getImagePath(QString filename = QString()) const;
+
+	/// Shows a dialog with the image from the context menu as a QPixmap
+	void showImageDialog();
 	/// Updates the user's image directory to the given path (any included
 	/// filename is discarded).
 	void updateImagePath(QString filepath) const;
