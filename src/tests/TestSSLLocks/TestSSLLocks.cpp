@@ -27,7 +27,7 @@ public:
 	void run() {
 		unsigned char buf[64];
 		while (m_running->loadRelaxed() == 1) {
-			for (int i = 0; i < 1024; i++) {
+			for (int i = 0; i < 64; i++) {
 				if (m_seed) {
 					RAND_seed(buf, sizeof(buf));
 				} else {
