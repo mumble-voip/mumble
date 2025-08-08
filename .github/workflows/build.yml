@@ -46,8 +46,14 @@ jobs:
         fail-fast: false
         matrix:
             os: [ubuntu-22.04, ubuntu-24.04]
-            type: [shared] # Currently the "static" build doesn't work for Linux systems
+            type: [static, shared]
             arch: [x86_64]
+            exclude:
+              # Currently the "static" build doesn't work for Linux systems
+              - os: ubuntu-22.04
+                type: static
+              - os: ubuntu-24.04
+                type: static
             
     runs-on: ${{ matrix.os }}
 
