@@ -5,7 +5,7 @@ on: [push, pull_request]
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Ddatabase-mysql-tests=ON -Ddatabase-postgresql-tests=ON
+  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON
 
 
 jobs:
@@ -44,10 +44,12 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-22.04, ubuntu-24.04]
+            os: [ubuntu-22.04, ubuntu-24.04, windows-2022]
             type: [static, shared]
             arch: [x86_64]
             exclude:
+              - os: windows-2022
+                type: shared
               # Currently the "static" build doesn't work for Linux systems
               - os: ubuntu-22.04
                 type: static
@@ -57,11 +59,6 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Print diskspace
-      run: df -BM
-      shell: bash
-
-
     - uses: actions/checkout@v4
       with:
           submodules: 'recursive'
@@ -87,7 +84,7 @@ jobs:
 
 
     - name: Build
-      run: ./.github/workflows/build.sh
+      run: ./.github/workflows/build.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}"
       shell: bash
       env:
           MUMBLE_BUILD_NUMBER: ${{ needs.fetch_build_number.outputs.build_number }}
@@ -95,5 +92,5 @@ jobs:
     - name: Test
       working-directory: ${{ github.workspace }}/build
       shell: bash
-      run: QT_QPA_PLATFORM=offscreen ctest --output-on-failure -C $BUILD_TYPE
+      run: ctest --output-on-failure -C $BUILD_TYPE
 
