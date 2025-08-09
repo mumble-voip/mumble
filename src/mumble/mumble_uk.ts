@@ -7176,29 +7176,93 @@ Valid options are:
   --skip-settings-backup-prompt
                 Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Використання: бурмотіння [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; вказує URL-адресу для підключення після запуску, а не відображення
+вікно підключення, і має такий вигляд:
+бурмотіти://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; – це список файлів плагінів, які потрібно встановити
+Параметр запиту версії має бути встановлений, щоб викликати
+правильну версію клієнта. Наразі за замовчуванням встановлено значення 1.2.0.
+
+Дійсні варіанти:
+  -h, --help    Показати цей текст довідки та вийти.
+  --version     Інформація про версію для друку та вихід
+  -m, --multiple
+                Дозволити запуск кількох екземплярів клієнта.
+-c, --config
+                Вкажіть альтернативний файл конфігурації.
+                Якщо ви використовуєте це для одночасного запуску кількох екземплярів Mumble,
+                обов’язково встановіть альтернативне значення «бази даних» у конфігурації.
+  --default-certificate-dir &lt;dir&gt;
+                Вкажіть альтернативний шлях сертифіката за замовчуванням.
+                Цей шлях використовується лише якщо сертифікат не завантажено
+                з налаштувань.
+  -n, --noidentity
+                Заборонити завантаження файлів ідентифікації (наприклад, сертифікатів).
+-jn, --jackname &lt;аргумент&gt;
+                Встановіть власне ім&apos;я клієнта Jack.
+  --license
+                Покажіть ліцензію Mumble.
+  --authors
+                Покажіть авторів Mumble.
+  --third-party-licenses
+                Показати ліцензії на стороннє програмне забезпечення, що використовується Mumble.
+--window-title-ext &lt;arg&gt;
+                Встановлює власне розширення заголовка вікна.
+--dump-input-streams
+                Виводити потоки PCM у різні частини вхідного ланцюга
+                (корисно для цілей налагодження)
+                - необроблений вхідний сигнал мікрофона
+                - зчитування динаміка для придушення луни
+                - оброблений вхідний сигнал мікрофона
+  --print-echocancel-queue
+                Вивести на стандартний вивід стан черги ехоподавлення
+                (корисно для цілей налагодження)
+  --translation-dir &lt;dir&gt;
+                Вказує додатковий каталог перекладу &lt;dir&gt;
+                в якому Mumble шукатиме файли перекладу, які
+                перезаписати ті, що входять до комплекту
+                Каталоги, додані таким чином, мають вищий пріоритет, ніж
+                розташування за замовчуванням, що використовуються в іншому випадку
+  --print-translation-dirs
+                Виведіть шляхи, в яких Mumble шукатиме
+                файли перекладу, які перезаписують ті, що входять до комплекту.
+                (Корисно для перекладачів, які перевіряють свої переклади)
+  --locale &lt;locale&gt;
+                Перезапишіть локаль у налаштуваннях Mumble на
+                локаль, що відповідає заданому рядку локалі.
+                Якщо формат недійсний, Mumble видасть помилку.
+                В іншому випадку локалізацію буде збережено назавжди.
+                Налаштування Mumble.
+  --hidden
+                Запустіть Mumble, прихований у системному треї.
+  --skip-settings-backup-prompt
+                Не показувати діалогове вікно відновлення налаштувань під час запуску після збою.
+</translation>
     </message>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Адаптивний поштовх</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Під час використання режиму передачі «натисни і говори» це діятиме як дія «натисни і говори». В іншому випадку це діятиме як дія «натисни, щоб вимкнути звук».</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити зображення</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося розкодувати зображення.</translation>
     </message>
 </context>
 <context>

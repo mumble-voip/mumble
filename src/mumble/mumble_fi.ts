@@ -1638,11 +1638,11 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>kun joku kanavallasi puhuu</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>aina</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
@@ -5020,11 +5020,11 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyhjennä taustaväri</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Tyhjennä</translation>
+        <translation>Tyhjennä</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
@@ -5032,7 +5032,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
@@ -5040,11 +5040,11 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Taustaväri</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse väri</translation>
     </message>
 </context>
 <context>
