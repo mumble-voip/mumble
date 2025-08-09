@@ -4492,11 +4492,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
-        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation>&lt;a href=&quot;%1&quot;&gt;Percórrer&lt;/a&gt;</translation>
-    </message>
-    <message>
         <source>User Interface</source>
         <translation>Interfàcia utilizaire</translation>
     </message>
@@ -4672,10 +4667,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Theme</source>
         <translation>Tèma</translation>
-    </message>
-    <message>
-        <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
@@ -4983,6 +4974,62 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Choose a Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark theme to use to style the user interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Light theme to use to style the user interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the theme automatically based on the system theme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic theme based on system theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the theme to the configured dark theme setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sets the theme to the configured light theme setting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Light Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open the themes directory in the systems file manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Themes Directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
