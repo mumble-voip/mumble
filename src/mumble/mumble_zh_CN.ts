@@ -7174,29 +7174,93 @@ Valid options are:
   --skip-settings-backup-prompt
                 Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>用法：mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; 指定启动后连接的 URL，而不是展示
+连接窗口， 它有下列形式：
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; 是应安装的插件文件列表
+必需设置版本查询参数以调用
+正确的客户端版本。当前默认为 1.2.0.
+
+有效选项：
+  -h, --help    显示该帮助文本并退出.
+  --version     打印版本信息并退出
+  -m, --multiple
+                允许启用多个客户端实例.
+  -c, --config
+                指定备选配置文件
+                如果用这个一下子运行多个 Mumble 实例，
+                确保在配置中设置替代&apos;database&apos;值
+  --default-certificate-dir &lt;dir&gt;
+                指定替代的默认证书路径.
+                此路径只在没有从
+                设置加载证书的情况下使用.
+  -n, --noidentity
+                不加载身份文件 (即证书.)
+  -jn, --jackname &lt;arg&gt;
+                设置自定义的 Jack 客户端名.
+  --license
+                显示 Mumble 许可证.
+  --authors
+                显示 Mumble 作者.
+  --third-party-licenses
+                显示 Mumble 所用的第三方软件的许可证.
+  --window-title-ext &lt;arg&gt;
+                设置自定义的窗口标题扩展.
+  --dump-input-streams
+                在输入链的多个部分转储 PCM 流
+                (对调试有用)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                在 stdout 上打印 echo 取消队列状态
+                (对调试有用)
+  --translation-dir &lt;dir&gt;
+                指定额外的翻译目录 &lt;dir&gt;
+                Mumble 会在其中搜索覆盖
+                内置翻译文件的翻译文件
+                以这种方法添加的目录的优先级
+                高于所用的默认位置
+  --print-translation-dirs
+                打印出 Mumble 会搜索
+                覆盖内置翻译文件的翻译文件
+                (对译者测试译文有用)
+  --locale &lt;locale&gt;
+                用对应给定 locale 字符串的 locale 覆盖
+                Mumble 设置中的 locale.
+                如格式无效，Mumble 会出错.
+                不然，该 locale 会永久保存到
+                Mumble 的设置中.
+  --hidden
+                启动 Mumble 时将其隐藏在系统托盘中.
+  --skip-settings-backup-prompt
+                崩溃后启动程序时不显示设置恢复对话框.
+</translation>
     </message>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>自适应按键</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>在按键发言模式下，将此按键作为发言键。在其他情况下，将其作为静音键。</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>打开图片</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>解码图片失败。</translation>
     </message>
 </context>
 <context>
