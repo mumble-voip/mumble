@@ -61,11 +61,11 @@ ls -al "$envDir"
 if [[ -d "$envDir" && -n "$(ls -A '$envDir')" ]]; then
 	echo "Environment is cached"
 else
-	sudo apt install axel
+	sudo apt install aria2
 
 	envArchive="$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
 
-	axel -n 5 --output="$envArchive" "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive"
+	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --dir="$envArchive"
 
 	echo "Extracting archive..."
 	if [[ ! -d "$MUMBLE_ENVIRONMENT_DIR" ]]; then
