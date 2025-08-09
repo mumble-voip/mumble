@@ -265,6 +265,13 @@ if(ice)
 
 	target_include_directories(mumble-server PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
+	if(static)
+		# BZip2 is used by Ice, specifically in ConnectionI.cpp.
+		# We link to the library explicitly because CMake is not aware of the dependency.
+		# TODO: Fix or rewrite the official FindIce.cmake.
+		find_pkg(BZip2 REQUIRED)
+	endif()
+
 	target_link_libraries(mumble-server
 		PRIVATE
 			Ice::Ice
@@ -272,6 +279,7 @@ if(ice)
 			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
+			$<TARGET_NAME_IF_EXISTS:BZip2::BZip2>
 	)
 	
 	file(COPY "${ICE_FILE}" DESTINATION ${CMAKE_BINARY_DIR})
