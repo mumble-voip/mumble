@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+set -x
+
 sudo apt update
 
 sudo apt -y install \
