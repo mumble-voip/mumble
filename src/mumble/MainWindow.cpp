@@ -3751,8 +3751,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				break;
 		}
 		if (ok && matched) {
-			if (!Global::get().s.bSuppressIdentity)
-				Global::get().db->setPassword(host, port, uname, pw);
+			Global::get().db->setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			Global::get().sh->setConnectionInfo(host, port, uname, pw);
 			on_Reconnect_timeout();
