@@ -72,7 +72,7 @@ jobs:
 
     - uses: actions/cache@v4
       with:
-          path: '${{ env.MUMBLE_BUILD_ENV_PATH }}'
+          path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
 
 

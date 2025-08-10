@@ -23,14 +23,19 @@ fi
 echo "Extracting from \"$fromFile\" to \"$targetDir\""
 echo ""
 
+# Make targetDir an absolute path
+targetDir="$( realpath "$targetDir" )"
+
 # Use gtar instead of tar if available (for MacOS compatibility)
 tarExec="tar"
 if [ -x "$(command -v gtar)" ]; then
 	tarExec="gtar"
 fi
 
+tmp_dir="__extract_root__"
+
 if [[ "$fromFile" = *.7z || "$fromFile"  = *.zip ]]; then
-	extract_cmd=( 7z x "$fromFile" -o"$targetDir" -spe )
+	extract_cmd=( 7z x "$fromFile" -o"$tmp_dir" )
 
 	summary="$( 7z l "$fromFile" | tail -n 1 )"
 	fromSize="$( echo "$summary" | tr -s ' ' | cut -d ' ' -f 4 )"
@@ -43,7 +48,7 @@ else
 	steps=100
 	checkPointStep=$(expr "$toSizeKB" / "$steps" )
 
-	extract_cmd=( "$tarExec" -x --record-size=1K --checkpoint="$checkPointStep" --checkpoint-action="echo=%u / $toSize" -f "$fromFile" -C "$targetDir" )
+	extract_cmd=( "$tarExec" -x --record-size=1K --checkpoint="$checkPointStep" --checkpoint-action="echo=%u / $toSize" -f "$fromFile" -C "$tmp_dir" )
 fi
 
 # Convert sizes to KB
@@ -58,3 +63,23 @@ echo ""
 
 "${extract_cmd[@]}"
 
+num_files="$( ls -Al "$tmp_dir" | tail -n +2 | wc -l )"
+
+if [[ ! -d "$targetDir" ]]; then
+	mkdir "$targetDir"
+fi
+
+if [[ "$num_files" = 1 && -d "$tmp_dir/$( ls "$tmp_dir" )" ]]; then
+	# Skip top-level directory
+	pushd "$(pwd)"
+	cd "$tmp_dir"/*
+	mv * "$targetDir"
+	mv .* "$targetDir" || true
+	popd
+else
+	# Move all files
+	mv "$tmp_dir"/* "$targetDir"
+	mv "$tmp_dir"/.* "$targetDir" || true
+fi
+
+rm -rf "$tmp_dir"
