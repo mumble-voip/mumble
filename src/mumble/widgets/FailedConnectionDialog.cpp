@@ -69,9 +69,7 @@ void FailedConnectionDialog::connectSignals() {
 }
 
 void FailedConnectionDialog::initiateReconnect() {
-	if (!Global::get().s.bSuppressIdentity) {
-		Global::get().db->setPassword(m_details.host, m_details.port, m_details.username, m_details.password);
-	}
+	Global::get().db->setPassword(m_details.host, m_details.port, m_details.username, m_details.password);
 
 	Global::get().sh->setConnectionInfo(m_details.host, m_details.port, m_details.username, m_details.password);
 
