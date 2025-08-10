@@ -8,7 +8,7 @@ find_pkg(Qt6 COMPONENTS Widgets REQUIRED)
 # kpCertificate: We can't create a value for that on-the-fly, so we have to exclude it from the test
 # All other: These settings are not saved
 set(IGNORED_FIELDS
-	"kpCertificate,bSuppressIdentity,lmLoopMode,dPacketLoss,dMaxPacketDelay,requireRestartToApply,settingsLocation,createdSettingsBackup")
+	"kpCertificate,bSuppressIdentity,lmLoopMode,dPacketLoss,dMaxPacketDelay,requireRestartToApply,requireThemeApplication,settingsLocation,createdSettingsBackup")
 
 set(TEST_CASE_SOURCE_FILE "${CMAKE_CURRENT_BINARY_DIR}/TestSettingsJSONSerialization.cpp")
 set(SETTINGS_HEADER "${CMAKE_SOURCE_DIR}/src/mumble/Settings.h")

@@ -144,6 +144,9 @@
 	PROCESS(ui, LANGUAGE_KEY, qsLanguage)                                        \
 	PROCESS(ui, THEME_KEY, themeName)                                            \
 	PROCESS(ui, THEME_STYLE_KEY, themeStyleName)                                 \
+	PROCESS(ui, THEME_DARK_KEY, themeDarkName)                                   \
+	PROCESS(ui, THEME_DARK_STYLE_KEY, themeDarkStyleName)                        \
+	PROCESS(ui, THEME_METHOD_KEY, styleType)                                     \
 	PROCESS(ui, CHANNEL_EXPANSION_MODE_KEY, ceExpand)                            \
 	PROCESS(ui, CHANNEL_DRAG_MODE_KEY, ceChannelDrag)                            \
 	PROCESS(ui, USER_DRAG_MODE_KEY, ceUserDrag)                                  \

@@ -13,6 +13,7 @@
 #include "Global.h"
 
 #include <QColorDialog>
+#include <QDesktopServices>
 #include <QSystemTrayIcon>
 #include <QtCore/QFileSystemWatcher>
 #include <QtCore/QStack>
@@ -75,6 +76,10 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	connect(qbClearBackgroundColor, &QPushButton::clicked, this, &LookConfig::talkinguiBackgroundCleared);
 	connect(qbBackgroundColor, &QPushButton::clicked, this, &LookConfig::qbBackgroundColor_clicked);
 
+	connect(qlLAutoTheme, &ClickableLabel::clicked, this, [this]() { qrbAutoStyle->setChecked(true); });
+	connect(qlLDarkTheme, &ClickableLabel::clicked, this, [this]() { qrbDarkStyle->setChecked(true); });
+	connect(qlLLightTheme, &ClickableLabel::clicked, this, [this]() { qrbLightStyle->setChecked(true); });
+
 	QDir userThemeDirectory = Themes::getUserThemesDirectory();
 	if (userThemeDirectory.exists()) {
 		m_themeDirectoryWatcher = new QFileSystemWatcher(this);
@@ -91,9 +96,9 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		m_themeDirectoryWatcher->addPath(userThemeDirectory.path());
 
 		QUrl userThemeDirectoryUrl = QUrl::fromLocalFile(userThemeDirectory.path());
-		//: This link is located next to the theme heading in the ui config and opens the user theme directory
-		qlThemesDirectory->setText(tr("<a href=\"%1\">Browse</a>").arg(userThemeDirectoryUrl.toString()));
-		qlThemesDirectory->setOpenExternalLinks(true);
+		// This button is located below the theme selector in the ui config and opens the user theme directory
+		connect(qpbThemesDirectory, &QPushButton::clicked, this,
+				[userThemeDirectoryUrl]() { QDesktopServices::openUrl(userThemeDirectoryUrl); });
 	}
 
 #define ADD_SEARCH_USERACTION(name)                                                                      \
@@ -143,26 +148,46 @@ QIcon LookConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_ui.png"));
 }
 
-void LookConfig::reloadThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle) {
+
+static void selectThemeStyle(const std::optional< ThemeInfo::StyleInfo > &configuredStyle, QComboBox *comboBox) {
+	if (configuredStyle) {
+		for (int i = 0; i < comboBox->count(); ++i) {
+			QVariant themeData = comboBox->itemData(i);
+			if (!themeData.canConvert< ThemeInfo::StyleInfo >()) {
+				continue;
+			}
+			ThemeInfo::StyleInfo style = themeData.value< ThemeInfo::StyleInfo >();
+			if (style == configuredStyle.value()) {
+				comboBox->setCurrentIndex(i);
+				return;
+			}
+		}
+	} else {
+		comboBox->setCurrentIndex(0); // "None"
+	}
+}
+
+
+void LookConfig::setActiveThemes(const std::optional< ThemeInfo::StyleInfo > configuredStyle,
+								 const std::optional< ThemeInfo::StyleInfo > configuredDarkStyle) {
+	selectThemeStyle(configuredStyle, qcbLightTheme);
+	selectThemeStyle(configuredDarkStyle, qcbDarkTheme);
+}
+
+void LookConfig::reloadThemes() {
 	const ThemeMap themes = Themes::getThemes();
 
-	int selectedThemeEntry = 0;
-
-	qcbTheme->clear();
-	qcbTheme->addItem(tr("None"));
+	qcbLightTheme->clear();
+	qcbDarkTheme->clear();
+	qcbLightTheme->addItem(tr("None"));
+	qcbDarkTheme->addItem(tr("None"));
 	for (ThemeMap::const_iterator theme = themes.begin(); theme != themes.end(); ++theme) {
 		for (ThemeInfo::StylesMap::const_iterator styleit = theme->styles.begin(); styleit != theme->styles.end();
 			 ++styleit) {
-			if (configuredStyle && configuredStyle->themeName == styleit->themeName
-				&& configuredStyle->name == styleit->name) {
-				selectedThemeEntry = qcbTheme->count();
-			}
-
-			qcbTheme->addItem(theme->name + QLatin1String(" - ") + styleit->name, QVariant::fromValue(*styleit));
+			qcbLightTheme->addItem(theme->name + QLatin1String(" - ") + styleit->name, QVariant::fromValue(*styleit));
+			qcbDarkTheme->addItem(theme->name + QLatin1String(" - ") + styleit->name, QVariant::fromValue(*styleit));
 		}
 	}
-
-	qcbTheme->setCurrentIndex(selectedThemeEntry);
 }
 
 void LookConfig::load(const Settings &r) {
@@ -170,6 +195,7 @@ void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbChannelDrag, 0);
 	loadComboBox(qcbUserDrag, 0);
 
+	setStyleType(r.styleType);
 	// Load Layout checkbox state
 	switch (r.wlWindowLayout) {
 		case Settings::LayoutClassic:
@@ -219,8 +245,10 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
 
-	const std::optional< ThemeInfo::StyleInfo > configuredStyle = Themes::getConfiguredStyle(r);
-	reloadThemes(configuredStyle);
+	reloadThemes();
+	const std::optional< ThemeInfo::StyleInfo > configuredStyle     = Themes::getThemeStyle(r, false);
+	const std::optional< ThemeInfo::StyleInfo > configuredDarkStyle = Themes::getThemeStyle(r, true);
+	setActiveThemes(configuredStyle, configuredDarkStyle);
 
 	loadCheckBox(qcbUsersAlwaysVisible, r.talkingUI_UsersAlwaysVisible);
 	loadCheckBox(qcbLocalUserVisible, r.bTalkingUI_LocalUserStaysVisible);
@@ -292,11 +320,24 @@ void LookConfig::save() const {
 	s.bChatBarUseSelection      = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
 
-	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
+	StyleType styleType = getStyleType();
+	if (s.styleType != styleType) {
+		s.requireThemeApplication = true;
+	}
+	s.styleType = styleType;
+
+	QVariant themeData = qcbLightTheme->itemData(qcbLightTheme->currentIndex());
 	if (themeData.isNull()) {
-		Themes::setConfiguredStyle(s, std::nullopt, s.requireRestartToApply);
+		s.requireThemeApplication |= Themes::setConfiguredStyle(s, std::nullopt);
 	} else {
-		Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >(), s.requireRestartToApply);
+		s.requireThemeApplication |= Themes::setConfiguredStyle(s, themeData.value< ThemeInfo::StyleInfo >());
+	}
+
+	QVariant darkThemeData = qcbDarkTheme->itemData(qcbDarkTheme->currentIndex());
+	if (darkThemeData.isNull()) {
+		s.requireThemeApplication |= Themes::setConfiguredDarkStyle(s, std::nullopt);
+	} else {
+		s.requireThemeApplication |= Themes::setConfiguredDarkStyle(s, darkThemeData.value< ThemeInfo::StyleInfo >());
 	}
 
 	s.talkingUI_UsersAlwaysVisible        = qcbUsersAlwaysVisible->isChecked();
@@ -325,14 +366,49 @@ void LookConfig::accept() const {
 										   && !Global::get().s.bLockLayout);
 }
 
+StyleType LookConfig::getStyleType() const {
+	if (qrbAutoStyle->isChecked()) {
+		return StyleType::Auto;
+	}
+	if (qrbDarkStyle->isChecked()) {
+		return StyleType::Dark;
+	}
+	if (qrbLightStyle->isChecked()) {
+		return StyleType::Light;
+	}
+	qWarning() << "Something went wrong fetching the StyleType, resorting to Auto";
+	assert(false);
+	return StyleType::Auto;
+}
+
+void LookConfig::setStyleType(StyleType styleType) const {
+	switch (styleType) {
+		case StyleType::Light:
+			qrbLightStyle->setChecked(true);
+			break;
+		case StyleType::Dark:
+			qrbDarkStyle->setChecked(true);
+			break;
+		case StyleType::Auto:
+			qrbAutoStyle->setChecked(true);
+			break;
+	}
+}
+
 void LookConfig::themeDirectoryChanged() {
 	qWarning() << "Theme directory changed";
-	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
-	if (themeData.isNull()) {
-		reloadThemes(std::nullopt);
-	} else {
-		reloadThemes(themeData.value< ThemeInfo::StyleInfo >());
-	}
+	reloadThemes();
+
+	auto toOptionalStyle = [](const QVariant &variant) -> std::optional< ThemeInfo::StyleInfo > {
+		return variant.isNull() ? std::nullopt : std::optional(variant.value< ThemeInfo::StyleInfo >());
+	};
+
+	const std::optional< ThemeInfo::StyleInfo > configuredStyle =
+		toOptionalStyle(qcbLightTheme->itemData(qcbLightTheme->currentIndex()));
+	const std::optional< ThemeInfo::StyleInfo > configuredDarkStyle =
+		toOptionalStyle(qcbDarkTheme->itemData(qcbDarkTheme->currentIndex()));
+
+	setActiveThemes(configuredStyle, configuredDarkStyle);
 }
 
 void LookConfig::on_qcbAbbreviateChannelNames_stateChanged(int state) {

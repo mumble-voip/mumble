@@ -6,45 +6,78 @@
 #include "Themes.h"
 #include "MainWindow.h"
 #include "MumbleApplication.h"
+#include "Settings.h"
 #include "Global.h"
+
+#ifdef Q_OS_MAC
+#	include <QProcess>
+#endif
+
+#include <QStyleHints>
 
 #include <optional>
 
-std::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
-	if (settings.themeName.isEmpty() && settings.themeStyleName.isEmpty()) {
+std::optional< ThemeInfo::StyleInfo > Themes::getThemeStyle(const Settings &settings, bool darkMode) {
+	QString themeStyleName = darkMode ? settings.themeDarkStyleName : settings.themeStyleName;
+	QString themeName      = darkMode ? settings.themeDarkName : settings.themeName;
+
+	if (themeName.isEmpty() && themeStyleName.isEmpty()) {
 		return std::nullopt;
 	}
 
-	const ThemeMap themes            = getThemes();
-	ThemeMap::const_iterator themeIt = themes.find(settings.themeName);
+	const ThemeMap themes = getThemes();
+	auto themeIt          = themes.find(themeName);
 	if (themeIt == themes.end()) {
-		qWarning() << "Could not find configured theme" << settings.themeName;
+		qWarning() << "Could not find configured theme" << themeName;
 		return std::nullopt;
 	}
 
-	ThemeInfo::StylesMap::const_iterator styleIt = themeIt->styles.find(settings.themeStyleName);
+	auto styleIt = themeIt->styles.find(themeStyleName);
 	if (styleIt == themeIt->styles.end()) {
-		qWarning() << "Configured theme" << settings.themeName << "does not have configured style"
-				   << settings.themeStyleName;
+		qWarning() << "Configured theme \"" << themeName << "\" does not have configured style \"" << themeStyleName
+				   << "\"";
 		return std::nullopt;
 	}
 
 	return *styleIt;
 }
 
-void Themes::setConfiguredStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style, bool &outChanged) {
+std::optional< ThemeInfo::StyleInfo > Themes::getConfiguredStyle(const Settings &settings) {
+	switch (settings.styleType) {
+		case StyleType::Light:
+			return getThemeStyle(settings, false);
+		case StyleType::Dark:
+			return getThemeStyle(settings, true);
+		case StyleType::Auto:
+			return getThemeStyle(settings, detectSystemDarkTheme());
+	}
+	assert(false);
+	return std::nullopt; // fallback (should not normally reach here)
+}
+
+bool Themes::setConfiguredStyleHelper(QString &themeName, QString &themeStyleName,
+									  std::optional< ThemeInfo::StyleInfo > style) {
 	if (style) {
-		if (settings.themeName != style->themeName || settings.themeStyleName != style->name) {
-			settings.themeName      = style->themeName;
-			settings.themeStyleName = style->name;
-			outChanged              = true;
+		if (themeName != style->themeName || themeStyleName != style->name) {
+			themeName      = style->themeName;
+			themeStyleName = style->name;
+			return true;
 		}
 	} else {
-		if (!settings.themeName.isEmpty() || !settings.themeStyleName.isEmpty()) {
-			settings.themeName = settings.themeStyleName = QString();
-			outChanged                                   = true;
+		if (!themeName.isEmpty() || !themeStyleName.isEmpty()) {
+			themeName = themeStyleName = QString();
+			return true;
 		}
 	}
+	return false;
+}
+
+bool Themes::setConfiguredStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style) {
+	return setConfiguredStyleHelper(settings.themeName, settings.themeStyleName, style);
+}
+
+bool Themes::setConfiguredDarkStyle(Settings &settings, std::optional< ThemeInfo::StyleInfo > style) {
+	return setConfiguredStyleHelper(settings.themeDarkName, settings.themeDarkStyleName, style);
 }
 
 void Themes::applyFallback() {
@@ -105,6 +138,36 @@ bool Themes::apply() {
 		Global::get().mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 	}
 	return result;
+}
+
+bool Themes::detectSystemDarkTheme() {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	return QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
+#else
+#	if defined(Q_OS_WIN)
+	QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+					   QSettings::NativeFormat);
+	return settings.value("AppsUseLightTheme", 1).toInt() == 0; // 0 means dark mode
+#	elif defined(Q_OS_MAC)
+	QProcess process;
+	process.start("defaults", { "read", "-g", "AppleInterfaceStyle" });
+	process.waitForFinished(100);
+	QString output = process.readAllStandardOutput().trimmed();
+	// If no output, assume Light Mode
+	return output == "Dark";
+#	else
+	// Fallback for other OSes
+	QByteArray platform = qgetenv("QT_QPA_PLATFORM");
+	if (platform.contains("darkmode=2")) {
+		return true;
+	} else if (platform.contains("darkmode=1")) {
+		QPalette defaultPalette;
+		return defaultPalette.color(QPalette::WindowText).lightness()
+			   > defaultPalette.color(QPalette::Window).lightness();
+	}
+	return false;
+#	endif
+#endif
 }
 
 ThemeMap Themes::getThemes() {
