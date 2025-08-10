@@ -1218,6 +1218,14 @@ if(packaging AND WIN32)
 			${CMAKE_BINARY_DIR}/installer/client
 	)
 
+	if (64_BIT AND overlay-xcompile)
+		# Compilation of the xcompiled overlay binaries is handled by means of an external project
+		# We make the mumble target depend on the custom target created by ExternalProject_Add
+		# to ensure that the external project is built before the mumble target, ensuring that
+		# the POST_BUILD command below will find these binaries.
+		add_dependencies(mumble mumble_overlay_xcompile)
+	endif()
+
 	add_custom_command(TARGET mumble
 		POST_BUILD
 		COMMAND cscs.exe -cd MumbleInstall.cs

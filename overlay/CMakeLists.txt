@@ -155,7 +155,7 @@ if(64_BIT AND overlay-xcompile AND MSVC)
 	message(STATUS "Using cross-compilation triplet '${XCOMPILE_TRIPLET}'")
 
 	if(CMAKE_GENERATOR MATCHES "Visual Studio")
-		ExternalProject_Add(overlay_xcompile
+		ExternalProject_Add(mumble_overlay_xcompile
 			DOWNLOAD_COMMAND ""
 			CMAKE_GENERATOR ${CMAKE_GENERATOR}
 			CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
@@ -175,7 +175,7 @@ if(64_BIT AND overlay-xcompile AND MSVC)
 			INSTALL_COMMAND ""
 		)
 	else()
-		ExternalProject_Add(overlay_xcompile
+		ExternalProject_Add(mumble_overlay_xcompile
 			DOWNLOAD_COMMAND ""
 			CONFIGURE_COMMAND ""
 			BUILD_COMMAND ${CMAKE_SOURCE_DIR}/overlay/scripts/build_overlay_xcompile.cmd
