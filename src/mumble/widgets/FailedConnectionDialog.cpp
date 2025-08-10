@@ -69,7 +69,7 @@ void FailedConnectionDialog::connectSignals() {
 }
 
 void FailedConnectionDialog::initiateReconnect() {
-	if (!Global::get().s.bSuppressIdentity) {
+	if (Global::get().db->isFavorite(m_details.host, m_details.port)) {
 		Global::get().db->setPassword(m_details.host, m_details.port, m_details.username, m_details.password);
 	}
 
