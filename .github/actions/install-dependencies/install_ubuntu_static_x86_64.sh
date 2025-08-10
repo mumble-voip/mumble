@@ -45,16 +45,8 @@ if [[ "$MUMBLE_ENVIRONMENT_DIR" == ""  ]]; then
 	echo "MUMBLE_ENVIRONMENT_DIR not set!"
 	exit 1
 fi
-if [[ "$MUMBLE_BUILD_ENV_PATH" == ""  ]]; then
-	echo "MUMBLE_BUILD_ENV_PATH not set!"
-	exit 1
-fi
 
-envDir="$MUMBLE_BUILD_ENV_PATH"
-
-echo "$MUMBLE_BUILD_ENV_PATH"
-echo "$envDir"
-echo "$MUMBLE_ENVIRONMENT_PA"
+envDir="$MUMBLE_ENVIRONMENT_DIR"
 
 if [[ -d "$envDir" && -n "$(ls -A '$envDir')" ]]; then
 	echo "Environment is cached"
@@ -66,19 +58,17 @@ else
 	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --dir="$envArchive"
 
 	echo "Extracting archive..."
-	if [[ ! -d "$MUMBLE_ENVIRONMENT_DIR" ]]; then
+	if [[ ! -d "$envDir" ]]; then
 		mkdir -p "$envDir"
 	fi
 
-	"$(dirname $0)/extractWithProgress.sh" "$envArchive" "$MUMBLE_ENVIRONMENT_DIR"
+	"$(dirname $0)/extractWithProgress.sh" "$envArchive" "$envDir"
 
 	if [[ ! -d "$envDir" || -n "$(ls -A '$envDir')" ]]; then
 		echo "Environment did not follow expected form"
-		ls -al "$MUMBLE_ENVIRONMENT_PATH"
+		ls -al "$envDir"
 		exit 1
 	fi
-
-	ls -al "$envDir"
 fi
 
 
