@@ -148,7 +148,7 @@ if(MSVC)
 	set_target_properties(overlay PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
-if(64_BIT AND MSVC)
+if(64_BIT AND overlay-xcompile AND MSVC)
 	include(ExternalProject)
 	
 	string(REPLACE "x64" "x86" XCOMPILE_TRIPLET "${VCPKG_TARGET_TRIPLET}")
@@ -197,6 +197,9 @@ if(64_BIT AND MSVC)
 		)
 	endif()
 	install(FILES ${CMAKE_BINARY_DIR}/mumble_ol.dll ${CMAKE_BINARY_DIR}/mumble_ol_helper.exe DESTINATION . COMPONENT mumble_client)
+elseif(64_BIT AND overlay-xcompile)
+	message(WARNING "Disabling overlay cross-compilation for non-MSVC compilers")
+	set(overlay-xcompile OFF CACHE INTERNAL "" FORCE)
 endif()
 
 add_subdirectory(overlay_exe)
