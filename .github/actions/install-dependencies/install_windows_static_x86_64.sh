@@ -16,12 +16,8 @@ if [[ "$MUMBLE_ENVIRONMENT_DIR" == ""  ]]; then
 	echo "MUMBLE_ENVIRONMENT_DIR not set!"
 	exit 1
 fi
-if [[ "$MUMBLE_BUILD_ENV_PATH" == ""  ]]; then
-	echo "MUMBLE_BUILD_ENV_PATH not set!"
-	exit 1
-fi
 
-envDir="$MUMBLE_BUILD_ENV_PATH"
+envDir="$MUMBLE_ENVIRONMENT_DIR"
 
 choco install aria2 7zip
 
@@ -33,15 +29,15 @@ else
 	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --dir="$envArchive"
 
 	echo "Extracting archive..."
-	if [[ ! -d "$MUMBLE_ENVIRONMENT_DIR" ]]; then
+	if [[ ! -d "$envDir" ]]; then
 		mkdir -p "$envDir"
 	fi
 
-	"$(dirname $0)/extractWithProgress.sh" "$envArchive" "$MUMBLE_ENVIRONMENT_DIR"
+	"$(dirname $0)/extractWithProgress.sh" "$envArchive" "$envDir"
 
 	if [[ ! -d "$envDir" || -n "$(ls -A '$envDir')" ]]; then
 		echo "Environment did not follow expected form"
-		ls -al "$MUMBLE_ENVIRONMENT_PATH"
+		ls -al "$envDir"
 		exit 1
 	fi
 
@@ -49,12 +45,12 @@ else
 fi
 
 aria2c "https://dl.mumble.info/build/extra/asio_sdk.zip" --out "asio_sdk.zip"
-"$(dirname $0)/extractWithProgress.sh" "asio_sdk.zip" "."
-mv "asiosdk_2.3.3_2019-06-14" "${GITHUB_WORKSPACE}/3rdparty/asio"
+"$(dirname $0)/extractWithProgress.sh" "asio_sdk.zip" "${GITHUB_WORKSPACE}/3rdparty/asio"
 
 aria2c "https://dl.mumble.info/build/extra/g15_sdk.zip" --out "g15_sdk.zip"
-"$(dirname $0)/extractWithProgress.sh" "g15_sdk.zip" "."
-mv "G15SDK/LCDSDK" "${GITHUB_WORKSPACE}/3rdparty/g15"
+"$(dirname $0)/extractWithProgress.sh" "g15_sdk.zip" "g15_sdk"
+mv "g15_sdk/LCDSDK" "${GITHUB_WORKSPACE}/3rdparty/g15"
+rm -rf "g15_sdk"
 
 aria2c "https://github.com/oleg-shilo/wixsharp/releases/download/v1.19.0.0/WixSharp.1.19.0.0.7z" --out "WixSharp.7z"
 "$(dirname $0)/extractWithProgress.sh" "WixSharp.7z" "C:/WixSharp"
