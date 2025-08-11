@@ -4,14 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 
-cmake_minimum_required(VERSION 3.15)
-
-cmake_policy(SET CMP0079 NEW)
-cmake_policy(SET CMP0091 NEW)
-cmake_policy(SET CMP0069 NEW)
-if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20.0")
-	cmake_policy(SET CMP0118 NEW)
-endif()
+cmake_minimum_required(VERSION 3.15...4.2)
 
 set(BUILD_NUMBER CACHE STRING "The build number of the current build. Will be used in Mumble's version to make sure newer builds upgrade older installations properly.")
 set(BUILD_RELEASE_DATE CACHE STRING "The release date to be used in the generated appstream metadata.")
@@ -85,6 +78,12 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Debug")
         "-DDEBUG"
         "-DSNAPSHOT_BUILD"
     )
+endif()
+
+if (NOT DEFINED CMAKE_CXX_SCAN_FOR_MODULES)
+	# For now, we don't use C++ modules, so we can save ourselves the overhead
+	# of scanning every source file (and excluding them from unity buils)
+	set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 endif()
 
 option(lto "Enables link-time optimizations for release builds" ${LTO_DEFAULT})
