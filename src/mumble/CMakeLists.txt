@@ -691,6 +691,7 @@ else()
 			PRIVATE
 				"AppNap.h"
 				"AppNap.mm"
+				"ThemeSwitch_macx.mm"
 				"GlobalShortcut_macx.h"
 				"GlobalShortcut_macx.mm"
 				"os_macx.mm"
@@ -1118,6 +1119,7 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0")
 		# Prevent objective C files from being included in unity builds as that causes issues
 		set_source_files_properties(
 			"AppNap.mm"
+			"ThemeSwitch_macx.mm"
 			"GlobalShortcut_macx.mm"
 			"os_macx.mm"
 			"TextToSpeech_macx.mm"
