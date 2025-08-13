@@ -346,6 +346,11 @@ ServerItem::~ServerItem() {
 
 	// This is just for cleanup when exiting the dialog, it won't stop pending DNS for the children.
 	for (ServerItem *si : qlChildren) {
+		assert(si->siParent == this);
+		// Prevent children from self-removing from qlChildren, causing concurrent modification which messes up our loop
+		// iterations
+		si->siParent = nullptr;
+
 		delete si;
 	}
 }
