@@ -55,7 +55,7 @@ else
 
 	envArchive="$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
 
-	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --dir="$envArchive"
+	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --out="$envArchive"
 
 	echo "Extracting archive..."
 	if [[ ! -d "$envDir" ]]; then
