@@ -26,13 +26,18 @@ echo ""
 # Make targetDir an absolute path
 targetDir="$( realpath "$targetDir" )"
 
-# Use gtar instead of tar if available (for MacOS compatibility)
+# Use gtar and gwc instead of tar if available (for MacOS compatibility)
 tarExec="tar"
 if [ -x "$(command -v gtar)" ]; then
 	tarExec="gtar"
 fi
+wcExec="wc"
+if [ -x "$(command -v gwc)" ]; then
+	wcExec="gwc"
+fi
 
 tmp_dir="__extract_root__"
+mkdir "$tmp_dir"
 
 if [[ "$fromFile" = *.7z || "$fromFile"  = *.zip ]]; then
 	extract_cmd=( 7z x "$fromFile" -o"$tmp_dir" )
@@ -46,9 +51,9 @@ else
 	toSize=$(xz --robot --list "$fromFile" | tail -n -1 | cut -f 5)
 
 	steps=100
-	checkPointStep=$(expr "$toSizeKB" / "$steps" )
+	checkPointStep=$(expr "$toSize" / 1000 / "$steps" )
 
-	extract_cmd=( "$tarExec" -x --record-size=1K --checkpoint="$checkPointStep" --checkpoint-action="echo=%u / $toSize" -f "$fromFile" -C "$tmp_dir" )
+	extract_cmd=( "$tarExec" -x --record-size=1K --checkpoint="$checkPointStep" --checkpoint-action="echo=%u / $toSize" --file "$fromFile" --directory "$tmp_dir" )
 fi
 
 # Convert sizes to KB
@@ -63,7 +68,7 @@ echo ""
 
 "${extract_cmd[@]}"
 
-num_files="$( ls -Al "$tmp_dir" | tail -n +2 | wc -l )"
+num_files="$( ls -Al "$tmp_dir" | tail -n +2 | $wcExec -l )"
 
 if [[ ! -d "$targetDir" ]]; then
 	mkdir "$targetDir"

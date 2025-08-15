@@ -26,7 +26,7 @@ if [[ -d "$envDir" && -n "$(ls -A '$envDir')" ]]; then
 else
 	envArchive="$MUMBLE_ENVIRONMENT_VERSION.7z"
 
-	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --dir="$envArchive"
+	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --out="$envArchive"
 
 	echo "Extracting archive..."
 	if [[ ! -d "$envDir" ]]; then
