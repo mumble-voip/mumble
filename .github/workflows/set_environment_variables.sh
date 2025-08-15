@@ -70,9 +70,10 @@ echo "MUMBLE_ENVIRONMENT_DIR=$MUMBLE_ENVIRONMENT_DIR" >> "$GITHUB_ENV"
 echo "MUMBLE_ENVIRONMENT_VERSION=$MUMBLE_ENVIRONMENT_VERSION" >> "$GITHUB_ENV"
 echo "ADDITIONAL_CMAKE_OPTIONS=$ADDITIONAL_CMAKE_OPTIONS" >> "$GITHUB_ENV"
 echo "VCPKG_CMAKE_OPTIONS=$VCPKG_CMAKE_OPTIONS" >> "$GITHUB_ENV"
+echo "MUMBLE_VCPKG_TRIPLET=$VCPKG_TARGET_TRIPLET" >> "$GITHUB_ENV"
 
-if [[ ! "$os" = "windows" ]]; then
+if [[ "$os" = "ubuntu" ]]; then
 	# Setting this is necessary in order to be able to run tests on the CLI
-	# on non-Windows systems
+	# on Linuex systems (which don't have a desktop environment on CI)
 	echo "QT_QPA_PLATFORM=offscreen" >> "$GITHUB_ENV"
 fi
