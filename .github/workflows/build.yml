@@ -52,10 +52,7 @@ jobs:
                 type: shared
               - os: macos-14
                 type: shared
-              # Currently the "static" build doesn't work for Linux systems
               - os: ubuntu-22.04
-                type: static
-              - os: ubuntu-24.04
                 type: static
             
     runs-on: ${{ matrix.os }}
