@@ -711,6 +711,13 @@ Denne verdien gjør at du setter maksimalt antall brukere tillatt i kanalen. Hvi
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -3071,6 +3078,53 @@ Er du sikker på at du vil erstatte ditt sertifikat?
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
         <translation type="unfinished">Lokal ignorering (talesyntese)</translation>
+    </message>
+</context>
+<context>
+    <name>CommentViewWidget</name>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <comment>Users</comment>
+        <translation type="unfinished">Brukere</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <comment>Properties</comment>
+        <translation type="unfinished">Egenskaper</translation>
+    </message>
+    <message>
+        <source>OS</source>
+        <comment>OS</comment>
+        <translation type="unfinished">OS</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <comment>Version</comment>
+        <translation type="unfinished">Versjon</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a test text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Beskrivelse</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="unfinished">%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -7261,6 +7315,10 @@ Valid options are:
         <source>Failed to decode image.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8806,6 +8864,13 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
 </context>
 <context>
+    <name>ResponsiveImageDialog</name>
+    <message>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
@@ -9336,6 +9401,17 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

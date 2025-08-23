@@ -711,6 +711,13 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -3057,6 +3064,53 @@ Esteu segur que vols substituir el vostre certificat?
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
         <translation>Ignora el local (síntesi de veu)</translation>
+    </message>
+</context>
+<context>
+    <name>CommentViewWidget</name>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <comment>Users</comment>
+        <translation type="unfinished">Usuaris</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <comment>Properties</comment>
+        <translation type="unfinished">Propietats</translation>
+    </message>
+    <message>
+        <source>OS</source>
+        <comment>OS</comment>
+        <translation type="unfinished">SO</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <comment>Version</comment>
+        <translation type="unfinished">Versió</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a test text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Descripció</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="unfinished">%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -7246,6 +7300,10 @@ Valid options are:
         <source>Failed to decode image.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8792,6 +8850,13 @@ Veure &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;el reposit
     </message>
 </context>
 <context>
+    <name>ResponsiveImageDialog</name>
+    <message>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
@@ -9322,6 +9387,17 @@ Una clau d&apos;accés és una cadena de text, que es pot utilitzar com a contra
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
         <translation>Utilitzeu les tecles de les fletxes per navegar per aquesta llista de claus d&apos;accés. Les claus es mostren en text pla.</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
