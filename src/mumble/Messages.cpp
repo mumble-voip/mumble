@@ -29,6 +29,7 @@
 #include "ProtoUtils.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
+#include "TextureManager.h"
 #include "User.h"
 #include "UserEdit.h"
 #include "UserInformation.h"
@@ -790,13 +791,13 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 	if (msg.has_texture_hash()) {
 		pDst->qbaTextureHash = blob(msg.texture_hash());
-		pDst->qbaTexture     = QByteArray();
+		pDst->qbaTexture = Global::get().textureManager->convertTexture(blob(msg.texture()), pDst->qbaTextureFormat);
 #ifdef USE_OVERLAY
-		Global::get().o->verifyTexture(pDst);
+		Global::get().o->updateOverlay();
 #endif
 	}
 	if (msg.has_texture()) {
-		pDst->qbaTexture = blob(msg.texture());
+		pDst->qbaTexture = Global::get().textureManager->convertTexture(blob(msg.texture()), pDst->qbaTextureFormat);
 		if (pDst->qbaTexture.isEmpty()) {
 			pDst->qbaTextureHash = QByteArray();
 		} else {
@@ -804,7 +805,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			Global::get().db->setBlob(pDst->qbaTextureHash, pDst->qbaTexture);
 		}
 #ifdef USE_OVERLAY
-		Global::get().o->verifyTexture(pDst);
+		Global::get().o->updateOverlay();
 #endif
 	}
 	if (msg.has_comment_hash())
@@ -1227,20 +1228,27 @@ void MainWindow::msgCodecVersion(const MumbleProto::CodecVersion &msg) {
 ///
 /// @param msg The message object containing the stats
 void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
-	UserInformation *ui = qmUserInformations.value(msg.session());
-	if (ui) {
-		ui->update(msg);
-	} else {
+	m_UserStats[msg.session()] = msg;
+	const auto &uiIterator     = qmUserInformations.find(msg.session());
+	if (uiIterator != qmUserInformations.end()) {
+		UserInformation *ui = uiIterator.value();
+		if (ui) {
+			ui->update(msg);
+		} else {
 #ifdef USE_OVERLAY
-		ui = new UserInformation(msg, Global::get().ocIntercept ? Global::get().mw : nullptr);
+			ui = new UserInformation(msg, Global::get().ocIntercept ? Global::get().mw : nullptr);
 #else
-		ui = new UserInformation(msg, nullptr);
+			ui = new UserInformation(msg, nullptr);
 #endif
-		ui->setAttribute(Qt::WA_DeleteOnClose, true);
-		connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
+			ui->setAttribute(Qt::WA_DeleteOnClose, true);
+			connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
 
-		qmUserInformations.insert(msg.session(), ui);
-		ui->show();
+			qmUserInformations.insert(msg.session(), ui);
+			ui->show();
+		}
+	} else {
+		// the periodic messages from info window contain less info, but msg.has_stats_only() is still false
+		qdwCommentView->updateUserStats(msg);
 	}
 }
 

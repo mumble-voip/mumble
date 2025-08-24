@@ -711,6 +711,13 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -3057,6 +3064,53 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
         <translation>Ignorer localement (synthèse vocale)</translation>
+    </message>
+</context>
+<context>
+    <name>CommentViewWidget</name>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <comment>Users</comment>
+        <translation type="unfinished">Utilisateurs</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <comment>Properties</comment>
+        <translation type="unfinished">Propriétés</translation>
+    </message>
+    <message>
+        <source>OS</source>
+        <comment>OS</comment>
+        <translation type="unfinished">Système d&apos;exploitation</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <comment>Version</comment>
+        <translation type="unfinished">Version</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a test text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Description</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="unfinished">%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -7246,6 +7300,10 @@ Valid options are:
         <source>Failed to decode image.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8792,6 +8850,13 @@ Référez vous à &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&g
     </message>
 </context>
 <context>
+    <name>ResponsiveImageDialog</name>
+    <message>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
@@ -9322,6 +9387,17 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
         <translation>Utilisez les touches de curseur haut et bas pour naviguer sur cette liste des jetons d&apos;accès. Les jetons sont affichés en texte brut.</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

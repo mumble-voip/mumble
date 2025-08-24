@@ -819,21 +819,21 @@ void MumbleAPI::getUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_conne
 		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	}
 
-	if (user->qsComment.isEmpty() && !user->qbaCommentHash.isEmpty()) {
-		user->qsComment = QString::fromUtf8(Global::get().db->blob(user->qbaCommentHash));
+	if (user->qsComment().isEmpty() && !user->qbaCommentHash.isEmpty()) {
+		user->setComment(QString::fromUtf8(Global::get().db->blob(user->qbaCommentHash)));
 
-		if (user->qsComment.isEmpty()) {
+		if (user->qsComment().isEmpty()) {
 			// The user's comment hasn't been synchronized to this client yet
 			EXIT_WITH(MUMBLE_EC_UNSYNCHRONIZED_BLOB);
 		}
 	}
 
 	// +1 for NULL terminator
-	std::size_t size = static_cast< std::size_t >(user->qsComment.toUtf8().size() + 1);
+	std::size_t size = static_cast< std::size_t >(user->qsComment().toUtf8().size() + 1);
 
 	char *nameArray = reinterpret_cast< char * >(malloc(size * sizeof(char)));
 
-	std::strcpy(nameArray, user->qsComment.toUtf8().data());
+	std::strcpy(nameArray, user->qsComment().toUtf8().data());
 
 	m_curator.m_entries.insert({ nameArray, { defaultDeleter, callerID, "getUserComment" } });
 

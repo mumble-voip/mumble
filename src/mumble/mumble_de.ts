@@ -711,6 +711,13 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -3057,6 +3064,53 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
         <translation>Für Text-zu-Sprache ignorieren (lokal)</translation>
+    </message>
+</context>
+<context>
+    <name>CommentViewWidget</name>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <comment>Users</comment>
+        <translation type="unfinished">Benutzer</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <comment>Properties</comment>
+        <translation type="unfinished">Eigenschaften</translation>
+    </message>
+    <message>
+        <source>OS</source>
+        <comment>OS</comment>
+        <translation type="unfinished">Betriebssystem</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <comment>Version</comment>
+        <translation type="unfinished">Version</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a test text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Beschreibung</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="unfinished">%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -7246,6 +7300,10 @@ Valid options are:
         <source>Failed to decode image.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -8792,6 +8850,13 @@ Besuchen Sie &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;das
     </message>
 </context>
 <context>
+    <name>ResponsiveImageDialog</name>
+    <message>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
@@ -9322,6 +9387,17 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
         <translation>Die Pfeiltasten nutzen, um durch die Liste der Zugriffstoken zu navigieren. Die Token werden im Klartext angezeigt.</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

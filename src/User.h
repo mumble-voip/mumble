@@ -23,7 +23,6 @@ public:
 	unsigned int uiSession;
 	int iId;
 	QString qsName;
-	QString qsComment;
 	QByteArray qbaCommentHash;
 	QString qsHash;
 	bool bMute, bDeaf, bSuppress;
@@ -34,10 +33,18 @@ public:
 	QByteArray qbaTexture;
 	QByteArray qbaTextureHash;
 
+	virtual void setComment(const QString &qsComment);
+	virtual void clearComment();
+
+	[[nodiscard]] const QString &qsComment() const;
+
 	User();
 	virtual ~User(){};
 
 	static bool lessThan(const User *, const User *);
+
+protected:
+	QString m_qsComment;
 };
 
 // for last seen

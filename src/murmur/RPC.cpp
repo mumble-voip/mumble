@@ -49,7 +49,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 		changed = true;
 		mpus.set_priority_speaker(prioritySpeaker);
 	}
-	if (comment != pUser->qsComment) {
+	if (comment != pUser->qsComment()) {
 		changed = true;
 		mpus.set_comment(u8(comment));
 		if (pUser->iId >= 0) {
@@ -72,7 +72,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 
 	pUser->bPrioritySpeaker = prioritySpeaker;
 	pUser->qsName           = name;
-	hashAssign(pUser->qsComment, pUser->qbaCommentHash, comment);
+	pUser->setComment(hashAssign(pUser->qbaCommentHash, comment));
 
 	if (cChannel != pUser->cChannel) {
 		changed = true;

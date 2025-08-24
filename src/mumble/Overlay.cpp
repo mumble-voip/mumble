@@ -13,6 +13,7 @@
 #include "OverlayText.h"
 #include "RichTextEditor.h"
 #include "ServerHandler.h"
+#include "TextureManager.h"
 #include "User.h"
 #include "Utils.h"
 #include "WebFetch.h"
@@ -349,107 +350,14 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 	allowupdate      = allowupdate && self && self->cChannel->isLinked(cp->cChannel);
 
 	if (allowupdate && !cp->qbaTextureHash.isEmpty() && cp->qbaTexture.isEmpty())
-		cp->qbaTexture = Global::get().db->blob(cp->qbaTextureHash);
+		cp->qbaTexture = Global::get().textureManager->convertTexture(Global::get().db->blob(cp->qbaTextureHash),
+																	  cp->qbaTextureFormat);
 
-	if (!cp->qbaTexture.isEmpty()) {
-		bool valid = true;
-
-		if (cp->qbaTexture.length() < static_cast< int >(sizeof(unsigned int))) {
-			valid = false;
-		} else if (qFromBigEndian< unsigned int >(reinterpret_cast< const unsigned char * >(cp->qbaTexture.constData()))
-				   == 600 * 60 * 4) {
-			QByteArray qba = qUncompress(cp->qbaTexture);
-			if (qba.length() != 600 * 60 * 4) {
-				valid = false;
-			} else {
-				int width               = 0;
-				int height              = 0;
-				const unsigned int *ptr = reinterpret_cast< const unsigned int * >(qba.constData());
-
-				// If we have an alpha only part on the right side of the image ignore it
-				for (int y = 0; y < 60; ++y) {
-					for (int x = 0; x < 600; ++x) {
-						if (ptr[y * 600 + x] & 0xff000000) {
-							if (x > width)
-								width = x;
-							if (y > height)
-								height = y;
-						}
-					}
-				}
-
-				// Full size image? More likely image without alpha; fix it.
-				if ((width == 599) && (height == 59)) {
-					width  = 0;
-					height = 0;
-					for (int y = 0; y < 60; ++y) {
-						for (int x = 0; x < 600; ++x) {
-							if (ptr[y * 600 + x] & 0x00ffffff) {
-								if (x > width)
-									width = x;
-								if (y > height)
-									height = y;
-							}
-						}
-					}
-				}
-
-				if (!width || !height) {
-					valid = false;
-				} else {
-					QImage img = QImage(width + 1, height + 1, QImage::Format_ARGB32);
-					{
-						QImage srcimg(reinterpret_cast< const uchar * >(qba.constData()), 600, 60,
-									  QImage::Format_ARGB32);
-
-						QPainter imgp(&img);
-						img.fill(0);
-						imgp.setRenderHint(QPainter::Antialiasing);
-						imgp.setRenderHint(QPainter::TextAntialiasing);
-						imgp.setBackground(QColor(0, 0, 0, 0));
-						imgp.setCompositionMode(QPainter::CompositionMode_Source);
-						imgp.drawImage(0, 0, srcimg);
-					}
-					cp->qbaTexture = QByteArray();
-
-					QBuffer qb(&cp->qbaTexture);
-					qb.open(QIODevice::WriteOnly);
-					QImageWriter qiw(&qb, "png");
-					qiw.write(img);
-
-					cp->qbaTextureFormat = QString::fromLatin1("png").toUtf8();
-				}
-			}
-		} else {
-			QBuffer qb(&cp->qbaTexture);
-			qb.open(QIODevice::ReadOnly);
-
-			QImageReader qir;
-			qir.setAutoDetectImageFormat(false);
-
-			QByteArray fmt;
-			if (RichTextImage::isValidImage(cp->qbaTexture, fmt)) {
-				qir.setFormat(fmt);
-				qir.setDevice(&qb);
-				if (!qir.canRead() || (qir.size().width() > 1024) || (qir.size().height() > 1024)) {
-					valid = false;
-				} else {
-					cp->qbaTextureFormat = qir.format();
-					QImage qi            = qir.read();
-					valid                = !qi.isNull();
-				}
-			} else {
-				valid = false;
-			}
-		}
-		if (!valid) {
-			cp->qbaTexture     = QByteArray();
-			cp->qbaTextureHash = QByteArray();
-		}
+	if (cp->qbaTexture.isEmpty()) {
+		cp->qbaTextureHash = QByteArray();
 	}
 
-	if (allowupdate)
-		updateOverlay();
+	updateOverlay();
 }
 
 typedef QPair< QString, quint32 > qpChanCol;

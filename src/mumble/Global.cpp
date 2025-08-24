@@ -131,6 +131,8 @@ Global::Global(const QString &qsConfigPath) {
 	o           = nullptr;
 #endif
 
+	textureManager = std::make_unique< TextureManager >();
+
 	bHappyEaster = false;
 
 	bQuit            = false;

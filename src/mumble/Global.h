@@ -11,6 +11,7 @@
 #include "ACL.h"
 #include "ChannelListenerManager.h"
 #include "Settings.h"
+#include "TextureManager.h"
 #include "Timer.h"
 #include "Version.h"
 
@@ -64,6 +65,7 @@ public:
 #ifdef USE_OVERLAY
 	Overlay *o;
 #endif
+	std::unique_ptr< TextureManager > textureManager;
 	LCD *lcd;
 	Zeroconf *zeroconf;
 	QNetworkAccessManager *nam;

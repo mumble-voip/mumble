@@ -118,7 +118,7 @@ static void userToUser(const ::User *p, ::MumbleServer::User &mp) {
 	mp.selfMute        = p->bSelfMute;
 	mp.selfDeaf        = p->bSelfDeaf;
 	mp.channel         = static_cast< int >(p->cChannel->iId);
-	mp.comment         = iceString(p->qsComment);
+	mp.comment         = iceString(p->qsComment());
 
 	const ServerUser *u = static_cast< const ServerUser * >(p);
 	mp.onlinesecs       = u->bwr.onlineSeconds();
@@ -215,7 +215,7 @@ static void infoToInfo(const ::MumbleServer::UserInfoMap &map, ::ServerUserInfo 
 		info.qslEmail << QString::fromStdString(map.at(::MumbleServer::UserInfo::UserEmail));
 	}
 	if (map.find(::MumbleServer::UserInfo::UserComment) != map.end()) {
-		info.qsComment = QString::fromStdString(map.at(::MumbleServer::UserInfo::UserComment));
+		info.setComment(QString::fromStdString(map.at(::MumbleServer::UserInfo::UserComment)));
 	}
 	if (map.find(::MumbleServer::UserInfo::UserHash) != map.end()) {
 		info.qsHash = QString::fromStdString(map.at(::MumbleServer::UserInfo::UserHash));
