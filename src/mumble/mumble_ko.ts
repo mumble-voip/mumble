@@ -711,6 +711,13 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -8790,6 +8797,13 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
 </context>
 <context>
+    <name>ResponsiveImageDialog</name>
+    <message>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
@@ -9319,6 +9333,17 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
