@@ -9342,7 +9342,7 @@ Una clau d&apos;accés és una cadena de text, que es pot utilitzar com a contra
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra</translation>
     </message>
     <message>
         <source>Hide</source>

@@ -9293,7 +9293,7 @@ A kulcs egy szöveges karaktersorozat, amely jelszóként használható a csator
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble megnyitása</translation>
     </message>
     <message>
         <source>Hide</source>

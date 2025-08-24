@@ -9341,7 +9341,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra</translation>
     </message>
     <message>
         <source>Hide</source>

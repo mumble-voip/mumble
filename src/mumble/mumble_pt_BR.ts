@@ -9340,7 +9340,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Hide</source>

@@ -9342,7 +9342,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher</translation>
     </message>
     <message>
         <source>Hide</source>

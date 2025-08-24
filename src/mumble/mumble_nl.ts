@@ -9341,7 +9341,7 @@ Een toegangssleutel is een tekenreeks die gebruikt kan worden als wachtwoord om 
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Tonen</translation>
     </message>
     <message>
         <source>Hide</source>

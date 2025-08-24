@@ -9343,7 +9343,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <source>Hide</source>

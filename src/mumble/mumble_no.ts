@@ -9357,7 +9357,7 @@ Et tilgangssymbol er en tekststring, som kan brukes som et passord for veldig en
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis</translation>
     </message>
     <message>
         <source>Hide</source>

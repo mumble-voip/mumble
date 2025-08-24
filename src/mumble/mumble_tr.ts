@@ -9341,7 +9341,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Göster</translation>
     </message>
     <message>
         <source>Hide</source>

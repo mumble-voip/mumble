@@ -9258,7 +9258,7 @@ An access token is a text string, which can be used as a password for very simpl
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Erakutsi</translation>
     </message>
     <message>
         <source>Hide</source>

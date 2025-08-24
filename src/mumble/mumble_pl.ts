@@ -9343,7 +9343,7 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetl</translation>
     </message>
     <message>
         <source>Hide</source>

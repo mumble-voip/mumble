@@ -9341,7 +9341,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa</translation>
     </message>
     <message>
         <source>Hide</source>
