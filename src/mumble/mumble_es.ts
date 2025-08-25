@@ -711,6 +711,13 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -8793,6 +8800,13 @@ Consulte &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt; el rep
     </message>
 </context>
 <context>
+    <name>ResponsiveImageDialog</name>
+    <message>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
@@ -9323,6 +9337,17 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
         <translation>Utilice las teclas de flecha para navegar por esta lista de tokens de acceso. Los tokens se muestran en texto plano.</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation>Mostrar</translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

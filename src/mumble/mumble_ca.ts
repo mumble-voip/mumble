@@ -711,6 +711,13 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
 </context>
 <context>
+    <name>AccessibleQGroupBox</name>
+    <message>
+        <source>empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AudioInput</name>
     <message>
         <source>Interface</source>
@@ -8792,6 +8799,13 @@ Veure &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;el reposit
     </message>
 </context>
 <context>
+    <name>ResponsiveImageDialog</name>
+    <message>
+        <source>Image Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
@@ -9322,6 +9336,17 @@ Una clau d&apos;accés és una cadena de text, que es pot utilitzar com a contra
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
         <translation>Utilitzeu les tecles de les fletxes per navegar per aquesta llista de claus d&apos;accés. Les claus es mostren en text pla.</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <source>Show</source>
+        <translation>Mostra</translation>
+    </message>
+    <message>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
