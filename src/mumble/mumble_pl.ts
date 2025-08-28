@@ -714,7 +714,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>puste</translation>
     </message>
 </context>
 <context>
@@ -5106,59 +5106,59 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Ciemny motyw do użycia w celu stylizacji interfejsu użytkownika</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Konfiguruje motyw, który powinien być używany w interfejsie użytkownika Mumble, gdy jest w trybie ciemnym&lt;/b&gt;&lt;br /&gt;Mumble pobierze motywy z określonych katalogów i wyświetli je na tej liście. Wybrany motyw zostanie użyty do dostosowania wyglądu Mumble. Obejmuje to kolory, ikony i inne elementy.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Jasny motyw do użycia w celu stylizacji interfejsu użytkownika</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Ciemny motyw</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatycznie ustawia motyw na podstawie motywu systemowego.</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatyczny motyw oparty na motywie systemowym</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatyczny</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawia motyw zgodnie ze skonfigurowanym ustawieniem ciemnego motywu</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Ciemny</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawia motyw zgodnie ze skonfigurowanym ustawieniem jasnego motywu</translation>
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Jasny motyw</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Jasny</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz katalog motywów w menedżerze plików systemowych</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz katalog motywów</translation>
     </message>
 </context>
 <context>
@@ -7269,29 +7269,93 @@ Valid options are:
   --skip-settings-backup-prompt
                 Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Użycie: mumble [opcje] [&lt;url&gt; | &lt;lista_wtyczek&gt;]
+
+&lt;url&gt; określa adres URL, z którym należy się połączyć po uruchomieniu, zamiast pokazywać
+okno połączenia, ma następującą postać:
+mumble://[&lt;nazwa użytkownika&gt;[:&lt;hasło&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;kanał&gt;[/&lt;podkanał&gt;...]][?wersja=&lt;x.y.z&gt;]
+
+&lt;lista_wtyczek&gt; to lista plików wtyczek, które mają zostać zainstalowane
+Aby wywołać poprawną wersję klienta, należy ustawić parametr
+zapytania o wersję. Obecnie domyślnie jest to 1.2.0.
+
+Prawidłowe opcje to:
+  -h, --help    Pokaż ten tekst pomocy i zakończ.
+  --version    Wyświetl informacje o wersji i zakończ
+  -m, --multiple
+                Zezwalaj na uruchamianie wielu instancji klienta.
+  -c, --config
+                Określ alternatywny plik konfiguracyjny.
+                Jeśli używasz tego do uruchamiania wielu wystąpień Mumble jednocześnie,
+                upewnij się, że ustawiono alternatywną wartość „bazy danych” w konfiguracji.
+  --default-certificate-dir &lt;kat.&gt;
+                Określ alternatywną domyślną ścieżkę certyfikatu.
+                Ta ścieżka jest używana tylko wtedy, gdy nie jest
+                załadowany żaden certyfikat z ustawień.
+  -n, --noidentity
+                Blokuj ładowanie plików tożsamości (tj. certyfikatów).
+  -jn, --jackname &lt;arg&gt;
+                Ustaw niestandardową nazwę klienta Jack.
+  --license
+                Pokaż licencję Mumble.
+  --authors
+                Pokaż autorów Mumble.
+  --third-party-licenses
+                Pokaż licencje na oprogramowanie innych firm używane przez Mumble.
+  --window-title-ext &lt;arg&gt;
+                Ustaw niestandardowe rozszerzenie tytułu okna.
+  --dump-input-stream
+                Zrzuć strumienie PCM w różnych częściach łańcucha wejściowego
+                (przydatne do debugowania)
+                - surowe wejście mikrofonowe
+                - odczyt głośnika w celu usunięcia echa
+                - przetworzone wejście mikrofonowe
+  --print-echocancel-queue
+                Wyświetl na stdout stan kolejki anulowania echa
+                (przydatne do debugowania)
+  --translation-dir &lt;kat.&gt;
+                Określ dodatkowy katalog tłumaczeń &lt;kat.&gt;, gdzie
+                Mumble będzie szukać plików tłumaczeń, które
+                nadpiszą te dołączone
+                Dodane w ten sposób katalogi mają wyższy priorytet niż
+                domyślne położenia
+  --print-translation-dirs
+                Wyświetl ścieżki, w których Mumble będzie szukał
+                plików tłumaczeń, które zastąpią dołączone pliki.
+                (Przydatne dla tłumaczy testujących swoje tłumaczenia)
+  --locale &lt;ust. reg,&gt;
+                Nadpisz ustawienia regionalne w ustawieniach Mumble za pomocą
+                ustawień reg., które odpowiada podanemu łańcuchowi ustawień reg.
+                Jeśli format jest nieprawidłowy, Mumble wyświetli błąd.
+                W przeciwnym razie ustawienia regionalne zostaną trwale zapisane
+                w ustawieniach Mumble.
+  --hidden
+                Uruchom Mumble ukryty w zasobniku systemowym.
+  --skip-settings-backup-prompt
+                Nie pokazuj okna dialogowego odzyskiwania ustawień przy uruchamianiu po awarii.
+</translation>
     </message>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Adaptacyjne przyciskanie</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>W trybie transmisji „Atywacja przyciskiem” funkcja ta będzie działać jak funkcja „Atywacja przyciskiem”. W przeciwnym razie funkcja ta będzie działać jak funkcja „Wyciszenie przyciskiem”.</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz obraz</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się zdekodować obrazu.</translation>
     </message>
 </context>
 <context>
@@ -8842,7 +8906,7 @@ Zapoznaj się z &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;
     <name>ResponsiveImageDialog</name>
     <message>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Podgląd obrazu</translation>
     </message>
 </context>
 <context>
@@ -9382,11 +9446,11 @@ Token dostępu to ciąg tekstowy, który może służyć jako hasło do bardzo p
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation>Wyświetl</translation>
+        <translation>Pokaż</translation>
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj</translation>
     </message>
 </context>
 <context>
