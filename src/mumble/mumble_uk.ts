@@ -714,7 +714,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>порожній</translation>
     </message>
 </context>
 <context>
@@ -5106,59 +5106,59 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Темна тема для стилізації інтерфейсу користувача</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Налаштовує тему, яку слід використовувати для інтерфейсу користувача Mumble, коли він перебуває в темній темі&lt;/b&gt;&lt;br /&gt;Mumble вибиратиме теми з певних каталогів та відображатиме їх у цьому списку. Вибрана вами тема буде використана для налаштування візуального вигляду Mumble. Це включає кольори, значки тощо.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Світла тема для стилізації інтерфейсу користувача</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Темна тема</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматично встановлює тему на основі системної теми.</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматична тема на основі системної теми</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Авто</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановлює налаштований темний режим для теми</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Темний</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Встановлює налаштований світлий режим теми</translation>
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Світла тема</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Світло</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрийте каталог тем у файловому менеджері систем</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити каталог тем</translation>
     </message>
 </context>
 <context>
@@ -7269,29 +7269,93 @@ Valid options are:
   --skip-settings-backup-prompt
                 Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Використання: бурмотіння [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; вказує URL-адресу для підключення після запуску, а не відображення
+вікно підключення, і має такий вигляд:
+бурмотіти://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; – це список файлів плагінів, які потрібно встановити
+Параметр запиту версії має бути встановлений, щоб викликати
+правильну версію клієнта. Наразі за замовчуванням встановлено значення 1.2.0.
+
+Дійсні варіанти:
+  -h, --help    Показати цей текст довідки та вийти.
+  --version     Інформація про версію для друку та вихід
+  -m, --multiple
+                Дозволити запуск кількох екземплярів клієнта.
+-c, --config
+                Вкажіть альтернативний файл конфігурації.
+                Якщо ви використовуєте це для одночасного запуску кількох екземплярів Mumble,
+                обов’язково встановіть альтернативне значення «бази даних» у конфігурації.
+  --default-certificate-dir &lt;dir&gt;
+                Вкажіть альтернативний шлях сертифіката за замовчуванням.
+                Цей шлях використовується лише якщо сертифікат не завантажено
+                з налаштувань.
+  -n, --noidentity
+                Заборонити завантаження файлів ідентифікації (наприклад, сертифікатів).
+-jn, --jackname &lt;аргумент&gt;
+                Встановіть власне ім&apos;я клієнта Jack.
+  --license
+                Покажіть ліцензію Mumble.
+  --authors
+                Покажіть авторів Mumble.
+  --third-party-licenses
+                Показати ліцензії на стороннє програмне забезпечення, що використовується Mumble.
+--window-title-ext &lt;arg&gt;
+                Встановлює власне розширення заголовка вікна.
+--dump-input-streams
+                Виводити потоки PCM у різні частини вхідного ланцюга
+                (корисно для цілей налагодження)
+                - необроблений вхідний сигнал мікрофона
+                - зчитування динаміка для придушення луни
+                - оброблений вхідний сигнал мікрофона
+  --print-echocancel-queue
+                Вивести на стандартний вивід стан черги ехоподавлення
+                (корисно для цілей налагодження)
+  --translation-dir &lt;dir&gt;
+                Вказує додатковий каталог перекладу &lt;dir&gt;
+                в якому Mumble шукатиме файли перекладу, які
+                перезаписати ті, що входять до комплекту
+                Каталоги, додані таким чином, мають вищий пріоритет, ніж
+                розташування за замовчуванням, що використовуються в іншому випадку
+  --print-translation-dirs
+                Виведіть шляхи, в яких Mumble шукатиме
+                файли перекладу, які перезаписують ті, що входять до комплекту.
+                (Корисно для перекладачів, які перевіряють свої переклади)
+  --locale &lt;locale&gt;
+                Перезапишіть локаль у налаштуваннях Mumble на
+                локаль, що відповідає заданому рядку локалі.
+                Якщо формат недійсний, Mumble видасть помилку.
+                В іншому випадку локалізацію буде збережено назавжди.
+                Налаштування Mumble.
+  --hidden
+                Запустіть Mumble, прихований у системному треї.
+  --skip-settings-backup-prompt
+                Не показувати діалогове вікно відновлення налаштувань під час запуску після збою.
+</translation>
     </message>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Адаптивний поштовх</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Під час використання режиму передачі «натисни і говори» це діятиме як дія «натисни і говори». В іншому випадку це діятиме як дія «натисни, щоб вимкнути звук».</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Відкрити зображення</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося розкодувати зображення.</translation>
     </message>
 </context>
 <context>
@@ -8842,7 +8906,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ResponsiveImageDialog</name>
     <message>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Попередній перегляд зображення</translation>
     </message>
 </context>
 <context>
@@ -9382,11 +9446,11 @@ An access token is a text string, which can be used as a password for very simpl
     <name>TrayIcon</name>
     <message>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати</translation>
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Приховати</translation>
     </message>
 </context>
 <context>
