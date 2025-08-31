@@ -609,6 +609,17 @@ void MainWindow::updateToolbar() {
 	}
 }
 
+void MainWindow::updateFavoriteButton() {
+	if (Global::get().uiSession == 0) {
+		qaServerAddToFavorites->setEnabled(false);
+	} else {
+		QString host, uname, pw;
+		unsigned short port;
+		Global::get().sh->getConnectionInfo(host, port, uname, pw);
+		qaServerAddToFavorites->setEnabled(!Global::get().db->isFavorite(host, port));
+	}
+}
+
 // Sets whether or not to show the title bars on the MainWindow's
 // dock widgets.
 void MainWindow::setShowDockTitleBars(bool doShow) {
@@ -1622,6 +1633,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addSeparator();
 	qmServer->addAction(qaServerDisconnect);
 	qmServer->addAction(qaServerInformation);
+	qmServer->addAction(qaServerAddToFavorites);
 	qmServer->addAction(qaSearch);
 	qmServer->addAction(qaServerTokens);
 	qmServer->addAction(qaServerUserList);
@@ -1632,6 +1644,7 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qaServerBanList->setEnabled(Global::get().pPermissions & (ChanACL::Ban | ChanACL::Write));
 	qaServerUserList->setEnabled(Global::get().pPermissions & (ChanACL::Register | ChanACL::Write));
 	qaServerInformation->setEnabled(Global::get().uiSession != 0);
+	updateFavoriteButton();
 	qaServerTokens->setEnabled(Global::get().uiSession != 0);
 
 	if (!qlServerActions.isEmpty()) {
@@ -1639,6 +1652,10 @@ void MainWindow::on_qmServer_aboutToShow() {
 		foreach (QAction *a, qlServerActions)
 			qmServer->addAction(a);
 	}
+}
+
+void MainWindow::on_qaServerAddToFavorites_triggered() {
+	addServerAsFavorite();
 }
 
 void MainWindow::on_qaServerDisconnect_triggered() {
@@ -3472,6 +3489,7 @@ void MainWindow::serverConnected() {
 	Global::get().l->log(Log::ServerConnected, tr("Connected."));
 	qaServerDisconnect->setEnabled(true);
 	qaServerInformation->setEnabled(true);
+	updateFavoriteButton();
 	qaServerBanList->setEnabled(true);
 
 	Channel *root = Channel::get(Mumble::ROOT_CHANNEL_ID);
@@ -3519,6 +3537,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	Global::get().pPermissions     = ChanACL::None;
 	Global::get().bAttenuateOthers = false;
 	qaServerDisconnect->setEnabled(false);
+	qaServerAddToFavorites->setEnabled(false);
 	qaServerInformation->setEnabled(false);
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
@@ -3986,6 +4005,9 @@ void MainWindow::openServerConnectDialog(bool autoconnect) {
 		Global::get().sh->start(QThread::TimeCriticalPriority);
 	}
 	delete cd;
+
+	// update because the user might have changed his favorites
+	updateFavoriteButton();
 }
 
 void MainWindow::disconnectFromServer() {
@@ -3995,6 +4017,20 @@ void MainWindow::disconnectFromServer() {
 	}
 	if (Global::get().sh && Global::get().sh->isRunning())
 		Global::get().sh->disconnect();
+}
+
+void MainWindow::addServerAsFavorite() {
+	if (Global::get().uiSession == 0) {
+		return;
+	}
+	QString host, username, password;
+	unsigned short port;
+	Global::get().sh->getConnectionInfo(host, port, username, password);
+	ServerItem currentServer = ServerItem(host, host, port, username, password);
+	Global::get().db->addFavorite(currentServer.toFavoriteServer());
+	qaServerAddToFavorites->setEnabled(false);
+	Global::get().l->log(Log::Information,
+						 tr("Added %1 to favorites.").arg(Log::msgColor(host.toHtmlEscaped(), Log::Server)));
 }
 
 void MainWindow::openServerInformationDialog() {
