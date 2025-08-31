@@ -121,6 +121,11 @@ public:
 	QSize sizeHint() const Q_DECL_OVERRIDE;
 	QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 
+	void updateTransparency();
+	void clearTransparency();
+	void toggleTransparency();
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
 public slots:
 	void on_talkingStateChanged();
 	void on_mainWindowSelectionChanged(const QModelIndex &current, const QModelIndex &previous);

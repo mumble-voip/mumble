@@ -395,6 +395,7 @@ struct Settings {
 	int iTalkingUI_PostfixCharCount                   = 2;
 	QString qsTalkingUI_AbbreviationReplacement       = QStringLiteral("...");
 	std::optional< QColor > talkingUI_BackgroundColor = std::nullopt;
+	int iTalkingUI_TransparencyLevel                  = 255;
 
 	QString qsHierarchyChannelSeparator = QStringLiteral("/");
 

@@ -453,6 +453,11 @@ void MainWindow::createActions() {
 	gsAdaptivePush->qsToolTip = tr("When using the push-to-talk transmission mode, this will act as the push-to-talk "
 								   "action. Otherwise, it will act as a push-to-mute action.",
 								   "Global Shortcut");
+
+	gsToggleTalkingUITransparency = new GlobalShortcut(this, GlobalShortcutType::ToggleTalkingUITransparency,
+													   tr("Toggle TalkingUI Transparency", "Global Shortcut"));
+	gsToggleTalkingUITransparency->setObjectName("gsToggleTalkingUITransparency");
+	gsToggleTalkingUITransparency->qsToolTip = tr("Toggle transparency of the TalkingUI", "Global Shortcut");
 }
 
 void MainWindow::setupGui() {
@@ -3810,6 +3815,15 @@ void MainWindow::on_qaTalkingUIToggle_triggered() {
 	Global::get().talkingUI->setVisible(!Global::get().talkingUI->isVisible());
 
 	Global::get().s.bShowTalkingUI = Global::get().talkingUI->isVisible();
+}
+
+void MainWindow::on_gsToggleTalkingUITransparency_triggered(bool down,QVariant) {
+    if (down){
+
+        if (Global::get().talkingUI) {
+            Global::get().talkingUI->toggleTransparency();
+        }
+    }
 }
 
 /**

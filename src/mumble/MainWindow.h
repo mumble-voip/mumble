@@ -113,6 +113,7 @@ public:
 	GlobalShortcut *gsMoveBack;
 	GlobalShortcut *gsCycleListenerAttenuationMode, *gsListenerAttenuationUp, *gsListenerAttenuationDown;
 	GlobalShortcut *gsAdaptivePush;
+	GlobalShortcut *gsToggleTalkingUITransparency;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -355,6 +356,7 @@ public slots:
 	void on_gsListenerAttenuationUp_triggered(bool, QVariant);
 	void on_gsListenerAttenuationDown_triggered(bool, QVariant);
 	void on_gsAdaptivePush_triggered(bool, QVariant);
+	void on_gsToggleTalkingUITransparency_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_qaTalkingUIToggle_triggered();

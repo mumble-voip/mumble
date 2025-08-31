@@ -210,7 +210,8 @@
 	PROCESS(talkingui, TALKINGUI_NAME_PREFIX_COUNT_KEY, iTalkingUI_PrefixCharCount)                   \
 	PROCESS(talkingui, TALKINGUI_NAME_POSTFIX_COUNT_KEY, iTalkingUI_PostfixCharCount)                 \
 	PROCESS(talkingui, TALKINGUI_ABBREVIATION_REPLACEMENT_KEY, qsTalkingUI_AbbreviationReplacement)   \
-	PROCESS(talkingui, TALKINGUI_BACKGROUND_COLOR_KEY, talkingUI_BackgroundColor)
+	PROCESS(talkingui, TALKINGUI_BACKGROUND_COLOR_KEY, talkingUI_BackgroundColor)                     \
+	PROCESS(talkingui, TALKINGUI_TRANSPARENCY_LEVEL_KEY, iTalkingUI_TransparencyLevel)
 
 
 #define CHANNEL_HIERARCHY_SETTINGS PROCESS(channel_hierarchy, CHANNEL_NAME_SEPARATOR_KEY, qsHierarchyChannelSeparator)
