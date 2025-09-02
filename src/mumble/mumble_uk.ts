@@ -6311,26 +6311,6 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Невідомий режим перетягування каналу в UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <source>Remote controlling Mumble:
-
-</source>
-        <translation>Пульт дистанційного керування Mumble:
-
-</translation>
-    </message>
-    <message>
-        <source>Invocation</source>
-        <translation>Виклик</translation>
-    </message>
-    <message>
-        <source>Error: No RPC command specified</source>
-        <translation>Помилка: не вказано команду RPC</translation>
-    </message>
-    <message>
-        <source>RPC</source>
-        <translation>RPC</translation>
-    </message>
-    <message>
         <source>Welcome to Mumble.</source>
         <translation>Ласкаво просимо до Mumble.</translation>
     </message>
@@ -6598,56 +6578,6 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Sets a local nickname for another user.</source>
         <translation>Встановлює локальний псевдонім для іншого користувача.</translation>
-    </message>
-    <message>
-        <source>Usage: mumble rpc &lt;action&gt; [options]
-
-It is possible to remote control a running instance of Mumble by using
-the &apos;mumble rpc&apos; command.
-
-Valid actions are:
-  mute
-                Mute self
-  unmute
-                Unmute self
-  togglemute
-                Toggle self-mute status
-  deaf
-                Deafen self
-  undeaf
-                Undeafen self
-  toggledeaf
-                Toggle self-deafen status
-  starttalking
-                Start talking
-  stoptalking
-                Stop talking
-
-</source>
-        <translation>Використання: mumble rpc &lt;дія&gt; [параметри] 
-
-Можна дистанційно керувати запущеним екземпляром Mumble за допомогою 
-команда &apos;mumble rpc&apos;. 
-
-Допустимі дії: 
-  німий 
-                Вимкнути звук себе 
-  невдоволення 
-                Увімкнути звук себе 
-  перемикання звуку 
-                Увімкнути статус самовимкнення звуку 
-  глухий 
-                Оглушити себе 
-  неглухий 
-                Неоглушити себе 
-  переключенийглухий 
-                Перемкнути статус самооглушення 
-  почати говорити 
-                Почніть говорити 
-  перестань говорити 
-                Припиніть говорити
-
-</translation>
     </message>
     <message>
         <source>Directory %1 does not exist.
@@ -7163,74 +7093,6 @@ Valid actions are:
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
         <translation>Це зменшує затухання прослуховувачів каналу на 10 відсоткових пунктів</translation>
-    </message>
-    <message>
-        <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
-
-&lt;url&gt; specifies a URL to connect to after startup instead of showing
-the connection window, and has the following form:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
-
-&lt;plugin_list&gt; is a list of plugin files that shall be installed
-The version query parameter has to be set in order to invoke the
-correct client version. It currently defaults to 1.2.0.
-
-Valid options are:
-  -h, --help    Show this help text and exit.
-  --version     Print version information and exit
-  -m, --multiple
-                Allow multiple instances of the client to be started.
-  -c, --config
-                Specify an alternative configuration file.
-                If you use this to run multiple instances of Mumble at once,
-                make sure to set an alternative &apos;database&apos; value in the config.
-  --default-certificate-dir &lt;dir&gt;
-                Specify an alternative default certificate path.
-                This path is only used if there is no certificate loaded
-                from the settings.
-  -n, --noidentity
-                Suppress loading of identity files (i.e., certificates.)
-  -jn, --jackname &lt;arg&gt;
-                Set custom Jack client name.
-  --license
-                Show the Mumble license.
-  --authors
-                Show the Mumble authors.
-  --third-party-licenses
-                Show licenses for third-party software used by Mumble.
-  --window-title-ext &lt;arg&gt;
-                Sets a custom window title extension.
-  --dump-input-streams
-                Dump PCM streams at various parts of the input chain
-                (useful for debugging purposes)
-                - raw microphone input
-                - speaker readback for echo cancelling
-                - processed microphone input
-  --print-echocancel-queue
-                Print on stdout the echo cancellation queue state
-                (useful for debugging purposes)
-  --translation-dir &lt;dir&gt;
-                Specifies an additional translation directory &lt;dir&gt;
-                in which Mumble will search for translation files that
-                overwrite the bundled ones
-                Directories added this way have higher priority than
-                the default locations used otherwise
-  --print-translation-dirs
-                Print out the paths in which Mumble will search for
-                translation files that overwrite the bundled ones.
-                (Useful for translators testing their translations)
-  --locale &lt;locale&gt;
-                Overwrite the locale in Mumble&apos;s settings with a
-                locale that corresponds to the given locale string.
-                If the format is invalid, Mumble will error.
-                Otherwise the locale will be permanently saved to
-                Mumble&apos;s settings.
-  --hidden
-                Start Mumble hidden in the system tray.
-  --skip-settings-backup-prompt
-                Don&apos;t show the settings recovery dialog on startup after a crash.
-</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Adaptive Push</source>
