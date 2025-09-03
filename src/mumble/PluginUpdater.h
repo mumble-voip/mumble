@@ -8,6 +8,7 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QString>
 #include <QtCore/QMutex>
 #include <QtCore/QUrl>
 #include <QtCore/QVector>
@@ -32,6 +33,10 @@ struct UpdateEntry {
 	QUrl updateURL;
 	QString fileName;
 	int redirects = 0;
+
+	UpdateEntry() = default;
+	explicit UpdateEntry(plugin_id_t id, const QUrl &url, const QString &name, int redirectCount = 0)
+		: pluginID(id), updateURL(url), fileName(name), redirects(redirectCount) {}
 };
 
 /// A class designed for managing plugin updates. At the same time this also represents
