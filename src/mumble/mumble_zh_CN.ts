@@ -3590,6 +3590,65 @@ Label of the server. This is what the server will be named like in your server l
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">您正以无效的用户名连接，请尝试其他用户名。</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">用户名</translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">密码</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5548,36 +5607,16 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>用户名无效</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>您正以无效的用户名连接，请尝试其他用户名。</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>用户名已被使用</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>此用户名已经被使用，请尝试其他用户名。</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>证书或者密码错误</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>已注册用户的证书或者密码错误。如果您
-的确是被密码保护的用户，请重试。否则
-请退出并检查您的证书与用户名。</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>密码错误</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>未注册用户输入的密码错误，请重试。</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>

@@ -3591,6 +3591,65 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">Us heu connectat amb un nom d&apos;usuari no vàlid, si us plau proveu amb un altre.</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anul·la</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5549,36 +5608,16 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
         <translation>Nom d&apos;usuari no vàlid</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>Us heu connectat amb un nom d&apos;usuari no vàlid, si us plau proveu amb un altre.</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Usuari en ús</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>Aquest nom d&apos;usuari ja està en ús, si us plau proveu un altre nom d&apos;usuari.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>El certificat o la contrasenya són incorrectes</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>El certificat o la contrasenya són incorrectes per a l&apos;usuari registrat. Si esteu
- segur que aquest usuari està protegit per una contrasenya si us plau torneu a provar.
-Altrament avorta i comproveu el vostre certificat i nom d&apos;usuari.</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>Contrasenya incorrecta</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Contrasenya de servidor incorrecte per a un compte d&apos;usuari no registrat, si us plau proveu de nou.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>

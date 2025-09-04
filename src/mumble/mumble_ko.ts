@@ -3590,6 +3590,65 @@ Label of the server. This is what the server will be named like in your server l
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">잘못된 유저 이름으로 연결했습니다. 다른 유저 이름을 사용해주세요.</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">유저 이름</translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">비밀번호</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">취소</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5548,36 +5607,16 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>잘못된 유저 이름</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>잘못된 유저 이름으로 연결했습니다. 다른 유저 이름을 사용해주세요.</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>사용 중인 유저 이름</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>이미 사용 중인 유저 이름입니다. 다른 유저 이름을 사용해주세요.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>잘못된 인증서 또는 비밀번호</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>등록된 유저의 인증서 또는 비밀번호가 잘못되었습니다.
-이 유저가 비밀번호로 보호되고 있는 것이 확실하면 다시 시도하세요.
-그렇지 않으면 중단하고 인증서와 유저 이름을 확인하세요.</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>잘못된 비밀번호</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>등록되지 않은 유저 계정의 서버 비밀번호가 잘못되었습니다. 다시 시도하세요.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>
