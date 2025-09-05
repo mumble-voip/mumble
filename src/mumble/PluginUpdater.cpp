@@ -46,8 +46,7 @@ void PluginUpdater::checkForUpdates() {
 				QUrl updateURL = plugin->getUpdateDownloadURL();
 
 				if (updateURL.isValid() && !updateURL.isEmpty() && !updateURL.fileName().isEmpty()) {
-					UpdateEntry entry = { plugin->getID(), updateURL, updateURL.fileName(), 0 };
-					m_pluginsToUpdate << entry;
+					m_pluginsToUpdate.append(UpdateEntry(plugin->getID(), updateURL, updateURL.fileName()));
 				}
 			}
 
@@ -332,7 +331,7 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 			{
 				QMutexLocker l(&m_dataMutex);
 
-				m_pluginsToUpdate << entry;
+				m_pluginsToUpdate.append(entry);
 			}
 
 			// Post a new request for the file to the new URL
