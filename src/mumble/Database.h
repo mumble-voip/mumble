@@ -37,6 +37,8 @@ public:
 
 	QList< FavoriteServer > getFavorites();
 	void setFavorites(const QList< FavoriteServer > &servers);
+	void addFavorite(const FavoriteServer &server);
+	bool isFavorite(const QString &hostname, unsigned short port);
 	void setPassword(const QString &host, unsigned short port, const QString &user, const QString &pw);
 	bool fuzzyMatch(QString &name, QString &user, QString &pw, QString &host, unsigned short port);
 
