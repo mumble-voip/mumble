@@ -674,7 +674,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>作者</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
@@ -709,7 +709,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>空</translation>
     </message>
 </context>
 <context>
@@ -864,7 +864,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;這用於調整要選用的噪音抑制級別。&lt;/b&gt; &lt;br/&gt; 數值越高，對恆定背景噪音的抑制就越強。</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
@@ -880,7 +880,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"></translation>
+        <translation>啟用此項將會消除揚聲器產生的回聲。Mixed （混合）模式對 CPU 影響低，但僅在所有揚聲器聲量相同且與麥克風距離相等時效果良好。多聲道回音消除可提供更佳的回聲抑制，但會增加較多 CPU 負載。</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -908,7 +908,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt; 這用於設定偵測到語言通知後應繼續傳輸的時長。&lt;/b&gt; &lt;br /&gt;如果你講話時聲音斷斷續續（會看到你名稱旁的語音圖標快速閃爍），請將此值調高。</translation>
     </message>
     <message>
         <source>Exclusive mode</source>

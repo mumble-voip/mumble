@@ -272,11 +272,11 @@ Add a new group.</source>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Введите имя пользователя, которого Вы хотите добавить в группу, и нажмите Добавить.</translation>
+        <translation>Введите имя пользователя, которого вы хотите добавить в группу, и нажмите Добавить.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Введите имя пользователя, которого Вы хотите исключить из группы, и нажмите Добавить.</translation>
+        <translation>Введите имя пользователя, которого вы хотите исключить из группы, и нажмите Добавить.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -324,7 +324,7 @@ Add a new group.</source>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Название&lt;/b&gt;&lt;br /&gt;Введите название канала в это поле. Оно должно соответствовать требованиям сервера, к которому Вы подключены.</translation>
+        <translation>&lt;b&gt;Название&lt;/b&gt;&lt;br /&gt;Введите название канала в это поле. Оно должно соответствовать требованиям сервера, к которому вы подключены.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
@@ -378,7 +378,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br /&gt;Данное поле позволяет Вам с легкостью установить или изменить пароль на канал. Оно использует токены доступа Mumble в фоне. Используйте СУД и группы, для более тонкого и мощного контроля доступа.</translation>
+        <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br /&gt;Данное поле позволяет вам с легкостью установить или изменить пароль на канал. Оно использует токены доступа Mumble в фоне. Используйте СУД и группы, для более тонкого и мощного контроля доступа.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
@@ -589,7 +589,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Здесь можно настроить входящие каналы для ASIO. Убедитесь, что выбран хотя бы один канал как микрофон и динамик. &lt;i&gt;Микрофон&lt;/i&gt; должен быть тот, к которому подключен Ваш микрофон, и &lt;i&gt;Динамиком&lt;/i&gt; должен быть канал, который воспроизводит звук &apos;&lt;i&gt;Который вы слышите&lt;/i&gt;&apos;.&lt;br /&gt;Например, на Audigy 2 ZS, правильным выбором Микрофона был бы &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos;, а Динамик был бы &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; и &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
+        <translation>Здесь можно настроить входящие каналы для ASIO. Убедитесь, что выбран хотя бы один канал как микрофон и динамик. &lt;i&gt;Микрофон&lt;/i&gt; должен быть тот, к которому подключен ваш микрофон, и &lt;i&gt;Динамиком&lt;/i&gt; должен быть канал, который воспроизводит звук &apos;&lt;i&gt;Который вы слышите&lt;/i&gt;&apos;.&lt;br /&gt;Например, на Audigy 2 ZS, правильным выбором Микрофона был бы &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos;, а Динамик был бы &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; и &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
@@ -749,11 +749,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation>Когда передавать Вашу речь</translation>
+        <translation>Когда передавать вашу речь</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Устанавливает условие передачи речи.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Постоянно&lt;/i&gt; - Все время&lt;br /&gt;&lt;i&gt;Активация по голосу&lt;/i&gt; - Когда Вы говорите.&lt;br /&gt;&lt;i&gt;Активация по кнопке&lt;/i&gt; - Когда Вы зажимаете горячую клавишу, установленную в &lt;i&gt;Ярлыках&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Устанавливает условие передачи речи.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Постоянно&lt;/i&gt; - Все время&lt;br /&gt;&lt;i&gt;Активация по голосу&lt;/i&gt; - Когда вы говорите.&lt;br /&gt;&lt;i&gt;Активация по кнопке&lt;/i&gt; - Когда вы зажимаете горячую клавишу, установленную в &lt;i&gt;Ярлыках&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -761,11 +761,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Если Вы нажмёте кнопку передачи речи два раза за установленное время, то включится функция залипания.</translation>
+        <translation>Если вы нажмёте кнопку передачи речи два раза за установленное время, то включится функция залипания.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Задержка между нажатиями&lt;/b&gt;&lt;br /&gt;Если Вы нажмёте кнопку передачи речи два раза за установленный интервал времени, включится залипание. Mumble будет продолжать передавать звук от микрофона, пока Вы не нажмёте эту кнопку ещё раз.</translation>
+        <translation>&lt;b&gt;Задержка между нажатиями&lt;/b&gt;&lt;br /&gt;Если вы нажмёте кнопку передачи речи два раза за установленный интервал времени, включится залипание. Mumble будет продолжать передавать звук от микрофона, пока вы не нажмёте эту кнопку ещё раз.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -877,7 +877,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Максимальное усиление исходящего сигнала.&lt;/b&gt;&lt;br /&gt;Mumble нормализует исходящую громкость до сжатия и эта опция устанавливает на сколько можно его усилить.&lt;br /&gt;Актуальный уровень постоянно обновляется на основе текущего образца речи, но никогда не будет выше установленного здесь уровня.&lt;br /&gt;Если уровень &lt;i&gt;Громкости микрофона&lt;/i&gt; аудиостатистики держится на уровне 100%, Вы можете установить его на 2.0 или выше, но если, как многие люди, Вы не можете достичь 100%, установите его на чуть более высоком уровне.&lt;br /&gt;В идеале, установите его так, чтобы &lt;i&gt;Громкость микрофона * Фактор усиления &gt;= 100&lt;/i&gt;, даже если Вы говорите слишком мягко.&lt;br /&gt;&lt;br /&gt;Заметьте, что ничего плохого не случится, если Вы установите его на максимум, но Mumble начнет передавать другие переговоры, если Вы оставите это значение по умолчанию.</translation>
+        <translation>&lt;b&gt;Максимальное усиление исходящего сигнала.&lt;/b&gt;&lt;br /&gt;Mumble нормализует исходящую громкость до сжатия и эта опция устанавливает на сколько можно его усилить.&lt;br /&gt;Актуальный уровень постоянно обновляется на основе текущего образца речи, но никогда не будет выше установленного здесь уровня.&lt;br /&gt;Если уровень &lt;i&gt;Громкости микрофона&lt;/i&gt; аудиостатистики держится на уровне 100%, вы можете установить его на 2.0 или выше, но если, как многие люди, вы не можете достичь 100%, установите его на чуть более высоком уровне.&lt;br /&gt;В идеале, установите его так, чтобы &lt;i&gt;Громкость микрофона * Фактор усиления &gt;= 100&lt;/i&gt;, даже если вы говорите слишком мягко.&lt;br /&gt;&lt;br /&gt;Заметьте, что ничего плохого не случится, если вы установите его на максимум, но Mumble начнет передавать другие переговоры, если вы оставите это значение по умолчанию.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
@@ -885,7 +885,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>После включения этой опции эхо от динамиков будет подавляться. Смешанный режим использует мало ЦП, но работает только если Ваши динамики включены на достаточную громкость и равноудалены от микрофона. Мультиканальный режим подавления эха работает эффективнее, но потребляет больше ЦП.</translation>
+        <translation>После включения этой опции эхо от динамиков будет подавляться. Смешанный режим использует мало ЦП, но работает только если ваши динамики включены на достаточную громкость и равноудалены от микрофона. Мультиканальный режим подавления эха работает эффективнее, но потребляет больше ЦП.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -913,7 +913,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Как долго после паузы в речи продолжать передачу.&lt;/b&gt;&lt;br /&gt;Увеличьте это значение, если у Вас много пауз в речи (можно увидеть по часто мигающей иконке голоса рядом с вашим именем).</translation>
+        <translation>&lt;b&gt;Как долго после паузы в речи продолжать передачу.&lt;/b&gt;&lt;br /&gt;Увеличьте это значение, если у вас много пауз в речи (можно увидеть по часто мигающей иконке голоса рядом с вашим именем).</translation>
     </message>
     <message>
         <source>Exclusive mode</source>
@@ -1359,19 +1359,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Здесь устанавливается минимальный безопасный размер аудио буфера.&lt;/b&gt;&lt;br /&gt;Весь входящий звук сначала буферизируется и аудио буфер продолжает выкладывать данные в буфер до минимального количества, которое может выдержать Ваша сеть, чтобы задержка была минимальной. Это устанавливает минимальный размер буфера для использования. Если речь, которую Вы слышите, будет трещать и прерываться, увеличьте это значение.</translation>
+        <translation>&lt;b&gt;Здесь устанавливается минимальный безопасный размер аудио буфера.&lt;/b&gt;&lt;br /&gt;Весь входящий звук сначала буферизируется и аудио буфер продолжает выкладывать данные в буфер до минимального количества, которое может выдержать ваша сеть, чтобы задержка была минимальной. Это устанавливает минимальный размер буфера для использования. Если речь, которую вы слышите, будет трещать и прерываться, увеличьте это значение.</translation>
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Это минимальная дистанция для рассчета громкости звука. Громкость речи других пользователей не уменьшится, до тех пор, пока они ближе, чем это значение от Вас.</translation>
+        <translation>Это минимальная дистанция для расчета громкости звука. Громкость речи других пользователей не уменьшится до тех пор, пока они находятся ближе, чем это значение от вас.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Это максимальная дистанция для рассчета громкости звука. Когда другие пользователи находятся дальше этого расстояния от Вас, громкость больше не будет уменьшаться.</translation>
+        <translation>Это максимальная дистанция для расчета громкости звука. Когда другие пользователи находятся дальше этого расстояния от вас, громкость больше не будет уменьшаться.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Здесь включается один из тестов обратной связи.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Нет&lt;/i&gt; - Обратная связь отлючена&lt;br /&gt;&lt;i&gt;Локально&lt;/i&gt; - Эмуляция локального сервера.&lt;br /&gt;&lt;i&gt;Серверно&lt;/i&gt; - Запрос обратной связи с сервера.&lt;br /&gt;Когда включен тест Обратной связи, другие пользователи не смогут слышать Вас. Эта опция не сохраняется при выходе из приложения.</translation>
+        <translation>&lt;b&gt;Здесь включается один из тестов обратной связи.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Нет&lt;/i&gt; - Обратная связь отлючена&lt;br /&gt;&lt;i&gt;Локально&lt;/i&gt; - Эмуляция локального сервера.&lt;br /&gt;&lt;i&gt;Серверно&lt;/i&gt; - Запрос обратной связи с сервера.&lt;br /&gt;Когда включен тест Обратной связи, другие пользователи не смогут слышать вас. Эта опция не сохраняется при выходе из приложения.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1412,7 +1412,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation>Отметьте здесь, если у Вас не подключены колонки, только наушники. Это важно, т.к. колонки обычно используются спереди от Вас, в то время как наушники только слева и справа от Вас.</translation>
+        <translation>Отметьте здесь, если у вас не подключены колонки, только наушники. Это важно, т.к. колонки обычно используются спереди от вас, в то время как наушники только слева и справа от вас.</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
@@ -1465,7 +1465,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;Здесь устанавливается потеря пакетов для теста обратной связи.&lt;/b&gt;&lt;br /&gt;Это соотношение потерянных пактов. Если у Вас все в порядке с соединением, то это будет 0%</translation>
+        <translation>&lt;b&gt;Здесь устанавливается потеря пакетов для теста обратной связи.&lt;/b&gt;&lt;br /&gt;Это соотношение потерянных пактов. Если у вас все в порядке с соединением, то это будет 0%</translation>
     </message>
     <message>
         <source>&amp;Loopback</source>
@@ -1493,7 +1493,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Приглушать другие приложения, когда другие пользователи говорят&lt;/b&gt;&lt;br /&gt;Mumble поддерживает уменьшение громкости других приложений во время входящей и/или исходящей речи. Этот флажок активирует данную функцию, когда другие пользователи говорят с Вами.</translation>
+        <translation>&lt;b&gt;Приглушать другие приложения, когда другие пользователи говорят&lt;/b&gt;&lt;br /&gt;Mumble поддерживает уменьшение громкости других приложений во время входящей и/или исходящей речи. Этот флажок активирует данную функцию, когда другие пользователи говорят с вами.</translation>
     </message>
     <message>
         <source>while other users talk</source>
@@ -1501,15 +1501,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>Если отмечено, то Mumble уменьшит громкость других приложений, когда Вы говорите</translation>
+        <translation>Если отмечено, то Mumble уменьшит громкость других приложений, когда вы говорите</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;b&gt;Приглушать приложения, когда Вы говорите&lt;/b&gt;&lt;br /&gt;Mumble поддерживает уменьшение громкости других приложений во время входящей и/или исходящей речи. Этот флажок активирует функцию приглушения, когда говорите Вы.</translation>
+        <translation>&lt;b&gt;Приглушать приложения, когда вы говорите&lt;/b&gt;&lt;br /&gt;Mumble поддерживает уменьшение громкости других приложений во время входящей и/или исходящей речи. Этот флажок активирует функцию приглушения, когда говорите вы.</translation>
     </message>
     <message>
         <source>while you talk</source>
-        <translation>когда Вы говорите</translation>
+        <translation>когда вы говорите</translation>
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
@@ -1747,7 +1747,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Показывает пиковую мощность последнего фрагмента (20 мс), и является тем же параметром, который Вы обычно видите как &quot;входящая мощность&quot;. Проигнорируйте этот параметр в пользу &lt;b&gt;Мощности микрофона&lt;/b&gt;, который является более корректным.</translation>
+        <translation>Показывает пиковую мощность последнего фрагмента (20 мс), и является тем же параметром, который вы обычно видите как &quot;входящая мощность&quot;. Проигнорируйте этот параметр в пользу &lt;b&gt;Мощности микрофона&lt;/b&gt;, который является более корректным.</translation>
     </message>
     <message>
         <source>Peak speaker level</source>
@@ -1756,7 +1756,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Показывает пиковую мощность в последнем фрагменте (20 мс) динамиков. Если Вы не используете мультиканальный метод сэмплинга (например, ASIO) с настроенными каналами динамика, она будет равна 0. Иначе, если здесь отображается 0 даже при воспроизведении звука из других программ, с вашей конфигурацией что-то не так.</translation>
+        <translation>Показывает пиковую мощность в последнем фрагменте (20 мс) динамиков. Если вы не используете мультиканальный метод сэмплинга (например, ASIO) с настроенными каналами динамика, она будет равна 0. Иначе, если здесь отображается 0 даже при воспроизведении звука из других программ, с вашей конфигурацией что-то не так.</translation>
     </message>
     <message>
         <source>Peak clean level</source>
@@ -1764,7 +1764,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Показывает пиковую мощность в последнем фрейме (20 мс) после всей обработки. В идеале здесь должно быть -96 дБ, когда Вы не говорите. В реальной жизни, в студии будет около -60 дБ, но Вы увидите в лучшем случае -20 дБ. Когда Вы говорите этот показатель будет увеличиваться в районе от -5 до -10 дБ.&lt;br /&gt;Если Вы используете подавление эхо, и это значение повышается более -15 дБ, когда Вы не говорите - Ваши настройки не работают и Вы будете раздражать других пользователей эхом.</translation>
+        <translation>Показывает пиковую мощность в последнем фрейме (20 мс) после всей обработки. В идеале здесь должно быть -96 дБ, когда вы не говорите. В реальной жизни, в студии будет около -60 дБ, но вы увидите в лучшем случае -20 дБ. Когда вы говорите этот показатель будет увеличиваться в районе от -5 до -10 дБ.&lt;br /&gt;Если вы используете подавление эхо, и это значение повышается более -15 дБ, когда вы не говорите - ваши настройки не работают и вы будете раздражать других пользователей эхом.</translation>
     </message>
     <message>
         <source>Signal Analysis</source>
@@ -1780,7 +1780,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Показывает насколько близок Ваш текущий уровень входящей громкости к идеалу. Чтобы настроить громкость микрофона, откройте любую программу настройки громкости, и настройте громкость записи, затем посмотрите это значение во время разговора. &lt;br /&gt;&lt;b&gt;Говорите громко, как будто расстроены или раздражены действиями нуба.&lt;/b&gt;&lt;br /&gt;Настраивайте громкость, до тех пор, пока число не будет близко к 100%, но убедитесь, что оно не поднимется выше. Если оно будет выше, скорее всего будут прерывания Вашей речи, что ухудшит качество звука.</translation>
+        <translation>Показывает насколько близок ваш текущий уровень входящей громкости к идеалу. Чтобы настроить громкость микрофона, откройте любую программу настройки громкости, и настройте громкость записи, затем посмотрите это значение во время разговора. &lt;br /&gt;&lt;b&gt;Говорите громко, как будто расстроены или раздражены действиями нуба.&lt;/b&gt;&lt;br /&gt;Настраивайте громкость, до тех пор, пока число не будет близко к 100%, но убедитесь, что оно не поднимется выше. Если оно будет выше, скорее всего будут прерывания вашей речи, что ухудшит качество звука.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
@@ -1792,7 +1792,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Отношение Сигнал/шум (SNR) микрофона в последнем фрагменте (20 мс). Показывает, насколько чист голос по сравнению с шумом.&lt;br /&gt;Если значение ниже 1.0, в сигнале больше шума, нежели голоса, и поэтому ухудшается качество.&lt;br /&gt;Верхнего предела не существует, но не ожидайте увидеть выше 40-50, если Вы не в студии звукозаписи.</translation>
+        <translation>Отношение Сигнал/шум (SNR) микрофона в последнем фрагменте (20 мс). Показывает, насколько чист голос по сравнению с шумом.&lt;br /&gt;Если значение ниже 1.0, в сигнале больше шума, нежели голоса, и поэтому ухудшается качество.&lt;br /&gt;Верхнего предела не существует, но не ожидайте увидеть выше 40-50, если вы не в студии звукозаписи.</translation>
     </message>
     <message>
         <source>Speech Probability</source>
@@ -1804,7 +1804,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Вероятность того, что последний фрагмент (20 мс) был речью, а не шумом.&lt;br /&gt;Голосовая активация зависит от точности определения этого значения. Фишка в том, что середина предложения всегда распознается как речь; проблемы могут возникать в паузах между словами или в начале разговора. Трудно отделить кашель от слова, начинающегося на &apos;х&apos;.&lt;br /&gt;Если это выделено жирным шрифтом, значит Mumble сейчас передает голос (если Вы подключены).</translation>
+        <translation>Вероятность того, что последний фрагмент (20 мс) был речью, а не шумом.&lt;br /&gt;Голосовая активация зависит от точности определения этого значения. Фишка в том, что середина предложения всегда распознается как речь; проблемы могут возникать в паузах между словами или в начале разговора. Трудно отделить кашель от слова, начинающегося на &apos;х&apos;.&lt;br /&gt;Если это выделено жирным шрифтом, значит Mumble сейчас передает голос (если вы подключены).</translation>
     </message>
     <message>
         <source>Configuration feedback</source>
@@ -1848,7 +1848,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Показывает мощностной спектр текущего входящего сигнала (красная линия) и текущую оценку шума (заполнена синим).&lt;br /&gt;Все амплитуды умножены на 30, чтобы показать интересные части (насколько больше сигнала представлено в каждом отрезке в сравнении с шумом).&lt;br /&gt;Вероятно, вам будет это интересно только если Вы хотите точно настроить условия шума вашего микрофона. При хороших условиях вы увидите только малую долю синего в самом низу графика. Если синего на графике более половины, у Вас серьезные проблемы с шумом окружающей среды.</translation>
+        <translation>Показывает мощностной спектр текущего входящего сигнала (красная линия) и текущую оценку шума (заполнена синим).&lt;br /&gt;Все амплитуды умножены на 30, чтобы показать интересные части (насколько больше сигнала представлено в каждом отрезке в сравнении с шумом).&lt;br /&gt;Вероятно, вам будет это интересно только если вы хотите точно настроить условия шума вашего микрофона. При хороших условиях вы увидите только малую долю синего в самом низу графика. Если синего на графике более половины, у вас серьезные проблемы с шумом окружающей среды.</translation>
     </message>
     <message>
         <source>Echo Analysis</source>
@@ -1860,7 +1860,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Отображает значение подавления эха, со временем растущего вниз и увеличивающим частоту вправо.&lt;br /&gt;В идеале, все должно быть черным, отображая, что эха нет. Вероятнее, у Вас будет 1 или несколько горизонтальных полосок синеватого цвета, отображающих время задержки эха. Вы должны видеть значения в реальном времени.&lt;br /&gt;Заметьте, что если у Вас нет эхо, которое нужно подавить, Вы не увидите здесь полезной информации. Запустите музыку, и все должно нормализоваться. &lt;br /&gt;Вы можете выбрать просмотр реальных или воображаемых частей доменно-частотных значений, или наоборот высчитанные модуль и фазу. Наиболее применимым из них будут, скорее всего модуль, который является амплитудой эха, и показывает, сколько сигнала было вырезано за промежуток времени. Другие режимы просмотра более полезны для людей, желающих настроить алгоритмы глушения эха.&lt;br /&gt;Внимание: если картина в целом обширно варьируется в режиме модулей, подавление эха не может найти соответствия между двумя входными источниками (динамиками и микрофоном). Или у Вас очень долгая задержка эха, или один из входящих источников настроен неправильно.</translation>
+        <translation>Отображает значение подавления эха, со временем растущего вниз и увеличивающим частоту вправо.&lt;br /&gt;В идеале, все должно быть черным, отображая, что эха нет. Вероятнее, у вас будет 1 или несколько горизонтальных полосок синеватого цвета, отображающих время задержки эха. Вы должны видеть значения в реальном времени.&lt;br /&gt;Заметьте, что если у вас нет эхо, которое нужно подавить, вы не увидите здесь полезной информации. Запустите музыку, и все должно нормализоваться. &lt;br /&gt;Вы можете выбрать просмотр реальных или воображаемых частей доменно-частотных значений, или наоборот высчитанные модуль и фазу. Наиболее применимым из них будут, скорее всего модуль, который является амплитудой эха, и показывает, сколько сигнала было вырезано за промежуток времени. Другие режимы просмотра более полезны для людей, желающих настроить алгоритмы глушения эха.&lt;br /&gt;Внимание: если картина в целом обширно варьируется в режиме модулей, подавление эха не может найти соответствия между двумя входными источниками (динамиками и микрофоном). Или у вас очень долгая задержка эха, или один из входящих источников настроен неправильно.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
@@ -1899,7 +1899,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Устройство, в которое подключен Ваш микрофон.</translation>
+        <translation>Устройство, в которое подключен ваш микрофон.</translation>
     </message>
     <message>
         <source>System</source>
@@ -1935,7 +1935,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Устройство, в которое подключены Ваши колонки или наушники.</translation>
+        <translation>Устройство, в которое подключены ваши колонки или наушники.</translation>
     </message>
     <message>
         <source>Output method for audio</source>
@@ -1979,7 +1979,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Чтобы свести время задержки к абсолютному минимуму, необходимо передвинуть ползунок влево на самый минимум, насколько позволяет Ваша звуковая карта. Тем не менее, многие звуковые карты требуют гораздо меньшего буфера, с которым они могут фактически работать, поэтому единственный способ установить это значение - пробовать и ошибаться.
+Чтобы свести время задержки к абсолютному минимуму, необходимо передвинуть ползунок влево на самый минимум, насколько позволяет ваша звуковая карта. Тем не менее, многие звуковые карты требуют гораздо меньшего буфера, с которым они могут фактически работать, поэтому единственный способ установить это значение - пробовать и ошибаться.
 &lt;/p&gt;
 &lt;p&gt;
 Вы должны слышать голосовой образец. Установите ползунок на самое короткое время ожидания, которое &lt;b&gt;НЕ&lt;/b&gt; дает прерываний или колебания в звуке. Обратите внимание, что локальное эхо выключено во время этого теста.
@@ -2006,7 +2006,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Откройте системную панель управления звуком и перейдите к параметрам записи. Убедитесь, что микрофон выбран в качестве активного входа с максимальной громкостью записи. Если есть возможность включить &quot;усиление микрофона&quot; (Microphone Boost) - включите его.
 &lt;/p&gt;
 &lt;p&gt;
-Говорите громко, как будто Вы раздражены или взволнованы. Уменьшите громкость звука в системной панели управления так, чтобы показания индикатора звука были максимум в синей и зеленой зоне, но &lt;b&gt;НЕ&lt;/b&gt; в красной, пока Вы говорите.
+Говорите громко, как будто вы раздражены или взволнованы. Уменьшите громкость звука в системной панели управления так, чтобы показания индикатора звука были максимум в синей и зеленой зоне, но &lt;b&gt;НЕ&lt;/b&gt; в красной, пока вы говорите.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2034,7 +2034,7 @@ Mumble is under continuous development, and the development team wants to focus 
 Поздравляем. Теперь Вы готовы насладиться более богатым звуком с Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-Mumble находится в процессе постоянного развития, и команда разработчиков хочет сосредоточиться на особенностях, которые приносят пользу большинству пользователей. С этой целью Mumble поддерживает сбор анонимной статистики для разработчиков о Вашей конфигурации. Эти статистические данные существенны для будущего развития. И Вы можете быть уверены, что конфигурацию, которую Вы используете, не посчитают устаревшей.
+Mumble находится в процессе постоянного развития, и команда разработчиков хочет сосредоточиться на особенностях, которые приносят пользу большинству пользователей. С этой целью Mumble поддерживает сбор анонимной статистики для разработчиков о вашей конфигурации. Эти статистические данные существенны для будущего развития. И вы можете быть уверены, что конфигурацию, которую вы используете, не посчитают устаревшей.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2056,7 +2056,7 @@ Mumble находится в процессе постоянного разви�
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Теперь говорите тихо, как будто Вы говорите поздно ночью и не хотите никого беспокоить. Отрегулируйте ползунок внизу так, чтобы показания индикатора звука переходили в зеленую зону, когда вы говорите, и остаются синим, когда вы молчите.</translation>
+        <translation>Теперь говорите тихо, как будто вы говорите поздно ночью и не хотите никого беспокоить. Отрегулируйте ползунок внизу так, чтобы показания индикатора звука переходили в зеленую зону, когда вы говорите, и остаются синим, когда вы молчите.</translation>
     </message>
     <message>
         <source>Voice Activity Detection</source>
@@ -2064,11 +2064,11 @@ Mumble находится в процессе постоянного разви�
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Укажите Mumble, когда Вы говорите, и когда молчите.</translation>
+        <translation>Укажите Mumble, когда вы говорите, и когда молчите.</translation>
     </message>
     <message>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Этот шаг поможет Mumble определить, когда Вы говорите. Сначала выберите - какие данные для этого использовать.</translation>
+        <translation>Этот шаг поможет Mumble определить, когда вы говорите. Сначала выберите - какие данные для этого использовать.</translation>
     </message>
     <message>
         <source>Raw amplitude from input</source>
@@ -2081,7 +2081,7 @@ Mumble находится в процессе постоянного разви�
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>Затем Вы должны откорректировать бегунок ниже. После первых произнесённых слов индикатор должен доходить до зеленой зоны (определённо речь). Когда Вы продолжаете говорить, индикатор должен остаться в желтой зоне (возможно речь) и когда Вы молчите, индикатор должен оставаться в красной зоне (точно не речь).</translation>
+        <translation>Затем вы должны откорректировать бегунок ниже. После первых произнесённых слов индикатор должен доходить до зеленой зоны (определённо речь). Когда вы продолжаете говорить, индикатор должен остаться в желтой зоне (возможно речь) и когда вы молчите, индикатор должен оставаться в красной зоне (точно не речь).</translation>
     </message>
     <message>
         <source>Device tuning</source>
@@ -2125,7 +2125,7 @@ Mumble находится в процессе постоянного разви�
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation>Использовать Текст-в-речь для озвучивания Ваших уведомлений и полученных сообщений.</translation>
+        <translation>Использовать Текст-в-речь для озвучивания ваших уведомлений и полученных сообщений.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech and use sounds instead.</source>
@@ -2137,7 +2137,7 @@ Mumble находится в процессе постоянного разви�
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation>Включить приглушение других приложений, когда пользователи говорят с Вами</translation>
+        <translation>Включить приглушение других приложений, когда пользователи говорят с вами</translation>
     </message>
     <message>
         <source>Attenuate applications while other users talk</source>
@@ -2157,7 +2157,7 @@ Mumble находится в процессе постоянного разви�
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Включает приглушение других приложений пока говорят пользователи. Это означает, что как только кто-нибудь начинает говорить в Mumble, звук всех других приложений (например, аудиоплеера) приглушается, чтобы Вы смогли лучше слышать говорящих.</translation>
+        <translation>Включает приглушение других приложений пока говорят пользователи. Это означает, что как только кто-нибудь начинает говорить в Mumble, звук всех других приложений (например, аудиоплеера) приглушается, чтобы вы смогли лучше слышать говорящих.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
@@ -2191,23 +2191,23 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Откройте системную панель управления звуком и перейдите к параметрам записи. Убедитесь, что микрофон выбран в качестве активного входа с максимальной громкостью записи. Если есть возможность использовать &quot;усиление микрофона&quot; (Microphone Boost), то включите его.
 &lt;/p&gt;
 &lt;p&gt;
-Говорите громко, как будто Вы раздражены или взволнованы. Уменьшите громкость звука в системной панели управления так, чтобы показания индикатора звука были максимум в полосатой и пустой зоне, но &lt;b&gt;НЕ&lt;/b&gt; сетчатой, пока Вы говорите.
+Говорите громко, как будто вы раздражены или взволнованы. Уменьшите громкость звука в системной панели управления так, чтобы показания индикатора звука были максимум в полосатой и пустой зоне, но &lt;b&gt;НЕ&lt;/b&gt; сетчатой, пока вы говорите.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation>Теперь говорите тихо, как будто Вы говорите поздно ночью и не хотите никого беспокоить. Отрегулируйте ползунок внизу так, чтобы показания индикатора звука переходили в пустую зону, когда Вы говорите и оставались в полосатой, когда Вы молчите.</translation>
+        <translation>Теперь говорите тихо, как будто вы говорите поздно ночью и не хотите никого беспокоить. Отрегулируйте ползунок внизу так, чтобы показания индикатора звука переходили в пустую зону, когда вы говорите и оставались в полосатой, когда вы молчите.</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Затем Вы должны откорректировать бегунок ниже. После первых произнесённых слов индикатор должен доходить до пустой зоны (определённо речь). Когда Вы продолжаете говорить, индикатор должен остаться в полосатой зоне (возможно речь) и когда Вы молчите, индикатор должен оставаться в сетчатой зоне (точно не речь).</translation>
+        <translation>Затем вы должны откорректировать бегунок ниже. После первых произнесённых слов индикатор должен доходить до пустой зоны (определённо речь). Когда вы продолжаете говорить, индикатор должен остаться в полосатой зоне (возможно речь) и когда вы молчите, индикатор должен оставаться в сетчатой зоне (точно не речь).</translation>
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>В этой конфигурации Mumble будет использовать &lt;b&gt;низкую пропускную способность канала&lt;/b&gt;. Это неизбежно приведет к высоким задержкам и низкому качеству звука. Выбирайте ее только если Ваше соединение не позволяет пользоваться другими настройками. (16 кбис/с, 60 мс на пакет)</translation>
+        <translation>В этой конфигурации Mumble будет использовать &lt;b&gt;низкую пропускную способность канала&lt;/b&gt;. Это неизбежно приведет к высоким задержкам и низкому качеству звука. Выбирайте ее только если ваше соединение не позволяет пользоваться другими настройками. (16 кбис/с, 60 мс на пакет)</translation>
     </message>
     <message>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
@@ -2227,11 +2227,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only applied once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Вас приветствует мастер настройки звука Mumble. Он поможет правильно настроить звуковую карту, а также установить наилучшие параметры для обработки звука.&lt;/p&gt;&lt;p&gt;Внимание: пока Мастер активен, звук будет передаваться локально, что позволит Вам слышать его. При этом звук НЕ БУДЕТ передаваться на сервер. &lt;/p&gt;&lt;p&gt;Вы можете прекратить настройку в любое время, не оказывая влияния на ваши текущие параметры аудиосистемы. Настройки применяются только после завершения работы этого мастера.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Вас приветствует мастер настройки звука Mumble. Он поможет правильно настроить звуковую карту, а также установить наилучшие параметры для обработки звука.&lt;/p&gt;&lt;p&gt;Внимание: пока Мастер активен, звук будет передаваться локально, что позволит вам слышать его. При этом звук НЕ БУДЕТ передаваться на сервер. &lt;/p&gt;&lt;p&gt;Вы можете прекратить настройку в любое время, не оказывая влияния на ваши текущие параметры аудиосистемы. Настройки применяются только после завершения работы этого мастера.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble поддерживает позиционнирование звука для некоторых игр и будет позиционировать голос других пользователей относительно их положения в игре. В зависимости от их позиции, громкость голоса будет изменена в динамиках, чтобы имитировать направление и расстояние других пользователей. Такое позиционирование зависит от правильной конфигурации колонок в Вашей системе. Пройдите небольшой тест для проверки настроек. &lt;/p&gt;&lt;p&gt;График ниже показывает положение &lt;span style=&quot; color:#56b4e9;&quot;&gt;Ваc&lt;/span&gt;, &lt;span style=&quot; color:#d55e00;&quot;&gt;колонок&lt;/span&gt; и &lt;span style=&quot; color:#009e73;&quot;&gt;движущегося источника звука&lt;/span&gt; при виде сверху. Вы должны услышать звуковое перемещение между каналами. &lt;/p&gt;&lt;p&gt;Вы также можете использовать мышь для позиционирования &lt;span style=&quot; color:#009e73;&quot;&gt;источника звука&lt;/span&gt; вручную.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble поддерживает позиционирование звука для некоторых игр и будет позиционировать голос других пользователей относительно их положения в игре. В зависимости от их позиции, громкость голоса будет изменена в динамиках, чтобы имитировать направление и расстояние других пользователей. Такое позиционирование зависит от правильной конфигурации колонок в вашей системе. Пройдите небольшой тест для проверки настроек. &lt;/p&gt;&lt;p&gt;График ниже показывает положение &lt;span style=&quot; color:#56b4e9;&quot;&gt;Ваc&lt;/span&gt;, &lt;span style=&quot; color:#d55e00;&quot;&gt;колонок&lt;/span&gt; и &lt;span style=&quot; color:#009e73;&quot;&gt;движущегося источника звука&lt;/span&gt; при виде сверху. Вы должны услышать звуковое перемещение между каналами. &lt;/p&gt;&lt;p&gt;Вы также можете использовать мышь для позиционирования &lt;span style=&quot; color:#009e73;&quot;&gt;источника звука&lt;/span&gt; вручную.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -2524,7 +2524,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Ваш сертификат не может быть экспортирован в формат PKCS#12. Возможно имеется ошибка в Вашем сертификате.</translation>
+        <translation>Ваш сертификат не может быть экспортирован в формат PKCS#12. Возможно имеется ошибка в вашем сертификате.</translation>
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
@@ -2564,7 +2564,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Сертификат просрочен:&lt;/b&gt; Срок действия Вашего сертификата скоро истечет. Вам необходимо обновить его, иначе Вы не сможете подключиться к серверам, на которых зарегистрированы.</translation>
+        <translation>&lt;b&gt;Сертификат просрочен:&lt;/b&gt; Срок действия вашего сертификата скоро истечет. Вам необходимо обновить его, иначе вы не сможете подключиться к серверам, на которых зарегистрированы.</translation>
     </message>
 </context>
 <context>
@@ -2636,7 +2636,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;Mumble может использовать ранее сохраненные сертификаты в формате PKCS #12. Этот формат используется для передачи ключа от Mumble и веб-браузеров (Firefox/Opera/IE/и другие).&lt;/p&gt;&lt;p&gt;Если файл защищен паролем, то Вам нужен пароль для импорта сертификата.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble может использовать ранее сохраненные сертификаты в формате PKCS #12. Этот формат используется для передачи ключа от Mumble и веб-браузеров (Firefox/Opera/IE/и другие).&lt;/p&gt;&lt;p&gt;Если файл защищен паролем, то вам нужен пароль для импорта сертификата.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
@@ -2648,7 +2648,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation>Это имя файла, из которого Вы хотите импортировать сертификат.</translation>
+        <translation>Это имя файла, из которого вы хотите импортировать сертификат.</translation>
     </message>
     <message>
         <source>Select file to import from</source>
@@ -2668,7 +2668,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation>Это пароль для файла PKCS#12, содержащего Ваш сертификат.</translation>
+        <translation>Это пароль для файла PKCS#12, содержащего ваш сертификат.</translation>
     </message>
     <message>
         <source>Certificate to import</source>
@@ -2676,7 +2676,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>This is the certificate you are importing.</source>
-        <translation>Это сертификат, который Вы импортируете.</translation>
+        <translation>Это сертификат, который вы импортируете.</translation>
     </message>
     <message>
         <source>Certificate Details</source>
@@ -2700,10 +2700,10 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;У Вас уже есть сертификат, используемый в Mumble, который Вы хотите заменить.&lt;/p&gt;
-&lt;p&gt;Если Вы обновляете сертификат, выданный Вам доверенным Бюро Сертификации, и адреса эл.почты сертификатов совпадают, то замена безопасна. Сервера, к которым Вы подключитесь в дальнейшем, автоматически распознают более значимый сертификат для вашего e-mail адреса.
+        <translation>&lt;p&gt;У вас уже есть сертификат, используемый в Mumble, который вы хотите заменить.&lt;/p&gt;
+&lt;p&gt;Если вы обновляете сертификат, выданный вам доверенным Бюро Сертификации, и адреса электронной почты сертификатов совпадают, то замена безопасна. Сервера, к которым вы подключитесь в дальнейшем, автоматически распознают более значимый сертификат для вашего e-mail адреса.
 &lt;/p&gt;
-&lt;p&gt;В противном случае, сервера, на которых Вы были зарегистрированы, больше не примут Вас. Если же Вы еще не регистрировались ни на одном сервере Mumble, Вам не о чем беспокоиться.
+&lt;p&gt;В противном случае, сервера, на которых вы были зарегистрированы, больше не примут вас. Если же вы еще не регистрировались ни на одном сервере Mumble, вам не о чем беспокоиться.
 &lt;/p&gt;
 &lt;p&gt;
 Вы уверены, что хотите заменить существующий сертификат?
@@ -2728,7 +2728,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Make a backup of your certificate</source>
-        <translation>Сделайте резервную копию Вашего сертификата</translation>
+        <translation>Сделайте резервную копию вашего сертификата</translation>
     </message>
     <message>
         <source>Export to</source>
@@ -2740,7 +2740,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation>Имя файла, в который Вы хотите экспортировать сертификат.</translation>
+        <translation>Имя файла, в который вы хотите экспортировать сертификат.</translation>
     </message>
     <message>
         <source>Save As...</source>
@@ -2756,7 +2756,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Теперь Mumble сгенерирует надежный сертификат для аутентификации на серверах.&lt;/p&gt;&lt;p&gt;При желании Вы можете указать дополнительную информацию, которая будет храниться в сертификате. Эта информация будет предоставлена серверам, к которым Вы подключаетесь. Если вы укажете действующий адрес электронной почты, вы сможете позже перейти на сертификат электронной почты, выданный CA, который обеспечивает надежную идентификацию.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Теперь Mumble сгенерирует надежный сертификат для аутентификации на серверах.&lt;/p&gt;&lt;p&gt;При желании вы можете указать дополнительную информацию, которая будет храниться в сертификате. Эта информация будет предоставлена серверам, к которым вы подключаетесь. Если вы укажете действующий адрес электронной почты, вы сможете позже перейти на сертификат электронной почты, выданный CA, который обеспечивает надежную идентификацию.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Name</source>
@@ -2772,7 +2772,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Это Ваш e-mail адрес. Мы настоятельно рекомендуем Вам указывать СВОЙ адрес электронной почты, т.к. это позволит обновлять Ваш сертификат без каких либо проблем.</translation>
+        <translation>Это ваш e-mail адрес. Мы настоятельно рекомендуем вам указывать свой адрес электронной почты, т.к. это позволит обновлять ваш сертификат без каких либо проблем.</translation>
     </message>
     <message>
         <source>Your name (e.g. John Doe)</source>
@@ -2780,7 +2780,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation>Это Ваше имя. Оно будет включено в сертификат и является не обязательным к заполнению.</translation>
+        <translation>Это ваше имя. Оно будет включено в сертификат и является не обязательным к заполнению.</translation>
     </message>
     <message>
         <source>Finish</source>
@@ -2801,8 +2801,8 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Если Вы потеряете свой сертификат, что случается при неполадках Вашего компьютера или при переустановке системы, то Вы больше не сможете аутентифицироваться на серверах где зарегистрированы. Что бы этого не случилось, &lt;b&gt;обязательно&lt;/b&gt; создайте резервную копию сертификата. Мы настоятельно рекомендуем хранить резервную копию на сменных носителях, таких как USB-флешка.&lt;/p&gt;
-&lt;p&gt;Имейте ввиду, файл сертификата не зашифрован и если кто-то кроме Вас получит к нему доступ - он сможет представляться на серверах под Вашим именем! Храните сертификат в надежном месте!&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Если вы потеряете свой сертификат, что случается при неполадках вашего компьютера или при переустановке системы, то вы больше не сможете аутентифицироваться на серверах где зарегистрированы. Что бы этого не случилось, &lt;b&gt;обязательно&lt;/b&gt; создайте резервную копию сертификата. Мы настоятельно рекомендуем хранить резервную копию на сменных носителях, таких как USB-флешка.&lt;/p&gt;
+&lt;p&gt;Имейте ввиду, файл сертификата не зашифрован и если кто-то кроме вас получит к нему доступ - он сможет представляться на серверах под вашим именем! Храните сертификат в надежном месте!&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Displays current certificate</source>
@@ -2897,7 +2897,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation>Предоставляет разрешение входить на канал. Если у канала иерархическая структура, Вы можете дать каждому право доступа к каналу, но ограничивать Вход в корне вашей иерархии.</translation>
+        <translation>Предоставляет разрешение входить на канал. Если у канала иерархическая структура, вы можете дать каждому право доступа к каналу, но ограничивать Вход в корне вашей иерархии.</translation>
     </message>
     <message>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
@@ -3115,7 +3115,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you can press the &quot;Defaults (All)&quot; button.</source>
-        <translation>Вернуть стандартные настройки для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки на стандартные, Вы можете нажать кнопку &quot;Восстановить все настройки&quot;.</translation>
+        <translation>Вернуть стандартные настройки для данной страницы. Другие страницы не будут изменены.&lt;br /&gt;Чтобы вернуть все настройки на стандартные, вы можете нажать кнопку &quot;Восстановить все настройки&quot;.</translation>
     </message>
     <message>
         <source>Restore all defaults</source>
@@ -3404,13 +3404,13 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     </message>
     <message>
         <source>Username to send to the server</source>
-        <translation>Имя пользователя, под которым Вы зайдете на сервер</translation>
+        <translation>Имя пользователя, под которым вы зайдете на сервер</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Имя пользователя&lt;/b&gt;&lt;br/&gt;
-Имя пользователя, под которым Вы зайдете на сервер. Обратите внимание, на сервере могут быть ограничения. А также имя пользователя может быть уже занято другим пользователем.</translation>
+Имя пользователя, под которым вы зайдете на сервер. Обратите внимание, на сервере могут быть ограничения. А также имя пользователя может быть уже занято другим пользователем.</translation>
     </message>
     <message>
         <source>Label</source>
@@ -3448,7 +3448,7 @@ Host: %1 Port: %2</source>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br/&gt;
-Пароль отправляемый на сервер при подключении. Данный пароль необходим, когда Вы подключаетесь как &lt;i&gt;SuperUser&lt;/i&gt; или к серверу, который использует аутентификацию по паролю. Если оставить это поле пустым, пароль будет запрошен при соединении.</translation>
+Пароль отправляемый на сервер при подключении. Данный пароль необходим, когда вы подключаетесь как &lt;i&gt;SuperUser&lt;/i&gt; или к серверу, который использует аутентификацию по паролю. Если оставить это поле пустым, пароль будет запрошен при соединении.</translation>
     </message>
     <message>
         <source>Show password</source>
@@ -3458,7 +3458,7 @@ Password to be sent to the server on connect. This password is needed when conne
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
         <translation>&lt;b&gt;Название&lt;/b&gt;&lt;br/&gt;
-Название сервера. То как сервер будет называться в Вашем списке серверов, может быть выбрано произвольно.</translation>
+Название сервера. То как сервер будет называться в вашем списке серверов, может быть выбрано произвольно.</translation>
     </message>
     <message>
         <source>Local server label</source>
@@ -3513,7 +3513,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Мы сожалеем, но похоже Mumble совершил фатальную ошибку и закрылся. Желаете ли Вы отправить отчет об ошибке разработчикам Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Отчет об ошибке содержит частичную копию памяти Mumble на момент вылета и поможет разработчикам исправить проблему.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;Мы сожалеем, но похоже Mumble совершил фатальную ошибку и закрылся. Желаете ли вы отправить отчет об ошибке разработчикам Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Отчет об ошибке содержит частичную копию памяти Mumble на момент вылета и поможет разработчикам исправить проблему.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Email address (optional)</source>
@@ -3522,7 +3522,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>Коротко опишите по-английски, что Вы делали на момент вылета</translation>
+        <translation>Коротко опишите по-английски, что вы делали на момент вылета</translation>
     </message>
     <message>
         <source>Send Report</source>
@@ -3566,7 +3566,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation>База данных &apos;%1&apos; доступна только для чтения. Mumble не сможет хранить настройки сервера (такие как SSL сертификаты) до тех пор, пока Вы не исправите эту проблему.</translation>
+        <translation>База данных &apos;%1&apos; доступна только для чтения. Mumble не сможет хранить настройки сервера (такие как SSL сертификаты) до тех пор, пока вы не исправите эту проблему.</translation>
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
@@ -3702,7 +3702,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если Вы хотите больше гибкости, Вы можете включить &lt;span style=&quot;font-style:italic;&quot;&gt;Доступ для вспомогательных устройств&lt;/span&gt; в системных настройках доступа. Тем не менее, обращаем Ваше внимание, что это изменение потенциально позволит вредоносным программам читать то, что напечатано на Вашей клавиатуре.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если вы хотите больше гибкости, вы можете включить &lt;span style=&quot;font-style:italic;&quot;&gt;Доступ для вспомогательных устройств&lt;/span&gt; в системных настройках доступа. Тем не менее, обращаем ваше внимание, что это изменение потенциально позволит вредоносным программам читать то, что напечатано на вашей клавиатуре.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
@@ -3820,7 +3820,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если Вы хотите больше гибкости, Вы можете добавить Mumble в качестве надежной программы доступности в разделе «Защита и безопасность» в системных настройках вашего Mac.&lt;/p&gt;&lt;p&gt; На панели «Защита и безопасность» перейдите на вкладку «Конфиденциальность». Затем выберите Универсальный доступ (внизу) в списке слева. Наконец, добавьте Mumble в список доверенных программ доступности.&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если вы хотите больше гибкости, вы можете добавить Mumble в качестве надежной программы доступности в разделе «Защита и безопасность» в системных настройках вашего Mac.&lt;/p&gt;&lt;p&gt; На панели «Защита и безопасность» перейдите на вкладку «Конфиденциальность». Затем выберите Универсальный доступ (внизу) в списке слева. Наконец, добавьте Mumble в список доверенных программ доступности.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Shortcuts</source>
@@ -4030,7 +4030,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Это список доступных LCD-устройств в Вашей системе. Устройства показаны по имени, а также указан размер дисплея. Mumble поддерживает вывод на несколько LCD дисплеев сразу.&lt;/p&gt;
+        <translation>&lt;p&gt;Это список доступных LCD-устройств в вашей системе. Устройства показаны по имени, а также указан размер дисплея. Mumble поддерживает вывод на несколько LCD дисплеев сразу.&lt;/p&gt;
 &lt;h3&gt;Размер:&lt;/h3&gt;
 &lt;p&gt;
 В этой графе указан размер LCD дисплея. Размер указан либо в пикселях (для графических LCD) или в символах для текстовых LCD).&lt;/p&gt;
@@ -4106,7 +4106,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation>Пользователь выкинул Вас или выкинут Вами</translation>
+        <translation>Пользователь выкинул вас или выкинут вами</translation>
     </message>
     <message>
         <source>User kicked</source>
@@ -4118,11 +4118,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User muted (you)</source>
-        <translation>Пользователь заглушен (Вы)</translation>
+        <translation>Пользователь заглушен (вы)</translation>
     </message>
     <message>
         <source>User muted (by you)</source>
-        <translation>Пользователь заглушен (Вами)</translation>
+        <translation>Пользователь заглушен (вами)</translation>
     </message>
     <message>
         <source>User muted (other)</source>
@@ -4297,7 +4297,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Кликните здесь, чтобы включить/выключить функцию Текст-в речь для событий &quot;%1&quot;.&lt;br /&gt;Если отмечено, Mumble будет использовать Текст-в-речь, чтобы прочитать события &quot;%1&quot; для Вас. Текст-в-речь также может читать содержание события, о котором не могут проинформировать звуковые файлы. Текст-в-речь и звуковые уведомления не могут быть использованы одновременно.</translation>
+        <translation>Кликните здесь, чтобы включить/выключить функцию Текст-в речь для событий &quot;%1&quot;.&lt;br /&gt;Если отмечено, Mumble будет использовать Текст-в-речь, чтобы прочитать события &quot;%1&quot; для вас. Текст-в-речь также может читать содержание события, о котором не могут проинформировать звуковые файлы. Текст-в-речь и звуковые уведомления не могут быть использованы одновременно.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
@@ -4362,7 +4362,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation>Если отмечено, Вы будете слышать шёпот только от пользователей, которые добавлены в Ваш список друзей.</translation>
+        <translation>Если отмечено, вы будете слышать шёпот только от пользователей, которые добавлены в ваш список друзей.</translation>
     </message>
     <message>
         <source>Only accept whispers from friends</source>
@@ -5180,7 +5180,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Здесь настраивается кнопка для включения речи. Пока Вы ее удерживаете, другие пользователи слышат Ваш голос.</translation>
+        <translation>Здесь настраивается кнопка для включения речи. Пока вы ее удерживаете, другие пользователи слышат ваш голос.</translation>
     </message>
     <message>
         <source>Reset Audio Processor</source>
@@ -5333,7 +5333,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &apos;%1&apos; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить ваше имя для данного сертификата. Вы всегда будете известны как &apos;%1&apos; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Register user %1</source>
@@ -5341,7 +5341,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Вы собираетесь зарегистрировать пользователя %1 на сервере. Это действие нельзя отменить, имя пользователя нельзя будет изменить, а пользователь %1 будет иметь доступ на сервер, даже если Вы измените пароль для подключения к серверу.&lt;/p&gt;&lt;p&gt;С этого момента, %1 будет аутентифицироваться с сертификатом, который у него в данный момент используется.&lt;/p&gt;&lt;p&gt;Вы уверены, что хотите зарегистрировать %1?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Вы собираетесь зарегистрировать пользователя %1 на сервере. Это действие нельзя отменить, имя пользователя нельзя будет изменить, а пользователь %1 будет иметь доступ на сервер, даже если вы измените пароль для подключения к серверу.&lt;/p&gt;&lt;p&gt;С этого момента, %1 будет аутентифицироваться с сертификатом, который у него в данный момент используется.&lt;/p&gt;&lt;p&gt;Вы уверены, что хотите зарегистрировать %1?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Kicking user %1</source>
@@ -5670,7 +5670,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Disconnects you from the server.</source>
-        <translation>Отключает Вас от сервера.</translation>
+        <translation>Отключает вас от сервера.</translation>
     </message>
     <message>
         <source>Show information about the server connection</source>
@@ -5726,11 +5726,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Link your channel to another channel</source>
-        <translation>Связывает Ваш канал с другими каналами</translation>
+        <translation>Связывает ваш канал с другими каналами</translation>
     </message>
     <message>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation>Это чат&lt;br /&gt;Если Вы введете здесь текст и нажмете enter - текст будет отправлен пользователю или в канал, который Вы выбрали. Если ничего не выделено - сообщение будет отправлено в текущий канал.</translation>
+        <translation>Это чат&lt;br /&gt;Если вы введете здесь текст и нажмете enter - текст будет отправлен пользователю или в канал, который вы выбрали. Если ничего не выделено - сообщение будет отправлено в текущий канал.</translation>
     </message>
     <message>
         <source>Chatbar</source>
@@ -5778,12 +5778,12 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Не слушать пользователя. Используйте это на других пользователях в канале. Только Вы не будете слышать данного пользователя.</translation>
+        <translation>Не слушать пользователя. Используйте это на других пользователях в канале. Только вы не будете слышать данного пользователя.</translation>
     </message>
     <message>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Это свяжет Ваш текущий канал с выбранным каналом. Если пользователи могут разговаривать в другом канале, то после этого они будут слышать друг друга. Это постоянная связь и будет действовать, пока не будет разорвана вручную, либо после перезагрузки сервера. См. комбинацию клавиш для Связь по кнопке.</translation>
+        <translation>Это свяжет ваш текущий канал с выбранным каналом. Если пользователи могут разговаривать в другом канале, то после этого они будут слышать друг друга. Это постоянная связь и будет действовать, пока не будет разорвана вручную, либо после перезагрузки сервера. См. комбинацию клавиш для Связь по кнопке.</translation>
     </message>
     <message>
         <source>&amp;Unlink</source>
@@ -5796,7 +5796,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation>Разрывает связь Вашего канала с выбранным каналом.</translation>
+        <translation>Разрывает связь вашего канала с выбранным каналом.</translation>
     </message>
     <message>
         <source>Unlinks your channel from all linked channels.</source>
@@ -5804,7 +5804,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation>Разрывает связь Вашего канала со всеми (не только с выбранными) связанными каналами.</translation>
+        <translation>Разрывает связь вашего канала со всеми (не только с выбранными) связанными каналами.</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
@@ -5824,7 +5824,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Выключает микрофон. При выключении невозможно посылать данные на сервер (Вас не будут слышать). Включение микрофона также включает звук.</translation>
+        <translation>Выключает микрофон. При выключении невозможно посылать данные на сервер (вас не будут слышать). Включение микрофона также включает звук.</translation>
     </message>
     <message>
         <source>Deafen yourself</source>
@@ -5852,7 +5852,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation>Вызывает маленькую подсказку о Вашем текущем устройстве ввода.</translation>
+        <translation>Вызывает маленькую подсказку о вашем текущем устройстве ввода.</translation>
     </message>
     <message>
         <source>Forcibly unlink plugin</source>
@@ -5868,7 +5868,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation>Позволяет Вам изменять большинство настроек Mumble.</translation>
+        <translation>Позволяет вам изменять большинство настроек Mumble.</translation>
     </message>
     <message>
         <source>Start the audio configuration wizard</source>
@@ -5876,7 +5876,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation>Проведет Вас через процесс настройки звукового оборудования.</translation>
+        <translation>Проведет вас через процесс настройки звукового оборудования.</translation>
     </message>
     <message>
         <source>&amp;What&apos;s This?</source>
@@ -5924,7 +5924,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
+        <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить вас о ссылке для ее закачки.</translation>
     </message>
     <message>
         <source>Sends a text message to all users in a channel.</source>
@@ -5956,7 +5956,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation>Добавляет пользователя в список друзей так, что Вы можете распознавать его на этом и других серверах.</translation>
+        <translation>Добавляет пользователя в список друзей так, что вы можете распознавать его на этом и других серверах.</translation>
     </message>
     <message>
         <source>&amp;Remove Friend</source>
@@ -5976,7 +5976,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Update name of your friend.</source>
-        <translation>Обновить имя Вашего друга.</translation>
+        <translation>Обновить имя вашего друга.</translation>
     </message>
     <message>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
@@ -5988,7 +5988,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation>Открыть редактор зарегистрированных пользователей, в котором Вы можете изменить их имя или удалить.</translation>
+        <translation>Открыть редактор зарегистрированных пользователей, в котором вы можете изменить их имя или удалить.</translation>
     </message>
     <message>
         <source>Add or remove text-based access tokens</source>
@@ -6056,7 +6056,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation>Информация о Вашей учётной записи не может быть проверена. Попробуйте позже</translation>
+        <translation>Информация о вашей учётной записи не может быть проверена. Попробуйте позже</translation>
     </message>
     <message>
         <source>Welcome message: %1</source>
@@ -6160,11 +6160,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>%1 revoked your priority speaker status.</source>
-        <translation>%1 снял с Вас статус приоритетного говорящего.</translation>
+        <translation>%1 снял с вас статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>%1 gave you priority speaker status.</source>
-        <translation>%1 дал Вам статус приоритетного говорящего.</translation>
+        <translation>%1 дал вам статус приоритетного говорящего.</translation>
     </message>
     <message>
         <source>You revoked priority speaker status for %1.</source>
@@ -6192,15 +6192,15 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation>%1 включил у Вас звук и микрофон.</translation>
+        <translation>%1 включил у вас звук и микрофон.</translation>
     </message>
     <message>
         <source>You were muted by %1.</source>
-        <translation>%1 выключил у Вас микрофон.</translation>
+        <translation>%1 выключил у вас микрофон.</translation>
     </message>
     <message>
         <source>You were undeafened by %1.</source>
-        <translation>%1 включил у Вас звук.</translation>
+        <translation>%1 включил у вас звук.</translation>
     </message>
     <message>
         <source>You were suppressed.</source>
@@ -6209,11 +6209,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You were unsuppressed.</source>
-        <translation>Онемение снято с Вас.</translation>
+        <translation>Онемение снято с вас.</translation>
     </message>
     <message>
         <source>You were unsuppressed by %1.</source>
-        <translation>%1 включил у Вас микрофон.</translation>
+        <translation>%1 включил у вас микрофон.</translation>
     </message>
     <message>
         <source>You joined %1.</source>
@@ -6262,7 +6262,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You were unmuted by %1.</source>
-        <translation>%1 включил у Вас микрофон.</translation>
+        <translation>%1 включил у вас микрофон.</translation>
     </message>
     <message>
         <source>You muted %1.</source>
@@ -6291,11 +6291,11 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>%1 выключил у Вас звук и микрофон.</translation>
+        <translation>%1 выключил у вас звук и микрофон.</translation>
     </message>
     <message>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>%1 выкинул Вас с сервера: %2.</translation>
+        <translation>%1 выкинул вас с сервера: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked from the server by %1: %2.</source>
@@ -6303,7 +6303,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>%1 выкинул и забанил Вас на сервере: %2.</translation>
+        <translation>%1 выкинул и забанил вас на сервере: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
@@ -6311,7 +6311,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
-        <translation>%2 переместил Вас в %1.</translation>
+        <translation>%2 переместил вас в %1.</translation>
     </message>
     <message>
         <source>%1 entered channel.</source>
@@ -7454,7 +7454,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Включить режим TCP совместимости&lt;/b&gt;.&lt;br /&gt;Mumble будет использовать только TCP для связи с сервером. Это увеличит нагрузку и вызовет потерю пакетов, что создаст заметные паузы в соединении. Может быть использовано только если Вы не можете использовать протоколы по умолчанию (UDP для голоса и TCP для управления).</translation>
+        <translation>&lt;b&gt;Включить режим TCP совместимости&lt;/b&gt;.&lt;br /&gt;Mumble будет использовать только TCP для связи с сервером. Это увеличит нагрузку и вызовет потерю пакетов, что создаст заметные паузы в соединении. Может быть использовано только если вы не можете использовать протоколы по умолчанию (UDP для голоса и TCP для управления).</translation>
     </message>
     <message>
         <source>Reconnect when disconnected</source>
@@ -7534,7 +7534,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;Арес прокси-сервера.&lt;/b&gt;&lt;br /&gt;Это поле задаёт адрес прокси, которую Вы хотите использовать для туннелирования сетевого трафика.</translation>
+        <translation>&lt;b&gt;Арес прокси-сервера.&lt;/b&gt;&lt;br /&gt;Это поле задаёт адрес прокси, которую вы хотите использовать для туннелирования сетевого трафика.</translation>
     </message>
     <message>
         <source>Port</source>
@@ -7558,7 +7558,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Имя пользователя для аутентификации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается имя пользователя для аутентификации на прокси. Если прокси не использует аутентификацию или Вы хотите подключиться анонимно, оставьте поле пустым.</translation>
+        <translation>&lt;b&gt;Имя пользователя для аутентификации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается имя пользователя для аутентификации на прокси. Если прокси не использует аутентификацию или вы хотите подключиться анонимно, оставьте поле пустым.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -7570,7 +7570,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Пароль для аутентификации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается пароль для аутентификации на прокси. Если прокси не поддерживает аутентификацию или Вы хотите подключиться анонимно, оставьте поле пустым.</translation>
+        <translation>&lt;b&gt;Пароль для аутентификации на прокси-сервере&lt;/b&gt;&lt;br /&gt;Здесь указывается пароль для аутентификации на прокси. Если прокси не поддерживает аутентификацию или вы хотите подключиться анонимно, оставьте поле пустым.</translation>
     </message>
     <message>
         <source>Mumble services</source>
@@ -7598,7 +7598,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;Отправлять анонимную статистику.&lt;/b&gt;&lt;br /&gt;Команда разработчиков Mumble очень мала и нуждается в информации о том, на чём нужно сосредоточить своё внимание. Когда Вы отправляете немного статистики, Вы помогаете проекту определить на чём нужно сосредоточить своё внимание.</translation>
+        <translation>&lt;b&gt;Отправлять анонимную статистику.&lt;/b&gt;&lt;br /&gt;Команда разработчиков Mumble очень мала и нуждается в информации о том, на чём нужно сосредоточить своё внимание. Когда вы отправляете немного статистики, вы помогаете проекту определить на чём нужно сосредоточить своё внимание.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
@@ -7824,7 +7824,7 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Включает или выключает табло. При включенном табло Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или Вы выключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение для включения или выключения табло.</translation>
+        <translation>Включает или выключает табло. При включенном табло Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или вы выключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение для включения или выключения табло.</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -7975,7 +7975,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>Пользователь говорит в Вашем канале или связанном канале</translation>
+        <translation>Пользователь говорит в вашем канале или связанном канале</translation>
     </message>
     <message>
         <source>Talking</source>
@@ -7983,7 +7983,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is whispering to you privately</source>
-        <translation>Пользователь шепчет Вам</translation>
+        <translation>Пользователь шепчет вам</translation>
     </message>
     <message>
         <source>Private Whisper</source>
@@ -7991,7 +7991,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>User is shouting to your channel</source>
-        <translation>Пользователь кричит в Ваш канал</translation>
+        <translation>Пользователь кричит в ваш канал</translation>
     </message>
     <message>
         <source>Channel Whisper</source>
@@ -8027,7 +8027,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation>Название канала пользователя, если он не в Вашем текущем канале</translation>
+        <translation>Название канала пользователя, если он не в вашем текущем канале</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -8177,7 +8177,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation>Это позволяет плагинам для поддеживаемых игр определять Ваше положение в игре и передавать его с каждым голосовым пакетом. Это позволит другим игрокам слышать Ваш голос в игре, как будто он исходит от Вашего персонажа.</translation>
+        <translation>Это позволяет плагинам для поддерживаемых игр определять ваше положение в игре и передавать его с каждым голосовым пакетом. Это позволит другим игрокам слышать ваш голос в игре, как будто он исходит от вашего персонажа.</translation>
     </message>
     <message>
         <source>Link to Game and Transmit Position</source>
@@ -8189,7 +8189,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation>Пересканирует и перезагружает плагины. Используйте, если Вы только что добавили или изменили плагин в папке с плагинами.</translation>
+        <translation>Пересканирует и перезагружает плагины. Используйте, если вы только что добавили или изменили плагин в папке с плагинами.</translation>
     </message>
     <message>
         <source>&amp;Reload plugins</source>
@@ -9349,7 +9349,7 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Это редактируемый список токенов доступа для данного сервера.&lt;/b&gt;
 &lt;br /&gt;
-Токен доступа - это текст, который будет использован как пароль для простого управления доступом в каналы. Mumble запомнит токен, который Вы ввели и отправит его заново на сервер при следующем подключении, так что Вам не потребуется вводить его снова.
+Токен доступа - это текст, который будет использован как пароль для простого управления доступом в каналы. Mumble запомнит токен, который вы ввели и отправит его заново на сервер при следующем подключении, так что вам не потребуется вводить его снова.
 </translation>
     </message>
     <message>
@@ -9695,16 +9695,16 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Talking to your channel.</source>
-        <translation>Говорит в Ваш канал.</translation>
+        <translation>Говорит в ваш канал.</translation>
     </message>
     <message>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation>Кричит напрямую в Ваш канал.</translation>
+        <translation>Кричит напрямую в ваш канал.</translation>
     </message>
     <message>
         <source>Whispering directly to you.</source>
-        <translation>Шепчет лично Вам.</translation>
+        <translation>Шепчет лично вам.</translation>
     </message>
     <message>
         <source>Not talking.</source>
@@ -9720,11 +9720,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation>Канал, который связан с Вашим каналом. Связанные каналы могут говорить друг с другом.</translation>
+        <translation>Канал, который связан с вашим каналом. Связанные каналы могут говорить друг с другом.</translation>
     </message>
     <message>
         <source>A channel on the server that you are not linked to.</source>
-        <translation>Канал на сервере, с которым не связан Ваш канал.</translation>
+        <translation>Канал на сервере, с которым не связан ваш канал.</translation>
     </message>
     <message>
         <source>This shows the flags the user has on the server, if any:</source>
@@ -9752,7 +9752,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Микрофон выключен (Вами, только для вашего компьютера)</translation>
+        <translation>Микрофон выключен (вами, только для вашего компьютера)</translation>
     </message>
     <message>
         <source>Muted (push-to-mute)</source>
@@ -9772,7 +9772,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>У пользователя комментарий, который Вы уже читали (нажмите для просмотра)</translation>
+        <translation>У пользователя комментарий, который вы уже читали (нажмите для просмотра)</translation>
     </message>
     <message>
         <source>Ignoring Text Messages</source>
@@ -9788,7 +9788,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>У канала комментарий, который Вы уже читали (нажмите для просмотра)</translation>
+        <translation>У канала комментарий, который вы уже читали (нажмите для просмотра)</translation>
     </message>
     <message>
         <source>Channel will be hidden when filtering is enabled</source>
@@ -10082,7 +10082,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation>Сервер, к которому Вы подключены в данный момент версии 1.2.2 или ниже. По соображениям конфиденциальности, запись на серверах версий ниже 1.2.3 невозможна.
+        <translation>Сервер, к которому вы подключены в данный момент версии 1.2.2 или ниже. По соображениям конфиденциальности, запись на серверах версий ниже 1.2.3 невозможна.
 Свяжитесь с администратором сервера для дополнительной информации.</translation>
     </message>
     <message>

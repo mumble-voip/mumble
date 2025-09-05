@@ -1641,19 +1641,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">at</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">while someone in your channel talks</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">always</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Attenuate listeners by...</translation>
     </message>
 </context>
 <context>
@@ -1704,7 +1704,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">meters</translation>
     </message>
 </context>
 <context>

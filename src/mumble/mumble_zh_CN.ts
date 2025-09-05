@@ -714,7 +714,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>空</translation>
     </message>
 </context>
 <context>
@@ -5104,59 +5104,59 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>用于装饰用户界面的暗黑主题</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;在暗黑模式下时，配置用于装饰 Mumble 用户界面的主题&lt;/b&gt;&lt;br /&gt;Mumble 会读取特定文件夹内的主题，并在此列表中显示。您所选择的主题将会用于自定义 Mumble 的外观。包括颜色、图标等。</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>用于装饰用户界面的明亮主题</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>暗黑主题</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>根据系统主题自动设置主题。</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>根据系统自动设置主题</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>自动</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>将主题设置为当前暗黑配置</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>暗黑</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>将主题设置为当前明亮配置</translation>
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>明亮主题</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>明亮</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>在系统的文件管理器中打开主题文件夹</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>打开主题文件夹</translation>
     </message>
 </context>
 <context>
@@ -7267,29 +7267,93 @@ Valid options are:
   --skip-settings-backup-prompt
                 Don&apos;t show the settings recovery dialog on startup after a crash.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>用法：mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
+
+&lt;url&gt; 指定启动后连接的 URL，而不是展示
+连接窗口， 它有下列形式：
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+&lt;plugin_list&gt; 是应安装的插件文件列表
+必需设置版本查询参数以调用
+正确的客户端版本。当前默认为 1.2.0.
+
+有效选项：
+  -h, --help    显示该帮助文本并退出.
+  --version     打印版本信息并退出
+  -m, --multiple
+                允许启用多个客户端实例.
+  -c, --config
+                指定备选配置文件
+                如果用这个一下子运行多个 Mumble 实例，
+                确保在配置中设置替代&apos;database&apos;值
+  --default-certificate-dir &lt;dir&gt;
+                指定替代的默认证书路径.
+                此路径只在没有从
+                设置加载证书的情况下使用.
+  -n, --noidentity
+                不加载身份文件 (即证书.)
+  -jn, --jackname &lt;arg&gt;
+                设置自定义的 Jack 客户端名.
+  --license
+                显示 Mumble 许可证.
+  --authors
+                显示 Mumble 作者.
+  --third-party-licenses
+                显示 Mumble 所用的第三方软件的许可证.
+  --window-title-ext &lt;arg&gt;
+                设置自定义的窗口标题扩展.
+  --dump-input-streams
+                在输入链的多个部分转储 PCM 流
+                (对调试有用)
+                - raw microphone input
+                - speaker readback for echo cancelling
+                - processed microphone input
+  --print-echocancel-queue
+                在 stdout 上打印 echo 取消队列状态
+                (对调试有用)
+  --translation-dir &lt;dir&gt;
+                指定额外的翻译目录 &lt;dir&gt;
+                Mumble 会在其中搜索覆盖
+                内置翻译文件的翻译文件
+                以这种方法添加的目录的优先级
+                高于所用的默认位置
+  --print-translation-dirs
+                打印出 Mumble 会搜索
+                覆盖内置翻译文件的翻译文件
+                (对译者测试译文有用)
+  --locale &lt;locale&gt;
+                用对应给定 locale 字符串的 locale 覆盖
+                Mumble 设置中的 locale.
+                如格式无效，Mumble 会出错.
+                不然，该 locale 会永久保存到
+                Mumble 的设置中.
+  --hidden
+                启动 Mumble 时将其隐藏在系统托盘中.
+  --skip-settings-backup-prompt
+                崩溃后启动程序时不显示设置恢复对话框.
+</translation>
     </message>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>自适应按键</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>在按键发言模式下，将此按键作为发言键。在其他情况下，将其作为静音键。</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>打开图片</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>解码图片失败。</translation>
     </message>
 </context>
 <context>
@@ -8840,7 +8904,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ResponsiveImageDialog</name>
     <message>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>图片预览</translation>
     </message>
 </context>
 <context>
@@ -9384,7 +9448,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>隐藏</translation>
     </message>
 </context>
 <context>
