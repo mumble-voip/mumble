@@ -7292,6 +7292,14 @@ Valid options are:
         <source>Failed to decode image.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cannot move a mix of users and channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown User Drag mode in UserModel::dropMimeData.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -9802,14 +9810,6 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Attributs</translation>
     </message>
     <message>
-        <source>Are you sure you want to drag this user?</source>
-        <translation>Êtes-vous sûr de vouloir déplacer cet utilisateur&#xa0;?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to drag this channel?</source>
-        <translation>Êtes-vous sûr de vouloir déplacer ce salon&#xa0;?</translation>
-    </message>
-    <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Ne peut pas effectuer ce déplacement automatiquement, veuillez réinitialiser les indicateurs de position, ou l&apos;ajuster manuellement.</translation>
     </message>
@@ -9840,6 +9840,38 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <source>This channel listener belongs to %1</source>
         <translation>Cet auditeur du salon appartient à %1</translation>
+    </message>
+    <message>
+        <source>, and </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channel %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channels %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent user %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent users %2?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

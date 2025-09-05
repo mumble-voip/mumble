@@ -7356,6 +7356,14 @@ Le opzioni validi sono:
         <source>Failed to decode image.</source>
         <translation>Decodifica immagine fallita.</translation>
     </message>
+    <message>
+        <source>Cannot move a mix of users and channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown User Drag mode in UserModel::dropMimeData.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -9866,14 +9874,6 @@ Un token di accesso è una stringa di testo, che può essere usata come password
         <translation>Segnali</translation>
     </message>
     <message>
-        <source>Are you sure you want to drag this user?</source>
-        <translation>Sei sicuro di voler trascinare questo utente?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to drag this channel?</source>
-        <translation>Sei sicuro di voler spostare questo canale?</translation>
-    </message>
-    <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Impossibile eseguire l&apos;azione automaticamente, per favore reimposta gli indicatori numerici della posizione dei canali o spostalo manualmente.</translation>
     </message>
@@ -9904,6 +9904,38 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <source>This channel listener belongs to %1</source>
         <translation>Questo ascoltatore canale appartiene a %1</translation>
+    </message>
+    <message>
+        <source>, and </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channel %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channels %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent user %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent users %2?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

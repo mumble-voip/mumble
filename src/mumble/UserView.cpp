@@ -17,6 +17,7 @@
 #include <QtGui/QHelpEvent>
 #include <QtGui/QPainter>
 #include <QtWidgets/QWhatsThis>
+#include <stack>
 
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
@@ -121,6 +122,9 @@ UserView::UserView(QWidget *p) : QTreeView(p), m_userDelegate(make_qt_unique< Us
 	QTimer::singleShot(0, [this]() { adjustIcons(); });
 
 	connect(this, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(nodeActivated(const QModelIndex &)));
+
+	setSelectionMode(ExtendedSelection);
+	setSelectionBehavior(SelectItems);
 }
 
 void UserView::adjustIcons() {
@@ -134,6 +138,148 @@ void UserView::adjustIcons() {
 	viewport()->update();
 }
 
+void UserView::selectAllUsersInChannel(const QModelIndex &index,
+									   QItemSelectionModel::SelectionFlags selectionFlags) const {
+	UserModel *userModel = qobject_cast< UserModel * >(model());
+	QItemSelection selection;
+
+	std::stack< QModelIndex > stack({ index });
+	while (!stack.empty()) {
+		QModelIndex currentIndex = stack.top();
+		stack.pop();
+		int rowCount    = userModel->rowCount(currentIndex);
+		int columnCount = userModel->columnCount(currentIndex);
+		for (int row = 0; row < rowCount; ++row) {
+			for (int column = 0; column < columnCount; ++column) {
+				QModelIndex childIndex = userModel->index(row, column, currentIndex);
+				ClientUser *user       = userModel->getUser(childIndex);
+				if (!user) {
+					stack.push(childIndex);
+				} else if (!isAnyParentCollapsed(childIndex)) {
+					selection.append(QItemSelectionRange(childIndex));
+				}
+			}
+		}
+	}
+	if (supressEvent) {
+		return;
+	}
+	selectionModel()->select(selection, selectionFlags);
+}
+std::string getString(UserModel *userModel, QModelIndex index) {
+	if (!index.isValid())
+		return "[INVALID]";
+	ClientUser *user = userModel->getUser(index);
+	if (user)
+		return user->qsName.toStdString();
+	Channel *channel = userModel->getChannel(index);
+	if (channel)
+		return channel->qsName.toStdString();
+
+	return "";
+}
+bool UserView::isAnyParentCollapsed(const QModelIndex &index) const {
+	if (!index.isValid())
+		return false;
+
+	QModelIndex parent = index.parent();
+	while (parent.isValid()) {
+		if (!isExpanded(parent))
+			return true;
+
+		parent = parent.parent();
+	}
+
+	return false;
+}
+void UserView::selectAllFromTo(const QModelIndex &from, const QModelIndex &to, bool onlyChannels,
+							   QItemSelectionModel::SelectionFlags selectionFlags) const {
+	UserModel *userModel   = qobject_cast< UserModel * >(model());
+	QModelIndex startIndex = from;
+	QModelIndex endIndex   = to;
+
+	if (visualRect(startIndex).y() > visualRect(endIndex).y()) {
+		startIndex = to;
+		endIndex   = from;
+	}
+	QModelIndex currentIndex = startIndex;
+
+	QItemSelection selection;
+	bool onlySingle     = currentIndex == endIndex;
+	QModelIndex parent  = currentIndex.parent();
+	QModelIndex sibling = currentIndex.sibling(currentIndex.row() + 1, currentIndex.column());
+	while (currentIndex.isValid()
+		   && (!onlySingle || (onlySingle && currentIndex != parent && currentIndex != sibling))) {
+		ClientUser *user = userModel->getUser(currentIndex);
+		if ((!onlyChannels && user) || (onlyChannels && !user && userModel->getChannel(currentIndex))) {
+			selection.append(QItemSelectionRange(currentIndex));
+		}
+		if (!onlySingle && currentIndex == endIndex)
+			break;
+		currentIndex = indexBelow(currentIndex);
+	}
+	if (supressEvent) {
+		return;
+	}
+	selectionModel()->select(selection, selectionFlags);
+}
+QItemSelectionModel::SelectionFlags UserView::selectionCommand(const QModelIndex &index, const QEvent *event) const {
+	QItemSelectionModel::SelectionFlags selectionFlags =
+		QTreeView::selectionCommand(index, event) & ~(QItemSelectionModel::Columns | QItemSelectionModel::Rows);
+
+	if (index.isValid() && selectionFlags != QItemSelectionModel::NoUpdate
+		&& !selectionFlags.testFlag(QItemSelectionModel::ClearAndSelect)) {
+		QItemSelectionModel::SelectionFlags newSelectionFlags =
+			selectionFlags
+			& (QItemSelectionModel::Select | QItemSelectionModel::Deselect | QItemSelectionModel::Toggle);
+		QModelIndexList selectedIndices = selectedIndexes();
+		bool isUserSelect               = true;
+		bool isChannelSelect            = true;
+
+		UserModel *userModel = qobject_cast< UserModel * >(model());
+		if (!selectedIndices.isEmpty()) {
+			Channel *selectedChannel = userModel->getChannel(selectedIndices[0]);
+			if (userModel->getUser(selectedIndices[0])) {
+				isChannelSelect = false;
+			} else if (selectedChannel) {
+				isUserSelect = false;
+				if (selectedChannel->cParent == nullptr) {
+					return QItemSelectionModel::NoUpdate;
+				}
+			}
+		}
+		ClientUser *clientUser = userModel->getUser(index);
+		Channel *channel       = userModel->getChannel(index);
+		if (!clientUser && channel) {
+			if (!isChannelSelect) {
+				if (selectionFlags.testFlag(QItemSelectionModel::Current) && !selectedIndices.isEmpty()) {
+					selectAllFromTo(index, selectedIndices.back(), false, newSelectionFlags);
+				} else {
+					selectAllUsersInChannel(index, newSelectionFlags);
+				}
+				selectionFlags = QItemSelectionModel::NoUpdate;
+			} else if (selectionFlags.testFlag(QItemSelectionModel::SelectCurrent)) {
+				if (!selectedIndices.isEmpty()) {
+					QModelIndex from = index;
+					if (channel->cParent == nullptr)
+						from = userModel->index(0, index.column(), index);
+					selectAllFromTo(from, selectedIndices.back(), true, newSelectionFlags);
+					selectionFlags = QItemSelectionModel::NoUpdate;
+				}
+			} else if (channel->cParent == nullptr) {
+				selectionFlags = QItemSelectionModel::NoUpdate;
+			}
+		} else if (clientUser) {
+			if (!isUserSelect) {
+				selectionFlags = QItemSelectionModel::NoUpdate;
+			} else if (selectionFlags.testFlag(QItemSelectionModel::Current) && !selectedIndices.isEmpty()) {
+				selectAllFromTo(index, selectedIndices.back(), false, newSelectionFlags);
+				selectionFlags = QItemSelectionModel::NoUpdate;
+			}
+		}
+	}
+	return selectionFlags;
+}
 /**
  * This implementation contains a special handler to display
  * custom what's this entries for items. All other events are
@@ -158,9 +304,9 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 
 	QModelIndex idx = indexAt(clickPosition);
 	if ((evt->button() == Qt::LeftButton) && idx.isValid()) {
-		UserModel *userModel         = qobject_cast< UserModel * >(model());
-		const ClientUser *clientUser = userModel->getUser(idx);
-		const Channel *channel       = userModel->getChannel(idx);
+		UserModel *userModel   = qobject_cast< UserModel * >(model());
+		ClientUser *clientUser = userModel->getUser(idx);
+		Channel *channel       = userModel->getChannel(idx);
 
 		// This is the x offset of the _beginning_ of the comment icon starting from the
 		// right.
@@ -233,12 +379,24 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 			}
 		}
 	}
+	// Needed because it causes Toggle select to be executed twice
+	supressEvent = true;
 	QTreeView::mouseReleaseEvent(evt);
+	supressEvent = false;
 }
 
 void UserView::keyPressEvent(QKeyEvent *ev) {
 	if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
 		UserView::nodeActivated(currentIndex());
+	// Prevent default select all, and select only users instead
+	if (ev->matches(QKeySequence::SelectAll)) {
+		ev->accept();
+
+		QModelIndex rootIndex = model()->index(0, 0);
+		clearSelection();
+		selectAllFromTo(rootIndex, rootIndex, false, QItemSelectionModel::Select);
+		return;
+	}
 	QTreeView::keyPressEvent(ev);
 }
 

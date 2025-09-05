@@ -7292,6 +7292,14 @@ Valid options are:
         <source>Failed to decode image.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cannot move a mix of users and channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown User Drag mode in UserModel::dropMimeData.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
@@ -9802,14 +9810,6 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>Attribute</translation>
     </message>
     <message>
-        <source>Are you sure you want to drag this user?</source>
-        <translation>Sind Sie sicher dass sie diesen Benutzer verschieben möchten?</translation>
-    </message>
-    <message>
-        <source>Are you sure you want to drag this channel?</source>
-        <translation>Sind Sie sicher, dass Sie den Kanal verschieben möchten?</translation>
-    </message>
-    <message>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Kann dieses Verschieben nicht automatisiert ausführen. Bitte setzen Sie die Kanalpositionswert zurück oder setzen Sie sie manuell.</translation>
     </message>
@@ -9840,6 +9840,38 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <source>This channel listener belongs to %1</source>
         <translation>Dieser Kanalhörer gehört zu %1</translation>
+    </message>
+    <message>
+        <source>, and </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channel %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the channel %1?
+As well as the subsequent channels %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent user %2?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to drag the user %1?
+As well as the subsequent users %2?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

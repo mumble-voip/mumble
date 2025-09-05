@@ -40,17 +40,23 @@ private:
 	int m_iconTotalDimension;
 	qt_unique_ptr< UserDelegate > m_userDelegate;
 	void adjustIcons();
+	void selectAllUsersInChannel(const QModelIndex &index, QItemSelectionModel::SelectionFlags selectionFlags) const;
+	void selectAllFromTo(const QModelIndex &startIndex, const QModelIndex &endIndex, bool onlyChannels,
+						 QItemSelectionModel::SelectionFlags selectionFlags) const;
 
 protected:
 	void mouseReleaseEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
 	bool event(QEvent *) Q_DECL_OVERRIDE;
-
+	QItemSelectionModel::SelectionFlags selectionCommand(const QModelIndex &index,
+														 const QEvent *event) const Q_DECL_OVERRIDE;
+	bool supressEvent;
 public:
 	UserView(QWidget *);
 	void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
 	void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
 					 const QVector< int > &roles = QVector< int >()) Q_DECL_OVERRIDE;
+	bool isAnyParentCollapsed(const QModelIndex &index) const;
 
 public slots:
 	void nodeActivated(const QModelIndex &idx);
