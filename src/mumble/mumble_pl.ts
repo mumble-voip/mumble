@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Okno dialogowe</translation>
     </message>
     <message>
         <source>Name</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Wprowadź tutaj nazwę kanału.</translation>
+        <translation>Wpisz tutaj nazwę kanału.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Wprowadź tutaj hasło dla kanału.</translation>
+        <translation>Wpisz tutaj hasło kanału.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -324,7 +324,7 @@ Dodaje nową grupę.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nazwa&lt;/b&gt;&lt;br /&gt;Podaj tutaj nazwę kanału. Nazwa musi zgadzać się z ograniczeniem narzuconym przez serwer, do którego jesteś podłączony.</translation>
+        <translation>&lt;b&gt;Nazwa&lt;/b&gt;&lt;br /&gt;Wpisz tutaj nazwę kanału. Nazwa musi zgadzać się z ograniczeniem narzuconym przez serwer, do którego jesteś podłączony.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
@@ -336,7 +336,7 @@ Po włączeniu utworzony kanał zostanie oznaczony jako tymczasowy. Gdy ostatni 
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Grupa&lt;/b&gt;&lt;br /&gt;
-Znajdują się tutaj wszystkie grupy aktualnie zdefiniowane dla tego kanału. By utworzyć nową grupę, wpisz jej nazwę i naciśnij enter.</translation>
+Znajdują się tutaj wszystkie grupy aktualnie zdefiniowane dla tego kanału. By utworzyć nową grupę, wpisz jej nazwę i naciśnij Enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
@@ -2516,7 +2516,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     <name>CertWizard</name>
     <message>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Nie można zweryfikować adresu e-mail.&lt;br /&gt;Podaj właściwy (lub żaden) adres e-mail, aby kontynuować.</translation>
+        <translation>Nie można zweryfikować adresu e-mail.&lt;br /&gt;Wpisz właściwy (lub żaden) adres e-mail, aby kontynuować.</translation>
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
@@ -3138,7 +3138,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Podaj nazwę użytkownika</translation>
+        <translation>Wpisz nazwę użytkownika</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -3595,59 +3595,59 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Połączenie nieudane</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">Połączyłeś się do serwera z niewłaściwą nazwą użytkownika, spróbuj innej nazwy.</translation>
+        <translation>Zalogowano się przy użyciu nieprawidłowej nazwy użytkownika. Spróbuj użyć innej.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybrana nazwa użytkownika jest już zajęta. Spróbuj użyć innej.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nazwa użytkownika</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybrana nazwa użytkownika należy do zarejestrowanego użytkownika na tym serwerze.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podane hasło jest nieprawidłowe dla tego użytkownika. Spróbuj innego hasła lub użyj uwierzytelniania opartego na certyfikacie, nie podając hasła.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyty certyfikat nie jest ważny dla tego użytkownika. Użyj innego certyfikatu lub podaj hasło, aby zamiast tego użyć uwierzytelniania opartego na haśle.</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Hasło</translation>
+        <translation>Hasło</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Użytkownik:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasło:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmień certyfikat</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podane hasło serwera jest nieprawidłowe. Wybierz inne.</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Połącz ponownie</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
 </context>
 <context>
@@ -4970,7 +4970,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation>Akcja wykonywana, gdy kanał jest aktywowany (poprzez dwukrotne kliknięcie lub Enter) w oknie dialogowym wyszukiwania.</translation>
+        <translation>Akcja wykonywana, gdy kanał jest aktywowany (poprzez dwukrotne kliknięcie lub klawisz Enter) w oknie dialogowym wyszukiwania.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
@@ -5313,7 +5313,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Nazwa użytkownika</translation>
+        <translation>Wpisz nazwę użytkownika</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>

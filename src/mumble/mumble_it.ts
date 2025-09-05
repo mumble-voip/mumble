@@ -3594,11 +3594,11 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Connessione fallita</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">Ti sei connesso con un nome utente non valido, provane un&apos;altro.</translation>
+        <translation>Ti sei connesso con un nome utente non valido, provane un altro.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
