@@ -3590,6 +3590,65 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">Geçersiz bir kullanıcı ismi ile bağlantı kurdunuz, lütfen başka bir isim deneyiniz.</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Parola</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">İptal</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5548,36 +5607,16 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Geçersiz kullanıcı ismi</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>Geçersiz bir kullanıcı ismi ile bağlantı kurdunuz, lütfen başka bir isim deneyiniz.</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>İsim kullanılmakta</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>İsim hâlihazırda kullanılmaktadır. lütfen başka bir isim deneyiniz.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>Yanlış sertifika ya da parola</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>Kaydedilmiş kullanıcı için yanlış sertifika veya parola. Bu
-kullanıcının bir parola ile korunduğundan eminseniz tekrar
-deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>Yanlış parola</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Kaydedilmemiş kullanıcı oturumu için yanlış sunucu parolası, tekrar deneyiniz.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>

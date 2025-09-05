@@ -3521,6 +3521,65 @@ Host: %1 Port: %2</source>
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Heslo</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -6128,15 +6187,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6144,17 +6195,7 @@ Valid actions are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Wrong password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

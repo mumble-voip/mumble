@@ -3605,6 +3605,65 @@ Hva tjeneren er beskrevet som. Dette er hva tjeneren vil bli navngitt som i din 
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">Du koblet til med ugyldig brukernavn, velg nytt.</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">Brukernavn</translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Passord</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5564,36 +5623,16 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation>Ugyldig brukernavn</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>Du koblet til med ugyldig brukernavn, velg nytt.</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Brukernavnet er i bruk</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>Brukernavnet er allerede i bruk, prøv et annet.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>Feil sertifikat eller passord</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>Feil sertifikat eller passord for registrert bruker. Hvis du er sikker
-på at denne brukeren er beskyttet med et passord, prøv igjen.
-Ellers avbryt alt og sjekk ditt sertifikat og brukernavn.</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>Feil passord</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Feil tjenerpassord for uregistrert brukerkonto, prøv igjen.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>

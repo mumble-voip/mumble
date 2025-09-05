@@ -3591,6 +3591,65 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">Du anslöt med ett ogiltigt användarnamn, försök med ett annat.</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">Användarnamn</translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Lösenord</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5549,36 +5608,16 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <translation>Ogiltigt användarnamn</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>Du anslöt med ett ogiltigt användarnamn, försök med ett annat.</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Användarnamn finns redan</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>Användarnamnet används redan, försök med ett annat användarnamn.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>Felaktigt certifikat eller lösenord</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>Felaktigt certifikat eller lösenord för registrerad användare. Om du är
-säker på att denna användaren skyddas av ett lösenord, försök igen.
-Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>Felaktigt lösenord</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Felaktigt serverlösenord för oregistrerat användarkonto, försök igen.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>

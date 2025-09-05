@@ -3592,6 +3592,65 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">Połączyłeś się do serwera z niewłaściwą nazwą użytkownika, spróbuj innej nazwy.</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Hasło</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anuluj</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5550,36 +5609,16 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
         <translation>Niepoprawna nazwa użytkownika</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>Połączyłeś się do serwera z niewłaściwą nazwą użytkownika, spróbuj innej nazwy.</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Ta nazwa użytkownika jest już używana</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>Ta nazwa użytkownika jest już zajęta, spróbuj innej.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>Niepoprawny certyfikat lub hasło</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>Błędny certyfikat lub hasło dla zarejestrowanego użytkownika. Jeżeli jesteś pewien,
-że ten użytkownik jest chroniony hasłem, prosimy spróbować ponownie.
-W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę użytkownika.</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>Błędne hasło</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Podałeś złe hasło dla niezarejestrowanych użytkowników, spróbuj jeszcze raz.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>

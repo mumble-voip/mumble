@@ -3588,6 +3588,65 @@ Jmenovka serveru. Takto se bude server jmenovat ve Vašem seznamu serverů a mů
     </message>
 </context>
 <context>
+    <name>FailedConnectionDialog</name>
+    <message>
+        <source>Connection failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You connected with an invalid username, please try another one.</source>
+        <translation type="unfinished">Připojili jste se s neplatným uživatelským jménem, zkuste jiné, prosím.</translation>
+    </message>
+    <message>
+        <source>The chosen username is already in use, please try another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished">Uživatelské jméno</translation>
+    </message>
+    <message>
+        <source>The chosen username belongs to a registered user on this server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Heslo</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The provided server password is invalid. Please choose a different one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Zrušit</translation>
+    </message>
+</context>
+<context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
@@ -5542,36 +5601,16 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Neplatné jméno uživatele</translation>
     </message>
     <message>
-        <source>You connected with an invalid username, please try another one.</source>
-        <translation>Připojili jste se s neplatným uživatelským jménem, zkuste jiné, prosím.</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Uživatelské jméno se používá</translation>
-    </message>
-    <message>
-        <source>That username is already in use, please try another username.</source>
-        <translation>Toto uživatelské jméno se již používá, zkuste jiné, prosím.</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
         <translation>Špatný certifikát nebo heslo</translation>
     </message>
     <message>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>Špatný certifikát, nebo heslo pro registrovaného uživatele. Pokud jste si
-jisti, že tento uživatel je chráněn heslem, prosíme, zkuste to znovu.
-Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</translation>
-    </message>
-    <message>
         <source>Wrong password</source>
         <translation>Špatné heslo</translation>
-    </message>
-    <message>
-        <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Špatné heslo serveru pro účet neregistrovaného uživatele, prosím zkuste znovu.</translation>
     </message>
     <message>
         <source>Images (*.png *.jpg *.jpeg)</source>
