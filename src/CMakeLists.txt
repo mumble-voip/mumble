@@ -248,7 +248,7 @@ if(bundled-spdlog)
 	set(SPDLOG_SYSTEM_INCLUDES ON)
 	add_subdirectory("${3RDPARTY_DIR}/spdlog" "${CMAKE_CURRENT_BINARY_DIR}/spdlog" EXCLUDE_FROM_ALL)
 else()
-	find_pkg("spdlog")
+	find_pkg("spdlog" REQUIRED)
 endif()
 target_link_libraries(shared PUBLIC spdlog::spdlog)
 
