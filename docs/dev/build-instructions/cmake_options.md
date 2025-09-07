@@ -34,6 +34,11 @@ Build an x86 overlay
 Bundle Qt's translations as well
 (Default: ${static})
 
+### bundled-cli11
+
+Use the bundled CLI11 version instead of looking for one on the system
+(Default: ON)
+
 ### bundled-gsl
 
 Use the bundled GSL version instead of looking for one on the system

@@ -38,6 +38,11 @@
 #	include <sys/syslog.h>
 #endif
 
+#include <optional>
+#include <tuple>
+
+#include <CLI/CLI.hpp>
+
 extern QFile *qfLog;
 
 static bool bVerbose = false;
@@ -187,6 +192,126 @@ void cleanup(int signum) {
 	exit(signum);
 }
 
+struct CLIOptions {
+	bool quit = false;
+	std::optional< std::string > iniFile;
+	std::optional< std::string > dbDumpPath;
+	std::optional< std::string > dbImportPath;
+	std::tuple< std::string, std::optional< unsigned int > > supwSrv;
+	std::optional< unsigned int > disableSuSrv;
+	bool verboseLogging = false;
+	bool cliDetach      = detach;
+	bool wipeSsl        = false;
+	bool wipeLogs       = false;
+	bool logGroups      = false;
+	bool logAcls        = false;
+
+	bool printAuthors            = false;
+	bool printLicense            = false;
+	bool printThirdPartyLicenses = false;
+
+#ifdef Q_OS_UNIX
+	bool limits = false;
+	std::optional< unsigned int > readSupwSrv;
+#endif
+
+	static constexpr const char *const CLI_ABOUT_SECTION          = "About";
+	static constexpr const char *const CLI_LOGGING_SECTION        = "Logging";
+	static constexpr const char *const CLI_ADMINISTRATION_SECTION = "Administration";
+	static constexpr const char *const CLI_CONFIGURATION_SECTION  = "Configuration";
+	static constexpr const char *const CLI_TESTING_SECTION        = "Testing";
+};
+
+CLIOptions parseCLI(int argc, char **argv) {
+	CLIOptions options;
+
+	CLI::App app;
+	app.set_version_flag("--version", Version::getRelease().toStdString());
+
+	app.add_option("-i,--ini", options.iniFile, "Specify ini file to use.")
+		->option_text("<inifile>")
+		->check(CLI::ExistingFile)
+		->group(CLIOptions::CLI_CONFIGURATION_SECTION);
+
+	app.add_option("--set-su-pw", options.supwSrv, "Set password for 'SuperUser' account on server srv.")
+		->option_text("<pw> [srv]")
+		->type_size(1, 2)
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+
+#ifdef Q_OS_UNIX
+	app.add_option("--read-su-pw", options.readSupwSrv, "Reads password for server srv from standard input.")
+		->option_text("[srv]")
+		->default_str("0")
+		->expected(0, 1)
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+
+	app.add_flag("--limits", options.limits,
+				 "Tests and shows how many file descriptors and threads can be created. "
+				 "The purpose of this option is to test how many clients Mumble server can handle. "
+				 "Mumble server will exit after this test.")
+		->group(CLIOptions::CLI_TESTING_SECTION);
+#endif
+
+	app.add_option_no_stream("--disable-su", options.disableSuSrv,
+							 "Disable password for 'SuperUser' account on server srv.")
+		->option_text("[srv]")
+		->expected(0, 1)
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+	app.add_flag("--wipe-ssl", options.wipeSsl, "Remove SSL certificates from database.")
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+	app.add_option("--db-json-dump", options.dbDumpPath,
+				   "Requests a JSON dump of the database to be written to the given file")
+		->option_text("<file>")
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+	app.add_option("--db-json-import", options.dbImportPath,
+				   "Reads in the provide JSON file and imports its contents into the database")
+		->option_text("<file>")
+		->group(CLIOptions::CLI_ADMINISTRATION_SECTION);
+
+	app.add_flag("-v,--verbose", options.verboseLogging, "Use verbose logging (include debug-logs).")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+	app.add_flag("--detach,!--no-detach,--background,!--foreground", options.cliDetach,
+				 "Whether to run in detached/background mode. In this mode, the program will detach and run as an "
+				 "independent process in the background. Furthermore, logs will be written to the database instead of "
+				 "to the console.")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+
+	app.add_flag("--wipe-logs", options.wipeLogs, "Remove all log entries from database.")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+	app.add_flag("--log-groups", options.logGroups, "Turns on logging for group changes for all servers.")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+	app.add_flag("--log-acls", options.logAcls, "Turns on logging for ACL changes for all servers.")
+		->group(CLIOptions::CLI_LOGGING_SECTION);
+
+
+	app.add_flag("--authors", options.printAuthors, "Show Mumble server's authors.")
+		->group(CLIOptions::CLI_ABOUT_SECTION);
+	app.add_flag("--license", options.printLicense, "Show Mumble server's license.")
+		->group(CLIOptions::CLI_ABOUT_SECTION);
+	app.add_flag("--third-party-licenses", options.printThirdPartyLicenses,
+				 "Show licenses for third-party software used by Mumble server.")
+		->group(CLIOptions::CLI_ABOUT_SECTION);
+
+
+	app.footer("If no inifile is provided, Mumble server will search for one in default locations.");
+
+	try {
+		(app).parse(argc, argv);
+	} catch (const CLI::ParseError &e) {
+		std::stringstream info_stream, error_stream;
+		app.exit(e, info_stream, error_stream);
+
+		if (e.get_exit_code() != static_cast< int >(CLI::ExitCodes::Success)) {
+			qWarning("%s", error_stream.str().c_str());
+		} else {
+			qInfo("%s", info_stream.str().c_str());
+		}
+		options.quit = true;
+	}
+
+	return options;
+}
+
 int main(int argc, char **argv) {
 	try {
 		// Check for SSE and MMX, but only in the windows binaries
@@ -236,180 +361,87 @@ int main(int argc, char **argv) {
 
 		MumbleSSL::initialize();
 
-		QString inifile;
-		QString supw;
-		QString dbDumpPath;
-		QString dbImportPath;
-		bool disableSu     = false;
-		bool wipeSsl       = false;
-		bool wipeLogs      = false;
-		unsigned int sunum = 0;
-#ifdef Q_OS_UNIX
-		bool readPw = false;
-#endif
-		bool logGroups = false;
-		bool logACL    = false;
-
-
 		qInstallMessageHandler(murmurMessageOutputWithContext);
 
 #ifdef Q_OS_WIN
 		Tray tray(nullptr, &le);
 #endif
+		CLIOptions cli_options = parseCLI(argc, argv);
+		if (cli_options.quit)
+			return 0;
 
-		QStringList args = a.arguments();
-		for (int i = 1; i < args.size(); i++) {
-			bool bLast  = false;
-			QString arg = args.at(i).toLower();
-			if ((arg == "-supw")) {
-				detach = false;
-				if (i + 1 < args.size()) {
-					i++;
-					supw = args.at(i);
-					if (i + 1 < args.size()) {
-						i++;
-						sunum = args.at(i).toUInt();
-					}
-					bLast = true;
-				} else {
-#ifdef Q_OS_UNIX
-					qFatal("-supw expects the password on the command line - maybe you meant -readsupw?");
-#else
-					qFatal("-supw expects the password on the command line");
-#endif
-				}
-#ifdef Q_OS_UNIX
-			} else if ((arg == "-readsupw")) {
-				// Note that it is essential to set detach = false here. If this is ever to be changed, the code part
-				// handling the readPw = true part has to be moved up so that it is executed before fork is called on
-				// Unix systems.
-				detach = false;
-				readPw = true;
-				if (i + 1 < args.size()) {
-					i++;
-					sunum = args.at(i).toUInt();
-				}
-				bLast = true;
-#endif
-			} else if ((arg == "-disablesu")) {
-				detach    = false;
-				disableSu = true;
-				if (i + 1 < args.size()) {
-					i++;
-					sunum = args.at(i).toUInt();
-				}
-				bLast = true;
-			} else if ((arg == "-ini") && (i + 1 < args.size())) {
-				i++;
-				inifile = args.at(i);
-			} else if ((arg == "-wipessl")) {
-				wipeSsl = true;
-			} else if ((arg == "-wipelogs")) {
-				wipeLogs = true;
-			} else if ((arg == "-fg")) {
-				detach = false;
-			} else if ((arg == "-v")) {
-				bVerbose = true;
-			} else if ((arg == "-version") || (arg == "--version")) {
-				// Print version and exit (print to regular std::cout to avoid adding any useless meta-information from
-				// using e.g. qWarning
-				std::cout << "Mumble server version " << Version::getRelease().toStdString() << std::endl;
-				return 0;
-			} else if (args.at(i) == QLatin1String("-license") || args.at(i) == QLatin1String("--license")) {
+		if (cli_options.printLicense) {
 #ifdef Q_OS_WIN
-				AboutDialog ad(nullptr, AboutDialogOptionsShowLicense);
-				ad.exec();
-				return 0;
+			AboutDialog ad(nullptr, AboutDialogOptionsShowLicense);
+			ad.exec();
+			return 0;
 #else
-				qInfo("%s\n", qPrintable(License::license()));
-				return 0;
+			qInfo("%s\n", qPrintable(License::license()));
+			return 0;
 #endif
-			} else if (args.at(i) == QLatin1String("-authors") || args.at(i) == QLatin1String("--authors")) {
+		} else if (cli_options.printAuthors) {
 #ifdef Q_OS_WIN
-				AboutDialog ad(nullptr, AboutDialogOptionsShowAuthors);
-				ad.exec();
-				return 0;
+			AboutDialog ad(nullptr, AboutDialogOptionsShowAuthors);
+			ad.exec();
+			return 0;
 #else
-				qInfo("%s\n",
-					  "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
-				return 0;
+			qInfo("%s\n",
+				  "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
+			return 0;
 #endif
-			} else if (args.at(i) == QLatin1String("-third-party-licenses")
-					   || args.at(i) == QLatin1String("--third-party-licenses")) {
+		} else if (cli_options.printThirdPartyLicenses) {
 #ifdef Q_OS_WIN
-				AboutDialog ad(nullptr, AboutDialogOptionsShowThirdPartyLicenses);
-				ad.exec();
-				return 0;
+			AboutDialog ad(nullptr, AboutDialogOptionsShowThirdPartyLicenses);
+			ad.exec();
+			return 0;
 #else
-				qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
-				return 0;
+			qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+			return 0;
 #endif
-			} else if (arg == "--db-json-dump") {
-				++i;
-				dbDumpPath = args.at(i);
-			} else if (arg == "--db-json-import") {
-				++i;
-				dbImportPath = args.at(i);
-			} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
-				detach = false;
-				qInfo(
-					"Usage: %s [-ini <inifile>] [-supw <password>]\n"
-					"  --version               Print version information and exit\n"
-					"  -ini <inifile>          Specify ini file to use.\n"
-					"  -supw <pw> [srv]        Set password for 'SuperUser' account on server srv.\n"
+		}
+
+		detach          = cli_options.cliDetach;
+		QString inifile = QString::fromStdString(cli_options.iniFile.value_or(""));
+		QString supw;
+		bool disableSu     = false;
+		bool wipeSsl       = cli_options.wipeSsl;
+		bool wipeLogs      = cli_options.wipeLogs;
+		unsigned int sunum = 0;
 #ifdef Q_OS_UNIX
-					"  -readsupw [srv]         Reads password for server srv from standard input.\n"
+		bool readPw = false;
 #endif
-					"  -disablesu [srv]        Disable password for 'SuperUser' account on server srv.\n"
+		bool logGroups = cli_options.logGroups;
+		bool logACL    = cli_options.logAcls;
+
+		bVerbose = cli_options.verboseLogging;
+
+		if (cli_options.disableSuSrv) {
+			detach    = false;
+			disableSu = true;
+			sunum     = *cli_options.disableSuSrv;
+		}
+
+		if (!std::get< 0 >(cli_options.supwSrv).empty()) {
+			supw  = QString::fromStdString(std::get< 0 >(cli_options.supwSrv));
+			sunum = std::get< 1 >(cli_options.supwSrv).value_or< unsigned int >(0);
 #ifdef Q_OS_UNIX
-					"  -limits                 Tests and shows how many file descriptors and threads can be created.\n"
-					"                          The purpose of this option is to test how many clients Murmur can "
-					"handle.\n"
-					"                          Murmur will exit after this test.\n"
+		} else if (cli_options.readSupwSrv) {
+			// Note that it is essential to set detach = false here. If this is ever to be changed, the code part
+			// handling the readPw = true part has to be moved up so that it is executed before fork is called on Unix
+			// systems.
+
+			detach = false;
+			readPw = true;
+			sunum  = *cli_options.readSupwSrv;
+		}
+
+		if (cli_options.limits) {
+			detach = false;
+			Meta::mp->read(inifile);
+			unixhandler.setuid();
+			unixhandler.finalcap();
+			LimitTest::testLimits(a);
 #endif
-					"  -v                      Use verbose logging (include debug-logs).\n"
-#ifdef Q_OS_UNIX
-					"  -fg                     Don't detach from console.\n"
-#else
-					"  -fg                     Don't write to the log file.\n"
-#endif
-					"  -wipessl                Remove SSL certificates from database.\n"
-					"  -wipelogs               Remove all log entries from database.\n"
-					"  -loggroups              Turns on logging for group changes for all servers.\n"
-					"  -logacls                Turns on logging for ACL changes for all servers.\n"
-					"  -version                Show version information.\n"
-					"  --db-json-dump [file]   Requests a JSON dump of the database to be written to the given file\n"
-					"  --db-json-import [file] Reads in the provide JSON file and imports its contents into the "
-					"database\n"
-					"\n"
-					"  -license                Show Murmur's license.\n"
-					"  -authors                Show Murmur's authors.\n"
-					"  -third-party-licenses   Show licenses for third-party software used by Murmur.\n"
-					"\n"
-					"If no inifile is provided, murmur will search for one in \n"
-					"default locations.",
-					qPrintable(args.at(0)));
-				return 0;
-#ifdef Q_OS_UNIX
-			} else if (arg == "-limits") {
-				detach = false;
-				Meta::mp->read(inifile);
-				unixhandler.setuid();
-				unixhandler.finalcap();
-				LimitTest::testLimits(a);
-#endif
-			} else if (arg == "-loggroups") {
-				logGroups = true;
-			} else if (arg == "-logacls") {
-				logACL = true;
-			} else {
-				detach = false;
-				qFatal("Unknown argument %s", qPrintable(args.at(i)));
-			}
-			if (bLast && (i + 1 != args.size())) {
-				detach = false;
-				qFatal("Password arguments must be last.");
-			}
 		}
 
 		if (QSslSocket::supportsSsl()) {
@@ -424,22 +456,22 @@ int main(int argc, char **argv) {
 
 		Meta::mp->read(inifile);
 
-		if (!dbDumpPath.isEmpty()) {
+		if (cli_options.dbDumpPath) {
 			DBWrapper wrapper(Meta::getConnectionParameter());
 
-			std::ofstream file(dbDumpPath.toStdString());
+			std::ofstream file(*cli_options.dbDumpPath);
 			file << wrapper.exportDBToJSON().dump(2);
 
-			qInfo("Dumped JSON representation of database contents to '%s'", qPrintable(dbDumpPath));
+			qInfo("Dumped JSON representation of database contents to '%s'", cli_options.dbDumpPath->c_str());
 
 			return 0;
 		}
 
-		if (!dbImportPath.isEmpty()) {
-			qInfo("Importing contents of '%s' into database", qPrintable(dbImportPath));
+		if (cli_options.dbImportPath) {
+			qInfo("Importing contents of '%s' into database", cli_options.dbImportPath->c_str());
 			DBWrapper wrapper(Meta::getConnectionParameter());
 
-			std::ifstream file(dbImportPath.toStdString());
+			std::ifstream file(*cli_options.dbImportPath);
 
 			nlohmann::json json;
 			file >> json;
