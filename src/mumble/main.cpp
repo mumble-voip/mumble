@@ -253,7 +253,7 @@ CLIOptions parseCLI(int argc, char **argv) {
 	CLIOptions options;
 
 	CLI::App app("Mumble Client");
-	app.set_version_flag("--version", "Mumble version " + Version::getRelease().toStdString());
+	app.set_version_flag("--version", Version::getRelease().toStdString());
 	app.add_flag("--license", options.showLicense, "Show the Mumble license.")->group(CLIOptions::CLI_ABOUT_SECTION);
 	app.add_flag("--authors", options.showAuthors, "Show the Mumble authors.")->group(CLIOptions::CLI_ABOUT_SECTION);
 	app.add_flag("--third-party-licenses", options.showThirdPartyLicenses,
