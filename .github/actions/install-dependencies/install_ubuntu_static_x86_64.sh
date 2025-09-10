@@ -3,6 +3,8 @@
 set -e
 set -x
 
+source "$( dirname "$0" )/common.sh"
+
 sudo apt update
 
 sudo apt -y install \
@@ -16,53 +18,13 @@ sudo apt -y install \
 	libspeechd-dev \
 	libavahi-compat-libdnssd-dev \
 	libasound2-dev
-	
 
-if [[ "$MUMBLE_ENVIRONMENT_SOURCE" == "" ]]; then
-	echo "MUMBLE_ENVIRONMENT_SOURCE not set!"
-	exit 1
-fi
-if [[ "$MUMBLE_ENVIRONMENT_VERSION" == "" ]]; then
-	echo "MUMBLE_ENVIRONMENT_VERSION not set!"
-	exit 1
-fi
-if [[ "$MUMBLE_ENVIRONMENT_DIR" == ""  ]]; then
-	echo "MUMBLE_ENVIRONMENT_DIR not set!"
-	exit 1
-fi
+verify_required_env_variables_set
 
-envDir="$MUMBLE_ENVIRONMENT_DIR"
+make_build_env_available "tar.xz"
 
-if [[ -d "$envDir" && -n "$(ls -A "$envDir")" ]]; then
-	echo "Environment is cached"
-else
-	sudo apt install aria2
-
-	envArchive="$MUMBLE_ENVIRONMENT_VERSION.tar.xz"
-
-	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --out="$envArchive"
-
-	echo "Extracting archive..."
-	if [[ ! -d "$envDir" ]]; then
-		mkdir -p "$envDir"
-	fi
-
-	"$(dirname $0)/extractWithProgress.sh" "$envArchive" "$envDir"
-
-	if [[ ! -d "$envDir" || -z "$(ls -A "$envDir")" ]]; then
-		echo "Environment did not follow expected form"
-		ls -al "$envDir"
-		exit 1
-	fi
-fi
-
-
-# MySQL and PostgreSQL are pre-installed on GitHub-hosted runners. More info about the default setup can be found at
-# - https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu1804-Readme.md#databases
-# - https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-Readme.md#databases
-
-# Setup MySQL and PostgreSQL databases for the Mumble tests
-echo "Configuring MySQL..."
+# MySQL and PostgreSQL are pre-installed on GitHub-hosted runners.
+# Set them up for the Mumble tests
 
 echo -e "[mysqld]\nlog-bin-trust-function-creators = 1\nsocket=/var/run/mysqld/mysqld.sock\n\n" | sudo tee -a /etc/mysql/my.cnf
 
@@ -74,16 +36,7 @@ echo "MYSQL_UNIX_PORT=/var/run/mysqld/mysqld.sock" >> "$GITHUB_ENV"
 sudo systemctl enable mysql.service
 sudo systemctl start mysql.service
 
-echo "CREATE DATABASE mumble_test_db; "\
-	"CREATE USER 'mumble_test_user'@'localhost' IDENTIFIED BY 'MumbleTestPassword'; "\
-	"GRANT ALL PRIVILEGES ON mumble_test_db.* TO 'mumble_test_user'@'localhost';"  | sudo mysql --user=root --password="root"
-
-
-echo "Configuring PostgreSQL..."
-
 sudo systemctl enable postgresql.service
 sudo systemctl start postgresql.service
 
-echo "CREATE DATABASE mumble_test_db; "\
-	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
-	"ALTER DATABASE mumble_test_db OWNER TO mumble_test_user;" | sudo -u postgres psql
+configure_database_tables "mysql" "postgresql"

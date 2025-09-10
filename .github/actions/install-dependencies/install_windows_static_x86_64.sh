@@ -1,64 +1,33 @@
+#!/usr/bin/env bash
+
 set -e
 set -x
 
+source "$( dirname "$0" )/common.sh"
+
 # All of these are already installed on the runner
 # choco install cmake ninja vswhere
-
-if [[ "$MUMBLE_ENVIRONMENT_SOURCE" == "" ]]; then
-	echo "MUMBLE_ENVIRONMENT_SOURCE not set!"
-	exit 1
-fi
-if [[ "$MUMBLE_ENVIRONMENT_VERSION" == "" ]]; then
-	echo "MUMBLE_ENVIRONMENT_VERSION not set!"
-	exit 1
-fi
-if [[ "$MUMBLE_ENVIRONMENT_DIR" == ""  ]]; then
-	echo "MUMBLE_ENVIRONMENT_DIR not set!"
-	exit 1
-fi
-
-envDir="$MUMBLE_ENVIRONMENT_DIR"
-
 choco install aria2 7zip
 
-if [[ -d "$envDir" && -n "$(ls -A '$envDir')" ]]; then
-	echo "Environment is cached"
-else
-	envArchive="$MUMBLE_ENVIRONMENT_VERSION.7z"
+verify_required_env_variables_set
 
-	aria2c "$MUMBLE_ENVIRONMENT_SOURCE/$envArchive" --out="$envArchive"
-
-	echo "Extracting archive..."
-	if [[ ! -d "$envDir" ]]; then
-		mkdir -p "$envDir"
-	fi
-
-	"$(dirname $0)/extractWithProgress.sh" "$envArchive" "$envDir"
-
-	if [[ ! -d "$envDir" || -n "$(ls -A '$envDir')" ]]; then
-		echo "Environment did not follow expected form"
-		ls -al "$envDir"
-		exit 1
-	fi
-
-	ls -al "$envDir"
-fi
+make_build_env_available "7z"
 
 aria2c "https://dl.mumble.info/build/extra/asio_sdk.zip" --out "asio_sdk.zip"
-"$(dirname $0)/extractWithProgress.sh" "asio_sdk.zip" "${GITHUB_WORKSPACE}/3rdparty/asio"
+extract_with_progress "asio_sdk.zip" "${GITHUB_WORKSPACE}/3rdparty/asio"
 
 aria2c "https://dl.mumble.info/build/extra/g15_sdk.zip" --out "g15_sdk.zip"
-"$(dirname $0)/extractWithProgress.sh" "g15_sdk.zip" "g15_sdk"
+extract_with_progress "g15_sdk.zip" "g15_sdk"
 mv "g15_sdk/LCDSDK" "${GITHUB_WORKSPACE}/3rdparty/g15"
 rm -rf "g15_sdk"
 
 aria2c "https://github.com/oleg-shilo/wixsharp/releases/download/v1.19.0.0/WixSharp.1.19.0.0.7z" --out "WixSharp.7z"
-"$(dirname $0)/extractWithProgress.sh" "WixSharp.7z" "C:/WixSharp"
+extract_with_progress "WixSharp.7z" "C:/WixSharp"
 
 git clone "https://github.com/nathan818fr/vcvars-bash.git" "C:/vcvars-bash"
 
 
-echo "Configuring MySQL"
+# Configure database tables for Mumble tests
 echo -e "[mysqld]\nlog-bin-trust-function-creators = 1" >> "C:/Windows/my.ini"
 
 mysqld --initialize-insecure --console
@@ -68,4 +37,4 @@ powershell -Command "Start-Process mysqld"
 # Give the MySQL daemon some time to start up
 sleep 5
 
-echo "CREATE DATABASE mumble_test_db; CREATE USER 'mumble_test_user'@'localhost' IDENTIFIED BY 'MumbleTestPassword'; GRANT ALL PRIVILEGES ON mumble_test_db.* TO 'mumble_test_user'@'localhost';" | mysql --user=root
+configure_database_tables "mysql"
