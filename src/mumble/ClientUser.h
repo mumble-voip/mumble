@@ -28,6 +28,8 @@ public:
 	bool bLocalIgnore;
 	bool bLocalIgnoreTTS;
 	bool bLocalMute;
+	// Whether or not the user's effective output is inaudible due to volume settings, positional audio etc.
+	bool volumeMute;
 
 	float fPowerMin, fPowerMax;
 	float fAverageAvailable;
