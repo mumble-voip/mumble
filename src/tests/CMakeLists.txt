@@ -15,6 +15,18 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${test-lto})
 # Set output directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
 
+if (static)
+	find_pkg(Qt6 VERSION 6 COMPONENTS Widgets)
+	if (NOT TARGET Qt6::QOffscreenIntegrationPlugin)
+		message(FATAL_ERROR "Unable to locate offscreen plugin (needed for tests)")
+	endif()
+	add_library(mumble_test_qt_plugins STATIC)
+	include_qt_plugin(mumble_test_qt_plugins PRIVATE "QOffscreenIntegrationPlugin")
+	target_link_libraries(mumble_test_qt_plugins PUBLIC Qt6::Widgets Qt6::QOffscreenIntegrationPlugin)
+
+	link_libraries(mumble_test_qt_plugins)
+endif()
+
 if(client)
 	add_subdirectory("TestXMLTools")
 	if(NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD")
