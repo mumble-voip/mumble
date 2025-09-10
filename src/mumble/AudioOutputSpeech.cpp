@@ -474,7 +474,7 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				break;
 		}
 
-		if (ts != Settings::Passive && p->bLocalMute) {
+		if (ts != Settings::Passive && (p->bLocalMute || p->volumeMute)) {
 			ts = Settings::MutedTalking;
 		}
 

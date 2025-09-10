@@ -632,7 +632,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 				// adjustments
 				AudioOutputSpeech *speech = qobject_cast< AudioOutputSpeech * >(buffer);
 				AudioOutputSample *sample = qobject_cast< AudioOutputSample * >(buffer);
-				const ClientUser *user    = nullptr;
+				ClientUser *user          = nullptr;
 				if (speech) {
 					user = speech->p;
 
@@ -707,6 +707,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					}
 				}
 
+				float maxVolume = 0.0f;
+
 				if (validListener
 					&& ((buffer->fPos[0] != 0.0f) || (buffer->fPos[1] != 0.0f) || (buffer->fPos[2] != 0.0f))) {
 					// Add position to position map
@@ -767,6 +769,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 							channelVol = 0;
 						}
 
+						maxVolume = std::max(maxVolume, channelVol);
+
 						float *RESTRICT o   = output + s;
 						const float old     = (buffer->pfVolume[s] >= 0.0f) ? buffer->pfVolume[s] : channelVol;
 						const float inc     = (channelVol - old) / static_cast< float >(frameCount);
@@ -813,6 +817,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 					// after having applied a volume adjustment
 					for (unsigned int s = 0; s < nchan; ++s) {
 						const float channelVol = svol[s] * volumeAdjustment;
+						maxVolume              = std::max(maxVolume, channelVol);
 						float *RESTRICT o      = output + s;
 						if (buffer->bStereo) {
 							// Linear-panning stereo stream according to the projection of fSpeaker vector on left-right
@@ -827,6 +832,10 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 								o[i * nchan] += pfBuffer[i] * channelVol;
 						}
 					}
+				}
+
+				if (user) {
+					user->volumeMute = maxVolume < 0.01f;
 				}
 			}
 

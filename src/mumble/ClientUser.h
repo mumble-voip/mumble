@@ -28,6 +28,7 @@ public:
 	bool bLocalIgnore;
 	bool bLocalIgnoreTTS;
 	bool bLocalMute;
+	bool volumeMute;
 
 	float fPowerMin, fPowerMax;
 	float fAverageAvailable;
