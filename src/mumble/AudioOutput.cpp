@@ -463,10 +463,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 	positions.clear();
 #endif
 
-	if (Global::get().s.fVolume < 0.01f) {
-		return false;
-	}
-
 	// A list of buffers that no longer have any audio to play and can thus be deleted
 	QList< AudioOutputBuffer * > qlDel;
 
