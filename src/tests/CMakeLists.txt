@@ -16,7 +16,7 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${test-lto})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
 
 if (static)
-	find_pkg(Qt6 VERSION 6 COMPONENTS Widgets)
+	find_pkg(Qt6 VERSION 6 COMPONENTS Widgets REQUIRED)
 	if (NOT TARGET Qt6::QOffscreenIntegrationPlugin)
 		message(FATAL_ERROR "Unable to locate offscreen plugin (needed for tests)")
 	endif()
