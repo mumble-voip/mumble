@@ -61,6 +61,12 @@ then
 
 	sudo update-alternatives --config gcc
 	sudo update-alternatives --config g++
+
+	# There is a bug in GCC 12 (that got fixed in GCC 12.4 but we only have 12.3 in the repos)
+	# that can lead to bogus -Wrestrict warnings, which our configuration treats as an error
+	# Cmp. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105651
+	# We want to prevent that from happening.
+	echo "CXXFLAGS=-Wno-error=restrict" >> "$GITHUB_ENV"
 else
 	sudo apt -y install qt6-svg-dev
 fi
