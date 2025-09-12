@@ -69,6 +69,11 @@ Use the bundled spdlog version instead of looking for one on the system
 Build the included version of Speex instead of looking for one on the system.
 (Default: ON)
 
+### bundled-utfcpp
+
+Use the bundled utf8cpp version instead of looking for one on the system
+(Default: ON)
+
 ### client
 
 Build the client (Mumble)
