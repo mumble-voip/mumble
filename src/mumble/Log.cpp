@@ -888,7 +888,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			connectedUsers = ClientUser::c_qmUsers.size();
 		}
 		if ((flags & Settings::LogSoundfile)
-			&& !(flags & Settings::LogMessageLimit && connectedUsers > Global::get().s.iMessageLimitUserThreshold)) {
+			&& !(flags & Settings::LogMessageLimit && connectedUsers > Global::get().s.iMessageLimitUserThreshold)
+			&& !NotificationSoundBlocker::s_blockedNotificationSounds.contains(mt)) {
 			QString sSound    = Global::get().s.qmMessageSounds.value(mt);
 			AudioOutputPtr ao = Global::get().ao;
 
@@ -992,4 +993,14 @@ QVariant LogDocument::loadResource(int type, const QUrl &url) {
 	addResource(type, url, qi);
 
 	return qi;
+}
+
+std::set< Log::MsgType > NotificationSoundBlocker::s_blockedNotificationSounds;
+
+NotificationSoundBlocker::NotificationSoundBlocker(Log::MsgType msgType) : m_msgType(msgType) {
+	s_blockedNotificationSounds.insert(m_msgType);
+}
+
+NotificationSoundBlocker::~NotificationSoundBlocker() {
+	s_blockedNotificationSounds.erase(m_msgType);
 }
