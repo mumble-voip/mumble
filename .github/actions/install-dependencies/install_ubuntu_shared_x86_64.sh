@@ -3,7 +3,9 @@
 set -e
 set -x
 
-. /etc/os-release
+source "$( dirname "$0" )/common.sh"
+
+source /etc/os-release
 
 sudo apt update
 
@@ -36,9 +38,8 @@ sudo apt -y install \
 	libsqlite3-dev
 
 # The package was initially called libqt6svg6-dev.
-# Choose correct name based on the Ubuntu version.
-if [[ $VERSION_ID = "22.04" ]]
-then
+# Choose correct name based on the Ubuntu version along with some other version-specific setup
+if [[ $VERSION_ID = "22.04" ]]; then
 	# libgl-dev is required in order for GUI-related components to be found by CMake.
 	# qt6-l10n-tools and qt6-tools-dev-tools are required in order for LinguistTools to be found by CMake.
 	sudo apt -y install libgl-dev \
@@ -61,32 +62,24 @@ then
 
 	sudo update-alternatives --config gcc
 	sudo update-alternatives --config g++
+
+	# There is a bug in GCC 12 (that got fixed in GCC 12.4 but we only have 12.3 in the repos)
+	# that can lead to bogus -Wrestrict warnings, which our configuration treats as an error
+	# Cmp. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105651
+	# We want to prevent that from happening.
+	echo "CXXFLAGS=-Wno-error=restrict" >> "$GITHUB_ENV"
 else
 	sudo apt -y install qt6-svg-dev
 fi
 
-# MySQL and PostgreSQL are pre-installed on GitHub-hosted runners. More info about the default setup can be found at
-# - https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu1804-Readme.md#databases
-# - https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-Readme.md#databases
-
-# Setup MySQL and PostgreSQL databases for the Mumble tests
-echo "Configuring MySQL..."
-
+# MySQL and PostgreSQL are pre-installed on GitHub-hosted runners.
+# Set them up for the Mumble tests
 echo -e "[mysqld]\nlog-bin-trust-function-creators = 1" | sudo tee -a /etc/mysql/my.cnf
 
 sudo systemctl enable mysql.service
 sudo systemctl start mysql.service
 
-echo "CREATE DATABASE mumble_test_db; "\
-	"CREATE USER 'mumble_test_user'@'localhost' IDENTIFIED BY 'MumbleTestPassword'; "\
-	"GRANT ALL PRIVILEGES ON mumble_test_db.* TO 'mumble_test_user'@'localhost';"  | sudo mysql --user=root --password="root"
-
-
-echo "Configuring PostgreSQL..."
-
 sudo systemctl enable postgresql.service
 sudo systemctl start postgresql.service
 
-echo "CREATE DATABASE mumble_test_db; "\
-	"CREATE USER mumble_test_user ENCRYPTED PASSWORD 'MumbleTestPassword'; "\
-	"ALTER DATABASE mumble_test_db OWNER TO mumble_test_user;" | sudo -u postgres psql
+configure_database_tables "mysql" "postgresql"
