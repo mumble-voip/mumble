@@ -2016,6 +2016,19 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 
 	MSG_SETUP(ServerUser::Authenticated);
 
+	// User needs Write permission on at least one channel in the tree
+	bool hasWritePermission = false;
+	for (Channel *chan : qhChannels) {
+		if (hasPermission(uSource, chan, ChanACL::Write)) {
+			hasWritePermission = true;
+			break;
+		}
+	}
+
+	if (!hasWritePermission) {
+		return;
+	}
+
 	MumbleProto::QueryUsers reply;
 
 	for (int i = 0; i < msg.ids_size(); ++i) {
