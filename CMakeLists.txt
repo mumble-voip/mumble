@@ -88,6 +88,8 @@ endif()
 
 option(lto "Enables link-time optimizations for release builds" ${LTO_DEFAULT})
 
+option(bundled-utfcpp "Use the bundled utf8cpp version instead of looking for one on the system" ON)
+
 include(compiler)
 include(os)
 
@@ -152,7 +154,12 @@ set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${lto})
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 
-add_subdirectory(${3RDPARTY_DIR}/utfcpp)
+if(bundled-utfcpp)
+	add_subdirectory(${3RDPARTY_DIR}/utfcpp)
+else()
+	find_pkg("utf8cpp" REQUIRED)
+	add_library(utfcpp ALIAS utf8cpp::utf8cpp)
+endif()
 
 if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
