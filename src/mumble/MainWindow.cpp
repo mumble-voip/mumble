@@ -3470,6 +3470,11 @@ void MainWindow::on_gsSwitchProfile_triggered(bool down, QVariant scdata) {
 		return;
 	}
 
+	if (Global::get().inConfigUI) {
+		Global::get().l->log(Log::Warning, tr("Switch profile shortcut is disabled while configuration menu is open"));
+		return;
+	}
+
 	QString selectedProfile = scdata.toString();
 	if (selectedProfile.isEmpty()) {
 		return;
@@ -3491,7 +3496,8 @@ void MainWindow::on_gsSwitchProfile_triggered(bool down, QVariant scdata) {
 	profiles.allProfiles[profiles.activeProfileName] = Global::get().s;
 	Global::get().s.loadProfile(selectedProfile);
 
-	// We need to reset this (currently pressed) shortcut, because its definition might change
+	// We need to reset this (currently pressed) shortcut,
+	// because its definition might change during the activation
 	gsSwitchProfile->reset();
 
 	// GlobalShortcuts may have changed with profile switch
