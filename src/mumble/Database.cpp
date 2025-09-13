@@ -297,6 +297,32 @@ void Database::setFavorites(const QList< FavoriteServer > &servers) {
 	db.commit();
 }
 
+void Database::addFavorite(const FavoriteServer &server) {
+	QSqlQuery query(db);
+
+	query.prepare(QLatin1String(
+		"REPLACE INTO `servers` (`name`, `hostname`, `port`, `username`, `password`, `url`) VALUES (?,?,?,?,?,?)"));
+
+	query.addBindValue(server.qsName);
+	query.addBindValue(server.qsHostname);
+	query.addBindValue(server.usPort);
+	query.addBindValue(server.qsUsername);
+	query.addBindValue(server.qsPassword);
+	query.addBindValue(server.qsUrl);
+	execQueryAndLogFailure(query);
+}
+
+bool Database::isFavorite(const QString &hostname, unsigned short port) {
+	QSqlQuery query(db);
+
+	query.prepare(QLatin1String("SELECT 1 FROM `servers` WHERE `hostname` = ? AND `port` = ?"));
+	query.addBindValue(hostname);
+	query.addBindValue(port);
+
+	execQueryAndLogFailure(query);
+	return query.next();
+}
+
 bool Database::isLocalIgnored(const QString &hash) {
 	QSqlQuery query(db);
 
