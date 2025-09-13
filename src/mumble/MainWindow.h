@@ -113,6 +113,7 @@ public:
 	GlobalShortcut *gsMoveBack;
 	GlobalShortcut *gsCycleListenerAttenuationMode, *gsListenerAttenuationUp, *gsListenerAttenuationDown;
 	GlobalShortcut *gsAdaptivePush;
+	GlobalShortcut *gsSwitchProfile;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -355,6 +356,7 @@ public slots:
 	void on_gsListenerAttenuationUp_triggered(bool, QVariant);
 	void on_gsListenerAttenuationDown_triggered(bool, QVariant);
 	void on_gsAdaptivePush_triggered(bool, QVariant);
+	void on_gsSwitchProfile_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_qaTalkingUIToggle_triggered();
@@ -411,6 +413,7 @@ public slots:
 	void on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
 					   unsigned int newChannelID);
 	void on_qaMoveBack_triggered();
+	void on_settingsChanged();
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).
