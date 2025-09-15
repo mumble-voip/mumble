@@ -25,24 +25,18 @@ QHash< QString, ConfigWidget * > ConfigDialog::s_existingWidgets;
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 
-	{
-		QMutexLocker lock(&s_existingWidgetsMutex);
-		s_existingWidgets.clear();
-	}
-
-
 	s = Global::get().s;
 
 	unsigned int idx = 0;
-	for (ConfigWidgetNew cwn : *ConfigRegistrar::c_qmNew) {
-		ConfigWidget *cw = cwn(s);
-		{
-			QMutexLocker lock(&s_existingWidgetsMutex);
-			s_existingWidgets.insert(cw->getName(), cw);
-		}
 
-		addPage(cw, ++idx);
+	{
+		for (ConfigWidget *cw : s_existingWidgets.values()) {
+			qDebug() << "Add Config Dialog page " << cw->getName() << " " << cw;
+			addPage(cw, ++idx);
+		}
 	}
+
+	qDebug() << "Done creating dialog";
 
 	updateListView();
 
@@ -110,6 +104,8 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	int w = INT_MAX, h = INT_MAX;
 
+	cw->s = s;
+
 	const QList< QScreen * > screens = qApp->screens();
 	for (int i = 0; i < screens.size(); ++i) {
 		const QRect ds = screens[i]->availableGeometry();
@@ -142,14 +138,43 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 }
 
 ConfigDialog::~ConfigDialog() {
-	{
-		QMutexLocker lock(&s_existingWidgetsMutex);
-		s_existingWidgets.clear();
-	}
+	while (qswPages->count() > 0) {
+		QWidget *qw = qswPages->currentWidget();
+		qswPages->removeWidget(qw);
+		qw->setParent(nullptr);
 
-	for (QWidget *qw : qhPages) {
+		ConfigWidget *cw = static_cast< ConfigWidget * >(qw);
+		if (cw) {
+			continue;
+		}
+
+		QScrollArea *qsa = static_cast< QScrollArea * >(qw);
+		if (qsa) {
+			qsa->takeWidget();
+		}
+
 		delete qw;
 	}
+}
+
+#include <QDebug>
+
+void ConfigDialog::initializeConfigWidgets() {
+	qDebug() << "Initialize ConfigWidgets";
+
+	if (!s_existingWidgets.isEmpty()) {
+		qDebug() << "Abort initialize";
+		return;
+	}
+
+	for (ConfigWidgetNew cwn : *ConfigRegistrar::c_qmNew) {
+		ConfigWidget *cw = cwn(Global::get().s);
+		QMutexLocker lock(&s_existingWidgetsMutex);
+		s_existingWidgets.insert(cw->getName(), cw);
+		qDebug() << "Generate " << cw->getName();
+	}
+
+	qDebug() << "Done initializing widgets";
 }
 
 ConfigWidget *ConfigDialog::getConfigWidget(const QString &name) {

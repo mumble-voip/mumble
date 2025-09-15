@@ -205,6 +205,8 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::channelStateChanged, this, &MainWindow::on_channelStateChanged);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
+
+	ConfigDialog::initializeConfigWidgets();
 }
 
 // Loading a state that was stored by a different version of Qt can lead to a crash.

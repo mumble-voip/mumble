@@ -42,6 +42,7 @@ public:
 	ConfigDialog(QWidget *p = nullptr);
 	~ConfigDialog() Q_DECL_OVERRIDE;
 
+	static void initializeConfigWidgets();
 	/// @returns The pointer to the existing ConfigWidget with the given name or nullptr,
 	/// 	if no such widget exists.
 	static ConfigWidget *getConfigWidget(const QString &name);
