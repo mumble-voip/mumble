@@ -550,22 +550,25 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
-		if (msg.has_self_mute())
+		if (msg.has_self_mute()) {
 			pDst->setSelfMute(msg.self_mute());
-		if (msg.has_self_deaf())
-			pDst->setSelfDeaf(msg.self_deaf());
+		}
 
-		if (pSelf && pDst != pSelf
-			&& ((pDst->cChannel == pSelf->cChannel) || pDst->cChannel->allLinks().contains(pSelf->cChannel))) {
-			if (pDst->bSelfMute && pDst->bSelfDeaf)
+		if (msg.has_self_deaf()) {
+			pDst->setSelfDeaf(msg.self_deaf());
+		}
+
+		if (pSelf && pDst != pSelf && pDst->cChannel == pSelf->cChannel) {
+			if (pDst->bSelfMute && pDst->bSelfDeaf) {
 				Global::get().l->log(Log::OtherSelfMute,
 									 tr("%1 is now muted and deafened.").arg(Log::formatClientUser(pDst, Log::Target)));
-			else if (pDst->bSelfMute)
+			} else if (pDst->bSelfMute) {
 				Global::get().l->log(Log::OtherSelfMute,
 									 tr("%1 is now muted.").arg(Log::formatClientUser(pDst, Log::Target)));
-			else
+			} else {
 				Global::get().l->log(Log::OtherSelfMute,
 									 tr("%1 is now unmuted.").arg(Log::formatClientUser(pDst, Log::Target)));
+			}
 		}
 	}
 
