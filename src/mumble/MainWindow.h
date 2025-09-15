@@ -12,6 +12,7 @@
 #include <QtWidgets/QMainWindow>
 
 #include "CustomElements.h"
+#include "Log.h"
 #include "MUComboBox.h"
 #include "Mumble.pb.h"
 #include "MumbleProtocol.h"
@@ -19,6 +20,7 @@
 #include "Usage.h"
 #include "UserLocalNicknameDialog.h"
 
+#include <memory>
 #include <optional>
 #include <stack>
 
@@ -163,6 +165,7 @@ public:
 protected:
 	Usage uUsage;
 	QTimer *qtReconnect;
+	std::unique_ptr< NotificationSoundBlocker > m_reconnectSoundBlocker;
 
 	QList< QAction * > qlServerActions;
 	QList< QAction * > qlChannelActions;

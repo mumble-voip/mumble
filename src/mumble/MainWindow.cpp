@@ -1584,8 +1584,14 @@ void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
 }
 
 void MainWindow::on_Reconnect_timeout() {
-	if (Global::get().sh->isRunning())
+	if (Global::get().sh->isRunning()) {
 		return;
+	}
+
+	if (!m_reconnectSoundBlocker) {
+		m_reconnectSoundBlocker = std::make_unique< NotificationSoundBlocker >(Log::MsgType::ServerDisconnected);
+	}
+
 	Global::get().l->log(Log::Information, tr("Reconnecting."));
 	Global::get().sh->start(QThread::TimeCriticalPriority);
 }
@@ -3485,6 +3491,8 @@ void MainWindow::viewCertificate(bool) {
  * connection to the server is established but before the server Sync is complete.
  */
 void MainWindow::serverConnected() {
+	m_reconnectSoundBlocker.reset();
+
 	Global::get().uiSession    = 0;
 	Global::get().pPermissions = ChanACL::None;
 
@@ -4009,8 +4017,12 @@ void MainWindow::disconnectFromServer() {
 		qtReconnect->stop();
 		qaServerDisconnect->setEnabled(false);
 	}
-	if (Global::get().sh && Global::get().sh->isRunning())
+
+	m_reconnectSoundBlocker.reset();
+
+	if (Global::get().sh && Global::get().sh->isRunning()) {
 		Global::get().sh->disconnect();
+	}
 }
 
 void MainWindow::openServerInformationDialog() {

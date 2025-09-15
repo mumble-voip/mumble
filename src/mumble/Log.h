@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_LOG_H_
 #define MUMBLE_MUMBLE_LOG_H_
 
+#include <set>
+
 #include <QSystemTrayIcon>
 #include <QtCore/QDate>
 #include <QtCore/QMutex>
@@ -187,6 +189,17 @@ private:
 public:
 	LogDocument(QObject *p = nullptr);
 	QVariant loadResource(int, const QUrl &) Q_DECL_OVERRIDE;
+};
+
+class NotificationSoundBlocker {
+public:
+	friend class Log;
+	NotificationSoundBlocker(Log::MsgType msgType);
+	~NotificationSoundBlocker();
+
+private:
+	static std::set< Log::MsgType > s_blockedNotificationSounds;
+	const Log::MsgType m_msgType;
 };
 
 Q_DECLARE_METATYPE(Log::MsgType)
