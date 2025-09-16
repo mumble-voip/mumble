@@ -219,14 +219,14 @@ endif()
 add_subdirectory(auxiliary_files)
 
 if(packaging)
-	file(COPY 
+	file(COPY
 		${CMAKE_SOURCE_DIR}/installer/gpl.txt
 		${CMAKE_SOURCE_DIR}/installer/lgpl.txt
 		${CMAKE_SOURCE_DIR}/installer/Mumble.rtf
 		${CMAKE_SOURCE_DIR}/installer/portaudio.txt
 		${CMAKE_SOURCE_DIR}/installer/qt.txt
 		${CMAKE_SOURCE_DIR}/installer/speex.txt
-		DESTINATION 
+		DESTINATION
 			${CMAKE_BINARY_DIR}/licenses
 	)
 	if(WIN32)
@@ -238,10 +238,10 @@ if(packaging)
 				${CMAKE_BINARY_DIR}/installer
 		)
 
-		file(COPY 
+		file(COPY
 			${CMAKE_SOURCE_DIR}/icons/mumble.ico
 			${CMAKE_SOURCE_DIR}/icons/murmur.ico
-			DESTINATION 
+			DESTINATION
 				${CMAKE_BINARY_DIR}/installer/icons
 		)
 	endif()
