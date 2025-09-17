@@ -951,6 +951,9 @@ the channel's context menu.</string>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
    </property>
+   <property name="whatsThis">
+    <string>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</string>
+   </property>
   </action>
   <action name="qaSelfRegister">
    <property name="text">
@@ -986,6 +989,9 @@ the channel's context menu.</string>
    </property>
    <property name="text">
     <string>&amp;Record...</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will open the audio recording dialog.</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
@@ -1053,6 +1059,9 @@ the channel's context menu.</string>
    </property>
    <property name="toolTip">
     <string>Search for a user or channel (Ctrl+F)</string>
+   </property>
+   <property name="whatsThis">
+    <string>This will open the search dialog. It's used to find channels and users in the current server.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
