@@ -217,6 +217,7 @@ protected:
 	/// window layout is not 'custom', the toolbar is locked in place at the top of
 	/// the MainWindow.
 	void updateToolbar();
+	void updateFavoriteButton();
 	void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
 	void findDesiredChannel();
 	void setupView(bool toggle_minimize = true);
@@ -238,6 +239,7 @@ protected:
 public slots:
 	void on_qmServer_aboutToShow();
 	void on_qaServerConnect_triggered(bool autoconnect = false);
+	void on_qaServerAddToFavorites_triggered();
 	void on_qaServerDisconnect_triggered();
 	void on_qaServerBanList_triggered();
 	void on_qaServerUserList_triggered();
@@ -458,6 +460,7 @@ public:
 
 	void openServerConnectDialog(bool autoconnect = false);
 	void disconnectFromServer();
+	void addServerAsFavorite();
 	void openServerInformationDialog();
 	void openServerTokensDialog();
 	void openServerUserListDialog();
