@@ -7,12 +7,13 @@
 
 #include <cassert>
 #include <cstring>
+#include <span>
 
 AudioOutputCache::AudioOutputCache(std::size_t initialCapacity) {
 	m_audioData.reserve(initialCapacity);
 }
 
-gsl::span< const Mumble::Protocol::byte > AudioOutputCache::getAudioData() const {
+std::span< const Mumble::Protocol::byte > AudioOutputCache::getAudioData() const {
 	return m_audioData;
 }
 

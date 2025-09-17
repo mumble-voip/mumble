@@ -31,6 +31,7 @@ extern "C" {
 #include <chrono>
 #include <exception>
 #include <limits>
+#include <span>
 
 #ifdef USE_RNNOISE
 /// Clip the given float value to a range that can be safely converted into a short (without causing integer overflow)
@@ -1141,7 +1142,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	previousPTT    = isPTT;
 }
 
-static void sendAudioFrame(gsl::span< const Mumble::Protocol::byte > encodedPacket) {
+static void sendAudioFrame(std::span< const Mumble::Protocol::byte > encodedPacket) {
 	ServerHandlerPtr sh = Global::get().sh;
 	if (sh) {
 		sh->sendMessage(encodedPacket.data(), static_cast< int >(encodedPacket.size()));
@@ -1197,7 +1198,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, std::int32
 	// In Opus mode we only expect a single frame per packet
 	assert(qlFrames.size() == 1);
 
-	audioData.payload = gsl::span< const Mumble::Protocol::byte >(
+	audioData.payload = std::span< const Mumble::Protocol::byte >(
 		reinterpret_cast< const Mumble::Protocol::byte * >(qlFrames[0].constData()),
 		static_cast< std::size_t >(qlFrames[0].size()));
 
@@ -1218,7 +1219,7 @@ void AudioInput::flushCheck(const QByteArray &frame, bool terminator, std::int32
 		LoopUser::lpLoopy.addFrame(audioData);
 	} else {
 		// Encode audio frame and send out
-		gsl::span< const Mumble::Protocol::byte > encodedAudioPacket = m_udpEncoder.encodeAudioPacket(audioData);
+		std::span< const Mumble::Protocol::byte > encodedAudioPacket = m_udpEncoder.encodeAudioPacket(audioData);
 
 		sendAudioFrame(encodedAudioPacket);
 	}

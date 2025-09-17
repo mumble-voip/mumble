@@ -52,6 +52,7 @@
 
 #include <functional>
 #include <optional>
+#include <span>
 #include <vector>
 
 class Zeroconf;
@@ -189,7 +190,7 @@ public:
 	Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > m_udpAudioEncoder;
 	Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > m_tcpAudioEncoder;
 
-	gsl::span< const Mumble::Protocol::byte >
+	std::span< const Mumble::Protocol::byte >
 		handlePing(const Mumble::Protocol::UDPDecoder< Mumble::Protocol::Role::Server > &decoder,
 				   Mumble::Protocol::UDPPingEncoder< Mumble::Protocol::Role::Server > &encoder, bool expectExtended);
 

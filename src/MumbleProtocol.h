@@ -11,10 +11,9 @@
 #include "VolumeAdjustment.h"
 
 #include <cstdint>
+#include <span>
 #include <string>
 #include <vector>
-
-#include <gsl/span>
 
 /**
  * "X-macro" for all Mumble Protobuf TCP messages types.
@@ -139,7 +138,7 @@ namespace Protocol {
 		AudioCodec usedCodec          = AudioCodec::Opus;
 		std::uint32_t senderSession   = 0;
 		std::uint64_t frameNumber     = 0;
-		gsl::span< const byte > payload;
+		std::span< const byte > payload;
 		bool isLastFrame                  = false;
 		bool containsPositionalData       = false;
 		std::array< float, 3 > position   = { 0, 0, 0 };
@@ -173,7 +172,7 @@ namespace Protocol {
 		 * @param data The AudioData to encode
 		 * @return A span to the encoded data (ready to be sent out)
 		 */
-		gsl::span< const byte > encodeAudioPacket(const AudioData &data);
+		std::span< const byte > encodeAudioPacket(const AudioData &data);
 		/**
 		 * Prepares an audio packet by encoding the "static" part of the audio data. The static part contains
 		 * things like the actual audio payload, its type and the sender's session.
@@ -194,7 +193,7 @@ namespace Protocol {
 		 * @param data The AudioData to encode (partially!)
 		 * @return A span to the encoded audio packet (including the static part and potentially positional data)
 		 */
-		gsl::span< const byte > updateAudioPacket(const AudioData &data);
+		std::span< const byte > updateAudioPacket(const AudioData &data);
 		/**
 		 * This function assumes that an audio packet has already been prepared. In that case it will encode
 		 * the given positional data (if any) into the audio packet.
@@ -227,40 +226,40 @@ namespace Protocol {
 		std::vector< std::vector< byte > > m_preEncodedVolumeAdjustment;
 
 		void prepareAudioPacket_legacy(const AudioData &data);
-		gsl::span< const byte > updateAudioPacket_legacy(const AudioData &data);
+		std::span< const byte > updateAudioPacket_legacy(const AudioData &data);
 		void addPositionalData_legacy(const AudioData &data);
 
 		void prepareAudioPacket_protobuf(const AudioData &data);
-		gsl::span< const byte > updateAudioPacket_protobuf(const AudioData &data);
+		std::span< const byte > updateAudioPacket_protobuf(const AudioData &data);
 		void addPositionalData_protobuf(const AudioData &data);
 
 		void preparePreEncodedSnippets();
 
-		gsl::span< const byte > getPreEncodedContext(audio_context_t context) const;
-		gsl::span< const byte > getPreEncodedVolumeAdjustment(const VolumeAdjustment &adjustment) const;
+		std::span< const byte > getPreEncodedContext(audio_context_t context) const;
+		std::span< const byte > getPreEncodedVolumeAdjustment(const VolumeAdjustment &adjustment) const;
 	};
 
 	template< Role role > class UDPPingEncoder : public ProtocolHandler< role > {
 	public:
 		UDPPingEncoder(Version::full_t protocolVersion = Version::UNKNOWN);
 
-		gsl::span< const byte > encodePingPacket(const PingData &data);
+		std::span< const byte > encodePingPacket(const PingData &data);
 
 	protected:
 		std::vector< byte > m_byteBuffer;
 		MumbleUDP::Ping m_pingMessage;
 
-		gsl::span< const byte > encodePingPacket_legacy(const PingData &data);
-		gsl::span< const byte > encodePingPacket_protobuf(const PingData &data);
+		std::span< const byte > encodePingPacket_legacy(const PingData &data);
+		std::span< const byte > encodePingPacket_protobuf(const PingData &data);
 	};
 
 	template< Role role > class UDPDecoder : public ProtocolHandler< role > {
 	public:
 		UDPDecoder(Version::full_t protocolVersion = Version::UNKNOWN);
 
-		gsl::span< byte > getBuffer();
-		bool decode(const gsl::span< const byte > data, bool restrictToPing = false);
-		bool decodePing(const gsl::span< const byte > data);
+		std::span< byte > getBuffer();
+		bool decode(const std::span< const byte > data, bool restrictToPing = false);
+		bool decodePing(const std::span< const byte > data);
 
 		UDPMessageType getMessageType() const;
 
@@ -275,10 +274,10 @@ namespace Protocol {
 		MumbleUDP::Ping m_pingMessage;
 		MumbleUDP::Audio m_audioMessage;
 
-		bool decodePing_legacy(const gsl::span< const byte > data);
-		bool decodePing_protobuf(const gsl::span< const byte > data);
-		bool decodeAudio_legacy(const gsl::span< const byte > data, AudioCodec codec);
-		bool decodeAudio_protobuf(const gsl::span< const byte > data);
+		bool decodePing_legacy(const std::span< const byte > data);
+		bool decodePing_protobuf(const std::span< const byte > data);
+		bool decodeAudio_legacy(const std::span< const byte > data, AudioCodec codec);
+		bool decodeAudio_protobuf(const std::span< const byte > data);
 	};
 
 } // namespace Protocol

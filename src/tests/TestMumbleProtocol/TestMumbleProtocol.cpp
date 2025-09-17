@@ -11,6 +11,7 @@
 #include <QtTest>
 
 #include <cstring>
+#include <span>
 #include <sstream>
 #include <string>
 
@@ -138,7 +139,7 @@ template< Mumble::Protocol::Role encoderRole, Mumble::Protocol::Role decoderRole
 	}
 }
 
-void printData(gsl::span< const Mumble::Protocol::byte > data) {
+void printData(std::span< const Mumble::Protocol::byte > data) {
 	QString str = "Data is: { ";
 	for (Mumble::Protocol::byte current : data) {
 		str += QString::number(static_cast< int >(current)) + " ";
@@ -267,7 +268,7 @@ private slots:
 
 		for (Mumble::Protocol::audio_context_t currentContext = Mumble::Protocol::AudioContext::BEGIN;
 			 currentContext < Mumble::Protocol::AudioContext::END; currentContext++) {
-			gsl::span< const Mumble::Protocol::byte > snippet = encoder.getPreEncodedContext(currentContext);
+			std::span< const Mumble::Protocol::byte > snippet = encoder.getPreEncodedContext(currentContext);
 
 			QVERIFY2(!snippet.empty(), "Unable to find pre-encoded snippet for audio context");
 
@@ -300,7 +301,7 @@ private slots:
 		for (int currentAdjustment = MIN; currentAdjustment <= MAX; ++currentAdjustment) {
 			msg.Clear();
 
-			gsl::span< const Mumble::Protocol::byte > snippet =
+			std::span< const Mumble::Protocol::byte > snippet =
 				encoder.getPreEncodedVolumeAdjustment(VolumeAdjustment::fromDBAdjustment(currentAdjustment));
 
 			QVERIFY2(!snippet.empty(), "Unable to find pre-encoded snippet for volume adjustment");

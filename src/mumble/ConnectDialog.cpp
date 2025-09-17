@@ -47,6 +47,7 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
+#include <span>
 
 QMap< QString, QIcon > ServerItem::qmIcons;
 QList< PublicInfo > ConnectDialog::qlPublicServers;
@@ -1807,7 +1808,7 @@ bool ConnectDialog::writePing(const QHostAddress &host, unsigned short port, Ver
 							  const Mumble::Protocol::PingData &pingData) {
 	m_udpPingEncoder.setProtocolVersion(protocolVersion);
 
-	gsl::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
+	std::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
 
 	if (bIPv4 && host.protocol() == QAbstractSocket::IPv4Protocol) {
 		qusSocket4->writeDatagram(reinterpret_cast< const char * >(encodedPacket.data()),
@@ -1829,7 +1830,7 @@ void ConnectDialog::udpReply() {
 		QHostAddress host;
 		unsigned short port;
 
-		gsl::span< Mumble::Protocol::byte > buffer = m_udpDecoder.getBuffer();
+		std::span< Mumble::Protocol::byte > buffer = m_udpDecoder.getBuffer();
 
 		std::size_t len = static_cast< std::size_t >(sock->readDatagram(
 			reinterpret_cast< char * >(buffer.data()), static_cast< int >(buffer.size()), &host, &port));
