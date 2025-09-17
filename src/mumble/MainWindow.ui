@@ -284,6 +284,10 @@
    <property name="text">
     <string>&amp;Disconnect</string>
    </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:disconnect.svg</normaloff>skin:disconnect.svg</iconset>
+   </property>
    <property name="toolTip">
     <string>Disconnect from server</string>
    </property>
