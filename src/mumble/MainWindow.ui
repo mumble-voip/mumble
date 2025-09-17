@@ -180,7 +180,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="qaServerConnect"/>
-   <addaction name="qaServerInformation"/>
+   <addaction name="qaServerDisconnect"/>
    <addaction name="separator"/>
    <addaction name="qaMoveBack"/>
    <addaction name="separator"/>
