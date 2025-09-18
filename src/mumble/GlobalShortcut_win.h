@@ -15,6 +15,7 @@
 #include <condition_variable>
 #include <memory>
 #include <span>
+#include <string>
 #include <unordered_map>
 
 #include <rigtorp/SPSCQueue.h>

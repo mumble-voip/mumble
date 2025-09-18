@@ -10,6 +10,7 @@
 #include "Version.h"
 #include "VolumeAdjustment.h"
 
+#include <array>
 #include <cstdint>
 #include <span>
 #include <string>
