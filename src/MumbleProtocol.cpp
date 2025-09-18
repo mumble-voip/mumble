@@ -252,7 +252,7 @@ namespace Protocol {
 
 	std::size_t writeSnippet(gsl::span< const byte > source, std::vector< byte > &destination, std::size_t offset,
 							 std::size_t maxPacketSize) {
-		if (maxPacketSize <= offset + source.size()) {
+		if (maxPacketSize < offset + source.size()) {
 			qWarning("MumbleProtocol: Buffer overflow while writing snippet. Max buffer size is %zu and required size "
 					 "is %zu",
 					 maxPacketSize, offset + source.size());
