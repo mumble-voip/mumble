@@ -9,16 +9,15 @@
 #include "MumbleProtocol.h"
 
 #include <array>
+#include <span>
 #include <vector>
-
-#include <gsl/span>
 
 class AudioOutputCache {
 public:
 	AudioOutputCache(std::size_t initialCapacity = 512);
 	AudioOutputCache(AudioOutputCache &&) = default;
 
-	gsl::span< const Mumble::Protocol::byte > getAudioData() const;
+	std::span< const Mumble::Protocol::byte > getAudioData() const;
 	bool isLastFrame() const;
 
 	float getVolumeAdjustment() const;

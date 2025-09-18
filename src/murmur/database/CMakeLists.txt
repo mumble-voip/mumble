@@ -37,7 +37,7 @@ set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION
 # We require boost::algorithm::lower_hex which was introduced in Boost v1.62.0
 find_pkg(Boost 1.62.0 REQUIRED)
 
-target_link_libraries(mumble_server_database PUBLIC mumble_database GSL Boost::headers)
+target_link_libraries(mumble_server_database PUBLIC mumble_database Boost::headers)
 
 target_include_directories(mumble_server_database
 	PUBLIC

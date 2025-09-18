@@ -39,11 +39,6 @@ Bundle Qt's translations as well
 Use the bundled CLI11 version instead of looking for one on the system
 (Default: ON)
 
-### bundled-gsl
-
-Use the bundled GSL version instead of looking for one on the system
-(Default: ON)
-
 ### bundled-json
 
 Build the included version of nlohmann_json instead of looking for one on the system

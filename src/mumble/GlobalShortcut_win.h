@@ -14,9 +14,9 @@
 
 #include <condition_variable>
 #include <memory>
+#include <span>
+#include <string>
 #include <unordered_map>
-
-#include <gsl/span>
 
 #include <rigtorp/SPSCQueue.h>
 
@@ -66,7 +66,7 @@ protected:
 
 	class MsgHid : public MsgRaw {
 	public:
-		using RawReports = gsl::span< const BYTE >;
+		using RawReports = std::span< const BYTE >;
 
 		MsgHid(HANDLE deviceHandle, const RawReports rawReports, const DWORD reportSize)
 			: MsgRaw(Hid), deviceHandle(deviceHandle), reports(rawReports.size()), reportSize(reportSize) {

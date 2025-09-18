@@ -15,10 +15,9 @@
 #include <chrono>
 #include <cstdint>
 #include <optional>
+#include <span>
 #include <string>
 #include <vector>
-
-#include <gsl/span>
 
 namespace soci {
 class session;
@@ -86,7 +85,7 @@ namespace server {
 			unsigned int getLastChannelID(const DBUser &user);
 
 			void clearTexture(const DBUser &user);
-			void setTexture(const DBUser &user, gsl::span< std::uint8_t > texture);
+			void setTexture(const DBUser &user, std::span< std::uint8_t > texture);
 			std::vector< std::uint8_t > getTexture(const DBUser &user);
 
 			void clearPassword(const DBUser &user);

@@ -51,6 +51,7 @@
 #include <chrono>
 #include <functional>
 #include <optional>
+#include <span>
 #include <vector>
 
 #ifdef Q_OS_WIN
@@ -662,7 +663,7 @@ void Server::removeZeroconf() {
 }
 #endif
 
-gsl::span< const Mumble::Protocol::byte >
+std::span< const Mumble::Protocol::byte >
 	Server::handlePing(const Mumble::Protocol::UDPDecoder< Mumble::Protocol::Role::Server > &decoder,
 					   Mumble::Protocol::UDPPingEncoder< Mumble::Protocol::Role::Server > &encoder,
 					   bool expectExtended) {
@@ -736,11 +737,11 @@ void Server::udpActivated(int socket) {
                      reinterpret_cast< struct sockaddr * >(&from), &fromlen);
 #endif
 
-	gsl::span< Mumble::Protocol::byte > inputData(&m_udpDecoder.getBuffer()[0], static_cast< std::size_t >(len));
+	std::span< Mumble::Protocol::byte > inputData(&m_udpDecoder.getBuffer()[0], static_cast< std::size_t >(len));
 
 	if (bAllowPing && m_udpDecoder.decodePing(inputData)
 		&& m_udpDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Ping) {
-		gsl::span< const Mumble::Protocol::byte > encodedPing = handlePing(m_udpDecoder, m_udpPingEncoder, true);
+		std::span< const Mumble::Protocol::byte > encodedPing = handlePing(m_udpDecoder, m_udpPingEncoder, true);
 
 		if (!encodedPing.empty()) {
 #ifdef Q_OS_LINUX
@@ -918,11 +919,11 @@ void Server::run() {
 				// This may be a general ping requesting server details, unencrypted.
 				if (bAllowPing
 					&& m_udpDecoder.decodePing(
-						gsl::span< Mumble::Protocol::byte >(encrypt, static_cast< std::size_t >(len)))
+						std::span< Mumble::Protocol::byte >(encrypt, static_cast< std::size_t >(len)))
 					&& m_udpDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Ping) {
 					ZoneScopedN(TracyConstants::PING_PROCESSING_ZONE);
 
-					gsl::span< const Mumble::Protocol::byte > encodedPing =
+					std::span< const Mumble::Protocol::byte > encodedPing =
 						handlePing(m_udpDecoder, m_udpPingEncoder, true);
 
 					if (!encodedPing.empty()) {
@@ -984,7 +985,7 @@ void Server::run() {
 				}
 				len -= 4;
 
-				if (m_udpDecoder.decode(gsl::span< Mumble::Protocol::byte >(buffer, static_cast< std::size_t >(len)))) {
+				if (m_udpDecoder.decode(std::span< Mumble::Protocol::byte >(buffer, static_cast< std::size_t >(len)))) {
 					switch (m_udpDecoder.getMessageType()) {
 						case Mumble::Protocol::UDPMessageType::Audio: {
 							Mumble::Protocol::AudioData audioData = m_udpDecoder.getAudioData();
@@ -1012,7 +1013,7 @@ void Server::run() {
 							Mumble::Protocol::PingData pingData = m_udpDecoder.getPingData();
 							if (!pingData.requestAdditionalInformation && !pingData.containsAdditionalInformation) {
 								// At this point here, we only want to handle connectivity pings
-								gsl::span< const Mumble::Protocol::byte > encodedPing =
+								std::span< const Mumble::Protocol::byte > encodedPing =
 									handlePing(m_udpDecoder, m_udpPingEncoder, false);
 
 								QByteArray cache;
@@ -1344,7 +1345,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 
 			// Update data
 			TracyCZoneN(__tracy_zone, TracyConstants::AUDIO_UPDATE, true);
-			gsl::span< const Mumble::Protocol::byte > encodedPacket = encoder.updateAudioPacket(audioData);
+			std::span< const Mumble::Protocol::byte > encodedPacket = encoder.updateAudioPacket(audioData);
 			TracyCZoneEnd(__tracy_zone);
 
 			// Clear TCP cache
@@ -1721,7 +1722,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 
 		m_tcpTunnelDecoder.setProtocolVersion(u->m_version);
 
-		if (m_tcpTunnelDecoder.decode(gsl::span< const Mumble::Protocol::byte >(
+		if (m_tcpTunnelDecoder.decode(std::span< const Mumble::Protocol::byte >(
 				reinterpret_cast< const Mumble::Protocol::byte * >(qbaMsg.constData()),
 				static_cast< std::size_t >(qbaMsg.size())))) {
 			if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Audio) {

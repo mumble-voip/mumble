@@ -27,6 +27,7 @@
 #include <cassert>
 #include <exception>
 #include <optional>
+#include <span>
 
 namespace mdb = ::mumble::db;
 
@@ -451,7 +452,7 @@ namespace server {
 
 		void UserTable::clearTexture(const DBUser &user) { setTexture(user, {}); }
 
-		void UserTable::setTexture(const DBUser &user, gsl::span< std::uint8_t > texture) {
+		void UserTable::setTexture(const DBUser &user, std::span< std::uint8_t > texture) {
 			assert(userExists(user));
 
 			try {

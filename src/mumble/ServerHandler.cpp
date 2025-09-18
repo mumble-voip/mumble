@@ -42,6 +42,7 @@
 
 #include <cassert>
 #include <chrono>
+#include <span>
 
 #ifdef Q_OS_WIN
 // <delayimp.h> is not protected with an include guard on MinGW, resulting in
@@ -239,7 +240,7 @@ void ServerHandler::udpReady() {
 		if (buflen < 5)
 			continue;
 
-		gsl::span< Mumble::Protocol::byte > buffer = m_udpDecoder.getBuffer();
+		std::span< Mumble::Protocol::byte > buffer = m_udpDecoder.getBuffer();
 
 		// 4 bytes is the overhead of the encryption
 		assert(buffer.size() >= buflen - 4);
@@ -590,7 +591,7 @@ void ServerHandler::sendPingInternal() {
 		pingData.requestAdditionalInformation = false;
 
 		m_udpPingEncoder.setProtocolVersion(m_version);
-		gsl::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
+		std::span< const Mumble::Protocol::byte > encodedPacket = m_udpPingEncoder.encodePingPacket(pingData);
 
 		sendMessage(encodedPacket.data(), static_cast< int >(encodedPacket.size()), true);
 	}

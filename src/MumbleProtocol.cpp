@@ -13,6 +13,7 @@
 #include <cassert>
 #include <cmath>
 #include <cstring>
+#include <span>
 
 namespace Mumble {
 namespace Protocol {
@@ -126,7 +127,7 @@ namespace Protocol {
 		preparePreEncodedSnippets();
 	}
 
-	template< Role role > gsl::span< const byte > UDPAudioEncoder< role >::encodeAudioPacket(const AudioData &data) {
+	template< Role role > std::span< const byte > UDPAudioEncoder< role >::encodeAudioPacket(const AudioData &data) {
 		prepareAudioPacket(data);
 		addPositionalData(data);
 		return updateAudioPacket(data);
@@ -140,7 +141,7 @@ namespace Protocol {
 		}
 	}
 
-	template< Role role > gsl::span< const byte > UDPAudioEncoder< role >::updateAudioPacket(const AudioData &data) {
+	template< Role role > std::span< const byte > UDPAudioEncoder< role >::updateAudioPacket(const AudioData &data) {
 		if (this->getProtocolVersion() < PROTOBUF_INTRODUCTION_VERSION) {
 			return updateAudioPacket_legacy(data);
 		} else {
@@ -228,7 +229,7 @@ namespace Protocol {
 	}
 
 	template< Role role >
-	gsl::span< const byte > UDPAudioEncoder< role >::updateAudioPacket_legacy(const AudioData &data) {
+	std::span< const byte > UDPAudioEncoder< role >::updateAudioPacket_legacy(const AudioData &data) {
 		m_byteBuffer.resize(MAX_UDP_PACKET_SIZE);
 
 		// The 5 least significant bits are where the target is supposed to be encoded
@@ -242,7 +243,7 @@ namespace Protocol {
 
 		std::size_t packetSize = data.containsPositionalData ? m_positionalAudioSize : m_staticPartSize;
 
-		return gsl::span< byte >(m_byteBuffer.data(), packetSize);
+		return std::span< byte >(m_byteBuffer.data(), packetSize);
 	}
 
 
@@ -297,9 +298,9 @@ namespace Protocol {
 		m_byteBuffer[0]       = static_cast< byte >(UDPMessageType::Audio);
 	}
 
-	std::size_t writeSnippet(gsl::span< const byte > source, std::vector< byte > &destination, std::size_t offset,
+	std::size_t writeSnippet(std::span< const byte > source, std::vector< byte > &destination, std::size_t offset,
 							 std::size_t maxPacketSize) {
-		if (maxPacketSize <= offset + source.size()) {
+		if (maxPacketSize < offset + source.size()) {
 			qWarning("MumbleProtocol: Buffer overflow while writing snippet. Max buffer size is %zu and required size "
 					 "is %zu",
 					 maxPacketSize, offset + source.size());
@@ -313,7 +314,7 @@ namespace Protocol {
 	}
 
 	template< Role role >
-	gsl::span< const byte > UDPAudioEncoder< role >::updateAudioPacket_protobuf(const AudioData &data) {
+	std::span< const byte > UDPAudioEncoder< role >::updateAudioPacket_protobuf(const AudioData &data) {
 		std::size_t offset = data.containsPositionalData ? m_positionalAudioSize : m_staticPartSize;
 
 		// We assume that something was encoded before
@@ -333,7 +334,7 @@ namespace Protocol {
 			}
 			case Role::Server: {
 				if (data.volumeAdjustment.factor != 1.0f) {
-					gsl::span< const byte > buffer = getPreEncodedVolumeAdjustment(data.volumeAdjustment);
+					std::span< const byte > buffer = getPreEncodedVolumeAdjustment(data.volumeAdjustment);
 					if (!buffer.empty()) {
 						// Use pre-encoded snippet
 						offset += writeSnippet(buffer, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE);
@@ -346,7 +347,7 @@ namespace Protocol {
 					}
 				}
 
-				gsl::span< const byte > buffer = getPreEncodedContext(static_cast< byte >(data.targetOrContext));
+				std::span< const byte > buffer = getPreEncodedContext(static_cast< byte >(data.targetOrContext));
 				if (!buffer.empty()) {
 					// Use pre-encoded snippet
 					offset += writeSnippet(buffer, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE);
@@ -424,18 +425,18 @@ namespace Protocol {
 	}
 
 	template< Role role >
-	gsl::span< const byte > UDPAudioEncoder< role >::getPreEncodedContext(audio_context_t context) const {
+	std::span< const byte > UDPAudioEncoder< role >::getPreEncodedContext(audio_context_t context) const {
 		if (context >= m_preEncodedContext.size()) {
 			return {};
 		}
 
 		const std::vector< byte > &data = m_preEncodedContext[context];
 
-		return gsl::span< const byte >(data.data(), data.size());
+		return std::span< const byte >(data.data(), data.size());
 	}
 
 	template< Role role >
-	gsl::span< const byte >
+	std::span< const byte >
 		UDPAudioEncoder< role >::getPreEncodedVolumeAdjustment(const VolumeAdjustment &adjustment) const {
 		int index = static_cast< int >(adjustment.dbAdjustment - preEncodedDBAdjustmentBegin);
 
@@ -447,7 +448,7 @@ namespace Protocol {
 
 		const std::vector< byte > &data = m_preEncodedVolumeAdjustment[static_cast< std::size_t >(index)];
 
-		return gsl::span< const byte >(data.data(), data.size());
+		return std::span< const byte >(data.data(), data.size());
 	}
 
 
@@ -458,7 +459,7 @@ namespace Protocol {
 		m_byteBuffer.reserve(32);
 	}
 
-	template< Role role > gsl::span< const byte > UDPPingEncoder< role >::encodePingPacket(const PingData &data) {
+	template< Role role > std::span< const byte > UDPPingEncoder< role >::encodePingPacket(const PingData &data) {
 		if (this->getProtocolVersion() < PROTOBUF_INTRODUCTION_VERSION) {
 			return encodePingPacket_legacy(data);
 		} else {
@@ -467,7 +468,7 @@ namespace Protocol {
 	}
 
 	template< Role role >
-	gsl::span< const byte > UDPPingEncoder< role >::encodePingPacket_legacy(const PingData &data) {
+	std::span< const byte > UDPPingEncoder< role >::encodePingPacket_legacy(const PingData &data) {
 		m_byteBuffer.clear();
 
 		std::size_t actualSize = 0;
@@ -525,11 +526,11 @@ namespace Protocol {
 			actualSize = stream.size() + 1;
 		}
 
-		return gsl::span< byte >(m_byteBuffer.data(), actualSize);
+		return std::span< byte >(m_byteBuffer.data(), actualSize);
 	}
 
 	template< Role role >
-	gsl::span< const byte > UDPPingEncoder< role >::encodePingPacket_protobuf(const PingData &data) {
+	std::span< const byte > UDPPingEncoder< role >::encodePingPacket_protobuf(const PingData &data) {
 		m_pingMessage.Clear();
 
 		m_pingMessage.set_timestamp(data.timestamp);
@@ -547,7 +548,7 @@ namespace Protocol {
 		std::size_t serializedSize = encodeProtobuf(m_pingMessage, m_byteBuffer, 1, MAX_UDP_PACKET_SIZE, false) + 1;
 		m_byteBuffer[0]            = static_cast< byte >(UDPMessageType::Ping);
 
-		return gsl::span< byte >(m_byteBuffer.data(), serializedSize);
+		return std::span< byte >(m_byteBuffer.data(), serializedSize);
 	}
 
 
@@ -556,11 +557,11 @@ namespace Protocol {
 		m_byteBuffer.resize(MAX_UDP_PACKET_SIZE);
 	}
 
-	template< Role role > gsl::span< byte > UDPDecoder< role >::getBuffer() {
-		return gsl::span< byte >(m_byteBuffer.data(), m_byteBuffer.size());
+	template< Role role > std::span< byte > UDPDecoder< role >::getBuffer() {
+		return std::span< byte >(m_byteBuffer.data(), m_byteBuffer.size());
 	}
 
-	template< Role role > bool UDPDecoder< role >::decode(const gsl::span< const byte > data, bool restrictToPing) {
+	template< Role role > bool UDPDecoder< role >::decode(const std::span< const byte > data, bool restrictToPing) {
 		if (data.size() <= 1) {
 			// Empty packages or packages consisting only of the header byte are invalid
 			return false;
@@ -631,7 +632,7 @@ namespace Protocol {
 		}
 	}
 
-	template< Role role > bool UDPDecoder< role >::decodePing(const gsl::span< const byte > data) {
+	template< Role role > bool UDPDecoder< role >::decodePing(const std::span< const byte > data) {
 		return decode(data, true);
 	}
 
@@ -649,7 +650,7 @@ namespace Protocol {
 		return m_pingData;
 	}
 
-	template< Role role > bool UDPDecoder< role >::decodePing_legacy(const gsl::span< const byte > data) {
+	template< Role role > bool UDPDecoder< role >::decodePing_legacy(const std::span< const byte > data) {
 		m_messageType = UDPMessageType::Ping;
 		m_pingData    = {};
 
@@ -721,7 +722,7 @@ namespace Protocol {
 		return false;
 	}
 
-	template< Role role > bool UDPDecoder< role >::decodePing_protobuf(const gsl::span< const byte > data) {
+	template< Role role > bool UDPDecoder< role >::decodePing_protobuf(const std::span< const byte > data) {
 		m_messageType = UDPMessageType::Ping;
 		m_pingData    = {};
 
@@ -753,7 +754,7 @@ namespace Protocol {
 	}
 
 	template< Role role >
-	bool UDPDecoder< role >::decodeAudio_legacy(const gsl::span< const byte > data, AudioCodec codec) {
+	bool UDPDecoder< role >::decodeAudio_legacy(const std::span< const byte > data, AudioCodec codec) {
 		m_messageType = UDPMessageType::Audio;
 		m_audioData   = {};
 
@@ -828,7 +829,7 @@ namespace Protocol {
 		}
 
 
-		m_audioData.payload = gsl::span< byte >(payloadBegin, static_cast< std::size_t >(payloadSize));
+		m_audioData.payload = std::span< byte >(payloadBegin, static_cast< std::size_t >(payloadSize));
 
 		if (stream.left() == 3 * sizeof(float)) {
 			// If there are further bytes after the audio payload, this means that there is positional data attached to
@@ -847,7 +848,7 @@ namespace Protocol {
 		return true;
 	}
 
-	template< Role role > bool UDPDecoder< role >::decodeAudio_protobuf(const gsl::span< const byte > data) {
+	template< Role role > bool UDPDecoder< role >::decodeAudio_protobuf(const std::span< const byte > data) {
 		m_messageType = UDPMessageType::Audio;
 		m_audioData   = {};
 
@@ -868,7 +869,7 @@ namespace Protocol {
 		}
 
 		std::string &audioPayload = *m_audioMessage.mutable_opus_data();
-		m_audioData.payload = gsl::span< byte >(reinterpret_cast< byte * >(&audioPayload[0]), audioPayload.size());
+		m_audioData.payload = std::span< byte >(reinterpret_cast< byte * >(&audioPayload[0]), audioPayload.size());
 
 		m_audioData.isLastFrame = m_audioMessage.is_terminator();
 
