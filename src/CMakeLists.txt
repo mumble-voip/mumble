@@ -213,14 +213,16 @@ target_link_libraries(shared PUBLIC Tracy::TracyClient)
 if(bundled-gsl)
 	add_subdirectory("${3RDPARTY_DIR}/gsl" "${CMAKE_CURRENT_BINARY_DIR}/gsl" EXCLUDE_FROM_ALL)
 
-	target_link_libraries(shared PUBLIC GSL)
+	add_library(MSGSL::MSGSL ALIAS GSL)
+	target_link_libraries(shared PUBLIC MSGSL::MSGSL)
 else()
 	# First try to locate via GSL's native cmake support (via a *Config.cmake file that should have been installed alongside
 	# GSL since version 3)
 	find_pkg("Microsoft.GSL")
 
 	if (TARGET Microsoft.GSL::GSL)
-		target_link_libraries(shared PUBLIC Microsoft.GSL::GSL)
+		add_library(MSGSL::MSGSL ALIAS Microsoft.GSL::GSL)
+		target_link_libraries(shared PUBLIC MSGSL::MSGSL)
 	else()
 		# If the above failed, it could mean that there is an installation of GSL < v3.0 on this system, which does not yet
 		# provide cmake support for finding it. Thus, we have to use our custom Find-script.
