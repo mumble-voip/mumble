@@ -184,7 +184,8 @@ public:
 	void requestUserList();
 	void requestACL(unsigned int channel);
 	void registerUser(unsigned int uiSession);
-	void kickBanUser(unsigned int uiSession, const QString &reason, bool ban);
+	void kickUser(unsigned int uiSession, const QString &reason);
+	void banUser(unsigned int uiSession, const QString &reason, bool banCertificate, bool banIP);
 	void sendUserTextMessage(unsigned int uiSession, const QString &message_);
 	void sendChannelTextMessage(unsigned int channel, const QString &message_, bool tree);
 	void setUserComment(unsigned int uiSession, const QString &comment);

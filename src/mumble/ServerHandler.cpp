@@ -1038,11 +1038,21 @@ void ServerHandler::registerUser(unsigned int uiSession) {
 	sendMessage(mpus);
 }
 
-void ServerHandler::kickBanUser(unsigned int uiSession, const QString &reason, bool ban) {
+void ServerHandler::kickUser(unsigned int uiSession, const QString &reason) {
 	MumbleProto::UserRemove mpur;
 	mpur.set_session(uiSession);
 	mpur.set_reason(u8(reason));
-	mpur.set_ban(ban);
+	mpur.set_ban(false);
+	sendMessage(mpur);
+}
+
+void ServerHandler::banUser(unsigned int uiSession, const QString &reason, bool banCertificate, bool banIP) {
+	MumbleProto::UserRemove mpur;
+	mpur.set_session(uiSession);
+	mpur.set_reason(u8(reason));
+	mpur.set_ban(true);
+	mpur.set_ban_certificate(banCertificate);
+	mpur.set_ban_ip(banIP);
 	sendMessage(mpur);
 }
 

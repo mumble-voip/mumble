@@ -175,8 +175,12 @@ message UserRemove {
 	optional uint32 actor = 2;
 	// Reason for the kick, stored as the ban reason if the user is banned.
 	optional string reason = 3;
-	// True if the kick should result in a ban.
+	// True if the user shall be banned, false if the user shall be kicked
 	optional bool ban = 4;
+	// True if the user shall be banned by certificate.
+	optional bool ban_certificate = 5;
+	// True if the user shall be banned by IP.
+	optional bool ban_ip = 6;
 }
 
 // Sent by the server when it communicates new and changed users to client.

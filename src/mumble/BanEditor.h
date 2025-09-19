@@ -18,6 +18,11 @@ class BanEditor : public QDialog, public Ui::BanEditor {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(BanEditor)
+
+	static constexpr int IPV4_MASK_TO_IPV6_MASK = 96;
+
+	void validate();
+
 protected:
 	QList< Ban > qlBans;
 

@@ -24,8 +24,12 @@ bool Ban::operator==(const Ban &other) const {
 		   && (iDuration == other.iDuration);
 }
 
-bool Ban::isValid() const {
+bool Ban::hasValidIP() const {
 	return haAddress.isValid() && (iMask >= 8) && (iMask <= 128);
+}
+
+bool Ban::isValid() const {
+	return hasValidIP() || !qsHash.isEmpty();
 }
 
 QString Ban::toString() const {
