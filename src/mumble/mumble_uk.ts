@@ -7155,6 +7155,18 @@ the channel&apos;s context menu.</source>
         <source>Failed to decode image.</source>
         <translation>Не вдалося розкодувати зображення.</translation>
     </message>
+    <message>
+        <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the audio recording dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
