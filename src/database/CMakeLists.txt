@@ -74,7 +74,7 @@ else()
 		list(APPEND components "PostgreSQL")
 	endif()
 
-	find_pkg("Soci" 4.1.0 COMPONENTS ${components} REQUIRED)
+	find_package("Soci" 4.1.0 COMPONENTS ${components} CONFIG REQUIRED)
 endif()
 
 target_link_libraries(mumble_database PUBLIC SOCI::soci)
