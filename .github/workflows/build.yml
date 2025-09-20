@@ -100,3 +100,14 @@ jobs:
       shell: bash
       run: ctest --output-on-failure -C $BUILD_TYPE
 
+    - if: ${{ matrix.type == 'static' }}
+      name: Publish
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Mumble-${{ matrix.os }}'
+        compression-level: 9
+        path: |
+          build/mumble
+          build/mumble-server
+          build/**/mumble*.msi
+          build/**/mumble*.exe
