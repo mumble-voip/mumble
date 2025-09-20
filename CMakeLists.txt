@@ -62,9 +62,6 @@ option(warnings-as-errors "All warnings are treated as errors." ON)
 
 option(client "Build the client (Mumble)" ON)
 option(server "Build the server (Murmur)" ON)
-if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
-	option(overlay "Build overlay." ${client})
-endif()
 option(packaging "Build package." OFF)
 option(tests "Build tests." ${packaging})
 option(plugins "Build plugins." ON)
@@ -92,6 +89,13 @@ option(bundled-utfcpp "Use the bundled utf8cpp version instead of looking for on
 
 include(compiler)
 include(os)
+
+if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
+	option(overlay "Build overlay." ${client})
+	if(64_BIT)
+		option(overlay-xcompile "Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes." ${client})
+	endif()
+endif()
 
 target_architecture(MUMBLE_TARGET_ARCH)
 string(TOLOWER "${MUMBLE_TARGET_ARCH}" MUMBLE_TARGET_ARCH)
