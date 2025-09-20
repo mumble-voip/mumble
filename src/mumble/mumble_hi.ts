@@ -29,12 +29,13 @@
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>यह चैनल के लिए सॉर्ट क्रम है।</translation>
     </message>
     <message>
         <source>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;स्थिति&lt;/b&gt;&lt;br/&gt;
+यह मान आपको मम्बल द्वारा ट्री में चैनलों को व्यवस्थित करने के तरीके को बदलने में सक्षम बनाता है। उच्च &lt;i&gt;स्थिति&lt;/i&gt; मान वाला चैनल हमेशा कम मान वाले चैनल के नीचे रखा जाएगा और इसके विपरीत। यदि दो चैनलों का &lt;i&gt;स्थिति&lt;/i&gt; मान समान है, तो उन्हें उनके नाम के अनुसार वर्णानुक्रम में क्रमबद्ध किया जाएगा।</translation>
     </message>
     <message>
         <source>Maximum Users</source>
@@ -47,7 +48,8 @@ This value enables you to change the way Mumble arranges the channels in the tre
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;अधिकतम उपयोगकर्ता&lt;/b&gt;&lt;br /&gt;
+यह मान आपको चैनल में अनुमत अधिकतम उपयोगकर्ताओं की संख्या निर्धारित करने की अनुमति देता है। यदि मान शून्य से अधिक है, तो केवल उतने ही उपयोगकर्ताओं को चैनल में प्रवेश की अनुमति होगी। यदि मान शून्य है, तो चैनल में उपयोगकर्ताओं की अधिकतम संख्या सर्वर की डिफ़ॉल्ट सीमा द्वारा निर्धारित की जाती है।</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -56,7 +58,8 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;अस्थायी&lt;/b&gt;&lt;br /&gt;
+चयनित होने पर बनाया गया चैनल अस्थायी के रूप में चिह्नित हो जाएगा। इसका मतलब है कि जब आखिरी खिलाड़ी इसे छोड़ देगा, तो सर्वर द्वारा चैनल को स्वचालित रूप से हटा दिया जाएगा।</translation>
     </message>
     <message>
         <source>Temporary</source>
@@ -68,7 +71,7 @@ When checked the channel created will be marked as temporary. This means when th
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;नाम&lt;/b&gt;&lt;br /&gt;इस फ़ील्ड में चैनल का नाम दर्ज करें। नाम उस सर्वर द्वारा लगाए गए प्रतिबंध के अनुरूप होना चाहिए जिससे आप जुड़े हैं।</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
@@ -84,49 +87,51 @@ When checked the channel created will be marked as temporary. This means when th
     </message>
     <message>
         <source>&amp;Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;समूह</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished"></translation>
+        <translation>समूह</translation>
     </message>
     <message>
         <source>List of groups</source>
-        <translation type="unfinished"></translation>
+        <translation>समूहों की सूची</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;समूह&lt;/b&gt;&lt;br /&gt;
+ये चैनल के लिए वर्तमान में परिभाषित सभी समूह हैं। नया समूह बनाने के लिए, बस नाम टाइप करें और एंटर दबाएँ।</translation>
     </message>
     <message>
         <source>Add new group</source>
-        <translation type="unfinished"></translation>
+        <translation>नया समूह जोड़ें</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;जोड़ें&lt;/b&gt;&lt;br/&gt;
+एक नया समूह जोड़ें।</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>जोड़ें</translation>
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation type="unfinished"></translation>
+        <translation>चयनित समूह हटाएँ</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;हटाएँ&lt;/b&gt;&lt;br /&gt;इससे वर्तमान में चयनित समूह हट जाता है। यदि समूह इनहेरिटेंस में मिला था, तो उसे सूची से नहीं हटाया जाएगा, लेकिन समूह के बारे में सभी स्थानीय जानकारी हटा दी जाएगी।</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>हटाएँ</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"></translation>
+        <translation>पैरेंट से समूह सदस्यों को इनहेरिट करें</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
