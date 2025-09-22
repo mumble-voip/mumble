@@ -1,6 +1,6 @@
 name: Build and Sign Windows executable
 
-on: workflow_dispatch
+on: [workflow_dispatch, push, pull_request]
 
 env:
   BUILD_TYPE: Release
@@ -75,6 +75,14 @@ jobs:
           build\installer\client\*client*.msi
           build\installer\server\*server*.msi
 
+    - name: List client contents
+      run: dir build\installer\client
+      continue-on-error: true
+
+    - name: List server contents
+      run: dir build\installer\server
+      continue-on-error: true
+
     - name: Delete unsigned server MSI files
       run: rm build\installer\server\*server*.msi
 
@@ -97,11 +105,27 @@ jobs:
         wait-for-completion: true
         output-artifact-directory: 'download\'
 
+    - name: List client contents
+      run: dir download
+      continue-on-error: true
+
+    - name: List server contents
+      run: dir download\server
+      continue-on-error: true
+
     - name: Copy signed server artifact
       run: cp download\server\*server*.msi build\installer\server
 
     - name: Copy signed client artifact
       run: cp download\client\*client*.msi build\installer\client
+
+    - name: List client contents
+      run: dir build\installer\client
+      continue-on-error: true
+
+    - name: List server contents
+      run: dir build\installer\server
+      continue-on-error: true
 
     - name: Build bundle
       run: ./.github/workflows/build.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}"
@@ -109,6 +133,22 @@ jobs:
       env:
           MUMBLE_BUILD_NUMBER: ${{ needs.fetch_build_number.outputs.build_number }}
           MUMBLE_SKIP_MSI_REBUILD: ON
+
+    - name: List WixToolset contents
+      run: dir c:\Program Files (x86)\WiX Toolset v3.14\bin
+      continue-on-error: true
+
+    - name: Try insignia 1
+      run: c:\Program Files (x86)\WiX Toolset v3.14\bin\insignia.exe --help
+      continue-on-error: true
+
+    - name: Try insignia 2
+      run: insignia.exe --help
+      continue-on-error: true
+
+    - name: Try insignia 3
+      run: insignia --help
+      continue-on-error: true
 
     - name: Extract Client Burn Engine
       run: c:\Program Files (x86)\WiX Toolset v3.14\bin\insignia.exe -ib build\installer\client\*client*.exe -o build\installer\client\engine.exe
