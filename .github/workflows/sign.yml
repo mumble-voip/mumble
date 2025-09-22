@@ -1,0 +1,140 @@
+name: Build and Sign Windows executable
+
+on: workflow_dispatch
+
+env:
+  BUILD_TYPE: Release
+  CMAKE_OPTIONS: -Dtests=OFF -Dsymbols=OFF -Ddisplay-install-paths=ON -Dtest-lto=OFF
+
+jobs:
+
+  fetch_build_number:
+    runs-on: ubuntu-latest
+    outputs:
+      build_number: ${{ steps.fetch.outputs.build_number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            fetch-depth: 1
+      - id: fetch
+        shell: bash
+        run: |
+          build_version="$("${{ github.workspace }}/scripts/mumble-version.py")"
+          build_number="$("${{ github.workspace }}/scripts/mumble-build-number.py" \
+            --commit "${{ github.sha }}" --version "${build_version}" \
+            --password "${{ secrets.BUILD_NUMBER_TOKEN }}" --default 0)"
+          echo "build_number=${build_number}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: [ fetch_build_number ]
+
+    strategy:
+        fail-fast: false
+        matrix:
+            os: [windows-2022]
+            type: [static]
+            arch: [x86_64]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+          submodules: 'recursive'
+          fetch-depth: 1
+
+    - name: Set environment variables
+      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
+      shell: bash
+
+    - uses: actions/cache@v4
+      with:
+          path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
+
+    - uses: ./.github/actions/install-dependencies
+      with:
+          type: ${{ matrix.type }}
+          os: ${{ matrix.os }}
+          arch: ${{ matrix.arch }}
+
+    - name: Build unsigned artifacts
+      run: ./.github/workflows/build.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}"
+      shell: bash
+      env:
+          MUMBLE_BUILD_NUMBER: ${{ needs.fetch_build_number.outputs.build_number }}
+          MUMBLE_SKIP_MSI_REBUILD: OFF
+
+    - name: Publish unsigned artifact
+      id: upload-unsigned-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'intermediate-artifact'
+        compression-level: 9
+        path: |
+          build\installer\client\*client*.msi
+          build\installer\server\*server*.msi
+
+    - name: Delete unsigned server MSI files
+      run: rm build\installer\server\*server*.msi 
+
+    - name: Delete unsigned client MSI files
+      run: rm build\installer\client\*client*.msi 
+
+    - name: Create download directory
+      run: mkdir download
+
+    - name: Submit MSI signing request to SignPath
+      id: submit-signing-request
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+        organization-id: '79916aba-7a9f-448d-91c6-fb83593b59d3'
+        project-slug: 'mumble'
+        signing-policy-slug: 'release-signing'
+        artifact-configuration-slug: 'sign-msi'
+        github-artifact-id: ${{ steps.upload-unsigned-artifact.outputs.artifact-id }}
+        wait-for-completion: true
+        output-artifact-directory: 'download\'
+
+    - name: Copy signed server artifact
+      run: cp download\*server*.msi build\installer\server
+
+    - name: Copy signed client artifact
+      run: cp download\*client*.msi build\installer\client
+
+    - name: Build bundle
+      run: ./.github/workflows/build.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}"
+      shell: bash
+      env:
+          MUMBLE_BUILD_NUMBER: ${{ needs.fetch_build_number.outputs.build_number }}
+          MUMBLE_SKIP_MSI_REBUILD: ON
+
+    - name: Publish bundle
+      id: upload-unsigned-bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Mumble-${{ matrix.os }}'
+        compression-level: 9
+        path: |
+          build\.\*\installer\client\*client*.exe
+          build\.\*\installer\client\*client*.msi
+          build\.\*\installer\server\*server*.exe
+          build\.\*\installer\server\*server*.msi
+          build\*.exe
+          build\*.dll
+          build\*.pdb
+          build\.\*\plugins\*.dll
+          build\.\*\plugins\*.pdb
+
+    - name: Submit bundle signing request to SignPath
+      id: submit-bundle-signing-request
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+        organization-id: '79916aba-7a9f-448d-91c6-fb83593b59d3'
+        project-slug: 'mumble'
+        signing-policy-slug: 'release-signing'
+        artifact-configuration-slug: 'sign-bundle'
+        github-artifact-id: ${{ steps.upload-unsigned-bundle.outputs.artifact-id }}
+        wait-for-completion: true
