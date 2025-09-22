@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Collections.Generic;
@@ -29,6 +30,10 @@ public class MumbleInstall : Project {
 		this.ControlPanelInfo.ProductIcon = @"..\icons\mumble.ico";
 		this.ControlPanelInfo.UrlInfoAbout = "https://mumble.info";
 		this.Properties = new Property[] { allUsersProp };
+	}
+
+	public string GetMSIPath() {
+		return System.IO.Path.GetFullPath(System.IO.Path.Combine(this.OutDir, this.OutFileName) + ".msi");
 	}
 
 	public Bundle BundleMsi(string msiPath, string vcRedistRequired) {
