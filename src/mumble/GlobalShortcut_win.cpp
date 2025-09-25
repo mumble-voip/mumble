@@ -431,22 +431,20 @@ static bool isAnalogLikeHidReport(const MsgHid::RawReports &reports) {
 	}
 
 	int midrangeCount = 0;
-	std::ostringstream debug;
-
-	debug << "Analog check values:";
 
 	// Check unsigned 8-bit values
 	for (uint8_t byte : data) {
+		int8_t sbyte = static_cast<int8_t>(byte);
+
 		debug << " u8:" << static_cast<int>(byte);
+		debug << " s8:" << static_cast<int>(sbyte);
+
+		// Check unsigned 8-bit midrange
 		if (byte > 32 && byte < 224) {
 			++midrangeCount;
 		}
-	}
 
-	// Check signed 8-bit values
-	for (uint8_t byte : data) {
-		int8_t sbyte = static_cast<int8_t>(byte);
-		debug << " s8:" << static_cast<int>(sbyte);
+		// Check signed 8-bit midrange
 		if (sbyte > -96 && sbyte < 96) {
 			++midrangeCount;
 		}
@@ -455,22 +453,21 @@ static bool isAnalogLikeHidReport(const MsgHid::RawReports &reports) {
 	// Check unsigned 16-bit values
 	for (size_t i = 0; i + 1 < data.size(); i += 2) {
 		uint16_t u16 = static_cast<uint16_t>(data[i]) | (static_cast<uint16_t>(data[i + 1]) << 8);
+		int16_t s16 = static_cast<int16_t>(u16);
+
 		debug << " u16:" << u16;
+		debug << " s16:" << s16;
+
+		// Unsigned 16-bit midrange
 		if (u16 > 512 && u16 < 64512) {
 			++midrangeCount;
 		}
-	}
 
-	// Check signed 16-bit values
-	for (size_t i = 0; i + 1 < data.size(); i += 2) {
-		int16_t s16 = static_cast<int16_t>(static_cast<uint16_t>(data[i]) | (static_cast<uint16_t>(data[i + 1]) << 8));
-		debug << " s16:" << s16;
+		// Signed 16-bit midrange
 		if (s16 > -16384 && s16 < 16384) {
 			++midrangeCount;
 		}
 	}
-
-	qDebug("GlobalShortcutWin: HID report analysis: %s", debug.str().c_str());
 
 	return midrangeCount >= 3;
 }
@@ -514,16 +511,6 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 			if (!enqueuedMsgKeyboard) 
 				{
 				qWarning("GlobalShortcutWin: Failed to enqueue MsgKeyboard — queue full?");
-				}
-			break;
-		}
-		case RIM_TYPEHID: {
-			const RAWHID &hid = input->data.hid;
-			MsgHid::RawReports reports(hid.bRawData, hid.dwSizeHid * hid.dwCount);
-
-			if (isAnalogLikeHidReport(reports)) {
-				qDebug("GlobalShortcutWin: Skipping analog HID input");
-			break;
 				}
 
 			const bool enqueuedMsgHid =
