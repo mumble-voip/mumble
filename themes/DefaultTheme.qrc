@@ -22,6 +22,7 @@
     <file alias="deafened_self.svg">Default/deafened_self.svg</file>
     <file alias="deafened_server.svg">Default/deafened_server.svg</file>
     <file alias="default_avatar.svg">Default/default_avatar.svg</file>
+    <file alias="disconnect.svg">Default/disconnect.svg</file>
     <file alias="ear.svg">Default/ear.svg</file>
     <file alias="filter.svg">Default/filter.svg</file>
     <file alias="filter_off.svg">Default/filter_off.svg</file>
