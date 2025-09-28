@@ -36,7 +36,9 @@ public class MumbleInstall : Project {
 		var bootstrapper = new Bundle(
 				name,
 				new MsiPackage(msiPath)
-				{ },
+				{
+					DisplayInternalUI = true,
+				},
 				new ExePackage()
 				{
 					Id = "VCREDIST_EXE",
