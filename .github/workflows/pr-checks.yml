@@ -44,8 +44,6 @@ jobs:
       shell: bash
 
     - name: Check code formatting
-      uses: jidicula/clang-format-action@v4.13.0
+      uses: nicelabs/clang-format-action@v1
       with:
-          clang-format-version: '10'
-          check-path: '.'
-          exclude-regex: '(\\.git/.*|3rdparty/.*|build/.*|.*proto$)'
+          version: 10
