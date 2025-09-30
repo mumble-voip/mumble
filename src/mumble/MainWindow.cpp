@@ -157,6 +157,7 @@ MainWindow::MainWindow(QWidget *p)
 	qtReconnect->setSingleShot(true);
 	qtReconnect->setObjectName(QLatin1String("Reconnect"));
 
+	// Creates new context menu objects, one for the user, one for the channel and one for the listener
 	qmUser     = new QMenu(tr("&User"), this);
 	qmChannel  = new QMenu(tr("&Channel"), this);
 	qmListener = new QMenu(tr("&Listener"), this);
@@ -2085,6 +2086,7 @@ void MainWindow::openUserLocalNicknameDialog(const ClientUser &p) {
 	UserLocalNicknameDialog::present(session, qmUserNicknameTracker);
 }
 
+//Used this as reference when creating the window for channel description.
 void MainWindow::on_qaUserCommentView_triggered() {
 	ClientUser *p = getContextMenuUser();
 	// This has to be done here because UserModel could've set it.
@@ -2284,7 +2286,6 @@ void MainWindow::qmChannel_aboutToShow() {
 	}
 
 	qmChannel->addSeparator();
-
 	qmChannel->addAction(qaChannelAdd);
 	qmChannel->addAction(qaChannelACL);
 	qmChannel->addAction(qaChannelRemove);
@@ -2294,6 +2295,21 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelCopyURL);
+
+	
+	// Initialize a new context menu action into memory for viewing the channel description
+	QAction *qaView_Channel_Description = new QAction(tr("View Description"), this);
+	qaView_Channel_Description->setToolTip(tr("View description in editor"));
+
+	// Add action to the channel's context menu
+	qmChannel->addAction(qaView_Channel_Description);
+
+	// Connect action to slot in MainWindow.h file
+	// When action is clicked in context menu, it will trigger the slot to view the channel description
+	connect(qaView_Channel_Description, &QAction::triggered, this,
+			&MainWindow::on_qaView_Channel_Description_triggered);
+	
+	
 	qmChannel->addAction(qaChannelSendMessage);
 
 	// hiding the root is nonsense
@@ -2523,6 +2539,7 @@ void MainWindow::on_qaChannelUnlinkAll_triggered() {
 	Global::get().sh->sendMessage(mpcs);
 }
 
+
 void MainWindow::on_qaChannelSendMessage_triggered() {
 	Channel *c = getContextMenuChannel();
 
@@ -2693,6 +2710,33 @@ void MainWindow::on_qaAudioReset_triggered() {
 	AudioInputPtr ai = Global::get().ai;
 	if (ai)
 		ai->bResetProcessor = true;
+}
+
+// Slot for viewing the channel description from the context menu
+void MainWindow::on_qaView_Channel_Description_triggered() {
+	Channel *c = getContextMenuChannel();
+	if (!c)
+		return;
+	if (!c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
+		c->qsDesc = QString::fromUtf8(Global::get().db->blob(c->qbaDescHash));
+		if (c->qsDesc.isEmpty()) {
+			MumbleProto::RequestBlob mprb;
+			mprb.add_channel_description(c->iId);
+			Global::get().sh->sendMessage(mprb);
+			return;
+		}
+	}
+	pmModel->seenComment(pmModel->index(c));
+
+	// new TextMessage window is created to show the channel's description
+	::TextMessage *texm = new ::TextMessage(this, tr("View description of channel %1").arg(c->qsName));
+
+	// set text message text to the channel's description
+	texm->rteMessage->setText(c->qsDesc, true);
+
+
+	texm->setAttribute(Qt::WA_DeleteOnClose, true);
+	texm->show();
 }
 
 void MainWindow::on_qaFilterToggle_triggered() {
