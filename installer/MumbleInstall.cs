@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Collections.Generic;
@@ -31,11 +32,13 @@ public class MumbleInstall : Project {
 		this.Properties = new Property[] { allUsersProp };
 	}
 
-	public Bundle BundleMsi(string msiPath, string vcRedistRequired) {
+	public static Bundle BundleMsi(string name, Guid upgradeCode, string msiPath, string vcRedistRequired) {
 		var bootstrapper = new Bundle(
-				this.Name,
+				name,
 				new MsiPackage(msiPath)
-				{ },
+				{
+					DisplayInternalUI = true,
+				},
 				new ExePackage()
 				{
 					Id = "VCREDIST_EXE",
@@ -69,7 +72,7 @@ public class MumbleInstall : Project {
 				});
 
 		bootstrapper.SetVersionFromFile(msiPath);
-		bootstrapper.UpgradeCode = this.UpgradeCode ?? Guid.Empty;
+		bootstrapper.UpgradeCode = upgradeCode;
 		/* The options UI allows specifying an alternate install path,
 		 * SuppressOptionsUI hides the button for that screen. */
 		bootstrapper.Application.SuppressOptionsUI = true;
