@@ -1,6 +1,6 @@
 name: Build and Sign Windows Executable
 
-on: workflow_dispatch
+on: [workflow_dispatch, push]
 
 env:
   BUILD_TYPE: Release
