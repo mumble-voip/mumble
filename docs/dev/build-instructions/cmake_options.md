@@ -142,7 +142,7 @@ Build overlay.
 ### overlay-xcompile
 
 Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes.
-(Default: ON)
+(Default: ${client})
 
 ### packaging
 
