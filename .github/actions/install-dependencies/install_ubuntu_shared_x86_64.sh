@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+set -e
+set -x
+
+source "$( dirname "$0" )/common.sh"
+
+source /etc/os-release
+
 sudo apt update
 
 sudo apt -y install \

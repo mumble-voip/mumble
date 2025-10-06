@@ -1,0 +1,175 @@
+name: 'Sign Mumble Windows Installer'
+description: 'Sign the Mumble Build Artifacts and Installer Using SignPath'
+author: 'Mumble Developers'
+
+inputs:
+    signpath-token:
+        description: 'Secret organization token'
+        required: True
+    build-number:
+        description: 'Current build number'
+        required: True
+    type:
+        description: 'The type of dependencies to install ("static" or "shared")'
+        required: True
+    os:
+        description: 'The OS to fetch the dependencies for'
+        required: True
+    arch:
+        description: 'The architecture to fetch the deps for'
+        required: True
+        default: 'x86_64'
+
+runs:
+    using: "composite"
+    steps:
+
+    - name: Publish Unsigned MSI Artifacts
+      id: upload-unsigned-artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'intermediate-msi'
+        compression-level: 9
+        path: |
+          build\installer\client\*client*.msi
+          build\installer\server\*server*.msi
+
+    - name: Delete Unsigned MSI Files
+      shell: bash
+      run: |
+        rm build/installer/server/*server*.msi
+        rm build/installer/client/*client*.msi
+
+    - name: Create Download Directory
+      shell: bash
+      run: mkdir download
+
+    - name: Submit MSI Signing Request to SignPath
+      id: submit-msi-signing-request
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ inputs.signpath-token }}
+        organization-id: '79916aba-7a9f-448d-91c6-fb83593b59d3'
+        project-slug: 'mumble'
+        signing-policy-slug: 'release-signing'
+        artifact-configuration-slug: 'sign-msi'
+        github-artifact-id: ${{ steps.upload-unsigned-artifact.outputs.artifact-id }}
+        wait-for-completion: true
+        output-artifact-directory: 'download\'
+
+    - name: Copy Signed MSI Artifacts
+      shell: bash
+      run: |
+        cp download/server/*server*.msi build/installer/server
+        cp download/client/*client*.msi build/installer/client
+
+    - name: Build Unsigned Burn Engine
+      shell: bash
+      run: ./.github/workflows/build.sh "${{ inputs.os }}" "${{ inputs.type }}" "${{ inputs.arch }}"
+      env:
+          MUMBLE_BUILD_NUMBER: ${{ inputs.build-number }}
+          MUMBLE_SKIP_MSI_REBUILD: ON
+
+    - name: Extract Client Burn Engine Bash
+      shell: bash
+      run: |
+        file=$(ls build/installer/client/*_client-*.exe)
+        insignia -ib "$file" -o build/installer/client/mumble_client.exe
+
+    - name: Extract Server Burn Engine Bash
+      shell: bash
+      run: |
+        file=$(ls build/installer/server/*_server-*.exe)
+        insignia -ib "$file" -o build/installer/server/mumble_server.exe
+
+    - name: Publish Unsigned Burn Engine
+      id: upload-unsigned-burn-engine
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'intermediate-burn-engine'
+        compression-level: 9
+        path: |
+          build\installer\client\mumble_client.exe
+          build\installer\server\mumble_server.exe
+
+    - name: Delete Unsigned Burn Engine
+      shell: bash
+      run: |
+        rm build/installer/client/mumble_client.exe
+        rm build/installer/server/mumble_server.exe
+
+    - name: Submit Burn Engine Signing Request to SignPath
+      id: submit-burn-engine-signing-request
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ inputs.signpath-token }}
+        organization-id: '79916aba-7a9f-448d-91c6-fb83593b59d3'
+        project-slug: 'mumble'
+        signing-policy-slug: 'release-signing'
+        artifact-configuration-slug: 'sign-engine'
+        github-artifact-id: ${{ steps.upload-unsigned-burn-engine.outputs.artifact-id }}
+        wait-for-completion: true
+        output-artifact-directory: 'download\'
+
+    - name: Copy Signed Burn Engine
+      shell: bash
+      run: |
+        cp download/client/mumble_client.exe build/installer/client
+        cp download/server/mumble_server.exe build/installer/server
+
+    - name: Re-Introduce Client Burn Engine into Bundle
+      shell: bash
+      run: |
+        file=$(ls build/installer/client/*_client-*.exe)
+        insignia -ab build/installer/client/mumble_client.exe "$file" -o "$file"
+
+    - name: Re-Introduce Server Burn Engine into Bundle
+      shell: bash
+      run: |
+        file=$(ls build/installer/server/*_server-*.exe)
+        insignia -ab build/installer/server/mumble_server.exe "$file" -o "$file"
+
+    - name: Delete Remaining Burn Engine Files
+      shell: bash
+      run: |
+        rm build/installer/client/mumble_client.exe
+        rm build/installer/server/mumble_server.exe
+
+    - name: Publish Unsigned Bundle
+      id: upload-unsigned-bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Mumble-${{ inputs.os }}'
+        compression-level: 9
+        path: |
+          build\**\*client*.exe
+          build\**\*client*.msi
+          build\**\*server*.exe
+          build\**\*server*.msi
+          build\**\plugins\*.dll
+          build\**\plugins\*.pdb
+          build\**\link_tester.*
+          build\**\mumble.exe
+          build\**\mumble.pdb
+          build\**\mumble-g15*.*
+          build\**\mumble_ol*.exe
+          build\**\mumble_ol*.pdb
+          build\**\mumble-server.exe
+          build\**\mumble-server.pdb
+          build\**\rnnoise.exe
+          build\**\rnnoise.pdb
+          build\**\speexdsp.exe
+          build\**\speexdsp.pdb
+
+    - name: Submit Bundle Signing Request to SignPath
+      id: submit-bundle-signing-request
+      uses: signpath/github-action-submit-signing-request@v1.1
+      with:
+        api-token: ${{ inputs.signpath-token }}
+        organization-id: '79916aba-7a9f-448d-91c6-fb83593b59d3'
+        project-slug: 'mumble'
+        signing-policy-slug: 'release-signing'
+        artifact-configuration-slug: 'sign-bundle'
+        github-artifact-id: ${{ steps.upload-unsigned-bundle.outputs.artifact-id }}
+        wait-for-completion: true
+
