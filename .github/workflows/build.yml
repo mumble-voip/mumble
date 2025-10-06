@@ -1,6 +1,17 @@
 name: Build
 
-on: [push, pull_request]
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+  workflow_dispatch:
+    inputs:
+      SIGN_WINDOWS_INSTALLER:
+        description: 'Sign Windows Installer'
+        required: true
+        type: boolean
+        default: false
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -75,19 +86,16 @@ jobs:
       run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
       shell: bash
 
-
     - uses: actions/cache@v4
       with:
           path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
-
 
     - uses: ./.github/actions/install-dependencies
       with:
           type: ${{ matrix.type }}
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
-
 
     - name: Build
       run: ./.github/workflows/build.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}"
@@ -100,7 +108,16 @@ jobs:
       shell: bash
       run: ctest --output-on-failure -C $BUILD_TYPE
 
-    - if: ${{ matrix.type == 'static' }}
+    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER == 'true' && startsWith(matrix.os, 'windows') }}
+      uses: ./.github/actions/sign-binaries
+      with:
+          signpath-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          build-number: ${{ needs.fetch_build_number.outputs.build_number }}
+          type: ${{ matrix.type }}
+          os: ${{ matrix.os }}
+          arch: ${{ matrix.arch }}
+
+    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER != 'true' && matrix.type == 'static' }}
       name: Publish
       uses: actions/upload-artifact@v4
       with:

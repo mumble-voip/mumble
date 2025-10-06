@@ -43,6 +43,10 @@ case "$os" in
 		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Dasio=ON"
 		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Dg15=ON"
 
+		if [[ "$MUMBLE_SKIP_MSI_REBUILD" = "ON" ]]; then
+			OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Dskip-msi-rebuild=ON"
+		fi
+
 		if [[ -n "$MUMBLE_USE_ELEVATION" ]]; then
 			OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Delevation=ON"
 		fi
@@ -62,7 +66,7 @@ esac
 
 buildDir="${GITHUB_WORKSPACE}/build"
 
-mkdir "$buildDir"
+mkdir -p "$buildDir"
 
 cd "$buildDir"
 
