@@ -21,12 +21,11 @@ os=$(echo "$os" | sed 's/-.*//')
 build_type="${build_type,,}"
 arch="${arch,,}"
 
-
 MUMBLE_ENVIRONMENT_DIR="$workspace/build_env"
-MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2025-08"
-# Note: We currently overwrite this for Linux
-MUMBLE_ENVIRONMENT_COMMIT="17f4c23245"
+MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2025-07_qt5"
+MUMBLE_ENVIRONMENT_COMMIT="9578b83ca8"
 MUMBLE_ENVIRONMENT_VERSION=""
+MUMBLE_DATE=""
 ADDITIONAL_CMAKE_OPTIONS=""
 VCPKG_CMAKE_OPTIONS=""
 
@@ -42,13 +41,14 @@ fi
 case "$os" in
 	"ubuntu")
 		VCPKG_TARGET_TRIPLET="$VCPKG_TARGET_TRIPLET-linux"
-		MUMBLE_ENVIRONMENT_COMMIT="8834a23a8e"
 		;;
 	"windows")
 		VCPKG_TARGET_TRIPLET="$VCPKG_TARGET_TRIPLET-windows-static-md"
+		MUMBLE_DATE="2025-07-29"
 		;;
 	"macos")
 		VCPKG_TARGET_TRIPLET="$VCPKG_TARGET_TRIPLET-osx"
+		MUMBLE_DATE="2025-08-05"
 		;;
 	*)
 		echo "OS $os is not supported"
@@ -56,7 +56,7 @@ case "$os" in
 		;;
 esac
 
-MUMBLE_ENVIRONMENT_VERSION="mumble_env.${VCPKG_TARGET_TRIPLET}.${MUMBLE_ENVIRONMENT_COMMIT}"
+MUMBLE_ENVIRONMENT_VERSION="mumble_env.${VCPKG_TARGET_TRIPLET}.${MUMBLE_DATE}.${MUMBLE_ENVIRONMENT_COMMIT}"
 
 if [[ "$build_type" == "static" ]]; then
 	ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -Dstatic=ON"
