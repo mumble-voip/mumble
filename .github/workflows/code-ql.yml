@@ -50,7 +50,7 @@ jobs:
       with:
           type: shared
           os: ${{ matrix.os }}
-          arch: 64bit
+          arch: x86_64
 
     - name: Create build dir
       run: cmake -E make_directory ${{runner.workspace}}/build

@@ -1,13 +1,22 @@
 name: Build
 
-on: [push, pull_request]
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+  workflow_dispatch:
+    inputs:
+      SIGN_WINDOWS_INSTALLER:
+        description: 'Sign Windows Installer'
+        required: true
+        type: boolean
+        default: false
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: |
-      -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON
-  MUMBLE_ENVIRONMENT_SOURCE: 'https://dl.mumble.info/build/vcpkg/'
+  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Dtest-lto=OFF
 
 
 jobs:
@@ -27,15 +36,17 @@ jobs:
     outputs:
       build_number: ${{ steps.fetch.outputs.build_number }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
             fetch-depth: 1
       - id: fetch
         shell: bash
         run: |
-          echo "build_number=$( '${{ github. workspace }}/scripts/mumble-build-number.py' \
-            --commit ${{ github.sha }} --version $( '${{ github.workspace }}/scripts/mumble-version.py' ) \
-            --password '${{ secrets.BUILD_NUMBER_TOKEN }}' --default 0 )" >> $GITHUB_OUTPUT
+          build_version="$("${{ github.workspace }}/scripts/mumble-version.py")"
+          build_number="$("${{ github.workspace }}/scripts/mumble-build-number.py" \
+            --commit "${{ github.sha }}" --version "${build_version}" \
+            --password "${{ secrets.BUILD_NUMBER_TOKEN }}" --default 0)"
+          echo "build_number=${build_number}" >> "$GITHUB_OUTPUT"
 
 
   build:
@@ -46,34 +57,39 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-22.04, ubuntu-24.04]
-            type: [shared] # Currently the "static" build doesn't work for Linux systems
-            arch: [64bit]
+            os: [ubuntu-22.04, ubuntu-24.04, windows-2022, macos-14]
+            type: [static, shared]
+            arch: [x86_64]
+            exclude:
+              - os: windows-2022
+                type: shared
+              - os: macos-14
+                type: shared
+              - os: ubuntu-22.04
+                type: static
             
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Print diskspace
-      run: df -BM
-      shell: bash
-
-
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
           submodules: 'recursive'
           fetch-depth: 1
 
 
+      # The Bash version installed on macOS is ancient. We need a newer version
+    - name: Install Bash
+      if: startswith(matrix.os, 'macos')
+      run: brew install bash
+
     - name: Set environment variables
-      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ runner.workspace }}"
+      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
       shell: bash
 
-
-    - uses: actions/cache@v3
+    - uses: actions/cache@v4
       with:
-          path: '${{ env.MUMBLE_BUILD_ENV_PATH }}'
+          path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
-
 
     - uses: ./.github/actions/install-dependencies
       with:
@@ -81,9 +97,8 @@ jobs:
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
 
-
     - name: Build
-      run: ./.github/workflows/build.sh
+      run: ./.github/workflows/build.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}"
       shell: bash
       env:
           MUMBLE_BUILD_NUMBER: ${{ needs.fetch_build_number.outputs.build_number }}
@@ -91,5 +106,25 @@ jobs:
     - name: Test
       working-directory: ${{ github.workspace }}/build
       shell: bash
-      run: QT_QPA_PLATFORM=offscreen ctest --output-on-failure -C $BUILD_TYPE
+      run: ctest --output-on-failure -C $BUILD_TYPE
 
+    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER == 'true' && startsWith(matrix.os, 'windows') }}
+      uses: ./.github/actions/sign-binaries
+      with:
+          signpath-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          build-number: ${{ needs.fetch_build_number.outputs.build_number }}
+          type: ${{ matrix.type }}
+          os: ${{ matrix.os }}
+          arch: ${{ matrix.arch }}
+
+    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER != 'true' && matrix.type == 'static' }}
+      name: Publish
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Mumble-${{ matrix.os }}'
+        compression-level: 9
+        path: |
+          build/mumble
+          build/mumble-server
+          build/**/mumble*.msi
+          build/**/mumble*.exe

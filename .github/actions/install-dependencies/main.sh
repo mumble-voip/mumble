@@ -13,6 +13,7 @@ fi
 os="${os,,}"
 # only consider name up to the hyphen
 os=$(sed 's/-.*//' <<< "$os")
+# transform to lowercase
 dep_type="${dep_type,,}"
 arch="${arch,,}"
 
