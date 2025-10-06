@@ -67,6 +67,8 @@ jobs:
                 type: shared
               - os: ubuntu-22.04
                 type: static
+              - os: ubuntu-24.04
+                type: static
             
     runs-on: ${{ matrix.os }}
 
