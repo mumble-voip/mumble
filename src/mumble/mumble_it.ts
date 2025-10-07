@@ -7156,15 +7156,15 @@ contestuale del canale.</translation>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo aprirà l&apos;editor di testo formattato per cambiare il tuo commento. I commenti sono unici per ogni server. Altri utenti possono leggere il tuo commento passando sopra l&apos;icona del commento nell&apos;utente o nell&apos;albero canali.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo aprirà la finestra di registrazione audio.</translation>
     </message>
     <message>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo aprirà la finestra di ricerca. Viene usata per trovare canali e utenti nel server corrente.</translation>
     </message>
 </context>
 <context>
