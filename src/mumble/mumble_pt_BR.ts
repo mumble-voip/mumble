@@ -2220,11 +2220,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de entrada de áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de entrada de áudio</translation>
     </message>
     <message>
         <source>Select audio output device</source>

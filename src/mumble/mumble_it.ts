@@ -986,7 +986,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>minutes do</source>
-        <translation>minuti</translation>
+        <translation>minuti allora</translation>
     </message>
     <message>
         <source>nothing</source>
@@ -1030,7 +1030,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation>Se selezionato, Mumble abiliterà la modalità bassa-latenza di Opus quando la qualità è impostata a &lt;b&gt;64 kb/s&lt;/b&gt; o sopra. La modalità bassa-latenza diminuirà la latenza di &lt;b&gt;~15 ms&lt;/b&gt; tra andata e ritorno. Questa modalità potrebbe richiedere un bitrate più alto per preservale la stessa qualità, in confronto alle modalità musica e VOIP.</translation>
+        <translation>Se selezionato, Mumble abiliterà la modalità bassa-latenza di Opus quando la qualità è impostata a &lt;b&gt;64 kb/s&lt;/b&gt; o sopra. La modalità bassa-latenza diminuirà la latenza di &lt;b&gt;~15 ms&lt;/b&gt; tra andata e ritorno. Questa modalità potrebbe richiedere un bitrate più alto per preservare la stessa qualità, in confronto alle modalità musica e VOIP.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
@@ -1245,7 +1245,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Push To Talk</translation>
+        <translation>Premi per parlare</translation>
     </message>
     <message>
         <source>Audio Input</source>
@@ -2074,7 +2074,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation>Push To Talk:</translation>
+        <translation>Premi per parlare:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
@@ -2134,7 +2134,7 @@ Mumble è in continuo sviluppo, e gli sviluppatori cercano di concentrarsi sulle
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Abilita attenuazione delle altre applicazioni mentre gli utenti ti stanno parlando. Questo vuol dire che appena qualcuno inizia a parlarti su Mumble il suono di tutte le altre applicazioni, come lettori audio, sarà attenuato in modo da sentire meglio chi ti stà parlando.</translation>
+        <translation>Abilita attenuazione delle altre applicazioni mentre gli utenti ti stanno parlando. Questo vuol dire che appena qualcuno inizia a parlarti su Mumble il suono di tutte le altre applicazioni, come lettori audio, sarà attenuato in modo da sentire meglio chi ti sta parlando.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
@@ -2822,7 +2822,7 @@ Sei sicuro di voler sostituire il tuo certificato?
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble può usare certificati per autenticarsi con i server. L&apos;uso dei certificati evita le password, il che significa che non dovrai inserire alcuna password al sito remoto. Inoltre permette un processo di registrazione utente veramente semplice e di creare una lista amici lato client, indipendente dai server.&lt;/p&gt;&lt;p&gt;Nonostante Mumble possa lavorare senza certificati, la maggior parte dei server si aspetterà che tu ne abbia uno&lt;/p&gt;&lt;p&gt;Creare un nuovo certificato automaticamente è sufficiente nella maggior parte dei casi. Tuttavia Mumble supporta anche certificati che garantiscano il possedimento di un indirizzo email da parte degli utenti. Questi certificati sono rilasciati da terze parti. Per maggior informazioni vedi la nostra &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;documentazione sui certificati utente&lt;/a&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3679,7 +3679,7 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa i tasti Su e Giù per navigare tra le scorciatoie che hai aggiunto. Usa Sinistra e Destra per navigare attraverso le azioni e le opzioni di una singola scorciatoia. I valori possono essere aggiunti ed eliminati con i pulsanti inferiori.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
@@ -3726,11 +3726,11 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
-        <translation type="unfinished"></translation>
+        <translation>Attivare questo pulsante farà attendere l&apos;applicazione per una scorciatoia. Una volta che la scorciatoia è inserita, l&apos;applicazione smetterà di attendere quest&apos;ultima. Scorciatoie multiple possono venire assegnate all&apos;azione corrente. Naviga alla lista scorciatoie di sopra per verificare le scorciatoie attualmente assegnate all&apos;azione corrente.</translation>
     </message>
     <message>
         <source>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo pulsante rimuoverà la scorciatoia selezionata per l&apos;azione corrente. Nota che devi selezionare una scorciatoia dalla lista di sopra prima che questo pulsante abbia effetto.</translation>
     </message>
 </context>
 <context>
@@ -4443,7 +4443,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa i tasti Su e Giù per navigare tra le tipologie di messaggio. Usa Destra e Sinistra per navigare tra le tipologie di notifica possibili per un singolo tipo di messaggio.</translation>
     </message>
     <message>
         <source>Set length threshold</source>
@@ -4451,7 +4451,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Text to speech volume</source>
-        <translation>Volume del premi per parlare</translation>
+        <translation>Volume sintesi vocale</translation>
     </message>
     <message>
         <source>Maximum chat log length</source>
@@ -4475,7 +4475,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Evidenzia la finestra della casella di controllo del messaggio</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
@@ -4936,7 +4936,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> secondi</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
@@ -4976,7 +4976,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Caratteri di sostituzione abbreviazioni</translation>
     </message>
     <message>
         <source>Relative font size (in percent)</source>
@@ -5794,7 +5794,7 @@ Altrimenti annulla e controlla il tuo certificato ed il nome utente.</translatio
     </message>
     <message>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Controlla sul sito di Mumble se è disponibile una nuova versione del programma, nel caso in cui lo fosse, fornisce un undirizzo per scaricarla.</translation>
+        <translation>Controlla sul sito di Mumble se è disponibile una nuova versione del programma, nel caso in cui lo fosse, fornisce un indirizzo per scaricarla.</translation>
     </message>
     <message>
         <source>Sends a text message to all users in a channel.</source>
@@ -6899,11 +6899,11 @@ Valid options are:
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation>Attiva/disattiva premi per parlare</translation>
+        <translation>Attiva/disattiva sintesi vocale</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation>Questo attiverà/disattiverà la modalità premi per parlare</translation>
+        <translation>Questo attiverà/disattiverà la sintesi vocale</translation>
     </message>
     <message>
         <source>Open about dialog</source>
@@ -7066,7 +7066,7 @@ Valid options are:
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation>Voce &amp;UI</translation>
+        <translation>Talking &amp;UI</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
@@ -7925,7 +7925,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Padding</source>
-        <translation>Padding</translation>
+        <translation>Riempimento</translation>
     </message>
     <message>
         <source>Pen color</source>
@@ -7960,11 +7960,11 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Plugin has no configure function.</source>
-        <translation>Il Plugins non ha la funzione di configurazione.</translation>
+        <translation>Il plugin non ha la funzione di configurazione.</translation>
     </message>
     <message>
         <source>Plugin has no about function.</source>
-        <translation>Il Plugin non ha informazioni.</translation>
+        <translation>Il plugin non ha la funzione &quot;Riguardo a&quot;.</translation>
     </message>
     <message>
         <source>Options</source>
@@ -8032,7 +8032,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>KeyEvents</source>
-        <translation>EventiTastiera</translation>
+        <translation>Eventi Tastiera</translation>
     </message>
     <message>
         <source>Install a plugin from a local file</source>
@@ -8044,11 +8044,11 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
-        <translation>Rimuovi il plugin attualmente selezionato. Questo lo rimuoverà dalla lista dei plugin per la sessione corrente.</translation>
+        <translation>Disattiva il plugin attualmente selezionato. Questo lo rimuoverà dalla lista dei plugin per la sessione corrente.</translation>
     </message>
     <message>
         <source>Unload</source>
-        <translation>Rimuovi</translation>
+        <translation>Disattiva</translation>
     </message>
     <message>
         <source>The plugin was installed successfully</source>
@@ -8084,7 +8084,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa i tasti Su e Giù per navigare attraverso i plugin. Usa Destra e Sinistra per navigare attraverso i singoli permessi del plugin.</translation>
     </message>
     <message>
         <source>Plugin name</source>
@@ -8096,11 +8096,11 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Casella di controllo del permesso del plugin per l&apos;audio posizionale</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Casella di controllo del permesso del plugin per registrare gli eventi della tastiera</translation>
     </message>
     <message>
         <source>checked</source>
@@ -8214,7 +8214,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
     </message>
     <message>
         <source>Non-plugin found in plugin directory: &quot;%1&quot; (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugin non valido trovato nella cartella dei plugin: &quot;%1&quot; (%2)</translation>
     </message>
 </context>
 <context>
@@ -8633,7 +8633,8 @@ Puoi registrarle di nuovo.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Se stai usando Linux molto probabilmente stai usando una versione dal repository pacchetti della tua distribuzione, che ha un proprio ciclo di aggiornamento.&lt;/p&gt;&lt;p&gt;Se vuoi avere sempre la versione più recente di Mumble, devi considerare un metodo di installazione differente.
+Vedi &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;il repository del progetto&lt;/a&gt; per conoscere le alternative disponibili.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -8793,7 +8794,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa i tasti Su e Giù per navigare attraverso i risultati della ricerca.</translation>
     </message>
 </context>
 <context>
@@ -9166,7 +9167,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usa i tasti freccia per navigare in questa lista di token di accesso. I token saranno mostrati in testo in chiaro.</translation>
     </message>
 </context>
 <context>
@@ -9851,15 +9852,15 @@ Per favore contatta l&apos;amministratore del server per maggiori informazioni.<
     </message>
     <message>
         <source>Unable to start recording - the audio output is miconfigured (0Hz sample rate)</source>
-        <translation>Impossibile avviare la registrazione - errore nella configuazione dell&apos;uscita audio (0Hz frequenza di campionamento)</translation>
+        <translation>Impossibile avviare la registrazione - errore nella configurazione dell&apos;uscita audio (0Hz frequenza di campionamento)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo campo contiene i percorsi delle cartelle dove salvare ogni registrazione vocale. Usa il tasto &quot;Esplora&quot; per aprire una finestra di dialogo.</translation>
     </message>
     <message>
         <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo campo contiene il nome del file che verrà usato per ogni registrazione salvata. Possono essere usate più variabili per incrementare il nome del file. Per esempio %time per l&apos;ora corrente.</translation>
     </message>
 </context>
 <context>

@@ -185,7 +185,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Up</source>
-        <translation>В&amp;гору</translation>
+        <translation>&amp;Вгору</translation>
     </message>
     <message>
         <source>Move entry down</source>
@@ -209,7 +209,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>Додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Remove entry</source>
@@ -221,7 +221,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Видалити</translation>
+        <translation>&amp;Вилучити</translation>
     </message>
     <message>
         <source>Context</source>
@@ -573,7 +573,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation>&amp;Налаштувати</translation>
+        <translation>&amp;Налаштуватися</translation>
     </message>
     <message>
         <source>Capabilities</source>
@@ -930,7 +930,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;переглядати...</translation>
+        <translation>&amp;Переглядати...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
@@ -1090,7 +1090,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Натисни і говори</translation>
+        <translation>Натисни і говорити</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
@@ -1245,7 +1245,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Натисни і говори</translation>
+        <translation>Натисни і говорити</translation>
     </message>
     <message>
         <source>Audio Input</source>
@@ -1393,7 +1393,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Bloom</source>
-        <translation>цвітіння</translation>
+        <translation>Блум</translation>
     </message>
     <message>
         <source>Factor for sound volume increase</source>
@@ -1852,7 +1852,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Introduction</source>
-        <translation>вступ</translation>
+        <translation>Вступ</translation>
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
@@ -2264,7 +2264,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>натисни і говори</translation>
+        <translation>Натисни і говори</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -2295,7 +2295,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Address</source>
-        <translation>&amp;Адреса</translation>
+        <translation>&amp;Адресаа</translation>
     </message>
     <message>
         <source>&amp;Mask</source>
@@ -2307,7 +2307,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Start</source>
-        <translation>старт</translation>
+        <translation>Старт</translation>
     </message>
     <message>
         <source>End</source>
@@ -2323,15 +2323,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation>&amp;оновлення</translation>
+        <translation>&amp;Оновлення</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;видалити</translation>
+        <translation>&amp;Видалити</translation>
     </message>
     <message>
         <source>Ban List</source>
@@ -2415,7 +2415,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Clear</source>
-        <translation>ясно</translation>
+        <translation>Очистити</translation>
     </message>
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
@@ -2633,7 +2633,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Open...</source>
-        <translation>ВІДЧИНЕНО...</translation>
+        <translation>Відчинено...</translation>
     </message>
     <message>
         <source>Password</source>
@@ -2842,7 +2842,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Speak</source>
-        <translation>говорити</translation>
+        <translation>Говорити</translation>
     </message>
     <message>
         <source>Mute/Deafen</source>
@@ -2930,7 +2930,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Move</source>
-        <translation>рухатися</translation>
+        <translation>Рухатися</translation>
     </message>
     <message>
         <source>Text message</source>
@@ -2938,7 +2938,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Kick</source>
-        <translation>удар ногою</translation>
+        <translation>Удар ногою</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -3195,7 +3195,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Filter</source>
-        <translation>фільтр</translation>
+        <translation>Фільтр</translation>
     </message>
     <message>
         <source>Show All</source>
@@ -3211,7 +3211,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>All</source>
-        <translation>все</translation>
+        <translation>Все</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -3346,7 +3346,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>A&amp;ddress</source>
-        <translation>&amp;адреса</translation>
+        <translation>&amp;Адреса</translation>
     </message>
     <message>
         <source>Internet address of the server.</source>
@@ -3793,7 +3793,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation>миша</translation>
+        <translation>Миша</translation>
     </message>
     <message>
         <source>Keyboard</source>
@@ -3820,7 +3820,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>List of users</source>
-        <translation>Список користувачів</translation>
+        <translation>Список користувача</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3864,7 +3864,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Current selection</source>
-        <translation>поточний вибір</translation>
+        <translation>Поточний вибір</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
@@ -3883,7 +3883,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation>миша</translation>
+        <translation>Миша</translation>
     </message>
     <message>
         <source>Keyboard</source>
@@ -3898,7 +3898,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Mouse</source>
-        <translation>миша</translation>
+        <translation>Миша</translation>
     </message>
 </context>
 <context>
@@ -4008,7 +4008,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Warning</source>
-        <translation>УВАГА</translation>
+        <translation>Попередження</translation>
     </message>
     <message>
         <source>Information</source>
@@ -4224,11 +4224,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Messages</source>
-        <translation>Повідомлення</translation>
+        <translation>Повідомленням</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation>повідомлення</translation>
+        <translation>Повідомлення</translation>
     </message>
     <message>
         <source>Console</source>
@@ -4248,7 +4248,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Path</source>
-        <translation>шлях</translation>
+        <translation>Шлях</translation>
     </message>
     <message>
         <source>Text To Speech</source>
@@ -4523,7 +4523,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>All</source>
-        <translation>все</translation>
+        <translation>Все</translation>
     </message>
     <message>
         <source>Ask</source>
@@ -4535,7 +4535,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Move</source>
-        <translation>рухатися</translation>
+        <translation>Рухатися</translation>
     </message>
     <message>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
@@ -4592,11 +4592,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Classic</source>
-        <translation>класичний</translation>
+        <translation>Класичний</translation>
     </message>
     <message>
         <source>Stacked</source>
-        <translation>складені</translation>
+        <translation>Складені</translation>
     </message>
     <message>
         <source>Hybrid</source>
@@ -4689,7 +4689,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Application</source>
-        <translation>застосування</translation>
+        <translation>Застосування</translation>
     </message>
     <message>
         <source>Adds user and channel context menus into the menu bar</source>
@@ -5009,7 +5009,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Push -to-Talk</translation>
+        <translation>Натисніть-і-розкажіть</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
@@ -5034,7 +5034,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>Push -to-Mute</translation>
+        <translation>Натисніть, щоб вимкнути звук</translation>
     </message>
     <message>
         <source>Join Channel</source>
@@ -5068,7 +5068,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Mumble</source>
-        <translation>бурмотіти</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <source>Mumble -- %1</source>
@@ -5136,7 +5136,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Opening URL %1</source>
-        <translation>відкриття URL %1</translation>
+        <translation>Відкриття URL %1</translation>
     </message>
     <message>
         <source>File does not exist</source>
@@ -5320,7 +5320,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation>Push- to-Talk</translation>
+        <translation>Натисніть і розкажіть</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5497,7 +5497,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>C&amp;onfigure</source>
-        <translation>&amp;налаштувати</translation>
+        <translation>&amp;Налаштувати</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -6282,7 +6282,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>&amp;Self</source>
-        <translation>&amp;себе</translation>
+        <translation>&amp;Себе</translation>
     </message>
     <message>
         <source>&amp;Unlink Plugins</source>
@@ -6376,7 +6376,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Kick...</source>
-        <translation>&amp;удар ногою...</translation>
+        <translation>&amp;Удар ногою...</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
@@ -6384,11 +6384,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation>&amp;додати...</translation>
+        <translation>&amp;Додати...</translation>
     </message>
     <message>
         <source>&amp;Remove...</source>
-        <translation>&amp;видалити...</translation>
+        <translation>&amp;Видалити...</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -6496,7 +6496,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Tree</source>
-        <translation>дерево</translation>
+        <translation>Дерево</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6939,7 +6939,7 @@ Valid options are:
     </message>
     <message>
         <source>Yes</source>
-        <translation>так</translation>
+        <translation>Так</translation>
     </message>
     <message>
         <source>No</source>
@@ -6971,7 +6971,7 @@ Valid options are:
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation>Посилання</translation>
+        <translation>П&amp;осилання</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
@@ -7003,7 +7003,7 @@ Valid options are:
     </message>
     <message>
         <source>&amp;About</source>
-        <translation>&amp;про</translation>
+        <translation>&amp;Про</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -7051,7 +7051,7 @@ Valid options are:
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation>&amp;переглянути коментар</translation>
+        <translation>&amp;Переглянути коментар</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
@@ -7059,7 +7059,7 @@ Valid options are:
     </message>
     <message>
         <source>&amp;Record...</source>
-        <translation>&amp;запис...</translation>
+        <translation>&amp;Запис...</translation>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
@@ -7150,7 +7150,7 @@ Valid options are:
     </message>
     <message>
         <source>Set</source>
-        <translation>встановити</translation>
+        <translation>Встановити</translation>
     </message>
     <message>
         <source>State</source>
@@ -7162,11 +7162,11 @@ Valid options are:
     </message>
     <message>
         <source>Link</source>
-        <translation>посилання</translation>
+        <translation>Посилання</translation>
     </message>
     <message>
         <source>Activate</source>
-        <translation>активувати</translation>
+        <translation>Активувати</translation>
     </message>
     <message>
         <source>Display</source>
@@ -7688,7 +7688,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load…</source>
-        <translation>навантаження…</translation>
+        <translation>Навантаження…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -7696,7 +7696,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save…</source>
-        <translation>зберегти…</translation>
+        <translation>Зберегти…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -7708,7 +7708,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Color</source>
-        <translation>колір</translation>
+        <translation>Колір</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -7771,7 +7771,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Passive</source>
-        <translation>пасивний</translation>
+        <translation>Пасивний</translation>
     </message>
     <message>
         <source>User is talking in your channel or a linked channel</source>
@@ -7894,7 +7894,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Center</source>
-        <translation>центр</translation>
+        <translation>Центр</translation>
     </message>
     <message>
         <source>Right</source>
@@ -8017,7 +8017,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>&amp;Configure</source>
-        <translation>&amp;Налаштувати</translation>
+        <translation>&amp;Конфігурація</translation>
     </message>
     <message>
         <source>Name</source>
@@ -8265,7 +8265,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PortAudioSystem</name>
     <message>
         <source>Default device</source>
-        <translation>пристрій за замовчуванням</translation>
+        <translation>Пристрій за замовчуванням</translation>
     </message>
 </context>
 <context>
@@ -8441,7 +8441,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Default Device</source>
-        <translation>Пристрій за замовчуванням</translation>
+        <translation>Пристрій за замовчування</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
@@ -8487,7 +8487,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Invocation</source>
-        <translation>виклик</translation>
+        <translation>Виклик</translation>
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
@@ -8629,7 +8629,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation>додати</translation>
+        <translation>Додати</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -8662,7 +8662,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;Bold</source>
-        <translation>&amp;жирний</translation>
+        <translation>&amp;Жирний</translation>
     </message>
     <message>
         <source>Ctrl+B</source>
@@ -8869,7 +8869,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;Current:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;поточний:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Поточний:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Codec:&lt;/b&gt;</source>
@@ -8897,7 +8897,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Good</source>
-        <translation>добре</translation>
+        <translation>Добре</translation>
     </message>
     <message>
         <source>Late</source>
@@ -8980,7 +8980,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ServerView</name>
     <message>
         <source>Favorite</source>
-        <translation>улюблений</translation>
+        <translation>Улюблений</translation>
     </message>
     <message>
         <source>LAN</source>
@@ -9041,7 +9041,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Current</source>
-        <translation>поточний</translation>
+        <translation>Поточний</translation>
     </message>
     <message>
         <source>Subchannel #%1</source>
@@ -9068,7 +9068,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Current</source>
-        <translation>поточний</translation>
+        <translation>Поточний</translation>
     </message>
     <message>
         <source>Subchannel #%1</source>
@@ -9119,7 +9119,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Message</source>
-        <translation>повідомлення</translation>
+        <translation>Повідомлення</translation>
     </message>
 </context>
 <context>
@@ -9152,7 +9152,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;додати</translation>
+        <translation>&amp;Додати</translation>
     </message>
     <message>
         <source>Remove a token</source>
@@ -9191,11 +9191,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Days</source>
-        <translation>днів</translation>
+        <translation>Днів</translation>
     </message>
     <message>
         <source>Weeks</source>
-        <translation>тижнів</translation>
+        <translation>Тижнів</translation>
     </message>
     <message>
         <source>Months</source>
@@ -9203,7 +9203,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Years</source>
-        <translation>років</translation>
+        <translation>Років</translation>
     </message>
     <message>
         <source>Inactive for</source>
@@ -9219,7 +9219,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>User list</source>
-        <translation>список користувачів</translation>
+        <translation>Список користувачів</translation>
     </message>
     <message>
         <source>Search for user</source>
@@ -9286,7 +9286,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Good</source>
-        <translation>добре</translation>
+        <translation>Добре</translation>
     </message>
     <message>
         <source>Late</source>
@@ -9642,7 +9642,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Organization</source>
-        <translation>організація</translation>
+        <translation>Організація</translation>
     </message>
     <message>
         <source>Subunit</source>
@@ -9748,11 +9748,11 @@ An access token is a text string, which can be used as a password for very simpl
     <name>VoiceRecorderDialog</name>
     <message>
         <source>Recorder</source>
-        <translation>диктофон</translation>
+        <translation>Диктофон</translation>
     </message>
     <message>
         <source>Control</source>
-        <translation>КОНТРОЛЬ</translation>
+        <translation>Контроль</translation>
     </message>
     <message>
         <source>00:00:00</source>
@@ -9760,7 +9760,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Start</source>
-        <translation>&amp;старт</translation>
+        <translation>&amp;Старт</translation>
     </message>
     <message>
         <source>S&amp;top</source>
@@ -9887,14 +9887,14 @@ Please contact your server administrator for further information.</source>
     <name>WASAPISystem</name>
     <message>
         <source>Default Device</source>
-        <translation>Пристрій за замовчуванням</translation>
+        <translation>Пристрій за замовчування</translation>
     </message>
 </context>
 <context>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation>бурмотіти PTT</translation>
+        <translation>Mumble PTT</translation>
     </message>
     <message>
         <source>Push to talk</source>

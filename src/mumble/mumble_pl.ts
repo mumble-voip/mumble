@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation>Okno dialogowe</translation>
     </message>
     <message>
         <source>Name</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Wprowadź tutaj nazwę kanału.</translation>
+        <translation>Wpisz tutaj nazwę kanału.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Wprowadź tutaj hasło dla kanału.</translation>
+        <translation>Wpisz tutaj hasło kanału.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -89,7 +89,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Pozycja&lt;/b&gt;&lt;br/&gt;
-Ta wartość pozwala na zmianę sposobu w jaki są sortowane kanały. Kanał z wyższą wartością&lt;i&gt;Pozycja&lt;/i&gt; będzie umieszczony poniżej niższej wartości i na odwrót. Jeżeli &lt;i&gt;Pozycja&lt;/i&gt; dwóch kanałów jest identyczna, zostaną one posortowane alfabetycznie.</translation>
+Ta wartość pozwala na zmianę sposobu, w jaki są sortowane kanały. Kanał z wyższą wartością&lt;i&gt;Pozycja&lt;/i&gt; będzie umieszczony poniżej niższej wartości i na odwrót. Jeżeli &lt;i&gt;Pozycja&lt;/i&gt; dwóch kanałów jest identyczna, zostaną one posortowane alfabetycznie.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -105,7 +105,7 @@ Ta wartość pozwala na zmianę sposobu w jaki są sortowane kanały. Kanał z w
     </message>
     <message>
         <source>List of groups</source>
-        <translation>Lista zdefiniowanych grup</translation>
+        <translation>Lista grup</translation>
     </message>
     <message>
         <source>Remove selected group</source>
@@ -272,11 +272,11 @@ Dodaje nową grupę.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Wpisz nazwę użytkownika, którego chciałbyś dodać do grupy i kliknij Dodaj.</translation>
+        <translation>Wpisz nazwę użytkownika, którego chcesz dodać do grupy i kliknij Dodaj.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Wpisz nazwę użytkownika, którego chciałbyś usunąć z grupy i kliknij Usuń.</translation>
+        <translation>Wpisz nazwę użytkownika, którego chcesz usunąć z grupy i kliknij Usuń.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -324,7 +324,7 @@ Dodaje nową grupę.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nazwa&lt;/b&gt;&lt;br /&gt;Podaj tutaj nazwę kanału. Nazwa musi zgadzać się z ograniczeniem narzuconym przez serwer, do którego jesteś podłączony.</translation>
+        <translation>&lt;b&gt;Nazwa&lt;/b&gt;&lt;br /&gt;Wpisz tutaj nazwę kanału. Nazwa musi zgadzać się z ograniczeniem narzuconym przez serwer, do którego jesteś podłączony.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
@@ -336,7 +336,7 @@ Po włączeniu utworzony kanał zostanie oznaczony jako tymczasowy. Gdy ostatni 
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Grupa&lt;/b&gt;&lt;br /&gt;
-Znajdują się tutaj wszystkie grupy aktualnie zdefiniowane dla tego kanału. By utworzyć nową grupę, wpisz jej nazwę i naciśnij enter.</translation>
+Znajdują się tutaj wszystkie grupy aktualnie zdefiniowane dla tego kanału. By utworzyć nową grupę, wpisz jej nazwę i naciśnij Enter.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
@@ -934,11 +934,11 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>&amp;Przeglądaj...</translation>
+        <translation>Przeg&amp;lądaj...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;Podgląd</translation>
+        <translation>Po&amp;dgląd</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
@@ -1074,7 +1074,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation>Po&amp;dgląd</translation>
+        <translation>Podg&amp;ląd</translation>
     </message>
     <message>
         <source>Audio cue when using...</source>
@@ -2276,7 +2276,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego edycji skrótu</translation>
+        <translation>Otwiera okno dialogowe edycji skrótu</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
@@ -2319,7 +2319,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     </message>
     <message>
         <source>Hash</source>
-        <translation>Certyfikat</translation>
+        <translation>Hash</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -2455,7 +2455,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation>Skrót certyfikatu do zbanowania</translation>
+        <translation>Hash certyfikatu do zbanowania</translation>
     </message>
     <message>
         <source>List of banned users</source>
@@ -2493,7 +2493,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     <name>CertWizard</name>
     <message>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Nie można zweryfikować adresu e-mail.&lt;br /&gt;Podaj właściwy (lub żaden) adres e-mail, aby kontynuować.</translation>
+        <translation>Nie można zweryfikować adresu e-mail.&lt;br /&gt;Wpisz właściwy (lub żaden) adres e-mail, aby kontynuować.</translation>
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
@@ -3115,7 +3115,7 @@ Czy na pewno chcesz zastąpić swój bieżący certyfikat?
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Podaj nazwę użytkownika</translation>
+        <translation>Wpisz nazwę użytkownika</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -3490,7 +3490,7 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Okropnie nam przykro, ale wygląda na to, że Mumble zostało niespodziewanie zamknięte. Czy chcesz wysłać raport z błędem do twórców programu?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Raport ten zawiera kopię pamięci Mumble z momentu, w którym program przestał funkcjonować, pomoże to w dużej mierze naszej drużynie szybko usunąć błąd, który spowodował ten problem.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;Bardzo nam przykro, ale wygląda na to, że Mumble zostało niespodziewanie zamknięte. Czy chcesz wysłać raport z błędem do twórców programu?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Raport ten zawiera kopię pamięci Mumble z momentu, w którym program przestał funkcjonować, pomoże to w dużej mierze naszej drużynie szybko usunąć błąd, który spowodował ten problem.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Email address (optional)</source>
@@ -3688,11 +3688,11 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation>Spowoduje to dodanie nowego, pustego wpisu do powyższego drzewa „Skonfigurowane skróty”. Drzewo zostanie automatycznie aktywowane. Przypisz klawisz lub akcję, wybierając wpis w drzewku powyżej.</translation>
+        <translation>Dodaje nowy, pusty wpis do powyższego drzewa „Skonfigurowane skróty”. Drzewo zostanie automatycznie aktywowane. Przypisz klawisz lub akcję, wybierając wpis w drzewku powyżej.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation>Spowoduje to usunięcie wybranego wpisu z powyższego drzewa „Skonfigurowane skróty”</translation>
+        <translation>Usuwa wybrany wpis z powyższego drzewa „Skonfigurowane skróty”</translation>
     </message>
 </context>
 <context>
@@ -4897,7 +4897,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>The action to perform when a channel is activated (via double-click or enter) in the search dialog.</source>
-        <translation>Akcja wykonywana, gdy kanał jest aktywowany (poprzez dwukrotne kliknięcie lub Enter) w oknie dialogowym wyszukiwania.</translation>
+        <translation>Akcja wykonywana, gdy kanał jest aktywowany (poprzez dwukrotne kliknięcie lub klawisz Enter) w oknie dialogowym wyszukiwania.</translation>
     </message>
     <message>
         <source>Action (Channel):</source>
@@ -5156,7 +5156,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Nazwa użytkownika</translation>
+        <translation>Wpisz nazwę użytkownika</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -5308,7 +5308,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to przesłanie zawartości twojego schowka do kanału, na którym się znajdujesz.</translation>
+        <translation>Przesyła zawartość schowka do kanału, na którym się znajdujesz.</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -5811,7 +5811,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <source>Register user on server</source>
-        <translation>Rejestruje użytkownika na serwerze</translation>
+        <translation>Zarejestruj użytkownika na serwerze</translation>
     </message>
     <message>
         <source>This will permanently register the user on the server.</source>
@@ -6618,7 +6618,7 @@ toggledeaf
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation>Spowoduje to otwarcie lub zamknięcie okna wyszukiwania w zależności od tego, czy jest już otwarte</translation>
+        <translation>Otwiera lub zamyka okno wyszukiwania w zależności od tego, czy jest już otwarte</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
@@ -6814,7 +6814,7 @@ Prawidłowe opcje to:
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego połączenia z serwerem</translation>
+        <translation>Otwiera okno dialogowe połączenia z serwerem</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
@@ -6824,7 +6824,7 @@ Prawidłowe opcje to:
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to rozłączenie od serwera</translation>
+        <translation>Rozłącza od serwera</translation>
     </message>
     <message>
         <source>Open server information</source>
@@ -6834,7 +6834,7 @@ Prawidłowe opcje to:
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to wyświetlenie informacji o połączeniu z serwerem</translation>
+        <translation>Wyświetla informacje o połączeniu z serwerem</translation>
     </message>
     <message>
         <source>Open server tokens</source>
@@ -6844,7 +6844,7 @@ Prawidłowe opcje to:
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego tokenów serwera</translation>
+        <translation>Otwiera okno dialogowe tokenów serwera</translation>
     </message>
     <message>
         <source>Open server user list</source>
@@ -6854,7 +6854,7 @@ Prawidłowe opcje to:
     <message>
         <source>This will open the server user list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego z listą użytkowników serwera</translation>
+        <translation>Otwiera okno dialogowe z listą użytkowników serwera</translation>
     </message>
     <message>
         <source>Open server ban list</source>
@@ -6864,7 +6864,7 @@ Prawidłowe opcje to:
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego z listą banów na serwerze</translation>
+        <translation>Otwiera okno dialogowe z listą banów na serwerze</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
@@ -6874,7 +6874,7 @@ Prawidłowe opcje to:
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to włączenie/wyłączenie nadrzędnego mówcy</translation>
+        <translation>Włącza lub wyłącza nadrzędnego mówcę</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
@@ -6883,7 +6883,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego nagrywania</translation>
+        <translation>Otwiera okno dialogowe nagrywania</translation>
     </message>
     <message>
         <source>Change comment</source>
@@ -6892,7 +6892,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego zmiany komentarza</translation>
+        <translation>Otwiera okno dialogowe zmiany komentarza</translation>
     </message>
     <message>
         <source>Change avatar</source>
@@ -6901,7 +6901,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation>Spowoduje to otwarcie eksploratora plików w celu zmiany obrazu awatara na tym serwerze</translation>
+        <translation>Otwiera eksplorator plików w celu zmiany obrazu awatara na tym serwerze</translation>
     </message>
     <message>
         <source>Remove avatar</source>
@@ -6910,7 +6910,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation>Spowoduje to zresetowanie Twojego awatara na serwerze</translation>
+        <translation>Resetuje awatar użytkownika na serwerze</translation>
     </message>
     <message>
         <source>Register on the server</source>
@@ -6919,7 +6919,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation>Spowoduje to zarejestrowanie Cię na serwerze</translation>
+        <translation>Rejestruje użytkownika na serwerze</translation>
     </message>
     <message>
         <source>Audio statistics</source>
@@ -6928,7 +6928,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego statystyk audio</translation>
+        <translation>Otwiera okno dialogowe statystyk audio</translation>
     </message>
     <message>
         <source>Open settings</source>
@@ -6937,7 +6937,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego ustawień</translation>
+        <translation>Otwiera okno dialogowe ustawień</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
@@ -6946,7 +6946,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego kreatora ustawień dźwięku</translation>
+        <translation>Otwiera okno dialogowe kreatora ustawień dźwięku</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
@@ -6955,7 +6955,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego kreatora certyfikatów</translation>
+        <translation>Otwiera okno dialogowe kreatora certyfikatów</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
@@ -6964,7 +6964,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation>Spowoduje to włączenie/wyłączenie tekstu na mowę</translation>
+        <translation>Włącza lub wyłącza tekst na mowę</translation>
     </message>
     <message>
         <source>Open about dialog</source>
@@ -6973,7 +6973,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego informacji o programie</translation>
+        <translation>Otwiera okno dialogowe informacji o programie</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
@@ -6982,7 +6982,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego informacji o Qt</translation>
+        <translation>Otwiera okno dialogowe informacji o Qt</translation>
     </message>
     <message>
         <source>Check for update</source>
@@ -6991,7 +6991,7 @@ Prawidłowe opcje to:
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation>Spowoduje to sprawdzenie, czy program Mumble jest aktualny</translation>
+        <translation>Sprawdza, czy program Mumble jest aktualny</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>

@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Default server value</source>
-        <translation type="unfinished"></translation>
+        <translation>デフォルトサーバー</translation>
     </message>
     <message>
         <source>Failed: Invalid channel</source>
@@ -387,7 +387,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation>チャンネルの ID</translation>
+        <translation>チャンネルのID。</translation>
     </message>
     <message>
         <source>Maximum Users</source>
@@ -405,7 +405,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation>これは，チャンネル順に並べ替えます．</translation>
+        <translation>チャンネル順に並べ替えます。</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -700,7 +700,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>第三者ソフトウェア使用許諾条件</translation>
     </message>
     <message>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;An Open Source, low-latency, high quality voice-chat utility&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
@@ -1115,7 +1115,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>音声入力デバイス</translation>
     </message>
     <message>
         <source>Transmission mode</source>
@@ -1167,7 +1167,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation type="unfinished"></translation>
+        <translation>音声圧縮品質</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
@@ -1294,11 +1294,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>ミリ秒</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>秒</translation>
     </message>
     <message>
         <source>kilobits per second</source>
@@ -1587,7 +1587,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>音声出力デバイス</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
@@ -1607,7 +1607,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished"></translation>
+        <translation>最小音量</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1678,7 +1678,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>ミリ秒</translation>
     </message>
     <message>
         <source>meters</source>
@@ -2221,7 +2221,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>音声入力デバイス</translation>
     </message>
     <message>
         <source>Select audio output device</source>
@@ -2233,7 +2233,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>音声出力デバイス</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
@@ -2332,7 +2332,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>BANリスト</translation>
     </message>
     <message>
         <source>Search field</source>
@@ -2980,11 +2980,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unable to send image: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>画像が大きいため送信できません。</translation>
     </message>
     <message>
         <source>Unable to send image %1: too large.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1の画像はサイズがとても大きいため送信できません。</translation>
     </message>
     <message>
         <source>This server does not allow sending images.</source>
@@ -3090,7 +3090,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Restore all defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>初期値を復元</translation>
     </message>
     <message>
         <source>This button will restore the defaults for all settings.</source>
@@ -3117,7 +3117,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>不明</translation>
     </message>
     <message>
         <source>Users</source>
@@ -3293,11 +3293,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>IPv4 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv4アドレス</translation>
     </message>
     <message>
         <source>IPv6 address</source>
-        <translation type="unfinished"></translation>
+        <translation>IPv6アドレス</translation>
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
@@ -3432,7 +3432,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Local server label</source>
-        <translation type="unfinished"></translation>
+        <translation>ローカルサーバラベル</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
@@ -3460,11 +3460,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバIPアドレス</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバポート</translation>
     </message>
     <message>
         <source>Username</source>
@@ -3479,7 +3479,7 @@ Label of the server. This is what the server will be named like in your server l
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble クラッシュレポート</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
@@ -3487,7 +3487,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>メールアドレス(任意)</translation>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
@@ -3496,11 +3496,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Send Report</source>
-        <translation type="unfinished"></translation>
+        <translation>レポートを送信</translation>
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"></translation>
+        <translation>レポートを送信しない</translation>
     </message>
     <message>
         <source>Crash upload successful</source>
@@ -3649,7 +3649,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"></translation>
+        <translation>XInputを有効化</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
@@ -3690,7 +3690,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>ショートカットを編集</translation>
     </message>
     <message>
         <source>Start capture process</source>
@@ -3777,18 +3777,18 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutEngine</name>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>不明</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>マウス</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>キーボード</translation>
     </message>
 </context>
 <context>
@@ -3874,22 +3874,22 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>マウス</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>キーボード</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>キーボード</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>マウス</translation>
     </message>
 </context>
 <context>
@@ -4023,7 +4023,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You self-muted</source>
-        <translation type="unfinished"></translation>
+        <translation>自分をミュート</translation>
     </message>
     <message>
         <source>User muted (you)</source>
@@ -4039,31 +4039,31 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>自分のミュート解除</translation>
     </message>
     <message>
         <source>You self-deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>自分のスピーカーをミュート</translation>
     </message>
     <message>
         <source>You self-undeafened</source>
-        <translation type="unfinished"></translation>
+        <translation>自分のスピーカーミュートを解除</translation>
     </message>
     <message>
         <source>User renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーが名前を変更</translation>
     </message>
     <message>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーがサーバ接続しチャンネル参加</translation>
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーがチャンネルを離れサーバから切断</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>プライベートテキストメッセージ</translation>
     </message>
     <message>
         <source>the server</source>
@@ -4071,7 +4071,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>[[ Invalid size ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[不正なサイズ]]</translation>
     </message>
     <message>
         <source>[[ Text object too large to display ]]</source>
@@ -4104,31 +4104,31 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバ接続確立</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバ切断</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーがサーバに参加</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーがサーバから離脱</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーがチャンネルに参加</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"></translation>
+        <translation>ユーザーがチャンネルから離脱</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>権限がありません</translation>
     </message>
     <message>
         <source>Text message</source>
@@ -4420,7 +4420,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
@@ -4705,7 +4705,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>テーマ</translation>
     </message>
     <message>
         <source>Theme to use to style the user interface</source>
@@ -4733,7 +4733,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Enable Developer menu</source>
-        <translation type="unfinished"></translation>
+        <translation>開発者メニューの表示</translation>
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
@@ -4873,7 +4873,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>検索</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -6346,7 +6346,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Show the Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>開発者コンソールを表示</translation>
     </message>
     <message>
         <source>Shows the Mumble Developer Console, where Mumble&apos;s log output can be inspected.</source>
@@ -6354,23 +6354,23 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Connect...</source>
-        <translation type="unfinished"></translation>
+        <translation>接続(&amp;C)...</translation>
     </message>
     <message>
         <source>&amp;Kick...</source>
-        <translation type="unfinished"></translation>
+        <translation>キック(&amp;K)...</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
-        <translation type="unfinished"></translation>
+        <translation>BAN(&amp;B)...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>
-        <translation type="unfinished"></translation>
+        <translation>追加(&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Remove...</source>
-        <translation type="unfinished"></translation>
+        <translation>削除(&amp;R)...</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -6378,7 +6378,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>音声調整ウィザード(&amp;A)...</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
@@ -6386,15 +6386,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Certificate Wizard...</source>
-        <translation type="unfinished"></translation>
+        <translation>証明書管理ウィザード(&amp;C)...</translation>
     </message>
     <message>
         <source>Change &amp;Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>アバターを変更(&amp;A)...</translation>
     </message>
     <message>
         <source>&amp;Change Comment...</source>
-        <translation type="unfinished"></translation>
+        <translation>コメントを編集(&amp;C)...</translation>
     </message>
     <message>
         <source>Show</source>
@@ -6478,7 +6478,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>ツリー</translation>
     </message>
     <message>
         <source>Channel</source>
@@ -6486,7 +6486,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Private</source>
-        <translation type="unfinished"></translation>
+        <translation>プライベート</translation>
     </message>
     <message>
         <source>%1: %2</source>
@@ -6579,11 +6579,11 @@ Valid actions are:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>ミュート解除</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
-        <translation type="unfinished"></translation>
+        <translation>スピーカーミュート解除</translation>
     </message>
     <message>
         <source>Show the Positional Audio Viewer</source>
@@ -6637,7 +6637,7 @@ Valid actions are:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>チャンネルフィルタ(&amp;F)</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6706,7 +6706,7 @@ Valid options are:
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>サーバに接続</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
@@ -6726,7 +6726,7 @@ Valid options are:
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>サーバ情報を開く</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
@@ -6736,7 +6736,7 @@ Valid options are:
     <message>
         <source>Open server tokens</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>サーバトークンを開く</translation>
     </message>
     <message>
         <source>This will open the server tokens dialog</source>
@@ -6746,7 +6746,7 @@ Valid options are:
     <message>
         <source>Open server user list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>サーバのユーザーリストを開く</translation>
     </message>
     <message>
         <source>This will open the server user list dialog</source>
@@ -6756,7 +6756,7 @@ Valid options are:
     <message>
         <source>Open server ban list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>サーバのBANリストを開く</translation>
     </message>
     <message>
         <source>This will open the server ban list dialog</source>
@@ -6766,7 +6766,7 @@ Valid options are:
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>優先スピーカーの切替</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
@@ -6785,7 +6785,7 @@ Valid options are:
     <message>
         <source>Change comment</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>コメントの編集</translation>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
@@ -6794,7 +6794,7 @@ Valid options are:
     <message>
         <source>Change avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>アバターの変更</translation>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
@@ -6803,7 +6803,7 @@ Valid options are:
     <message>
         <source>Remove avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>アバターを削除</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
@@ -6821,7 +6821,7 @@ Valid options are:
     <message>
         <source>Audio statistics</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>音声統計</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
@@ -6830,7 +6830,7 @@ Valid options are:
     <message>
         <source>Open settings</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>設定を開く</translation>
     </message>
     <message>
         <source>This will open the settings dialog</source>
@@ -6839,7 +6839,7 @@ Valid options are:
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>音声調整ウィザードの開始</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
@@ -6848,7 +6848,7 @@ Valid options are:
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>証明書管理ウィザードの開始</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
@@ -6875,7 +6875,7 @@ Valid options are:
     <message>
         <source>Open about Qt dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Qtについてを開く</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
@@ -6896,7 +6896,7 @@ Valid options are:
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>はい</translation>
     </message>
     <message>
         <source>No</source>
@@ -6908,11 +6908,11 @@ Valid options are:
     </message>
     <message>
         <source>&amp;Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>BANリスト(&amp;B)</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>情報(&amp;I)</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
@@ -6920,11 +6920,11 @@ Valid options are:
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>メッセージを送信(&amp;S)...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>ニックネームの設定(&amp;C)...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
@@ -6936,23 +6936,23 @@ Valid options are:
     </message>
     <message>
         <source>M&amp;ute Self</source>
-        <translation type="unfinished"></translation>
+        <translation>ミュート(&amp;U)</translation>
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>スピーカーミュート(&amp;E)</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>音声統計(&amp;S)</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>設定(&amp;S)</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>開発者コンソール(&amp;C)</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
@@ -6964,7 +6964,7 @@ Valid options are:
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Qt について(&amp;Q)</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
@@ -6976,7 +6976,7 @@ Valid options are:
     </message>
     <message>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>アクセストークン(&amp;A)</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
@@ -6984,7 +6984,7 @@ Valid options are:
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>コメントをリセット(&amp;T)...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
@@ -6996,7 +6996,7 @@ Valid options are:
     </message>
     <message>
         <source>&amp;Join</source>
-        <translation type="unfinished"></translation>
+        <translation>参加(&amp;J)</translation>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
@@ -7012,11 +7012,11 @@ Valid options are:
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>優先スピーカー(&amp;P)</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
-        <translation type="unfinished"></translation>
+        <translation>記録(&amp;R)...</translation>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
@@ -7044,7 +7044,7 @@ Valid options are:
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>検索(&amp;S)...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
@@ -7981,7 +7981,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>有効</translation>
     </message>
     <message>
         <source>PA</source>
@@ -8688,7 +8688,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>検索</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -8894,7 +8894,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>不明</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>

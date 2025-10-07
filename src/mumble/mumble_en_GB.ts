@@ -1681,7 +1681,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>meters</translation>
     </message>
 </context>
 <context>
