@@ -7157,15 +7157,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це відкриє редактор форматованого тексту для зміни вашого коментаря. Коментарі окремі для кожного сервера. Інші користувачі можуть прочитати ваш коментар, навівши курсор на значок коментаря в дереві користувачів і каналів.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це відкриє діалогове вікно запису аудіо.</translation>
     </message>
     <message>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це відкриє діалогове вікно пошуку. Воно використовується для пошуку каналів та користувачів на поточному сервері.</translation>
     </message>
 </context>
 <context>
