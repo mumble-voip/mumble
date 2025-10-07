@@ -7155,15 +7155,15 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>这会打开富文本编辑器以更改您的简介。可以在不同的服务器上使用不同的简介。其他用户在用户和频道树中，指向简介图标就可以阅读您的简介。</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>这会打开音频录制对话框。</translation>
     </message>
     <message>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
-        <translation type="unfinished"></translation>
+        <translation>这会打开搜索对话框。用于在当前服务器寻找频道和用户。</translation>
     </message>
 </context>
 <context>
