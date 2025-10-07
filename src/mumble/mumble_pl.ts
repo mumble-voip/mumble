@@ -2299,7 +2299,7 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego edycji skrótu</translation>
+        <translation>Otwiera okno dialogowe edycji skrótu</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
@@ -3770,11 +3770,11 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation>Spowoduje to dodanie nowego, pustego wpisu do powyższego drzewa „Skonfigurowane skróty”. Drzewo zostanie automatycznie aktywowane. Przypisz klawisz lub akcję, wybierając wpis w drzewku powyżej.</translation>
+        <translation>Dodaje nowy, pusty wpis do powyższego drzewa „Skonfigurowane skróty”. Drzewo zostanie automatycznie aktywowane. Przypisz klawisz lub akcję, wybierając wpis w drzewku powyżej.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation>Spowoduje to usunięcie wybranego wpisu z powyższego drzewa „Skonfigurowane skróty”</translation>
+        <translation>Usuwa wybrany wpis z powyższego drzewa „Skonfigurowane skróty”</translation>
     </message>
 </context>
 <context>
@@ -5461,7 +5461,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     <message>
         <source>This will send your Clipboard content to the channel you are currently in.</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to przesłanie zawartości twojego schowka do kanału, na którym się znajdujesz.</translation>
+        <translation>Przesyła zawartość schowka do kanału, na którym się znajdujesz.</translation>
     </message>
     <message>
         <source>Continuous</source>
@@ -5940,7 +5940,7 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Register user on server</source>
-        <translation>Rejestruje użytkownika na serwerze</translation>
+        <translation>Zarejestruj użytkownika na serwerze</translation>
     </message>
     <message>
         <source>This will permanently register the user on the server.</source>
@@ -6653,7 +6653,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open or close the search dialog depending on whether it is currently opened already</source>
-        <translation>Spowoduje to otwarcie lub zamknięcie okna wyszukiwania w zależności od tego, czy jest już otwarte</translation>
+        <translation>Otwiera lub zamyka okno wyszukiwania w zależności od tego, czy jest już otwarte</translation>
     </message>
     <message>
         <source>Unmute yourself</source>
@@ -6725,7 +6725,7 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego połączenia z serwerem</translation>
+        <translation>Otwiera okno dialogowe połączenia z serwerem</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
@@ -6735,7 +6735,7 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to rozłączenie od serwera</translation>
+        <translation>Rozłącza od serwera</translation>
     </message>
     <message>
         <source>Open server information</source>
@@ -6745,7 +6745,7 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to wyświetlenie informacji o połączeniu z serwerem</translation>
+        <translation>Wyświetla informacje o połączeniu z serwerem</translation>
     </message>
     <message>
         <source>Open server tokens</source>
@@ -6755,7 +6755,7 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego tokenów serwera</translation>
+        <translation>Otwiera okno dialogowe tokenów serwera</translation>
     </message>
     <message>
         <source>Open server user list</source>
@@ -6765,7 +6765,7 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will open the server user list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego z listą użytkowników serwera</translation>
+        <translation>Otwiera okno dialogowe z listą użytkowników serwera</translation>
     </message>
     <message>
         <source>Open server ban list</source>
@@ -6775,7 +6775,7 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to otwarcie okna dialogowego z listą banów na serwerze</translation>
+        <translation>Otwiera okno dialogowe z listą banów na serwerze</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
@@ -6785,7 +6785,7 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation>Spowoduje to włączenie/wyłączenie nadrzędnego mówcy</translation>
+        <translation>Włącza lub wyłącza nadrzędnego mówcę</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
@@ -6794,7 +6794,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego nagrywania</translation>
+        <translation>Otwiera okno dialogowe nagrywania</translation>
     </message>
     <message>
         <source>Change comment</source>
@@ -6803,7 +6803,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego zmiany komentarza</translation>
+        <translation>Otwiera okno dialogowe zmiany komentarza</translation>
     </message>
     <message>
         <source>Change avatar</source>
@@ -6812,7 +6812,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation>Spowoduje to otwarcie eksploratora plików w celu zmiany obrazu awatara na tym serwerze</translation>
+        <translation>Otwiera eksplorator plików w celu zmiany obrazu awatara na tym serwerze</translation>
     </message>
     <message>
         <source>Remove avatar</source>
@@ -6821,7 +6821,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation>Spowoduje to zresetowanie Twojego awatara na serwerze</translation>
+        <translation>Resetuje awatar użytkownika na serwerze</translation>
     </message>
     <message>
         <source>Register on the server</source>
@@ -6830,7 +6830,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation>Spowoduje to zarejestrowanie Cię na serwerze</translation>
+        <translation>Rejestruje użytkownika na serwerze</translation>
     </message>
     <message>
         <source>Audio statistics</source>
@@ -6839,7 +6839,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego statystyk audio</translation>
+        <translation>Otwiera okno dialogowe statystyk audio</translation>
     </message>
     <message>
         <source>Open settings</source>
@@ -6848,7 +6848,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego ustawień</translation>
+        <translation>Otwiera okno dialogowe ustawień</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
@@ -6857,7 +6857,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego kreatora ustawień dźwięku</translation>
+        <translation>Otwiera okno dialogowe kreatora ustawień dźwięku</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
@@ -6866,7 +6866,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego kreatora certyfikatów</translation>
+        <translation>Otwiera okno dialogowe kreatora certyfikatów</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
@@ -6875,7 +6875,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation>Spowoduje to włączenie/wyłączenie tekstu na mowę</translation>
+        <translation>Włącza lub wyłącza tekst na mowę</translation>
     </message>
     <message>
         <source>Open about dialog</source>
@@ -6884,7 +6884,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego informacji o programie</translation>
+        <translation>Otwiera okno dialogowe informacji o programie</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
@@ -6893,7 +6893,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation>Spowoduje to otwarcie okna dialogowego informacji o Qt</translation>
+        <translation>Otwiera okno dialogowe informacji o Qt</translation>
     </message>
     <message>
         <source>Check for update</source>
@@ -6902,7 +6902,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation>Spowoduje to sprawdzenie, czy program Mumble jest aktualny</translation>
+        <translation>Sprawdza, czy program Mumble jest aktualny</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
@@ -7071,7 +7071,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation>Spowoduje to włączenie/wyłączenie dźwięku pozycyjnego</translation>
+        <translation>Włącza lub wyłącza dźwięk pozycyjny</translation>
     </message>
     <message>
         <source>SSL error</source>
@@ -7100,7 +7100,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
-        <translation>Spowoduje to powrót do poprzedniego kanału</translation>
+        <translation>Powraca do poprzedniego kanału</translation>
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
@@ -7113,7 +7113,7 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation>Spowoduje to przełączenie pomiędzy różnymi trybami tłumienia dla słuchaczy kanału</translation>
+        <translation>Przełącza pomiędzy różnymi trybami tłumienia dla słuchaczy kanału</translation>
     </message>
     <message>
         <source>Listener attenuation up (+10%)</source>
@@ -7157,15 +7157,15 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwiera edytor tekstu sformatowanego, w którym można zmienić komentarz. Komentarze są oddzielne dla każdego serwera. Inni użytkownicy mogą przeczytać Twój komentarz, najeżdżając kursorem na ikonę komentarza w drzewie użytkowników i kanałów.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwiera okno dialogowe nagrywania dźwięku.</translation>
     </message>
     <message>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwiera okno wyszukiwania. Służy ono do wyszukiwania kanałów i użytkowników na bieżącym serwerze.</translation>
     </message>
 </context>
 <context>
