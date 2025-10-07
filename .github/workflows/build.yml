@@ -108,7 +108,7 @@ jobs:
       shell: bash
       run: ctest --output-on-failure -C $BUILD_TYPE
 
-    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER == 'true' && startsWith(matrix.os, 'windows') }}
+    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER && startsWith(matrix.os, 'windows') }}
       uses: ./.github/actions/sign-binaries
       with:
           signpath-token: ${{ secrets.SIGNPATH_API_TOKEN }}
@@ -117,7 +117,7 @@ jobs:
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
 
-    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER != 'true' && matrix.type == 'static' }}
+    - if: ${{ !inputs.SIGN_WINDOWS_INSTALLER && matrix.type == 'static' }}
       name: Publish
       uses: actions/upload-artifact@v4
       with:
