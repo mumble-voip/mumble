@@ -86,6 +86,10 @@ option(packaging "Build package." OFF)
 option(tests "Build tests." ${packaging})
 option(plugins "Build plugins." ON)
 
+if (WIN32)
+	option(skip-msi-rebuild "Prevent rebuilding installer MSI files from source. Used to be able to include signed MSI files in the bundle." OFF)
+endif()
+
 option(debug-dependency-search "Prints extended information during the search for the needed dependencies" OFF)
 
 if(NOT CMAKE_BUILD_TYPE)
