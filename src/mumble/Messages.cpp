@@ -388,12 +388,6 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (channel != oldChannel) {
 			pmModel->moveUser(pDst, channel);
 
-			if (Global::get().talkingUI) {
-				// Pass the pointer as QObject in order to avoid having to register ClientUser as a QMetaType
-				QMetaObject::invokeMethod(Global::get().talkingUI, "on_channelChanged", Qt::QueuedConnection,
-										  Q_ARG(QObject *, pDst));
-			}
-
 			if (pSelf) {
 				if (pDst == pSelf) {
 					Global::get().mw->updateChatBar();
