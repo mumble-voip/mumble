@@ -19,11 +19,12 @@ void Server::initRegister() {
 
 	if (!qsRegName.isEmpty()) {
 		if (!qsRegName.isEmpty() && !qsRegPassword.isEmpty() && qurlRegWeb.isValid() && qsPassword.isEmpty()
-			&& bAllowPing)
-			qtTick.start((60 + (static_cast< int >(QRandomGenerator::global()->generate()) % 120)) * 1000);
-		else
+			&& bAllowPing) {
+			qtTick.start((60 + (QRandomGenerator::global()->bounded(0, 120))) * 1000);
+		} else {
 			log("Registration needs nonempty 'registername', 'registerpassword' and 'registerurl', must have an empty "
 				"'password' and allowed pings.");
+		}
 	} else {
 		log("Not registering server as public");
 	}
@@ -37,7 +38,7 @@ void Server::update() {
 	if (!qnamNetwork)
 		qnamNetwork = new QNetworkAccessManager(this);
 
-	qtTick.start(1000 * (60 * 60 + (static_cast< int >(QRandomGenerator::global()->generate()) % 300)));
+	qtTick.start(1000 * (60 * 60 + QRandomGenerator::global()->bounded(0, 300)));
 
 	QDomDocument doc;
 	QDomElement root = doc.createElement(QLatin1String("server"));
