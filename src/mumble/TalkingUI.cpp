@@ -32,9 +32,11 @@
 
 #include <algorithm>
 #include <cassert>
+#include <optional>
 
 TalkingUI::TalkingUI(QWidget *parent) : QWidget(parent), m_containers(), m_currentSelection(nullptr) {
 	setupUI();
+	QObject::connect(Global::get().mw->pmModel, &UserModel::userMoved, this, &TalkingUI::on_channelChanged);
 }
 
 int TalkingUI::findContainer(int associatedChannelID, ContainerType type) const {
@@ -730,11 +732,12 @@ void TalkingUI::on_serverDisconnected() {
 	updateUI();
 }
 
-void TalkingUI::on_channelChanged(QObject *obj) {
-	// According to this function's doc, the passed object must be of type ClientUser
-	ClientUser *user = static_cast< ClientUser * >(obj);
+void TalkingUI::on_channelChanged(unsigned int sessionID, const std::optional< unsigned int > &,
+								  unsigned int newChannelID) {
+	ClientUser *user       = ClientUser::get(sessionID);
+	const Channel *channel = Channel::get(newChannelID);
 
-	if (!user) {
+	if (!user || !channel) {
 		return;
 	}
 
@@ -745,8 +748,8 @@ void TalkingUI::on_channelChanged(QObject *obj) {
 		// the channel this particular user is being displayed in.
 		// But first we have to make sure there actually exists and entry for
 		// the new channel.
-		addChannel(user->cChannel);
-		moveUserToChannel(user->uiSession, user->cChannel->iId);
+		addChannel(channel);
+		moveUserToChannel(user->uiSession, channel->iId);
 	}
 }
 

@@ -13,6 +13,7 @@
 #include <QWidget>
 
 #include <memory>
+#include <optional>
 #include <vector>
 
 #include "Settings.h"
@@ -126,7 +127,8 @@ public slots:
 	void on_mainWindowSelectionChanged(const QModelIndex &current, const QModelIndex &previous);
 	void on_serverSynchronized();
 	void on_serverDisconnected();
-	void on_channelChanged(QObject *user);
+	void on_channelChanged(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
+						   unsigned int newChannelID);
 	void on_settingsChanged();
 	void on_clientDisconnected(unsigned int userSession);
 	void on_muteDeafStateChanged();
