@@ -193,6 +193,7 @@ void cleanup(int signum) {
 }
 
 struct CLIOptions {
+	int exitCode = 0;
 	bool quit    = false;
 	std::optional< std::string > iniFile;
 	std::optional< std::string > dbDumpPath;
@@ -315,6 +316,8 @@ CLIOptions parseCLI(int argc, char **argv) {
 			std::cout << info_stream.str();
 		}
 
+		options.quit     = true;
+		options.exitCode = e.get_exit_code();
 	}
 
 	return options;
@@ -376,7 +379,7 @@ int main(int argc, char **argv) {
 #endif
 		CLIOptions cli_options = parseCLI(argc, argv);
 		if (cli_options.quit)
-			return 0;
+			return cli_options.exitCode;
 
 		if (cli_options.printLicense) {
 #ifdef Q_OS_WIN
