@@ -213,6 +213,7 @@ extern HWND mumble_mw_hwnd;
 
 
 struct CLIOptions {
+	int exitCode                  = 0;
 	bool allowMultiple            = false;
 	bool suppressIdentity         = false;
 	bool rpcMode                  = false;
@@ -364,7 +365,8 @@ CLIOptions parseCLI(int argc, char **argv) {
 		} else {
 			qInfo("%s", info_stream.str().c_str());
 		}
-		options.quit = true;
+		options.quit     = true;
+		options.exitCode = e.get_exit_code();
 	}
 
 	return options;
@@ -405,7 +407,7 @@ int main(int argc, char **argv) {
 	CLIOptions options = parseCLI(argc, argv);
 
 	if (options.quit) {
-		return 0;
+		return options.exitCode;
 	}
 
 	// This argument has to be parsed first, since it's value is needed to create the global struct,
