@@ -115,6 +115,7 @@ public:
 	GlobalShortcut *gsMoveBack;
 	GlobalShortcut *gsCycleListenerAttenuationMode, *gsListenerAttenuationUp, *gsListenerAttenuationDown;
 	GlobalShortcut *gsAdaptivePush;
+	GlobalShortcut *gsToggleFullScreen;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
