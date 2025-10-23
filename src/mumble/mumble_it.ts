@@ -4953,7 +4953,7 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Channel Hierarchy String</source>
-        <translation>Striga gerarchia canale</translation>
+        <translation>Stringa gerarchia canale</translation>
     </message>
     <message>
         <source>Search</source>
@@ -6957,7 +6957,7 @@ contestuale del canale.</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation>Audio &amp;Statistiche</translation>
+        <translation>&amp;Statistiche Audio</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
