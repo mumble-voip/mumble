@@ -365,7 +365,7 @@ int main(int argc, char **argv) {
 #endif
 		a.setApplicationName("Murmur");
 		a.setOrganizationName("Mumble");
-		a.setOrganizationDomain("mumble.sourceforge.net");
+		a.setOrganizationDomain("mumble.info");
 
 		// Initialize meta parameter
 		Meta::mp = std::make_unique< MetaParams >();
