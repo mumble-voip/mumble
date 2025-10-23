@@ -251,8 +251,9 @@ void os_init() {
 #endif
 
 	Global::get().qdBasePath.mkpath(QLatin1String("Snapshots"));
-	if (bIsWin7)
-		SetCurrentProcessExplicitAppUserModelID(L"net.sourceforge.mumble.Mumble");
+	if (bIsWin7) {
+		SetCurrentProcessExplicitAppUserModelID(L"info.mumble.Mumble");
+	}
 }
 
 DWORD WinVerifySslCert(const QByteArray &cert) {

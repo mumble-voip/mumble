@@ -394,7 +394,7 @@ int main(int argc, char **argv) {
 	MumbleApplication a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));
 	a.setOrganizationName(QLatin1String("Mumble"));
-	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
+	a.setOrganizationDomain(QLatin1String("mumble.info"));
 	a.setQuitOnLastWindowClosed(false);
 
 	a.setDesktopFileName("info.mumble.Mumble");
