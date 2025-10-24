@@ -43,7 +43,7 @@ while getopts "sid:p:k" flag; do
 done
 
 if [ $DO_KILL == 1 ]; then
-	if pkill -U $UID -u $EUID -o -x -f "@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -ini $DIR/mumble-server.ini"; then
+	if pkill -U $UID -u $EUID -o -x -f "@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ --ini $DIR/mumble-server.ini"; then
 		echo "Termination signal sent"
 	else
 		echo "Mumble server process not found; not terminated"
@@ -81,11 +81,11 @@ fi
 
 if [ "X$SETPW" != "X" ]; then
 	echo "Setting superuser password to \"$SETPW\""
-	@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -ini $DIR/mumble-server.ini -supw $SETPW
+	@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ --ini $DIR/mumble-server.ini --set-su-pw $SETPW
 	exit 0
 fi
 
-PID=$(pgrep -U $UID -u $EUID -o -x -f "@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -ini $DIR/mumble-server.ini")
+PID=$(pgrep -U $UID -u $EUID -o -x -f "@MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ --ini $DIR/mumble-server.ini")
 
 if [ $DO_STATUS == 1 ]; then
 	if [ "X$PID" != "X" ]; then
@@ -103,4 +103,4 @@ if [ "X$PID" != "X" ]; then
 fi
 
 echo "Starting Mumble server"
-exec @MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ -ini $DIR/mumble-server.ini
+exec @MUMBLE_INSTALL_ABS_EXECUTABLEDIR@/@MUMBLE_SERVER_BINARY_NAME@ --ini $DIR/mumble-server.ini

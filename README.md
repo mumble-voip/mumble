@@ -72,7 +72,7 @@ Start Menu, from which you can start Mumble.
 Double-click the icon to start ``mumble-server``. There will be a small icon on your
 taskbar from which you can view the log.
 
-To set the superuser password, run ``mumble-server`` with the parameters `-supw <password>`.
+To set the superuser password, run ``mumble-server`` with the parameters `--set-su-pw <password>`.
 
 
 ## MacOS
@@ -105,20 +105,20 @@ additional steps are necessary.
 and go to wherever you installed Mumble. Run ``mumble-server`` as
 
 ```
-mumble-server [-supw <password>] [-ini <inifile>] [-fg] [v]
+mumble-server [--set-su-pw <password>] [--ini <inifile>] [--foreground] [--verbose]
 
--supw   Set a new password for the user SuperUser, which is hardcoded to
-        bypass ACLs. Keep this password safe. Until you set a password,
-        the SuperUser is disabled. If you use this option, mumble-server will
-        set the password in the database and then exit.
+--set-su-pw     Set a new password for the user SuperUser, which is hardcoded to
+                bypass ACLs. Keep this password safe. Until you set a password,
+                the SuperUser is disabled. If you use this option, mumble-server will
+                set the password in the database and then exit.
 
--ini    Use an inifile other than mumble-server.ini, use this to run several instances
-        of mumble-server from the same directory. Make sure each instance is using
-        a separate database.
+--ini           Use an inifile other than mumble-server.ini, use this to run several instances
+                of mumble-server from the same directory. Make sure each instance is using
+                a separate database.
 
--fg     Run in the foreground, logging to standard output.
+--foreground    Run in the foreground, logging to standard output.
 
--v      More verbose logging.
+--verbose       More verbose logging.
 ```
 
 #### Docker image
