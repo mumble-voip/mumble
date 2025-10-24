@@ -30,4 +30,4 @@ profiling data out through the network, while Mumble is running.
 
 - Profiling should generally be done in `Release` mode in order to obtain reasonable data
 - If you are having issues connecting your Tracy _server_ to the Mumble server, you should not let it fork. The default behavior in release
-  mode is to fork, but you can change that by using the `-fg` parameter when starting the server.
+  mode is to fork, but you can change that by using the `--foreground` parameter when starting the server.
