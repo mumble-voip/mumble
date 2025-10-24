@@ -21,7 +21,7 @@ Running Murmur
 In this build of Murmur, the binary is called 'murmurd'. To get Murmur
 up and running, simply execute the following command at your shell:
 
- $ ./murmurd -fg -ini murmur.ini
+ $ ./murmurd -foreground --ini murmur.ini
 
 This will spawn a foregrounded (Murmur will, by default, run in daemon mode,
 which means it will launch itself as a background process on your system).
