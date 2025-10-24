@@ -3,15 +3,17 @@ name: Dispatch new release
 on:
     release:
         types: [ published ]
+    workflow_dispatch:
 
 jobs:
     dispatch:
         runs-on: ubuntu-latest
         steps:
             - name: "Dispatch release to mumble-docker repo"
-              uses: peter-evans/repository-dispatch@v3
+              uses: peter-evans/repository-dispatch@v4
               with:
                   token: ${{ secrets.DOCKER_REPO_ACCCESS_TOKEN }}
+                  repository: mumble-voip/mumble-docker
                   event-type: new_release
-                  client_payload: >
+                  client-payload: >
                       { "tag": "${{ github.event.release.tag_name }}", "is_latest": "${{ github.event.release.commitish == 'master' }}" }
