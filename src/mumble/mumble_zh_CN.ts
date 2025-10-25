@@ -7165,6 +7165,22 @@ the channel&apos;s context menu.</source>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
         <translation>这会打开搜索对话框。用于在当前服务器寻找频道和用户。</translation>
     </message>
+    <message>
+        <source>Add as &amp;Favorite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add current server as favorite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This adds the server you are currently connected to as favorite to the known connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Added %1 to favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
