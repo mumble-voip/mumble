@@ -214,3 +214,84 @@ void Server::initializeCert() {
 const QString Server::getDigest() const {
 	return QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex());
 }
+
+void Server::initCertMonitoring() {
+	connect(&qtCertCheck, SIGNAL(timeout()), this, SLOT(checkCertExpiry()));
+	// Check certificate expiry every hour
+	qtCertCheck.start(60 * 60 * 1000);
+}
+
+void Server::checkCertExpiry() {
+	if (qscCert.isNull()) {
+		return;
+	}
+
+	QDateTime now          = QDateTime::currentDateTime();
+	QDateTime expiryDate   = qscCert.expiryDate();
+	qint64 daysUntilExpiry = now.daysTo(expiryDate);
+
+	// Check if certificate expires within 7 days or has already expired
+	if (daysUntilExpiry <= 7 && daysUntilExpiry >= 0) {
+		log(QString("Certificate expires in %1 days, attempting to reload from disk").arg(daysUntilExpiry));
+
+		if (reloadCertFromDisk()) {
+			log("Successfully reloaded certificate from disk");
+			// Update expiry date after reload
+			expiryDate      = qscCert.expiryDate();
+			daysUntilExpiry = now.daysTo(expiryDate);
+			log(QString("New certificate expires in %1 days").arg(daysUntilExpiry));
+		} else {
+			log("Failed to reload certificate from disk, keeping current certificate");
+		}
+	} else if (daysUntilExpiry < 0) {
+		log(QString("Certificate has expired %1 days ago, attempting to reload from disk").arg(-daysUntilExpiry));
+
+		if (reloadCertFromDisk()) {
+			log("Successfully reloaded certificate from disk");
+		} else {
+			log("Failed to reload certificate from disk, keeping current expired certificate");
+		}
+	}
+}
+
+bool Server::reloadCertFromDisk() {
+	// Only reload if we're using Meta certificate (which is loaded from file)
+	if (!bUsingMetaCert) {
+		// This server has a database-stored certificate, cannot reload from disk
+		return false;
+	}
+
+	// Store current certificate as backup
+	QSslCertificate oldCert           = qscCert;
+	QSslKey oldKey                    = qskKey;
+	QList< QSslCertificate > oldInter = qlIntermediates;
+
+	// Force Meta to reload its SSL settings from disk
+	if (!Meta::mp->loadSSLSettings()) {
+		log("Failed to reload SSL settings from murmur.ini");
+		return false;
+	}
+
+	// Try to reload from Meta's certificate
+	qskKey          = Meta::mp->qskKey;
+	qscCert         = Meta::mp->qscCert;
+	qlIntermediates = Meta::mp->qlIntermediates;
+
+	// Verify that the reloaded certificate is valid and different
+	if (qscCert.isNull() || qskKey.isNull()) {
+		// Reload failed, restore old certificate
+		qscCert         = oldCert;
+		qskKey          = oldKey;
+		qlIntermediates = oldInter;
+		return false;
+	}
+
+	// Check if certificate actually changed
+	if (qscCert == oldCert) {
+		// Certificate hasn't changed on disk
+		return false;
+	}
+
+	// Successfully reloaded new certificate
+	return true;
+}
