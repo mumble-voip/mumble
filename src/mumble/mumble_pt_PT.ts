@@ -7166,6 +7166,22 @@ do menu de contexto do canal.</translation>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Add as &amp;Favorite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add current server as favorite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This adds the server you are currently connected to as favorite to the known connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Added %1 to favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
