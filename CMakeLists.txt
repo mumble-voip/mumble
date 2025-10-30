@@ -94,15 +94,15 @@ option(bundled-utfcpp "Use the bundled utf8cpp version instead of looking for on
 include(compiler)
 include(os)
 
+target_architecture(MUMBLE_TARGET_ARCH)
+string(TOLOWER "${MUMBLE_TARGET_ARCH}" MUMBLE_TARGET_ARCH)
+
 if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
 	option(overlay "Build overlay." ${client})
-	if(64_BIT)
+	if(64_BIT AND NOT MUMBLE_TARGET_ARCH STREQUAL "arm64")
 		option(overlay-xcompile "Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes." ${client})
 	endif()
 endif()
-
-target_architecture(MUMBLE_TARGET_ARCH)
-string(TOLOWER "${MUMBLE_TARGET_ARCH}" MUMBLE_TARGET_ARCH)
 
 message(STATUS "##################################################")
 message(STATUS "Mumble version:              ${PROJECT_VERSION}")
