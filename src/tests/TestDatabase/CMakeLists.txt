@@ -3,6 +3,10 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
+if (NOT server)
+	return()
+endif()
+
 option(database-sqlite-tests "Whether to include the SQLite database tests" ON)
 option(database-mysql-tests "Whether to include the MySQL database tests (requires special setup)" OFF)
 option(database-postgresql-tests "Whether to include the PostgreSQL database tests (requires special setup)" OFF)
@@ -51,6 +55,4 @@ target_link_libraries(TestDatabase PRIVATE Qt6::Test mumble_database shared)
 
 add_test(NAME TestDatabase COMMAND $<TARGET_FILE:TestDatabase>)
 
-if(server)
-	add_subdirectory("server")
-endif()
+add_subdirectory("server")
