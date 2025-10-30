@@ -67,11 +67,12 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	copyrightText = "Copyright 2005-now The Mumble Developers";
 #endif // MUMBLE_BUILD_YEAR
 
-	text->setText(tr("<h3>Mumble (%1)</h3>"
-					 "<p>%3</p>"
+	text->setText(tr("<h3>Mumble (%1 %2)</h3>"
+					 "<p>%4</p>"
 					 "<p><b>An Open Source, low-latency, high quality voice-chat utility</b></p>"
-					 "<p><tt><a href=\"%2\">%2</a></tt></p>")
+					 "<p><tt><a href=\"%3\">%3</a></tt></p>")
 					  .arg(Version::getRelease())
+					  .arg(QString::fromUtf8(MUMBLE_TARGET_ARCH))
 					  .arg(QLatin1String("https://www.mumble.info/"))
 					  .arg(copyrightText));
 	QHBoxLayout *qhbl = new QHBoxLayout(about);
