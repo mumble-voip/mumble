@@ -42,7 +42,7 @@ sudo apt install \
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
-You will need `cmake` **v3.15 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
+You will need `cmake` **v3.23 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 </details>
 
