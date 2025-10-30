@@ -2240,7 +2240,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Push</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -3534,7 +3534,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Emër përdoruesi</translation>
+        <translation>Emër përdoruesi</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
@@ -3550,7 +3550,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Fjalëkalim</translation>
+        <translation>Fjalëkalim</translation>
     </message>
     <message>
         <source>Username:</source>
@@ -3574,7 +3574,7 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anuloje</translation>
+        <translation>Anuloje</translation>
     </message>
 </context>
 <context>
@@ -3777,7 +3777,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">%{name} rihapi raportimin %{target}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>checked</source>
@@ -4031,7 +4031,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>User recording state changed</source>
-        <translation>Përgëzime! U bëtë një përdorues {{state}}.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>User kicked (you or by you)</source>
@@ -4533,7 +4533,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Nëse i vihet shenjë kësaj, përdoruesi vendor (ju) do të jetë përherë i dukshëm te TalkingUI (pavarësisht e gjendjes së të folurit).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
@@ -4925,7 +4925,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Nëse i vihet shenjë kësaj, përdoruesit do të jenë përherë të dukshëm te TalkingUI (pavarësisht e gjendjes së të folurit).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
@@ -7155,7 +7155,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>State</source>
-        <translation>Shtet</translation>
+        <translation>Gjende</translation>
     </message>
     <message>
         <source>Link</source>
@@ -7530,7 +7530,7 @@ Kjo vlerë ju bën të mundur të ndryshoni mënyrën se si Mumble-i sistemon ka
     </message>
     <message>
         <source>Last state change</source>
-        <translation>e fundit</translation>
+        <translation>Ndryshimi i fundit i gjendjes</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -7748,7 +7748,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>State</source>
-        <translation>Shtet</translation>
+        <translation>Gjendje</translation>
     </message>
     <message>
         <source>User is not talking</source>
@@ -9492,7 +9492,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ky është një kanal te shërbyesi. Ikona tregon gjendjen e kanalit:</translation>
     </message>
     <message>
         <source>Your current channel.</source>
@@ -9682,7 +9682,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>State</source>
-        <translation>Shtet</translation>
+        <translation>Gjendje</translation>
     </message>
     <message>
         <source>Valid from: %1</source>

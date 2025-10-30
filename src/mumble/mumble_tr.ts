@@ -714,7 +714,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>boş</translation>
     </message>
 </context>
 <context>
@@ -3593,59 +3593,59 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlantı başarısız</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">Geçersiz bir kullanıcı ismi ile bağlantı kurdunuz, lütfen başka bir isim deneyiniz.</translation>
+        <translation>Geçersiz bir kullanıcı adı ile bağlandınız, lütfen başka bir kullanıcı adı deneyin.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçilen kullanıcı adı zaten kullanılıyor, lütfen başka bir tane deneyin.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı adı</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Seçilen kullanıcı adı bu sunucuda kayıtlı bir kullanıcıya ait.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Belirtilen parola bu kullanıcı için geçerli değil. Lütfen başka bir parola deneyin veya parola belirtmeden sertifika tabanlı kimlik doğrulamayı kullanın.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanılan sertifika bu kullanıcı için geçerli değil. Lütfen farklı bir sertifika kullanın veya bunun yerine parola tabanlı kimlik doğrulama kullanmak için bir parola belirtin.</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Parola</translation>
+        <translation>Parola</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı adı:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Parola:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifikayı değiştir</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Belirtilen sunucu parolası geçersiz. Lütfen başka bir parola seçin.</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeniden bağlan</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">İptal</translation>
+        <translation>İptal</translation>
     </message>
 </context>
 <context>
@@ -5080,7 +5080,7 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Clear</source>
-        <translation>Sil</translation>
+        <translation>Temizle</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
@@ -5104,59 +5104,59 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı arayüzünü biçimlendirmek için kullanılacak koyu tema</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Mumble kullanıcı arayüzünün Koyu tema modundayken hangi tema ile biçimlendirileceğini yapılandırır&lt;/b&gt;&lt;br /&gt;Mumble belirli dizinlerden temaları alır ve bunları bu listede görüntüler. Seçtiğiniz tema, Mumble&apos;ın görsel görünümünü özelleştirmek için kullanılır. Bu, renkleri, simgeleri ve daha fazlasını içerir.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı arayüzünü biçimlendirmek için kullanılacak açık tema</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Koyu Tema</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem temasına göre temayı otomatik olarak ayarlar.</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem temasına göre otomatik tema</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Otomatik</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Temayı yapılandırılan koyu tema ayarına ayarlar</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Koyu</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Temayı yapılandırılan açık tema ayarına ayarlar</translation>
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık Tema</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem dosya yöneticisinde tema dizinini aç</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema Dizinini Aç</translation>
     </message>
 </context>
 <context>
@@ -7134,36 +7134,36 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uyarlanabilir Basma</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bas ve konuş iletim modunu kullanırken, bu bas ve konuş eylemi olarak işlev görür. Aksi takdirde, bas ve sessize al eylemi olarak işlev görür.</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Resim Aç</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Hata</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Resmin kodu çözülemedi.</translation>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, yorumunuzu değiştirmek için zengin metin düzenleyicisini açacaktır. Yorumlar her sunucu için ayrıdır. Diğer kullanıcılar, kullanıcı ve kanal ağacındaki yorum simgesinin üzerine gelerek yorumunuzu okuyabilirler.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, ses kaydı iletişim kutusunu açacaktır.</translation>
     </message>
     <message>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, arama iletişim kutusunu açacaktır. Geçerli sunucudaki kanalları ve kullanıcıları bulmak için kullanılır.</translation>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
@@ -7438,7 +7438,7 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>Kullanıcı ismi</translation>
+        <translation>Kullanıcı adı</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
@@ -7911,7 +7911,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Username</source>
-        <translation>Kullanıcı ismi</translation>
+        <translation>Kullanıcı adı</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -8730,7 +8730,7 @@ Hangi alternatiflerin olduğunu görmek için &lt;a href=&quot;https://github.co
     <name>ResponsiveImageDialog</name>
     <message>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Resim Ön İzlemesi</translation>
     </message>
 </context>
 <context>
@@ -9274,7 +9274,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Gizle</translation>
     </message>
 </context>
 <context>
