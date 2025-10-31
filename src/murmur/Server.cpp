@@ -442,7 +442,7 @@ void Server::readParams() {
 	m_dbWrapper.getConfigurationTo(iServerNum, "registerhostname", qsRegHost);
 	m_dbWrapper.getConfigurationTo(iServerNum, "registerlocation", qsRegLocation);
 
-	QString registerURL;
+	QString registerURL = qurlRegWeb.toString();
 	m_dbWrapper.getConfigurationTo(iServerNum, "registerurl", registerURL);
 	qurlRegWeb = QUrl(std::move(registerURL));
 
