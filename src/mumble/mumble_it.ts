@@ -7168,19 +7168,19 @@ contestuale del canale.</translation>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi come &amp;Preferito</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi server corrente come preferito</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo aggiunge il server a cui sei attualmente connesso come preferito alle connessioni conosciute.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiunto %1 ai preferiti.</translation>
     </message>
 </context>
 <context>
