@@ -7169,19 +7169,19 @@ kanały mają być filtrowane.</translation>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj jako u&amp;lubiony</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj bieżący serwer jako ulubiony</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaje serwer, z którym aktualnie się połączono, jako ulubiony do znanych połączeń.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodano %1 do ulubionych.</translation>
     </message>
 </context>
 <context>
