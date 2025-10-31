@@ -7167,19 +7167,19 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Favorilere Ekle</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Geçerli sunucuyu favorilere ekle</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, şu anda bağlı olduğunuz sunucuyu bilinen bağlantılara favori olarak ekler.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 favorilere eklendi.</translation>
     </message>
 </context>
 <context>
