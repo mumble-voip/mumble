@@ -7167,19 +7167,19 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>添加为收藏(&amp;F)</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>将当前服务器添加为收藏</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>这会将您当前连接的服务器作为收藏，添加到已知连接中。</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>已添加 %1 为收藏。</translation>
     </message>
 </context>
 <context>

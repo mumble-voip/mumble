@@ -7169,19 +7169,19 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати до &amp;обраного</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати поточний сервер до обраного</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Це додає сервер, до якого ви зараз підключені, до списку обраних до відомих підключень.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Додано %1 до обраного.</translation>
     </message>
 </context>
 <context>
