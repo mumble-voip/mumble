@@ -25,5 +25,5 @@ jobs:
           client-payload: |-
             {
               "tag": "${{ github.event.release.tag_name || github.event.inputs.tag }}",
-              "is_latest": "${{ github.event.release.commitish == 'master' || github.event.inputs.is_latest == 'true' }}"
+              "is_latest": "${{ github.event.release.isLatest || github.event.inputs.is_latest == 'true' }}"
             }
