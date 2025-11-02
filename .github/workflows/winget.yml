@@ -17,7 +17,7 @@ jobs:
         with:
           release-tag: ${{ github.event.release.tag_name || github.event.inputs.tag }}
           identifier: Mumble.Mumble.Client
-          installers-regex: mumble_client.*.msi$
+          installers-regex: mumble_client.*\.exe$
           token: ${{ secrets.WINGET_TOKEN }}
 
       - name: Publish Mumble server
@@ -25,5 +25,5 @@ jobs:
         with:
           release-tag: ${{ github.event.release.tag_name || github.event.inputs.tag }}
           identifier: Mumble.Mumble.Server
-          installers-regex: mumble_server.*.msi$
+          installers-regex: mumble_server.*\.exe$
           token: ${{ secrets.WINGET_TOKEN }}
