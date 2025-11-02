@@ -4,6 +4,13 @@ on:
   release:
     types: [ published ]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'The release tag that shall be dispatched'
+        required: true
+      is_latest:
+        description: 'Whether this is the latest release'
+        required: true
 
 jobs:
   dispatch:
@@ -15,5 +22,8 @@ jobs:
           token: ${{ secrets.DOCKER_REPO_ACCESS_TOKEN }}
           repository: mumble-voip/mumble-docker
           event-type: new_release
-          client-payload: >
-            { "tag": "${{ github.event.release.tag_name }}", "is_latest": "${{ github.event.release.commitish == 'master' }}" }
+          client-payload: |-
+            {
+              "tag": "${{ github.event.release.tag_name || github.event.inputs.tag }}",
+              "is_latest": "${{ github.event.release.commitish == 'master' || github.event.inputs.is_latest == 'true' }}"
+            }
