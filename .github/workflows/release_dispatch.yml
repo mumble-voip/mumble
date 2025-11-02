@@ -1,19 +1,29 @@
 name: Dispatch new release
 
 on:
-    release:
-        types: [ published ]
-    workflow_dispatch:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'The release tag that shall be dispatched'
+        required: true
+      is_latest:
+        description: 'Whether this is the latest release'
+        required: true
 
 jobs:
-    dispatch:
-        runs-on: ubuntu-latest
-        steps:
-            - name: "Dispatch release to mumble-docker repo"
-              uses: peter-evans/repository-dispatch@v4
-              with:
-                  token: ${{ secrets.DOCKER_REPO_ACCCESS_TOKEN }}
-                  repository: mumble-voip/mumble-docker
-                  event-type: new_release
-                  client-payload: >
-                      { "tag": "${{ github.event.release.tag_name }}", "is_latest": "${{ github.event.release.commitish == 'master' }}" }
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Dispatch release to mumble-docker repo"
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ secrets.DOCKER_REPO_ACCESS_TOKEN }}
+          repository: mumble-voip/mumble-docker
+          event-type: new_release
+          client-payload: |-
+            {
+              "tag": "${{ github.event.release.tag_name || github.event.inputs.tag }}",
+              "is_latest": "${{ github.event.release.isLatest || github.event.inputs.is_latest == 'true' }}"
+            }
