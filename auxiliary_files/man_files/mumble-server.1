@@ -3,31 +3,31 @@
 mumble\-server - VoIP server.
 .SH SYNOPSIS
 .B mumble\-server
-[\fB-ini \fIinifile\fR] [\fB-fg\fR] [\fB-v\fR]
+[\fB\-\-ini \fIinifile\fR] [\fB\-\-foreground\fR] [\fB\-\-verbose\fR]
 .br
-.B mumble\-server \-supw\fR \fIpassword\fR [\fIserverid\fR]
+.B mumble\-server \-\-set-su-pw\fR \fIpassword\fR [\fIserverid\fR]
 .br
-.B mumble\-server \-readsupw\fR [\fIserverid\fR]
+.B mumble\-server \-\-read-su-pw\fR [\fIserverid\fR]
 .br
-.B mumble\-server \-disablesu\fR [\fIserverid\fR]
+.B mumble\-server \-\-disable-su\fR [\fIserverid\fR]
 .br
-.B mumble\-server \-limits
+.B mumble\-server \-\-limits
 .br
-.B mumble\-server \-wipessl
+.B mumble\-server \-\-wipe-ssl
 .br
-.B mumble\-server \-wipelogs
+.B mumble\-server \-\-wipe-logs
 .br
-.B mumble\-server \-loggroups
+.B mumble\-server \-\-log-groups
 .br
-.B mumble\-server \-logacls
+.B mumble\-server \-\-log-acls
 .br
-.B mumble\-server \-license
+.B mumble\-server \-\-license
 .br
-.B mumble\-server \-authors
+.B mumble\-server \-\-authors
 .br
-.B mumble\-server \-third\-party\-licenses
+.B mumble\-server \-\-third\-party\-licenses
 .br
-.B mumble\-server \-version\fR|\fB\-\-version
+.B mumble\-server \-\-version\fR|\fB\-\-version
 .br
 .B mumble\-server \-h\fR|\fB\-help\fR|\fB\-\-help
 .SH DESCRIPTION
@@ -38,61 +38,61 @@ application.
 .B \-h, \-help, \-\-help
 Show a summary of the options.
 .TP
-.B \-ini \fIinifile
+.B \-\-ini \fIinifile
 Specify which ini file to use. Without this option, mumble\-server will search for
 a murmur.ini file and will fall back to builtin defaults if one isn't found.
 .TP
-.B \-fg
+.B \-\-foreground
 Run in the foreground (do not fork).
 .TP
-.B \-v
+.B \-\-verbose
 Verbose mode, slightly more information is logged.
 .TP
-.B \-supw \fIpassword\fR [\fIserverid\fR]
+.B \-\-set\-su\-pw \fIpassword\fR [\fIserverid\fR]
 This sets the SuperUser password for a server. SuperUser is a special account
 (similar to root) which bypasses all access controls. This command may be used
 while the server is running. Optionally takes a \fIserverid\fR representing the
 virtual server to set the password for.
 .TP
-.B \-readsupw\fR\ [\fIserverid\fR]
+.B \-\-read-su-pw\fR\ [\fIserverid\fR]
 Reads SuperUser password from stdin. Optionally takes a \fIserverid\fR
 representing the virtual server to set the password for.
 .TP
-.B \-disablesu\fR\ [\fIserverid\fR]
+.B \-\-disable-su\fR\ [\fIserverid\fR]
 Disables the SuperUser account. Optionally takes a \fIserverid\fR representing
 the virtual server to disable the SuperUser account on.
 
 Disabling the SuperUser account makes it impossible to log in as SuperUser
 until a new password is set. You can set a new SuperUser password with the
-\-supw parameter.
+\-\-set\-su\-pw parameter.
 .TP
-.B \-limits
+.B \-\-limits
 Tests and shows how many file descriptors and threads can be created. The
 purpose of this option is to test how many clients the server can handle. The
 server will exit after this test.
 .TP
-.B \-wipessl
+.B \-\-wipe-ssl
 Remove SSL certificates from database.
 .TP
-.B \-wipelogs
+.B \-\-wipe-logs
 Remove all log entries from database.
 .TP
-.B \-loggroups
+.B \-\-log-groups
 Turns on logging for group changes for all servers.
 .TP
-.B \-logacls
+.B \-\-log-acls
 Turns on logging for ACL changes for all servers.
 .TP
-.B \-license
+.B \-\-license
 Show mumble\-server's license.
 .TP
-.B \-authors
+.B \-\-authors
 Show mumble\-server's authors.
 .TP
-.B \-third\-party\-licenses
+.B \-\-third\-party\-licenses
 Show licenses for third-party software used by mumble\-server.
 .TP
-.B \-version, \-\-version
+.B \-\-version
 Show version information.
 .SH SIGNALS
 .TP

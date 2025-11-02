@@ -21,7 +21,7 @@ Running Murmur
 In this build of Murmur, the binary is called 'murmurd'. To get Murmur
 up and running, simply execute the following command at your shell:
 
- $ ./murmurd -fg -ini murmur.ini
+ $ ./murmurd --foreground --ini murmur.ini
 
 This will spawn a foregrounded (Murmur will, by default, run in daemon mode,
 which means it will launch itself as a background process on your system).
@@ -96,16 +96,16 @@ Additional Murmur Options
 The above instructions use a very bare-bones approach to running Murmur.
 Several other command line options are available. These are listed below:
 
-murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
+murmurd [--set-su-pw <password>] [--ini <inifile>] [--foreground] [--verbose]
 
--supw   Set new password for the user SuperUser, which is hardcoded to
-        bypass ACLs. Keep this password safe. If you use this option,
-        Murmur will set the password in the database and then exit.
+--set-su-pw         Set new password for the user SuperUser, which is hardcoded to
+                    bypass ACLs. Keep this password safe. If you use this option,
+                    Murmur will set the password in the database and then exit.
 
--ini    Use an ini file other than murmur.ini, use this to run several
-        instances of Murmur from the same directory. Make sure each
-        instance is using a separate database. (Specified in the ini file.)
+--ini               Use an ini file other than murmur.ini, use this to run several
+                    instances of Murmur from the same directory. Make sure each
+                    instance is using a separate database. (Specified in the ini file.)
 
--fg     Run in the foreground, logging to standard output.
+--foreground        Run in the foreground, logging to standard output.
 
--v      More verbose logging.
+--verbose           More verbose logging.
