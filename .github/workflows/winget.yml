@@ -2,6 +2,12 @@ name: Publish to WinGet
 on:
   release:
     types: [released]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'The release tag to publish'
+        required: true
+
 jobs:
   publish:
     runs-on: windows-latest
@@ -9,6 +15,7 @@ jobs:
       - name: Publish Mumble client
         uses: vedantmgoyal9/winget-releaser@main
         with:
+          release-tag: ${{ github.event.release.tag_name || github.event.inputs.tag }}
           identifier: Mumble.Mumble.Client
           installers-regex: mumble_client.*.msi$
           token: ${{ secrets.WINGET_TOKEN }}
@@ -16,6 +23,7 @@ jobs:
       - name: Publish Mumble server
         uses: vedantmgoyal9/winget-releaser@main
         with:
+          release-tag: ${{ github.event.release.tag_name || github.event.inputs.tag }}
           identifier: Mumble.Mumble.Server
           installers-regex: mumble_server.*.msi$
           token: ${{ secrets.WINGET_TOKEN }}
