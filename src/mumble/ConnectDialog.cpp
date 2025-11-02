@@ -1528,14 +1528,26 @@ void ConnectDialog::timeTick() {
 				continue;
 			}
 
-			qlDNSLookup.removeAll(unresolved);
-			qlDNSLookup.append(unresolved);
+			qlDNSLookupBuffer.insert(unresolved);
 
 			qsDNSActive.insert(unresolved);
 			ServerResolver *sr = new ServerResolver();
 			QObject::connect(sr, SIGNAL(resolved()), this, SLOT(lookedUp()));
 			sr->resolve(unresolved.hostname, unresolved.port);
 			break;
+		}
+
+		for (const UnresolvedServerAddress &buffered : qlDNSLookupBuffer) {
+			qlDNSLookup.removeAll(buffered);
+		}
+
+		if (tResolverBuffer.isElapsed(std::chrono::seconds(1))) {
+			for (const UnresolvedServerAddress &buffered : qlDNSLookupBuffer) {
+				qlDNSLookup.removeAll(buffered);
+				qlDNSLookup.append(buffered);
+			}
+
+			qlDNSLookupBuffer.clear();
 		}
 	}
 
@@ -1545,10 +1557,13 @@ void ConnectDialog::timeTick() {
 
 	ServerItem *si = nullptr;
 
-	if (tCurrent.elapsed() >= std::chrono::seconds(1))
+	if (tCurrent.isElapsed(std::chrono::seconds(1))) {
 		si = current;
-	if (!si && (tHover.elapsed() >= std::chrono::seconds(1)))
+	}
+
+	if (!si && (tHover.isElapsed(std::chrono::seconds(1)))) {
 		si = hover;
+	}
 
 	if (si) {
 		QString hostname    = si->qsHostname.toLower();
@@ -1588,11 +1603,6 @@ void ConnectDialog::timeTick() {
 			}
 		} while (si->qlAddresses.isEmpty() || !expanded);
 	}
-
-	if (si == current)
-		tCurrent.restart();
-	if (si == hover)
-		tHover.restart();
 
 	for (const ServerAddress &addr : si->qlAddresses) {
 		sendPing(addr.host.toAddress(), addr.port, si->m_version);
@@ -1718,6 +1728,7 @@ void ConnectDialog::stopDns(ServerItem *si) {
 		if (qhDNSWait[unresolved].isEmpty()) {
 			qhDNSWait.remove(unresolved);
 			qlDNSLookup.removeAll(unresolved);
+			qlDNSLookupBuffer.remove(unresolved);
 		}
 	}
 }
@@ -1754,6 +1765,7 @@ void ConnectDialog::lookedUp() {
 	}
 
 	qlDNSLookup.removeAll(unresolved);
+	qlDNSLookupBuffer.remove(unresolved);
 	qhDNSCache.insert(unresolved, qs.values());
 	qhDNSWait.remove(unresolved);
 
