@@ -24,9 +24,6 @@ if ("${BUILD_NUMBER}" STREQUAL "")
 	endif()
 endif()
 
-# Get compilation year
-string(TIMESTAMP MUMBLE_BUILD_YEAR "%Y")
-
 project(mumble
 	VERSION "1.5.${BUILD_NUMBER}"
 	DESCRIPTION "Open source, low-latency, high quality voice chat."
@@ -79,6 +76,7 @@ option(optimize "Build a heavily optimized version, specific to the machine it's
 option(static "Build static binaries." OFF)
 option(symbols "Build binaries in a way that allows easier debugging." OFF)
 option(warnings-as-errors "All warnings are treated as errors." ON)
+option(use-timestamps "Allow using compile-time timestamps" ON)
 
 option(client "Build the client (Mumble)" ON)
 option(server "Build the server (Murmur)" ON)
@@ -155,6 +153,12 @@ else()
 	message(FATAL_ERROR "Unable to determine target OS")
 endif()
 
+# Get compilation year
+if (use-timestamps)
+	string(TIMESTAMP MUMBLE_BUILD_YEAR "%Y")
+else()
+	set(MUMBLE_BUILD_YEAR "now")
+endif()
 
 # Make the build year accessible as a macro
 add_compile_definitions(MUMBLE_BUILD_YEAR=${MUMBLE_BUILD_YEAR})
