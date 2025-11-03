@@ -155,11 +155,11 @@ static void newContext(Context *ctx) {
 
 	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
 
-	if (xdgRuntimeDir != NULL && strlen(xdgRuntimeDir) < sizeof(ctx->saName.sun_path)) {
+	if (xdgRuntimeDir != NULL && strlen(xdgRuntimeDir) + 18 < sizeof(ctx->saName.sun_path)) {
 		ctx->saName.sun_family = PF_UNIX;
 		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
 		strcat(ctx->saName.sun_path, "/MumbleOverlayPipe");
-	} else if (home) {
+	} else if (home && strlen(home) + 19 < sizeof(ctx->saName.sun_path)) {
 		ctx->saName.sun_family = PF_UNIX;
 		strcpy(ctx->saName.sun_path, home);
 		strcat(ctx->saName.sun_path, "/.MumbleOverlayPipe");
