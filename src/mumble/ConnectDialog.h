@@ -247,7 +247,7 @@ protected:
 	bool bAutoConnect;
 
 	Timer tPing;
-	Timer tCurrent, tHover, tRestart;
+	Timer tCurrent, tHover, tRestart, tResolverBuffer;
 	QUdpSocket *qusSocket4;
 	QUdpSocket *qusSocket6;
 	QTimer *qtPingTick;
@@ -256,7 +256,7 @@ protected:
 	ServerItem *siAutoConnect;
 
 	QList< UnresolvedServerAddress > qlDNSLookup;
-	QSet< UnresolvedServerAddress > qsDNSActive;
+	QSet< UnresolvedServerAddress > qsDNSActive, qlDNSLookupBuffer;
 	QHash< UnresolvedServerAddress, QSet< ServerItem * > > qhDNSWait;
 	QHash< UnresolvedServerAddress, QList< ServerAddress > > qhDNSCache;
 
