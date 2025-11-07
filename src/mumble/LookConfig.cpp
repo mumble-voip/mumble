@@ -262,6 +262,7 @@ void LookConfig::load(const Settings &r) {
 	qsbPrefixCharCount->setValue(r.iTalkingUI_PrefixCharCount);
 	qsbPostfixCharCount->setValue(r.iTalkingUI_PostfixCharCount);
 	qleAbbreviationReplacement->setText(r.qsTalkingUI_AbbreviationReplacement);
+	qsbTransparencyLevel->setValue(r.iTalkingUI_TransparencyLevel);
 	if (r.talkingUI_BackgroundColor.has_value()) {
 		talkinguiBackgroundSet(*r.talkingUI_BackgroundColor);
 	} else {
@@ -353,6 +354,7 @@ void LookConfig::save() const {
 	s.iTalkingUI_PostfixCharCount         = qsbPostfixCharCount->value();
 	s.qsTalkingUI_AbbreviationReplacement = qleAbbreviationReplacement->text();
 	s.talkingUI_BackgroundColor           = selectedBackgroundColor;
+	s.iTalkingUI_TransparencyLevel        = qsbTransparencyLevel->value();
 
 	s.qsHierarchyChannelSeparator = qleChannelSeparator->text();
 
@@ -430,4 +432,15 @@ void LookConfig::on_qcbUsersAlwaysVisible_stateChanged(int state) {
 	qcbLocalUserVisible->setEnabled(!usersAlwaysVisible);
 	// Only enable the user visibility timeout settings when all users are not always visible
 	qsbSilentUserLifetime->setEnabled(!usersAlwaysVisible);
+}
+
+void LookConfig::on_qcbTalkingUITransparent_stateChanged(int state) {
+	// Handle transparency checkbox state change
+	qsbTransparencyLevel->setEnabled(state == Qt::Checked);
+}
+
+void LookConfig::on_qsbTransparencyLevel_valueChanged(int value) {
+	// Handle transparency level change
+	Q_UNUSED(value);
+	// You can add preview logic here if needed
 }
