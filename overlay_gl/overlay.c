@@ -153,8 +153,8 @@ static void newContext(Context *ctx) {
 		}
 	}
 
-	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
-	char *overlayPipeXdgDir = "MumbleOverlayPipe";
+	char *xdgRuntimeDir      = getenv("XDG_RUNTIME_DIR");
+	char *overlayPipeXdgDir  = "MumbleOverlayPipe";
 	char *overlayPipeHomeDir = ".MumbleOverlayPipe";
 
 	if (xdgRuntimeDir != NULL && strlen(xdgRuntimeDir) + strlen(overlayPipeXdgDir) < sizeof(ctx->saName.sun_path)) {
