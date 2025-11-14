@@ -153,16 +153,18 @@ static void newContext(Context *ctx) {
 		}
 	}
 
-	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
+	char *xdgRuntimeDir      = getenv("XDG_RUNTIME_DIR");
+	char *overlayPipeXdgDir  = "MumbleOverlayPipe";
+	char *overlayPipeHomeDir = ".MumbleOverlayPipe";
 
-	if (xdgRuntimeDir != NULL) {
+	if (xdgRuntimeDir != NULL && strlen(xdgRuntimeDir) + strlen(overlayPipeXdgDir) < sizeof(ctx->saName.sun_path)) {
 		ctx->saName.sun_family = PF_UNIX;
 		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
-		strcat(ctx->saName.sun_path, "/MumbleOverlayPipe");
-	} else if (home) {
+		strcat(ctx->saName.sun_path, overlayPipeXdgDir);
+	} else if (home && strlen(home) + strlen(overlayPipeHomeDir) < sizeof(ctx->saName.sun_path)) {
 		ctx->saName.sun_family = PF_UNIX;
 		strcpy(ctx->saName.sun_path, home);
-		strcat(ctx->saName.sun_path, "/.MumbleOverlayPipe");
+		strcat(ctx->saName.sun_path, overlayPipeHomeDir);
 	}
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR),
