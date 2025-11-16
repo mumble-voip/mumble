@@ -23,9 +23,8 @@ arch="${arch,,}"
 
 
 MUMBLE_ENVIRONMENT_DIR="$workspace/build_env"
-MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2025-08"
-# Note: We currently overwrite this for Linux
-MUMBLE_ENVIRONMENT_COMMIT="17f4c23245"
+MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2025-11"
+MUMBLE_ENVIRONMENT_COMMIT="127cccc01d"
 MUMBLE_ENVIRONMENT_VERSION=""
 ADDITIONAL_CMAKE_OPTIONS=""
 VCPKG_CMAKE_OPTIONS=""
@@ -42,7 +41,6 @@ fi
 case "$os" in
 	"ubuntu")
 		VCPKG_TARGET_TRIPLET="$VCPKG_TARGET_TRIPLET-linux"
-		MUMBLE_ENVIRONMENT_COMMIT="8834a23a8e"
 		;;
 	"windows")
 		VCPKG_TARGET_TRIPLET="$VCPKG_TARGET_TRIPLET-windows-static-md"
