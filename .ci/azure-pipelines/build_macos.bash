@@ -42,6 +42,7 @@ cmake -G Ninja -DVCPKG_TARGET_TRIPLET=$MUMBLE_ENVIRONMENT_TRIPLET -DCMAKE_TOOLCH
       -DCMAKE_BUILD_TYPE=Release -DCMAKE_UNITY_BUILD=ON -DBUILD_NUMBER=$BUILD_NUMBER \
       -Dtests=ON -Dstatic=ON -Dsymbols=ON \
 	  -Denable-mysql=OFF \
+	  -Dbundled-spdlog=OFF \
 	  -Ddatabase-sqlite-tests=ON -Ddatabase-postgresql-tests=ON \
       -Ddisplay-install-paths=ON $BUILD_SOURCESDIRECTORY
 

@@ -23,9 +23,8 @@ arch="${arch,,}"
 
 
 MUMBLE_ENVIRONMENT_DIR="$workspace/build_env"
-MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2025-08"
-# Note: We currently overwrite this for Linux
-MUMBLE_ENVIRONMENT_COMMIT="17f4c23245"
+MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2025-11"
+MUMBLE_ENVIRONMENT_COMMIT="127cccc01d"
 MUMBLE_ENVIRONMENT_VERSION=""
 ADDITIONAL_CMAKE_OPTIONS=""
 VCPKG_CMAKE_OPTIONS=""
@@ -42,7 +41,6 @@ fi
 case "$os" in
 	"ubuntu")
 		VCPKG_TARGET_TRIPLET="$VCPKG_TARGET_TRIPLET-linux"
-		MUMBLE_ENVIRONMENT_COMMIT="8834a23a8e"
 		;;
 	"windows")
 		VCPKG_TARGET_TRIPLET="$VCPKG_TARGET_TRIPLET-windows-static-md"
@@ -59,7 +57,7 @@ esac
 MUMBLE_ENVIRONMENT_VERSION="mumble_env.${VCPKG_TARGET_TRIPLET}.${MUMBLE_ENVIRONMENT_COMMIT}"
 
 if [[ "$build_type" == "static" ]]; then
-	ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -Dstatic=ON"
+	ADDITIONAL_CMAKE_OPTIONS="$ADDITIONAL_CMAKE_OPTIONS -Dstatic=ON -Dbundled-spdlog=OFF"
 
 	VCPKG_CMAKE_OPTIONS="-DCMAKE_TOOLCHAIN_FILE='$MUMBLE_ENVIRONMENT_DIR/scripts/buildsystems/vcpkg.cmake'" 
 	VCPKG_CMAKE_OPTIONS="$VCPKG_CMAKE_OPTIONS -DVCPKG_TARGET_TRIPLET='$VCPKG_TARGET_TRIPLET'"
