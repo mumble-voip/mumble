@@ -299,6 +299,11 @@ Check for updates by default.
 Try to query install paths from pkgconf - this is incompatible to using CMAKE_INSTALL_PREFIX
 (Default: OFF)
 
+### use-timestamps
+
+Allow using compile-time timestamps
+(Default: ON)
+
 ### warnings-as-errors
 
 All warnings are treated as errors.
