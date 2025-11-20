@@ -311,7 +311,7 @@ QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &ol
 }
 
 GlobalShortcutWin::GlobalShortcutWin()
-	: m_msgQueue(64)
+	: m_msgQueue(GlobalShortcutWin::QUEUE_CAPACITY)
 #ifdef USE_XBOXINPUT
 	  ,
 	  m_xinputDevices(0), m_xinputLastPacket()
@@ -424,6 +424,40 @@ void GlobalShortcutWin::run() {
 	} while (!isInterruptionRequested());
 }
 
+bool GlobalShortcutWin::isRateLimited() {
+	if (throttleThreshold > 0) {
+		throttleCounter++;
+
+		if (throttleCounter <= throttleThreshold) {
+			// Only let every throttleThreshold-th event through
+			return true;
+		}
+
+		throttleCounter = 0;
+
+		if (m_msgQueue.size() < GlobalShortcutWin::QUEUE_CAPACITY / 2) {
+			// Queue is half empty, relax threshold
+			throttleThreshold--;
+			if (throttleThreshold == 0) {
+				qInfo() << "GlobalShortcutWin: Throttle threshold disabled";
+			}
+		}
+	}
+
+	return false;
+}
+
+void GlobalShortcutWin::tryPlaceEvent(std::unique_ptr< MsgRaw > &&event) {
+	const bool enqueued = m_msgQueue.try_emplace(std::move(event));
+	if (!enqueued) {
+		// Cap throttle at 8192 to prevent excessive event dropping while still protecting the queue
+		// 8192 = 2^13 feels like a good upper limit
+		throttleThreshold = std::min(static_cast< unsigned int >(8192), throttleThreshold + 1);
+		qWarning() << "GlobalShortcutWin: Failed to enqueue input event - queue full?";
+		qInfo() << "GlobalShortcutWin: New throttle threshold is: " << throttleThreshold;
+	}
+}
+
 void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 	UINT size = 0;
 	if (GetRawInputData(handle, RID_INPUT, nullptr, &size, sizeof(RAWINPUTHEADER)) != 0) {
@@ -439,7 +473,7 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 	switch (input->header.dwType) {
 		case RIM_TYPEMOUSE: {
 			const RAWMOUSE &mouse = input->data.mouse;
-			m_msgQueue.emplace(std::make_unique< MsgMouse >(mouse.usButtonFlags));
+			tryPlaceEvent(std::make_unique< MsgMouse >(mouse.usButtonFlags));
 			break;
 		}
 		case RIM_TYPEKEYBOARD: {
@@ -455,13 +489,26 @@ void GlobalShortcutWin::injectRawInputMessage(HRAWINPUT handle) {
 				return;
 			}
 
-			m_msgQueue.emplace(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
+			tryPlaceEvent(std::make_unique< MsgKeyboard >(keyboard.Flags, keyboard.MakeCode, keyboard.VKey));
 			break;
 		}
 		case RIM_TYPEHID: {
 			const RAWHID &hid = input->data.hid;
 			MsgHid::RawReports reports(hid.bRawData, hid.dwSizeHid * hid.dwCount);
-			m_msgQueue.emplace(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
+
+			if (reports.empty()) {
+				break;
+			}
+
+			// We have had the problem that certain analog input devices (joysticks, wheels) would
+			// overwhelm our input event queue with messages and freeze Mumble as a whole. Therefore
+			// we have to implement rate-limiting for analog input events, while keyboard and mouse
+			// inputs are fine. See: https://github.com/mumble-voip/mumble/issues/6696
+			if (isRateLimited()) {
+				break;
+			}
+
+			tryPlaceEvent(std::make_unique< MsgHid >(input->header.hDevice, reports, hid.dwSizeHid));
 			break;
 		}
 		default:
