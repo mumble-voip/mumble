@@ -681,13 +681,28 @@ void DatabaseTest::indices() {
 	QVERIFY(colA != nullptr);
 	QVERIFY(colB != nullptr);
 
-	// We assume that if the addition of the index doesn't throw, it has been added successfully
+	int exists = false;
 
 	Index singleIndex("test_index", { colA->getName() });
+
+	db.getSQLHandle() << singleIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(!exists);
+
 	table->addIndex(singleIndex, true);
 
+	db.getSQLHandle() << singleIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(exists);
+
 	Index multiIndex("other_index", { colA->getName(), colB->getName() });
+
+	exists = false;
+	db.getSQLHandle() << multiIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(!exists);
+
 	table->addIndex(multiIndex, true);
+
+	db.getSQLHandle() << multiIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(exists);
 
 	// Adding the same index again should error
 	QVERIFY_THROWS_EXCEPTION(AccessException, table->addIndex(singleIndex, true));

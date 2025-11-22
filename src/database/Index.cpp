@@ -4,6 +4,7 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "Index.h"
+#include "Database.h"
 #include "Table.h"
 
 #include <cassert>
@@ -51,6 +52,28 @@ namespace db {
 				return "DROP INDEX \"" + m_name + "\"";
 			case Backend::MySQL:
 				return "DROP INDEX \"" + m_name + "\" ON \"" + table.getName() + "\"";
+		}
+
+		// This code should be unreachable
+		assert(false);
+		return "";
+	}
+
+	std::string Index::existsQuery(const Table &table, Backend backend) const {
+		switch (backend) {
+			case Backend::SQLite:
+				// Note: we explicitly don't include the associated table's name in the query as index
+				// names in SQLite are global (instead of scoped per table)
+				return "SELECT 1 FROM sqlite_master WHERE type = 'index' AND name = '" + m_name + "'";
+			case Backend::PostgreSQL:
+				// Note: index names are global (for a given scheme), hence the table's name
+				// does not appear in the query
+				return "SELECT 1 FROM pg_indexes WHERE indexname = '" + m_name + "'";
+			case Backend::MySQL:
+				// Note: the statistics table contains information about table indices
+				return "SELECT 1 FROM information_schema.statistics WHERE table_schema=(SELECT DATABASE()) AND "
+					   "table_name = '"
+					   + table.getName() + "' AND index_name = '" + m_name + "'";
 		}
 
 		// This code should be unreachable
