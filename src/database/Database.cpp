@@ -691,6 +691,29 @@ namespace db {
 			if (currentTable) {
 				assert(tablesToBeRemoved.find(currentTable->getName()) == tablesToBeRemoved.end());
 
+				// Check whether there are any conflicting indices (left over from previous tables)
+				// and if so, get rid of them before creating the table (with its indices)
+				for (const Index &idx : currentTable->getIndices()) {
+					int exists = false;
+
+					m_sql << idx.existsQuery(*currentTable, m_backend), soci::into(exists);
+
+					if (exists) {
+						m_sql << idx.dropQuery(*currentTable, m_backend);
+					}
+				}
+
+				// Do the same for triggers
+				for (const Trigger &trigger : currentTable->getTrigger()) {
+					int exists = false;
+
+					m_sql << trigger.existsQuery(*currentTable, m_backend), soci::into(exists);
+
+					if (exists) {
+						m_sql << trigger.dropQuery(*currentTable, m_backend);
+					}
+				}
+
 				// First make sure the new table is created
 				currentTable->create();
 
