@@ -54,6 +54,7 @@ namespace db {
 
 		std::string creationQuery(const Table &table, Backend backend) const;
 		std::string dropQuery(const Table &table, Backend backend) const;
+		std::string existsQuery(const Table &table, Backend backend) const;
 
 		friend bool operator==(const Trigger &lhs, const Trigger &rhs);
 		friend bool operator!=(const Trigger &lhs, const Trigger &rhs);

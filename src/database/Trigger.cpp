@@ -186,6 +186,28 @@ namespace db {
 		return "DROP TRIGGER \"" + m_name + "\"";
 	}
 
+	std::string Trigger::existsQuery(const Table &table, Backend backend) const {
+		switch (backend) {
+			case Backend::SQLite:
+				// Note: we explicitly don't include the associated table's name in the query as trigger
+				// names in SQLite are global (instead of scoped per table)
+				return "SELECT 1 FROM sqlite_master WHERE type = 'trigger' AND name = '" + m_name + "'";
+			case Backend::PostgreSQL:
+				return "SELECT 1 FROM pg_trigger tr, pg_class tab WHERE tab.relname = '" + table.getName()
+					   + "' AND tab.oid = tr.tgrelid AND tr.tgname = '" + m_name + "'";
+			case Backend::MySQL:
+				// Triggers are counted as stored routines whose name is global and hence not
+				// scoped to the associated table. Hence, we don't include the table's name in the query
+				return "SELECT 1 FROM information_schema.triggers WHERE trigger_schema=(SELECT DATABASE()) AND "
+					   "event_object_schema=(SELECT DATABASE()) AND event_object_table = '"
+					   + table.getName() + "' AND trigger_name = '" + m_name + "'";
+		}
+
+		// This code should be unreachable
+		assert(false);
+		return "";
+	}
+
 	bool operator==(const Trigger &lhs, const Trigger &rhs) {
 		return lhs.m_name == rhs.m_name && lhs.m_timing == rhs.m_timing && lhs.m_event == rhs.m_event
 			   && lhs.m_triggerBody == rhs.m_triggerBody;
