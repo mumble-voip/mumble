@@ -739,7 +739,12 @@ namespace db {
 				const std::string &currentTable = *iter;
 
 				try {
+					// Again, PostgreSQL does not like errors during transactions (see comment in init())
+					Savepoint save(m_sql, "drop_table_after_migration");
+
 					m_sql << "DROP TABLE \"" << currentTable << "\"";
+
+					save.release();
 
 					iter = tablesToBeRemoved.erase(iter);
 				} catch (const soci::soci_error &) {
