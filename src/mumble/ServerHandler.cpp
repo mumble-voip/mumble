@@ -699,10 +699,16 @@ void ServerHandler::disconnect() {
 
 void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, const QString &reason) {
 	Connection *c = cConnection.get();
-	if (!c)
+	if (!c) {
+		exit(0);
 		return;
-	if (c->bDisconnectedEmitted)
+	}
+
+	if (c->bDisconnectedEmitted) {
+		exit(0);
 		return;
+	}
+
 	c->bDisconnectedEmitted = true;
 
 	AudioOutputPtr ao = Global::get().ao;
