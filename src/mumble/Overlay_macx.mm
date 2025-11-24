@@ -20,8 +20,6 @@ extern "C" {
 #include <xar/xar.h>
 }
 
-// Ignore deprecation warnings for the whole file, for now.
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 static NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
 static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
@@ -80,53 +78,52 @@ pid_t getForegroundProcessId() {
 - (void) appLaunched:(NSNotification *)notification {
 	if (active) {
 		BOOL overlayEnabled = NO;
-		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-		NSDictionary *userInfo = [notification userInfo];
+		@autoreleasepool {
+			NSDictionary *userInfo = [notification userInfo];
 
-		NSString *bundleId = [userInfo objectForKey:@"NSApplicationBundleIdentifier"];
-		if ([bundleId isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
-			return;
+			NSString *bundleId = userInfo[@"NSApplicationBundleIdentifier"];
+			if ([bundleId isEqualToString:[[NSBundle mainBundle] bundleIdentifier]])
+				return;
 
-		QString qsBundleIdentifier = QString::fromUtf8([bundleId UTF8String]);
+			QString qsBundleIdentifier = QString::fromUtf8([bundleId UTF8String]);
 
-		switch (Global::get().s.os.oemOverlayExcludeMode) {
-			case OverlaySettings::LauncherFilterExclusionMode: {
-				qWarning("Overlay_macx: launcher filter mode not implemented on macOS, allowing everything");
-				overlayEnabled = YES;
-				break;
-			}
-			case OverlaySettings::WhitelistExclusionMode: {
-				if (Global::get().s.os.qslWhitelist.contains(qsBundleIdentifier)) {
+			switch (Global::get().s.os.oemOverlayExcludeMode) {
+				case OverlaySettings::LauncherFilterExclusionMode: {
+					qWarning("Overlay_macx: launcher filter mode not implemented on macOS, allowing everything");
 					overlayEnabled = YES;
+					break;
 				}
-				break;
+				case OverlaySettings::WhitelistExclusionMode: {
+					if (Global::get().s.os.qslWhitelist.contains(qsBundleIdentifier)) {
+						overlayEnabled = YES;
+					}
+					break;
+				}
+				case OverlaySettings::BlacklistExclusionMode: {
+					if (! Global::get().s.os.qslBlacklist.contains(qsBundleIdentifier)) {
+						overlayEnabled = YES;
+					}
+					break;
+				}
 			}
-			case OverlaySettings::BlacklistExclusionMode: {
-				if (! Global::get().s.os.qslBlacklist.contains(qsBundleIdentifier)) {
-					overlayEnabled = YES;
-				}
-				break;
+
+			if (overlayEnabled) {
+				pid_t pid = [userInfo[@"NSApplicationProcessIdentifier"] intValue];
+				SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
+				[app setDelegate:self];
+
+				// This timeout is specified in 'ticks'.
+				// A tick defined as: "[...] (a tick is approximately 1/60 of a second) [...]" in the
+				// Apple Event Manager Reference documentation:
+				// http://developer.apple.com/legacy/mac/library/documentation/Carbon/reference/Event_Manager/Event_Manager.pdf
+				[app setTimeout:10*60];
+
+				[app setSendMode:kAEWaitReply];
+				[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
+
+				[app setSendMode:kAENoReply];
 			}
 		}
-
-		if (overlayEnabled) {
-			pid_t pid = [[userInfo objectForKey:@"NSApplicationProcessIdentifier"] intValue];
-			SBApplication *app = [SBApplication applicationWithProcessIdentifier:pid];
-			[app setDelegate:self];
-
-			// This timeout is specified in 'ticks'.
-			// A tick defined as: "[...] (a tick is approximately 1/60 of a second) [...]" in the
-			// Apple Event Manager Reference documentation:
-			// http://developer.apple.com/legacy/mac/library/documentation/Carbon/reference/Event_Manager/Event_Manager.pdf
-			[app setTimeout:10*60];
-
-			[app setSendMode:kAEWaitReply];
-			[app sendEvent:kASAppleScriptSuite id:kGetAEUT parameters:0];
-
-			[app setSendMode:kAENoReply];
-		}
-
-		[pool release];
 	}
 }
 
@@ -308,7 +305,7 @@ out:
 bool OverlayConfig::needsUpgrade() {
 	NSDictionary *infoPlist = [NSDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"%@/Contents/Info.plist", MumbleOverlayLoaderBundle]];
 	if (infoPlist) {
-		NSUInteger curVersion = [[infoPlist objectForKey:@"MumbleOverlayVersion"] unsignedIntegerValue];
+		NSUInteger curVersion = [infoPlist[@"MumbleOverlayVersion"] unsignedIntegerValue];
 
 		QString path = installerPath();
 		if (path.isEmpty())
@@ -324,7 +321,7 @@ static bool authExec(AuthorizationRef ref, const char **argv) {
 	OSStatus err = noErr;
 	int pid = 0, status = 0;
 
-	err = AuthorizationExecuteWithPrivileges(ref, argv[0], kAuthorizationFlagDefaults, const_cast<char * const *>(&argv[1]), nullptr);
+	// Deprecated: AuthorizationExecuteWithPrivileges removed. Consider using SMJobBless or a helper tool for privileged operations.
 	if (err == errAuthorizationSuccess) {
 		do {
 			pid = wait(&status);
