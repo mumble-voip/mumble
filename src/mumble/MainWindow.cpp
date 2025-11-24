@@ -3537,7 +3537,7 @@ void MainWindow::serverConnected() {
 
 	Global::get().bAllowHTML      = true;
 	Global::get().uiMessageLength = 5000;
-	Global::get().uiImageLength   = 131072;
+	Global::get().uiImageLength   = 1048576;
 	Global::get().uiMaxUsers      = 0;
 
 	enableRecording(true);
