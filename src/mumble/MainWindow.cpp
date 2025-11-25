@@ -1227,8 +1227,12 @@ static void recreateServerHandler() {
 	if (sh && sh->isRunning()) {
 		Global::get().mw->on_qaServerDisconnect_triggered();
 		sh->disconnect();
-		sh->wait();
-		QCoreApplication::instance()->processEvents();
+
+		while (!sh->wait(1000)) {
+			Global::get().l->log(Log::Information,
+								 QObject::tr("Waiting for previous connection to fully terminate..."));
+			QCoreApplication::instance()->processEvents();
+		}
 	}
 
 	Global::get().sh.reset();

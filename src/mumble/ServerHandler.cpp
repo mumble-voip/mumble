@@ -403,6 +403,10 @@ void ServerHandler::run() {
 		}
 	}
 
+	if (m_connectionAborted) {
+		return;
+	}
+
 	QList< ServerAddress > targetAddresses(qlAddresses);
 	bool shouldTryNextTargetServer = true;
 	do {
@@ -695,6 +699,7 @@ void ServerHandler::disconnect() {
 	ServerHandlerMessageEvent *shme =
 		new ServerHandlerMessageEvent(qbaBuffer, Mumble::Protocol::TCPMessageType::Ping, false);
 	QApplication::postEvent(this, shme);
+	m_connectionAborted = true;
 }
 
 void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, const QString &reason) {

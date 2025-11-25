@@ -65,6 +65,8 @@ private:
 	static QMutex nextConnectionIDMutex;
 	static int nextConnectionID;
 
+	bool m_connectionAborted = false;
+
 protected:
 	QString qsHostName;
 	QString qsUserName;
