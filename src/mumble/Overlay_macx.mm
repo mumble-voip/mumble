@@ -318,6 +318,8 @@ bool OverlayConfig::needsUpgrade() {
 }
 
 static bool authExec(AuthorizationRef ref, const char **argv) {
+	Q_UNUSED(ref);
+	Q_UNUSED(argv);
 	OSStatus err = noErr;
 	int pid = 0, status = 0;
 
