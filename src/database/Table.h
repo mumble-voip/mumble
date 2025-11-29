@@ -15,7 +15,6 @@
 #include "Trigger.h"
 
 #include <string>
-#include <unordered_set>
 #include <vector>
 
 #include <nlohmann/json_fwd.hpp>
