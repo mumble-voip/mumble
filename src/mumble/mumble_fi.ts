@@ -3594,23 +3594,23 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteys epäonnistui</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">Olet yhdistämässä virheellisellä käyttäjänimellä. Anna uusi käyttäjänimi.</translation>
+        <translation>Yhdistit virheellisellä käyttäjänimellä. Kokeile eri käyttäjänimellä.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valittu käyttäjänimi on jo käytössä, kokeile toista käyttäjänimeä.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Käyttäjänimi</translation>
+        <translation>Käyttäjänimi</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valittu käyttäjänimi kuuluu rekisteröidylle käyttäjälle tällä palvelimella.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
@@ -3622,31 +3622,31 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Salasana</translation>
+        <translation>Salasana</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Käyttäjänimi:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salasana:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaihda varmenne</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Annettu palvelimen salasana on virheellinen. Valitse eri salasana.</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhdistä uudelleen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Peruuta</translation>
+        <translation>Peruuta</translation>
     </message>
 </context>
 <context>
@@ -5117,19 +5117,19 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tumma teema</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Asettaa teeman automaattisesti pohjautuen järjestelmän teemaan.</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaattinen teema pohjautuen järjestelmän teemaan</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaattinen</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
@@ -5137,7 +5137,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Tumma</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
@@ -5145,11 +5145,11 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaalea teema</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaalea</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
@@ -5157,7 +5157,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Avaa teemakansio</translation>
     </message>
 </context>
 <context>
@@ -7086,24 +7086,24 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;iirry takaisin</translation>
     </message>
     <message>
         <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Siirtää sinut takaisin aiemmalle kanavalle</translation>
     </message>
     <message>
         <source>Move back</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Siirry takaisin</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä siirtää sinut takaisin edelliselle kanavalle</translation>
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanava, jolla olit aiemmin, ei ole enää olemassa tällä palvelimella.</translation>
     </message>
     <message>
         <source>Cycle listener attenuation mode</source>
@@ -7144,11 +7144,11 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Avaa kuva</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Virhe</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
@@ -7168,11 +7168,11 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää &amp;suosikiksi</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää nykyinen palvelin suosikkeihin</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
@@ -7180,7 +7180,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisätty %1 suosikkeihin.</translation>
     </message>
 </context>
 <context>
@@ -8731,7 +8731,7 @@ Katso &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;projektin 
     <name>ResponsiveImageDialog</name>
     <message>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuvan esikatselu</translation>
     </message>
 </context>
 <context>
@@ -9275,7 +9275,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Piilota</translation>
     </message>
 </context>
 <context>
@@ -9515,7 +9515,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>Yhteensä:</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
@@ -9523,11 +9523,11 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">sekuntia</translation>
+        <translation>sekuntia</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>minuuttia</translation>
     </message>
 </context>
 <context>
