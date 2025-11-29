@@ -210,6 +210,10 @@ public:
 	QTimer qtTick;
 	void initRegister();
 
+	// Certificate monitoring, implementation in Cert.cpp
+	QTimer qtCertCheck;
+	void initCertMonitoring();
+
 	WhisperTargetCache createWhisperTargetCacheFor(ServerUser &speaker, const WhisperTarget &target);
 
 private:
@@ -223,6 +227,7 @@ public slots:
 	void regSslError(const QList< QSslError > &);
 	void finished();
 	void update();
+	void checkCertExpiry();
 
 	// Certificate stuff, implemented partially in Cert.cpp
 public:
@@ -233,6 +238,7 @@ public:
 	/// If no valid private key is found, a null QSslKey is returned.
 	static QSslKey privateKeyFromPEM(const QByteArray &buf, const QByteArray &pass = QByteArray());
 	void initializeCert();
+	bool reloadCertFromDisk();
 	const QString getDigest() const;
 
 public slots:
