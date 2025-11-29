@@ -731,12 +731,33 @@ namespace db {
 		// in the proper order required to satisfy all constraints.
 		std::size_t prevSize = 0;
 		do {
+			std::unordered_set< std::string > referencedTables;
+			if (m_backend == Backend::SQLite) {
+				std::vector< std::string > tables;
+				for (const std::string &current : tablesToBeRemoved) {
+					// Fetch all referenced tables
+					soci::rowset< std::string > foreignRefs =
+						(m_sql.prepare << "SELECT \"table\" FROM pragma_foreign_key_list('" << current << "')");
+
+					for (std::string &ref : foreignRefs) {
+						if (ref != current) { // Ignore self-references
+							referencedTables.insert(std::move(ref));
+						}
+					}
+				}
+			}
+
 			prevSize = tablesToBeRemoved.size();
 
 			auto iter = tablesToBeRemoved.begin();
 
 			while (iter != tablesToBeRemoved.end()) {
 				const std::string &currentTable = *iter;
+				if (referencedTables.contains(currentTable)) {
+					// This table is still referenced in a foreign key of another table
+					iter++;
+					continue;
+				}
 
 				try {
 					// Again, PostgreSQL does not like errors during transactions (see comment in init())
