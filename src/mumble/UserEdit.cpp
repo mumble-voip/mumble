@@ -162,8 +162,15 @@ bool UserListFilterProxyModel::filterAcceptsRow(int source_row, const QModelInde
 }
 
 void UserListFilterProxyModel::setFilterMinimumInactiveDays(int minimumInactiveDays) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+	beginFilterChange();
+#endif
 	m_minimumInactiveDays = minimumInactiveDays;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+	endFilterChange();
+#else
 	invalidateFilter();
+#endif
 }
 
 void UserListFilterProxyModel::removeRowsInSelection(const QItemSelection &selection) {
