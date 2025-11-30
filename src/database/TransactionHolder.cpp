@@ -11,10 +11,12 @@ namespace mumble {
 namespace db {
 
 	TransactionHolder::TransactionHolder(soci::session &sql, bool active, bool *transactionStatusFlag)
-		: m_active(active), m_transactionStatusFlag(transactionStatusFlag), m_sql(sql) {
+		: m_active(active), m_transactionStatusFlag(transactionStatusFlag), m_sql(&sql) {
+		assert(m_sql);
+
 		if (m_active) {
 			// auto-start transaction
-			m_sql.begin();
+			m_sql->begin();
 
 			// Indicate that the transaction has started
 			if (m_transactionStatusFlag) {
@@ -30,11 +32,13 @@ namespace db {
 	}
 
 	TransactionHolder::~TransactionHolder() {
+		assert(m_sql);
+
 		if (m_active) {
 			// Wrapper went out of scope without explicit handling -> rollback as this indicates an error has happened
 			// We normally ignore any exception that might be throw here in order to not throw from the dtor
 			try {
-				m_sql.rollback();
+				m_sql->rollback();
 
 				// Indicate that the transaction has ended
 				if (m_transactionStatusFlag) {
@@ -50,10 +54,12 @@ namespace db {
 	}
 
 	void TransactionHolder::commit() {
+		assert(m_sql);
+
 		if (m_active) {
 			// If this is not the "active" holder, then committing does not actually commit in order to not interrupt
 			// the transaction prematurely
-			m_sql.commit();
+			m_sql->commit();
 
 			// Indicate that the transaction has ended
 			if (m_transactionStatusFlag) {

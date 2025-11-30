@@ -25,6 +25,8 @@ namespace db {
 		TransactionHolder(TransactionHolder &&) noexcept;
 		~TransactionHolder();
 
+		TransactionHolder &operator=(TransactionHolder &&) = default;
+
 		void commit();
 
 		bool isActive() const;
@@ -32,7 +34,7 @@ namespace db {
 	protected:
 		bool m_active                 = false;
 		bool *m_transactionStatusFlag = nullptr;
-		soci::session &m_sql;
+		soci::session *m_sql          = nullptr;
 	};
 
 } // namespace db
