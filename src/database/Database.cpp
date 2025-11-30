@@ -36,6 +36,19 @@ extern "C" void register_factory_mysql();
 extern "C" void register_factory_postgresql();
 #endif
 
+// MySQL has implicit commits when executing certain commands, in particular any DDL statements
+// (cmp. https://dev.mysql.com/doc/refman/8.4/en/implicit-commit.html)
+// Since this implicitly ends the current transaction, our code has no idea about that and will
+// still assume that we have an active transaction running. This is absolutely ridiculous but to
+// at least ensure subsequent code is still wrapped in a transaction, we have to model the implicit
+// commit explicitly in our code and re-instantiate a transaction.
+#define MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction) \
+	if (m_backend == Backend::MySQL) {                       \
+		transaction.commit();                                \
+		m_activeTransaction = false;                         \
+		transaction         = ensureTransaction();           \
+	}
+
 namespace mumble {
 namespace db {
 
@@ -683,6 +696,8 @@ namespace db {
 
 				tablesToBeRemoved.insert(currentTableName + OLD_TABLE_SUFFIX);
 			}
+
+			MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
 		} catch (const soci::soci_error &e) {
 			throw AccessException(std::string("Failed at renaming table: ") + e.what());
 		}
@@ -716,6 +731,7 @@ namespace db {
 
 				// First make sure the new table is created
 				currentTable->create();
+				MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
 
 				// Then issue a migration step in which the old data is imported into the new one (potentially
 				// transforming its format)
@@ -760,18 +776,28 @@ namespace db {
 				}
 
 				try {
-					// Again, PostgreSQL does not like errors during transactions (see comment in init())
-					Savepoint save(m_sql, "drop_table_after_migration");
+					if (m_backend != Backend::MySQL) {
+						// Again, PostgreSQL does not like errors during transactions (see comment in init())
+						Savepoint save(m_sql, "drop_table_after_migration");
 
-					m_sql << "DROP TABLE \"" << currentTable << "\"";
+						m_sql << "DROP TABLE \"" << currentTable << "\"";
 
-					save.release();
+						save.release();
+					} else {
+						// MySQL will perform an implicit commit upon execution of DROP TABLE. This will make
+						// the currently active transaction vanish, which also clears any existing savepoints.
+						// Hence, attempting to either rollback or release a savepoint created before the
+						// DROP TABLE instruction will lead to an error (unknown savepoint).
+						m_sql << "DROP TABLE \"" << currentTable << "\"";
+					}
 
 					iter = tablesToBeRemoved.erase(iter);
 				} catch (const soci::soci_error &) {
 					iter++;
 				}
 			}
+
+			MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
 		} while (prevSize > tablesToBeRemoved.size());
 
 		if (!tablesToBeRemoved.empty()) {
@@ -835,6 +861,7 @@ namespace db {
 
 			if (!tableExistsInDB(metaTable->getName())) {
 				metaTable->create();
+				MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
 			} else {
 				// Get scheme version of already existing DB scheme and then set the version
 				// of the scheme we are going to apply to the DB
@@ -869,9 +896,11 @@ namespace db {
 		if (schemeVersion == 0) {
 			// The scheme version entry does not exist. We assume that this means that this is a freshly created DB
 			createTables();
+			MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
 		} else if (schemeVersion < getSchemeVersion()) {
 			// The DB is still using an older scheme than we want to use -> perform an upgrade
 			migrateTables(schemeVersion, getSchemeVersion());
+			MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
 		} else if (schemeVersion > getSchemeVersion()) {
 			// The DB is using a more recent scheme than we want to use -> abort immediately as we don't know how this
 			// could possibly look like and we don't want to risk data loss.
@@ -890,6 +919,8 @@ namespace db {
 		transaction.commit();
 	}
 
+
+#undef MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT
 
 } // namespace db
 } // namespace mumble
