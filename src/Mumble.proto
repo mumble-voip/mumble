@@ -603,6 +603,8 @@ message ServerConfig {
 	optional uint32 max_users = 6;
 	// Whether using Mumble's recording feature is allowed on the server
 	optional bool recording_allowed = 7;
+	// How often the client should send UDP pings to the server in milliseconds
+	optional uint32 udp_ping_interval = 8;
 }
 
 // Sent by the server to inform the clients of suggested client configuration
