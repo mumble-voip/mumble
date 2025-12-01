@@ -30,6 +30,8 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 	Q_DISABLE_COPY(GlobalShortcutWin)
 
 public:
+	static constexpr size_t QUEUE_CAPACITY = 64;
+
 	static void registerMetaTypes();
 
 	/// @param oldShortcuts List of shortcuts to migrate.
@@ -135,6 +137,13 @@ protected:
 	std::unique_ptr< GKeyLibrary > m_gkey;
 #endif
 	DeviceMap::iterator addDevice(const HANDLE deviceHandle);
+
+private:
+	std::map< HANDLE, unsigned int > m_throttleThreshold;
+	std::map< HANDLE, unsigned int > m_throttleCounter;
+
+	bool isRateLimited(HANDLE device);
+	void tryPlaceEvent(HANDLE device, bool rawhid, std::unique_ptr< MsgRaw > &&event);
 };
 
 #endif
