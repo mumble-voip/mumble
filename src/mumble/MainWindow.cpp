@@ -207,6 +207,8 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::channelStateChanged, this, &MainWindow::on_channelStateChanged);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
+
+	ConfigDialog::initializeConfigWidgets();
 }
 
 // Loading a state that was stored by a different version of Qt can lead to a crash.
@@ -456,6 +458,11 @@ void MainWindow::createActions() {
 	gsAdaptivePush->qsToolTip = tr("When using the push-to-talk transmission mode, this will act as the push-to-talk "
 								   "action. Otherwise, it will act as a push-to-mute action.",
 								   "Global Shortcut");
+
+	gsSwitchProfile = new GlobalShortcut(this, GlobalShortcutType::SwitchProfile,
+										 tr("Switch profile", "Global shortcut"), QVariant(QString()));
+	gsSwitchProfile->setObjectName("gsSwitchProfile");
+	gsSwitchProfile->qsWhatsThis = tr("This will switch to the specified settings profile");
 }
 
 void MainWindow::setupGui() {
@@ -3477,6 +3484,54 @@ void MainWindow::on_gsAdaptivePush_triggered(bool down, QVariant variant) {
 	}
 }
 
+#include <QDebug>
+
+void MainWindow::on_gsSwitchProfile_triggered(bool down, QVariant scdata) {
+	qDebug() << "switch profile " << down << " " << scdata;
+
+	if (!down) {
+		return;
+	}
+
+	if (Global::get().inConfigUI) {
+		Global::get().l->log(Log::Warning, tr("Switch profile shortcut is disabled while configuration menu is open"));
+		return;
+	}
+
+	QString selectedProfile = scdata.toString();
+	if (selectedProfile.isEmpty()) {
+		return;
+	}
+
+	Profiles &profiles = Global::get().profiles;
+
+	if (selectedProfile == profiles.activeProfileName) {
+		Global::get().l->log(Log::Warning, tr("Profile already active: %1").arg(selectedProfile));
+		return;
+	}
+
+	if (!profiles.allProfiles.contains(selectedProfile)) {
+		Global::get().l->log(Log::Warning, tr("Requested profile not found: %1").arg(selectedProfile));
+		return;
+	}
+
+	// First save the current changes, then load the new profile
+	profiles.allProfiles[profiles.activeProfileName] = Global::get().s;
+	Global::get().s.loadProfile(selectedProfile);
+
+	// We need to reset this (currently pressed) shortcut,
+	// because its definition might change during the activation
+	gsSwitchProfile->reset();
+
+	// GlobalShortcuts may have changed with profile switch
+	GlobalShortcutEngine::engine->resetMap();
+	GlobalShortcutEngine::engine->bNeedRemap = true;
+	GlobalShortcutEngine::engine->needRemap();
+
+	// Behave as if we just closed the settings dialog
+	on_settingsChanged();
+}
+
 void MainWindow::whisperReleased(QVariant scdata) {
 	if (Global::get().iPushToTalk <= 0)
 		return;
@@ -4208,30 +4263,33 @@ void MainWindow::openConfigDialog() {
 	});
 
 	if (dlg->exec() == QDialog::Accepted) {
-		setupView(false);
-		showRaiseWindow();
-		updateTransmitModeComboBox(Global::get().s.atTransmit);
-		updateUserModel();
-		emit talkingStatusChanged();
-
-		if (Global::get().s.requireRestartToApply) {
-			if (Global::get().s.requireRestartToApply
-				&& QMessageBox::question(
-					   this, tr("Restart Mumble?"),
-					   tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
-					   QMessageBox::Yes | QMessageBox::No)
-					   == QMessageBox::Yes) {
-				forceQuit     = true;
-				restartOnQuit = true;
-
-				close();
-			}
-		}
+		on_settingsChanged();
 	}
 
 	Global::get().inConfigUI = false;
 
 	delete dlg;
+}
+
+void MainWindow::on_settingsChanged() {
+	setupView(false);
+	showRaiseWindow();
+	updateTransmitModeComboBox(Global::get().s.atTransmit);
+	updateUserModel();
+	emit talkingStatusChanged();
+
+	if (Global::get().s.requireRestartToApply) {
+		if (Global::get().s.requireRestartToApply
+			&& QMessageBox::question(this, tr("Restart Mumble?"),
+									 tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
+									 QMessageBox::Yes | QMessageBox::No)
+				   == QMessageBox::Yes) {
+			forceQuit     = true;
+			restartOnQuit = true;
+
+			close();
+		}
+	}
 }
 
 void MainWindow::openAudioWizardDialog() {

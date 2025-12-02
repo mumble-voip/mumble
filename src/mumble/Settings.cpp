@@ -152,7 +152,16 @@ void Settings::save(const QString &path) const {
 		throw std::runtime_error("Expected settings file to have \".json\" extension");
 	}
 
-	nlohmann::json settingsJSON = *this;
+	Profiles &profiles               = Global::get().profiles;
+	nlohmann::json settingsJSON      = profiles;
+	nlohmann::json &profilesJSON     = settingsJSON.at(SettingsKeys::PROFILES);
+	nlohmann::json activeProfileJSON = *this;
+
+	qInfo("Saving settings profile '%s'", qUtf8Printable(profiles.activeProfileName));
+
+	// Replace the settings loaded from disk with the current (possibly modified) settings
+	profilesJSON.erase(profiles.activeProfileName.toStdString());
+	profilesJSON.push_back({ profiles.activeProfileName, activeProfileJSON });
 
 	QFile tmpFile(QString::fromLatin1("%1/mumble_settings.json.tmp")
 					  .arg(QStandardPaths::writableLocation(QStandardPaths::TempLocation)));
@@ -217,6 +226,28 @@ void Settings::save() const {
 	}
 }
 
+void Settings::loadProfile(const std::optional< QString > &requestedProfile) {
+	Profiles &profiles = Global::get().profiles;
+
+	QString profileName = requestedProfile.value_or(profiles.activeProfileName);
+
+	if (!profiles.allProfiles.contains(profileName)) {
+		qWarning("Failed to load settings profile '%s'. Falling back to '%s'...", qUtf8Printable(profileName),
+				 qUtf8Printable(Profiles::s_default_profile_name));
+		profileName = Profiles::s_default_profile_name;
+
+		if (!profiles.allProfiles.contains(profileName)) {
+			qWarning("Failed to load fallback settings profile '%s'", qUtf8Printable(Profiles::s_default_profile_name));
+			return;
+		}
+	}
+
+	qInfo("Loading settings profile '%s'", qUtf8Printable(profileName));
+
+	*this                      = profiles.allProfiles[profileName];
+	profiles.activeProfileName = profileName;
+}
+
 void Settings::load(const QString &path, bool skipSettingsBackupPrompt) {
 	if (path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION))) {
 		// Trim away the backup extension
@@ -230,8 +261,8 @@ void Settings::load(const QString &path, bool skipSettingsBackupPrompt) {
 	nlohmann::json settingsJSON;
 	try {
 		stream >> settingsJSON;
-
-		settingsJSON.get_to(*this);
+		settingsJSON.get_to(Global::get().profiles);
+		loadProfile();
 
 		if (!mumbleQuitNormally && !skipSettingsBackupPrompt) {
 			// These settings were saved without Mumble quitting normally afterwards. In order to prevent loading
@@ -401,6 +432,8 @@ bool operator<(const ChannelTarget &lhs, const ChannelTarget &rhs) {
 std::size_t qHash(const ChannelTarget &target) {
 	return qHash(target.channelID);
 }
+
+const QString Profiles::s_default_profile_name = QLatin1String("default");
 
 const QString Settings::cqsDefaultPushClickOn  = QLatin1String(":/on.ogg");
 const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
@@ -1224,6 +1257,7 @@ void Settings::verifySettingsKeys() const {
 #define INTERMEDIATE_OPERATION categoryNames.push_back(currentCategoryName);
 	PROCESS_ALL_SETTINGS_WITH_INTERMEDIATE_OPERATION
 	PROCESS_ALL_OVERLAY_SETTINGS_WITH_INTERMEDIATE_OPERATION
+	PROCESS_ALL_PROFILE_SETTINGS_WITH_INTERMEDIATE_OPERATION
 
 	// Assert that all entries in categoryNames are unique
 	std::sort(categoryNames.begin(), categoryNames.end());
@@ -1243,6 +1277,7 @@ void Settings::verifySettingsKeys() const {
 	keyNames.clear();
 	PROCESS_ALL_SETTINGS_WITH_INTERMEDIATE_OPERATION
 	PROCESS_ALL_OVERLAY_SETTINGS_WITH_INTERMEDIATE_OPERATION
+	PROCESS_ALL_PROFILE_SETTINGS_WITH_INTERMEDIATE_OPERATION
 #undef PROCESS
 #undef INTERMEDIATE_OPERATION
 
@@ -1255,6 +1290,11 @@ void Settings::verifySettingsKeys() const {
 	variableNames.clear();
 
 	PROCESS_ALL_OVERLAY_SETTINGS
+	std::sort(variableNames.begin(), variableNames.end());
+	assert(std::unique(variableNames.begin(), variableNames.end()) == variableNames.end());
+	variableNames.clear();
+
+	PROCESS_ALL_PROFILE_SETTINGS
 	std::sort(variableNames.begin(), variableNames.end());
 	assert(std::unique(variableNames.begin(), variableNames.end()) == variableNames.end());
 #undef PROCESS
