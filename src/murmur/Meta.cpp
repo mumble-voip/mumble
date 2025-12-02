@@ -69,7 +69,7 @@ MetaParams::MetaParams() {
 	iMaxListenersPerChannel    = -1;
 	iMaxListenerProxiesPerUser = -1;
 	iMaxTextMessageLength      = 5000;
-	iMaxImageMessageLength     = 131072;
+	iMaxImageMessageLength     = 1048576;
 	legacyPasswordHash         = false;
 	kdfIterations              = -1;
 	bAllowHTML                 = true;
