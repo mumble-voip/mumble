@@ -1232,8 +1232,9 @@ static void recreateServerHandler() {
 	}
 
 	Global::get().sh.reset();
-	while (sh && sh.use_count() > 1)
+	while (sh && sh.use_count() > 1) {
 		QThread::yieldCurrentThread();
+	}
 	sh.reset();
 
 	sh = ServerHandlerPtr(new ServerHandler());

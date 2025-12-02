@@ -165,7 +165,8 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 		Connection::setQoS(hQoS);
 #endif
 
-	connect(this, SIGNAL(pingRequested()), this, SLOT(sendPingInternal()), Qt::QueuedConnection);
+	QObject::connect(this, &ServerHandler::pingRequested, this, &ServerHandler::sendPingInternal, Qt::QueuedConnection);
+	QObject::connect(this, &ServerHandler::abortRequested, this, &ServerHandler::abortConnection);
 }
 
 ServerHandler::~ServerHandler() {
@@ -180,8 +181,9 @@ ServerHandler::~ServerHandler() {
 }
 
 void ServerHandler::customEvent(QEvent *evt) {
-	if (evt->type() != SERVERSEND_EVENT)
+	if (evt->type() != SERVERSEND_EVENT) {
 		return;
+	}
 
 	ServerHandlerMessageEvent *shme = static_cast< ServerHandlerMessageEvent * >(evt);
 
@@ -189,12 +191,31 @@ void ServerHandler::customEvent(QEvent *evt) {
 	if (connection) {
 		if (shme->qbaMsg.size() > 0) {
 			connection->sendMessage(shme->qbaMsg);
-			if (shme->bFlush)
+			if (shme->bFlush) {
 				connection->forceFlush();
-		} else {
-			exit(0);
+			}
 		}
 	}
+}
+
+void ServerHandler::changeState(ServerHandlerState state) {
+	if (isAborted()) {
+		return;
+	}
+
+	m_state = state;
+
+	if (isAborted()) {
+		exit(0);
+	}
+}
+
+void ServerHandler::abortConnection() {
+	changeState(ServerHandlerState::Aborted);
+}
+
+bool ServerHandler::isAborted() {
+	return m_state == ServerHandlerState::Aborted;
 }
 
 int ServerHandler::getConnectionID() const {
@@ -391,16 +412,26 @@ void ServerHandler::hostnameResolved() {
 
 void ServerHandler::run() {
 	// Resolve the hostname...
+
+	changeState(ServerHandlerState::DNSQuery);
+
 	{
 		ServerResolver sr;
-		QObject::connect(&sr, SIGNAL(resolved()), this, SLOT(hostnameResolved()));
+		QObject::connect(&sr, &ServerResolver::resolved, this, &ServerHandler::hostnameResolved);
 		sr.resolve(qsHostName, usPort);
 		int ret = exec();
 		if (ret < 0) {
 			qWarning("ServerHandler: failed to resolve hostname");
+			changeState(ServerHandlerState::DNSFailed);
 			emit error(QAbstractSocket::HostNotFoundError, tr("Unable to resolve hostname"));
 			return;
 		}
+		changeState(ServerHandlerState::DNSResolved);
+	}
+
+	if (isAborted()) {
+		// Connection aborted during DNS resolve...
+		return;
 	}
 
 	QList< ServerAddress > targetAddresses(qlAddresses);
@@ -436,11 +467,12 @@ void ServerHandler::run() {
 			qlErrors.clear();
 			qscCert.clear();
 
-			connect(qtsSock, &QSslSocket::encrypted, this, &ServerHandler::serverConnectionConnected);
-			connect(qtsSock, &QSslSocket::stateChanged, this, &ServerHandler::serverConnectionStateChanged);
-			connect(connection.get(), &Connection::connectionClosed, this, &ServerHandler::serverConnectionClosed);
-			connect(connection.get(), &Connection::message, this, &ServerHandler::message);
-			connect(connection.get(), &Connection::handleSslErrors, this, &ServerHandler::setSslErrors);
+			QObject::connect(qtsSock, &QSslSocket::encrypted, this, &ServerHandler::serverConnectionConnected);
+			QObject::connect(qtsSock, &QSslSocket::stateChanged, this, &ServerHandler::serverConnectionStateChanged);
+			QObject::connect(connection.get(), &Connection::connectionClosed, this,
+							 &ServerHandler::serverConnectionClosed);
+			QObject::connect(connection.get(), &Connection::message, this, &ServerHandler::message);
+			QObject::connect(connection.get(), &Connection::handleSslErrors, this, &ServerHandler::setSslErrors);
 		}
 		bUdp = false;
 
@@ -456,7 +488,7 @@ void ServerHandler::run() {
 
 		// Setup ping timer;
 		QTimer *ticker = new QTimer(this);
-		connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
+		QObject::connect(ticker, &QTimer::timeout, this, &ServerHandler::sendPing);
 		ticker->start(Global::get().s.iPingIntervalMsec);
 
 		Global::get().mw->rtLast = MumbleProto::Reject_RejectType_None;
@@ -468,12 +500,14 @@ void ServerHandler::run() {
 		qsOS        = QString();
 		qsOSVersion = QString();
 
+		changeState(ServerHandlerState::AwaitingConnection);
 		int ret = exec();
 		if (ret == -2) {
 			shouldTryNextTargetServer = true;
 		} else {
 			shouldTryNextTargetServer = false;
 		}
+		changeState(ServerHandlerState::Disconnecting);
 
 		if (qusUdp) {
 			QMutexLocker qml(&qmUdp);
@@ -688,21 +722,23 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 }
 
 void ServerHandler::disconnect() {
-	// Actual TCP object is in a different thread, so signal it
-	// The actual type of this event doesn't matter as we are only abusing the event mechanism to signal the thread to
-	// exit.
-	QByteArray qbaBuffer;
-	ServerHandlerMessageEvent *shme =
-		new ServerHandlerMessageEvent(qbaBuffer, Mumble::Protocol::TCPMessageType::Ping, false);
-	QApplication::postEvent(this, shme);
+	// Change the state of this connection to "aborted", but use the thread of
+	// the event loop.
+	emit abortRequested();
 }
 
 void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, const QString &reason) {
+	changeState(ServerHandlerState::ConnectionOver);
+
 	Connection *c = cConnection.get();
-	if (!c)
+	if (!c) {
 		return;
-	if (c->bDisconnectedEmitted)
+	}
+
+	if (c->bDisconnectedEmitted) {
 		return;
+	}
+
 	c->bDisconnectedEmitted = true;
 
 	AudioOutputPtr ao = Global::get().ao;
@@ -732,8 +768,9 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 
 void ServerHandler::serverConnectionTimeoutOnConnect() {
 	ConnectionPtr connection(cConnection);
-	if (connection)
+	if (connection) {
 		connection->disconnectSocket(true);
+	}
 
 	serverConnectionClosed(QAbstractSocket::SocketTimeoutError, tr("Connection timed out"));
 }
@@ -742,19 +779,22 @@ void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState st
 	if (state == QAbstractSocket::ConnectingState) {
 		// Start timer for connection timeout during connect after resolving is completed
 		tConnectionTimeoutTimer = new QTimer();
-		connect(tConnectionTimeoutTimer, SIGNAL(timeout()), this, SLOT(serverConnectionTimeoutOnConnect()));
+		QObject::connect(tConnectionTimeoutTimer, &QTimer::timeout, this,
+						 &ServerHandler::serverConnectionTimeoutOnConnect);
 		tConnectionTimeoutTimer->setSingleShot(true);
 		tConnectionTimeoutTimer->start(Global::get().s.iConnectionTimeoutDurationMsec);
 	} else if (state == QAbstractSocket::ConnectedState) {
 		// Start TLS handshake
+		changeState(ServerHandlerState::TLSHandshake);
 		qtsSock->startClientEncryption();
 	}
 }
 
 void ServerHandler::serverConnectionConnected() {
 	ConnectionPtr connection(cConnection);
-	if (!connection)
+	if (!connection) {
 		return;
+	}
 
 	// The ephemeralServerKey property is only a non-null key, if forward secrecy is used.
 	// See also https://doc.qt.io/qt-5/qsslconfiguration.html#ephemeralServerKey
@@ -764,8 +804,9 @@ void ServerHandler::serverConnectionConnected() {
 
 	tConnectionTimeoutTimer->stop();
 
-	if (Global::get().s.bQoS)
+	if (Global::get().s.bQoS) {
 		connection->setToS();
+	}
 
 	qscCert   = connection->peerCertificateChain();
 	qscCipher = connection->sessionCipher();
@@ -781,6 +822,8 @@ void ServerHandler::serverConnectionConnected() {
 		disconnect();
 		return;
 	}
+
+	changeState(ServerHandlerState::ConnectionEstablished);
 
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(Version::getRelease()));
@@ -829,7 +872,7 @@ void ServerHandler::serverConnectionConnected() {
 			}
 		}
 
-		connect(qusUdp, SIGNAL(readyRead()), this, SLOT(udpReady()));
+		QObject::connect(qusUdp, &QUdpSocket::readyRead, this, &ServerHandler::udpReady);
 
 		if (Global::get().s.bQoS) {
 #if defined(Q_OS_UNIX)
