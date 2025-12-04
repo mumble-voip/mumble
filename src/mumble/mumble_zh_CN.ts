@@ -707,7 +707,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>一个开源、低延迟、高音质的语音聊天软件</translation>
     </message>
 </context>
 <context>
