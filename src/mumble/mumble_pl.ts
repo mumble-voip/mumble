@@ -707,7 +707,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzie do wysokiej jakości czatu głosowego o&#xa0;otwartym kodzie źródłowym i&#xa0;niskim opóźnieniu</translation>
     </message>
 </context>
 <context>
