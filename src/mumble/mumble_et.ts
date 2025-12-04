@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Lis akanal</translation>
+        <translation>Mumble - Lisa kanal</translation>
     </message>
     <message>
         <source>Default server value</source>
