@@ -707,7 +707,7 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Açık kaynaklı, düşük gecikmeli, yüksek kaliteli sesli sohbet uygulaması</translation>
     </message>
 </context>
 <context>
