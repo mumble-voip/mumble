@@ -707,7 +707,7 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Uno strumento Open Source di chat vocale ad alta qualità e bassa latenza</translation>
     </message>
 </context>
 <context>
