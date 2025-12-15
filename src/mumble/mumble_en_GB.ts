@@ -707,14 +707,14 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>An Open Source, low-latency, high-quality voice-chat utility</translation>
     </message>
 </context>
 <context>
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>empty</translation>
     </message>
 </context>
 <context>
@@ -1641,11 +1641,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished">at</translation>
+        <translation>at</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished">while someone in your channel talks</translation>
+        <translation>while someone in your channel talks</translation>
     </message>
     <message>
         <source>always</source>
@@ -2457,31 +2457,31 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Username to ban</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>IP address to ban</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban reason</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban start date/time</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban end date/time</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificate hash to ban</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>List of banned users</translation>
     </message>
 </context>
 <context>
@@ -2805,7 +2805,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Displays current certificate</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2813,7 +2813,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the &quot;open&quot; button to select a file using a dialogue.</translation>
     </message>
     <message>
         <source>Certificate password</source>
@@ -2821,11 +2821,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Displays imported certificate</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Displays new certificate</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2833,19 +2833,19 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the &quot;save as&quot; button to select a file using a dialogue.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>Your name. For example: John Doe</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>Your email address. For example: johndoe@mumble.info</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3329,27 +3329,27 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>This is the connection dialogue. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favourites.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>The server list contains your favourites and all publicly listed servers.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished"></translation>
+        <translation>With this search interface you can filter the Mumble servers displayed in the server list.</translation>
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Search for servername</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Search for location</translation>
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Set filter mode</translation>
     </message>
     <message>
         <source>Server</source>
@@ -3451,63 +3451,64 @@ Password to be sent to the server on connect. This password is needed when conne
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Show password</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
+Label of the server. This is what the server will be named like in your server list and can be chosen freely.</translation>
     </message>
     <message>
         <source>Local server label</source>
-        <translation type="unfinished"></translation>
+        <translation>Local server label</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <source>64738</source>
-        <translation type="unfinished"></translation>
+        <translation>64738</translation>
     </message>
     <message>
         <source>Your username</source>
-        <translation type="unfinished"></translation>
+        <translation>Your username</translation>
     </message>
     <message>
         <source>Your password</source>
-        <translation type="unfinished"></translation>
+        <translation>Your password</translation>
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fill</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignore</translation>
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Server IP address</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Server port</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Username</translation>
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Label for server</translation>
     </message>
 </context>
 <context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble Crash Report</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
@@ -3605,7 +3606,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Username</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
@@ -7425,7 +7426,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Username</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
@@ -7893,7 +7894,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Username</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -9876,7 +9877,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <source>&amp;Start</source>

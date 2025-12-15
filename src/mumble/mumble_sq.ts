@@ -2240,7 +2240,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Push</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -3777,7 +3777,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%{name} rihapi raportimin %{target}</translation>
     </message>
     <message>
         <source>checked</source>
