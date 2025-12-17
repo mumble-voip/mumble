@@ -96,14 +96,30 @@ Database::Database(const QString &dbname) {
 			db.setDatabaseName(Global::get().s.qsDatabaseLocation);
 			db.open();
 		} else {
-			int result = QMessageBox::critical(nullptr, QLatin1String("Mumble"),
-											   tr("The database file '%1' set in the configuration file does not "
-												  "exist. Do you want to create a new database file at this location?")
-												   .arg(Global::get().s.qsDatabaseLocation),
-											   QMessageBox::Yes | QMessageBox::No);
-			if (result == QMessageBox::Yes) {
+			QMessageBox messageBox(QMessageBox::Critical, QLatin1String("Mumble"),
+								   tr("The database file '%1' set in the configuration file does not "
+									  "exist. Do you want to create a new database file at this location?")
+										   .arg(Global::get().s.qsDatabaseLocation)
+									   + " "
+									   + tr("You can also choose to reset the configured path to its default value."));
+
+			QAbstractButton *createButton = messageBox.addButton(tr("Create File"), QMessageBox::YesRole);
+			QAbstractButton *resetButton  = messageBox.addButton(tr("Reset Configured Path"), QMessageBox::NoRole);
+			messageBox.addButton(tr("Quit Without Changes"), QMessageBox::RejectRole);
+
+			messageBox.exec();
+
+			if (messageBox.clickedButton() == createButton) {
 				db.setDatabaseName(Global::get().s.qsDatabaseLocation);
-				db.open();
+				if (!db.open()) {
+					const QSqlError error(db.lastError());
+					qFatal("Database: Unable to open existing database at %s: %s (%s)",
+						   qPrintable(Global::get().s.qsDatabaseLocation), qPrintable(error.text()),
+						   qPrintable(error.nativeErrorCode()));
+				}
+			} else if (messageBox.clickedButton() == resetButton) {
+				qInfo("Database: File not found. Resetting configured path...");
+				Global::get().s.qsDatabaseLocation = "";
 			} else {
 				qFatal("Database: File not found");
 			}
