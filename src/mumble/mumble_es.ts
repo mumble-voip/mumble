@@ -3576,6 +3576,22 @@ Por favor informa a un desarrollador sobre el código de error: %1</translation>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
         <translation>Mumble no logró inicializar una base de datos en ninguna de las ubicaciones posibles.</translation>
     </message>
+    <message>
+        <source>You can also choose to reset the configured path to its default value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Configured Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quit Without Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DeveloperConsole</name>

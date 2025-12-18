@@ -3574,6 +3574,22 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
         <translation>Mumble, olası konumların herhangi birinde bir veritabanı başlatamadı.</translation>
     </message>
+    <message>
+        <source>You can also choose to reset the configured path to its default value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Configured Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quit Without Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DeveloperConsole</name>

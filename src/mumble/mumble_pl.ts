@@ -3576,6 +3576,22 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
         <translation>Mumble nie udało się zainicjować bazy danych w żadnej z możliwych lokalizacji.</translation>
     </message>
+    <message>
+        <source>You can also choose to reset the configured path to its default value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Configured Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quit Without Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DeveloperConsole</name>
