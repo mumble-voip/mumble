@@ -201,27 +201,33 @@ if(plugins AND client)
 endif()
 
 if (packaging AND WIN32)
-	execute_process(COMMAND
-		powershell -Command "
-			$response = Invoke-WebRequest \
-					-Uri 'https://aka.ms/vs/17/release/vc_redist.x64.exe' \
-					-Method Head \
-					-MaximumRedirection 0 \
-					-ErrorAction SilentlyContinue
-			$response.Headers.Location"
-		OUTPUT_VARIABLE VC_REDIST_URL
+	set(VC_REDIST_PATH "${PROJECT_BINARY_DIR}/installer/VC_redist.x64.exe")
+	file(
+		DOWNLOAD "https://aka.ms/vs/17/release/vc_redist.x64.exe" "${VC_REDIST_PATH}"
+		STATUS VC_REDIST_DOWNLOAD_STATUS
 	)
-	string(STRIP ${VC_REDIST_URL} VC_REDIST_URL)
 
-	file(DOWNLOAD ${VC_REDIST_URL} ${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe)
+	list(GET VC_REDIST_DOWNLOAD_STATUS 0 STATUS_CODE)
+	if (NOT (STATUS_CODE EQUAL "0"))
+		list(GET VC_REDIST_DOWNLOAD_STATUS 1 ERROR_MSG)
+		message(FATAL_ERROR "Failed at downloading the VC redist installer: ${ERROR_MSG}")
+	endif()
 
 	execute_process(COMMAND
 		powershell -Command "
-			$exe = (Get-Item -path '${CMAKE_BINARY_DIR}/installer/VC_redist.x64.exe')
+			$exe = (Get-Item -path '${VC_REDIST_PATH}')
 			$exe.VersionInfo.ProductVersion"
 		OUTPUT_VARIABLE VC_REDIST_VERSION
+		RESULT_VARIABLE VC_REDIST_VERSION_STATUS
 	)
-	string(STRIP ${VC_REDIST_VERSION} VC_REDIST_VERSION)
+
+	if (NOT (VC_REDIST_VERSION_STATUS EQUAL "0"))
+		message(FATAL_ERROR "Failed at extracting the VC redist version")
+	endif()
+
+	string(STRIP "${VC_REDIST_VERSION}" VC_REDIST_VERSION)
+
+	message(STATUS "Using VC redist >= ${VC_REDIST_VERSION} as dependency")
 endif()
 
 if(client OR server)
