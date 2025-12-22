@@ -3574,6 +3574,22 @@ Label of the server. This is what the server will be named like in your server l
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
         <translation>Mumble 无法从任何可能的位置初始化数据库。</translation>
     </message>
+    <message>
+        <source>You can also choose to reset the configured path to its default value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Configured Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quit Without Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DeveloperConsole</name>
