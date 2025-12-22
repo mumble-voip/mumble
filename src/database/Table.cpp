@@ -177,6 +177,7 @@ namespace db {
 
 			// Finally, add triggers
 			for (Trigger &currentTrigger : m_trigger) {
+				currentTrigger.selectUniqueFunctionName(m_sql, m_backend);
 				m_sql << currentTrigger.creationQuery(*this, m_backend);
 
 				currentTrigger.setCreated(true);
@@ -301,6 +302,7 @@ namespace db {
 			TransactionHolder transaction = ensureTransaction();
 
 			try {
+				trigger.selectUniqueFunctionName(m_sql, m_backend);
 				m_sql << trigger.creationQuery(*this, m_backend);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at creating trigger \"" + trigger.getName() + "\": " + e.what());

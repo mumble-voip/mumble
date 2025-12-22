@@ -8,7 +8,12 @@
 
 #include "Backend.h"
 
+#include <optional>
 #include <string>
+
+namespace soci {
+class session;
+};
 
 namespace mumble {
 namespace db {
@@ -52,6 +57,8 @@ namespace db {
 		bool created() const;
 		void setCreated(bool created);
 
+		void selectUniqueFunctionName(soci::session &sql, Backend backend);
+
 		std::string creationQuery(const Table &table, Backend backend) const;
 		std::string dropQuery(const Table &table, Backend backend) const;
 		std::string existsQuery(const Table &table, Backend backend) const;
@@ -61,6 +68,7 @@ namespace db {
 
 	protected:
 		std::string m_name;
+		std::optional< std::string > m_functionName;
 		Timing m_timing;
 		Event m_event;
 		std::string m_triggerBody;
