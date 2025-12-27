@@ -24,7 +24,7 @@
 		],
 		"rows": [
 			[
-				"scheme_version",
+				"schema_version",
 				"10"
 			],
 			[

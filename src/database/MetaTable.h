@@ -29,16 +29,16 @@ namespace db {
 
 		MetaTable(soci::session &sql, Backend backend);
 
-		unsigned int getSchemeVersion();
-		void setSchemeVersion(unsigned int version);
+		unsigned int getSchemaVersion();
+		void setSchemaVersion(unsigned int version);
 
 		void setKey(const std::string &key, const std::string &value);
 		std::optional< std::string > queryKey(const std::string &key);
 
-		void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+		void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 
 	private:
-		unsigned int getSchemeVersionLegacy();
+		unsigned int getSchemaVersionLegacy();
 	};
 
 } // namespace db

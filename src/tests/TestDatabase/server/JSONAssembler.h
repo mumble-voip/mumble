@@ -25,7 +25,7 @@ namespace db {
 
 			JSONAssembler();
 
-			DataPair buildTestData(unsigned int fromSchemeVersion,
+			DataPair buildTestData(unsigned int fromSchemaVersion,
 								   const ::mumble::server::db::ServerDatabase &serverDB);
 
 		private:

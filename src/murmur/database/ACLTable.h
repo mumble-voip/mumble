@@ -67,7 +67,7 @@ namespace server {
 
 			std::size_t countOverallACLs(unsigned int serverID);
 
-			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 		};
 
 	} // namespace db

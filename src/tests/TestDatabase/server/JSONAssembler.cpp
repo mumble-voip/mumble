@@ -58,7 +58,7 @@ namespace db {
 			return maxVersion;
 		}
 
-		const nlohmann::json &selectSchemeVersion(const nlohmann::json &json, unsigned int version) {
+		const nlohmann::json &selectSchemaVersion(const nlohmann::json &json, unsigned int version) {
 			unsigned int selectedVersion = 0;
 			for (unsigned int currentVersion = version; currentVersion > 0; --currentVersion) {
 				if (json.contains("v" + std::to_string(currentVersion))) {
@@ -68,7 +68,7 @@ namespace db {
 			}
 
 			if (selectedVersion == 0) {
-				throw std::runtime_error("Did not find a data definition for scheme version <= "
+				throw std::runtime_error("Did not find a data definition for schema version <= "
 										 + std::to_string(version));
 			}
 
@@ -110,9 +110,9 @@ namespace db {
 		}
 
 
-		void writeTableRows(nlohmann::json &tableRep, const nlohmann::json tableData, unsigned int schemeVersion,
+		void writeTableRows(nlohmann::json &tableRep, const nlohmann::json tableData, unsigned int schemaVersion,
 							std::string &tableName) {
-			const nlohmann::json &versionedData = selectSchemeVersion(tableData, schemeVersion);
+			const nlohmann::json &versionedData = selectSchemaVersion(tableData, schemaVersion);
 
 			if (versionedData.contains("table_name")) {
 				tableName = versionedData["table_name"].get< std::string >();
@@ -203,21 +203,21 @@ namespace db {
 			}
 
 			if (tableName == "meta") {
-				// Auto-set the correct scheme version so we don't have to create a new data entry in the meta table
+				// Auto-set the correct schema version so we don't have to create a new data entry in the meta table
 				// inputs just for changing it
-				nlohmann::json &scheme_version_pair = tableRep.at("rows").at(0);
-				assert(scheme_version_pair.at(0).get< std::string >().find("version") != std::string::npos);
-				scheme_version_pair.at(1) = std::to_string(schemeVersion);
+				nlohmann::json &schema_version_pair = tableRep.at("rows").at(0);
+				assert(schema_version_pair.at(0).get< std::string >().find("version") != std::string::npos);
+				schema_version_pair.at(1) = std::to_string(schemaVersion);
 			}
 		}
 
 
-		JSONAssembler::DataPair JSONAssembler::buildTestData(unsigned int fromSchemeVersion,
+		JSONAssembler::DataPair JSONAssembler::buildTestData(unsigned int fromSchemaVersion,
 															 const ::msdb::ServerDatabase &serverDB) {
 			DataPair pair;
 
-			pair.inputData["meta_data"]    = { { "scheme_version", fromSchemeVersion } };
-			pair.migratedData["meta_data"] = { { "scheme_version", msdb::ServerDatabase::DB_SCHEME_VERSION } };
+			pair.inputData["meta_data"]    = { { "schema_version", fromSchemaVersion } };
+			pair.migratedData["meta_data"] = { { "schema_version", msdb::ServerDatabase::DB_SCHEMA_VERSION } };
 
 			pair.inputData["tables"]    = nlohmann::json::object();
 			pair.migratedData["tables"] = nlohmann::json::object();
@@ -226,12 +226,12 @@ namespace db {
 			nlohmann::json &migratedTables = pair.migratedData["tables"];
 
 			for (const DataPair &currentTable : m_rawData) {
-				const nlohmann::json &inputData = selectSchemeVersion(currentTable.inputData, fromSchemeVersion);
+				const nlohmann::json &inputData = selectSchemaVersion(currentTable.inputData, fromSchemaVersion);
 
 				std::string migratedTableName;
 				nlohmann::json currentMigratedTable;
 
-				writeTableRows(currentMigratedTable, currentTable.migratedData, fromSchemeVersion, migratedTableName);
+				writeTableRows(currentMigratedTable, currentTable.migratedData, fromSchemaVersion, migratedTableName);
 
 				assert(!migratedTableName.empty());
 
@@ -239,7 +239,7 @@ namespace db {
 
 				if (!table) {
 					throw std::runtime_error("Table \"" + migratedTableName
-											 + "\" does not exist in the most up-to-date scheme definition");
+											 + "\" does not exist in the most up-to-date schema definition");
 				}
 
 				writeTableMetadata(currentMigratedTable, *table, serverDB.getBackend());
@@ -247,13 +247,13 @@ namespace db {
 				migratedTables[migratedTableName] = std::move(currentMigratedTable);
 
 
-				// The table might not have existed at all in the given scheme version. If that's the case,
+				// The table might not have existed at all in the given schema version. If that's the case,
 				// we don't actually add it to the list of old tables
 				if (!inputData.empty()) {
 					nlohmann::json currentInputTable;
 					std::string inputTableName;
 
-					writeTableRows(currentInputTable, currentTable.inputData, fromSchemeVersion, inputTableName);
+					writeTableRows(currentInputTable, currentTable.inputData, fromSchemaVersion, inputTableName);
 
 					if (inputTableName.empty()) {
 						inputTableName = inputData.at("table_name").get< std::string >();

@@ -283,22 +283,22 @@ namespace server {
 			}
 		}
 
-		void ChannelListenerTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		void ChannelListenerTable::migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 			// Note: Always hard-code old table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
-			assert(fromSchemeVersion <= toSchemeVersion);
+			assert(fromSchemaVersion <= toSchemaVersion);
 
 			try {
-				if (fromSchemeVersion < 9) {
+				if (fromSchemaVersion < 9) {
 					// The table only got introduced in v9
 				} else {
 					// Use default implementation to handle migration without change of format
-					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
+					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::MigrationException(
-					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
-					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+					std::string("Failed at migrating table \"") + NAME + "\" from schema version "
+					+ std::to_string(fromSchemaVersion) + " to " + std::to_string(toSchemaVersion)));
 			}
 		}
 

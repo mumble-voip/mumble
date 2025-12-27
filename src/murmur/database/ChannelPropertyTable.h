@@ -83,7 +83,7 @@ namespace server {
 
 			void clearAllProperties(unsigned int serverID, unsigned int channelID);
 
-			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 
 		protected:
 			std::string doGetProperty(unsigned int serverID, unsigned int channelID, ChannelProperty property);
