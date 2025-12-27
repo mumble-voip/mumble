@@ -681,13 +681,28 @@ void DatabaseTest::indices() {
 	QVERIFY(colA != nullptr);
 	QVERIFY(colB != nullptr);
 
-	// We assume that if the addition of the index doesn't throw, it has been added successfully
+	int exists = false;
 
 	Index singleIndex("test_index", { colA->getName() });
+
+	db.getSQLHandle() << singleIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(!exists);
+
 	table->addIndex(singleIndex, true);
 
+	db.getSQLHandle() << singleIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(exists);
+
 	Index multiIndex("other_index", { colA->getName(), colB->getName() });
+
+	exists = false;
+	db.getSQLHandle() << multiIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(!exists);
+
 	table->addIndex(multiIndex, true);
+
+	db.getSQLHandle() << multiIndex.existsQuery(*table, currentBackend), soci::into(exists);
+	QVERIFY(exists);
 
 	// Adding the same index again should error
 	QVERIFY_THROWS_EXCEPTION(AccessException, table->addIndex(singleIndex, true));
@@ -744,15 +759,26 @@ void DatabaseTest::triggers() {
 		for (Trigger::Event event : { Trigger::Event::Insert, Trigger::Event::Update, Trigger::Event::Delete }) {
 			qInfo() << "Current event:" << static_cast< int >(event);
 
+			int exists = false;
 			Trigger trigger("myTestTrigger", timing, event,
 							"UPDATE \"" + table->getName() + "\" SET " + colA->getName() + "=1;");
 
+			db.getSQLHandle() << trigger.existsQuery(*table, currentBackend), soci::into(exists);
+			QVERIFY(!exists);
+
 			table->addTrigger(trigger, true);
+
+			db.getSQLHandle() << trigger.existsQuery(*table, currentBackend), soci::into(exists);
+			QVERIFY(exists);
 
 			// Adding again should error
 			QVERIFY_THROWS_EXCEPTION(AccessException, table->addTrigger(trigger, true));
 
 			QVERIFY(table->removeTrigger(trigger, true));
+
+			exists = false;
+			db.getSQLHandle() << trigger.existsQuery(*table, currentBackend), soci::into(exists);
+			QVERIFY(!exists);
 
 			// Removing again should fail (without error though)
 			QVERIFY(!table->removeTrigger(trigger, true));

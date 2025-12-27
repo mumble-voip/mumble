@@ -25,10 +25,6 @@
 namespace mumble {
 namespace db {
 
-	// If this looks weird to you, check out https://stackoverflow.com/a/8016853
-	// (Essentially this is needed to avoid an undefined reference error for this constant)
-	constexpr const char *Table::BACKUP_SUFFIX;
-
 	Table::Table(soci::session &sql, Backend backend, Database *database) : Table(sql, backend, {}, {}, database) {}
 	Table::Table(soci::session &sql, Backend backend, const std::string &name, const std::vector< Column > &columns,
 				 Database *database)
@@ -181,6 +177,7 @@ namespace db {
 
 			// Finally, add triggers
 			for (Trigger &currentTrigger : m_trigger) {
+				currentTrigger.selectUniqueFunctionName(m_sql, m_backend);
 				m_sql << currentTrigger.creationQuery(*this, m_backend);
 
 				currentTrigger.setCreated(true);
@@ -305,6 +302,7 @@ namespace db {
 			TransactionHolder transaction = ensureTransaction();
 
 			try {
+				trigger.selectUniqueFunctionName(m_sql, m_backend);
 				m_sql << trigger.creationQuery(*this, m_backend);
 			} catch (const soci::soci_error &e) {
 				throw AccessException("Failed at creating trigger \"" + trigger.getName() + "\": " + e.what());
@@ -628,8 +626,8 @@ namespace db {
 		}
 #endif
 
-		// We reserve the name for a table's backup (needed during migrations) right from the start
-		assert(m_name.find(Table::BACKUP_SUFFIX) == std::string::npos);
+		// We reserve the name for a table's suffix (needed during migrations) right from the start
+		assert(m_name.find(Database::OLD_TABLE_SUFFIX) == std::string::npos);
 	}
 
 } // namespace db

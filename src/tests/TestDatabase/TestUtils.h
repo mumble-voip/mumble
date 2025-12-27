@@ -122,12 +122,14 @@ namespace db {
 } // namespace mumble
 
 
+#define MUMBLE_BEGIN_TEST_CASE_BACKEND_ITER_ONLY                                  \
+	try {                                                                         \
+		for (::mumble::db::Backend currentBackend : mumble::db::test::backends) { \
+			qInfo() << "Current backend:" << QString::fromStdString(::mumble::db::backendToString(currentBackend));
 
-#define MUMBLE_BEGIN_TEST_CASE_NO_INIT                                                                              \
-	try {                                                                                                           \
-		for (::mumble::db::Backend currentBackend : mumble::db::test::backends) {                                   \
-			qInfo() << "Current backend:" << QString::fromStdString(::mumble::db::backendToString(currentBackend)); \
-			TestDB db(currentBackend);
+#define MUMBLE_BEGIN_TEST_CASE_NO_INIT       \
+	MUMBLE_BEGIN_TEST_CASE_BACKEND_ITER_ONLY \
+	TestDB db(currentBackend);
 
 #define MUMBLE_BEGIN_TEST_CASE     \
 	MUMBLE_BEGIN_TEST_CASE_NO_INIT \

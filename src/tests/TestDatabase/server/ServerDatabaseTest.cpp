@@ -185,6 +185,22 @@ public:
 	soci::session &getSQLHandle() { return m_sql; }
 };
 
+class FutureMigrationTestDB : public TestDB {
+	using TestDB::TestDB;
+
+	unsigned int getSchemeVersion() const override {
+		// Always return a scheme version one higher than the actual scheme version to
+		// simulate a (no-op) migration to a future scheme version
+		return TestDB::getSchemeVersion() + 1;
+	}
+
+	// Need to overwrite ServerDatabase's implementation to avoid the sanity checks it performs
+	// on the scheme versions
+	void migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override {
+		return ::mdb::Database::migrateTables(fromSchemeVersion, toSchemeVersion);
+	}
+};
+
 // Note: PlainDB and TestDB are to be seen as two different ways to access the same underlying table.
 // Therefore, we don't try to blindly delete the tables in TestDB in its destructor as this would interfere
 // with the setup (e.g. Triggers) of TestDB that PlainDB knows nothing about.
@@ -239,6 +255,7 @@ private slots:
 	void channelListenerTable_general();
 
 	void database_scheme_migration();
+	void database_future_scheme_migration();
 };
 
 
@@ -1675,6 +1692,28 @@ void ServerDatabaseTest::database_scheme_migration() {
 
 		MUMBLE_END_TEST_CASE
 	}
+}
+
+void ServerDatabaseTest::database_future_scheme_migration() {
+	MUMBLE_BEGIN_TEST_CASE_BACKEND_ITER_ONLY
+
+	{
+		// Create full server database
+		::msdb::ServerDatabase db(currentBackend);
+
+		db.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
+	}
+
+	// Init tweaked ServerDatabase that has an increased scheme version to trigger a (no-op) migration to
+	// the (as of yet) non-existing scheme version
+	FutureMigrationTestDB future(currentBackend);
+
+	// Initialization should trigger the migration
+	future.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
+
+	// If the init did not throw, the test succeeded
+
+	MUMBLE_END_TEST_CASE
 }
 
 QTEST_MAIN(ServerDatabaseTest)

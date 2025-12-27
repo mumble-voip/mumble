@@ -71,6 +71,27 @@ namespace db {
 
 	void Trigger::setCreated(bool created) { m_created = created; }
 
+	void Trigger::selectUniqueFunctionName(soci::session &sql, Backend backend) {
+		if (backend != Backend::PostgreSQL) {
+			return;
+		}
+
+		std::string basename = m_name + "_trigger_func_";
+
+		int exists  = true;
+		int counter = 0;
+		while (exists) {
+			counter++;
+			exists               = false;
+			std::string funcName = basename + std::to_string(counter);
+			sql << "SELECT 1 FROM pg_proc p JOIN pg_namespace n ON p.pronamespace = n.oid WHERE n.nspname NOT IN "
+				   "('pg_catalog', 'information_schema') AND p.proname = :name",
+				soci::use(funcName), soci::into(exists);
+		}
+
+		m_functionName = basename + std::to_string(counter);
+	}
+
 	std::string Trigger::creationQuery(const Table &table, Backend backend) const {
 		std::string query = "CREATE TRIGGER \"" + m_name + "\"";
 		switch (m_timing) {
@@ -116,6 +137,8 @@ namespace db {
 				break;
 			}
 			case Backend::PostgreSQL: {
+				assert(m_functionName.has_value());
+
 				if (boost::istarts_with(m_triggerBody, "EXECUTE PROCEDURE")) {
 					if (hasCondition()) {
 						throw UnsupportedOperationException(
@@ -125,8 +148,8 @@ namespace db {
 					query += m_triggerBody;
 				} else {
 					// Postgres requires us to create a function that can then be executed by the trigger
-					std::string queryPrefix = "CREATE FUNCTION \"" + m_name + "_trigger_function\""
-											  + "() RETURNS TRIGGER LANGUAGE PLPGSQL AS $$ ";
+					std::string queryPrefix =
+						"CREATE FUNCTION \"" + m_functionName.value() + "\"() RETURNS TRIGGER LANGUAGE PLPGSQL AS $$ ";
 					if (hasCondition()) {
 						queryPrefix += "DECLARE trigger_condition BOOLEAN DEFAULT FALSE;";
 						queryPrefix += "BEGIN SELECT " + m_condition + " INTO trigger_condition;";
@@ -156,7 +179,7 @@ namespace db {
 
 					queryPrefix += " END; $$; ";
 
-					query = queryPrefix + query + "EXECUTE PROCEDURE \"" + m_name + "_trigger_function\"()";
+					query = queryPrefix + query + "EXECUTE PROCEDURE \"" + m_functionName.value() + "\"()";
 				}
 				break;
 			}
@@ -175,7 +198,9 @@ namespace db {
 				std::string query = "DROP TRIGGER \"" + m_name + "\" ON \"" + table.getName() + "\";";
 
 				// Also drop the function that we created for this trigger
-				query += " DROP FUNCTION IF EXISTS \"" + m_name + "_trigger_function\"()";
+				if (m_functionName.has_value()) {
+					query += " DROP FUNCTION IF EXISTS \"" + m_functionName.value() + "\"()";
+				}
 
 				return query;
 		}
@@ -184,6 +209,28 @@ namespace db {
 		assert(false);
 
 		return "DROP TRIGGER \"" + m_name + "\"";
+	}
+
+	std::string Trigger::existsQuery(const Table &table, Backend backend) const {
+		switch (backend) {
+			case Backend::SQLite:
+				// Note: we explicitly don't include the associated table's name in the query as trigger
+				// names in SQLite are global (instead of scoped per table)
+				return "SELECT 1 FROM sqlite_master WHERE type = 'trigger' AND name = '" + m_name + "'";
+			case Backend::PostgreSQL:
+				return "SELECT 1 FROM pg_trigger tr, pg_class tab WHERE tab.relname = '" + table.getName()
+					   + "' AND tab.oid = tr.tgrelid AND tr.tgname = '" + m_name + "'";
+			case Backend::MySQL:
+				// Triggers are counted as stored routines whose name is global and hence not
+				// scoped to the associated table. Hence, we don't include the table's name in the query
+				return "SELECT 1 FROM information_schema.triggers WHERE trigger_schema=(SELECT DATABASE()) AND "
+					   "event_object_schema=(SELECT DATABASE()) AND trigger_name = '"
+					   + m_name + "'";
+		}
+
+		// This code should be unreachable
+		assert(false);
+		return "";
 	}
 
 	bool operator==(const Trigger &lhs, const Trigger &rhs) {

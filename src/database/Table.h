@@ -15,7 +15,6 @@
 #include "Trigger.h"
 
 #include <string>
-#include <unordered_set>
 #include <vector>
 
 #include <nlohmann/json_fwd.hpp>
@@ -31,8 +30,6 @@ namespace db {
 
 	class Table {
 	public:
-		static constexpr const char *BACKUP_SUFFIX = "_backup";
-
 		Table(soci::session &sql, Backend backend, Database *database);
 		Table(soci::session &sql, Backend backend, const std::string &name = {},
 			  const std::vector< Column > &columns = {}, Database *database = nullptr);
