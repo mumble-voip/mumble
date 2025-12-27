@@ -15,7 +15,7 @@
 
 import sys, os, string, shutil, plistlib, tempfile, glob
 from subprocess import Popen, PIPE
-from optparse import OptionParser
+import argparse
 
 options = None
 
@@ -372,18 +372,18 @@ def package_server():
 		sys.exit(1)
 
 if __name__ == '__main__':
-	parser = OptionParser()
-	parser.add_option('', '--source-dir', dest='source_dir', help='This sets the path to the repository. (Defaults to ".")', default='.')
-	parser.add_option('', '--binary-dir', dest='binary_dir', help='This sets the path to the folder containing binaries. It will also be used as output directory. (Defaults to "build")', default='build')
-	parser.add_option('', '--version', dest='version', help='This overrides the version number of the build.')
-	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
-	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
-	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
-	parser.add_option('', '--developer-id', dest='developer_id', help='Identity (Developer ID) to use for code signing. The name is also used for GPG signing. (If not set, no code signing will occur)')
-	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to "login.keychain")', default='login.keychain')
-	parser.add_option('', '--server', dest='server', help='Build a Murmur package.', action='store_true', default=False)
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--source-dir', help='This sets the path to the repository. (Defaults to ".")', default='.')
+	parser.add_argument('--binary-dir', help='This sets the path to the folder containing binaries. It will also be used as output directory. (Defaults to "build")', default='build')
+	parser.add_argument('--version', help='This overrides the version number of the build.')
+	parser.add_argument('--universal', help='Build an universal snapshot.', action='store_true', default=False)
+	parser.add_argument('--only-appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
+	parser.add_argument('--only-overlay', help='Only create the overlay installer.', action='store_true', default=False)
+	parser.add_argument('--developer-id', help='Identity (Developer ID) to use for code signing. The name is also used for GPG signing. (If not set, no code signing will occur)')
+	parser.add_argument('--keychain', help='The keychain to use when invoking code signing utilities. (Defaults to "login.keychain")', default='login.keychain')
+	parser.add_argument('--server', help='Build a Murmur package.', action='store_true', default=False)
 
-	options, args = parser.parse_args()
+	options = parser.parse_args()
 
 	if not os.path.exists(options.source_dir):
 		print('Please specify a source directory that exists!')
