@@ -99,6 +99,11 @@ Whether to include the PostgreSQL database tests (requires special setup)
 Whether to include the SQLite database tests
 (Default: ON)
 
+### dbus
+
+Enable DBus support/interface
+(Default: ON)
+
 ### debug-dependency-search
 
 Prints extended information during the search for the needed dependencies
