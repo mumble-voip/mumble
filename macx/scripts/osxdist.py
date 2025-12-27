@@ -15,7 +15,7 @@
 
 import sys, os, string, shutil, plistlib, tempfile, glob
 from subprocess import Popen, PIPE
-from optparse import OptionParser
+import argparse
 
 options = None
 
@@ -123,12 +123,13 @@ class AppBundle(object):
 		for rsrc in rsrcs:
 			b = os.path.basename(rsrc)
 			if os.path.isdir(rsrc):
-	                        shutil.copytree(rsrc, os.path.join(rsrcpath, b), symlinks=True)
+				shutil.copytree(rsrc, os.path.join(rsrcpath, b), symlinks=True)
 			elif os.path.isfile(rsrc):
 				shutil.copy(rsrc, os.path.join(rsrcpath, b))
 
 		# Extras
-		shutil.copy(os.path.join(options.binary_dir, 'MumbleOverlay.pkg'), os.path.join(rsrcpath, 'MumbleOverlay.pkg'))
+		if not options.no_overlay:
+			shutil.copy(os.path.join(options.binary_dir, 'MumbleOverlay.pkg'), os.path.join(rsrcpath, 'MumbleOverlay.pkg'))
 
 	def copy_codecs(self):
 		'''
@@ -275,10 +276,11 @@ def package_client():
 		fn = os.path.join(options.binary_dir, 'Mumble-%s.dmg') % ver
 		title = 'Mumble %s' % ver
 
-	# Fix overlay installer package
-	create_overlay_package()
-	if options.only_overlay:
-		sys.exit(0)
+	if not options.no_overlay:
+		# Fix overlay installer package
+		create_overlay_package()
+		if options.only_overlay:
+			sys.exit(0)
 
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle(os.path.join(options.binary_dir, 'Mumble.app'), ver)
@@ -357,7 +359,7 @@ def package_server():
 		print('Failed to build Murmur XIP package')
 		sys.exit(1)
 
-	absrelease = os.path.join(os.getcwd(), 'options.binary_dir')
+	absrelease = os.path.join(os.getcwd(), options.binary_dir)
 
 	p = Popen(('tar', '-cjpf', name+'.tar.bz2', name), cwd=absrelease)
 	retval = p.wait()
@@ -372,18 +374,20 @@ def package_server():
 		sys.exit(1)
 
 if __name__ == '__main__':
-	parser = OptionParser()
-	parser.add_option('', '--source-dir', dest='source_dir', help='This sets the path to the repository. (Defaults to ".")', default='.')
-	parser.add_option('', '--binary-dir', dest='binary_dir', help='This sets the path to the folder containing binaries. It will also be used as output directory. (Defaults to "build")', default='build')
-	parser.add_option('', '--version', dest='version', help='This overrides the version number of the build.')
-	parser.add_option('', '--universal', dest='universal', help='Build an universal snapshot.', action='store_true', default=False)
-	parser.add_option('', '--only-appbundle', dest='only_appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
-	parser.add_option('', '--only-overlay', dest='only_overlay', help='Only create the overlay installer.', action='store_true', default=False)
-	parser.add_option('', '--developer-id', dest='developer_id', help='Identity (Developer ID) to use for code signing. The name is also used for GPG signing. (If not set, no code signing will occur)')
-	parser.add_option('', '--keychain', dest='keychain', help='The keychain to use when invoking code signing utilities. (Defaults to "login.keychain")', default='login.keychain')
-	parser.add_option('', '--server', dest='server', help='Build a Murmur package.', action='store_true', default=False)
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--source-dir', help='This sets the path to the repository. (Defaults to ".")', default='.')
+	parser.add_argument('--binary-dir', help='This sets the path to the folder containing binaries. It will also be used as output directory. (Defaults to "build")', default='build')
+	parser.add_argument('--version', help='This overrides the version number of the build.')
+	parser.add_argument('--universal', help='Build an universal snapshot.', action='store_true', default=False)
+	parser.add_argument('--only-appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
+	overlay_group = parser.add_mutually_exclusive_group()
+	overlay_group.add_argument('--only-overlay', help='Only create the overlay installer.', action='store_true', default=False)
+	overlay_group.add_argument('--no-overlay', help='Skip bundling the overlay', action='store_true', default=False)
+	parser.add_argument('--developer-id', help='Identity (Developer ID) to use for code signing. The name is also used for GPG signing. (If not set, no code signing will occur)')
+	parser.add_argument('--keychain', help='The keychain to use when invoking code signing utilities. (Defaults to "login.keychain")', default='login.keychain')
+	parser.add_argument('--server', help='Build a Murmur package.', action='store_true', default=False)
 
-	options, args = parser.parse_args()
+	options = parser.parse_args()
 
 	if not os.path.exists(options.source_dir):
 		print('Please specify a source directory that exists!')
