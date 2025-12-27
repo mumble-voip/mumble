@@ -55,7 +55,7 @@ namespace server {
 
 			std::vector< DBGroupMember > getEntries(unsigned int serverID, unsigned int groupID);
 
-			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 		};
 
 	} // namespace db

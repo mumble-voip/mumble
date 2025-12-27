@@ -676,7 +676,7 @@ namespace db {
 		transaction.commit();
 	}
 
-	void Database::migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+	void Database::migrateTables(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 		std::unordered_set< std::string > tableNames = getExistingTables();
 		std::unordered_set< std::string > tablesToBeRemoved;
 		tablesToBeRemoved.reserve(tableNames.size());
@@ -735,7 +735,7 @@ namespace db {
 
 				// Then issue a migration step in which the old data is imported into the new one (potentially
 				// transforming its format)
-				currentTable->migrate(fromSchemeVersion, toSchemeVersion);
+				currentTable->migrate(fromSchemaVersion, toSchemaVersion);
 			}
 		}
 
@@ -810,31 +810,31 @@ namespace db {
 				continue;
 			}
 
-			currentTable->postMigrationAction(fromSchemeVersion, toSchemeVersion);
+			currentTable->postMigrationAction(fromSchemaVersion, toSchemaVersion);
 		}
 
 		transaction.commit();
 	}
 
 	void Database::importMetaData(const nlohmann::json &metaData) {
-		if (!metaData.contains("scheme_version")) {
-			throw FormatException("JSON-import: meta_data is missing \"scheme_version\" field");
+		if (!metaData.contains("schema_version")) {
+			throw FormatException("JSON-import: meta_data is missing \"schema_version\" field");
 		}
-		if (!metaData["scheme_version"].is_number_integer()) {
-			throw FormatException("JSON-import: Expected to be \"scheme_version\" field to be of type integer");
+		if (!metaData["schema_version"].is_number_integer()) {
+			throw FormatException("JSON-import: Expected to be \"schema_version\" field to be of type integer");
 		}
-		if (metaData["scheme_version"].get< unsigned int >() != getSchemeVersion()) {
-			// For the time being, we will only verify that the specified version scheme will match our current scheme
+		if (metaData["schema_version"].get< unsigned int >() != getSchemaVersion()) {
+			// For the time being, we will only verify that the specified version schema will match our current schema
 			// version
-			throw FormatException(std::string("JSON-import: Can't import data for version scheme ")
-								  + std::to_string(metaData["scheme_version"].get< unsigned int >())
-								  + " when current scheme version is " + std::to_string(getSchemeVersion()));
+			throw FormatException(std::string("JSON-import: Can't import data for version schema ")
+								  + std::to_string(metaData["schema_version"].get< unsigned int >())
+								  + " when current schema version is " + std::to_string(getSchemaVersion()));
 		}
 	}
 
 	nlohmann::json Database::exportMetaData() const {
 		nlohmann::json metaData;
-		metaData["scheme_version"] = getSchemeVersion();
+		metaData["schema_version"] = getSchemaVersion();
 
 		return metaData;
 	}
@@ -852,7 +852,7 @@ namespace db {
 		// Start a transaction to ensure that we don't mess up the DB should anything fail during initialization
 		TransactionHolder transaction = ensureTransaction();
 
-		unsigned int schemeVersion = assumedSchemaVersion;
+		unsigned int schemaVersion = assumedSchemaVersion;
 		table_id meta_id           = std::numeric_limits< table_id >::max();
 		if (createMeta) {
 			// Create a meta-table
@@ -863,25 +863,25 @@ namespace db {
 				metaTable->create();
 				MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
 			} else {
-				// Get scheme version of already existing DB scheme and then set the version
-				// of the scheme we are going to apply to the DB
+				// Get schema version of already existing DB schema and then set the version
+				// of the schema we are going to apply to the DB
 				try {
 					// Savepoints are required as PostgreSQL doesn't like it when there is any kind of error during a
 					// transaction. Afterwards, any further action other than rolling back the transaction yields
 					// "current transaction is aborted" errors. Hence, we need to create a sub-transaction in form of a
 					// savepoint that we can indeed roll back in case of error
-					Savepoint save(m_sql, "scheme_version_fetch");
+					Savepoint save(m_sql, "schema_version_fetch");
 
-					schemeVersion = metaTable->getSchemeVersion();
+					schemaVersion = metaTable->getSchemaVersion();
 
 					save.release();
 				} catch (const AccessException &) {
 					// If the above has errored, we assume it's because of a mismatch in column names due to the
-					// existing Meta table being from before scheme version 10 where it used different column names (and
+					// existing Meta table being from before schema version 10 where it used different column names (and
 					// table migration will only happen below).
-					Savepoint save(m_sql, "scheme_version_fetch_legacy");
+					Savepoint save(m_sql, "schema_version_fetch_legacy");
 
-					schemeVersion = metaTable->getSchemeVersionLegacy();
+					schemaVersion = metaTable->getSchemaVersionLegacy();
 
 					save.release();
 				}
@@ -893,27 +893,27 @@ namespace db {
 		// Make sure all standard tables are added
 		setupStandardTables();
 
-		if (schemeVersion == 0) {
-			// The scheme version entry does not exist. We assume that this means that this is a freshly created DB
+		if (schemaVersion == 0) {
+			// The schema version entry does not exist. We assume that this means that this is a freshly created DB
 			createTables();
 			MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
-		} else if (schemeVersion < getSchemeVersion()) {
-			// The DB is still using an older scheme than we want to use -> perform an upgrade
-			migrateTables(schemeVersion, getSchemeVersion());
+		} else if (schemaVersion < getSchemaVersion()) {
+			// The DB is still using an older schema than we want to use -> perform an upgrade
+			migrateTables(schemaVersion, getSchemaVersion());
 			MUMBLE_WORKAROUND_MYSQL_IMPLICIT_COMMIT(transaction);
-		} else if (schemeVersion > getSchemeVersion()) {
-			// The DB is using a more recent scheme than we want to use -> abort immediately as we don't know how this
+		} else if (schemaVersion > getSchemaVersion()) {
+			// The DB is using a more recent schema than we want to use -> abort immediately as we don't know how this
 			// could possibly look like and we don't want to risk data loss.
-			throw InitException(std::string("The existing database is using a more recent scheme version (")
-								+ std::to_string(schemeVersion) + ") than the current Mumble instance intends to ("
-								+ std::to_string(getSchemeVersion()) + ")");
+			throw InitException(std::string("The existing database is using a more recent schema version (")
+								+ std::to_string(schemaVersion) + ") than the current Mumble instance intends to ("
+								+ std::to_string(getSchemaVersion()) + ")");
 		} else {
-			// The DB's scheme version matches the one we want to use already -> just use as is
+			// The DB's schema version matches the one we want to use already -> just use as is
 		}
 
 		if (createMeta) {
-			// Store most up-to-date scheme version in table
-			static_cast< MetaTable * >(getTable(meta_id))->setSchemeVersion(getSchemeVersion());
+			// Store most up-to-date schema version in table
+			static_cast< MetaTable * >(getTable(meta_id))->setSchemaVersion(getSchemaVersion());
 		}
 
 		transaction.commit();

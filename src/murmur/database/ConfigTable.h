@@ -49,7 +49,7 @@ namespace server {
 			void clearAllConfigs(unsigned int serverID);
 
 
-			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 		};
 
 	} // namespace db

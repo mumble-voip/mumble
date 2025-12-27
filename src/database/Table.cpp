@@ -189,9 +189,9 @@ namespace db {
 		transaction.commit();
 	}
 
-	void Table::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
-		(void) fromSchemeVersion;
-		(void) toSchemeVersion;
+	void Table::migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
+		(void) fromSchemaVersion;
+		(void) toSchemaVersion;
 		// The default implementation simply imports all data from the old table into the new one. The previously
 		// existing table will have been renamed to include the suffix Database::OLD_TABLE_SUFFIX. Other than that the
 		// table name and the columns in that table are assumed to be equal to those of the table represented by this
@@ -214,9 +214,9 @@ namespace db {
 		}
 	}
 
-	void Table::postMigrationAction(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
-		(void) fromSchemeVersion;
-		(void) toSchemeVersion;
+	void Table::postMigrationAction(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
+		(void) fromSchemaVersion;
+		(void) toSchemaVersion;
 	}
 
 	void Table::destroy() {

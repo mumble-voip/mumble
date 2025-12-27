@@ -369,13 +369,13 @@ namespace server {
 			}
 		}
 
-		void BanTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		void BanTable::migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
-			assert(fromSchemeVersion <= toSchemeVersion);
+			assert(fromSchemaVersion <= toSchemaVersion);
 
 			try {
-				if (fromSchemeVersion < 10) {
+				if (fromSchemaVersion < 10) {
 					// Before v4, we stored IPv4 addresses in the DB and there only were the fields server_id, base (the
 					// IPv4 address) and mask.
 					// In v10 the following columns have been renamed:
@@ -499,12 +499,12 @@ namespace server {
 					}
 				} else {
 					// Use default implementation to handle migration without change of format
-					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
+					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::MigrationException(
-					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
-					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+					std::string("Failed at migrating table \"") + NAME + "\" from schema version "
+					+ std::to_string(fromSchemaVersion) + " to " + std::to_string(toSchemaVersion)));
 			}
 		}
 

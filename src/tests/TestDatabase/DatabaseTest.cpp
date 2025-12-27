@@ -130,7 +130,7 @@ public:
 		}
 	}
 
-	unsigned int getSchemeVersion() const override { return 42; }
+	unsigned int getSchemaVersion() const override { return 42; }
 
 	void connect(const ConnectionParameter &param) {
 		Database::connectToDB(param);
@@ -299,8 +299,8 @@ void DatabaseTest::simpleExport() {
 
 	MetaTable *metaTable = static_cast< MetaTable * >(db.getTable(MetaTable::NAME));
 
-	metaTable->setSchemeVersion(5);
-	QCOMPARE(metaTable->getSchemeVersion(), static_cast< unsigned int >(5));
+	metaTable->setSchemaVersion(5);
+	QCOMPARE(metaTable->getSchemaVersion(), static_cast< unsigned int >(5));
 
 	// clang-format off
 		nlohmann::json expectedJson = {
@@ -316,7 +316,7 @@ void DatabaseTest::simpleExport() {
 									metaTable->findColumn("meta_value")->getType().sqlRepresentation(currentBackend) }
 							},
 							{
-								"rows", nlohmann::json::array({ { "scheme_version", "5" } })
+								"rows", nlohmann::json::array({ { "schema_version", "5" } })
 							}
 						}
 					}
@@ -324,7 +324,7 @@ void DatabaseTest::simpleExport() {
 			},
 			{ "meta_data",
 				{
-				   { "scheme_version", 42 }
+				   { "schema_version", 42 }
 				}
 			}
 		};
@@ -361,7 +361,7 @@ void DatabaseTest::simpleImport() {
 									metaTable->findColumn("meta_value")->getType().sqlRepresentation(currentBackend) }
 							},
 							{
-								"rows", nlohmann::json::array({ { "scheme_version", "12" } })
+								"rows", nlohmann::json::array({ { "schema_version", "12" } })
 							}
 						}
 					},
@@ -384,21 +384,21 @@ void DatabaseTest::simpleImport() {
 				}
 			}, { "meta_data",
 				{
-					{ "scheme_version", 1 }
+					{ "schema_version", 1 }
 				}
 			}
 		};
 	// clang-format on
 
-	QVERIFY(db.getSchemeVersion() != serializedDB["meta_data"]["scheme_version"].get< unsigned int >());
+	QVERIFY(db.getSchemaVersion() != serializedDB["meta_data"]["schema_version"].get< unsigned int >());
 
-	// The scheme_version specified in meta-data doesn't match, so we expect the import to fail (before creating any
+	// The schema_version specified in meta-data doesn't match, so we expect the import to fail (before creating any
 	// tables)
 	QVERIFY(db.getTable("test_table") == nullptr);
 	QVERIFY_THROWS_EXCEPTION(FormatException, db.importFromJSON(serializedDB, true));
 	QVERIFY(!db.tableExistsInDB("test_table"));
 
-	serializedDB["meta_data"]["scheme_version"] = db.getSchemeVersion();
+	serializedDB["meta_data"]["schema_version"] = db.getSchemaVersion();
 
 	// Importing into a non-existent table without telling the DB to create the missing tables on-the-fly should
 	// result in an error
@@ -406,7 +406,7 @@ void DatabaseTest::simpleImport() {
 	QVERIFY_THROWS_EXCEPTION(FormatException, db.importFromJSON(serializedDB, false));
 	QVERIFY(!db.tableExistsInDB("test_table"));
 
-	// Now with the version_scheme fixed and the necessary flag set, the import should succeed
+	// Now with the schema_version fixed and the necessary flag set, the import should succeed
 	db.importFromJSON(serializedDB, true);
 	QVERIFY(db.tableExistsInDB("test_table"));
 	QVERIFY(db.getTable("test_table") != nullptr);

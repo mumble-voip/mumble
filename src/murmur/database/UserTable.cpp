@@ -677,13 +677,13 @@ namespace server {
 		}
 
 
-		void UserTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		void UserTable::migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 			// Note: Always hard-code old table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
-			assert(fromSchemeVersion <= toSchemeVersion);
+			assert(fromSchemaVersion <= toSchemaVersion);
 
 			try {
-				if (fromSchemeVersion < 8) {
+				if (fromSchemaVersion < 8) {
 					// Before v8 there was no last_disconnect column
 					const std::string lastActiveConversion = mdb::utils::dateToEpoch("\"last_active\"", m_backend);
 
@@ -695,7 +695,7 @@ namespace server {
 						  << ::mdb::utils::nonNullOf("\"lastchannel\"").otherwise("0") << ", \"texture\", "
 						  << ::mdb::utils::nonNullOf(lastActiveConversion).otherwise("0") << " FROM \"users"
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
-				} else if (fromSchemeVersion < 10) {
+				} else if (fromSchemaVersion < 10) {
 					// In v10, we renamed columns "name" -> "user_name", "pw" -> "password_hash",
 					// "kdfiterations" -> "kdf_iterations" and "lastchannel" -> "last_channel_id"
 					const std::string lastActiveConversion = mdb::utils::dateToEpoch("\"last_active\"", m_backend);
@@ -714,12 +714,12 @@ namespace server {
 						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
-					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
+					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::MigrationException(
-					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
-					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+					std::string("Failed at migrating table \"") + NAME + "\" from schema version "
+					+ std::to_string(fromSchemaVersion) + " to " + std::to_string(toSchemaVersion)));
 			}
 		}
 

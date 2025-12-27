@@ -188,16 +188,16 @@ public:
 class FutureMigrationTestDB : public TestDB {
 	using TestDB::TestDB;
 
-	unsigned int getSchemeVersion() const override {
-		// Always return a scheme version one higher than the actual scheme version to
-		// simulate a (no-op) migration to a future scheme version
-		return TestDB::getSchemeVersion() + 1;
+	unsigned int getSchemaVersion() const override {
+		// Always return a schema version one higher than the actual schema version to
+		// simulate a (no-op) migration to a future schema version
+		return TestDB::getSchemaVersion() + 1;
 	}
 
 	// Need to overwrite ServerDatabase's implementation to avoid the sanity checks it performs
-	// on the scheme versions
-	void migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override {
-		return ::mdb::Database::migrateTables(fromSchemeVersion, toSchemeVersion);
+	// on the schema versions
+	void migrateTables(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override {
+		return ::mdb::Database::migrateTables(fromSchemaVersion, toSchemaVersion);
 	}
 };
 
@@ -208,10 +208,10 @@ class PlainDB : public mdb::Database {
 public:
 	friend class ServerDatabaseTest;
 
-	PlainDB(::mdb::Backend backend, unsigned int schemeVersion)
-		: ::mdb::Database(backend), schemeVersion(schemeVersion) {}
+	PlainDB(::mdb::Backend backend, unsigned int schemaVersion)
+		: ::mdb::Database(backend), schemaVersion(schemaVersion) {}
 
-	unsigned int getSchemeVersion() const override { return schemeVersion; }
+	unsigned int getSchemaVersion() const override { return schemaVersion; }
 
 	~PlainDB() override {
 		// Clear up everything that we have created in our test case
@@ -233,7 +233,7 @@ public:
 	soci::session &getSQLHandle() { return m_sql; }
 
 private:
-	unsigned int schemeVersion;
+	unsigned int schemaVersion;
 };
 
 class ServerDatabaseTest : public QObject {
@@ -254,8 +254,8 @@ private slots:
 	void banTable_general();
 	void channelListenerTable_general();
 
-	void database_scheme_migration();
-	void database_future_scheme_migration();
+	void database_schema_migration();
+	void database_future_schema_migration();
 };
 
 
@@ -1615,28 +1615,28 @@ void ServerDatabaseTest::channelListenerTable_general() {
 	MUMBLE_END_TEST_CASE
 }
 
-void ServerDatabaseTest::database_scheme_migration() {
+void ServerDatabaseTest::database_schema_migration() {
 	::mumble::db::test::JSONAssembler dataAssembler;
 
-	for (unsigned int schemeVersion = 6; schemeVersion <= ::msdb::ServerDatabase::DB_SCHEME_VERSION; ++schemeVersion) {
-		qInfo() << "Current scheme version:" << schemeVersion;
+	for (unsigned int schemaVersion = 6; schemaVersion <= ::msdb::ServerDatabase::DB_SCHEMA_VERSION; ++schemaVersion) {
+		qInfo() << "Current schema version:" << schemaVersion;
 
 		MUMBLE_BEGIN_TEST_CASE_NO_INIT
 
 		db.configureStandardTablesWithoutCreation();
 
-		const ::mumble::db::test::JSONAssembler::DataPair tableData = dataAssembler.buildTestData(schemeVersion, db);
+		const ::mumble::db::test::JSONAssembler::DataPair tableData = dataAssembler.buildTestData(schemaVersion, db);
 
 		db.resetTables();
 
-		PlainDB plainDB(currentBackend, schemeVersion);
-		plainDB.init(::mumble::db::test::utils::getConnectionParamter(currentBackend), false, schemeVersion);
+		PlainDB plainDB(currentBackend, schemaVersion);
+		plainDB.init(::mumble::db::test::utils::getConnectionParamter(currentBackend), false, schemaVersion);
 
 		// Populate the DB with the old data
 		plainDB.importFromJSON(tableData.inputData, true);
 
 
-		// Start migration (happens automatically on init, if the scheme version is lower)
+		// Start migration (happens automatically on init, if the schema version is lower)
 		db.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
 
 		qInfo() << "Migration successful";
@@ -1694,7 +1694,7 @@ void ServerDatabaseTest::database_scheme_migration() {
 	}
 }
 
-void ServerDatabaseTest::database_future_scheme_migration() {
+void ServerDatabaseTest::database_future_schema_migration() {
 	MUMBLE_BEGIN_TEST_CASE_BACKEND_ITER_ONLY
 
 	{
@@ -1704,8 +1704,8 @@ void ServerDatabaseTest::database_future_scheme_migration() {
 		db.init(::mumble::db::test::utils::getConnectionParamter(currentBackend));
 	}
 
-	// Init tweaked ServerDatabase that has an increased scheme version to trigger a (no-op) migration to
-	// the (as of yet) non-existing scheme version
+	// Init tweaked ServerDatabase that has an increased schema version to trigger a (no-op) migration to
+	// the (as of yet) non-existing schema version
 	FutureMigrationTestDB future(currentBackend);
 
 	// Initialization should trigger the migration

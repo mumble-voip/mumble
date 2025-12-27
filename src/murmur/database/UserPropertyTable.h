@@ -86,7 +86,7 @@ namespace server {
 			std::vector< unsigned int > findUsersWithProperty(unsigned int serverID, UserProperty property,
 															  const std::string &value);
 
-			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 
 		protected:
 			std::string doGetProperty(const DBUser &user, UserProperty property);

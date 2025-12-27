@@ -45,18 +45,18 @@ namespace db {
 
 		virtual void create();
 		/**
-		 * Migrate this table to the new scheme version. Note that this function assumes that a transaction has already
+		 * Migrate this table to the new schema version. Note that this function assumes that a transaction has already
 		 * been started when this function is called. Note also that when this function is called, the original table
 		 * containing the legacy data has been renamed to have the suffix Database::OLD_TABLE_SUFFIX.
 		 *
-		 * @param fromSchemeVersion The scheme version of the existing DB
-		 * @param toSchemeVersion The scheme version to migrate to
+		 * @param fromSchemaVersion The schema version of the existing DB
+		 * @param toSchemaVersion The schema version to migrate to
 		 */
-		virtual void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion);
+		virtual void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion);
 		/**
 		 * Handler to be called once all tables have been successfully migrated.
 		 */
-		virtual void postMigrationAction(unsigned int fromSchemeVersion, unsigned int toScheme);
+		virtual void postMigrationAction(unsigned int fromSchemaVersion, unsigned int toSchemaVersion);
 		virtual void destroy();
 		virtual void clear();
 

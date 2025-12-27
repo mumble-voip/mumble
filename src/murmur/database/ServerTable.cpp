@@ -144,37 +144,37 @@ namespace server {
 			}
 		}
 
-		void ServerTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		void ServerTable::migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 			// Note: Always hard-code old table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
-			assert(fromSchemeVersion <= toSchemeVersion);
+			assert(fromSchemaVersion <= toSchemaVersion);
 
 			try {
-				if (fromSchemeVersion < 10) {
+				if (fromSchemaVersion < 10) {
 					// In v10 we renamed this table from "servers" to "virtual_servers"
 					// -> Import all data from the old table into the new one
 					m_sql << "INSERT INTO \"" << getName() << "\" (\"" << column::server_id
 						  << "\") SELECT \"server_id\" FROM \"servers" << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
-					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
+					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::MigrationException(
-					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
-					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+					std::string("Failed at migrating table \"") + NAME + "\" from schema version "
+					+ std::to_string(fromSchemaVersion) + " to " + std::to_string(toSchemaVersion)));
 			}
 		}
 
-		void ServerTable::postMigrationAction(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
-			assert(fromSchemeVersion < toSchemeVersion);
-			(void) toSchemeVersion;
+		void ServerTable::postMigrationAction(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
+			assert(fromSchemaVersion < toSchemaVersion);
+			(void) toSchemaVersion;
 
 #define PROCESS_TABLE(Table)                                                                  \
 	m_sql << "UPDATE \"" << Table::NAME << "\" SET \"" << Table::column::server_id << "\"=\"" \
 		  << Table::column::server_id << "\" - 1"
 
-			if (fromSchemeVersion < 10) {
+			if (fromSchemaVersion < 10) {
 				// Since v10 server IDs are expected to start at zero. If this is not yet the case (almost certainly),
 				// shift all server IDs down by one.
 				// Since the server ID has influence on the (default) port it listens to, matching this expectation will

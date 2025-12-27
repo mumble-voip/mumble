@@ -333,13 +333,13 @@ namespace server {
 			}
 		}
 
-		void GroupTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		void GroupTable::migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 			// Note: Always hard-code table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
-			assert(fromSchemeVersion <= toSchemeVersion);
+			assert(fromSchemaVersion <= toSchemaVersion);
 
 			try {
-				if (fromSchemeVersion < 10) {
+				if (fromSchemaVersion < 10) {
 					// In v10 we renamed the columns "name" -> "group_name" and "inheritable" -> "is_inheritable"
 					// -> Import all data from the old table into the new one
 					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::group_id
@@ -351,12 +351,12 @@ namespace server {
 						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
 				} else {
 					// Use default implementation to handle migration without change of format
-					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
+					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::MigrationException(
-					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
-					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+					std::string("Failed at migrating table \"") + NAME + "\" from schema version "
+					+ std::to_string(fromSchemaVersion) + " to " + std::to_string(toSchemaVersion)));
 			}
 		}
 

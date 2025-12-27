@@ -33,18 +33,18 @@ namespace server {
 		class ServerDatabase : public ::mumble::db::Database {
 		public:
 			/**
-			 * A version number keeping track of the scheme that is used for the database. Any change to the scheme
+			 * A version number keeping track of the schema that is used for the database. Any change to the schema
 			 * has to be accompanied by increasing this number. A decrease is never allowed!
-			 * Using a scheme version like this allows us to be able to create migration paths between scheme versions.
+			 * Using a schema version like this allows us to be able to create migration paths between schema versions.
 			 */
-			static constexpr unsigned int DB_SCHEME_VERSION = 10;
+			static constexpr unsigned int DB_SCHEMA_VERSION = 10;
 
 			ServerDatabase(::mumble::db::Backend backend);
 			~ServerDatabase() = default;
 
-			unsigned int getSchemeVersion() const override;
+			unsigned int getSchemaVersion() const override;
 
-			void migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void migrateTables(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 
 			::mumble::db::MetaTable &getMetaTable();
 			ServerTable &getServerTable();

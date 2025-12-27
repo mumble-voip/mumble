@@ -49,26 +49,26 @@ namespace server {
 			};
 		}
 
-		constexpr unsigned int ServerDatabase::DB_SCHEME_VERSION;
+		constexpr unsigned int ServerDatabase::DB_SCHEMA_VERSION;
 
 		ServerDatabase::ServerDatabase(::mdb::Backend backend) : ::mdb::Database(backend) {}
 
-		unsigned int ServerDatabase::getSchemeVersion() const { return DB_SCHEME_VERSION; }
+		unsigned int ServerDatabase::getSchemaVersion() const { return DB_SCHEMA_VERSION; }
 
-		void ServerDatabase::migrateTables(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		void ServerDatabase::migrateTables(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 			// Ensure that the migration is in a range that we actually support
-			if (toSchemeVersion != DB_SCHEME_VERSION) {
+			if (toSchemaVersion != DB_SCHEMA_VERSION) {
 				throw ::mdb::MigrationException(
-					"Requested to migrate to scheme version " + std::to_string(toSchemeVersion)
-					+ " but can only migrate to latest scheme version (" + std::to_string(DB_SCHEME_VERSION) + ")");
+					"Requested to migrate to schema version " + std::to_string(toSchemaVersion)
+					+ " but can only migrate to latest schema version (" + std::to_string(DB_SCHEMA_VERSION) + ")");
 			}
-			if (fromSchemeVersion < 6) {
-				throw ::mdb::MigrationException("Requested to migrate from scheme version "
-												+ std::to_string(fromSchemeVersion)
+			if (fromSchemaVersion < 6) {
+				throw ::mdb::MigrationException("Requested to migrate from schema version "
+												+ std::to_string(fromSchemaVersion)
 												+ " but support for versions < 6 has been dropped");
 			}
 
-			::mdb::Database::migrateTables(fromSchemeVersion, toSchemeVersion);
+			::mdb::Database::migrateTables(fromSchemaVersion, toSchemaVersion);
 		}
 
 		void ServerDatabase::setupStandardTables() {

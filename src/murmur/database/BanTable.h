@@ -63,7 +63,7 @@ namespace server {
 
 			void setBans(unsigned int serverID, const std::vector< DBBan > &bans);
 
-			void migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) override;
+			void migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) override;
 		};
 
 	} // namespace db

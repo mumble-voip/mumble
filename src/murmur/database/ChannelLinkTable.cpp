@@ -206,13 +206,13 @@ namespace server {
 			}
 		}
 
-		void ChannelLinkTable::migrate(unsigned int fromSchemeVersion, unsigned int toSchemeVersion) {
+		void ChannelLinkTable::migrate(unsigned int fromSchemaVersion, unsigned int toSchemaVersion) {
 			// Note: Always hard-code old table and column names in this function in order to ensure that this
 			// migration path always stays the same regardless of whether the respective named constants change.
-			assert(fromSchemeVersion <= toSchemeVersion);
+			assert(fromSchemaVersion <= toSchemaVersion);
 
 			try {
-				if (fromSchemeVersion < 10) {
+				if (fromSchemaVersion < 10) {
 					// In v10 we renamed the columns "channel_id" -> "first_channel_id" and "link_id" ->
 					// "second_channel_id"
 					// -> Import all data from the old table into the new one
@@ -229,12 +229,12 @@ namespace server {
 					// clang-format on
 				} else {
 					// Use default implementation to handle migration without change of format
-					mdb::Table::migrate(fromSchemeVersion, toSchemeVersion);
+					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
 				}
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::MigrationException(
-					std::string("Failed at migrating table \"") + NAME + "\" from scheme version "
-					+ std::to_string(fromSchemeVersion) + " to " + std::to_string(toSchemeVersion)));
+					std::string("Failed at migrating table \"") + NAME + "\" from schema version "
+					+ std::to_string(fromSchemaVersion) + " to " + std::to_string(toSchemaVersion)));
 			}
 		}
 

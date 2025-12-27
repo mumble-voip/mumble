@@ -66,7 +66,7 @@ namespace db {
 				// names in SQLite are global (instead of scoped per table)
 				return "SELECT 1 FROM sqlite_master WHERE type = 'index' AND name = '" + m_name + "'";
 			case Backend::PostgreSQL:
-				// Note: index names are global (for a given scheme), hence the table's name
+				// Note: index names are global (for a given schema), hence the table's name
 				// does not appear in the query
 				return "SELECT 1 FROM pg_indexes WHERE indexname = '" + m_name + "'";
 			case Backend::MySQL:
