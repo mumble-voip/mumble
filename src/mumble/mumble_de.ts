@@ -3581,11 +3581,11 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei erstellen</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurierten Pfad zurücksetzen</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
