@@ -359,7 +359,7 @@ def package_server():
 		print('Failed to build Murmur XIP package')
 		sys.exit(1)
 
-	absrelease = os.path.join(os.getcwd(), 'options.binary_dir')
+	absrelease = os.path.join(os.getcwd(), options.binary_dir)
 
 	p = Popen(('tar', '-cjpf', name+'.tar.bz2', name), cwd=absrelease)
 	retval = p.wait()
