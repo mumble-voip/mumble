@@ -51,6 +51,8 @@ elseif(UNIX)
 		option(speechd "Build support for Speech Dispatcher." ON)
 	endif()
 
+	option(dbus "Enable DBus support/interface" ON)
+
 	# scripts/generate_cmake_options_docs.py does not cope with duplicate option() lines,
 	# so single out common options into combined conditions.
 	# https://github.com/mumble-voip/mumble/issues/5488
@@ -835,7 +837,7 @@ if(NOT update)
 	target_compile_definitions(mumble_client_object_lib PUBLIC "NO_UPDATE_CHECK")
 endif()
 
-if(NOT WIN32 AND NOT APPLE)
+if(dbus AND (NOT WIN32 AND NOT APPLE))
 	find_pkg(Qt6 COMPONENTS DBus REQUIRED)
 
 	target_sources(mumble_client_object_lib
