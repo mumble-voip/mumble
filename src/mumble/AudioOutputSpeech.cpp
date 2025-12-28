@@ -69,11 +69,11 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 
 	// opus's "frame" means different from normal audio term "frame"
 	// normally, a frame means a bundle of only one sample from each channel,
-	// e.Global::get(). for a stereo stream, ...[LR]LRLRLR.... where the bracket indicates a frame
+	// e.g. for a stereo stream, ...[LR]LRLRLR.... where the bracket indicates a frame
 	// in opus term, a frame means samples that span a period of time, which can be either stereo or mono
-	// e.Global::get(). ...[LRLR....LRLR].... or ...[MMMM....MMMM].... for mono stream
+	// e.g. ...[LRLR....LRLR].... or ...[MMMM....MMMM].... for mono stream
 	// opus supports frames with: 2.5, 5, 10, 20, 40 or 60 ms of audio data.
-	// sample rate / 100 means 10ms mono audio data per frame.
+	// sample rate / 100 means 10ms (0.01s) mono audio data points (samples) per frame.
 	iFrameSizePerChannel = iFrameSize = iSampleRate / 100; // for mono stream
 
 	assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
@@ -86,13 +86,14 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 					 OPUS_SET_PHASE_INVERSION_DISABLED(1)); // Disable phase inversion for better mono downmix.
 
 	// iAudioBufferSize: size (in unit of float) of the buffer used to store decoded pcm data.
-	// For opus, the maximum frame size of a packet is 60ms.
-	iAudioBufferSize = iSampleRate * 60 / 1000; // = SampleRate * 60ms = 48000Hz * 0.06s = 2880, ~12KB
+	// For opus, the maximum frame size of a packet is 120ms (the maximum duration for a single frame
+	// is 60ms but multiple frames may be bundled into a single packet of a duration up to 120ms).
+	iAudioBufferSize = iSampleRate * 120 / 1000; // = SampleRate * 120ms = 48000Hz * 0.12s = 5760, ~23KB
 
 	// iBufferSize: size of the buffer to store the resampled audio data.
 	// Note that the number of samples in each opus packet can be different from the number of samples the system
 	// requests from us each time (this is known as the system's audio buffer size).
-	// For example, the maximum size of an opus packet can be 60ms, but the system's audio buffer size is typically
+	// For example, the maximum size of an opus packet is 120ms, but the system's audio buffer size is typically
 	// ~5ms on my laptop.
 	// Whenever the system's audio callback is called, we have two choice:
 	//  1. Decode a new opus packet. Then we need a buffer to store unused samples (which don't fit in the system's
@@ -101,7 +102,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 	// How large should this buffer be? Consider the case in which remaining samples in the buffer can not fill
 	// the system's audio buffer. In that case, we need to decode a new opus packet. In the worst case, the buffer size
 	// needed is
-	//    60ms of new decoded audio data + system's buffer size - 1.
+	//    120ms of new decoded audio data + system's buffer size - 1.
 	iOutputSize = static_cast< unsigned int >(
 		ceilf(static_cast< float >(iAudioBufferSize * iMixerFreq) / static_cast< float >(iSampleRate)));
 	iBufferSize = iOutputSize + systemMaxBufferSize; // -1 has been rounded up
@@ -346,7 +347,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					// packet normally in order to be able to play it.
 					decodedSamples = opus_decode_float(
 						opusState, qba.isEmpty() ? nullptr : reinterpret_cast< const unsigned char * >(qba.constData()),
-						static_cast< opus_int32 >(qba.size()), pOut, static_cast< int >(iAudioBufferSize), 0);
+						static_cast< opus_int32 >(qba.size()), pOut, static_cast< int >(iAudioBufferSize / channels),
+						0);
 				} else {
 					// If the packet is non-empty, but the associated user is locally muted,
 					// we don't have to decode the packet. Instead it is enough to know how many
@@ -398,7 +400,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				}
 			} else {
 				assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
-				decodedSamples = opus_decode_float(opusState, nullptr, 0, pOut, static_cast< int >(iFrameSize), 0);
+				decodedSamples =
+					opus_decode_float(opusState, nullptr, 0, pOut, static_cast< int >(iFrameSizePerChannel), 0);
 				decodedSamples *= static_cast< int >(channels);
 
 				if (decodedSamples < 0) {
