@@ -3577,19 +3577,19 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puoi anche scegliere di reimpostare il percorso configurato al valore iniziale.</translation>
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea file</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Reimposta percorso configurato</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Esci Senza Salvare</translation>
     </message>
 </context>
 <context>
