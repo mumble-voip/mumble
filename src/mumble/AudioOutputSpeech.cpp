@@ -347,7 +347,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 					// packet normally in order to be able to play it.
 					decodedSamples = opus_decode_float(
 						opusState, qba.isEmpty() ? nullptr : reinterpret_cast< const unsigned char * >(qba.constData()),
-						static_cast< opus_int32 >(qba.size()), pOut, static_cast< int >(iAudioBufferSize), 0);
+						static_cast< opus_int32 >(qba.size()), pOut, static_cast< int >(iAudioBufferSize / channels),
+						0);
 				} else {
 					// If the packet is non-empty, but the associated user is locally muted,
 					// we don't have to decode the packet. Instead it is enough to know how many
@@ -399,7 +400,8 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 				}
 			} else {
 				assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
-				decodedSamples = opus_decode_float(opusState, nullptr, 0, pOut, static_cast< int >(iFrameSize), 0);
+				decodedSamples =
+					opus_decode_float(opusState, nullptr, 0, pOut, static_cast< int >(iFrameSizePerChannel), 0);
 				decodedSamples *= static_cast< int >(channels);
 
 				if (decodedSamples < 0) {
