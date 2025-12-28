@@ -69,11 +69,11 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Mumble
 
 	// opus's "frame" means different from normal audio term "frame"
 	// normally, a frame means a bundle of only one sample from each channel,
-	// e.Global::get(). for a stereo stream, ...[LR]LRLRLR.... where the bracket indicates a frame
+	// e.g. for a stereo stream, ...[LR]LRLRLR.... where the bracket indicates a frame
 	// in opus term, a frame means samples that span a period of time, which can be either stereo or mono
-	// e.Global::get(). ...[LRLR....LRLR].... or ...[MMMM....MMMM].... for mono stream
+	// e.g. ...[LRLR....LRLR].... or ...[MMMM....MMMM].... for mono stream
 	// opus supports frames with: 2.5, 5, 10, 20, 40 or 60 ms of audio data.
-	// sample rate / 100 means 10ms mono audio data per frame.
+	// sample rate / 100 means 10ms (0.01s) mono audio data points (samples) per frame.
 	iFrameSizePerChannel = iFrameSize = iSampleRate / 100; // for mono stream
 
 	assert(m_codec == Mumble::Protocol::AudioCodec::Opus);
