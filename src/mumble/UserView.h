@@ -10,6 +10,7 @@
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QTreeView>
 
+#include "ClientUser.h"
 #include "QtUtils.h"
 #include "Timer.h"
 
@@ -24,6 +25,8 @@ private:
 
 public:
 	UserDelegate(QObject *parent);
+	static bool drawAvatarIcon(QPainter &painter, const QRect &rect, const ClientUser *user,
+							   const QIcon &talkIndicator);
 	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 	void adjustIcons(int iconTotalDimension, int iconIconPadding, int iconIconDimension);
 
@@ -48,6 +51,7 @@ protected:
 
 public:
 	UserView(QWidget *);
+	void triggerUpdate();
 	void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
 	void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight,
 					 const QVector< int > &roles = QVector< int >()) Q_DECL_OVERRIDE;
