@@ -43,6 +43,7 @@ public:
 	~GlobalShortcut() Q_DECL_OVERRIDE;
 
 	bool active() const { return !qlActive.isEmpty(); }
+	void reset();
 };
 
 /**
