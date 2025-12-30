@@ -6,7 +6,9 @@
 	<summary>Low latency encrypted VoIP client</summary>
 	<project_license>BSD-3-Clause</project_license>
 	<metadata_license>CC0-1.0</metadata_license>
-	<developer_name>The Mumble Dev-Team</developer_name>
+	<developer id="info.mumble">
+		<name>The Mumble Developers</name>
+	</developer>
 	<description>
 		<p>@CMAKE_PROJECT_DESCRIPTION@</p>
 	</description>
