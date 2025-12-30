@@ -19,6 +19,7 @@
 	<url type="help">https://www.mumble.info/documentation</url>
 	<url type="donation">https://liberapay.com/mumble</url>
 	<url type="translate">https://github.com/mumble-voip/mumble/blob/master/README.md#translating</url>
+	<url type="vcs-browser">https://github.com/mumble-voip/mumble</url>
 	<launchable type="desktop-id">info.mumble.Mumble.desktop</launchable>
 	<screenshots>
 		<screenshot type="default">
