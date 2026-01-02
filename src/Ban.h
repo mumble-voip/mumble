@@ -28,6 +28,7 @@ struct Ban {
 	bool operator<(const Ban &) const;
 	bool operator==(const Ban &) const;
 	QString toString() const;
+	QString toKey() const;
 };
 
 namespace std {

@@ -20,7 +20,8 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), 
 
 	qlwBans->setFocus();
 
-	qlBans.clear();
+	m_bans.clear();
+
 	for (int i = 0; i < msg.bans_size(); ++i) {
 		const MumbleProto::BanList_BanEntry &be = msg.bans(i);
 		Ban b;
@@ -42,17 +43,33 @@ BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p), 
 		b.iDuration = be.duration();
 
 		if (b.isValid()) {
-			qlBans << b;
+			m_bans.insert(b);
 		}
 	}
 
 	refreshBanList();
 }
 
+std::set< Ban >::iterator BanEditor::atIndex(int idx) {
+	auto it = m_bans.begin();
+	std::advance(it, idx);
+	return it;
+}
+
+int BanEditor::indexOf(const Ban &ban) {
+	auto it = m_bans.find(ban);
+
+	if (it == m_bans.end()) {
+		return -1;
+	}
+
+	return static_cast< int >(std::distance(m_bans.begin(), it));
+}
+
 void BanEditor::accept() {
 	MumbleProto::BanList msg;
 
-	for (const Ban &b : qlBans) {
+	for (const Ban &b : m_bans) {
 		MumbleProto::BanList_BanEntry *be = msg.add_bans();
 		be->set_address(b.haAddress.toStdString());
 		assert(b.iMask >= 0);
@@ -78,7 +95,7 @@ void BanEditor::on_qlwBans_currentRowChanged() {
 	qpbUpdate->setEnabled(false);
 	qpbRemove->setEnabled(true);
 
-	const Ban &ban = qlBans.at(idx);
+	const Ban &ban = *atIndex(idx);
 
 	int maskbits = ban.iMask;
 
@@ -130,6 +147,10 @@ Ban BanEditor::toBan(bool &ok) {
 
 	ok = b.isValid();
 
+	if (m_bans.contains(b)) {
+		ok = false;
+	}
+
 	return b;
 }
 
@@ -141,9 +162,9 @@ void BanEditor::on_qpbAdd_clicked() {
 	Ban b = toBan(ok);
 
 	if (ok) {
-		qlBans << b;
+		m_bans.insert(b);
 		refreshBanList();
-		qlwBans->setCurrentRow(static_cast< int >(qlBans.indexOf(b)));
+		qlwBans->setCurrentRow(indexOf(b));
 	}
 
 	qlwBans->setCurrentRow(-1);
@@ -153,20 +174,27 @@ void BanEditor::on_qpbAdd_clicked() {
 void BanEditor::on_qpbUpdate_clicked() {
 	int idx = qlwBans->currentRow();
 	if (idx >= 0) {
+		const Ban &old = *atIndex(idx);
+		m_bans.erase(old);
+
 		bool ok;
 		Ban b = toBan(ok);
 		if (ok) {
-			qlBans.replace(idx, b);
-			refreshBanList();
-			qlwBans->setCurrentRow(static_cast< int >(qlBans.indexOf(b)));
+			m_bans.insert(b);
+		} else {
+			m_bans.insert(old);
 		}
+
+		refreshBanList();
+		qlwBans->setCurrentRow(indexOf(b));
 	}
 }
 
 void BanEditor::on_qpbRemove_clicked() {
 	int idx = qlwBans->currentRow();
 	if (idx >= 0) {
-		qlBans.removeAt(idx);
+		const Ban &old = *atIndex(idx);
+		m_bans.erase(old);
 	}
 	refreshBanList();
 
@@ -187,9 +215,7 @@ void BanEditor::on_qpbRemove_clicked() {
 void BanEditor::refreshBanList() {
 	qlwBans->clear();
 
-	std::sort(qlBans.begin(), qlBans.end());
-
-	for (const Ban &ban : qlBans) {
+	for (const Ban &ban : m_bans) {
 		const QHostAddress &addr = ban.haAddress.toAddress();
 		if (!ban.qsUsername.isEmpty()) {
 			qlwBans->addItem(ban.qsUsername);
@@ -200,7 +226,7 @@ void BanEditor::refreshBanList() {
 		}
 	}
 
-	setWindowTitle(tr("Ban List - %n Ban(s)", "", static_cast< int >(qlBans.count())));
+	setWindowTitle(tr("Ban List - %n Ban(s)", "", static_cast< int >(m_bans.size())));
 }
 
 void BanEditor::on_qleSearch_textChanged(const QString &match) {

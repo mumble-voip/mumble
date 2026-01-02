@@ -41,6 +41,11 @@ QString Ban::toString() const {
 			 iDuration == 0 ? QLatin1String("(permanent)") : QLatin1String("(temporary)"));
 }
 
+QString Ban::toKey() const {
+	// Used for de-duplication
+	return qsHash + "\n" + haAddress.toString() + "\n" + QString::number(iMask);
+}
+
 std::size_t qHash(const Ban &b) {
 	return std::hash< Ban >{}(b);
 }

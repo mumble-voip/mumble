@@ -687,6 +687,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		sendMessage(uSource, msg);
 	} else {
 		previousBans = std::set< Ban >(m_bans.begin(), m_bans.end());
+		std::set< QString > uniqueBans;
 
 		m_bans.clear();
 		for (int i = 0; i < msg.bans_size(); ++i) {
@@ -711,8 +712,16 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 
 			b.iDuration = be.duration();
 
+			QString repr = b.toKey();
+
+			// server-side de-duplication
+			if (uniqueBans.contains(repr)) {
+				continue;
+			}
+
 			if (b.isValid()) {
 				m_bans.push_back(std::move(b));
+				uniqueBans.insert(repr);
 			}
 		}
 		// m_bans needs to be sorted in order for it to be used in the set_difference functions below

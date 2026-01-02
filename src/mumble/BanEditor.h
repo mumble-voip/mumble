@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_BANEDITOR_H_
 #define MUMBLE_MUMBLE_BANEDITOR_H_
 
+#include <set>
+
 #include "Ban.h"
 
 #include "ui_BanEditor.h"
@@ -14,6 +16,10 @@ namespace MumbleProto {
 class BanList;
 }
 
+struct BanComparator {
+	bool operator()(Ban const &lhs, Ban const &rhs) const { return lhs.toKey() < rhs.toKey(); }
+};
+
 class BanEditor : public QDialog, public Ui::BanEditor {
 private:
 	Q_OBJECT
@@ -21,14 +27,13 @@ private:
 
 	static constexpr int IPV4_MASK_TO_IPV6_MASK = 96;
 
-	void validate();
-
-protected:
-	QList< Ban > qlBans;
-
+	std::set< Ban, BanComparator > m_bans;
 	int maskDefaultValue;
 
+	void validate();
 	Ban toBan(bool &);
+	std::set< Ban >::iterator atIndex(int idx);
+	int indexOf(const Ban &ban);
 
 public:
 	BanEditor(const MumbleProto::BanList &msbl, QWidget *p = nullptr);
