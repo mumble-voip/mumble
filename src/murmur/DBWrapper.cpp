@@ -326,11 +326,9 @@ std::vector< Ban > DBWrapper::getBans(unsigned int serverID) {
 		ban.qdtStart =
 			QDateTime::fromSecsSinceEpoch(static_cast< qint64 >(::msdb::toEpochSeconds(currentBan.startDate)));
 		ban.haAddress = HostAddress(currentBan.baseAddress);
+		ban.qsHash    = QString::fromStdString(currentBan.bannedUserCertHash);
 		if (currentBan.reason) {
 			ban.qsReason = QString::fromStdString(currentBan.reason.value());
-		}
-		if (currentBan.bannedUserCertHash) {
-			ban.qsHash = QString::fromStdString(currentBan.bannedUserCertHash.value());
 		}
 		if (currentBan.bannedUserName) {
 			ban.qsUsername = QString::fromStdString(currentBan.bannedUserName.value());
@@ -360,10 +358,8 @@ void DBWrapper::saveBans(unsigned int serverID, const std::vector< Ban > &bans) 
 		dbBan.prefixLength = static_cast< decltype(dbBan.prefixLength) >(currentBan.iMask);
 		dbBan.startDate =
 			std::chrono::system_clock::time_point(std::chrono::seconds(currentBan.qdtStart.toSecsSinceEpoch()));
-		dbBan.baseAddress = currentBan.haAddress.getByteRepresentation();
-		if (!currentBan.qsHash.isEmpty()) {
-			dbBan.bannedUserCertHash = currentBan.qsHash.toStdString();
-		}
+		dbBan.baseAddress        = currentBan.haAddress.getByteRepresentation();
+		dbBan.bannedUserCertHash = currentBan.qsHash.toStdString();
 		if (!currentBan.qsUsername.isEmpty()) {
 			dbBan.bannedUserName = currentBan.qsUsername.toStdString();
 		}

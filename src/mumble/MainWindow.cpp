@@ -82,6 +82,7 @@
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
 
+#include "widgets/BanDialog.h"
 #include "widgets/ResponsiveImageDialog.h"
 #include "widgets/SemanticSlider.h"
 
@@ -2024,8 +2025,9 @@ void MainWindow::on_qaUserFriendRemove_triggered() {
 
 void MainWindow::on_qaUserKick_triggered() {
 	ClientUser *p = getContextMenuUser();
-	if (!p)
+	if (!p) {
 		return;
+	}
 
 	unsigned int session = p->uiSession;
 
@@ -2034,31 +2036,23 @@ void MainWindow::on_qaUserKick_triggered() {
 										   QLineEdit::Normal, QString(), &ok);
 
 	p = ClientUser::get(session);
-	if (!p)
+	if (!p) {
 		return;
+	}
 
 	if (ok) {
-		Global::get().sh->kickBanUser(p->uiSession, reason, false);
+		Global::get().sh->kickUser(p->uiSession, reason);
 	}
 }
 
 void MainWindow::on_qaUserBan_triggered() {
 	ClientUser *p = getContextMenuUser();
-	if (!p)
+	if (!p) {
 		return;
-
-	unsigned int session = p->uiSession;
-
-	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Banning user %1").arg(p->qsName), tr("Enter reason"),
-										   QLineEdit::Normal, QString(), &ok);
-	p              = ClientUser::get(session);
-	if (!p)
-		return;
-
-	if (ok) {
-		Global::get().sh->kickBanUser(p->uiSession, reason, true);
 	}
+
+	BanDialog *banDialog = new BanDialog(p, this);
+	banDialog->show();
 }
 
 void MainWindow::on_qaUserTextMessage_triggered() {

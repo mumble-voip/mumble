@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_BANEDITOR_H_
 #define MUMBLE_MUMBLE_BANEDITOR_H_
 
+#include <set>
+
 #include "Ban.h"
 
 #include "ui_BanEditor.h"
@@ -18,6 +20,11 @@ class BanEditor : public QDialog, public Ui::BanEditor {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(BanEditor)
+
+	std::set< QString > m_uniqueBans;
+
+	void validate();
+
 protected:
 	QList< Ban > qlBans;
 

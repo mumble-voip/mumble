@@ -1442,20 +1442,20 @@ void ServerDatabaseTest::banTable_general() {
 
 	QVERIFY(table.banExists(ban));
 
-	QCOMPARE(table.getBanDetails(ban.serverID, ban.baseAddress, ban.prefixLength), ban);
+	QCOMPARE(table.getBanDetails(ban.serverID, ban.baseAddress, ban.prefixLength, ban.bannedUserCertHash), ban);
 
 	std::vector<::msdb::DBBan > expectedBans = { ban };
 
 	QCOMPARE(table.getAllBans(existingServerID), expectedBans);
 
 	::msdb::DBBan ban2(existingServerID, ban.baseAddress, ban.prefixLength);
+	ban2.bannedUserCertHash = ban.bannedUserCertHash;
 	ban2.bannedUserName     = "Hugo";
-	ban2.bannedUserCertHash = "xyz";
 	ban2.reason             = "Hugo didn't behave properly";
 	ban2.startDate          = std::chrono::system_clock::now();
 	ban2.duration           = std::chrono::seconds(42);
 
-	// Since we re-used the server ID, base address and prefix length, adding this should error
+	// Since we re-used the server ID, base address, certificate hash, and prefix length, adding this should error
 	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addBan(ban2));
 
 	ban2.prefixLength++;
@@ -1463,7 +1463,7 @@ void ServerDatabaseTest::banTable_general() {
 	table.addBan(ban2);
 	QVERIFY(table.banExists(ban2));
 
-	QCOMPARE(table.getBanDetails(ban2.serverID, ban2.baseAddress, ban2.prefixLength), ban2);
+	QCOMPARE(table.getBanDetails(ban2.serverID, ban2.baseAddress, ban2.prefixLength, ban2.bannedUserCertHash), ban2);
 
 	expectedBans                            = { ban, ban2 };
 	std::vector<::msdb::DBBan > fetchedBans = table.getAllBans(existingServerID);
@@ -1644,6 +1644,8 @@ void ServerDatabaseTest::database_schema_migration() {
 
 		// Now check whether the migrated data looks the way we would expect
 		nlohmann::json migratedData = db.exportToJSON();
+
+		qInfo() << "Exported Data: " << QString::fromStdString(migratedData.dump(0));
 
 		mdb::test::utils::alignColumnOrder(tableData.migratedData, migratedData);
 		mdb::test::utils::alignRowOrder(tableData.migratedData, migratedData);

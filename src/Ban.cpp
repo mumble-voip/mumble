@@ -24,8 +24,12 @@ bool Ban::operator==(const Ban &other) const {
 		   && (iDuration == other.iDuration);
 }
 
-bool Ban::isValid() const {
+bool Ban::hasValidIP() const {
 	return haAddress.isValid() && (iMask >= 8) && (iMask <= 128);
+}
+
+bool Ban::isValid() const {
+	return hasValidIP() || !qsHash.isEmpty();
 }
 
 QString Ban::toString() const {
@@ -35,6 +39,11 @@ QString Ban::toString() const {
 			 qsUsername, qsReason, qdtStart.toLocalTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss")),
 			 qdtStart.toLocalTime().addSecs(iDuration).toString(QLatin1String("yyyy-MM-dd hh:mm:ss")),
 			 iDuration == 0 ? QLatin1String("(permanent)") : QLatin1String("(temporary)"));
+}
+
+QString Ban::toKey() const {
+	// Used for de-duplication
+	return qsHash + "\n" + haAddress.toString() + "\n" + QString::number(iMask);
 }
 
 std::size_t qHash(const Ban &b) {

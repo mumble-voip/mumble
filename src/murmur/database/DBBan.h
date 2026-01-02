@@ -28,8 +28,8 @@ namespace server {
 			 */
 			ipv6_type baseAddress                                          = {};
 			std::uint8_t prefixLength                                      = {};
+			std::string bannedUserCertHash                                 = "";
 			std::optional< std::string > bannedUserName                    = {};
-			std::optional< std::string > bannedUserCertHash                = {};
 			std::optional< std::string > reason                            = {};
 			std::chrono::time_point< std::chrono::system_clock > startDate = {};
 			std::chrono::seconds duration                                  = {};
