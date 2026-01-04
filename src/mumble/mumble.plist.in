@@ -35,5 +35,7 @@
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Mumble uses your microphone to allow you to talk to other people</string>
+	<key>NSAccessibilityUsageDescription</key>
+	<string>Mumble needs accessibility permission for global shortcuts</string>
 </dict>
 </plist>
