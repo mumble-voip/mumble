@@ -28,8 +28,14 @@
 #	include <QtCore/QOperatingSystemVersion>
 #endif
 
+#include <osevents/session_lock.hpp>
+
+#include <atomic>
 #include <cassert>
 #include <chrono>
+#include <memory>
+
+std::atomic< bool > GlobalShortcutEngine::allowShortcutProcessing = true;
 
 const QString GlobalShortcutConfig::name = QLatin1String("GlobalShortcutConfig");
 
@@ -904,6 +910,21 @@ void GlobalShortcutConfig::accept() const {
 GlobalShortcutEngine::GlobalShortcutEngine(QObject *p) : QThread(p) {
 	bNeedRemap = true;
 	needRemap();
+
+	try {
+		// This is to ensure that shortcuts won't work while the OS session is locked
+		static std::unique_ptr< osevents::SessionLock > sessionLockWatch;
+		if (!sessionLockWatch) {
+			sessionLockWatch = std::make_unique< osevents::SessionLock >();
+			sessionLockWatch->register_callback([](osevents::SessionLockState state) {
+				allowShortcutProcessing = state == osevents::SessionLockState::Unlocked;
+			});
+		}
+	} catch (std::runtime_error &e) {
+		qWarning() << "Failed to register session lock state observer -> disabling shortcuts to be on the safe side ("
+				   << e.what() << ")";
+		allowShortcutProcessing = false;
+	}
 }
 
 GlobalShortcutEngine::~GlobalShortcutEngine() {
@@ -987,6 +1008,10 @@ void GlobalShortcutEngine::needRemap() {
  * @return True if button is suppressed, otherwise false
  */
 bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
+	if (!allowShortcutProcessing) {
+		return false;
+	}
+
 	bool already = qlDownButtons.contains(button);
 	if (already == down)
 		return qlSuppressed.contains(button);
