@@ -731,6 +731,11 @@ elseif(TARGET Opus::opus)
 	target_link_libraries(mumble_client_object_lib PUBLIC Opus::opus)
 endif()
 
+set(OSEVENTS_EXPORT OFF)
+add_subdirectory("${3RDPARTY_DIR}/os-events" "${CMAKE_BINARY_DIR}/os-events" EXCLUDE_FROM_ALL)
+disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/os-events")
+target_link_libraries(mumble_client_object_lib PRIVATE osevents::osevents)
+
 if(bundled-speex)
 	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp" EXCLUDE_FROM_ALL)
 

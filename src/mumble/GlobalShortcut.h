@@ -16,6 +16,8 @@
 #include "MUComboBox.h"
 #include "Timer.h"
 
+#include <atomic>
+
 #include "ui_GlobalShortcut.h"
 #include "ui_GlobalShortcutTarget.h"
 
@@ -232,9 +234,7 @@ struct ShortcutKey {
  * @see GlobalShortcutWin
  */
 class GlobalShortcutEngine : public QThread {
-private:
 	Q_OBJECT
-	Q_DISABLE_COPY(GlobalShortcutEngine)
 public:
 	struct ButtonInfo {
 		QString device;
@@ -260,6 +260,8 @@ public:
 
 	GlobalShortcutEngine(QObject *p = nullptr);
 	~GlobalShortcutEngine() Q_DECL_OVERRIDE;
+	Q_DISABLE_COPY(GlobalShortcutEngine)
+
 	void resetMap();
 	void remap();
 	virtual void needRemap();
@@ -277,6 +279,9 @@ public:
 	virtual ButtonInfo buttonInfo(const QVariant &) = 0;
 signals:
 	void buttonPressed(bool last);
+
+private:
+	static std::atomic< bool > allowShortcutProcessing;
 };
 
 #endif
