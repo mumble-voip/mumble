@@ -8,6 +8,7 @@ freebsd_instance:
 freebsd_task:
   pkg_script:
   - pkg update && pkg upgrade -y
+  - pkg search logind
   - pkg install -y git ninja pkgconf cmake qt6-base qt6-svg qt6-tools boost-libs libsndfile protobuf avahi-libdns poco opus
   fetch_submodules_script: git submodule --quiet update --init --recursive
   build_script:
