@@ -13,6 +13,14 @@
 
 #include <X11/X.h>
 
+#ifdef USE_WAYLAND
+extern "C" {
+#	include <libudev.h>
+#	include <libinput.h>
+#	include <xkbcommon/xkbcommon.h>
+}
+#endif
+
 #define NUM_BUTTONS 0x2ff
 
 struct _XDisplay;
@@ -20,6 +28,26 @@ typedef _XDisplay Display;
 
 class QFileSystemWatcher;
 class QSocketNotifier;
+
+#ifdef USE_WAYLAND
+class GlobalShortcutWayland : public GlobalShortcutEngine {
+private:
+	Q_OBJECT
+public:
+	udev *_udev;
+	libinput *_libinput;
+	xkb_context *xkb_ctx;
+	xkb_keymap *xkb_km;
+	xkb_state *xkb;
+	GlobalShortcutWayland();
+	~GlobalShortcutWayland() Q_DECL_OVERRIDE;
+	ButtonInfo buttonInfo(const QVariant &) Q_DECL_OVERRIDE;
+public slots:
+	void libinputEvent(int);
+protected:
+	bool init();
+};
+#endif
 
 class GlobalShortcutX : public GlobalShortcutEngine {
 private:

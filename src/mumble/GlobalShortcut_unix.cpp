@@ -47,8 +47,126 @@
  * @see GlobalShortcutWin
  */
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
+#ifdef USE_WAYLAND
+	return new GlobalShortcutWayland();
+#else
 	return new GlobalShortcutX();
+#endif
 }
+
+#ifdef USE_WAYLAND
+
+static int open_restricted(const char *path, int flags, void *user_data) {
+	Q_UNUSED(user_data);
+	int fd = open(path, flags);
+	return fd < 0 ? -errno : fd;
+}
+ 
+static void close_restricted(int fd, void *user_data) {
+	Q_UNUSED(user_data);
+	close(fd);
+}
+
+const static libinput_interface interface = {
+	.open_restricted = open_restricted,
+	.close_restricted = close_restricted,
+};
+
+GlobalShortcutWayland::GlobalShortcutWayland() {
+	_udev = udev_new();
+	if (!_udev) {
+		qWarning("GlobalShortcutWayland: Unable to open udev.");
+		return;
+	}
+	_libinput = libinput_udev_create_context(&interface, NULL, _udev);
+	if (!_libinput) {
+		qWarning("GlobalShortcutWayland: Unable to init libinput.");
+		return;
+	}
+	xkb_ctx = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
+	if (!xkb_ctx) {
+		qWarning("GlobalShortcutWayland: Unable to init xkb context.");
+		return;
+	}
+	// TODO: Add support for different configs.
+	xkb_rule_names names = {};
+	xkb_km = xkb_keymap_new_from_names2(xkb_ctx, &names, XKB_KEYMAP_FORMAT_TEXT_V1, XKB_KEYMAP_COMPILE_NO_FLAGS);
+	if (!xkb_km) {
+		qWarning("GlobalShortcutWayland: Unable to create xkb keymap.");
+		return;
+	}
+	xkb = xkb_state_new(xkb_km);
+	if (!xkb) {
+		qWarning("GlobalShortcutWayland: Unable to create xkb state.");
+		return;
+	}
+
+	// To make multiseat support on wayland (X11 already has its XINPUT),
+	// we need to initialize wayland connection, setup wayland core
+	// protocol handler, do roundtrip, connect to wl_seat, setup wl_seat
+	// handler, do another roundtrip and get seat's name. Don't ask me how
+	// to also handle different keyboard layouts.
+	#define SEAT_NAME "seat0"
+
+	if (libinput_udev_assign_seat(_libinput, SEAT_NAME) == -1) {
+		qWarning("GlobalShortcutWayland: Unable to connect to " SEAT_NAME ".");
+		return;
+	}
+	init();
+}
+
+GlobalShortcutWayland::~GlobalShortcutWayland() {
+	if (_libinput) {
+		libinput_unref(_libinput);
+	}
+	if (_udev) {
+		udev_unref(_udev);
+	}
+}
+
+bool GlobalShortcutWayland::init() {
+	connect(new QSocketNotifier(libinput_get_fd(_libinput), QSocketNotifier::Read), SIGNAL(activated(int)),
+		this, SLOT(libinputEvent(int)));
+	return true;
+}
+
+void GlobalShortcutWayland::libinputEvent(int) {
+	libinput_dispatch(_libinput);
+	libinput_event *ev;
+	while ((ev = libinput_get_event(_libinput))) {
+		if (libinput_event_get_type(ev) != LIBINPUT_EVENT_KEYBOARD_KEY)
+			continue;
+		libinput_event_keyboard *kb = libinput_event_get_keyboard_event(ev);
+		libinput_key_state state = libinput_event_keyboard_get_key_state(kb);
+		uint32_t code = libinput_event_keyboard_get_key(kb) + 8;
+		xkb_keysym_t keysym;
+		keysym = xkb_state_key_get_one_sym(xkb, code);
+		qWarning("%u (%s) pressed", keysym, state == LIBINPUT_KEY_STATE_PRESSED ? "down" : "up");
+		handleButton(keysym, state == LIBINPUT_KEY_STATE_PRESSED);
+		libinput_event_destroy(ev);
+		libinput_dispatch(_libinput);
+	}
+}
+
+GlobalShortcutWayland::ButtonInfo GlobalShortcutWayland::buttonInfo(const QVariant &v) {
+	char name[64];
+	bool ok;
+	unsigned int key = v.toUInt(&ok);
+	if (!ok) {
+		return ButtonInfo();
+	}
+
+	ButtonInfo info;
+
+	xkb_keysym_get_name(key, name, sizeof name);
+	info.device = tr("Keyboard");
+	info.devicePrefix = QLatin1String("M");
+	info.name = QString::fromUtf8(name);
+
+	return info;
+}
+
+#endif
 
 GlobalShortcutX::GlobalShortcutX() {
 	iXIopcode = -1;

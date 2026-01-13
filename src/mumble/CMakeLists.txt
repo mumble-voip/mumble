@@ -660,6 +660,8 @@ else()
 	if(NOT APPLE)
 		find_pkg(X11 COMPONENTS Xext REQUIRED)
 
+		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_WAYLAND")
+		target_link_libraries(mumble_client_object_lib PUBLIC input udev xkbcommon)
 		if(xinput2)
 			find_pkg(X11 COMPONENTS Xi REQUIRED)
 			target_link_libraries(mumble_client_object_lib PUBLIC X11::Xi)

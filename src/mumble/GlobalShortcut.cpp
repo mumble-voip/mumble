@@ -631,12 +631,6 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
 
 	qlWaylandNote->setVisible(false);
-#ifdef Q_OS_LINUX
-	if (EnvUtils::waylandIsUsed()) {
-		// Our global shortcut system doesn't work properly with Wayland
-		qlWaylandNote->setVisible(true);
-	}
-#endif
 
 #ifdef Q_OS_MAC
 	// Help Mac users enable accessibility access for Mumble...
