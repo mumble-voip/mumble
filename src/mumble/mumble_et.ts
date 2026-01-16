@@ -2280,6 +2280,37 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Sisesta põhjus</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Bänni</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Loobu</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5299,10 +5330,6 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Kicking user %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8487,7 +8514,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pole kasutusel</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>

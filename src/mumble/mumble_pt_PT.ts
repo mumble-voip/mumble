@@ -2311,6 +2311,37 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Especifique a razão</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Banir</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">A banir utilizador %1</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5361,10 +5392,6 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>Kicking user %1</source>
         <translation>A expulsar utilizador %1</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>A banir utilizador %1</translation>
     </message>
     <message>
         <source>View comment on user %1</source>
