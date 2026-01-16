@@ -3576,19 +3576,19 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>您也可以选择将已配置的路径重置为默认值。</translation>
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>创建文件</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>重置已配置路径</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>退出而不修改</translation>
     </message>
 </context>
 <context>

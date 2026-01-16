@@ -460,7 +460,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj grupp</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -468,7 +468,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj användare</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -714,7 +714,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>tom</translation>
     </message>
 </context>
 <context>
@@ -1300,11 +1300,11 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>millisekunder</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>sekunder</translation>
     </message>
     <message>
         <source>kilobits per second</source>
@@ -1312,7 +1312,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibeller</translation>
     </message>
 </context>
 <context>
@@ -1605,7 +1605,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Dämpningsprocent</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
@@ -1641,7 +1641,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>vid</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
@@ -1649,7 +1649,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>alltid</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
@@ -1700,11 +1700,11 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>millisekunder</translation>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>metrar</translation>
     </message>
 </context>
 <context>
@@ -2465,7 +2465,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Anledning för bannlysning</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
@@ -3353,7 +3353,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server</translation>
     </message>
 </context>
 <context>
@@ -3581,7 +3581,7 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Skapa fil</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
@@ -3610,7 +3610,7 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Anslutningen misslyckades</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
@@ -3642,15 +3642,15 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Användarnamn:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösenord:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Byt certifikat</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
@@ -3658,7 +3658,7 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Återanslut</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4561,7 +4561,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ av meddelande</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
@@ -4601,7 +4601,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibeller</translation>
     </message>
 </context>
 <context>
@@ -5105,7 +5105,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
@@ -5113,7 +5113,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Bakgrundsfärg</translation>
     </message>
     <message>
         <source>Choose a Color</source>
@@ -5133,7 +5133,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Mörkt tema</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
@@ -5145,7 +5145,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
@@ -5153,7 +5153,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Mörk</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
@@ -5161,11 +5161,11 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljust tema</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljus</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
@@ -6941,23 +6941,23 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Information</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ig&amp;norera meddelanden</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skicka meddelande...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in sm&amp;eknamn...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;änk</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
@@ -6973,11 +6973,11 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljud &amp;Statistik</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inställningar</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
@@ -6993,15 +6993,15 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Om &amp;Qt</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>Re&amp;gistrera...</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrerade &amp;användare</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
@@ -7013,7 +7013,7 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>Återställ komment&amp;ar...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
@@ -7025,7 +7025,7 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>&amp;Join</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gå med</translation>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
@@ -7037,7 +7037,7 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Vi&amp;sa kommentar</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
@@ -7069,11 +7069,11 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Stäng av Te&amp;xt-Till-Tal</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sök...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
@@ -7090,7 +7090,7 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>SSL-fel</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
@@ -7102,7 +7102,7 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
+        <translation>F&amp;lytta bakåt</translation>
     </message>
     <message>
         <source>Moves you back to the previous channel</source>
@@ -7111,7 +7111,7 @@ kanalens innehållsmeny.</translation>
     <message>
         <source>Move back</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Flytta bakåt</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
@@ -7160,11 +7160,11 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Öppna bild</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fel</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
@@ -7557,23 +7557,23 @@ Förhindrar klienten från att skicka potentiellt identifierande information om 
     </message>
     <message>
         <source>Proxy type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ av proxy</translation>
     </message>
     <message>
         <source>Proxy hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Värdnamn för proxy</translation>
     </message>
     <message>
         <source>Proxy port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port för proxy</translation>
     </message>
     <message>
         <source>Proxy username</source>
-        <translation type="unfinished"></translation>
+        <translation>Användarnamn för proxy</translation>
     </message>
     <message>
         <source>Proxy password</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösenord för proxy</translation>
     </message>
 </context>
 <context>
@@ -8194,7 +8194,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished"></translation>
+        <translation>Namn på insticksprogram</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
@@ -8218,7 +8218,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Inte tillgänglig</translation>
     </message>
 </context>
 <context>
@@ -8642,11 +8642,11 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Nästa</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Bakåt</translation>
     </message>
     <message>
         <source>This is you</source>
@@ -8654,15 +8654,15 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>friend</source>
-        <translation type="unfinished"></translation>
+        <translation>vän</translation>
     </message>
     <message>
         <source>user</source>
-        <translation type="unfinished"></translation>
+        <translation>användare</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
+        <translation>status</translation>
     </message>
     <message>
         <source>muted and deafened</source>
@@ -8682,7 +8682,7 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>recording</source>
-        <translation type="unfinished"></translation>
+        <translation>spelar in</translation>
     </message>
     <message>
         <source>priority speaker</source>
@@ -8702,11 +8702,11 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>channel</source>
-        <translation type="unfinished"></translation>
+        <translation>kanal</translation>
     </message>
     <message>
         <source>your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>din kanal</translation>
     </message>
     <message>
         <source>accessible</source>
@@ -8718,15 +8718,15 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>public</source>
-        <translation type="unfinished"></translation>
+        <translation>publik</translation>
     </message>
     <message>
         <source>filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>filtrerad</translation>
     </message>
     <message>
         <source>pinned</source>
-        <translation type="unfinished"></translation>
+        <translation>fastnålad</translation>
     </message>
     <message>
         <source>Listening for input</source>
@@ -8898,11 +8898,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Search string</source>
-        <translation type="unfinished"></translation>
+        <translation>Söksträng</translation>
     </message>
     <message>
         <source>Search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Sökresultat</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
@@ -9072,11 +9072,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;Users:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Användare:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>TCP Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP-parametrar</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -9084,7 +9084,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -9290,7 +9290,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Dölj</translation>
     </message>
 </context>
 <context>
@@ -9506,7 +9506,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detaljer</translation>
     </message>
     <message>
         <source>to client rolling average</source>
@@ -9518,7 +9518,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>% förlorat</translation>
     </message>
     <message>
         <source>from client rolling average</source>
@@ -9526,11 +9526,11 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>% sen</translation>
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>Totalt:</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
@@ -9538,11 +9538,11 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>sekunder</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>minutrar</translation>
     </message>
 </context>
 <context>

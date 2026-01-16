@@ -364,7 +364,7 @@ Denne liste inderholder medlemmer, der er blevet tilføjet til gruppen af den nu
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
         <translation>&lt;b&gt;Udeladte medlemmer&lt;/b&gt;&lt;br /&gt;
-Inderholder en liste over medlemmer hvis gruppemedlemskab ikke vil blive arvet fra forælderkanalen.</translation>
+Indeholder en liste over medlemmer hvis gruppemedlemskab ikke vil blive arvet fra forælderkanalen.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
@@ -432,27 +432,27 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalposition</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximum antal brugere</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalbeskrivelse</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg medlemmer</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekskludérede gruppemedlemmer</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg medlem der skal fjernes</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
@@ -460,7 +460,7 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg gruppe</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -468,7 +468,7 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg bruger</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -505,11 +505,11 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejl under forsøg på at hente lydkortnavn (langt navn): %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejl under forsøg på at hente lydkortets navn: %1</translation>
     </message>
 </context>
 <context>
@@ -621,42 +621,42 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     </message>
     <message>
         <source>List of microphones</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste over mikrofoner</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste over afspillingsenheder</translation>
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhedsliste</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Flyt fra ubrugte enheder til mikrofonliste</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Flyt fra mikrofon til ubrugte enheder</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste over ubrugte enheder</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>Flyt fra ubrugte enheder til afspillingsliste</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Flyt fra afspillingsenhed til ubrugte enheder</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du skal vælge mindst én mikrofon og én afspillingsenhed for at bruge ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -679,11 +679,11 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     </message>
     <message>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>Forfattere</translation>
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tredjeparts-licenser</translation>
     </message>
     <message>
         <source>OK</source>
@@ -691,19 +691,19 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     </message>
     <message>
         <source>License agreement</source>
-        <translation type="unfinished"></translation>
+        <translation>Licensaftale</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Forfattere</translation>
     </message>
     <message>
         <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
+        <translation>Tredjeparts-licens-aftaler</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Besøg  &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt; for at se en liste over bidragsydere</translation>
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
@@ -714,7 +714,7 @@ Denne værdi tillader dig at indstille det maksimale antal brugere tilladt på k
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>tom</translation>
     </message>
 </context>
 <context>
