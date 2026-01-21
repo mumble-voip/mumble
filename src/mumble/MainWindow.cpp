@@ -2166,6 +2166,7 @@ void MainWindow::on_qaUserTextureReset_triggered() {
 		QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
 		Global::get().sh->setUserTexture(session, QByteArray());
+		qtvUsers->triggerUpdate();
 	}
 }
 
@@ -4171,6 +4172,7 @@ void MainWindow::changeServerTexture() {
 
 void MainWindow::removeServerTexture() {
 	Global::get().sh->setUserTexture(Global::get().uiSession, QByteArray());
+	qtvUsers->triggerUpdate();
 }
 
 void MainWindow::selfRegister() {
