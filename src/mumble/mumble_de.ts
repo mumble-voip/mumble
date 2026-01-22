@@ -1645,7 +1645,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>während jemand in Ihrem Kanal spricht</translation>
     </message>
     <message>
         <source>always</source>
@@ -3589,7 +3589,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohne Änderungen beenden</translation>
     </message>
 </context>
 <context>
