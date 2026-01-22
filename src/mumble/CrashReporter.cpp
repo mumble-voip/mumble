@@ -113,7 +113,10 @@ void CrashReporter::run() {
 	if (!qfCrashDump.exists())
 		return;
 
-	qfCrashDump.open(QIODevice::ReadOnly);
+	if (!qfCrashDump.open(QIODevice::ReadOnly)) {
+		qWarning("CrashReporter: Failed to open crash dump file: %s", qUtf8Printable(qfCrashDump.errorString()));
+		return;
+	}
 
 #if defined(Q_OS_WIN)
 	/* On Windows, the .dmp file is a real minidump. */
@@ -151,7 +154,10 @@ void CrashReporter::run() {
 		qint64 delta = qAbs< qint64 >(qdtModification.secsTo(fi.lastModified()));
 		if (delta < 8) {
 			QFile f(fi.absoluteFilePath());
-			f.open(QIODevice::ReadOnly);
+			if (!f.open(QIODevice::ReadOnly)) {
+				qWarning("CrashReporter: Failed to open crash report file: %s", qUtf8Printable(f.errorString()));
+				continue;
+			}
 			qbaDumpContents = f.readAll();
 			break;
 		}
