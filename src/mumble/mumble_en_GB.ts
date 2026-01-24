@@ -1649,11 +1649,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished">always</translation>
+        <translation>always</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished">Attenuate listeners by...</translation>
+        <translation>Attenuate listeners by...</translation>
     </message>
 </context>
 <context>
