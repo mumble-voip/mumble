@@ -2325,6 +2325,37 @@ Ingen snakking. Krysset (Definitivt ikke tale)</translation>
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Oppgi begrunnelse</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Bannlys</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">Lyser %1 i bann</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5376,10 +5407,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
     <message>
         <source>Kicking user %1</source>
         <translation>Kaster ut brukeren %1</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>Lyser %1 i bann</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

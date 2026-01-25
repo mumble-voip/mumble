@@ -54,11 +54,14 @@ namespace server {
 			::mdb::Column prefixCol(column::prefix_length, ::mdb::DataType(::mdb::DataType::Integer));
 			prefixCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
 
+			// Since Mumble 1.6, we changed the PK of this table to contain the certificate hash such that
+			// admins are able to ban IPs or hashes or both. For that reason, cert_hash may no longer be
+			// NULL. Instead "no hash" is represented by the empty string
+			::mdb::Column userCertCol(column::cert_hash, ::mdb::DataType(::mdb::DataType::VarChar, 255));
+			userCertCol.addConstraint(::mdb::Constraint(::mdb::Constraint::NotNull));
+
 			::mdb::Column userNameCol(column::user_name, ::mdb::DataType(::mdb::DataType::VarChar, 255));
 			userNameCol.setDefaultValue("NULL");
-
-			::mdb::Column userCertCol(column::cert_hash, ::mdb::DataType(::mdb::DataType::VarChar, 255));
-			userCertCol.setDefaultValue("NULL");
 
 			::mdb::Column reasonCol(column::reason, ::mdb::DataType(::mdb::DataType::Text));
 			reasonCol.setDefaultValue("NULL");
@@ -73,11 +76,10 @@ namespace server {
 
 
 			setColumns(
-				{ serverCol, addressCol, prefixCol, userNameCol, userCertCol, reasonCol, startDateCol, durationCol });
+				{ serverCol, addressCol, prefixCol, userCertCol, userNameCol, reasonCol, startDateCol, durationCol });
 
-
-			::mdb::PrimaryKey pk(
-				std::vector< std::string >{ column::server_id, column::base_address, column::prefix_length });
+			::mdb::PrimaryKey pk(std::vector< std::string >{ column::server_id, column::base_address,
+															 column::prefix_length, column::cert_hash });
 			setPrimaryKey(pk);
 
 			::mdb::ForeignKey fk(serverTable, { serverCol });
@@ -85,24 +87,20 @@ namespace server {
 		}
 
 		void BanTable::addBan(const DBBan &ban) {
+			std::string baseAddress   = DBBan::ipv6ToString(ban.baseAddress.value_or(DBBan::INVALID_IP));
+			std::uint8_t prefixLength = ban.prefixLength.value_or(0);
+			std::string userCert      = ban.bannedUserCertHash.value_or("");
 			try {
-				std::string baseAddress = DBBan::ipv6ToString(ban.baseAddress);
-				auto startEpoch         = static_cast< unsigned int >(toEpochSeconds(ban.startDate));
-				auto duration           = static_cast< unsigned int >(ban.duration.count());
+				auto startEpoch = static_cast< unsigned int >(toEpochSeconds(ban.startDate));
+				auto duration   = static_cast< unsigned int >(ban.duration.count());
 				std::string userName;
-				std::string userCert;
 				std::string reason;
 				soci::indicator nameInd   = soci::i_null;
-				soci::indicator certInd   = soci::i_null;
 				soci::indicator reasonInd = soci::i_null;
 
 				if (ban.bannedUserName) {
 					userName = ban.bannedUserName.value();
 					nameInd  = soci::i_ok;
-				}
-				if (ban.bannedUserCertHash) {
-					userCert = ban.bannedUserCertHash.value();
-					certInd  = soci::i_ok;
 				}
 				if (ban.reason) {
 					reason    = ban.reason.value();
@@ -112,49 +110,53 @@ namespace server {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::base_address
-					  << "\", \"" << column::prefix_length << "\", \"" << column::user_name << "\", \""
-					  << column::cert_hash << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
+					  << "\", \"" << column::prefix_length << "\", \"" << column::cert_hash << "\", \""
+					  << column::user_name << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
 					  << column::duration
-					  << "\") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userName, :userCert, :reason, "
+					  << "\") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userCert, :userName, :reason, "
 						 ":startDate, :duration)",
-					soci::use(ban.serverID), soci::use(baseAddress), soci::use(ban.prefixLength),
-					soci::use(userName, nameInd), soci::use(userCert, certInd), soci::use(reason, reasonInd),
-					soci::use(startEpoch), soci::use(duration);
+					soci::use(ban.serverID), soci::use(baseAddress), soci::use(prefixLength), soci::use(userCert),
+					soci::use(userName, nameInd), soci::use(reason, reasonInd), soci::use(startEpoch),
+					soci::use(duration);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException(
-					"Failed at adding new Ban  for " + DBBan::ipv6ToString(ban.baseAddress) + "/"
-					+ std::to_string(ban.prefixLength) + " on server with ID " + std::to_string(ban.serverID)));
+				std::throw_with_nested(::mdb::AccessException("Failed at adding new Ban for " + baseAddress + "/"
+															  + std::to_string(prefixLength) + " Hash: '" + userCert
+															  + "' on server with ID " + std::to_string(ban.serverID)));
 			}
 		}
 
 		void BanTable::removeBan(const DBBan &ban) {
-			removeBan(ban.serverID, DBBan::ipv6ToString(ban.baseAddress), ban.prefixLength);
+			removeBan(ban.serverID, DBBan::ipv6ToString(ban.baseAddress.value_or(DBBan::INVALID_IP)),
+					  ban.prefixLength.value_or(0), ban.bannedUserCertHash.value_or(""));
 		}
 
-		void BanTable::removeBan(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength) {
+		void BanTable::removeBan(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength,
+								 const std::string &bannedUserCertHash) {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
 				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND LOWER(\""
 					  << column::base_address << "\") = LOWER(:baseAddress) AND \"" << column::prefix_length
-					  << "\" = :prefixLength",
-					soci::use(serverID), soci::use(baseAddress), soci::use(prefixLength);
+					  << "\" = :prefixLength AND \"" << column::cert_hash << "\" = :userCert",
+					soci::use(serverID), soci::use(baseAddress), soci::use(prefixLength), soci::use(bannedUserCertHash);
 
 				transaction.commit();
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at removing Ban  for " + baseAddress + "/"
-															  + std::to_string(prefixLength) + " on server with ID "
-															  + std::to_string(serverID)));
+				std::throw_with_nested(::mdb::AccessException(
+					"Failed at removing Ban for " + baseAddress + "/" + std::to_string(prefixLength) + " Hash: '"
+					+ bannedUserCertHash + "' on server with ID " + std::to_string(serverID)));
 			}
 		}
 
 		bool BanTable::banExists(const DBBan &ban) {
-			return banExists(ban.serverID, DBBan::ipv6ToString(ban.baseAddress), ban.prefixLength);
+			return banExists(ban.serverID, DBBan::ipv6ToString(ban.baseAddress.value_or(DBBan::INVALID_IP)),
+							 ban.prefixLength.value_or(0), ban.bannedUserCertHash.value_or(""));
 		}
 
-		bool BanTable::banExists(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength) {
+		bool BanTable::banExists(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength,
+								 const std::string &bannedUserCertHash) {
 			try {
 				int exists = false;
 
@@ -162,8 +164,10 @@ namespace server {
 
 				m_sql << "SELECT 1 FROM \"" << NAME << "\" WHERE \"" << column::server_id
 					  << "\" = :serverID AND LOWER(\"" << column::base_address << "\") = LOWER(:baseAddress) AND \""
-					  << column::prefix_length << "\" = :prefixLength LIMIT 1",
-					soci::use(serverID), soci::use(baseAddress), soci::use(prefixLength), soci::into(exists);
+					  << column::prefix_length << "\" = :prefixLength AND \"" << column::cert_hash
+					  << "\" = :userCert LIMIT 1",
+					soci::use(serverID), soci::use(baseAddress), soci::use(prefixLength), soci::use(bannedUserCertHash),
+					soci::into(exists);
 
 				transaction.commit();
 
@@ -171,49 +175,51 @@ namespace server {
 			} catch (const soci::soci_error &) {
 				std::throw_with_nested(::mdb::AccessException(
 					"Failed at checking whether Ban for " + baseAddress + "/" + std::to_string(prefixLength)
-					+ " exists on server with ID " + std::to_string(serverID)));
+					+ " Hash: '" + bannedUserCertHash + "' exists on server with ID " + std::to_string(serverID)));
 			}
 		}
 
-		DBBan BanTable::getBanDetails(unsigned int serverID, const DBBan::ipv6_type &baseAddress,
-									  std::uint8_t prefixLength) {
-			return getBanDetails(serverID, DBBan::ipv6ToString(baseAddress), prefixLength);
+		DBBan BanTable::getBanDetails(unsigned int serverID, std::string baseAddress, std::uint8_t prefixLength,
+									  std::optional< std::string > bannedUserCertHash) {
+			return getBanDetails(serverID, DBBan::ipv6FromString(baseAddress), prefixLength, bannedUserCertHash);
 		}
 
-		DBBan BanTable::getBanDetails(unsigned int serverID, const std::string &baseAddress,
-									  std::uint8_t prefixLength) {
-			try {
-				DBBan ban;
-				ban.serverID     = serverID;
-				ban.baseAddress  = DBBan::ipv6FromString(baseAddress);
-				ban.prefixLength = prefixLength;
+		DBBan BanTable::getBanDetails(unsigned int serverID, std::optional< DBBan::ipv6_type > baseAddress,
+									  std::optional< std::uint8_t > prefixLength,
+									  std::optional< std::string > bannedUserCertHash) {
+			DBBan ban;
+			ban.serverID           = serverID;
+			ban.baseAddress        = baseAddress;
+			ban.prefixLength       = prefixLength;
+			ban.bannedUserCertHash = bannedUserCertHash;
 
+			std::string baseAddressQuery        = DBBan::ipv6ToString(ban.baseAddress.value_or(DBBan::INVALID_IP));
+			std::uint8_t prefixLengthQuery      = ban.prefixLength.value_or(0);
+			std::string bannedUserCertHashQuery = ban.bannedUserCertHash.value_or("");
+
+			try {
 				unsigned int startEpoch;
 				unsigned int duration;
 				std::string userName;
-				std::string userCert;
 				std::string reason;
 				soci::indicator nameInd;
-				soci::indicator certInd;
 				soci::indicator reasonInd;
 
 				::mdb::TransactionHolder transaction = ensureTransaction();
 
-				m_sql << "SELECT \"" << column::user_name << "\", \"" << column::cert_hash << "\", \"" << column::reason
-					  << "\", \"" << column::start_date << "\", \"" << column::duration << "\" FROM \"" << NAME
-					  << "\" WHERE \"" << column::server_id << "\" = :serverID AND \"" << column::base_address
-					  << "\" = :baseAddress AND \"" << column::prefix_length << "\" = :prefix_length",
-					soci::into(userName, nameInd), soci::into(userCert, certInd), soci::into(reason, reasonInd),
-					soci::into(startEpoch), soci::into(duration), soci::use(serverID), soci::use(baseAddress),
-					soci::use(prefixLength);
+				m_sql << "SELECT \"" << column::user_name << "\", \"" << column::reason << "\", \""
+					  << column::start_date << "\", \"" << column::duration << "\" FROM \"" << NAME << "\" WHERE \""
+					  << column::server_id << "\" = :serverID AND \"" << column::base_address
+					  << "\" = :baseAddress AND \"" << column::prefix_length << "\" = :prefix_length AND \""
+					  << column::cert_hash << "\" = :userCert",
+					soci::into(userName, nameInd), soci::into(reason, reasonInd), soci::into(startEpoch),
+					soci::into(duration), soci::use(serverID), soci::use(baseAddressQuery),
+					soci::use(prefixLengthQuery), soci::use(bannedUserCertHashQuery);
 
 				::mdb::utils::verifyQueryResultedInData(m_sql);
 
 				if (nameInd == soci::i_ok) {
 					ban.bannedUserName = std::move(userName);
-				}
-				if (certInd == soci::i_ok) {
-					ban.bannedUserCertHash = std::move(userCert);
 				}
 				if (reasonInd == soci::i_ok) {
 					ban.reason = std::move(reason);
@@ -225,9 +231,9 @@ namespace server {
 
 				return ban;
 			} catch (const soci::soci_error &) {
-				std::throw_with_nested(::mdb::AccessException("Failed at getting details for Ban of " + baseAddress
-															  + "/" + std::to_string(prefixLength)
-															  + " on server with ID " + std::to_string(serverID)));
+				std::throw_with_nested(::mdb::AccessException(
+					"Failed at getting details for Ban of " + baseAddressQuery + "/" + std::to_string(prefixLengthQuery)
+					+ " Hash: '" + bannedUserCertHashQuery + "' on server with ID " + std::to_string(serverID)));
 			}
 		}
 
@@ -240,7 +246,7 @@ namespace server {
 
 				soci::statement stmt =
 					(m_sql.prepare << "SELECT \"" << column::base_address << "\", \"" << column::prefix_length
-								   << "\", \"" << column::user_name << "\", \"" << column::cert_hash << "\", \""
+								   << "\", \"" << column::cert_hash << "\", \"" << column::user_name << "\", \""
 								   << column::reason << "\", \"" << column::start_date << "\", \"" << column::duration
 								   << "\" FROM \"" << NAME << "\" WHERE " << column::server_id << " = :serverID",
 					 soci::use(serverID), soci::into(row));
@@ -258,14 +264,21 @@ namespace server {
 					assert(row.get_properties(6).get_data_type() == soci::dt_integer);
 
 					DBBan ban;
-					ban.serverID     = serverID;
-					ban.baseAddress  = DBBan::ipv6FromString(row.get< std::string >(0));
-					ban.prefixLength = static_cast< std::uint8_t >(row.get< int >(1));
-					if (row.get_indicator(2) == soci::i_ok) {
-						ban.bannedUserName = row.get< std::string >(2);
+					ban.serverID           = serverID;
+					ban.baseAddress        = DBBan::ipv6FromString(row.get< std::string >(0));
+					ban.prefixLength       = static_cast< std::uint8_t >(row.get< int >(1));
+					ban.bannedUserCertHash = row.get< std::string >(2);
+					if (ban.baseAddress.value() == DBBan::INVALID_IP) {
+						ban.baseAddress = std::nullopt;
+					}
+					if (ban.prefixLength.value() == 0) {
+						ban.prefixLength = std::nullopt;
+					}
+					if (ban.bannedUserCertHash.value().empty()) {
+						ban.bannedUserCertHash = std::nullopt;
 					}
 					if (row.get_indicator(3) == soci::i_ok) {
-						ban.bannedUserCertHash = row.get< std::string >(3);
+						ban.bannedUserName = row.get< std::string >(3);
 					}
 					if (row.get_indicator(4) == soci::i_ok) {
 						ban.reason = row.get< std::string >(4);
@@ -316,32 +329,28 @@ namespace server {
 				soci::statement stmt =
 					m_sql.prepare
 					<< "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::base_address
-					<< "\", \"" << column::prefix_length << "\", \"" << column::user_name << "\", \""
-					<< column::cert_hash << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
+					<< "\", \"" << column::prefix_length << "\", \"" << column::cert_hash << "\", \""
+					<< column::user_name << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
 					<< column::duration
-					<< "\") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userName, :userCert, :reason, "
+					<< "\") VALUES (:serverID, LOWER(:baseAddr), :prefixLength, :userCert, :userName, :reason, "
 					   ":startDate, :duration)";
 
 				for (const DBBan &currentBan : bans) {
 					assert(currentBan.serverID == serverID);
 
-					std::string baseAddress = DBBan::ipv6ToString(currentBan.baseAddress);
-					auto startEpoch         = static_cast< unsigned int >(toEpochSeconds(currentBan.startDate));
-					auto duration           = static_cast< unsigned int >(currentBan.duration.count());
+					std::string baseAddress   = DBBan::ipv6ToString(currentBan.baseAddress.value_or(DBBan::INVALID_IP));
+					std::uint8_t prefixLength = currentBan.prefixLength.value_or(0);
+					auto startEpoch           = static_cast< unsigned int >(toEpochSeconds(currentBan.startDate));
+					auto duration             = static_cast< unsigned int >(currentBan.duration.count());
+					std::string userCert      = currentBan.bannedUserCertHash.value_or("");
 					std::string userName;
-					std::string userCert;
 					std::string reason;
 					soci::indicator nameInd   = soci::i_null;
-					soci::indicator certInd   = soci::i_null;
 					soci::indicator reasonInd = soci::i_null;
 
 					if (currentBan.bannedUserName) {
 						userName = currentBan.bannedUserName.value();
 						nameInd  = soci::i_ok;
-					}
-					if (currentBan.bannedUserCertHash) {
-						userCert = currentBan.bannedUserCertHash.value();
-						certInd  = soci::i_ok;
 					}
 					if (currentBan.reason) {
 						reason    = currentBan.reason.value();
@@ -350,9 +359,9 @@ namespace server {
 
 					stmt.exchange(soci::use(serverID));
 					stmt.exchange(soci::use(baseAddress));
-					stmt.exchange(soci::use(currentBan.prefixLength));
+					stmt.exchange(soci::use(prefixLength));
+					stmt.exchange(soci::use(userCert));
 					stmt.exchange(soci::use(userName, nameInd));
-					stmt.exchange(soci::use(userCert, certInd));
 					stmt.exchange(soci::use(reason, reasonInd));
 					stmt.exchange(soci::use(startEpoch));
 					stmt.exchange(soci::use(duration));
@@ -402,18 +411,19 @@ namespace server {
 					assert(!baseConversion.empty());
 
 					soci::statement selectStmt =
-						(m_sql.prepare << "SELECT \"server_id\", " << baseConversion
-									   << ", \"mask\", \"name\", \"hash\", \"reason\", " << startConversion
-									   << ", \"duration\" FROM \"bans" << ::mdb::Database::OLD_TABLE_SUFFIX << "\"",
+						(m_sql.prepare << "SELECT \"server_id\", " + baseConversion
+											  + ", \"mask\", \"hash\", \"name\", \"reason\", " + startConversion
+											  + ", \"duration\" FROM \"bans"
+											  + std::string(::mdb::Database::OLD_TABLE_SUFFIX) + "\"",
 						 soci::into(row));
 
 					soci::statement insertStmt =
 						m_sql.prepare
 						<< "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \"" << column::base_address
-						<< "\", \"" << column::prefix_length << "\", \"" << column::user_name << "\", \""
-						<< column::cert_hash << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
+						<< "\", \"" << column::prefix_length << "\", \"" << column::cert_hash << "\", \""
+						<< column::user_name << "\", \"" << column::reason << "\", \"" << column::start_date << "\", \""
 						<< column::duration
-						<< "\") VALUES (:serverID, :baseAddr, :prefixLength, :userName, :certHash, :reason, "
+						<< "\") VALUES (:serverID, :baseAddr, :prefixLength, :certHash, :userName, :reason, "
 						   ":startDate, :duration)";
 
 					selectStmt.execute(false);
@@ -422,10 +432,9 @@ namespace server {
 						int serverID;
 						std::string baseAddress;
 						int prefixLength;
+						std::string bannedCertHash = "";
 						std::string bannedName;
 						soci::indicator nameInd = soci::i_null;
-						std::string bannedCertHash;
-						soci::indicator certInd = soci::i_null;
 						std::string reason;
 						soci::indicator reasonInd = soci::i_null;
 						long long startDate       = 0;
@@ -462,12 +471,11 @@ namespace server {
 						baseAddress = DBBan::ipv6ToString(ipv6);
 
 						if (row.get_indicator(3) == soci::i_ok) {
-							bannedName = row.get< std::string >(3);
-							nameInd    = soci::i_ok;
+							bannedCertHash = row.get< std::string >(3);
 						}
 						if (row.get_indicator(4) == soci::i_ok) {
-							bannedCertHash = row.get< std::string >(4);
-							certInd        = soci::i_ok;
+							bannedName = row.get< std::string >(4);
+							nameInd    = soci::i_ok;
 						}
 						if (row.get_indicator(5) == soci::i_ok) {
 							reason    = row.get< std::string >(5);
@@ -487,8 +495,8 @@ namespace server {
 						insertStmt.exchange(soci::use(serverID));
 						insertStmt.exchange(soci::use(baseAddress));
 						insertStmt.exchange(soci::use(prefixLength));
+						insertStmt.exchange(soci::use(bannedCertHash));
 						insertStmt.exchange(soci::use(bannedName, nameInd));
-						insertStmt.exchange(soci::use(bannedCertHash, certInd));
 						insertStmt.exchange(soci::use(reason, reasonInd));
 						insertStmt.exchange(soci::use(startDate));
 						insertStmt.exchange(soci::use(duration));
@@ -497,6 +505,20 @@ namespace server {
 						insertStmt.execute(true);
 						insertStmt.bind_clean_up();
 					}
+				} else if (fromSchemaVersion < 11) {
+					// Before v11, a ban was allowed to have a NULL value for the certificate hash. v11 enables admins
+					// to selectively ban IP or Hash or both. This requires to add the Hash to the primary key.
+					// Since not all database backends allow to have NULL in a primary key or unique index, we have to
+					// convert all NULL values for certificate hashes to an empty string.
+					m_sql << "INSERT INTO \"" << NAME << "\" (\"" << column::server_id << "\", \""
+						  << column::base_address << "\", \"" << column::prefix_length << "\", \"" << column::cert_hash
+						  << "\", \"" << column::user_name << "\", \"" << column::reason << "\", \""
+						  << column::start_date << "\", \"" << column::duration
+						  << "\") SELECT \"server_id\", \"ipv6_base_address\", \"prefix_length\", "
+						  << ::mdb::utils::nonNullOf("\"banned_user_cert_hash\"").otherwise("''")
+						  << ", \"banned_user_name\", \"reason\", \"start_date\", \"duration\" FROM \"bans"
+						  << ::mdb::Database::OLD_TABLE_SUFFIX << "\"";
+
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);

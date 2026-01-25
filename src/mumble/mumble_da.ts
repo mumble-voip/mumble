@@ -2311,6 +2311,37 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Skriv begrundelse</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Bandlys</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annullér</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">Bandlyser brugeren %1</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5353,10 +5384,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Kicking user %1</source>
         <translation>Kicker bruger %1</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>Bandlyser brugeren %1</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

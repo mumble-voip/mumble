@@ -2311,6 +2311,37 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Ange anledning</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Bannlysa</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">Bannlyser användare %1</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5361,10 +5392,6 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     <message>
         <source>Kicking user %1</source>
         <translation>Slänger ut %1</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>Bannlyser användare %1</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

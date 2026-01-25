@@ -2311,6 +2311,37 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Introduzca el motivo</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Prohibir</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">Prohibiendo al usuario %1</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5362,10 +5393,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     <message>
         <source>Kicking user %1</source>
         <translation>Expulsando al usuario %1</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>Prohibiendo al usuario %1</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

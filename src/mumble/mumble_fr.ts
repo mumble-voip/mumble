@@ -2311,6 +2311,37 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Entrez la raison</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Bannir</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuler</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">Bannissement de l&apos;utilisateur %1</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5361,10 +5392,6 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     <message>
         <source>Kicking user %1</source>
         <translation>Expulsion de l&apos;utilisateur %1</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>Bannissement de l&apos;utilisateur %1</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

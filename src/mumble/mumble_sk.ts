@@ -2265,6 +2265,37 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -6027,10 +6058,6 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

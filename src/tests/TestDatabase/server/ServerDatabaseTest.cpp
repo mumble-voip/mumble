@@ -1431,9 +1431,9 @@ void ServerDatabaseTest::banTable_general() {
 
 	::msdb::BanTable &table = db.getBanTable();
 
-	::msdb::DBBan ban(
-		existingServerID,
-		{ 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, 0x78, 0x89, 0x9a, 0xab, 0xbc, 0xcd, 0xde, 0xef, 0x1f, 0x2f }, 64);
+	::msdb::DBBan ban(existingServerID);
+
+	ban.setIP({ 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, 0x78, 0x89, 0x9a, 0xab, 0xbc, 0xcd, 0xde, 0xef, 0x1f, 0x2f }, 64);
 
 	QVERIFY(!table.banExists(ban));
 	QVERIFY(table.getAllBans(existingServerID).empty());
@@ -1442,28 +1442,30 @@ void ServerDatabaseTest::banTable_general() {
 
 	QVERIFY(table.banExists(ban));
 
-	QCOMPARE(table.getBanDetails(ban.serverID, ban.baseAddress, ban.prefixLength), ban);
+	QCOMPARE(table.getBanDetails(ban.serverID, ban.baseAddress, ban.prefixLength, ban.bannedUserCertHash), ban);
 
 	std::vector<::msdb::DBBan > expectedBans = { ban };
 
 	QCOMPARE(table.getAllBans(existingServerID), expectedBans);
 
-	::msdb::DBBan ban2(existingServerID, ban.baseAddress, ban.prefixLength);
+	::msdb::DBBan ban2(existingServerID);
+	ban2.baseAddress        = ban.baseAddress;
+	ban2.prefixLength       = ban.prefixLength;
+	ban2.bannedUserCertHash = ban.bannedUserCertHash;
 	ban2.bannedUserName     = "Hugo";
-	ban2.bannedUserCertHash = "xyz";
 	ban2.reason             = "Hugo didn't behave properly";
 	ban2.startDate          = std::chrono::system_clock::now();
 	ban2.duration           = std::chrono::seconds(42);
 
-	// Since we re-used the server ID, base address and prefix length, adding this should error
+	// Since we re-used the server ID, base address, certificate hash, and prefix length, adding this should error
 	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addBan(ban2));
 
-	ban2.prefixLength++;
+	ban2.prefixLength.value()++;
 	QVERIFY(!table.banExists(ban2));
 	table.addBan(ban2);
 	QVERIFY(table.banExists(ban2));
 
-	QCOMPARE(table.getBanDetails(ban2.serverID, ban2.baseAddress, ban2.prefixLength), ban2);
+	QCOMPARE(table.getBanDetails(ban2.serverID, ban2.baseAddress, ban2.prefixLength, ban2.bannedUserCertHash), ban2);
 
 	expectedBans                            = { ban, ban2 };
 	std::vector<::msdb::DBBan > fetchedBans = table.getAllBans(existingServerID);
@@ -1486,7 +1488,7 @@ void ServerDatabaseTest::banTable_general() {
 	QVERIFY(table.banExists(ban2));
 
 	// Adding to a non-existing server should error
-	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addBan(::msdb::DBBan(nonExistingServerID, {}, 0)));
+	QVERIFY_THROWS_EXCEPTION(::mdb::AccessException, table.addBan(::msdb::DBBan(nonExistingServerID)));
 
 	QVERIFY(table.getAllBans(nonExistingServerID).empty());
 

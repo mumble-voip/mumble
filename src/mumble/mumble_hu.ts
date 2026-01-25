@@ -2301,6 +2301,37 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Adja meg az okot</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Tiltás</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Mégse</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">%1 felhasználó kitiltása</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5347,10 +5378,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Kicking user %1</source>
         <translation>%1 felhasználó kirúgása</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>%1 felhasználó kitiltása</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

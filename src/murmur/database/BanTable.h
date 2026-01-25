@@ -35,8 +35,8 @@ namespace server {
 				static constexpr const char *server_id     = "server_id";
 				static constexpr const char *base_address  = "ipv6_base_address";
 				static constexpr const char *prefix_length = "prefix_length";
-				static constexpr const char *user_name     = "banned_user_name";
 				static constexpr const char *cert_hash     = "banned_user_cert_hash";
+				static constexpr const char *user_name     = "banned_user_name";
 				static constexpr const char *reason        = "reason";
 				static constexpr const char *start_date    = "start_date";
 				static constexpr const char *duration      = "duration";
@@ -49,13 +49,18 @@ namespace server {
 			void addBan(const DBBan &ban);
 
 			void removeBan(const DBBan &ban);
-			void removeBan(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength);
+			void removeBan(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength,
+						   const std::string &bannedUserCertHash);
 
 			bool banExists(const DBBan &ban);
-			bool banExists(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength);
+			bool banExists(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength,
+						   const std::string &bannedUserCertHash);
 
-			DBBan getBanDetails(unsigned int serverID, const DBBan::ipv6_type &baseAddress, std::uint8_t prefixLength);
-			DBBan getBanDetails(unsigned int serverID, const std::string &baseAddress, std::uint8_t prefixLength);
+			DBBan getBanDetails(unsigned int serverID, std::string baseAddress, std::uint8_t prefixLength,
+								std::optional< std::string > bannedUserCertHash);
+			DBBan getBanDetails(unsigned int serverID, std::optional< DBBan::ipv6_type > baseAddress,
+								std::optional< std::uint8_t > prefixLength,
+								std::optional< std::string > bannedUserCertHash);
 
 			std::vector< DBBan > getAllBans(unsigned int serverID);
 

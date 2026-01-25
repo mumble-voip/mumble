@@ -2311,6 +2311,37 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Ban</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5352,10 +5383,6 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Kicking user %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

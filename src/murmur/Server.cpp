@@ -1410,7 +1410,7 @@ void Server::newClient() {
 		}
 
 		for (const Ban &ban : m_bans) {
-			if (ban.haAddress.match(ha, static_cast< unsigned int >(ban.iMask))) {
+			if (ban.hasValidIP() && ban.haAddress.match(ha, static_cast< unsigned int >(ban.iMask))) {
 				log(QString("Ignoring connection: %1, Reason: %2, Username: %3, Hash: %4 (Server ban)")
 						.arg(addressToString(sock->peerAddress(), sock->peerPort()), ban.qsReason, ban.qsUsername,
 							 ban.qsHash));

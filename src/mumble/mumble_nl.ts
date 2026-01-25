@@ -2311,6 +2311,37 @@ Spreek vervolgens luid, zoals je zou spreken als je geïrriteerd of opgewonden b
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Reden typen</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Bannen</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuleer</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">Gebruiker %1 wordt verbannen</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5361,10 +5392,6 @@ Deze instelling geldt voor nieuwe berichten, vermits getoonden conformeren aan h
     <message>
         <source>Kicking user %1</source>
         <translation>Gebruiker %1 buitenschoppen</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>Gebruiker %1 wordt verbannen</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

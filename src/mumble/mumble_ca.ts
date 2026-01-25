@@ -2311,6 +2311,37 @@ Parlaeu en veu alta, com quan esteu molest o emocionat. Disminuiu el volum del t
     </message>
 </context>
 <context>
+    <name>BanDialog</name>
+    <message>
+        <source>Banning user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter reason</source>
+        <translation type="unfinished">Entreu la raó</translation>
+    </message>
+    <message>
+        <source>Ban User Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ban</source>
+        <translation type="unfinished">Blocatge</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Anul·la</translation>
+    </message>
+    <message>
+        <source>Banning user %1</source>
+        <translation type="unfinished">S&apos;està blocant l&apos;usuari %1</translation>
+    </message>
+</context>
+<context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
@@ -5361,10 +5392,6 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     <message>
         <source>Kicking user %1</source>
         <translation>S&apos;està expulsant a %1</translation>
-    </message>
-    <message>
-        <source>Banning user %1</source>
-        <translation>S&apos;està blocant l&apos;usuari %1</translation>
     </message>
     <message>
         <source>View comment on user %1</source>

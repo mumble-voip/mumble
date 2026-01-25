@@ -14,8 +14,14 @@ namespace mumble {
 namespace server {
 	namespace db {
 
-		DBBan::DBBan(unsigned int serverID, DBBan::ipv6_type baseAddress, std::uint8_t prefixLength)
-			: serverID(serverID), baseAddress(std::move(baseAddress)), prefixLength(prefixLength) {}
+		DBBan::DBBan(unsigned int serverID) : serverID(serverID) {}
+
+		void DBBan::setIP(ipv6_type address, std::uint8_t prefix) {
+			baseAddress  = address;
+			prefixLength = prefix;
+		}
+
+		void DBBan::setCertHash(std::string &certHash) { bannedUserCertHash = certHash; }
 
 		std::string DBBan::ipv6ToString(const DBBan::ipv6_type &address) {
 			std::string str;

@@ -687,6 +687,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		sendMessage(uSource, msg);
 	} else {
 		previousBans = std::set< Ban >(m_bans.begin(), m_bans.end());
+		std::set< QString > uniqueBans;
 
 		m_bans.clear();
 		for (int i = 0; i < msg.bans_size(); ++i) {
@@ -708,9 +709,19 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 			} else {
 				b.qdtStart = QDateTime::currentDateTime().toUTC();
 			}
+
 			b.iDuration = be.duration();
+
+			QString repr = b.toKey();
+
+			// server-side de-duplication
+			if (uniqueBans.contains(repr)) {
+				continue;
+			}
+
 			if (b.isValid()) {
 				m_bans.push_back(std::move(b));
+				uniqueBans.insert(repr);
 			}
 		}
 		// m_bans needs to be sorted in order for it to be used in the set_difference functions below
@@ -1236,12 +1247,29 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 	}
 
 	if (ban) {
+		// Before Mumble 1.6, a ban meant certificate and IP ban. This is the fallback.
+		// Starting with Mumble 1.6, an admin must specify which method to use.
+		bool banCertificate = !msg.has_ban_certificate() || msg.ban_certificate();
+		bool banIP          = !msg.has_ban_ip() || msg.ban_ip();
+
+		// User might not even have a certificate
+		banCertificate &= !pDstServerUser->qsHash.isEmpty();
+
+		if (!banIP && !banCertificate) {
+			// No ban method specified
+			return;
+		}
+
 		Ban b;
-		b.haAddress  = pDstServerUser->haAddress;
-		b.iMask      = 128;
+		if (banIP) {
+			b.haAddress = pDstServerUser->haAddress;
+			b.iMask     = 128;
+		}
+		if (banCertificate) {
+			b.qsHash = pDstServerUser->qsHash;
+		}
 		b.qsReason   = u8(msg.reason());
 		b.qsUsername = pDstServerUser->qsName;
-		b.qsHash     = pDstServerUser->qsHash;
 		b.qdtStart   = QDateTime::currentDateTime().toUTC();
 		b.iDuration  = 0;
 

@@ -294,6 +294,9 @@ set(MUMBLE_SOURCES
 
 	"widgets/AccessibleQGroupBox.cpp"
 	"widgets/AccessibleQGroupBox.h"
+	"widgets/BanDialog.cpp"
+	"widgets/BanDialog.h"
+	"widgets/BanDialog.ui"
 	"widgets/ClickableLabel.h"
 	"widgets/CompletablePage.cpp"
 	"widgets/CompletablePage.h"

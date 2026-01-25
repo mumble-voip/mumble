@@ -23,10 +23,12 @@ struct Ban {
 	QDateTime qdtStart;
 	unsigned int iDuration;
 	bool isExpired() const;
+	bool hasValidIP() const;
 	bool isValid() const;
 	bool operator<(const Ban &) const;
 	bool operator==(const Ban &) const;
 	QString toString() const;
+	QString toKey() const;
 };
 
 namespace std {
