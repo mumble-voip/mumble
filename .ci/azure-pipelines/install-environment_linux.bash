@@ -36,7 +36,8 @@ sudo apt -y install \
 	libzeroc-ice-dev \
 	zsync \
 	appstream \
-	libpoco-dev
+	libpoco-dev \
+	libsystemd-dev
 
 
 
