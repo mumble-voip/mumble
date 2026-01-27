@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
+    <width>424</width>
     <height>314</height>
    </rect>
   </property>
@@ -255,6 +255,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="qcbSavePassword">
+       <property name="text">
+        <string>Save settings on this device</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="reconnectButton">
