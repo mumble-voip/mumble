@@ -707,14 +707,14 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Un utilitaire Open Source de discussion par la voix à faible latente et de haute qualité</translation>
     </message>
 </context>
 <context>
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>vide</translation>
     </message>
 </context>
 <context>
@@ -2314,31 +2314,31 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Bannissement de l&apos;utilisateur</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Entrez la raison</translation>
+        <translation>Entrez la raison</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Bannir le certificat d&apos;utilisateur</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Bannir l&apos;IP</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Bannir</translation>
+        <translation>Bannir</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">Bannissement de l&apos;utilisateur %1</translation>
+        <translation>Bannissement de l&apos;utilisateur %1</translation>
     </message>
 </context>
 <context>
@@ -3608,19 +3608,19 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vous pouvez également choisir de réinitialiser le chemin configuré à sa valeur par défaut.</translation>
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer un fichier</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le chemin configuré</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitter sans modification</translation>
     </message>
 </context>
 <context>
@@ -3641,59 +3641,59 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>La connexion a échoué</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">Vous vous êtes connecté avec un nom d&apos;utilisateur invalide, veuillez en essayer un autre.</translation>
+        <translation>Vous vous êtes connecté avec un nom d&apos;utilisateur invalide, veuillez en essayer un autre.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nom d&apos;utilisateur choisi est déjà utilisé, veuillez en essayer un autre.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Nom d&apos;utilisateur</translation>
+        <translation>Nom d&apos;utilisateur</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le nom d&apos;utilisateur choisi appartient à un utilisateur enregistré sur ce serveur.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le mot de passe fourni n&apos;est pas valide pour cet utilisateur. Veuillez en essayer un autre ou utilisez l&apos;authentification fondé sur un certificat en ne spécifiant pas un mot de passe.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le certificat utilisé n&apos;est pas valide pour cet utilisateur. Veuillez utiliser un certificat différent ou spécifiez un mot de passe pour utiliser à la place l&apos;authentification fondé sur un mot de passe.</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Mot de passe</translation>
+        <translation>Mot de passe</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;utilisateur&#xa0;:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe&#xa0;:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer de certificat</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le mot de passe serveur fourni est invalide. Veuillez en choisir un autre.</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconnexion</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
 </context>
 <context>
@@ -5152,59 +5152,59 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Thème sombre à utiliser pour styliser l&apos;interface utilisateur</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Configure avec quel thème l&apos;interface utilisateur de Mumble devrait être stylisée lorsqu&apos;elle utilise le thème sombre&lt;/b&gt;&lt;br /&gt;Mumble sélectionnera les thème depuis certains répertoires et les affichera dans cette liste. Celui que vous sélectionnerez sera utilisé pour personnaliser l&apos;apparence visuelle de Mumble. Cela comprend les couleurs, les icônes et davantage encore.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Thème clair à utiliser pour styliser l&apos;interface utilisateur</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Thème sombre</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Règle le thème automatiquement en se fondant sur le thème du système.</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Thème automatique fondé sur le thème du système</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Règle le thème sur le paramètre de thème sombre configuré</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Sombre</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Règle le thème sur le paramètre de thème clair configuré</translation>
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Thème clair</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Clair</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le répertoire des thèmes dans le gestionnaire de fichiers du système</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir le répertoire des thèmes</translation>
     </message>
 </context>
 <context>
@@ -7178,52 +7178,52 @@ pour filtrage depuis le menu du salon.</translation>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Appui adaptatif</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lors de l&apos;utilisation du mode appuyer-pour-parler, cela agira comme l&apos;action d&apos;appuyer pour parler. Sinon, cela agira comme l&apos;action appuyer pour rendre muet.</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir l&apos;image</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec du décodage de l&apos;image.</translation>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ouvrira l&apos;éditeur de texte riche pour modifier votre commentaire. Les commentaires sont distincts pour chaque serveur. Les autres utilisateurs peuvent lire votre commentaire en faisant passer le pointeur de la souris sur l&apos;icône de commentaire sur l&apos;arborescence des salons et d&apos;utilisateurs.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ouvrira le dialogue d&apos;enregistrement audio.</translation>
     </message>
     <message>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ouvrira le dialogue de recherche. Il est utilisé pour trouver des salons et des utilisateurs sur le serveur actuel.</translation>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter en tant que &amp;favori</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter le serveur actuel en tant que favori</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cela ajoute le serveur auquel vous êtes actuellement connecté aux connexions connues comme favori.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ajouté aux favoris.</translation>
     </message>
 </context>
 <context>
@@ -7951,7 +7951,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <source>User&apos;s name</source>
-        <translation>Nom d&apos;utilisateur</translation>
+        <translation>Nom de l&apos;utilisateur</translation>
     </message>
     <message>
         <source>Username</source>
@@ -8774,7 +8774,7 @@ Référez vous à &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&g
     <name>ResponsiveImageDialog</name>
     <message>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Aperçu de l&apos;image</translation>
     </message>
 </context>
 <context>
@@ -9318,7 +9318,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Cacher</translation>
     </message>
 </context>
 <context>
@@ -9577,7 +9577,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <name>UserListModel</name>
     <message>
         <source>Nick</source>
-        <translation>Nom d&apos;utilisateur</translation>
+        <translation>Pseudonyme</translation>
     </message>
     <message>
         <source>Inactive days</source>
