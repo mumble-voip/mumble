@@ -1704,7 +1704,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished">meters</translation>
+        <translation>metres</translation>
     </message>
 </context>
 <context>
@@ -2314,19 +2314,19 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Banning user</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter reason</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban User Certificate</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban IP</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -2334,11 +2334,11 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Banning user %1</translation>
     </message>
 </context>
 <context>
@@ -2840,7 +2840,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished">Certificate file to import</translation>
+        <translation>Certificate file to import</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
@@ -2848,7 +2848,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished">Certificate password</translation>
+        <translation>Certificate password</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
@@ -2860,7 +2860,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished">File to export certificate to</translation>
+        <translation>File to export certificate to</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
@@ -3324,7 +3324,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Packet loss</source>
-        <translation type="unfinished">Packet loss</translation>
+        <translation>Packet loss</translation>
     </message>
     <message>
         <source>Ping (80%)</source>
@@ -3332,7 +3332,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -3384,7 +3384,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished">Server</translation>
+        <translation>Server</translation>
     </message>
 </context>
 <context>
@@ -3399,7 +3399,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>A&amp;ddress</source>
-        <translation type="unfinished">A&amp;ddress</translation>
+        <translation>A&amp;ddress</translation>
     </message>
     <message>
         <source>Internet address of the server.</source>
@@ -3416,7 +3416,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
     </message>
     <message>
         <source>&amp;Port</source>
-        <translation type="unfinished">&amp;Port</translation>
+        <translation>&amp;Port</translation>
     </message>
     <message>
         <source>Port on which the server is listening</source>
@@ -3547,48 +3547,48 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Email address (optional)</translation>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Please describe briefly, in English, what you were doing at the time of the crash</translation>
     </message>
     <message>
         <source>Send Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Send Report</translation>
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"></translation>
+        <translation>Don&apos;t send report</translation>
     </message>
     <message>
         <source>Crash upload successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Crash upload successful</translation>
     </message>
     <message>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"></translation>
+        <translation>Thanks for helping improve Mumble!</translation>
     </message>
     <message>
         <source>Crash upload failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Crash upload failed</translation>
     </message>
     <message>
         <source>Uploading crash report</source>
-        <translation type="unfinished"></translation>
+        <translation>Uploading crash report</translation>
     </message>
     <message>
         <source>Abort upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Abort upload</translation>
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP error %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Internal error was encountered (in CrashReporter.cpp): Received network reply does not contain a HTTP status code. Please inform one of our developerers about the error code %1</translation>
     </message>
 </context>
 <context>
@@ -3596,11 +3596,11 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>The database &quot;%1&quot; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</translation>
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"></translation>
+        <translation>The database file &quot;%1&quot; set in the configuration file does not exist. Do you want to create a new database file at this location?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
@@ -3608,56 +3608,56 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>You can also choose to reset the configured path to its default value.</translation>
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Create File</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Reset Configured Path</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Quit Without Changes</translation>
     </message>
 </context>
 <context>
     <name>DeveloperConsole</name>
     <message>
         <source>Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Developer Console</translation>
     </message>
 </context>
 <context>
     <name>DockTitleBar</name>
     <message>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation>Drag here</translation>
     </message>
 </context>
 <context>
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Connection failed</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>You connected with an invalid username. Please try another one.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>The chosen username is already in use. Please try another one.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Username</translation>
+        <translation>Username</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>The chosen username belongs to a registered user on this server.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
