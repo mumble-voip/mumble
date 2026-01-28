@@ -2314,38 +2314,38 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Bannando utente</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Inserisci motivazione</translation>
+        <translation>Inserisci motivazione</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Banna certificato utente</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Banna IP</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Bandire</translation>
+        <translation>Ban</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">Bandimento utente %1</translation>
+        <translation>Banando utente %1</translation>
     </message>
 </context>
 <context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - Modifica della lista degli utenti banditi</translation>
+        <translation>Mumble - Modifica ban</translation>
     </message>
     <message>
         <source>&amp;Address</source>
@@ -2441,11 +2441,11 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     </message>
     <message>
         <source>Banned users</source>
-        <translation>Utenti Banditi</translation>
+        <translation>Utenti bannati</translation>
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation>Questa è una lista degli utenti banditi.</translation>
+        <translation>Questa è una lista degli utenti bannati.</translation>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
@@ -2474,8 +2474,8 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
         <translation>
-            <numerusform>Lista Banditi - %n Bandito</numerusform>
-            <numerusform>Lista Banditi - %n Banditi</numerusform>
+            <numerusform>Lista Bannati - %n Bannato</numerusform>
+            <numerusform>Lista Bannati - %n Bannati</numerusform>
         </translation>
     </message>
     <message>
@@ -2995,7 +2995,7 @@ Sei sicuro di voler sostituire il tuo certificato?
     </message>
     <message>
         <source>Ban</source>
-        <translation>Bandire</translation>
+        <translation>Bannare</translation>
     </message>
     <message>
         <source>Register User</source>
@@ -5800,11 +5800,11 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Kick and ban user (with reason)</source>
-        <translation>Espelli e bandisci l&apos;utente (con motivazione)</translation>
+        <translation>Espelli e banna l&apos;utente (con motivazione)</translation>
     </message>
     <message>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Espelli e bandisci l&apos;utente selezionato dal server. Ti sarà chiesto di specificare una ragione.</translation>
+        <translation>Espelli e banna l&apos;utente selezionato dal server. Ti sarà chiesto di specificare una ragione.</translation>
     </message>
     <message>
         <source>Deafen user</source>
@@ -6345,11 +6345,11 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>%1 ti ha espulso e bandito dal server per la seguente motivazione: %2.</translation>
+        <translation>%1 ti ha espulso e bannato dal server per la seguente motivazione: %2.</translation>
     </message>
     <message>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%1 ha espulso e bandito %3 dal server per la seguente motivazione: %2.</translation>
+        <translation>%1 ha espulso e bannato %3 dal server per la seguente motivazione: %2.</translation>
     </message>
     <message>
         <source>You were moved to %1 by %2.</source>
@@ -6515,7 +6515,7 @@ contestuale del canale.</translation>
     </message>
     <message>
         <source>&amp;Ban...</source>
-        <translation>&amp;Bandisci...</translation>
+        <translation>&amp;Banna...</translation>
     </message>
     <message>
         <source>&amp;Add...</source>

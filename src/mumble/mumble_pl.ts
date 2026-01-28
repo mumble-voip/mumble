@@ -2314,31 +2314,31 @@ Mów głośno, tak jakbyś był wkurzony lub podekscytowany. Zmniejsz głośnoś
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Banowanie użytkownika</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Podaj powód</translation>
+        <translation>Podaj powód</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbanuj certyfikat użytkownika</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbanuj adres IP</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Banowanie użytkowników</translation>
+        <translation>Zbanuj</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">Banowanie użytkownika %1</translation>
+        <translation>Banowanie użytkownika %1</translation>
     </message>
 </context>
 <context>
