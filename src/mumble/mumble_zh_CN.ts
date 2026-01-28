@@ -2314,31 +2314,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>封禁用户</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">输入原因</translation>
+        <translation>输入原因</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>封禁用户证书</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>封禁 IP</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">封禁用户</translation>
+        <translation>封禁</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">封禁用户 %1</translation>
+        <translation>封禁用户 %1</translation>
     </message>
 </context>
 <context>
