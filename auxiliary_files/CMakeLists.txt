@@ -16,7 +16,7 @@ if(NOT BUILD_RELEASE_DATE)
 endif()
 
 if(overlay)
-	if(UNIX)
+	if(UNIX AND NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
 		delayed_configure_files(
 			TARGET overlay_gl
 			FILES
