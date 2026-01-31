@@ -37,6 +37,7 @@ target_compile_definitions(rnnoise PRIVATE "HAVE_CONFIG_H")
 target_include_directories(rnnoise
 	PRIVATE SYSTEM
 		${CMAKE_CURRENT_SOURCE_DIR}
+		"${CMAKE_CURRENT_BINARY_DIR}/generated"
 	PUBLIC SYSTEM
 		"${RNNOISE_SRC_DIR}/include"
 		"${RNNOISE_SRC_DIR}/src"
@@ -55,12 +56,15 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(rnnoise_model)
 
+set(RNNOISE_GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
+file(MAKE_DIRECTORY "${RNNOISE_GENERATED_DIR}")
+
 add_custom_command(
     OUTPUT
-        "${RNNOISE_SRC_DIR}/src/rnnoise_data.c"
-        "${RNNOISE_SRC_DIR}/src/rnnoise_data.h"
-        "${RNNOISE_SRC_DIR}/src/rnnoise_data_little.c"
-        "${RNNOISE_SRC_DIR}/src/rnnoise_data_little.h"
+        "${RNNOISE_GENERATED_DIR}/rnnoise_data.c"
+        "${RNNOISE_GENERATED_DIR}/rnnoise_data.h"
+        "${RNNOISE_GENERATED_DIR}/rnnoise_data_little.c"
+        "${RNNOISE_GENERATED_DIR}/rnnoise_data_little.h"
 
     WORKING_DIRECTORY "${RNNOISE_SRC_DIR}"
     COMMAND "${CMAKE_COMMAND}" -E copy
@@ -68,12 +72,12 @@ add_custom_command(
         "${rnnoise_model_SOURCE_DIR}/src/rnnoise_data.h"
         "${rnnoise_model_SOURCE_DIR}/src/rnnoise_data_little.c"
         "${rnnoise_model_SOURCE_DIR}/src/rnnoise_data_little.h"
-        "${RNNOISE_SRC_DIR}/src"
+        "${RNNOISE_GENERATED_DIR}"
     COMMENT "Downloading RNNoise model files"
 )
 
 target_sources(rnnoise PRIVATE
-	"${RNNOISE_SRC_DIR}/src/rnnoise_data.c"
+	"${RNNOISE_GENERATED_DIR}/rnnoise_data.c"
 	"${RNNOISE_SRC_DIR}/src/rnnoise_tables.c"
 	"${RNNOISE_SRC_DIR}/src/rnn.c"
 	"${RNNOISE_SRC_DIR}/src/pitch.c"
