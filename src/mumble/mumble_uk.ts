@@ -2314,31 +2314,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокувати користувача</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Введіть причину</translation>
+        <translation>Введіть причину</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокувати сертифікат користувача</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокувати IP-адресу</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Забанити</translation>
+        <translation>Заблокувати</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Скасувати</translation>
+        <translation>Скасувати</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">Блокування користувача %1</translation>
+        <translation>Блокування користувача %1</translation>
     </message>
 </context>
 <context>

@@ -3612,15 +3612,15 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Luo tiedosto</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Nollaa määritetty polku</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Lopeta ilman muutoksia</translation>
     </message>
 </context>
 <context>
@@ -5152,7 +5152,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Tumma teema, jota käytetään käyttöliittymän tyylittämiseksi</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
@@ -5160,7 +5160,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaalea teema, jota käytetään käyttöliittymän tyylittämiseksi</translation>
     </message>
     <message>
         <source>Dark Theme</source>
@@ -5684,7 +5684,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation>&amp;Sulje Mumble</translation>
+        <translation>&amp;Lopeta Mumble</translation>
     </message>
     <message>
         <source>Closes the program</source>

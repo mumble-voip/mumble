@@ -2314,31 +2314,31 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı yasaklanıyor</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Sebep gir</translation>
+        <translation>Sebep gir</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Kullanıcı Sertifikasını Yasakla</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP Adresini Yasakla</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Yasakla</translation>
+        <translation>Yasakla</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">İptal</translation>
+        <translation>İptal</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">%1 adlı kullanıcı yasaklanıyor</translation>
+        <translation>%1 adlı kullanıcı yasaklanıyor</translation>
     </message>
 </context>
 <context>
