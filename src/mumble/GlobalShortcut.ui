@@ -32,7 +32,7 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system's Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Input Monitoring&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="textFormat">
             <enum>Qt::RichText</enum>
@@ -58,9 +58,9 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="qpbOpenAccessibilityPrefs">
+            <widget class="QPushButton" name="qpbOpenInputMonitoringSettings">
              <property name="text">
-              <string>Open Accessibility Preferences</string>
+              <string>Open Privacy Settings</string>
              </property>
             </widget>
            </item>
