@@ -3747,14 +3747,6 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
         <translation>&amp;Eliminar</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualmente o Mumble só pode usar botões do rato e as teclas modificadoras do teclado (Alt, Ctrl, Cmd, etc.) para atalhos globais.&lt;/p&gt;&lt;p&gt;Se quer mais flexibilidade pode ativar &lt;span style=&quot; font-style:italic;&quot;&gt;Acesso para aparelhos de assistência&lt;/span&gt; nas preferências de Acessibilidade do sistema. Por favor note no entanto, que essa mudança também permite potencialmente programas maliciosos de ver o que é escrito no seu teclado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Abrir Preferências de Acessibilidade</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Saltar</translation>
     </message>
@@ -3822,6 +3814,14 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Input Monitoring&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Privacy Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
@@ -3865,10 +3865,6 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualmente, o Mumble só pode usar botões do rato e teclas modificadoras do teclado (Alt, Ctrl, Cmd, etc.) como atalhos globais.&lt;/p&gt;&lt;p&gt;Se deseja mais flexibilidade, pode adicionar o Mumble como um programa de acessibilidade de confiança na secção de Segurança &amp; Privacidade nas Preferências de Sistema do seu Mac.&lt;/p&gt;&lt;p&gt;No painel de preferências de Segurança &amp; Privacidade, mude para o separador de Privacidade. Depois escolha Acessibilidade (perto do fundo) na lista à esquerda. Finalmente, adicione o Mumble à lista de programas de acessibilidade de confiança.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Atalhos</translation>
     </message>
@@ -3895,6 +3891,10 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>Shortcut input combinations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Accessibility&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

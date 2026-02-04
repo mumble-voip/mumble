@@ -14,6 +14,50 @@
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
 
+// Helper functions for runtime macOS version checking.
+// These allow GlobalShortcut.cpp (C++) to use the appropriate permission API
+// based on the running macOS version.
+
+bool macOS_hasGlobalShortcutPermission() {
+	if (@available(macOS 10.15, *)) {
+		// macOS 10.15+ (Catalina): Use Input Monitoring API
+		return CGPreflightListenEventAccess();
+	} else {
+		// macOS 10.9 - 10.14: Use Accessibility API
+		return AXIsProcessTrustedWithOptions(nullptr);
+	}
+}
+
+void macOS_requestGlobalShortcutPermission() {
+	if (@available(macOS 10.15, *)) {
+		// macOS 10.15+ (Catalina): Request Input Monitoring permission
+		CGRequestListenEventAccess();
+	} else {
+		// macOS 10.9 - 10.14: Request Accessibility permission with system prompt
+		NSDictionary *options = @{(__bridge NSString *) kAXTrustedCheckOptionPrompt: @YES };
+		AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
+	}
+}
+
+void macOS_openPrivacySettings() {
+	NSString *urlString;
+	if (@available(macOS 10.15, *)) {
+		// macOS 10.15+: Open Input Monitoring settings
+		urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_ListenEvent";
+	} else {
+		// macOS 10.9 - 10.14: Open Accessibility settings
+		urlString = @"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility";
+	}
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
+}
+
+bool macOS_usesInputMonitoring() {
+	if (@available(macOS 10.15, *)) {
+		return true;
+	}
+	return false;
+}
+
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutMac();
 }
@@ -135,6 +179,11 @@ GlobalShortcutMac::GlobalShortcutMac()
 	return;
 #endif
 
+	// Request the appropriate permission based on macOS version.
+	// On macOS 10.15+, this requests Input Monitoring permission.
+	// On older versions, permission is requested automatically when the event tap fails.
+	macOS_requestGlobalShortcutPermission();
+
 	CGEventMask evmask = CGEventMaskBit(kCGEventLeftMouseDown) |
 	                     CGEventMaskBit(kCGEventLeftMouseUp) |
 	                     CGEventMaskBit(kCGEventRightMouseDown) |
@@ -151,7 +200,7 @@ GlobalShortcutMac::GlobalShortcutMac()
 	                     CGEventMaskBit(kCGEventScrollWheel);
 	port = CGEventTapCreate(kCGSessionEventTap,
 	                        kCGTailAppendEventTap,
-	                        kCGEventTapOptionDefault, // active filter (not only a listener)
+	                        kCGEventTapOptionListenOnly,
 	                        evmask,
 	                        GlobalShortcutMac::callback,
 	                        this);
@@ -478,7 +527,7 @@ bool GlobalShortcutMac::enabled() {
 }
 
 bool GlobalShortcutMac::canSuppress() {
-	return true;
+	return false;
 }
 
 bool GlobalShortcutMac::canDisable() {

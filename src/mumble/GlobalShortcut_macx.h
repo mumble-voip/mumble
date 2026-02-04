@@ -14,6 +14,34 @@
 #include "Global.h"
 #include "GlobalShortcut.h"
 
+// Helper functions for runtime macOS version checking.
+// These allow C++ code to check and request the appropriate permission
+// (Input Monitoring on macOS 10.15+, Accessibility on older versions).
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/// Check if the app has the necessary permission for global shortcuts.
+/// On macOS 10.15+, checks Input Monitoring; on older versions, checks Accessibility.
+bool macOS_hasGlobalShortcutPermission();
+
+/// Request the necessary permission for global shortcuts.
+/// On macOS 10.15+, requests Input Monitoring; on older versions, this is a no-op
+/// (Accessibility permission is requested automatically when the event tap fails).
+void macOS_requestGlobalShortcutPermission();
+
+/// Open the appropriate Privacy settings pane in System Preferences.
+/// On macOS 10.15+, opens Input Monitoring; on older versions, opens Accessibility.
+void macOS_openPrivacySettings();
+
+/// Returns true if the current macOS version uses Input Monitoring (10.15+),
+/// false if it uses Accessibility (10.14 and earlier).
+bool macOS_usesInputMonitoring();
+
+#ifdef __cplusplus
+}
+#endif
+
 class GlobalShortcutMac : public GlobalShortcutEngine {
 private:
 	Q_OBJECT

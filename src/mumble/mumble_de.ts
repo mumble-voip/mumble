@@ -3747,14 +3747,6 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
         <translation>&amp;Entfernen</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kann zur Zeit nur Maus- und Zusatztasten (Alt, Strg, Befehlstaste usw.) für globale Tastenkürzel verwenden.&lt;/p&gt;&lt;p&gt;Für mehr Flexibilität kann &lt;span style=&quot;font-style:italic;&quot;&gt;Zugriff für Hilfsgeräte aktivieren&lt;/span&gt; in den Bedienungshilfen Einstellungen des Systems aktiviert werden. Bitte beachten Sie jedoch, dass diese Änderung unter Umständen auch bösartigen Programmen erlaubt, zu lesen, was auf Ihrer Tastatur getippt wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Öffne Bedienungshilfen Einstellungen</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Überspringen</translation>
     </message>
@@ -3822,6 +3814,14 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
         <translation>Entfernt den markierten Eintrag aus dem &quot;Konfigurierten Tastenkürzel&quot;-Baum oberhalb</translation>
     </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Input Monitoring&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Privacy Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
@@ -3865,10 +3865,6 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kann zurzeit nur Maustasten und Zusatztasten auf der Tastatur (Alt, Strg, Cmd, usw.) für systemweite Tastenkürzel verwenden.&lt;/p&gt;&lt;p&gt;Für eine größere Flexibilität können Sie Mumble als vertrautes Bedienhilfenprogramm im Privatsphärenreiter der Systemeinstellungen Ihres Mac&apos;s aktivieren.&lt;/p&gt;&lt;p&gt;Öffnen Sie dazu in Ihren Systemeinstellungen das Sicherheitsfenster und wechseln zum Privatsphärenreiter. Gehen Sie nun in der Navigation (links) auf den Punkt Bedienungshilfen und fügen Mumble in die erscheinende Liste der vertrauenswürdigen Programme hinzu.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Tastenkürzel</translation>
     </message>
@@ -3896,6 +3892,10 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     <message>
         <source>Shortcut input combinations</source>
         <translation>Tastenkürzel Eingabekombinationen</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Accessibility&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>

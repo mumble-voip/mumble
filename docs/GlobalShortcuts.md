@@ -53,6 +53,25 @@ regardless of the user they're running under!
 
 ## macOS
 
-Mumble needs to be granted accessibility permissions.
+Mumble needs permission to monitor keyboard and mouse input for global shortcuts
+(e.g. Push-to-Talk) to work. The required permission depends on your macOS version:
 
-![macOS screenshot](../screenshots/macOS_privacy_accessibility.png)
+### macOS 10.15 (Catalina) and later
+
+Grant **Input Monitoring** permission:
+
+1. Open **System Settings** > **Privacy & Security** > **Input Monitoring**
+2. Enable the checkbox next to **Mumble**
+
+![macOS Input Monitoring screenshot](../screenshots/macOS_privacy_input_monitoring.png)
+
+### macOS 10.9 - 10.14
+
+Grant **Accessibility** permission:
+
+1. Open **System Preferences** > **Security & Privacy** > **Privacy** > **Accessibility**
+2. Click the lock to make changes, then enable the checkbox next to **Mumble**
+
+![macOS Accessibility screenshot](../screenshots/macOS_privacy_accessibility.png)
+
+Mumble will automatically detect your macOS version and open the correct settings pane.
