@@ -263,6 +263,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 
 	ModelItem::bUsersTop = Global::get().s.bUserTop;
 
+	blobRequestType     = BlobRequestType::None;
 	uiSessionComment    = 0;
 	iChannelDescription = -1;
 	bClicked            = false;
@@ -694,7 +695,9 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 							if (c->qsDesc.isEmpty()) {
 								c->qsDesc = QString::fromUtf8(Global::get().db->blob(c->qbaDescHash));
 								if (c->qsDesc.isEmpty()) {
-									const_cast< UserModel * >(this)->iChannelDescription = static_cast< int >(c->iId);
+									UserModel *pmModel = const_cast< UserModel * >(this);
+									pmModel->blobRequestType = BlobRequestType::Tooltip;
+									pmModel->iChannelDescription = static_cast< int >(c->iId);
 
 									MumbleProto::RequestBlob mprb;
 									mprb.add_channel_description(c->iId);
@@ -1265,14 +1268,25 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 			if (c->iId == static_cast< unsigned int >(iChannelDescription)) {
 				iChannelDescription = -1;
 				item->bCommentSeen  = false;
-				if (bClicked) {
-					QRect r = Global::get().mw->qtvUsers->visualRect(index(c));
-					QWhatsThis::showText(Global::get().mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
-										 data(index(c, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
-				} else {
-					QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(),
-									   Global::get().mw->qtvUsers);
+				switch (blobRequestType) {
+					case BlobRequestType::Tooltip:
+						if (bClicked) {
+							QRect r = Global::get().mw->qtvUsers->visualRect(index(c));
+							QWhatsThis::showText(Global::get().mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
+												 data(index(c, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
+						} else {
+							QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(),
+											   Global::get().mw->qtvUsers);
+						}
+						break;
+					case BlobRequestType::Window:
+						Global::get().mw->cContextChannel = c;
+						QTimer::singleShot(0, Global::get().mw, &MainWindow::on_qaChannelDescriptionView_triggered);
+						break;
+					default:
+						break;
 				}
+				blobRequestType     = BlobRequestType::None;
 			} else {
 				item->bCommentSeen = Global::get().db->seenComment(item->hash(), c->qbaDescHash);
 				newstate           = item->bCommentSeen ? 2 : 1;

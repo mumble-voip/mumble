@@ -933,6 +933,14 @@ the channel's context menu.</string>
     <string>&amp;Pin When Filtering</string>
    </property>
   </action>
+  <action name="qaChannelDescriptionView">
+   <property name="text">
+    <string>Vie&amp;w Description</string>
+   </property>
+   <property name="toolTip">
+    <string>View full channel description in a separate window</string>
+   </property>
+  </action>
   <action name="qaUserCommentView">
    <property name="text">
     <string>Vie&amp;w Comment</string>
