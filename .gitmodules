@@ -1,9 +1,6 @@
 [submodule "3rdparty/minhook"]
 	path = 3rdparty/minhook
 	url = https://github.com/mumble-voip/minhook.git
-[submodule "3rdparty/mach-override-src"]
-	path = 3rdparty/mach-override-src
-	url = https://github.com/mumble-voip/mach_override.git
 [submodule "3rdparty/speexdsp"]
 	path = 3rdparty/speexdsp
 	url = https://github.com/xiph/speexdsp.git
