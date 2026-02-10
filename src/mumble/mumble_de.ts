@@ -3751,10 +3751,6 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kann zur Zeit nur Maus- und Zusatztasten (Alt, Strg, Befehlstaste usw.) für globale Tastenkürzel verwenden.&lt;/p&gt;&lt;p&gt;Für mehr Flexibilität kann &lt;span style=&quot;font-style:italic;&quot;&gt;Zugriff für Hilfsgeräte aktivieren&lt;/span&gt; in den Bedienungshilfen Einstellungen des Systems aktiviert werden. Bitte beachten Sie jedoch, dass diese Änderung unter Umständen auch bösartigen Programmen erlaubt, zu lesen, was auf Ihrer Tastatur getippt wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Öffne Bedienungshilfen Einstellungen</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Überspringen</translation>
     </message>

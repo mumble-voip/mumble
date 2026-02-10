@@ -17,7 +17,6 @@
 #include "Global.h"
 #include "GlobalShortcutButtons.h"
 
-#include <QtCore/QProcess>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtGui/QHelpEvent>
 #include <QtWidgets/QItemEditorFactory>
@@ -25,7 +24,6 @@
 
 #ifdef Q_OS_MAC
 #	include <ApplicationServices/ApplicationServices.h>
-#	include <QtCore/QOperatingSystemVersion>
 #endif
 
 #include <cassert>
@@ -640,24 +638,20 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 
 #ifdef Q_OS_MAC
 	// Help Mac users enable accessibility access for Mumble...
-	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
-	if (current >= QOperatingSystemVersion::OSXMavericks) {
-		qpbOpenAccessibilityPrefs->setHidden(true);
-		label->setText(tr("<html><head/><body>"
-						  "<p>"
-						  "Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, "
-						  "etc.) for global shortcuts."
-						  "</p>"
-						  "<p>"
-						  "If you want more flexibility, you can add Mumble as a trusted accessibility program in the "
-						  "Privacy & Security section "
-						  "of your Mac's System Settings."
-						  "</p>"
-						  "<p>"
-						  "In System Settings, open Privacy & Security, then scroll to find Accessibility in the list. "
-						  "Finally, add Mumble to the list of trusted accessibility programs."
-						  "</body></html>"));
-	}
+	label->setText(tr("<html><head/><body>"
+					  "<p>"
+					  "Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, "
+					  "etc.) for global shortcuts."
+					  "</p>"
+					  "<p>"
+					  "If you want more flexibility, you can add Mumble as a trusted accessibility program in the "
+					  "Privacy & Security section "
+					  "of your Mac's System Settings."
+					  "</p>"
+					  "<p>"
+					  "In System Settings, open Privacy & Security, then scroll to find Accessibility in the list. "
+					  "Finally, add Mumble to the list of trusted accessibility programs."
+					  "</body></html>"));
 #endif
 }
 
@@ -676,24 +670,9 @@ bool GlobalShortcutConfig::eventFilter(QObject * /*object*/, QEvent *e) {
 
 bool GlobalShortcutConfig::showWarning() const {
 #ifdef Q_OS_MAC
-#	if MAC_OS_X_VERSION_MAX_ALLOWED >= 1090
-	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
-	if (current >= QOperatingSystemVersion::OSXMavericks) {
-		return !AXIsProcessTrustedWithOptions(nullptr);
-	} else
-#	endif
-	{
-		return !QFile::exists(QLatin1String("/private/var/db/.AccessibilityAPIEnabled"));
-	}
+	return !AXIsProcessTrustedWithOptions(nullptr);
 #endif
 	return false;
-}
-
-void GlobalShortcutConfig::on_qpbOpenAccessibilityPrefs_clicked() {
-	QStringList args;
-	args << QLatin1String("/Applications/System Preferences.app");
-	args << QLatin1String("/System/Library/PreferencePanes/UniversalAccessPref.prefPane");
-	(void) QProcess::startDetached(QLatin1String("/usr/bin/open"), args);
 }
 
 void GlobalShortcutConfig::on_qpbSkipWarning_clicked() {

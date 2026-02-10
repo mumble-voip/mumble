@@ -3635,10 +3635,6 @@ Host: %1 Port: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Parapëlqime</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Anashkaloje</translation>
     </message>

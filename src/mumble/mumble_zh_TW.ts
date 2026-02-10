@@ -3726,10 +3726,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>開啟無障礙選項</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>略過</translation>
     </message>

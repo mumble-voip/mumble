@@ -99,30 +99,6 @@ if(NOT APPLE)
 			install(TARGETS overlay_gl_x86 LIBRARY DESTINATION "${MUMBLE_INSTALL_LIBDIR}")
 		endif()
 	endif()
-else()
-	add_subdirectory("${3RDPARTY_DIR}/mach-override-build" "${CMAKE_CURRENT_BINARY_DIR}/mach-override" EXCLUDE_FROM_ALL)
-
-	find_library(LIB_COREFOUNDATION "CoreFoundation")
-
-	target_compile_definitions(overlay_gl
-		PRIVATE
-			"TARGET_MAC"
-	)
-	target_compile_options(overlay_gl
-		PRIVATE
-			"-ObjC"
-	)
-	target_sources(overlay_gl
-		PRIVATE
-			"avail_mac.h"
-			"overlay_gl.plist"
-	)
-	target_link_libraries(overlay_gl
-		PRIVATE
-			"-undefined dynamic_lookup" # Defer libGL symbol resolution until first use, which is never for non-libGL users.
-			mach-override
-			${LIB_COREFOUNDATION}
-	)
 endif()
 
 # install native overlay library

@@ -3752,10 +3752,6 @@ Por favor informa a un desarrollador sobre el código de error: %1</translation>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Actualmente, Mumble solo puede usar concurrentemente para los métodos abreviados globales botones del ratón y teclas modificadoras del teclado (Alt, Ctrl, Cmd, etc.).&lt;/p&gt;&lt;p&gt;Si desea más flexibilidad, puede activar &lt;span style=&quot; font-style:italic;&quot;&gt;Acceso para dispositivos de ayuda&lt;/span&gt; en las preferencias de accesibilidad del sistema. Sin embargo, por favor fíjese en que este cambio también permite potencialmente que programas malintencionados lean lo que se escribe en su teclado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Abrir preferencias de accesibilidad</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Omitir</translation>
     </message>

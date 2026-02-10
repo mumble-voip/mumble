@@ -79,26 +79,6 @@ def prodsign(inf, outf):
 		return retval
 	return 0
 
-def create_overlay_package():
-	print('* Creating overlay installer')
-
-	bundle = os.path.join(options.binary_dir, 'MumbleOverlay.osax')
-	overlaylib = os.path.join(options.binary_dir, 'libmumbleoverlay.dylib')
-	if options.developer_id:
-		codesign(bundle)
-		codesign(overlaylib)
-
-	# Used as background in the installer
-	shutil.copy(os.path.join(options.source_dir, 'icons/mumble.osx.installer.png'), os.path.join(options.binary_dir, 'bg.png'))
-
-	p = Popen(os.path.join(os.path.abspath(options.source_dir), 'macx/scripts/build-overlay-installer'), cwd=options.binary_dir)
-	retval = p.wait()
-	if retval != 0:
-		raise Exception('build-overlay-installer failed')
-	if options.developer_id:
-		os.rename(os.path.join(options.binary_dir, 'MumbleOverlay.pkg'), os.path.join(options.binary_dir, 'MumbleOverlayUnsigned.pkg'))
-		prodsign(os.path.join(options.binary_dir, 'MumbleOverlayUnsigned.pkg'), os.path.join(options.binary_dir, 'MumbleOverlay.pkg'))
-
 class AppBundle(object):
 	def copy_helper(self, fn):
 		'''
@@ -126,10 +106,6 @@ class AppBundle(object):
 				shutil.copytree(rsrc, os.path.join(rsrcpath, b), symlinks=True)
 			elif os.path.isfile(rsrc):
 				shutil.copy(rsrc, os.path.join(rsrcpath, b))
-
-		# Extras
-		if not options.no_overlay:
-			shutil.copy(os.path.join(options.binary_dir, 'MumbleOverlay.pkg'), os.path.join(rsrcpath, 'MumbleOverlay.pkg'))
 
 	def copy_codecs(self):
 		'''
@@ -276,12 +252,6 @@ def package_client():
 		fn = os.path.join(options.binary_dir, 'Mumble-%s.dmg') % ver
 		title = 'Mumble %s' % ver
 
-	if not options.no_overlay:
-		# Fix overlay installer package
-		create_overlay_package()
-		if options.only_overlay:
-			sys.exit(0)
-
 	# Do the finishing touches to our Application bundle before release
 	a = AppBundle(os.path.join(options.binary_dir, 'Mumble.app'), ver)
 	a.copy_helper('mumble-g15-helper')
@@ -380,9 +350,6 @@ if __name__ == '__main__':
 	parser.add_argument('--version', help='This overrides the version number of the build.')
 	parser.add_argument('--universal', help='Build an universal snapshot.', action='store_true', default=False)
 	parser.add_argument('--only-appbundle', help='Only prepare the appbundle. Do not package.', action='store_true', default=False)
-	overlay_group = parser.add_mutually_exclusive_group()
-	overlay_group.add_argument('--only-overlay', help='Only create the overlay installer.', action='store_true', default=False)
-	overlay_group.add_argument('--no-overlay', help='Skip bundling the overlay', action='store_true', default=False)
 	parser.add_argument('--developer-id', help='Identity (Developer ID) to use for code signing. The name is also used for GPG signing. (If not set, no code signing will occur)')
 	parser.add_argument('--keychain', help='The keychain to use when invoking code signing utilities. (Defaults to "login.keychain")', default='login.keychain')
 	parser.add_argument('--server', help='Build a Murmur package.', action='store_true', default=False)

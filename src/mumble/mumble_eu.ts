@@ -3718,10 +3718,6 @@ Zerbitzariaren etika. Zerbitzari zerrendan agertuko zaizun izena ezartzen du, ed
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Ireki irisgarritasun aukerak</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Irten</translation>
     </message>

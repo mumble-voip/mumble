@@ -3752,10 +3752,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Наразі Mumble може використовувати лише кнопки миші та клавіші-модифікатори клавіатури (Alt, Ctrl, Cmd тощо) для глобальних комбінацій клавіш.&lt;/p&gt;&lt;p&gt;Якщо вам потрібна більша гнучкість , ви можете ввімкнути &lt;span style=&quot; font-style:italic;&quot;&gt;Доступ для допоміжних пристроїв&lt;/span&gt; у налаштуваннях доступності системи. Однак зауважте, що ця зміна також потенційно дозволяє зловмисним програмам читати те, що вводиться на вашій клавіатурі.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Відкрийте параметри доступності</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Пропустити</translation>
     </message>

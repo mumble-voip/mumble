@@ -13,10 +13,6 @@
 #include <sstream>
 #include "CoreAudio.h"
 
-// Ignore deprecation warnings for the whole file, for now.
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-
-
 namespace {
 extern "C" {
 // The dirty hack used to disable the "compulsory" ducking offered by VoiceProcessingAU.

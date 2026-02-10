@@ -3751,10 +3751,6 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan för närvarande bara använda musknappar och vissa tangenter (Alt, Ctrl, Cmd, osv.) för globala genvägar.&lt;/p&gt;&lt;p&gt;Om du vill ha bättre flexibilitet, kan du använda &lt;span style=&quot; font-style:italic;&quot;&gt;Åtkomst för tillgänglighetsenheter&lt;/span&gt; i systemets alternativ för hjälpmedel. Kom ihåg att den här ändringen möjligtvis ochså kan tillåta skadlig programvara att läsa vad som skrivs på ditt tangentbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Öppna tillgänglighetsinställningar</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Hoppa över</translation>
     </message>

@@ -3747,10 +3747,6 @@ Etikette for serveren. Dette er, hvad serveren vil blive navngivet som i din ser
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan på nuværende tidspunkt kun bruge knapper på musen og tastatur-modifikationsknapper (Alt, Ctrl, Cmd, etc.) som globale genveje.&lt;/p&gt;&lt;p&gt;Hvis du ønsker større fleksibilitet, kan du aktivere &lt;span style=&quot; font-style:italic;&quot;&gt;Adgang for hjælpemiddelenheder&lt;/span&gt; i systemets tilgængelighedspræferencer. Vær imidlertid opmærksom på, at denne ændring også potentielt tillader ondsindede programmer, at læse hvad der blivet skrevet på tastaturet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Åben tilgængelighedspræferencer</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Spring over</translation>
     </message>

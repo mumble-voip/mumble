@@ -3751,10 +3751,6 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualmente o Mumble só pode usar botões do mouse e as teclas modificadoras do teclado (Alt, Ctrl, Cmd, etc.) para atalhos globais.&lt;/p&gt;&lt;p&gt;Se você quer mais flexibilidade você pode ativar &lt;span style=&quot; font-style:italic;&quot;&gt;Acesso para dispositivos de assistência&lt;/span&gt; nas preferências de Acessibilidade do sistema. Por favor note, no entanto, que essa mudança também permite programas potencialmente maliciosos de ver o que é digitado em seu teclado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Abrir Preferências de Acessibilidade</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Pular</translation>
     </message>

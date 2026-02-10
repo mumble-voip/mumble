@@ -3751,10 +3751,6 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;En aquest moment el Mumble només pot utilitzar botons del ratolí i les tecles modificadores del teclat (Alt, Ctrl, Cmd, etc.) per a dreceres globals.&lt;/p&gt;&lt;p&gt;Si voleu més flexibilitat, podeu activar &lt;span style=&quot; font-style:italic;&quot;&gt;Accés al dispositius d&apos;assistència&lt;/span&gt; en les preferències d&apos;accessibilitat del sistema. No obstant això, tingueu en compte que aquest canvi també permet que els programes maliciosos llegeixin el que s&apos;escriu al teclat.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Preferències de l&apos;Accessibilitat Oberta</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Salta</translation>
     </message>

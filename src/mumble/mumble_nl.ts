@@ -3751,10 +3751,6 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan momenteel enkel muisknoppen en speciale toetsenbordtoetsen (Alt, Ctrl, Cmd, etc.) gebruiken als globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Wil je meer flexibiliteit, dan kan je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; onder de toegankelijkheidsinstellingen van je systeem instellen. Let hierbij op dat schadelijke software hiermee ook zal kunnen uitlezen wat je aan het typen bent.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Toegankelijkheidscentrum openen</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Overslaan</translation>
     </message>

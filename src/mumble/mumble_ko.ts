@@ -3750,10 +3750,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble은 현재 전역 단축키에 마우스 버튼과 키보드 한정자 키만 (Alt, Ctrl, Cmd 등) 사용할 수 있습니다.&lt;/p&gt;&lt;p&gt;더 많은 유연성을 원하면 시스템의 접근성 기본 설정에서 &lt;span style=&quot; font-style:italic;&quot;&gt;보조 장치 접근&lt;/span&gt;을 활성화 할 수 있습니다. 그러나 이러한 변경으로 인해 악성 프로그램이 키보드에 입력된 내용을 읽을 수도 있습니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>접근성 환경 설정 열기</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>스킵</translation>
     </message>

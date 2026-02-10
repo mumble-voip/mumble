@@ -3751,10 +3751,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Προς το παρόν, το Mumble μπορεί να χρησιμοποιήσει μόνο τα πλήκτρα του ποντικιού και τα πλήκτρα τροποποίησης στο πληκτρολόγιο (Alt, Ctrl, Cmd κ.λπ.) για γενικές συντομεύσεις.&lt;/p&gt;&lt;p&gt;Εάν θέλετε περισσότερη ευελιξία, μπορείτε να ενεργοποιήσετε την &lt;span style=&quot; font-style:italic;&quot;&gt;Πρόσβαση σε βοηθητικές συσκευές&lt;/span&gt; στις προτιμήσεις προσβασιμότητας του συστήματος. Ωστόσο, σημειώστε ότι αυτή η αλλαγή δυνητικά επιτρέπει και τα κακόβουλα προγράμματα να διαβάζουν το τι πληκτρολογείτε στο πληκτρολόγιό σας.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Ανοιχτές Προτιμήσεις Προσβασιμότητας</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Να παραλειφθεί</translation>
     </message>

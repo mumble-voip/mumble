@@ -3751,10 +3751,6 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble voi tällä hetkellä käyttää hiiren näppäimiä ja näppäimistön apunäppäimiä (Alt, Ctrl, Cmd, etc.) yleisiin pikanäppäimiin.&lt;/p&gt;&lt;p&gt;Jos haluat laajemman valikoiman, voit sallia &lt;span style=&quot; font-style:italic;&quot;&gt;Käyttöapulaitteet&lt;/span&gt; järjestelmän saavutettavuusasetuksissa. Ota kuitenkin huomioon että tämä muutos voi mahdollistaa haittaohjelmien lukea näppäimistöäsi..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Avaa saavutettavuusasetukset</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Ohita</translation>
     </message>

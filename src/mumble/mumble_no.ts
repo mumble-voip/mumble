@@ -3765,10 +3765,6 @@ Hva tjeneren er beskrevet som. Dette er hva tjeneren vil bli navngitt som i din 
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kun valgtaster fra tastatur eller mus (Alt, Ctrl, Cmd, osv.) kan brukes for snarveier som gjelder for hele systemet.&lt;/p&gt;&lt;p&gt;Hvis du ønsker mer fleksibilitet kan du endre &lt;span style=&quot; font-style:italic;&quot;&gt;Tilgang for hjelpeenheter&lt;/span&gt; i systemets tilgjengelighetsinnstillinger. Merk at denne endringen har potensiale til å la skadelig programvare se hva som skrives på ditt tastatur.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Åpne tilgjengelighetsinnstillinger</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Hopp over</translation>
     </message>
