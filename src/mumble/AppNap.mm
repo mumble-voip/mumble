@@ -7,17 +7,9 @@
 
 #include <Foundation/Foundation.h>
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
 static bool appNapSuppressed = false;
-#endif
 
 void MUSuppressAppNap(bool suppress) {
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
-	NSProcessInfo *processInfo = [NSProcessInfo processInfo];
-	if (![processInfo respondsToSelector:@selector(disableAutomaticTermination:)]) {
-		return;
-	}
-
 	if (suppress == appNapSuppressed) {
 		qWarning("AppNap: attempt to set AppNap suppression state to %s while already in that state.", suppress ? "true" : "false");
 		return;
@@ -37,7 +29,4 @@ void MUSuppressAppNap(bool suppress) {
 	appNapSuppressed = suppress;
 
 	[reason release];
-#else
-	Q_UNUSED(suppress);
-#endif
 }
