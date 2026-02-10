@@ -36,69 +36,48 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import <AppKit/AppKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 #include "TextToSpeech.h"
 
-@interface MUSpeechSynthesizerPrivateHelper : NSObject {
-	NSMutableArray *m_messages;
-	NSSpeechSynthesizer *m_synthesizer;
+@interface MUSpeechHelper : NSObject {
+	AVSpeechSynthesizer *m_synthesizer;
+	float m_volume;
 }
-- (NSSpeechSynthesizer *)synthesizer;
-- (void)appendMessage:(NSString *)message;
-- (void)processSpeech;
+- (void)say:(NSString *)message;
+- (void)setVolume:(float)volume;
 @end
 
-@interface MUSpeechSynthesizerPrivateHelper () <NSSpeechSynthesizerDelegate>
-@end
-
-@implementation MUSpeechSynthesizerPrivateHelper
+@implementation MUSpeechHelper
 
 - (id)init {
 	if ((self = [super init])) {
-		m_synthesizer = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
-		m_messages = [[NSMutableArray alloc] init];
-		[m_synthesizer setDelegate:self];
+		m_synthesizer = [[AVSpeechSynthesizer alloc] init];
+		m_volume = 1.0f;
 	}
 	return self;
 }
 
 - (void)dealloc {
 	[m_synthesizer release];
-	[m_messages release];
 	[super dealloc];
 }
 
-- (NSSpeechSynthesizer *)synthesizer {
-	return m_synthesizer;
+- (void)say:(NSString *)message {
+	AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:message];
+	utterance.volume = m_volume;
+	[m_synthesizer speakUtterance:utterance];
 }
 
-- (void)appendMessage:(NSString *)message {
-	[m_messages insertObject:message atIndex:0];
-}
-
-- (void)processSpeech {
-	Q_ASSERT([m_messages count] == 0);
-	
-	NSString *poppedMessage = [m_messages lastObject];
-	[m_synthesizer startSpeakingString:poppedMessage];
-	[m_messages removeLastObject];
-}
-
-- (void)speechSynthesizer:(NSSpeechSynthesizer *)synthesizer didFinishSpeaking:(BOOL)success {
-	Q_UNUSED(synthesizer);
-	Q_UNUSED(success);
-
-	if ([m_messages count] != 0) {
-		[self processSpeech];
-	}
+- (void)setVolume:(float)volume {
+	m_volume = volume;
 }
 
 @end
 
 class TextToSpeechPrivate {
 	public:
-		MUSpeechSynthesizerPrivateHelper *m_synthesizerHelper;
+		MUSpeechHelper *m_helper;
 
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
@@ -107,31 +86,29 @@ class TextToSpeechPrivate {
 };
 
 TextToSpeechPrivate::TextToSpeechPrivate() {
-	m_synthesizerHelper = [[MUSpeechSynthesizerPrivateHelper alloc] init];
+	m_helper = [[MUSpeechHelper alloc] init];
 }
 
 TextToSpeechPrivate::~TextToSpeechPrivate() {
-	[m_synthesizerHelper release];
+	[m_helper release];
 }
 
 void TextToSpeechPrivate::say(const QString &text) {
 	QByteArray byteArray = text.toUtf8();
-	NSString *message = [[NSString alloc] initWithBytes:byteArray.constData() length:((NSUInteger) byteArray.size()) encoding:NSUTF8StringEncoding];
+	NSString *message   = [[NSString alloc] initWithBytes:byteArray.constData()
+                                                   length:((NSUInteger) byteArray.size())
+                                                 encoding:NSUTF8StringEncoding];
 
 	if (message == nil) {
 		return;
 	}
 
-	[m_synthesizerHelper appendMessage:message];
+	[m_helper say:message];
 	[message release];
-
-	if (![[m_synthesizerHelper synthesizer] isSpeaking]) {
-		[m_synthesizerHelper processSpeech];
-	}
 }
 
 void TextToSpeechPrivate::setVolume(int volume) {
-	[[m_synthesizerHelper synthesizer] setVolume:(float)volume / 100.0f];
+	[m_helper setVolume:(float) volume / 100.0f];
 }
 
 TextToSpeech::TextToSpeech(QObject *) {
