@@ -1259,6 +1259,10 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
         <translation>Ses Girdisi</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -1281,10 +1285,6 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 kbit/s (Ses %2, Konum %4, Yük %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Mikrofona erişim reddedildi. Lütfen Sistem Tercihleri -&gt; Güvenlik ve Gizlilik -&gt; Gizlilik -&gt; Mikrofon&apos;daki ayarları değiştirerek Mumble&apos;ın mikrofonu kullanmasına izin verin.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3864,10 +3864,6 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Genel kısayollar için güncel olarak Mumble sadece fare düğmelerini ve klavyenin değiştirici düğmelerini (Alt, Ctrl, Cmd, vs.) kullanabilir.&lt;/p&gt;&lt;p&gt;Eğer daha fazla esneklik istiyorsanız Mac bilgisayarınızın Sistem Tercihlerinin Güvenlik ve Gizlilik bölümünde Mumble&apos;ı güvenilir erişilebilirlik programı olarak ekleyebilirsiniz. &lt;/p&gt;&lt;p&gt; Güvenlik ve Gizlilik panosunda Gizlilik semesine geçin. Ardından sol köşedeki listede Erişilebilirliği (alta yakın) seçin. Son olarak, Mumble&apos;ı güvenilir erişilebilirlik programlarına ekleyin.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Kısayollar</translation>
     </message>
@@ -3895,6 +3891,10 @@ Bu seçenek seçilmediyse, yetkili programlarda Mumble&apos;ın genel kısayolla
     <message>
         <source>Shortcut input combinations</source>
         <translation>Kısayol girdi birleşmeleri</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8575,8 +8575,8 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
         <translation>Varsayılan Aygıt</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Mikrofona erişim reddedildi. Lütfen Sistem Tercihleri -&gt; Güvenlik ve Gizlilik -&gt; Gizlilik -&gt; Mikrofon&apos;daki ayarları değiştirerek Mumble&apos;ın mikrofonu kullanmasına izin verin.</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

@@ -65,7 +65,7 @@ QString GetDeviceStringProperty(AudioObjectID device_id, AudioObjectPropertySele
 	AudioObjectPropertyAddress property_address = {
 		property_selector,
 		kAudioObjectPropertyScopeGlobal,
-		kAudioObjectPropertyElementMaster
+		kAudioObjectPropertyElementMain
 	};
 
 	OSStatus result = AudioObjectGetPropertyData(
@@ -84,7 +84,7 @@ UInt32 GetDeviceUint32Property(AudioObjectID device_id, AudioObjectPropertySelec
     AudioObjectPropertyAddress property_address = {
 	    property_selector,
 	    property_scope,
-	    kAudioObjectPropertyElementMaster};
+	    kAudioObjectPropertyElementMain};
     UInt32 property_value;
     UInt32 size = sizeof(property_value);
     OSStatus result = AudioObjectGetPropertyData(device_id, &property_address, 0, nullptr, &size, &property_value);
@@ -99,7 +99,7 @@ UInt32 GetDevicePropertySize(AudioObjectID device_id, AudioObjectPropertySelecto
     AudioObjectPropertyAddress property_address = {
 	    property_selector,
 	    property_scope,
-	    kAudioObjectPropertyElementMaster};
+	    kAudioObjectPropertyElementMain};
     UInt32 size = 0;
     OSStatus result = AudioObjectGetPropertyDataSize(device_id, &property_address, 0, nullptr, &size);
     if (result != noErr) {
@@ -112,7 +112,7 @@ QVector<AudioObjectID> GetAudioObjectIDs(AudioObjectID audio_object_id, AudioObj
 	AudioObjectPropertyAddress property_address = {
 		property_selector,
 		kAudioObjectPropertyScopeGlobal,
-		kAudioObjectPropertyElementMaster
+		kAudioObjectPropertyElementMain
 	};
 
 	UInt32 size = GetDevicePropertySize(audio_object_id, property_selector, kAudioObjectPropertyScopeGlobal);
@@ -143,7 +143,7 @@ AudioBufferList* GetDeviceStreamConfiguration(AudioObjectID device_id, AUDirecti
 		scope);
 
 	AudioObjectPropertyAddress propertyAddress = { kAudioHardwarePropertyDevices, scope,
-	                                               kAudioObjectPropertyElementMaster };
+	                                               kAudioObjectPropertyElementMain };
 
 	bufs                      = reinterpret_cast< AudioBufferList * >(malloc(len));
 	propertyAddress.mSelector = kAudioDevicePropertyStreamConfiguration;
@@ -166,7 +166,7 @@ AudioDeviceID GetDeviceID(const QString& devUid, AUDirection type) {
 	AudioObjectPropertyAddress propertyAddress = {
 		.mSelector = 0, // this attribute will be specified later
 		.mScope = (type == AUDirection::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput,
-		.mElement = kAudioObjectPropertyElementMaster
+		.mElement = kAudioObjectPropertyElementMain
 	};
 
 	AudioValueTranslation avt;
@@ -194,7 +194,7 @@ AudioDeviceID GetDefaultDeviceID(AUDirection type) {
 	AudioObjectPropertyAddress propertyAddress = {
 		.mSelector = 0, // this attribute will be specified later
 		.mScope = (type == AUDirection::INPUT) ? kAudioDevicePropertyScopeInput : kAudioDevicePropertyScopeOutput,
-		.mElement = kAudioObjectPropertyElementMaster
+		.mElement = kAudioObjectPropertyElementMain
 	};
 
 	len                       = sizeof(AudioDeviceID);
@@ -487,60 +487,50 @@ void CoreAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &
 bool CoreAudioInputRegistrar::canEcho(EchoCancelOptionID echoCancelID, const QString &outputSystem) const {
 	Q_UNUSED(outputSystem)
 
-	if (@available(macOS 10.14, *)) {
-		if (echoCancelID == EchoCancelOptionID::APPLE_AEC) return true;
-	}
+	if (echoCancelID == EchoCancelOptionID::APPLE_AEC) return true;
 	return false;
 }
 
 bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
-	// Only available after macOS 10.14
-	// See https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/
-	// requesting_authorization_for_media_capture_on_macos?language=objc
-	if (@available(macOS 10.14, *)){
-		qDebug("CoreAudioInput: Checking microphone permission....");
-		// Request permission to access the camera and microphone.
-		switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio])
-		{
-			case AVAuthorizationStatusAuthorized: {
-				// The user has previously granted access to the camera.
-				qDebug("CoreAudioInput: Checking microphone permission passed.");
-				return false;
-			}
-			case AVAuthorizationStatusNotDetermined: {
-				// The app hasn't yet asked the user for microphone access.
-				qWarning("CoreAudioInput: Mumble hasn't asked the user for microphone access. Asking for it now.");
-				[AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler: ^(BOOL _granted) {
-					if (_granted) {
-						Audio::stopInput();
-						Audio::startInput();
-					} else {
-						qWarning("CoreAudioInput: Microphone access denied by user.");
-					}
-				}];
-				return true;
-			}
-			case AVAuthorizationStatusDenied: {
-				// The user has previously denied access.
-				qWarning("CoreAudioInput: Microphone access has been previously denied by user.");
-				Global::get().mw->msgBox(QObject::tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
-				                         "by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
-				                         "Microphone."));
-				return true;
-			}
-			case AVAuthorizationStatusRestricted: {
-				// The user can't grant access due to restrictions.
-				qWarning("CoreAudioInput: Microphone access denied due to system restrictions.");
-				Global::get().mw->msgBox(QObject::tr("Access to the microphone was denied due to system restrictions. You will not be able "
-				                         "to use the microphone in this session."));
-				return true;
-			}
-			default: {
-				return true;
-			}
+	qDebug("CoreAudioInput: Checking microphone permission....");
+	// Request permission to access the camera and microphone.
+	switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio])
+	{
+		case AVAuthorizationStatusAuthorized: {
+			// The user has previously granted access to the camera.
+			qDebug("CoreAudioInput: Checking microphone permission passed.");
+			return false;
 		}
-	} else {
-		return false;
+		case AVAuthorizationStatusNotDetermined: {
+			// The app hasn't yet asked the user for microphone access.
+			qWarning("CoreAudioInput: Mumble hasn't asked the user for microphone access. Asking for it now.");
+			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler: ^(BOOL _granted) {
+				if (_granted) {
+					Audio::stopInput();
+					Audio::startInput();
+				} else {
+					qWarning("CoreAudioInput: Microphone access denied by user.");
+				}
+			}];
+			return true;
+		}
+		case AVAuthorizationStatusDenied: {
+			// The user has previously denied access.
+			qWarning("CoreAudioInput: Microphone access has been previously denied by user.");
+			Global::get().mw->msgBox(QObject::tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
+			                         "by changing the settings in System Settings -> Privacy & Security -> Microphone."));
+			return true;
+		}
+		case AVAuthorizationStatusRestricted: {
+			// The user can't grant access due to restrictions.
+			qWarning("CoreAudioInput: Microphone access denied due to system restrictions.");
+			Global::get().mw->msgBox(QObject::tr("Access to the microphone was denied due to system restrictions. You will not be able "
+			                         "to use the microphone in this session."));
+			return true;
+		}
+		default: {
+			return true;
+		}
 	}
 }
 
@@ -615,65 +605,61 @@ bool CoreAudioInput::openAUVoip(AudioStreamBasicDescription &streamDescription) 
 	// Initialize VoiceProcessingIO AU, utilizing macOS's builtin echo cancellation.
 	// This AU is poorly documented by Apple. See Chromium's code for more information:
 	// https://github.com/chromium/chromium/blob/master/media/audio/mac/audio_low_latency_input_mac.cc
-	if(@available(macOS 10.12, *)) {
-		UInt32 len, val;
-		AudioComponentDescription desc = {
-				.componentType = kAudioUnitType_Output,
-				.componentSubType = kAudioUnitSubType_VoiceProcessingIO,
-				.componentManufacturer = kAudioUnitManufacturer_Apple,
-				.componentFlags = 0,
-				.componentFlagsMask = 0
-		};
+	UInt32 len, val;
+	AudioComponentDescription desc = {
+			.componentType = kAudioUnitType_Output,
+			.componentSubType = kAudioUnitSubType_VoiceProcessingIO,
+			.componentManufacturer = kAudioUnitManufacturer_Apple,
+			.componentFlags = 0,
+			.componentFlagsMask = 0
+	};
 
-		qDebug("CoreAudioInput: Use VoiceProcessingIO as IO AudioUnit.");
+	qDebug("CoreAudioInput: Use VoiceProcessingIO as IO AudioUnit.");
 
-		AudioComponent inputComponent = AudioComponentFindNext(nullptr, &desc);
+	AudioComponent inputComponent = AudioComponentFindNext(nullptr, &desc);
 
-		CHECK_RETURN_FALSE(AudioComponentInstanceNew(inputComponent, &auVoip),
-		                   "CoreAudioInput: Unable to create VoiceProcessingIO AudioUnit.");
+	CHECK_RETURN_FALSE(AudioComponentInstanceNew(inputComponent, &auVoip),
+	                   "CoreAudioInput: Unable to create VoiceProcessingIO AudioUnit.");
 
-		try {
-			if (core_audio_utils::GetDeviceTransportType(inputDevId) == kAudioDeviceTransportTypeAggregate) {
-				qWarning("CoreAudioInput: Aggregated devices are not supported by VoiceProcessingIO AudioUnit.");
-				return false;
-			}
-		} catch (core_audio_utils::CoreAudioException& e) {
-			qWarning() << "CoreAudioInput: " << e.what();
+	try {
+		if (core_audio_utils::GetDeviceTransportType(inputDevId) == kAudioDeviceTransportTypeAggregate) {
+			qWarning("CoreAudioInput: Aggregated devices are not supported by VoiceProcessingIO AudioUnit.");
 			return false;
 		}
-
-		len = sizeof(AudioDeviceID);
-		CHECK_RETURN_FALSE(AudioUnitSetProperty(auVoip, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global,
-		                                        AUDirection::INPUT, &inputDevId, len),
-		                   "CoreAudioInput: Unable to set device of VoiceProcessingIO AudioUnit.");
-
-		// It is reported that the echo source need to be specified as the output device.
-		// If no output device is specified, MacOS would take the default output device as echo source.
-		CHECK_RETURN_FALSE(AudioUnitSetProperty(auVoip, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global,
-		                                        AUDirection::OUTPUT, &echoOutputDevId, len),
-		                   "CoreAudioInput: Unable to set device of VoiceProcessingIO AudioUnit.");
-
-
-		len = sizeof(AudioStreamBasicDescription);
-		CHECK_RETURN_FALSE(AudioUnitGetProperty(auVoip, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input,
-		                                        AUDirection::INPUT, &streamDescription, &len),
-		                   "CoreAudioInput: Unable to query device for stream info from VoiceProcessingIO AudioUnit.");
-
-#ifdef DEBUG
-		qDebug("CoreAudioInput: VOIP Input stream description:");
-		core_audio_utils::LogAUStreamDescription(auVoip);
-#endif
-
-		// Mute the VoiceProcessing AU (Value 0 stands for "mute")
-		// VoiceProcessing AU is a output node and has the ability of playing things out. We simply don't want that.
-		val = 0;
-		len = sizeof(val);
-		AudioUnitSetProperty(auVoip, kAUVoiceIOProperty_MuteOutput, kAudioUnitScope_Global, 1, &val, len);
-
-		return true;
-	} else {
+	} catch (core_audio_utils::CoreAudioException& e) {
+		qWarning() << "CoreAudioInput: " << e.what();
 		return false;
 	}
+
+	len = sizeof(AudioDeviceID);
+	CHECK_RETURN_FALSE(AudioUnitSetProperty(auVoip, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global,
+	                                        AUDirection::INPUT, &inputDevId, len),
+	                   "CoreAudioInput: Unable to set device of VoiceProcessingIO AudioUnit.");
+
+	// It is reported that the echo source need to be specified as the output device.
+	// If no output device is specified, MacOS would take the default output device as echo source.
+	CHECK_RETURN_FALSE(AudioUnitSetProperty(auVoip, kAudioOutputUnitProperty_CurrentDevice, kAudioUnitScope_Global,
+	                                        AUDirection::OUTPUT, &echoOutputDevId, len),
+	                   "CoreAudioInput: Unable to set device of VoiceProcessingIO AudioUnit.");
+
+
+	len = sizeof(AudioStreamBasicDescription);
+	CHECK_RETURN_FALSE(AudioUnitGetProperty(auVoip, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input,
+	                                        AUDirection::INPUT, &streamDescription, &len),
+	                   "CoreAudioInput: Unable to query device for stream info from VoiceProcessingIO AudioUnit.");
+
+#ifdef DEBUG
+	qDebug("CoreAudioInput: VOIP Input stream description:");
+	core_audio_utils::LogAUStreamDescription(auVoip);
+#endif
+
+	// Mute the VoiceProcessing AU (Value 0 stands for "mute")
+	// VoiceProcessing AU is a output node and has the ability of playing things out. We simply don't want that.
+	val = 0;
+	len = sizeof(val);
+	AudioUnitSetProperty(auVoip, kAUVoiceIOProperty_MuteOutput, kAudioUnitScope_Global, 1, &val, len);
+
+	return true;
 }
 
 
@@ -699,7 +685,7 @@ bool CoreAudioInput::initializeInputAU(AudioUnit au, AudioStreamBasicDescription
 	AudioObjectPropertyAddress propertyAddress = {
 		.mSelector = 0, // this attribute will be specified later
 		.mScope = kAudioDevicePropertyScopeInput,
-		.mElement = kAudioObjectPropertyElementMaster
+		.mElement = kAudioObjectPropertyElementMain
 	};
 
 	AudioValueRange range;
@@ -716,8 +702,13 @@ bool CoreAudioInput::initializeInputAU(AudioUnit au, AudioStreamBasicDescription
 	err                       = AudioObjectSetPropertyData(inputDevId, &propertyAddress, 0, nullptr, sizeof(UInt32), &val);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to set preferred buffer size on device. Querying for device default.");
+		AudioObjectPropertyAddress bufSizeAddr = {
+			kAudioDevicePropertyBufferFrameSize,
+			kAudioDevicePropertyScopeInput,
+			kAudioObjectPropertyElementMain
+		};
 		len = sizeof(UInt32);
-		CHECK_RETURN_FALSE(AudioDeviceGetProperty(inputDevId, 0, true, kAudioDevicePropertyBufferFrameSize, &len, &val),
+		CHECK_RETURN_FALSE(AudioObjectGetPropertyData(inputDevId, &bufSizeAddr, 0, nullptr, &len, &val),
 		                   "CoreAudioInput: Unable to query for device's buffer size.");
 
 		actualBufferLength = (int) val;
@@ -828,7 +819,7 @@ void CoreAudioInput::run() {
 	AudioObjectPropertyAddress inputDeviceAddress = {
 		kAudioHardwarePropertyDefaultInputDevice,
 		kAudioObjectPropertyScopeGlobal,
-		kAudioObjectPropertyElementMaster
+		kAudioObjectPropertyElementMain
 	};
 	CHECK_WARN(AudioObjectAddPropertyListener(kAudioObjectSystemObject, &inputDeviceAddress, CoreAudioInput::deviceChange, this),
 			   "CoreAudioInput: Unable to create input device change listener. Unable to listen to device changes.");
@@ -952,7 +943,7 @@ void CoreAudioOutput::run() {
 	AudioDeviceID devId = 0;
 	UInt32 len;
 	AudioObjectPropertyAddress propertyAddress = { 0, kAudioDevicePropertyScopeOutput,
-	                                               kAudioObjectPropertyElementMaster };
+	                                               kAudioObjectPropertyElementMain };
 
 	try {
 		if (!Global::get().s.qsCoreAudioOutput.isEmpty()) {
@@ -1045,7 +1036,7 @@ void CoreAudioOutput::run() {
 	AudioObjectPropertyAddress outputDeviceAddress = {
 		kAudioHardwarePropertyDefaultOutputDevice,
 		kAudioObjectPropertyScopeGlobal,
-		kAudioObjectPropertyElementMaster
+		kAudioObjectPropertyElementMain
 	};
 	CHECK_WARN(AudioObjectAddPropertyListener(kAudioObjectSystemObject, &outputDeviceAddress, CoreAudioOutput::deviceChange, this),
 			   "CoreAudioOutput: Unable to create output device change listener. Unable to listen to device changes.");

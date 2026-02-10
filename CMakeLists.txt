@@ -37,7 +37,7 @@ if(NOT DEFINED CMAKE_CXX_STANDARD OR CMAKE_CXX_STANDARD LESS 20)
 	set(CMAKE_CXX_STANDARD 20)
 endif()
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+set(CMAKE_OSX_DEPLOYMENT_TARGET 14)
 
 
 include(pkg-utils)
@@ -95,7 +95,7 @@ include(os)
 target_architecture(MUMBLE_TARGET_ARCH)
 string(TOLOWER "${MUMBLE_TARGET_ARCH}" MUMBLE_TARGET_ARCH)
 
-if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
+if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD" AND NOT APPLE)
 	option(overlay "Build overlay." ${client})
 	if(64_BIT AND NOT MUMBLE_TARGET_ARCH STREQUAL "arm64")
 		option(overlay-xcompile "Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes." ${client})
@@ -177,23 +177,12 @@ if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
 endif()
 
-if(APPLE AND MUMBLE_TARGET_ARCH MATCHES "arm.*")
-	# mach_override doesn't support ARM
-	# https://github.com/rentzsch/mach_override/issues/6
-	set(overlay OFF CACHE BOOL "" FORCE)
-	message(STATUS "Disabling the overlay on ARM macOS")
-endif()
-
 if(overlay)
         if(WIN32)
                 add_subdirectory(overlay)
         else()
                 if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
                         add_subdirectory(overlay_gl)
-                endif()
-
-                if(APPLE)
-                        add_subdirectory(macx/osax)
                 endif()
         endif()
 endif()

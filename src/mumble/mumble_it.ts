@@ -1259,6 +1259,10 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Ingresso audio</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -1281,10 +1285,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 kbit/s (Audio %2, Posizione %4, Overhead %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>L&apos;accesso al microfono è stato negato. Per favore permetti a Mumble di utilizzare il microfono cambiando le impostazioni del sistema su Impostazioni -&gt; Privacy -&gt; Microfono.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3865,10 +3865,6 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble può attualmente utilizzare solo pulsanti del mouse e tasti modificatori della tastiera (Alt, Ctrl, Cmd, etc.) per le scorciatoie globali.&lt;/p&gt;&lt;p&gt;Se vuoi più flessibilità, puoi aggiungere Mumble ai programmi di accessibilità fidati nella sezione Sicurezza e Privacy delle Impostazioni di Sistema Mac.&lt;/p&gt;&lt;p&gt;Nel pannello delle impostazioni di Sicurezza e Privacy, seleziona la scheda Privacy. Dopo scegli Accessibilità (nella parte bassa) nella lista sulla sinistra. Infine, aggiungi Mumble alla lista dei programmi di accessibilità fidati.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Scorciatoie</translation>
     </message>
@@ -3896,6 +3892,10 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     <message>
         <source>Shortcut input combinations</source>
         <translation>Combinazioni input della scorciatoia</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8576,8 +8576,8 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <translation>Dispositivo Predefinito</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>L&apos;accesso al microfono è stato negato. Per favore permetti a Mumble di utilizzare il microfono cambiando le impostazioni del sistema su Impostazioni -&gt; Privacy -&gt; Microfono.</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

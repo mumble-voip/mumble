@@ -1259,6 +1259,10 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
         <translation>Vstup Zvuku</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -1281,10 +1285,6 @@ Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 kbit/s (Zvuk %2, Pozice %4, Čas na zpracování %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3860,10 +3860,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble nyní může používat pro globální zkratky pouze tlačítka myši a modifikační klávesy klávesnice (Alt, Ctrl, Cmd, atd.).&lt;/p&gt;&lt;p&gt;Pokud chcete používat více kláves můžete Mumble přidat jako důvěryhodný program pro usnadnění v části Zabezpečení a Soukromí v nastavení systému Mac.&lt;/p&gt;&lt;p&gt;V panelu přejděte na kartu Soukromí, pak v seznamu vlevo zvolte Usnadnění (ve spodní části). Nakonec přidejte Mubme do seznamu důvěryhodných programů.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Zkratky</translation>
     </message>
@@ -3890,6 +3886,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shortcut input combinations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8566,7 +8566,7 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <translation type="unfinished">Výchozí zařízení</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

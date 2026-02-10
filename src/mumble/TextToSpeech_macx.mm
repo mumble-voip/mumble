@@ -49,10 +49,8 @@
 - (void)processSpeech;
 @end
 
-#if !defined(USE_MAC_UNIVERSAL) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 @interface MUSpeechSynthesizerPrivateHelper () <NSSpeechSynthesizerDelegate>
 @end
-#endif
 
 @implementation MUSpeechSynthesizerPrivateHelper
 
@@ -133,10 +131,7 @@ void TextToSpeechPrivate::say(const QString &text) {
 }
 
 void TextToSpeechPrivate::setVolume(int volume) {
-	// Check for setVolume: availability. It's only available on 10.5+.
-	if ([[m_synthesizerHelper synthesizer] respondsToSelector:@selector(setVolume:)]) {
-		[[m_synthesizerHelper synthesizer] setVolume:(float)volume / 100.0f];
-	}
+	[[m_synthesizerHelper synthesizer] setVolume:(float)volume / 100.0f];
 }
 
 TextToSpeech::TextToSpeech(QObject *) {

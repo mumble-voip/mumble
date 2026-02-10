@@ -692,9 +692,6 @@ else()
 		find_library(LIB_APPKIT "AppKit")
 		find_library(LIB_APPLICATIONSERVICES "ApplicationServices")
 		find_library(LIB_CARBON "Carbon")
-		find_library(LIB_SCRIPTINGBRIDGE "ScriptingBridge")
-		find_library(LIB_SECURITY "Security")
-		find_library(LIB_XAR "xar")
 
 		target_sources(mumble_client_object_lib
 			PRIVATE
@@ -716,9 +713,6 @@ else()
 				${LIB_APPKIT}
 				${LIB_APPLICATIONSERVICES}
 				${LIB_CARBON}
-				${LIB_SCRIPTINGBRIDGE}
-				${LIB_SECURITY}
-				${LIB_XAR}
 		)
 	endif()
 endif()
@@ -903,11 +897,7 @@ if(overlay)
 
 		add_dependencies(mumble overlay)
 	else()
-		if(APPLE)
-			target_sources(mumble_client_object_lib PRIVATE "Overlay_macx.mm")
-		else()
-			target_sources(mumble_client_object_lib PRIVATE "Overlay_unix.cpp")
-		endif()
+		target_sources(mumble_client_object_lib PRIVATE "Overlay_unix.cpp")
 
                 if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
 			add_dependencies(mumble overlay_gl)
@@ -1134,7 +1124,6 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0")
 			"GlobalShortcut_macx.mm"
 			"os_macx.mm"
 			"TextToSpeech_macx.mm"
-			"Overlay_macx.mm"
 			"CoreAudio.mm"
 			PROPERTIES
 				SKIP_UNITY_BUILD_INCLUSION TRUE

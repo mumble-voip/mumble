@@ -650,13 +650,12 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 						  "</p>"
 						  "<p>"
 						  "If you want more flexibility, you can add Mumble as a trusted accessibility program in the "
-						  "Security & Privacy section "
-						  "of your Mac's System Preferences."
+						  "Privacy & Security section "
+						  "of your Mac's System Settings."
 						  "</p>"
 						  "<p>"
-						  "In the Security & Privacy preference pane, change to the Privacy tab. Then choose "
-						  "Accessibility (near the bottom) in "
-						  "the list to the left. Finally, add Mumble to the list of trusted accessibility programs."
+						  "In System Settings, open Privacy & Security, then scroll to find Accessibility in the list. "
+						  "Finally, add Mumble to the list of trusted accessibility programs."
 						  "</body></html>"));
 	}
 #endif
