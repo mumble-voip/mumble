@@ -3748,14 +3748,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&amp;видалити</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Наразі Mumble може використовувати лише кнопки миші та клавіші-модифікатори клавіатури (Alt, Ctrl, Cmd тощо) для глобальних комбінацій клавіш.&lt;/p&gt;&lt;p&gt;Якщо вам потрібна більша гнучкість , ви можете ввімкнути &lt;span style=&quot; font-style:italic;&quot;&gt;Доступ для допоміжних пристроїв&lt;/span&gt; у налаштуваннях доступності системи. Однак зауважте, що ця зміна також потенційно дозволяє зловмисним програмам читати те, що вводиться на вашій клавіатурі.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Відкрийте параметри доступності</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Пропустити</translation>
     </message>
@@ -3823,6 +3815,14 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
         <translation>Це видалить вибраний запис із дерева «Налаштований ярлик» вище</translation>
     </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Input Monitoring&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Privacy Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
@@ -3866,10 +3866,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Наразі Mumble може використовувати лише кнопки миші та клавіші-модифікатори клавіатури (Alt, Ctrl, Cmd тощо) для глобальних комбінацій клавіш.&lt;/p&gt;&lt;p&gt;Якщо вам потрібна більша гнучкість , ви можете додати Mumble як надійну програму спеціальних можливостей у розділі «Безпека та конфіденційність» системних налаштувань вашого Mac.&lt;/p&gt;&lt;p&gt;На панелі налаштувань «Безпека та конфіденційність» перейдіть на Вкладка конфіденційності. Потім виберіть Спеціальні можливості (унизу) у списку ліворуч. Нарешті, додайте Mumble до списку надійних програм спеціальних можливостей.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Ярлики</translation>
     </message>
@@ -3897,6 +3893,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Shortcut input combinations</source>
         <translation>Комбінації швидкого введення</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Accessibility&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
