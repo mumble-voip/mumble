@@ -707,7 +707,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Open-Source-Programm für Voice-Chat mit geringer Latenz und hoher Qualität</translation>
     </message>
 </context>
 <context>
@@ -1641,7 +1641,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>at</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
@@ -2314,11 +2314,11 @@ Sprechen Sie so laut als wären Sie wütend oder aufgeregt. Verringern Sie die M
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Nutzer blockieren</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Grund eingeben</translation>
+        <translation>Grund eingeben</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
@@ -2326,19 +2326,19 @@ Sprechen Sie so laut als wären Sie wütend oder aufgeregt. Verringern Sie die M
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>IP blockieren</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Bannen</translation>
+        <translation>Bannen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">Benutzer %1 bannen</translation>
+        <translation>Benutzer %1 blockieren</translation>
     </message>
 </context>
 <context>
@@ -3608,7 +3608,7 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst den eingestellten Pfad auch auf seinen Standard wert zurücksetzen.</translation>
     </message>
     <message>
         <source>Create File</source>
@@ -3645,11 +3645,11 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">Sie verwenden einen ungültigen Benutzernamen. Bitte versuchen Sie einen anderen.</translation>
+        <translation>Sie verwenden einen ungültigen Benutzernamen. Bitte verwenden Sie einen anderen.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der gewählte Benutzername wird bereits verwendet. Bitte verwenden Sie einen anderen.</translation>
     </message>
     <message>
         <source>Username</source>
@@ -3657,15 +3657,15 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der gewählte Benutzername gehört einem auf diesem Server registriertem Nutzer.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das angegebene Passwort ist für diesen Benutzer ungültig. Bitte versuchen Sie es mit einem anderen Passwort oder verwenden Sie die zertifikatsbasierte Authentifizierung, indem Sie kein Passwort angeben.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das verwendete Zertifikat ist für diesen Benutzer nicht gültig. Bitte verwenden Sie ein anderes Zertifikat oder geben Sie ein Passwort an, um stattdessen die passwortbasierte Authentifizierung zu verwenden.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3685,11 +3685,11 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das angegebene Serverpasswort ist ungültig. Bitte wählen Sie ein anderes.</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Erneut verbinden</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5120,7 +5120,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Löscht die TalkingUI Hintergrundeinstellung.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
@@ -5132,7 +5132,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Farbe, die für den Hintergrund der talkingUI verwendet wird.</translation>
     </message>
     <message>
         <source>Choose</source>
@@ -5140,7 +5140,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hintergrundfarbe, die, wenn sie festgelegt ist, die Hintergrundfarbe des Designs überschreibt.</translation>
     </message>
     <message>
         <source>Background Color</source>
