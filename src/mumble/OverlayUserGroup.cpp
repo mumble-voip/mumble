@@ -64,16 +64,7 @@ int OverlayUserGroup::type() const {
 void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 	e->accept();
 
-#ifdef Q_OS_MAC
-	bool embed = Global::get().ocIntercept;
-	QMenu qm(embed ? nullptr : e->widget());
-	if (embed) {
-		QGraphicsScene *scene = Global::get().ocIntercept->qgv.scene();
-		scene->addWidget(&qm);
-	}
-#else
 	QMenu qm(Global::get().ocIntercept ? Global::get().mw : e->widget());
-#endif
 
 	QMenu *qmShow = qm.addMenu(OverlayClient::tr("Filter"));
 

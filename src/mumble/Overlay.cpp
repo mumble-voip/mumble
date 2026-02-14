@@ -31,11 +31,6 @@
 #	include <shellapi.h>
 #endif
 
-#ifdef Q_OS_MAC
-#	include <ApplicationServices/ApplicationServices.h>
-#	include <CoreFoundation/CoreFoundation.h>
-#endif
-
 QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 #ifdef Q_OS_MAC
 	QString qsIdentifier;
@@ -318,14 +313,6 @@ void Overlay::toggleShow() {
 				GetWindowThreadProcessId(hwnd, &pid);
 				if (pid != oc->uiPid)
 					continue;
-#elif defined(Q_OS_MAC)
-				if (static_cast< quint64 >(getForegroundProcessId()) != oc->uiPid)
-					continue;
-#	if 0
-				// Fullscreen only.
-				if (! CGDisplayIsCaptured(CGMainDisplayID()))
-					continue;
-#	endif
 #endif
 				oc->showGui();
 				return;

@@ -975,7 +975,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">On</translation>
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
@@ -1253,10 +1253,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Hyrje</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1295,6 +1291,10 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <source>milliseconds</source>
         <translation>milisekonda</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>seconds</source>
@@ -1901,7 +1901,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Kjo është metoda e dhënies për t’u përdorur për audion.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Device</source>
@@ -2232,7 +2232,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">E folura amplifikohet në mënyrë dinamike e shumta me këtë sasi</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
@@ -3635,10 +3635,6 @@ Host: %1 Port: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Parapëlqime</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Anashkaloje</translation>
     </message>
@@ -3795,10 +3791,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Shkurtore</translation>
     </message>
@@ -3824,6 +3816,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shortcut input combinations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4477,7 +4473,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
@@ -4549,7 +4545,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">decibelë</translation>
     </message>
 </context>
 <context>
@@ -8515,7 +8511,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Pajisje Parazgjedhje</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

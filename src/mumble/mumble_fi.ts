@@ -1259,6 +1259,10 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
         <translation>Äänen sisääntulo</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -1281,10 +1285,6 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 kbit/s (Ääni %2, Sijainti %4, Pakettitiedot %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Mikrofonin käyttö estettiin. Anna Mumblelle lupa käyttää mikrofonia muuttamalla asetuksia Järjestelmän asetukset -&gt; Turvallisuus ja yksityisyys -&gt; Yksityisyys -&gt; Mikrofoni.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3751,10 +3751,6 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble voi tällä hetkellä käyttää hiiren näppäimiä ja näppäimistön apunäppäimiä (Alt, Ctrl, Cmd, etc.) yleisiin pikanäppäimiin.&lt;/p&gt;&lt;p&gt;Jos haluat laajemman valikoiman, voit sallia &lt;span style=&quot; font-style:italic;&quot;&gt;Käyttöapulaitteet&lt;/span&gt; järjestelmän saavutettavuusasetuksissa. Ota kuitenkin huomioon että tämä muutos voi mahdollistaa haittaohjelmien lukea näppäimistöäsi..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Avaa saavutettavuusasetukset</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Ohita</translation>
     </message>
@@ -3865,10 +3861,6 @@ Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kysei
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumblea voi tällä hetkellä käyttää vain hiiren painikkeilla ja näppäimistön muokkausnäppäimillä (Alt, Ctrl, Cmd, etc.) maailmanlaajuisen pikanäppäimet.&lt;/p&gt;&lt;p&gt;Jos haluat enemmän joustavuutta, voit lisätä Mumblen Macin järjestelmäasetuksissa turvallisuus ja yksityisyys osiossa luottettujen ohjelmien joukkoon.&lt;/p&gt;&lt;p&gt;Turvallisuus ja yksityisyys asetuksissa valitse Tietosuoja-välilehti, sen jälkeen valitse Saavutettavuus (alhaalla) luettelossa vasemmalla. Lopuksi, lisää Mumble luotettujen ohjelmien listaan.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Pikanäppäimet</translation>
     </message>
@@ -3896,6 +3888,10 @@ Ilman tätä asetusta järjestelmänlaajuiset pikanäppäimet eivät toimi kysei
     <message>
         <source>Shortcut input combinations</source>
         <translation>Pikanäppäimien yhdistelmät</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8576,8 +8572,8 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
         <translation>Oletuslaite</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Pääsy mikrofoniin estettiin. Anna Mumblelle lupa käyttää mikrofonia muuttamalla asetuksia Järjestelmän asetukset -&gt; Turvallisuus ja yksityisyys -&gt; Yksityisyys -&gt; Mikrofoni.</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

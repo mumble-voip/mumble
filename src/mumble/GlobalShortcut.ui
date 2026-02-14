@@ -58,13 +58,6 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="qpbOpenAccessibilityPrefs">
-             <property name="text">
-              <string>Open Accessibility Preferences</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="qpbSkipWarning">
              <property name="text">
               <string>Skip</string>

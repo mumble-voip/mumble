@@ -1259,6 +1259,10 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
         <translation>Entrée audio</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -1281,10 +1285,6 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1kbits/s (Audio %2, Position %4, En-têtes %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Impossible d&apos;accéder au micro. Autorisez Mumble à accéder à votre micro en changeant vos préférences dans Préférences -&gt; Sécurité et Vie Privée &gt; Vie Privée &gt; Microphone.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3751,10 +3751,6 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Actuellement Mumble ne peut utiliser que les boutons de la souris et les touches de combinaison du clavier (Alt, Ctrl, Cmd, etc.) pour les raccourcis globaux.&lt;/p&gt;&lt;p&gt;Si vous désirez davantage de flexibilité, vous pouvez activer &lt;span style=&quot; font-style:italic;&quot;&gt;l&apos;accès des périphériques d&apos;aide&lt;/span&gt; dans les préférences d&apos;accessibilité du système. Toutefois, veuillez noter que cette modification permet aussi potentiellement aux applications malveillantes de lire ce qui est tapé sur votre clavier.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Ouvrir les préférences d&apos;accessibilité</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Ignorer</translation>
     </message>
@@ -3865,10 +3861,6 @@ Sans cette option, l&apos;utilisation des raccourcis globaux de Mumble dans les 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble peut seulement utiliser les boutons de la souris et les modificateurs de clavier (Alt, Ctrl, Cmd, etc.) pour les raccourcis globaux.&lt;/p&gt;&lt;p&gt;Si vous voulez plus de flexibilité, vous pouvez ajouter Mumble en tant que programme d&apos;accessibilité de confiance dans la section Sécurité &amp; Vie Privée des Paramètres Systèmes de votre Mac.&lt;/p&gt;&lt;p&gt;Dans le panneau Sécurité &amp; Vie Privée, changez dans l&apos;onglet Vie Privée. Après choississez Accessibilité (près du bas) dans la liste à la gauche. Finalement, ajoutez Mumble à la liste des programmes d&apos;accessibilité de confiance.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Raccourcis</translation>
     </message>
@@ -3896,6 +3888,10 @@ Sans cette option, l&apos;utilisation des raccourcis globaux de Mumble dans les 
     <message>
         <source>Shortcut input combinations</source>
         <translation>Combinaisons d&apos;entrée du raccourci</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8576,8 +8572,8 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>Appareil par défaut</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Impossible d&apos;accéder au micro. Autorisez Mumble à accéder à votre micro en changeant vos préférences dans Préférences -&gt; Sécurité et Vie Privée &gt; Vie Privée &gt; Microphone.</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

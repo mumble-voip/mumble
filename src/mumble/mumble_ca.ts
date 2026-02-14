@@ -1259,6 +1259,10 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
         <translation>Entrada d&apos;àudio</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -1281,10 +1285,6 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 kbit/s (Àudio %2, Posició %4, Sobrecàrrega %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>S&apos;ha denegat l&apos;accés al micròfon. Si us plau permeteu que el Mumble utilitzi el micròfon canviant la configuració a Preferències del sistema -&gt; Seguretat i privadesa -&gt; Privadesa -&gt; Micròfon.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3751,10 +3751,6 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;En aquest moment el Mumble només pot utilitzar botons del ratolí i les tecles modificadores del teclat (Alt, Ctrl, Cmd, etc.) per a dreceres globals.&lt;/p&gt;&lt;p&gt;Si voleu més flexibilitat, podeu activar &lt;span style=&quot; font-style:italic;&quot;&gt;Accés al dispositius d&apos;assistència&lt;/span&gt; en les preferències d&apos;accessibilitat del sistema. No obstant això, tingueu en compte que aquest canvi també permet que els programes maliciosos llegeixin el que s&apos;escriu al teclat.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Preferències de l&apos;Accessibilitat Oberta</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Salta</translation>
     </message>
@@ -3865,10 +3861,6 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; El Mumble actualment només pot utilitzar botons de ratolí i tecles modificadors del teclat (Alt, Ctrl, Cmd, etc.) per a dreceres globals.&lt;/p&gt;&lt;p&gt; Si voleu més flexibilitat, podeu afegir al Mumble com a programa d&apos;accessibilitat de confiança a la secció Seguretat i Privacitat de les Preferències del Sistema Mac.&lt;/p&gt;&lt;p&gt;Al tauler de preferències de seguretat i privacitat, trieu la pestanya Privadesa. A continuació, seleccioneu Accessibilitat (prop de la part inferior) a la llista a l&apos;esquerra. Finalment, afegiu el Mumble a la llista de programes d&apos;accessibilitat de confiança.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Dreceres</translation>
     </message>
@@ -3896,6 +3888,10 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
     <message>
         <source>Shortcut input combinations</source>
         <translation>Combinacions d&apos;entrada de la drecera</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8576,8 +8572,8 @@ Per actualitzar aquests fitxers a la darrera versió, feu clic al botó de sota.
         <translation>Dispositiu predeterminat</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>S&apos;ha denegat l&apos;accés al micròfon. Permeteu que el Mumble utilitzi el micròfon canviant la configuració a les referències del sistema -&gt; Seguretat i privadesa -&gt; Privadesa -&gt; Micròfon.</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

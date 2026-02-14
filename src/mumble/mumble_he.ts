@@ -1260,6 +1260,10 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>קלט שמע</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 מ&quot;ש</translation>
     </message>
@@ -1282,10 +1286,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 קב&quot;ש (קולי %2, מיקום %4, סיכומית %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3745,10 +3745,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p dir=&quot;RTL&quot;&gt;Mumble תומך כעת רק בכפתורי עכבר ובכפתורי שליטה במקלדת (Alt, Ctrl, Shift וכו&apos;) עבור קיצורים גלובאליים.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אם תרצו להשתמש בעוד, תוכלו להפעיל את &lt;span style=&quot; font-style:italic;&quot;&gt;גישה להתקני תמיכה&lt;/span&gt; בהגדרות הנגישות של המערכת. למרות זאת, שימו לב שזה עלול לאפשר לתוכנות זדוניות לקרוא את הקשות המקלדת שלכם.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>פתח העדפות נגישות</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>דלג</translation>
     </message>
@@ -3857,10 +3853,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>קיצורי דרך</translation>
     </message>
@@ -3887,6 +3879,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shortcut input combinations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8562,7 +8558,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished">התקן ברירת מחדל</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

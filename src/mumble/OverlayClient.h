@@ -51,10 +51,6 @@ protected:
 
 	OverlayUserGroup ougUsers;
 
-#ifdef Q_OS_MAC
-	QMap< Qt::CursorShape, QPixmap > qmCursors;
-#endif
-
 	bool bWasVisible;
 	bool bDelete;
 

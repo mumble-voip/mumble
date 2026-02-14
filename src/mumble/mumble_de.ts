@@ -1259,6 +1259,10 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
         <translation>Audioeingabe</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
@@ -1281,10 +1285,6 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 kbit/s (Audio %2, Position %4, Datenüberhang %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Zugriff zum Mikrofon wurde abgelehnt. Bitte erlaube Mumble die Nutzung des Mikrofons, indem du die Einstellungen in Systemeinstellungen → Sicherheit und Privatsphäre → Privatsphäre → Mikrofon änderst.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3751,10 +3751,6 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kann zur Zeit nur Maus- und Zusatztasten (Alt, Strg, Befehlstaste usw.) für globale Tastenkürzel verwenden.&lt;/p&gt;&lt;p&gt;Für mehr Flexibilität kann &lt;span style=&quot;font-style:italic;&quot;&gt;Zugriff für Hilfsgeräte aktivieren&lt;/span&gt; in den Bedienungshilfen Einstellungen des Systems aktiviert werden. Bitte beachten Sie jedoch, dass diese Änderung unter Umständen auch bösartigen Programmen erlaubt, zu lesen, was auf Ihrer Tastatur getippt wird.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Öffne Bedienungshilfen Einstellungen</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Überspringen</translation>
     </message>
@@ -3865,10 +3861,6 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kann zurzeit nur Maustasten und Zusatztasten auf der Tastatur (Alt, Strg, Cmd, usw.) für systemweite Tastenkürzel verwenden.&lt;/p&gt;&lt;p&gt;Für eine größere Flexibilität können Sie Mumble als vertrautes Bedienhilfenprogramm im Privatsphärenreiter der Systemeinstellungen Ihres Mac&apos;s aktivieren.&lt;/p&gt;&lt;p&gt;Öffnen Sie dazu in Ihren Systemeinstellungen das Sicherheitsfenster und wechseln zum Privatsphärenreiter. Gehen Sie nun in der Navigation (links) auf den Punkt Bedienungshilfen und fügen Mumble in die erscheinende Liste der vertrauenswürdigen Programme hinzu.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Tastenkürzel</translation>
     </message>
@@ -3896,6 +3888,10 @@ Ohne diese Option funktioniert die Verwendung der globalen Tastaturkürzel von M
     <message>
         <source>Shortcut input combinations</source>
         <translation>Tastenkürzel Eingabekombinationen</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8576,8 +8572,8 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation>Standardgerät</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Der Zugriff zum Mikrofon wurde abgelehnt. Bitte erlauben Sie Mumble in den Systemeinstellungen unter Sicherheit &amp; Privatsphäre das Mikrofon zu benutzen.</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

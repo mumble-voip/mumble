@@ -258,13 +258,6 @@ void OverlayClient::showGui() {
 
 	ougUsers.bShowExamples = true;
 
-#ifdef Q_OS_MAC
-	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar);
-	Global::get().mw->setUnifiedTitleAndToolBarOnMac(false);
-	if (!Global::get().s.os.qsStyle.isEmpty())
-		qApp->setStyle(Global::get().s.os.qsStyle);
-#endif
-
 	setupScene(true);
 
 	OverlayMsg om;
@@ -312,12 +305,6 @@ void OverlayClient::hideGui() {
 	if (bWasVisible) {
 		Global::get().mw->loadState(Global::get().s.bMinimalView);
 	}
-
-#ifdef Q_OS_MAC
-	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
-	Global::get().mw->setUnifiedTitleAndToolBarOnMac(true);
-	Themes::apply();
-#endif
 
 	setupScene(false);
 
