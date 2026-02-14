@@ -3674,15 +3674,15 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменить сертификат</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
@@ -3690,7 +3690,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Переподключиться</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -9559,7 +9559,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Total:</source>
-        <translation type="unfinished"></translation>
+        <translation>Всего:</translation>
     </message>
     <message>
         <source>Last %1 %2:</source>
@@ -9571,7 +9571,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>минуты</translation>
     </message>
 </context>
 <context>
