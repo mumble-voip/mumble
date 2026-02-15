@@ -621,6 +621,23 @@
         </property>
        </widget>
       </item>
+      <item row="13" column="2">
+       <widget class="QSpinBox" name="qsbTransparencyLevel">
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>255</number>
+        </property>
+    
+        <property name="toolTip">
+         <string>Transparency level of the TalkingUI. </string>
+        </property>
+        <property name="accessibleName">
+         <string>Transparency level</string>
+        </property>
+       </widget>
+      </item>
       <item row="8" column="0" colspan="2">
        <widget class="QLabel" name="qlMaxNameLength">
         <property name="toolTip">
@@ -674,6 +691,19 @@
         </property>
         <property name="buddy">
          <cstring>qbBackgroundColor</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="0">
+       <widget class="QLabel" name="qlTransparencyLevel">
+        <property name="toolTip">
+         <string>Transparency level of the TalkingUI.</string>
+        </property>
+        <property name="text">
+         <string>Transparency Level</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbTransparencyLevel</cstring>
         </property>
        </widget>
       </item>
@@ -1316,6 +1346,7 @@
   <tabstop>qbClearBackgroundColor</tabstop>
   <tabstop>qleChannelSeparator</tabstop>
   <tabstop>qbBackgroundColor</tabstop>
+  <tabstop>qsbTransparencyLevel</tabstop>
  </tabstops>
  <resources/>
  <connections/>
