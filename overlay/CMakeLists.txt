@@ -2,17 +2,20 @@
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+message(STATUS "CMAKE_PROJECT_VERSION is ${CMAKE_PROJECT_VERSION} whereas PROJECT_VERSION is ${PROJECT_VERSION}")
+
 option(BUILD_OVERLAY_XCOMPILE "Build an x86 overlay" OFF)
 
 if(BUILD_OVERLAY_XCOMPILE)
 	cmake_minimum_required(VERSION 3.15)
 
-	set(version "1.4.0" CACHE STRING "Project version")
-
+	message(STATUS "again, CMAKE_PROJECT_VERSION is ${CMAKE_PROJECT_VERSION} whereas PROJECT_VERSION is ${PROJECT_VERSION}")
 	project(overlay_xcompile
-		VERSION ${version}
+		VERSION ${CMAKE_PROJECT_VERSION}
 		LANGUAGES CXX
 	)
+	message(STATUS "after calling project(), CMAKE_PROJECT_VERSION is ${CMAKE_PROJECT_VERSION} whereas PROJECT_VERSION is ${PROJECT_VERSION}")
 
 	list(APPEND CMAKE_MODULE_PATH "${3RDPARTY_DIR}/cmake-compiler-flags")
 	include("${MUMBLE_SOURCE_ROOT}/cmake/compiler.cmake")

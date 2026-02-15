@@ -1,5 +1,5 @@
 [overlay]
-version=1.4.0
+version=${CMAKE_PROJECT_VERSION}
 alwaysself=false
 sort=1
 y=@Variant(\0\0\0\x87>j\xbcl)
