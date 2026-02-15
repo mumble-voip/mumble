@@ -43,7 +43,7 @@
 #		define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_MINOR_MACRO
-#		define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#		define MUMBLE_PLUGIN_API_MINOR_MACRO 3
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_PATCH_MACRO
 #		define MUMBLE_PLUGIN_API_PATCH_MACRO 0
@@ -233,6 +233,7 @@ enum Mumble_ErrorCode {
 	MUMBLE_EC_DATA_ID_TOO_LONG,
 	MUMBLE_EC_API_REQUEST_TIMEOUT,
 	MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER,
+	MUMBLE_EC_POSITIONAL_DATA_UNAVAILABLE,
 };
 
 /**
@@ -444,6 +445,15 @@ struct MumbleStringWrapper {
 	bool needsReleasing;
 };
 
+struct PositionalCoordinates {
+	float m_playerPos[3];
+	float m_playerDir[3];
+	float m_playerAxis[3];
+	float m_cameraPos[3];
+	float m_cameraDir[3];
+	float m_cameraAxis[3];
+};
+
 MUMBLE_EXTERN_C_END
 
 #endif // EXTERNAL_MUMBLE_PLUGIN_TYPES_
@@ -617,6 +627,8 @@ MUMBLE_PLUGIN_CONSTEXPR inline const char *mumble_errorMessage(int16_t errorCode
 		case MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER:
 			return "The requested API operation depends on server-side functionality, not supported by the server "
 				   "you're connected to";
+		case MUMBLE_EC_POSITIONAL_DATA_UNAVAILABLE:
+			return "There is currently no positional data available";
 	}
 
 	return "Unknown error code";
@@ -1514,6 +1526,49 @@ struct MUMBLE_API_STRUCT_NAME {
 																			mumble_connection_t connection,
 																			mumble_channelid_t channelID,
 																			const char **description);
+
+#if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
+	/**
+     * Gets the currently used positional data
+     *
+     * @param callerID The ID of the plugin calling this function
+     * @param[out] positionalCoordinates A pointer to the PositionalCoordinates object that should be written to
+     * @returns The error code. If everything went well, STATUS_OK will be returned.
+     *
+     * @since Plugin interface v1.3.0
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalData)(mumble_plugin_id_t callerID,
+																		PositionalCoordinates *positionalCoordinates);
+
+	/**
+	 * Gets the currently used positional data context
+	 *
+     * @param callerID The ID of the plugin calling this function
+	 * @param[out] context A pointer to the char * that should be written to,
+	 *   please note that the context has 2 null terminators,
+	 *   the first of which will contain the name of the plugin providing the data
+	 *   whereas the second null terminator contains the actual context data returned by the plugin
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 *
+	 * @since Plugin interface v1.3.0
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalContext)(mumble_plugin_id_t callerID,
+	                                                                            char **context);
+
+	/**
+	 * Gets the currently used positional data identity
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param[out] identity A pointer to the char * that should be written to
+	 * @returns The error code. If everything went well, STATUS_OK will be returned.
+	 *
+	 * @since Plugin interface v1.3.0
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getPositionalIdentity)(mumble_plugin_id_t callerID,
+																				char **identity);
+
+#endif
+
 
 
 	// -------- Request functions --------
