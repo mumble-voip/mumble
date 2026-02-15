@@ -13,6 +13,7 @@
 #include <QScrollArea>
 #include <QtCore/QMutexLocker>
 #include <QtGui/QScreen>
+#include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QPushButton>
 
@@ -24,24 +25,18 @@ QHash< QString, ConfigWidget * > ConfigDialog::s_existingWidgets;
 ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	setupUi(this);
 
-	{
-		QMutexLocker lock(&s_existingWidgetsMutex);
-		s_existingWidgets.clear();
-	}
-
-
 	s = Global::get().s;
 
 	unsigned int idx = 0;
-	for (ConfigWidgetNew cwn : *ConfigRegistrar::c_qmNew) {
-		ConfigWidget *cw = cwn(s);
-		{
-			QMutexLocker lock(&s_existingWidgetsMutex);
-			s_existingWidgets.insert(cw->getName(), cw);
-		}
 
-		addPage(cw, ++idx);
+	{
+		for (ConfigWidget *cw : s_existingWidgets.values()) {
+			qDebug() << "Add Config Dialog page " << cw->getName() << " " << cw;
+			addPage(cw, ++idx);
+		}
 	}
+
+	qDebug() << "Done creating dialog";
 
 	updateListView();
 
@@ -83,12 +78,33 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 			restoreGeometry(Global::get().s.qbaConfigGeometry);
 	}
 
+	m_profileMenu = new QMenu(this);
+
+	m_profileAddAction = new QAction(tr("&Add"), this);
+	QObject::connect(m_profileAddAction, &QAction::triggered, this, &ConfigDialog::profile_add);
+	m_profileMenu->addAction(m_profileAddAction);
+
+	m_profileRenameAction = new QAction(tr("&Rename"), this);
+	QObject::connect(m_profileRenameAction, &QAction::triggered, this, &ConfigDialog::profile_rename);
+	m_profileMenu->addAction(m_profileRenameAction);
+
+	m_profileDeleteAction = new QAction(tr("&Delete"), this);
+	QObject::connect(m_profileDeleteAction, &QAction::triggered, this, &ConfigDialog::profile_delete);
+	m_profileMenu->addAction(m_profileDeleteAction);
+
+	qtbProfileActions->setMenu(m_profileMenu);
+
+	QObject::connect(qcbProfiles, &QComboBox::currentIndexChanged, this, &ConfigDialog::profile_selected);
+
+	updateProfileList();
 	updateTabOrder();
 	qlwIcons->setFocus();
 }
 
 void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	int w = INT_MAX, h = INT_MAX;
+
+	cw->s = s;
 
 	const QList< QScreen * > screens = qApp->screens();
 	for (int i = 0; i < screens.size(); ++i) {
@@ -122,14 +138,43 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 }
 
 ConfigDialog::~ConfigDialog() {
-	{
-		QMutexLocker lock(&s_existingWidgetsMutex);
-		s_existingWidgets.clear();
-	}
+	while (qswPages->count() > 0) {
+		QWidget *qw = qswPages->currentWidget();
+		qswPages->removeWidget(qw);
+		qw->setParent(nullptr);
 
-	for (QWidget *qw : qhPages) {
+		ConfigWidget *cw = static_cast< ConfigWidget * >(qw);
+		if (cw) {
+			continue;
+		}
+
+		QScrollArea *qsa = static_cast< QScrollArea * >(qw);
+		if (qsa) {
+			qsa->takeWidget();
+		}
+
 		delete qw;
 	}
+}
+
+#include <QDebug>
+
+void ConfigDialog::initializeConfigWidgets() {
+	qDebug() << "Initialize ConfigWidgets";
+
+	if (!s_existingWidgets.isEmpty()) {
+		qDebug() << "Abort initialize";
+		return;
+	}
+
+	for (ConfigWidgetNew cwn : *ConfigRegistrar::c_qmNew) {
+		ConfigWidget *cw = cwn(Global::get().s);
+		QMutexLocker lock(&s_existingWidgetsMutex);
+		s_existingWidgets.insert(cw->getName(), cw);
+		qDebug() << "Generate " << cw->getName();
+	}
+
+	qDebug() << "Done initializing widgets";
 }
 
 ConfigWidget *ConfigDialog::getConfigWidget(const QString &name) {
@@ -207,6 +252,147 @@ void ConfigDialog::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QLis
 	}
 }
 
+void ConfigDialog::updateProfileList() {
+	// Prevent changing the profile unintentionally while filling the ComboBox
+	const QSignalBlocker blocker(qcbProfiles);
+
+	qcbProfiles->clear();
+
+	// Always sort the default profile before anything else
+	qcbProfiles->addItem(tr("Default Profile"), Profiles::s_default_profile_name);
+
+	Profiles &profiles = Global::get().profiles;
+
+	std::vector< QString > profileNames;
+	for (auto it = profiles.allProfiles.begin(); it != profiles.allProfiles.end(); ++it) {
+		profileNames.push_back(it->first);
+	}
+	std::sort(profileNames.begin(), profileNames.end());
+	for (const QString &profile : profileNames) {
+		if (profile == Profiles::s_default_profile_name) {
+			continue;
+		}
+		qcbProfiles->addItem(profile, profile);
+	}
+
+	qcbProfiles->setCurrentIndex(qcbProfiles->findData(profiles.activeProfileName));
+
+	bool isDefault = qcbProfiles->currentData().toString() == Profiles::s_default_profile_name;
+	m_profileRenameAction->setEnabled(!isDefault);
+	m_profileDeleteAction->setEnabled(!isDefault);
+}
+
+void ConfigDialog::switchProfile(const QString &newProfile, bool saveActiveProfile) {
+	Profiles &profiles = Global::get().profiles;
+
+	if (saveActiveProfile) {
+		profiles.allProfiles[profiles.activeProfileName] = Global::get().s;
+	}
+	Global::get().s.loadProfile(newProfile);
+	s = Global::get().s;
+	for (ConfigWidget *cw : s_existingWidgets.values()) {
+		cw->load(s);
+	}
+
+	updateProfileList();
+}
+
+void ConfigDialog::profile_selected(int) {
+	QString selectedProfile = qcbProfiles->currentData().toString();
+
+	Profiles &profiles = Global::get().profiles;
+
+	if (selectedProfile == profiles.activeProfileName) {
+		return;
+	}
+
+	if (!profiles.allProfiles.contains(selectedProfile)) {
+		return;
+	}
+
+	switchProfile(selectedProfile, true);
+}
+
+void ConfigDialog::profile_add() {
+	Profiles &profiles = Global::get().profiles;
+
+	bool ok;
+	QString profileName =
+		QInputDialog::getText(this, tr("Creating settings profile"), tr("Enter new settings profile name"),
+							  QLineEdit::Normal, profiles.activeProfileName, &ok);
+
+	if (!ok || profileName.isEmpty()) {
+		return;
+	}
+
+	if (profiles.allProfiles.contains(profileName)) {
+		QMessageBox::critical(this, tr("Creating settings profile"),
+							  tr("A settings profile with this name already exists"));
+		return;
+	}
+
+	// Instead of "resetting" when creating a new profile, use the currently
+	// (possibly not applied) settings for the new profile
+	profiles.allProfiles[profiles.activeProfileName] = Global::get().s;
+	apply();
+	profiles.allProfiles[profileName] = Global::get().s;
+	switchProfile(profileName, false);
+}
+
+void ConfigDialog::profile_rename() {
+	QString oldProfileName = qcbProfiles->currentData().toString();
+
+	if (oldProfileName == Profiles::s_default_profile_name) {
+		return;
+	}
+
+	bool ok;
+	QString profileName =
+		QInputDialog::getText(this, tr("Renaming settings profile"), tr("Enter new settings profile name"),
+							  QLineEdit::Normal, oldProfileName, &ok);
+
+	if (!ok || profileName.isEmpty()) {
+		return;
+	}
+
+	Profiles &profiles = Global::get().profiles;
+
+	if (profiles.allProfiles.contains(profileName)) {
+		QMessageBox::critical(this, tr("Renaming settings profile"),
+							  tr("A settings profile with this name already exists"));
+		return;
+	}
+
+	profiles.allProfiles[profileName] = Global::get().s;
+	profiles.allProfiles.erase(oldProfileName);
+	switchProfile(profileName, false);
+}
+
+void ConfigDialog::profile_delete() {
+	QString oldProfileName = qcbProfiles->currentData().toString();
+
+	if (oldProfileName == Profiles::s_default_profile_name) {
+		return;
+	}
+
+	Profiles &profiles = Global::get().profiles;
+
+	if (!profiles.allProfiles.contains(oldProfileName)) {
+		return;
+	}
+
+	QMessageBox::StandardButton confirmation = QMessageBox::question(
+		this, tr("Delete settings profile"),
+		tr("Are you sure you want to permanently delete settings profile '%1'").arg(oldProfileName));
+
+	if (confirmation != QMessageBox::Yes) {
+		return;
+	}
+
+	profiles.allProfiles.erase(oldProfileName);
+	switchProfile(Profiles::s_default_profile_name, false);
+}
+
 void ConfigDialog::updateTabOrder() {
 	QPushButton *okButton         = dialogButtonBox->button(QDialogButtonBox::Ok);
 	QPushButton *cancelButton     = dialogButtonBox->button(QDialogButtonBox::Cancel);
@@ -230,7 +416,11 @@ void ConfigDialog::updateTabOrder() {
 	}
 
 	setTabOrder(cancelButton, okButton);
-	setTabOrder(okButton, qlwIcons);
+	setTabOrder(okButton, qcbProfiles);
+
+	setTabOrder(qcbProfiles, qtbProfileActions);
+	setTabOrder(qtbProfileActions, qlwIcons);
+
 	setTabOrder(qlwIcons, contentFocusWidget);
 	if (resetButton && restoreButton && restoreAllButton) {
 		setTabOrder(contentFocusWidget, resetButton);

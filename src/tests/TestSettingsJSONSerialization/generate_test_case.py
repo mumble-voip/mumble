@@ -182,6 +182,12 @@ def getDefaultValueForType(dataType):
         assert len(types) == 1
 
         return "{ " + getDefaultValueForType(types[0]) + " }"
+    elif dataType.startswith("std::map"):
+        types = getTemplateArguments(dataType)
+
+        assert len(types) == 2
+
+        return "{ {" + getDefaultValueForType(types[0]) + ", " + getDefaultValueForType(types[1]) + "} }"
     elif dataType.startswith("std::array"):
         args = getTemplateArguments(dataType)
 
@@ -201,6 +207,9 @@ def getDefaultValueForType(dataType):
         return string + " }"
     elif dataType in ["KeyPair"]:
         # We can't really create a certificate here, so we have to use a default-constructed value
+        return "{}"
+    elif dataType in ["Settings"]:
+        # Serializing Settings is the main objective of this test, yet Profiles contains a map of multiple Settings as member
         return "{}"
 
     if dataType in defaultValues:
