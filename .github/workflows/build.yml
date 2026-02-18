@@ -58,11 +58,11 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-22.04, ubuntu-24.04, windows-2022, macos-14]
+            os: [ubuntu-22.04, ubuntu-24.04, windows-2025-vs2026, macos-14]
             type: [static, shared]
             arch: [x86_64]
             exclude:
-              - os: windows-2022
+              - os: windows-2025-vs2026
                 type: shared
               - os: macos-14
                 type: shared
