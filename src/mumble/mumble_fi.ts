@@ -714,7 +714,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>tyhjä</translation>
     </message>
 </context>
 <context>
@@ -2314,19 +2314,19 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Estämässä käyttäjä</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Kirjoita syy</translation>
+        <translation>Kirjoita syy</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Estä käyttäjän varmenne</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Estä IP-osoite</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -2334,7 +2334,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Peruuta</translation>
+        <translation>Peruuta</translation>
     </message>
     <message>
         <source>Banning user %1</source>
@@ -3608,7 +3608,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voit myös palauttaa määritellyn polun oletusarvoon.</translation>
     </message>
     <message>
         <source>Create File</source>
@@ -7219,7 +7219,7 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä lisää palvelimen, johon olet tällä hetkellä yhdistettynä, suosikiksi listaan.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
@@ -9542,11 +9542,11 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Last X minutes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimeiset X minuuttia:</translation>
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>% kadonnut</translation>
     </message>
     <message>
         <source>from client rolling average</source>
@@ -9554,7 +9554,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>% myöhässä</translation>
     </message>
     <message>
         <source>Total:</source>
@@ -9562,7 +9562,7 @@ Pääsypoletti on merkkijonoketju, jota voidaan käyttää salasanana yksinkerta
     </message>
     <message>
         <source>Last %1 %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimeiset %1 %2:</translation>
     </message>
     <message>
         <source>seconds</source>
