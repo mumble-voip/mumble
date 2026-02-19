@@ -104,6 +104,14 @@ option(lto "Enables link-time optimizations for release builds" ${LTO_DEFAULT})
 include(compiler)
 include(os)
 
+# On macOS universal builds, CMAKE_OSX_ARCHITECTURES (and thus target_architecture())
+# can result in a CMake list (e.g. "arm64;x86_64"). Using that list directly in
+# compile definitions breaks quoting for some generators (notably Unix Makefiles).
+# For those cases, expose a stable, single-string arch identifier.
+if(APPLE AND MUMBLE_TARGET_ARCH MATCHES ";")
+	set(MUMBLE_TARGET_ARCH "universal")
+endif()
+
 if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
 	option(overlay "Build overlay." ${client})
 	if(64_BIT)
