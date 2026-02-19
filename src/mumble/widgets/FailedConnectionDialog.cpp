@@ -24,6 +24,18 @@ FailedConnectionDialog::FailedConnectionDialog(ConnectDetails details, Connectio
 	userPasswordInput->setText(m_details.password);
 	serverPasswordInput->setText(m_details.password);
 
+	qcbSavePassword->setChecked(!Global::get().s.bSuppressIdentity);
+
+	if (!Global::get().db->isFavorite(m_details.host, m_details.port)) {
+		qcbSavePassword->setEnabled(false);
+		qcbSavePassword->setChecked(false);
+		QString warning        = tr("Unavailable because the server is not saved in favorites");
+		QString currentText    = qcbSavePassword->text();
+		QString accessibleText = currentText + " — " + warning;
+		qcbSavePassword->setAccessibleName(accessibleText);
+		qcbSavePassword->setToolTip(warning);
+	}
+
 	connectSignals();
 
 	switch (type) {
@@ -69,7 +81,7 @@ void FailedConnectionDialog::connectSignals() {
 }
 
 void FailedConnectionDialog::initiateReconnect() {
-	if (!Global::get().s.bSuppressIdentity) {
+	if (Global::get().db->isFavorite(m_details.host, m_details.port) && qcbSavePassword->isChecked()) {
 		Global::get().db->setPassword(m_details.host, m_details.port, m_details.username, m_details.password);
 	}
 
