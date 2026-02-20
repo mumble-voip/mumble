@@ -6054,7 +6054,7 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
+        <source>Denied: Invalid channel name. Allowed pattern: [ \-=\\w\#\[\]\{\}\(\)\@\|]+ (this is set by the server)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
