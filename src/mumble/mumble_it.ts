@@ -3747,14 +3747,6 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
         <translation>&amp;Rimuovi</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble può attualmente utilizzare solo pulsanti del mouse e tasti modificatori della tastiera (Alt, Ctrl, Cmd, etc.) per le scorciatoie globali.&lt;/p&gt;&lt;p&gt;Se vuoi più flessibilità, puoi abilitare &lt;span style=&quot; font-style:italic;&quot;&gt;Accesso per dispositivi di assistenza&lt;/span&gt; nelle impostazioni di Accessibilità del sistema. Comunque, nota che questo può potenzialmente permettere a software maligni di leggere quello che stai scrivendo con la tastiera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Apri Preferenze Accessibilità</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Salta</translation>
     </message>
@@ -3822,6 +3814,14 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
         <translation>Rimuove l&apos;occorrenza selezionata dall&apos;albero delle &quot;scorciatoie Configurate&quot; qui sopra</translation>
     </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Input Monitoring&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Privacy Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
@@ -3865,10 +3865,6 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble può attualmente utilizzare solo pulsanti del mouse e tasti modificatori della tastiera (Alt, Ctrl, Cmd, etc.) per le scorciatoie globali.&lt;/p&gt;&lt;p&gt;Se vuoi più flessibilità, puoi aggiungere Mumble ai programmi di accessibilità fidati nella sezione Sicurezza e Privacy delle Impostazioni di Sistema Mac.&lt;/p&gt;&lt;p&gt;Nel pannello delle impostazioni di Sicurezza e Privacy, seleziona la scheda Privacy. Dopo scegli Accessibilità (nella parte bassa) nella lista sulla sinistra. Infine, aggiungi Mumble alla lista dei programmi di accessibilità fidati.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Scorciatoie</translation>
     </message>
@@ -3896,6 +3892,10 @@ Senza questa opzione abilitata, le scorciatoie globali di Mumble non funzioneran
     <message>
         <source>Shortcut input combinations</source>
         <translation>Combinazioni input della scorciatoia</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Accessibility&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>

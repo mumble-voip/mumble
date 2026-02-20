@@ -3747,14 +3747,6 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
         <translation>&amp;Suprimeix</translation>
     </message>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;En aquest moment el Mumble només pot utilitzar botons del ratolí i les tecles modificadores del teclat (Alt, Ctrl, Cmd, etc.) per a dreceres globals.&lt;/p&gt;&lt;p&gt;Si voleu més flexibilitat, podeu activar &lt;span style=&quot; font-style:italic;&quot;&gt;Accés al dispositius d&apos;assistència&lt;/span&gt; en les preferències d&apos;accessibilitat del sistema. No obstant això, tingueu en compte que aquest canvi també permet que els programes maliciosos llegeixin el que s&apos;escriu al teclat.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Preferències de l&apos;Accessibilitat Oberta</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Salta</translation>
     </message>
@@ -3822,6 +3814,14 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
         <translation>Això elimina l&apos;entrada seleccionada de l&apos;arbre de &quot;Dreceres Configurades&quot; de dalt</translation>
     </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Input Monitoring&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Privacy Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
@@ -3865,10 +3865,6 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; El Mumble actualment només pot utilitzar botons de ratolí i tecles modificadors del teclat (Alt, Ctrl, Cmd, etc.) per a dreceres globals.&lt;/p&gt;&lt;p&gt; Si voleu més flexibilitat, podeu afegir al Mumble com a programa d&apos;accessibilitat de confiança a la secció Seguretat i Privacitat de les Preferències del Sistema Mac.&lt;/p&gt;&lt;p&gt;Al tauler de preferències de seguretat i privacitat, trieu la pestanya Privadesa. A continuació, seleccioneu Accessibilitat (prop de la part inferior) a la llista a l&apos;esquerra. Finalment, afegiu el Mumble a la llista de programes d&apos;accessibilitat de confiança.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Dreceres</translation>
     </message>
@@ -3896,6 +3892,10 @@ Sense aquesta opció activada, l&apos;ús de les dreceres globals del Mumble en 
     <message>
         <source>Shortcut input combinations</source>
         <translation>Combinacions d&apos;entrada de la drecera</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble needs &lt;b&gt;Accessibility&lt;/b&gt; permission to use global shortcuts such as Push-to-Talk.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
