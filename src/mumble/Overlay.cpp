@@ -45,7 +45,10 @@ QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 		return {};
 	}
 
-	appBundle.open(QIODevice::ReadOnly);
+	const bool success = appBundle.open(QIODevice::ReadOnly);
+	if (!success) {
+		return {};
+	}
 
 	const QByteArray byteArray = appBundle.readAll();
 	CFDataRef dataCF = CFDataCreateWithBytesNoCopy(nullptr, reinterpret_cast< const UInt8 * >(byteArray.data()),
