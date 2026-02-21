@@ -579,6 +579,8 @@ QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) 
 				return tr("No buttons assigned");
 			}
 		}
+		case QMetaType::QString:
+			return item.value< QString >();
 		default:
 			qWarning("ShortcutDelegate::displayText(): Unknown type %d", item.type());
 	}
