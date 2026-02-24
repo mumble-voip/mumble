@@ -709,6 +709,46 @@
         </property>
        </widget>
       </item>
+      <item row="9" column="1" colspan="3">
+       <widget class="QCheckBox" name="qcbHrtf">
+        <property name="toolTip">
+         <string>Enable Head-Related Transfer Function (HRTF) binaural audio processing for headphones</string>
+        </property>
+        <property name="whatsThis">
+         <string>When enabled, HRTF processing uses a measured head-related transfer function to render spatial audio binaurally. This provides improved elevation perception and front/back disambiguation compared to standard panning. Requires headphones for best effect.</string>
+        </property>
+        <property name="text">
+         <string>Use HRTF binaural audio (headphones recommended)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QLabel" name="qlHrtfFile">
+        <property name="text">
+         <string>HRTF File</string>
+        </property>
+        <property name="buddy">
+         <cstring>qleHrtfFile</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="2">
+       <widget class="QLineEdit" name="qleHrtfFile">
+        <property name="toolTip">
+         <string>Path to a custom SOFA file. Leave empty to use the default HRTF.</string>
+        </property>
+        <property name="placeholderText">
+         <string>Default HRTF</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="3">
+       <widget class="QPushButton" name="qpbHrtfBrowse">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
