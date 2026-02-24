@@ -227,9 +227,19 @@ void AudioOutput::removeBuffer(const void *buffer, bool acquireWriteLock) {
 
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
 		if (iter.value() == buffer) {
+#ifdef USE_HRTF
+			// Capture the pointer value as source ID before deletion.
+			const auto hrtfSourceId =
+				static_cast< unsigned int >(reinterpret_cast< uintptr_t >(iter.value()));
+#endif
 			delete iter.value();
 			qmOutputs.erase(iter);
 
+#ifdef USE_HRTF
+			if (m_hrtfSpatializer) {
+				m_hrtfSpatializer->removeSource(hrtfSourceId);
+			}
+#endif
 			break;
 		}
 	}
@@ -434,6 +444,12 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 		static_cast< unsigned int >(iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 
+#ifdef USE_HRTF
+	m_hrtfSpatializer = std::make_unique< HrtfSpatializer >(static_cast< int >(iMixerFreq),
+	                                                         static_cast< int >(iFrameSize));
+	m_hrtfSpatializer->loadHRTF(Global::get().s.qsHrtfFile);
+#endif
+
 	if (Global::get().s.bPositionalAudio && iChannels == 1) {
 		Log::logOrDefer(Log::Warning, tr("Positional audio cannot work with mono output devices!"));
 	}
@@ -517,6 +533,14 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 			bool validListener = false;
 
+#ifdef USE_HRTF
+			// Listener orientation vectors for HRTF direction computation.
+			// Set when positional audio is active (validListener == true).
+			Vector3D hrtfCameraDir  = { 0.0f, 0.0f, 1.0f };
+			Vector3D hrtfCameraAxis = { 0.0f, 1.0f, 0.0f };
+			Vector3D hrtfRight      = { 1.0f, 0.0f, 0.0f };
+#endif
+
 			// Initialize recorder if recording is enabled
 			std::shared_ptr< float[] > recbuff;
 			if (recorder) {
@@ -579,6 +603,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 				// Calculate right vector as front X top
 				Vector3D right = cameraAxis.crossProduct(cameraDir);
+
+#ifdef USE_HRTF
+				hrtfCameraDir  = cameraDir;
+				hrtfCameraAxis = cameraAxis;
+				hrtfRight      = right;
+#endif
 
 				/*
 							qWarning("Front: %f %f %f", front[0], front[1], front[2]);
