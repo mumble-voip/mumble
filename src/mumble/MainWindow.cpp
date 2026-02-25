@@ -2310,6 +2310,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
 	qmChannel->addAction(qaChannelCopyURL);
+	qmChannel->addAction(qaChannelDescriptionView);
 	qmChannel->addAction(qaChannelSendMessage);
 
 	// hiding the root is nonsense
@@ -2363,6 +2364,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	if (c) {
 		qaChannelHide->setChecked(c->m_filterMode == ChannelFilterMode::HIDE);
 		qaChannelPin->setChecked(c->m_filterMode == ChannelFilterMode::PIN);
+		qaChannelDescriptionView->setEnabled(!c->qbaDescHash.isEmpty());
 	}
 
 	qaChannelAdd->setEnabled(add);
@@ -2583,6 +2585,41 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 
 	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel),
 										   QClipboard::Clipboard);
+}
+
+void MainWindow::on_qaChannelDescriptionView_triggered() {
+	Channel *c = getContextMenuChannel();
+	// This has to be done here because UserModel could've set it.
+	cContextChannel.clear();
+
+	if (!c) {
+		return;
+	}
+
+	if (!c->qbaDescHash.isEmpty() && c->qsDesc.isEmpty()) {
+		// If the channel has a description but it's not loaded,
+		// first try loading it from the database
+		c->qsDesc = QString::fromUtf8(Global::get().db->blob(c->qbaDescHash));
+		if (c->qsDesc.isEmpty()) {
+			// If it's not in the database, request it from the server
+			pmModel->blobRequestType = BlobRequestType::Window;
+			pmModel->iChannelDescription = static_cast< int >(c->iId);
+			MumbleProto::RequestBlob mprb;
+			mprb.add_channel_description(c->iId);
+			Global::get().sh->sendMessage(mprb);
+			// Return early, we will be called back when the message
+			// is received.
+			return;
+		}
+	}
+
+	pmModel->seenComment(pmModel->index(c));
+
+	// Show a the channel description in a window
+	::TextMessage *texm = new ::TextMessage(this, tr("View description of channel %1").arg(c->qsName));
+	texm->rteMessage->setText(c->qsDesc, true);
+	texm->setAttribute(Qt::WA_DeleteOnClose, true);
+	texm->show();
 }
 
 /**
