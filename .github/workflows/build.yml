@@ -36,7 +36,7 @@ jobs:
     outputs:
       build_number: ${{ steps.fetch.outputs.build_number }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
             fetch-depth: 1
       - id: fetch
@@ -72,7 +72,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
           submodules: 'recursive'
           fetch-depth: 1
@@ -87,7 +87,7 @@ jobs:
       run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
       shell: bash
 
-    - uses: actions/cache@v4
+    - uses: actions/cache@v5
       with:
           path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
@@ -120,7 +120,7 @@ jobs:
 
     - if: ${{ !inputs.SIGN_WINDOWS_INSTALLER && matrix.type == 'static' }}
       name: Publish
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: 'Mumble-${{ matrix.os }}'
         compression-level: 9

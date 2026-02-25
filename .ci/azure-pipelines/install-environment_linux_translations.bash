@@ -10,4 +10,8 @@ set -x
 
 sudo apt-get update
 
-sudo apt-get -y install qttools5-dev-tools
+sudo apt-get -y install qt6-l10n-tools
+
+sudo ln -s /usr/lib/qt6/bin/lupdate /usr/bin/
+
+lupdate -version
