@@ -55,6 +55,15 @@ public class MumbleInstall : Project {
 					 * This will still show up in Add/Remove Programs and can be removed there,
 					 * even when Permanent is true. */
 					Permanent = true,
+					ExitCodes = new List<ExitCode>
+					{
+						new ExitCode
+						{
+							// Can not install VC_redist, because newer version is already installed
+							Value = "1638",
+							Behavior = BehaviorValues.success
+						}
+					},
 				});
 		bootstrapper.Variables = new[] {
 				/* Version.ToString() is here to validating the input when the installer is built.
