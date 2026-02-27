@@ -112,13 +112,13 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 	}
 
 #ifdef USE_OVERLAY
-		if (forward && Global::get().ocIntercept) {
-			NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	if (forward && Global::get().ocIntercept) {
+		@autoreleasepool {
 			NSEvent *evt = [[NSEvent eventWithCGEvent:event] retain];
 			QMetaObject::invokeMethod(gs, "forwardEvent", Qt::QueuedConnection, Q_ARG(void *, evt));
-			[pool release];
-			return nullptr;
 		}
+		return nullptr;
+	}
 #else
 	// Mark forward as unused in this case
 	(void) forward;
@@ -163,10 +163,6 @@ GlobalShortcutMac::GlobalShortcutMac()
 
 	kbdLayout = nullptr;
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
-# if MAC_OS_X_VERSION_MIN_REQUIRED < 1050
-	if (TISCopyCurrentKeyboardInputSource && TISGetInputSourceProperty)
-# endif
 	{
 		TISInputSourceRef inputSource = TISCopyCurrentKeyboardInputSource();
 		if (inputSource) {
@@ -175,16 +171,8 @@ GlobalShortcutMac::GlobalShortcutMac()
 				kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
 		}
 	}
-#endif
-#ifndef __LP64__
-	if (! kbdLayout) {
-		SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript);
-		SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys);
-		Handle handle = GetResource('uchr', lastKeyLayoutID);
-		if (handle)
-			kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
-	}
-#endif
+
+
 	if (! kbdLayout)
 		qWarning("GlobalShortcutMac: No keyboard layout mapping available. Unable to perform key translation.");
 
@@ -203,36 +191,37 @@ GlobalShortcutMac::~GlobalShortcutMac() {
 }
 
 void GlobalShortcutMac::dumpEventTaps() {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	uint32_t ntaps = 0;
-	CGEventTapInformation table[64];
-	if (CGGetEventTapList(20, table, &ntaps) == kCGErrorSuccess) {
-		qWarning("--- Installed Event Taps ---");
-		for (uint32_t i = 0; i < ntaps; i++) {
-			CGEventTapInformation *info = &table[i];
+	@autoreleasepool {
+		uint32_t ntaps = 0;
+		CGEventTapInformation table[64];
+		if (CGGetEventTapList(20, table, &ntaps) == kCGErrorSuccess) {
+			qWarning("--- Installed Event Taps ---");
+			for (uint32_t i = 0; i < ntaps; i++) {
+				CGEventTapInformation *info = &table[i];
 
-			NSString *processName = nil;
-			NSRunningApplication *app = [NSRunningApplication runningApplicationWithProcessIdentifier: info->processBeingTapped];
-			if (app) {
-				processName = [app localizedName];
+				NSString *processName = nil;
+				NSRunningApplication *app = [NSRunningApplication runningApplicationWithProcessIdentifier: info->processBeingTapped];
+				if (app) {
+					processName = [app localizedName];
+				}
+
+				qWarning("{");
+				qWarning("  eventTapID: %u", info->eventTapID);
+				qWarning("  tapPoint: 0x%x", info->tapPoint);
+				qWarning("  options = 0x%x", info->options);
+				qWarning("  eventsOfInterest = 0x%llx", info->eventsOfInterest);
+				const char *processNameUtf8 = processName ? [processName UTF8String] : "unknown";
+				qWarning("  tappingProcess = %i (%s)", info->tappingProcess, processNameUtf8);
+				qWarning("  processBeingTapped = %i", info->processBeingTapped);
+				qWarning("  enabled = %s", info->enabled ? "true":"false");
+				qWarning("  minUsecLatency = %.2f", info->minUsecLatency);
+				qWarning("  avgUsecLatency = %.2f", info->avgUsecLatency);
+				qWarning("  maxUsecLatency = %.2f", info->maxUsecLatency);
+				qWarning("}");
 			}
-
-			qWarning("{");
-			qWarning("  eventTapID: %u", info->eventTapID);
-			qWarning("  tapPoint: 0x%x", info->tapPoint);
-			qWarning("  options = 0x%x", info->options);
-			qWarning("  eventsOfInterest = 0x%llx", info->eventsOfInterest);
-			qWarning("  tappingProcess = %i (%s)", info->tappingProcess, [processName UTF8String]);
-			qWarning("  processBeingTapped = %i", info->processBeingTapped);
-			qWarning("  enabled = %s", info->enabled ? "true":"false");
-			qWarning("  minUsecLatency = %.2f", info->minUsecLatency);
-			qWarning("  avgUsecLatency = %.2f", info->avgUsecLatency);
-			qWarning("  maxUsecLatency = %.2f", info->maxUsecLatency);
-			qWarning("}");
+			qWarning("--- End of Event Taps ---");
 		}
-		qWarning("--- End of Event Taps ---");
 	}
-	[pool release];
 }
 
 void GlobalShortcutMac::forwardEvent(void *evt) {
