@@ -141,6 +141,16 @@
         </property>
        </widget>
       </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbInhibitSleep">
+        <property name="toolTip">
+         <string>Prevents the computer from sleeping while connected to a server</string>
+        </property>
+        <property name="text">
+         <string>Inhibit system sleep while connected</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -1288,6 +1298,7 @@
   <tabstop>qcbQuitBehavior</tabstop>
   <tabstop>qcbEnableDeveloperMenu</tabstop>
   <tabstop>qcbLockLayout</tabstop>
+  <tabstop>qcbInhibitSleep</tabstop>
   <tabstop>qcbHideTray</tabstop>
   <tabstop>qcbStateInTray</tabstop>
   <tabstop>qcbSearchUserAction</tabstop>
