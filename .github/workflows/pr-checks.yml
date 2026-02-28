@@ -16,7 +16,7 @@ jobs:
       run: sudo apt install python3
       shell: bash
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
           # Assume that there are not >200 new commits that need checking
           fetch-depth: 200
@@ -44,7 +44,7 @@ jobs:
       shell: bash
 
     - name: Check code formatting
-      uses: jidicula/clang-format-action@v4.13.0
+      uses: jidicula/clang-format-action@v4.16.0
       with:
           clang-format-version: '10'
           check-path: '.'

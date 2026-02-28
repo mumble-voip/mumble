@@ -57,7 +57,7 @@ def ResetCommits(amount):
         exit(1)
 
 
-def Update(lupdatebin, tsfile: str, debuglupdate: bool, applyHeuristics = True) -> (int, int, int):
+def Update(lupdatebin, tsfile: str, debuglupdate: bool, applyHeuristics = True):
     runArray = [
         lupdatebin
         , '-no-ui-lines'
@@ -84,8 +84,9 @@ def Update(lupdatebin, tsfile: str, debuglupdate: bool, applyHeuristics = True) 
         logging.debug(res.stdout)
     if res.returncode != 0:
         logging.error('lupdate failed with error code %d', res.returncode)
-        logging.debug('stdout: ' + res.stdout)
-        exit(1)
+        logging.info('stdout: ' + res.stdout.decode("utf-8"))
+        logging.info('stderr: ' + res.stdout.decode("utf-8"))
+        exit(res.returncode)
     p = re.compile(r'Found (?P<nsrc>[0-9]+) source text\(s\) \((?P<nnew>[0-9]+) new and (?P<nsame>[0-9]+) already existing\)')
     m = p.search(res.stdout.decode('ascii'))
     logging.debug('Found %s texts where %s new and %s same', m.group('nsrc'), m.group('nnew'), m.group('nsame'))
