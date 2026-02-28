@@ -6181,10 +6181,6 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6257,10 +6253,6 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6277,11 +6269,19 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid username: %1.</source>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid username.</source>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

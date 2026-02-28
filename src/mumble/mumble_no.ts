@@ -5662,10 +5662,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation>Frakoblet tjener.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>Ugyldig brukernavn</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Brukernavnet er i bruk</translation>
     </message>
@@ -6133,10 +6129,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation>Nektet: Kan ikke endre SuperBruker.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>Nektet: Ugyldig kanalnavn.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>Nektet: Tekstmelding for lang.</translation>
     </message>
@@ -6151,14 +6143,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>%1 har ikke et sertifikat.</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>Ugyldig brukernavn: %1</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>Ugyldig brukernavn.</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6276,6 +6260,22 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
     <message>
         <source>You joined %1.</source>
         <translation>Du tok del i %1.</translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>

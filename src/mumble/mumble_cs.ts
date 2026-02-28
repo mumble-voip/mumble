@@ -5640,10 +5640,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Odpojeno od serveru.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>Neplatné jméno uživatele</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Uživatelské jméno se používá</translation>
     </message>
@@ -6110,10 +6106,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Zamítnuto: Nelze změnit SuperUživatele.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>Zamítnuto: Neplatné jméno kanálu.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>Zamítnuto: Textová zpráva je příliš dlouhá.</translation>
     </message>
@@ -6128,14 +6120,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>%1 nemá certifikát.</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>Neplatné uživatelské jméno: %1.</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>Neplatné uživatelské jméno.</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6252,6 +6236,22 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You joined %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -5633,10 +5633,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Kiszolgáló lekapcsolódott.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>Érvénytelen felhasználónév</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>A felhasználónév foglalt</translation>
     </message>
@@ -6103,10 +6099,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Megtagadva: a SuperUser nem módosítható.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>Megtagadva: érvénytelen csatornanév.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>Megtagadva: Túl hosszú szöveg.</translation>
     </message>
@@ -6121,14 +6113,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>%1 felhasználónak nincs tanúsítványa.</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>Érvénytelen felhasználónév: %1.</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>Érvénytelen felhasználónév.</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6246,6 +6230,22 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>You joined %1.</source>
         <translation>Belépett a(z) %1 csatornába.</translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>

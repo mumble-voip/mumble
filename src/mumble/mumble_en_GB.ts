@@ -3693,7 +3693,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cancel</translation>
     </message>
 </context>
 <context>
@@ -5511,7 +5511,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cancel</translation>
     </message>
     <message>
         <source>Save Image As...</source>
@@ -5543,7 +5543,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Enter reason</translation>
     </message>
     <message>
         <source>Sending message to %1</source>
@@ -5636,10 +5636,6 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Disconnected from server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6109,10 +6105,6 @@ This setting only applies to new messages; existing messages keep the previous t
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6126,14 +6118,6 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6251,6 +6235,22 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>You joined %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -89,7 +89,7 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 
 	switch (rtLast) {
 		case MumbleProto::Reject_RejectType_InvalidUsername:
-			reason = tr("Invalid username");
+			reason = tr("According to the server's configuration, your username is considered invalid.");
 			break;
 		case MumbleProto::Reject_RejectType_UsernameInUse:
 			reason = tr("Username in use");
@@ -255,7 +255,9 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			Global::get().l->log(Log::PermissionDenied, tr("Denied: Cannot modify SuperUser."));
 		} break;
 		case MumbleProto::PermissionDenied_DenyType_ChannelName: {
-			Global::get().l->log(Log::PermissionDenied, tr("Denied: Invalid channel name."));
+			Global::get().l->log(
+				Log::PermissionDenied,
+				tr("Denied: According to the server's configuration, the channel name is considered invalid."));
 		} break;
 		case MumbleProto::PermissionDenied_DenyType_TextTooLong: {
 			Global::get().l->log(Log::PermissionDenied, tr("Denied: Text message too long."));
@@ -294,10 +296,14 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 		} break;
 		case MumbleProto::PermissionDenied_DenyType_UserName: {
 			if (msg.has_name())
-				Global::get().l->log(Log::PermissionDenied,
-									 tr("Invalid username: %1.").arg(u8(msg.name()).toHtmlEscaped()));
+				Global::get().l->log(
+					Log::PermissionDenied,
+					tr("According to the server's configuration, the username %1 is considered invalid.")
+						.arg(u8(msg.name()).toHtmlEscaped()));
 			else
-				Global::get().l->log(Log::PermissionDenied, tr("Invalid username."));
+				Global::get().l->log(
+					Log::PermissionDenied,
+					tr("According to the server's configuration, the username is considered invalid."));
 		} break;
 		case MumbleProto::PermissionDenied_DenyType_ChannelFull: {
 			Global::get().l->log(Log::PermissionDenied, tr("Channel is full."));
