@@ -5637,10 +5637,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>נותק מן שרת.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>שם משתמש לא תקין</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>שם משתמש מצוי בשימוש</translation>
     </message>
@@ -6107,10 +6103,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>נדחה: לא ניתן לשנות SuperUser.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>נדחה: שם ערוץ לא חוקי.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>נדחה: הודעת תמליל ארוכה מדי.</translation>
     </message>
@@ -6125,14 +6117,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>ל-%1 אין תעודת אבטחה.</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>שם משתמש לא חוקי: %1.</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>שם משתמש לא .חוקי.</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6249,6 +6233,22 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You joined %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

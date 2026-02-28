@@ -5646,10 +5646,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>서버와의 연결이 끊어졌습니다.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>잘못된 유저 이름</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>사용 중인 유저 이름</translation>
     </message>
@@ -6116,10 +6112,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>거부됨: SuperUser를 수정할 수 없습니다.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>거부됨: 잘못된 채널 이름입니다.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>거부됨: 텍스트 메시지가 너무 깁니다.</translation>
     </message>
@@ -6134,14 +6126,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>%1은(는) 인증서가 없습니다.</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>잘못된 유저 이름: %1.</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>유저 이름이 잘못되었습니다.</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6259,6 +6243,22 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>You joined %1.</source>
         <translation>%1에 입장했습니다.</translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>

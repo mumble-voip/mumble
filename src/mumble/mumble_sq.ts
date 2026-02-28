@@ -975,7 +975,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">On</translation>
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
@@ -1901,7 +1901,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;b&gt;Kjo është metoda e dhënies për t’u përdorur për audion.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Device</source>
@@ -2232,7 +2232,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">E folura amplifikohet në mënyrë dinamike e shumta me këtë sasi</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
@@ -4477,7 +4477,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
@@ -4549,7 +4549,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">decibelë</translation>
     </message>
 </context>
 <context>
@@ -6240,10 +6240,6 @@ the channel&apos;s context menu.</source>
         <translation>U shkëput prej shërbyesit.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>Emër i pavlefshëm përdoruesi</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Emër përdoruesi në përdorim</translation>
     </message>
@@ -6316,10 +6312,6 @@ the channel&apos;s context menu.</source>
         <translation>U mohua: S’mund të ndryshohet SuperPërdoruesi.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>U mohua: Emër i pavlefshëm kanali.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>U mohua: Mesazh tekst shumë i gjatë.</translation>
     </message>
@@ -6336,12 +6328,20 @@ the channel&apos;s context menu.</source>
         <translation>%1 s’ka dëshmi.</translation>
     </message>
     <message>
-        <source>Invalid username: %1.</source>
-        <translation>Emër i pavlefshëm përdoruesi: %1.</translation>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Invalid username.</source>
-        <translation>Emër i pavlefshëm përdoruesi.</translation>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Channel is full.</source>

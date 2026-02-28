@@ -5647,10 +5647,6 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <translation>Frånkopplad från servern.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>Ogiltigt användarnamn</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Användarnamn finns redan</translation>
     </message>
@@ -6117,10 +6113,6 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <translation>Nekad: Kan ej modifiera superanvändare.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>Nekad: Ogiltigt kanalnamn.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>Nekad: Textmeddelande för långt.</translation>
     </message>
@@ -6135,14 +6127,6 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>%1 har ej något certifikat.</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>Ogiltigt användarnamn: %1.</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>Ogiltigt användarnamn.</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6260,6 +6244,22 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     <message>
         <source>You joined %1.</source>
         <translation>Du gick med i %1.</translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>

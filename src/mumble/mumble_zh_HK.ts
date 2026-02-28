@@ -5584,10 +5584,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>與伺服器斷開連接。</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>無效的使用者名稱</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>使用者名稱重複</translation>
     </message>
@@ -6054,10 +6050,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>拒絕：無法變更SuperUser。</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>拒絕：無效的頻道名稱。</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>拒絕：訊息太長。</translation>
     </message>
@@ -6072,14 +6064,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>%1 沒有憑證。</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>無效的使用者名： %1 。</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>無效的使用者名稱。</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6196,6 +6180,22 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>You joined %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

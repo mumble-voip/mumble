@@ -5647,10 +5647,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Αποσύνδεση από τον διακομιστή.</translation>
     </message>
     <message>
-        <source>Invalid username</source>
-        <translation>Μη έγκυρο όνομα χρήστη</translation>
-    </message>
-    <message>
         <source>Username in use</source>
         <translation>Αυτό το όνομα χρήστη βρίσκεται σε χρήση</translation>
     </message>
@@ -6117,10 +6113,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Απορρίφθηκε: Δεν είναι δυνατή η τροποποίηση του ΥπερΧρήστη.</translation>
     </message>
     <message>
-        <source>Denied: Invalid channel name.</source>
-        <translation>Απορρίφθηκε: Μη έγκυρο όνομα καναλιού.</translation>
-    </message>
-    <message>
         <source>Denied: Text message too long.</source>
         <translation>Απορρίφθηκε: Το μήνυμα κειμένου είναι πολύ μεγάλο.</translation>
     </message>
@@ -6135,14 +6127,6 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>%1 does not have a certificate.</source>
         <translation>Ο %1 δεν διαθέτει πιστοποιητικό.</translation>
-    </message>
-    <message>
-        <source>Invalid username: %1.</source>
-        <translation>Μη έγκυρο όνομα χρήστη: %1.</translation>
-    </message>
-    <message>
-        <source>Invalid username.</source>
-        <translation>Μη έγκυρο όνομα χρήστη.</translation>
     </message>
     <message>
         <source>Channel is full.</source>
@@ -6260,6 +6244,22 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>You joined %1.</source>
         <translation>Συνδεθήκατε %1.</translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, your username is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>According to the server&apos;s configuration, the username is considered invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
