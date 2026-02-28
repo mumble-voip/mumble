@@ -457,6 +457,11 @@ void MainWindow::createActions() {
 	gsAdaptivePush->qsToolTip = tr("When using the push-to-talk transmission mode, this will act as the push-to-talk "
 								   "action. Otherwise, it will act as a push-to-mute action.",
 								   "Global Shortcut");
+
+	gsToggleFullScreen = new GlobalShortcut(this, GlobalShortcutType::ToggleFullScreen,
+												 tr("ToggleFullScreen", "Global Shortcut"));
+	gsToggleFullScreen->setObjectName("gsToggleFullScreen");
+	gsToggleFullScreen->qsWhatsThis = tr("This will toggle FullScreen on/off");
 }
 
 void MainWindow::setupGui() {
