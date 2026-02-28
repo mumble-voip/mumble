@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_SLEEPINHIBITOR_H_
 #define MUMBLE_MUMBLE_SLEEPINHIBITOR_H_
 
+#include <cstdint>
+
 #include <QtCore/QObject>
 #if defined(USE_DBUS)
 #	include <QtDBus/QDBusUnixFileDescriptor>

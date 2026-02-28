@@ -1298,6 +1298,7 @@
   <tabstop>qcbQuitBehavior</tabstop>
   <tabstop>qcbEnableDeveloperMenu</tabstop>
   <tabstop>qcbLockLayout</tabstop>
+  <tabstop>qcbInhibitSleep</tabstop>
   <tabstop>qcbHideTray</tabstop>
   <tabstop>qcbStateInTray</tabstop>
   <tabstop>qcbSearchUserAction</tabstop>

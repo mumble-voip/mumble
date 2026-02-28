@@ -4,7 +4,6 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "SleepInhibitor.h"
-#include "Global.h"
 
 #if defined(Q_OS_WIN)
 #	include <windows.h>
