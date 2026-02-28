@@ -24,6 +24,7 @@
 #include <chrono>
 #include <cmath>
 #include <memory>
+#include <vector>
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioOutputRegistrar() might be called before they are initialized, as the constructor
@@ -227,9 +228,19 @@ void AudioOutput::removeBuffer(const void *buffer, bool acquireWriteLock) {
 
 	for (auto iter = qmOutputs.begin(); iter != qmOutputs.end(); ++iter) {
 		if (iter.value() == buffer) {
+#ifdef USE_HRTF
+			// Capture the pointer value as source ID before deletion.
+			const auto hrtfSourceId =
+				static_cast< unsigned int >(reinterpret_cast< uintptr_t >(iter.value()));
+#endif
 			delete iter.value();
 			qmOutputs.erase(iter);
 
+#ifdef USE_HRTF
+			if (m_hrtfSpatializer) {
+				m_hrtfSpatializer->removeSource(hrtfSourceId);
+			}
+#endif
 			break;
 		}
 	}
@@ -434,6 +445,12 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 		static_cast< unsigned int >(iChannels * ((eSampleFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 	qWarning("AudioOutput: Initialized %d channel %d hz mixer", iChannels, iMixerFreq);
 
+#ifdef USE_HRTF
+	m_hrtfSpatializer = std::make_unique< HrtfSpatializer >(static_cast< int >(iMixerFreq),
+	                                                         static_cast< int >(iFrameSize));
+	m_hrtfSpatializer->loadHRTF(Global::get().s.qsHrtfFile);
+#endif
+
 	if (Global::get().s.bPositionalAudio && iChannels == 1) {
 		Log::logOrDefer(Log::Warning, tr("Positional audio cannot work with mono output devices!"));
 	}
@@ -517,6 +534,14 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 			bool validListener = false;
 
+#ifdef USE_HRTF
+			// Listener orientation vectors for HRTF direction computation.
+			// Set when positional audio is active (validListener == true).
+			Vector3D hrtfCameraDir  = { 0.0f, 0.0f, 1.0f };
+			Vector3D hrtfCameraAxis = { 0.0f, 1.0f, 0.0f };
+			Vector3D hrtfRight      = { 1.0f, 0.0f, 0.0f };
+#endif
+
 			// Initialize recorder if recording is enabled
 			std::shared_ptr< float[] > recbuff;
 			if (recorder) {
@@ -579,6 +604,12 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 
 				// Calculate right vector as front X top
 				Vector3D right = cameraAxis.crossProduct(cameraDir);
+
+#ifdef USE_HRTF
+				hrtfCameraDir  = cameraDir;
+				hrtfCameraAxis = cameraAxis;
+				hrtfRight      = right;
+#endif
 
 				/*
 							qWarning("Front: %f %f %f", front[0], front[1], front[2]);
@@ -736,6 +767,68 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 									qWarning("Voice pos: %f %f %f", aop->fPos[0], aop->fPos[1], aop->fPos[2]);
 									qWarning("Voice dir: %f %f %f", connectionVec.x, connectionVec.y, connectionVec.z);
 					*/
+#ifdef USE_HRTF
+					if (nchan == 2 && m_hrtfSpatializer && m_hrtfSpatializer->isLoaded()
+					    && Global::get().s.bHrtf) {
+						// HRTF binaural path: replaces the per-channel gain + ITD loop below.
+
+						// Compute source direction in listener-local frame (+X=right, +Y=up, +Z=forward).
+						const float localX = connectionVec.x * hrtfRight.x + connectionVec.y * hrtfRight.y
+						                     + connectionVec.z * hrtfRight.z;
+						const float localY = connectionVec.x * hrtfCameraAxis.x
+						                     + connectionVec.y * hrtfCameraAxis.y
+						                     + connectionVec.z * hrtfCameraAxis.z;
+						const float localZ = connectionVec.x * hrtfCameraDir.x
+						                     + connectionVec.y * hrtfCameraDir.y
+						                     + connectionVec.z * hrtfCameraDir.z;
+
+						// Buffer pointer as source ID: stable lifetime, unique across speech + samples.
+						const auto sourceId =
+							static_cast< unsigned int >(reinterpret_cast< uintptr_t >(buffer));
+
+						// Downmix stereo to mono before spatialisation.
+						static thread_local std::vector< float > monoMix;
+						monoMix.resize(frameCount);
+						if (speech && speech->bStereo) {
+							for (unsigned int i = 0; i < frameCount; ++i)
+								monoMix[i] = (pfBuffer[2 * i] + pfBuffer[2 * i + 1]) * 0.5f;
+						} else {
+							for (unsigned int i = 0; i < frameCount; ++i)
+								monoMix[i] = pfBuffer[i];
+						}
+
+						// Spatialize: mono → interleaved binaural stereo (L,R,L,R,...).
+						static thread_local std::vector< float > hrtfOut;
+						hrtfOut.resize(frameCount * 2);
+						m_hrtfSpatializer->spatialize(sourceId, monoMix.data(), hrtfOut.data(),
+						                              frameCount, localX, localY, localZ);
+
+						// Apply distance attenuation only (dot=1.0 → pure distance falloff;
+						// the HRTF IR encodes ILD/ITD directional cues, no per-channel weighting needed).
+						const bool isAudible = (Global::get().s.fAudioMaxDistVolume > 0)
+						                       || (len < Global::get().s.fAudioMaxDistance);
+						const float gain = isAudible ? mul * calcGain(1.0f, len) * volumeAdjustment : 0.0f;
+						maxVolume        = gain;
+
+						// Ramp gain linearly across the block to avoid clicks on distance changes
+						// (mirrors per-sample interpolation in the non-HRTF path below).
+						// pfVolume[0] caches the previous block's gain; -1.0 signals first call.
+						if (!buffer->pfVolume) {
+							buffer->pfVolume    = new float[nchan];
+							buffer->pfVolume[0] = -1.0f;
+						}
+						const float oldGain = (buffer->pfVolume[0] >= 0.0f) ? buffer->pfVolume[0] : gain;
+						buffer->pfVolume[0]  = gain;
+						const float gainInc  = (gain - oldGain) / static_cast< float >(frameCount);
+
+						for (unsigned int i = 0; i < frameCount; ++i) {
+							const float g         = oldGain + gainInc * static_cast< float >(i);
+							output[i * nchan + 0] += hrtfOut[2 * i] * g;
+							output[i * nchan + 1] += hrtfOut[2 * i + 1] * g;
+						}
+					} else {
+// Non-HRTF per-channel gain + ITD path (use `git diff -w` to review separately from indentation):
+#endif
 					if (!buffer->pfVolume) {
 						buffer->pfVolume = new float[nchan];
 						for (unsigned int s = 0; s < nchan; ++s)
@@ -812,6 +905,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int frameCount) {
 							}
 						}
 					}
+#ifdef USE_HRTF
+					} // end else: non-HRTF per-channel gain + ITD path
+#endif
 				} else {
 					// Mix the current audio source into the output by adding it to the elements of the output buffer
 					// after having applied a volume adjustment
