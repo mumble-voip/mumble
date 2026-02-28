@@ -1832,7 +1832,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">Current speech detection chance</translation>
+        <translation>Current speech detection chance</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -1939,7 +1939,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation type="unfinished">Output method for audio</translation>
+        <translation>Output method for audio</translation>
     </message>
     <message>
         <source>Output device to use</source>
@@ -2012,7 +2012,7 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation type="unfinished">Positional Audio</translation>
+        <translation>Positional Audio</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
