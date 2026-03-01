@@ -16,7 +16,7 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Dtest-lto=OFF
+  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Dtest-lto=OFF -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache
 
 
 jobs:
@@ -91,6 +91,10 @@ jobs:
       with:
           path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
+
+    - uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.os }}.${{ matrix.type }}
 
     - uses: ./.github/actions/install-dependencies
       with:
