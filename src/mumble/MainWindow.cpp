@@ -2057,7 +2057,6 @@ void MainWindow::on_qaUserBan_triggered() {
 
 void MainWindow::on_qaUserTextMessage_triggered() {
 	ClientUser *p = getContextMenuUser();
-
 	if (!p)
 		return;
 
@@ -2627,7 +2626,12 @@ void MainWindow::updateMenuPermissions() {
 		qaUserDeaf->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen)
 							   && ((target.user != user) || target.user->bDeaf));
 		qaUserPrioritySpeaker->setEnabled(p & (ChanACL::Write | ChanACL::MuteDeafen));
-		qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+		if (Global::get().sh && (Global::get().sh->m_version >= Version::fromComponents(1, 7, 0))) {
+			qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::PrivateMessage));
+		}
+		else {
+			qaUserTextMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+		}
 		qaUserInformation->setEnabled((Global::get().pPermissions & (ChanACL::Write | ChanACL::Register))
 									  || (p & (ChanACL::Write | ChanACL::Enter)) || (target.user == user));
 	} else {
@@ -2653,11 +2657,20 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelHide->setEnabled(target.channel);
 	qaChannelPin->setEnabled(target.channel);
-
 	bool chatBarEnabled = false;
 	if (Global::get().uiSession) {
 		if (Global::get().s.bChatBarUseSelection && (target.channel || target.user)) {
-			chatBarEnabled = p & (ChanACL::Write | ChanACL::TextMessage);
+			if (Global::get().sh && (Global::get().sh->m_version >= Version::fromComponents(1, 7, 0))) {
+				if (target.user) {
+					chatBarEnabled = p & (ChanACL::Write | ChanACL::PrivateMessage);
+				}
+				else if (target.channel) {
+					chatBarEnabled = p & (ChanACL::Write | ChanACL::TextMessage);
+				}
+			}
+			else{
+				chatBarEnabled = p & (ChanACL::Write | ChanACL::TextMessage);
+			}
 		} else if (homec) {
 			chatBarEnabled = homep & (ChanACL::Write | ChanACL::TextMessage);
 		}
