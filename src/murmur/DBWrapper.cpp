@@ -709,6 +709,7 @@ void DBWrapper::addChannelLink(unsigned int serverID, const Channel &first, cons
 	assertValidID(second.iId);
 	assert(!first.bTemporary);
 	assert(!second.bTemporary);
+	assert(first.iId != second.iId);
 
 	::msdb::DBChannelLink link(serverID, first.iId, second.iId);
 
@@ -725,6 +726,7 @@ void DBWrapper::removeChannelLink(unsigned int serverID, const Channel &first, c
 	assertValidID(second.iId);
 	assert(!first.bTemporary);
 	assert(!second.bTemporary);
+	assert(first.iId != second.iId);
 
 	::msdb::DBChannelLink link(serverID, first.iId, second.iId);
 
