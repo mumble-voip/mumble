@@ -2349,14 +2349,16 @@ void MainWindow::qmChannel_aboutToShow() {
 		if (c && c->iId != 0) {
 			remove = true;
 		}
-		if (!c)
+		if (!c) {
 			c = Channel::get(Mumble::ROOT_CHANNEL_ID);
+		}
 		unlinkall = (home->qhLinks.count() > 0);
 		if (home != c) {
-			if (c->allLinks().contains(home))
+			if (c->allLinks().contains(home)) {
 				unlink = true;
-			else
+			} else {
 				link = true;
+			}
 		}
 	}
 
@@ -2610,6 +2612,7 @@ void MainWindow::updateMenuPermissions() {
 	ClientUser *user           = Global::get().uiSession ? ClientUser::get(Global::get().uiSession) : nullptr;
 	Channel *homec             = user ? user->cChannel : nullptr;
 	ChanACL::Permissions homep = homec ? static_cast< ChanACL::Permissions >(homec->uiPermissions) : ChanACL::None;
+	bool isCurrentChannel      = target.channel && homec == target.channel;
 
 	if (homec && !homep) {
 		Global::get().sh->requestChannelPermissions(homec->iId);
@@ -2644,10 +2647,11 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelRemove->setEnabled(p & ChanACL::Write);
 	qaChannelACL->setEnabled((p & ChanACL::Write) || (Global::get().pPermissions & ChanACL::Write));
 
-	qaChannelLink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel))
+	qaChannelLink->setEnabled(!isCurrentChannel && (p & (ChanACL::Write | ChanACL::LinkChannel))
 							  && (homep & (ChanACL::Write | ChanACL::LinkChannel)));
-	qaChannelUnlink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel))
-								|| (homep & (ChanACL::Write | ChanACL::LinkChannel)));
+	qaChannelUnlink->setEnabled(
+		!isCurrentChannel
+		&& ((p & (ChanACL::Write | ChanACL::LinkChannel)) || (homep & (ChanACL::Write | ChanACL::LinkChannel))));
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 	qaChannelCopyURL->setEnabled(target.channel);
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
