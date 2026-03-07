@@ -17,6 +17,7 @@ make_build_env_available "tar.xz"
 # by default and installing it via homebrew takes forever.
 
 brew install postgresql
+brew link postgresql
 brew services start postgresql
 
 # Give the database some time to start
