@@ -20,16 +20,6 @@ env:
 
 
 jobs:
-  skip_test:
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@v5
-        with:
-          concurrent_skipping: same_content_newer
-          skip_after_successful_duplicate: 'true'
 
   fetch_build_number:
     runs-on: ubuntu-latest
@@ -51,9 +41,7 @@ jobs:
 
 
   build:
-    needs: [ skip_test, fetch_build_number ]
-
-    if: needs.skip_test.outputs.should_skip != 'true'
+    needs: [ fetch_build_number ]
 
     strategy:
         fail-fast: false
