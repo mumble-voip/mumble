@@ -16,20 +16,10 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Dtest-lto=OFF
+  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Dtest-lto=OFF -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache
 
 
 jobs:
-  skip_test:
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@v5
-        with:
-          concurrent_skipping: same_content_newer
-          skip_after_successful_duplicate: 'true'
 
   fetch_build_number:
     runs-on: ubuntu-latest
@@ -51,9 +41,7 @@ jobs:
 
 
   build:
-    needs: [ skip_test, fetch_build_number ]
-
-    if: needs.skip_test.outputs.should_skip != 'true'
+    needs: [ fetch_build_number ]
 
     strategy:
         fail-fast: false
@@ -87,10 +75,16 @@ jobs:
       run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
       shell: bash
 
-    - uses: actions/cache@v5
+    - uses: actions/cache/restore@v5
       with:
           path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
+
+    - uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ github.head_ref || github.ref_name }}.${{ matrix.os }}.${{ matrix.type }}
+        save: ${{ github.event_name != 'pull_request' }}
+        append-timestamp: false
 
     - uses: ./.github/actions/install-dependencies
       with:
@@ -129,3 +123,13 @@ jobs:
           build/mumble-server
           build/**/mumble*.msi
           build/**/mumble*.exe
+
+      # We don't want to save the build env in a cache on a PR as caches are scoped
+      # to branches and while PRs can access caches from the default branch, they
+      # can't access the cache of other PRs. Hence, it is kind of a waste to save
+      # the cache on a PR
+    - if: ${{ github.event_name != 'pull_request' }}
+      uses: actions/cache/save@v5
+      with:
+          path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
