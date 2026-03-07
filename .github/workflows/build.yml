@@ -82,7 +82,7 @@ jobs:
 
     - uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: ${{ github.head_ref || github.ref_name }}.${{ matrix.os }}.${{ matrix.type }}
+        key: ${{ github.base_ref || github.ref_name }}.${{ matrix.os }}.${{ matrix.type }}
         save: ${{ github.event_name != 'pull_request' }}
         append-timestamp: false
 
@@ -128,7 +128,7 @@ jobs:
       # to branches and while PRs can access caches from the default branch, they
       # can't access the cache of other PRs. Hence, it is kind of a waste to save
       # the cache on a PR
-    - if: ${{ github.event_name != 'pull_request' }}
+    - if: ${{ matrix.type  == 'static' && github.event_name != 'pull_request' }}
       uses: actions/cache/save@v5
       with:
           path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
