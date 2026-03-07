@@ -84,6 +84,7 @@ jobs:
       with:
         key: ${{ matrix.os }}.${{ matrix.type }}
         save: ${{ github.event_name != 'pull_request' }}
+        append-timestamp: false
 
     - uses: ./.github/actions/install-dependencies
       with:
