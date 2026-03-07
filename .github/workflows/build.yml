@@ -82,7 +82,7 @@ jobs:
 
     - uses: hendrikmuhs/ccache-action@v1.2
       with:
-        key: ${{ matrix.os }}.${{ matrix.type }}
+        key: ${{ github.head_ref || github.ref_name }}.${{ matrix.os }}.${{ matrix.type }}
         save: ${{ github.event_name != 'pull_request' }}
         append-timestamp: false
 
