@@ -11,6 +11,9 @@ choco install aria2 7zip
 
 verify_required_env_variables_set
 
+ls -al "C:/Program Files/Git/bin/"
+sh --version
+
 make_build_env_available "7z"
 
 aria2c "https://dl.mumble.info/build/extra/asio_sdk.zip" --out "asio_sdk.zip"
