@@ -87,7 +87,7 @@ jobs:
       run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
       shell: bash
 
-    - uses: actions/cache@v5
+    - uses: actions/cache/restore@v5
       with:
           path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
@@ -133,3 +133,13 @@ jobs:
           build/mumble-server
           build/**/mumble*.msi
           build/**/mumble*.exe
+
+      # We don't want to save the build env in a cache on a PR as caches are scoped
+      # to branches and while PRs can access caches from the default branch, they
+      # can't access the cache of other PRs. Hence, it is kind of a waste to save
+      # the cache on a PR
+    - if: ${{ github.event_name != 'pull_request' }}
+      uses: actions/cache/save@v5
+      with:
+          path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
