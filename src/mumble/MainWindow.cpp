@@ -75,6 +75,7 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QImageReader>
 #include <QtGui/QScreen>
+#include <QtGui/QWindow>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QMessageBox>
@@ -92,6 +93,8 @@
 
 #include <algorithm>
 #include <optional>
+
+#include "widgets/EventFilters.h"
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast< QEvent::Type >(MB_QEVENT)) {
 	msg = m;
@@ -4003,6 +4006,16 @@ void MainWindow::destroyUserInformation() {
 }
 
 void MainWindow::openServerConnectDialog(bool autoconnect) {
+	// Wait for this window to be mapped before opening the dialog, otherwise
+	// Wayland compositors may not recognize the parent-child relationship.
+	if (!windowHandle() || !windowHandle()->isExposed()) {
+		// Ensure windowHandle() is non-null by forcing native window creation
+		setAttribute(Qt::WA_NativeWindow);
+		windowHandle()->installEventFilter(
+			new ExposeEventFilter(this, [this, autoconnect]() { openServerConnectDialog(autoconnect); }));
+		return;
+	}
+
 	ConnectDialog *cd = new ConnectDialog(this, autoconnect);
 	int res           = cd->exec();
 

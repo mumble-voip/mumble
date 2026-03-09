@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_WIDGETS_EVENTFILTERS_H_
 #define MUMBLE_MUMBLE_WIDGETS_EVENTFILTERS_H_
 
+#include <functional>
 #include <vector>
 
 #include <QEvent>
@@ -109,6 +110,17 @@ signals:
 
 private:
 	bool m_consume;
+};
+
+class ExposeEventFilter : public QObject {
+public:
+	ExposeEventFilter(QObject *parent, std::function< void() > callback);
+
+protected:
+	bool eventFilter(QObject *obj, QEvent *event) override;
+
+private:
+	std::function< void() > m_callback;
 };
 
 #endif
