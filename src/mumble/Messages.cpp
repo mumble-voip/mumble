@@ -1234,11 +1234,7 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 	if (ui) {
 		ui->update(msg);
 	} else {
-#ifdef USE_OVERLAY
-		ui = new UserInformation(msg, Global::get().ocIntercept ? Global::get().mw : nullptr);
-#else
-		ui = new UserInformation(msg, nullptr);
-#endif
+		ui = new UserInformation(msg, this);
 		ui->setAttribute(Qt::WA_DeleteOnClose, true);
 		connect(ui, SIGNAL(destroyed()), this, SLOT(destroyUserInformation()));
 

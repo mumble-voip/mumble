@@ -19,7 +19,7 @@ class PositionalAudioViewer;
 
 class PositionalAudioViewer : public QDialog {
 public:
-	PositionalAudioViewer();
+	PositionalAudioViewer(QWidget *parent = nullptr);
 	~PositionalAudioViewer();
 
 protected:
