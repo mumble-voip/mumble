@@ -2098,7 +2098,7 @@ void MainWindow::on_qaUserLocalNickname_triggered() {
 
 void MainWindow::openUserLocalNicknameDialog(const ClientUser &p) {
 	unsigned int session = p.uiSession;
-	UserLocalNicknameDialog::present(session, qmUserNicknameTracker);
+	UserLocalNicknameDialog::present(session, qmUserNicknameTracker, this);
 }
 
 void MainWindow::on_qaUserCommentView_triggered() {
@@ -2849,7 +2849,7 @@ void MainWindow::on_qaPositionalAudioViewer_triggered() {
 	if (m_paViewer) {
 		m_paViewer->raise();
 	} else {
-		m_paViewer = std::make_unique< PositionalAudioViewer >();
+		m_paViewer = std::make_unique< PositionalAudioViewer >(this);
 		connect(m_paViewer.get(), &PositionalAudioViewer::finished, this, [this]() { m_paViewer.reset(); });
 		m_paViewer->show();
 	}
