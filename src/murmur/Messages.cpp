@@ -1508,8 +1508,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 				for (int i = 0; i < msg.links_remove_size(); ++i) {
 					unsigned int link = msg.links_remove(i);
 					Channel *l        = qhChannels.value(link);
-					if (!l)
+					if (!l) {
 						return;
+					}
 					qlRemove << l;
 				}
 			}
@@ -1517,8 +1518,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 				for (int i = 0; i < msg.links_add_size(); ++i) {
 					unsigned int link = msg.links_add(i);
 					Channel *l        = qhChannels.value(link);
-					if (!l)
+					if (!l) {
 						return;
+					}
 					if (!hasPermission(uSource, l, ChanACL::LinkChannel)) {
 						PERM_DENIED(uSource, l, ChanACL::LinkChannel);
 						return;

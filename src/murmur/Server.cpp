@@ -3170,6 +3170,10 @@ void Server::linkChannels(Channel &first, Channel &second) {
 		first.link(&second);
 	}
 
+	if (first.iId == second.iId) {
+		return;
+	}
+
 	if (first.bTemporary || second.bTemporary) {
 		return;
 	}
@@ -3181,6 +3185,10 @@ void Server::unlinkChannels(Channel &first, Channel &second) {
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
 		first.unlink(&second);
+	}
+
+	if (first.iId == second.iId) {
+		return;
 	}
 
 	if (first.bTemporary || second.bTemporary) {
