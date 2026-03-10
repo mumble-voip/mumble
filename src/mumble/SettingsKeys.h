@@ -243,6 +243,7 @@ const SettingsKey TALKINGUI_NAME_PREFIX_COUNT_KEY          = { "name_prefix_coun
 const SettingsKey TALKINGUI_NAME_POSTFIX_COUNT_KEY         = { "name_postfix_count" };
 const SettingsKey TALKINGUI_ABBREVIATION_REPLACEMENT_KEY   = { "abbreviation_replacement" };
 const SettingsKey TALKINGUI_BACKGROUND_COLOR_KEY           = { "background_color" };
+const SettingsKey TALKINGUI_TRANSPARENCY_LEVEL_KEY         = { "transparency_level" };
 
 // Channel hierarchy
 const SettingsKey CHANNEL_NAME_SEPARATOR_KEY = { "channel_name_separator" };
