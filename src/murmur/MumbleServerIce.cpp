@@ -1724,11 +1724,21 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 			::Group *g      = new ::Group(channel, name);
 			g->bInherit     = gi.inherit;
 			g->bInheritable = gi.inheritable;
-			QVector< int > addVec(gi.add.begin(), gi.add.end());
-			QVector< int > removeVec(gi.remove.begin(), gi.remove.end());
 
-			g->qsAdd       = QSet< int >(addVec.begin(), addVec.end());
-			g->qsRemove    = QSet< int >(removeVec.begin(), removeVec.end());
+			for (int id : gi.add) {
+				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+					continue;
+				}
+				g->qsAdd << static_cast< int >(id);
+			}
+
+			for (int id : gi.remove) {
+				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+					continue;
+				}
+				g->qsRemove << static_cast< int >(id);
+			}
+
 			g->qsTemporary = hOldTemp.value(name);
 		}
 		for (const ::MumbleServer::ACL &ai : acls) {
