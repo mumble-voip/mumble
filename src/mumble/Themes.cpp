@@ -163,7 +163,14 @@ bool Themes::apply() {
 
 bool Themes::detectSystemDarkTheme() {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-	return QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
+	Qt::ColorScheme colorScheme = QGuiApplication::styleHints()->colorScheme();
+	if (colorScheme != Qt::ColorScheme::Unknown) {
+		return colorScheme == Qt::ColorScheme::Dark;
+	}
+	// colorScheme() can return Unknown on some platforms (e.g. wlroots compositors),
+	// so fall back to comparing palette lightness values
+	QPalette defaultPalette;
+	return defaultPalette.color(QPalette::WindowText).lightness() > defaultPalette.color(QPalette::Window).lightness();
 #else
 #	if defined(Q_OS_WIN)
 	QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
