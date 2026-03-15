@@ -10,17 +10,18 @@
 
 #define AVAIL_ALL_GLSYM                                                                                              \
 	(AVAIL(glActiveTexture) && AVAIL(glAttachShader) && AVAIL(glBindBuffer) && AVAIL(glBindTexture)                  \
-	 && AVAIL(glBlendFunc) && AVAIL(glColorMaterial) && AVAIL(glCompileShader) && AVAIL(glCreateProgram)             \
-	 && AVAIL(glCreateShader) && AVAIL(glDeleteTextures) && AVAIL(glDisable) && AVAIL(glDisableClientState)          \
-	 && AVAIL(glDisableVertexAttribArray) && AVAIL(glDrawArrays) && AVAIL(glEnable) && AVAIL(glEnableClientState)    \
-	 && AVAIL(glEnableVertexAttribArray) && AVAIL(glGenTextures) && AVAIL(glGetBooleanv) && AVAIL(glGetError)        \
-	 && AVAIL(glGetIntegerv) && AVAIL(glGetShaderInfoLog) && AVAIL(glGetString) && AVAIL(glGetTexParameterfv)        \
-	 && AVAIL(glGetUniformLocation) && AVAIL(glGetVertexAttribiv) && AVAIL(glIsTexture) && AVAIL(glLinkProgram)      \
-	 && AVAIL(glLoadIdentity) && AVAIL(glMatrixMode) && AVAIL(glOrtho) && AVAIL(glPixelStorei) && AVAIL(glPopAttrib) \
-	 && AVAIL(glPopClientAttrib) && AVAIL(glPopMatrix) && AVAIL(glPushAttrib) && AVAIL(glPushClientAttrib)           \
-	 && AVAIL(glPushMatrix) && AVAIL(glRenderMode) && AVAIL(glShaderSource) && AVAIL(glTexCoordPointer)              \
-	 && AVAIL(glTexEnvi) && AVAIL(glTexImage2D) && AVAIL(glTexParameterfv) && AVAIL(glTexParameteri)                 \
-	 && AVAIL(glTexSubImage2D) && AVAIL(glUniform1i) && AVAIL(glUseProgram) && AVAIL(glVertexPointer)                \
-	 && AVAIL(glViewport) && 1)
+	 && AVAIL(glBindVertexArray) && AVAIL(glBlendFunc) && AVAIL(glBlendFuncSeparate) && AVAIL(glBufferData)          \
+	 && AVAIL(glBufferSubData) && AVAIL(glCompileShader) && AVAIL(glCreateProgram) && AVAIL(glCreateShader)          \
+	 && AVAIL(glDeleteShader) && AVAIL(glDeleteTextures) && AVAIL(glDisable) && AVAIL(glDrawArrays)                  \
+	 && AVAIL(glEnable) && AVAIL(glEnableVertexAttribArray) && AVAIL(glGenBuffers) && AVAIL(glGenTextures)           \
+	 && AVAIL(glGenVertexArrays) && AVAIL(glGetError) && AVAIL(glGetIntegerv)                                        \
+	 && AVAIL(glGetProgramInfoLog) && AVAIL(glGetProgramiv) && AVAIL(glGetShaderInfoLog)                             \
+	 && AVAIL(glGetShaderiv) && AVAIL(glGetString) && AVAIL(glGetTexParameterfv)                                     \
+	 && AVAIL(glGetUniformLocation) && AVAIL(glIsEnabled) && AVAIL(glIsTexture) && AVAIL(glLinkProgram)              \
+	 && AVAIL(glPixelStorei) && AVAIL(glShaderSource) && AVAIL(glTexImage2D) && AVAIL(glTexParameterfv)              \
+	 && AVAIL(glTexParameteri) && AVAIL(glTexSubImage2D) && AVAIL(glUniform1i) && AVAIL(glUniformMatrix4fv)          \
+	 && AVAIL(glUseProgram) && AVAIL(glVertexAttribPointer) && AVAIL(glViewport)                               \
+	 && AVAIL(glBindFramebuffer) && AVAIL(glBlendEquation) && AVAIL(glBlendEquationSeparate)               \
+	 && AVAIL(glColorMask) && AVAIL(glGetBooleanv) && AVAIL(glPolygonMode) && 1)
 
 #endif
