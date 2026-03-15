@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#define GLX_GLXEXT_LEGACY
-#define GL_GLEXT_PROTOTYPES
 #define _GNU_SOURCE
 #include <dlfcn.h>
 #include <errno.h>
@@ -85,25 +83,34 @@ typedef struct _Context {
 	bool bMesa;
 
 	GLuint uiProgram;
+	GLuint vao;
+	GLuint vbo;
+	GLint locMvp;
+	GLint locTex;
 
 	clock_t timeT;
 	unsigned int frameCount;
-
-	GLint maxVertexAttribs;
-	GLboolean *vertexAttribStates;
 } Context;
 
-static const char vshader[] = ""
-							  "void main() {"
-							  "gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
-							  "gl_TexCoord[0] = gl_MultiTexCoord0;"
-							  "}";
+static const char vshader[] =
+	"#version 330\n"
+	"layout(location = 0) in vec2 position;\n"
+	"layout(location = 1) in vec2 texcoord;\n"
+	"uniform mat4 mvp;\n"
+	"out vec2 v_texcoord;\n"
+	"void main() {\n"
+	"    gl_Position = mvp * vec4(position, 0.0, 1.0);\n"
+	"    v_texcoord = texcoord;\n"
+	"}\n";
 
-static const char fshader[] = ""
-							  "uniform sampler2D tex;"
-							  "void main() {"
-							  "gl_FragColor = texture2D(tex, gl_TexCoord[0].st);"
-							  "}";
+static const char fshader[] =
+	"#version 330\n"
+	"uniform sampler2D tex;\n"
+	"in vec2 v_texcoord;\n"
+	"layout(location = 0) out vec4 fragColor;\n"
+	"void main() {\n"
+	"    fragColor = texture(tex, v_texcoord);\n"
+	"}\n";
 
 const GLfloat fBorder[] = { 0.125f, 0.250f, 0.5f, 0.75f };
 
@@ -123,6 +130,221 @@ FDEF(CGDisplayHideCursor);
 FDEF(CGDisplayShowCursor);
 #endif
 
+// Function pointers for all GL functions used by the overlay.
+// As an LD_PRELOAD library, we cannot rely on any GL symbols being
+// available through normal dynamic linking. All must be resolved
+// via glXGetProcAddress at runtime.
+#if defined(TARGET_UNIX)
+FDEF(glXGetCurrentContext);
+FDEF(glXQueryDrawable);
+FDEF(glXQueryVersion);
+
+FDEF(glActiveTexture);
+FDEF(glAttachShader);
+FDEF(glBindBuffer);
+FDEF(glBindTexture);
+FDEF(glBindVertexArray);
+FDEF(glBlendFunc);
+FDEF(glBlendFuncSeparate);
+FDEF(glBufferData);
+FDEF(glBufferSubData);
+FDEF(glCompileShader);
+FDEF(glCreateProgram);
+FDEF(glCreateShader);
+FDEF(glDeleteProgram);
+FDEF(glDeleteShader);
+FDEF(glDeleteTextures);
+FDEF(glDisable);
+FDEF(glDrawArrays);
+FDEF(glEnable);
+FDEF(glEnableVertexAttribArray);
+FDEF(glGenBuffers);
+FDEF(glGenTextures);
+FDEF(glGenVertexArrays);
+FDEF(glGetError);
+FDEF(glGetIntegerv);
+FDEF(glGetProgramInfoLog);
+FDEF(glGetProgramiv);
+FDEF(glGetShaderInfoLog);
+FDEF(glGetShaderiv);
+FDEF(glGetString);
+FDEF(glGetTexParameterfv);
+FDEF(glGetUniformLocation);
+FDEF(glIsEnabled);
+FDEF(glIsTexture);
+FDEF(glLinkProgram);
+FDEF(glPixelStorei);
+FDEF(glShaderSource);
+FDEF(glTexImage2D);
+FDEF(glTexParameterfv);
+FDEF(glTexParameteri);
+FDEF(glTexSubImage2D);
+FDEF(glUniform1i);
+FDEF(glUniformMatrix4fv);
+FDEF(glUseProgram);
+FDEF(glVertexAttribPointer);
+FDEF(glViewport);
+
+FDEF(glBindFramebuffer);
+FDEF(glBlendEquation);
+FDEF(glBlendEquationSeparate);
+FDEF(glColorMask);
+FDEF(glGetBooleanv);
+FDEF(glPolygonMode);
+
+static bool resolveFailed = false;
+
+static void resolveGLFunctions(void) {
+	static bool resolved = false;
+	if (resolved) {
+		return;
+	}
+	resolved = true;
+
+#	define GLRESOLVE(name)                                                                    \
+		do {                                                                                  \
+			if (oglXGetProcAddressARB) {                                                      \
+				o##name = (__typeof__(o##name)) oglXGetProcAddressARB((const GLubyte *) #name); \
+			}                                                                                 \
+			if (!o##name && oglXGetProcAddress) {                                              \
+				o##name = (__typeof__(o##name)) oglXGetProcAddress((const GLubyte *) #name);   \
+			}                                                                                 \
+			if (!o##name && odlsym) {                                                         \
+				o##name = (__typeof__(o##name)) odlsym(RTLD_DEFAULT, #name);                  \
+			}                                                                                 \
+		} while (0)
+
+	GLRESOLVE(glXGetCurrentContext);
+	GLRESOLVE(glXQueryDrawable);
+	GLRESOLVE(glXQueryVersion);
+
+	GLRESOLVE(glActiveTexture);
+	GLRESOLVE(glAttachShader);
+	GLRESOLVE(glBindBuffer);
+	GLRESOLVE(glBindTexture);
+	GLRESOLVE(glBindVertexArray);
+	GLRESOLVE(glBlendFunc);
+	GLRESOLVE(glBlendFuncSeparate);
+	GLRESOLVE(glBufferData);
+	GLRESOLVE(glBufferSubData);
+	GLRESOLVE(glCompileShader);
+	GLRESOLVE(glCreateProgram);
+	GLRESOLVE(glCreateShader);
+	GLRESOLVE(glDeleteProgram);
+	GLRESOLVE(glDeleteShader);
+	GLRESOLVE(glDeleteTextures);
+	GLRESOLVE(glDisable);
+	GLRESOLVE(glDrawArrays);
+	GLRESOLVE(glEnable);
+	GLRESOLVE(glEnableVertexAttribArray);
+	GLRESOLVE(glGenBuffers);
+	GLRESOLVE(glGenTextures);
+	GLRESOLVE(glGenVertexArrays);
+	GLRESOLVE(glGetError);
+	GLRESOLVE(glGetIntegerv);
+	GLRESOLVE(glGetProgramInfoLog);
+	GLRESOLVE(glGetProgramiv);
+	GLRESOLVE(glGetShaderInfoLog);
+	GLRESOLVE(glGetShaderiv);
+	GLRESOLVE(glGetString);
+	GLRESOLVE(glGetTexParameterfv);
+	GLRESOLVE(glGetUniformLocation);
+	GLRESOLVE(glIsEnabled);
+	GLRESOLVE(glIsTexture);
+	GLRESOLVE(glLinkProgram);
+	GLRESOLVE(glPixelStorei);
+	GLRESOLVE(glShaderSource);
+	GLRESOLVE(glTexImage2D);
+	GLRESOLVE(glTexParameterfv);
+	GLRESOLVE(glTexParameteri);
+	GLRESOLVE(glTexSubImage2D);
+	GLRESOLVE(glUniform1i);
+	GLRESOLVE(glUniformMatrix4fv);
+	GLRESOLVE(glUseProgram);
+	GLRESOLVE(glVertexAttribPointer);
+	GLRESOLVE(glViewport);
+
+	GLRESOLVE(glBindFramebuffer);
+	GLRESOLVE(glBlendEquation);
+	GLRESOLVE(glBlendEquationSeparate);
+	GLRESOLVE(glColorMask);
+	GLRESOLVE(glGetBooleanv);
+	GLRESOLVE(glPolygonMode);
+
+#	undef GLRESOLVE
+
+	if (!oglBindBuffer || !oglBindTexture || !oglBindVertexArray || !oglUseProgram || !oglDrawArrays
+		|| !oglEnable || !oglDisable || !oglViewport || !oglGetIntegerv || !oglGetError
+		|| !oglGenBuffers || !oglGenTextures || !oglGenVertexArrays
+		|| !oglCreateProgram || !oglCreateShader || !oglCompileShader || !oglLinkProgram || !oglAttachShader
+		|| !oglBlendEquation || !oglTexImage2D || !oglTexSubImage2D || !oglTexParameteri
+		|| !oglGetTexParameterfv || !oglGetUniformLocation || !oglUniform1i || !oglUniformMatrix4fv
+		|| !oglGetShaderiv || !oglGetProgramiv) {
+		resolveFailed = true;
+	}
+}
+
+// Redirect direct GL calls through the resolved function pointers.
+// This must come after resolveGLFunctions so the resolve code can
+// reference the original GL declarations from the headers.
+#	define glXGetCurrentContext oglXGetCurrentContext
+#	define glXQueryDrawable oglXQueryDrawable
+#	define glXQueryVersion oglXQueryVersion
+
+#	define glActiveTexture oglActiveTexture
+#	define glAttachShader oglAttachShader
+#	define glBindBuffer oglBindBuffer
+#	define glBindTexture oglBindTexture
+#	define glBindVertexArray oglBindVertexArray
+#	define glBlendFunc oglBlendFunc
+#	define glBlendFuncSeparate oglBlendFuncSeparate
+#	define glBufferData oglBufferData
+#	define glBufferSubData oglBufferSubData
+#	define glCompileShader oglCompileShader
+#	define glCreateProgram oglCreateProgram
+#	define glCreateShader oglCreateShader
+#	define glDeleteProgram oglDeleteProgram
+#	define glDeleteShader oglDeleteShader
+#	define glDeleteTextures oglDeleteTextures
+#	define glDisable oglDisable
+#	define glDrawArrays oglDrawArrays
+#	define glEnable oglEnable
+#	define glEnableVertexAttribArray oglEnableVertexAttribArray
+#	define glGenBuffers oglGenBuffers
+#	define glGenTextures oglGenTextures
+#	define glGenVertexArrays oglGenVertexArrays
+#	define glGetError oglGetError
+#	define glGetIntegerv oglGetIntegerv
+#	define glGetProgramInfoLog oglGetProgramInfoLog
+#	define glGetProgramiv oglGetProgramiv
+#	define glGetShaderInfoLog oglGetShaderInfoLog
+#	define glGetShaderiv oglGetShaderiv
+#	define glGetString oglGetString
+#	define glGetTexParameterfv oglGetTexParameterfv
+#	define glGetUniformLocation oglGetUniformLocation
+#	define glIsEnabled oglIsEnabled
+#	define glIsTexture oglIsTexture
+#	define glLinkProgram oglLinkProgram
+#	define glPixelStorei oglPixelStorei
+#	define glShaderSource oglShaderSource
+#	define glTexImage2D oglTexImage2D
+#	define glTexParameterfv oglTexParameterfv
+#	define glTexParameteri oglTexParameteri
+#	define glTexSubImage2D oglTexSubImage2D
+#	define glUniform1i oglUniform1i
+#	define glUniformMatrix4fv oglUniformMatrix4fv
+#	define glUseProgram oglUseProgram
+#	define glVertexAttribPointer oglVertexAttribPointer
+#	define glViewport oglViewport
+
+#	define glBindFramebuffer oglBindFramebuffer
+#	define glBlendEquation oglBlendEquation
+#	define glBlendEquationSeparate oglBlendEquationSeparate
+#	define glColorMask oglColorMask
+#	define glGetBooleanv oglGetBooleanv
+#	define glPolygonMode oglPolygonMode
+#endif
+
 __attribute__((format(printf, 1, 2))) static void ods(const char *format, ...) {
 	if (!bDebug) {
 		return;
@@ -139,6 +361,9 @@ __attribute__((format(printf, 1, 2))) static void ods(const char *format, ...) {
 }
 
 static void newContext(Context *ctx) {
+#if defined(TARGET_UNIX)
+	resolveGLFunctions();
+#endif
 	ctx->iSocket           = -1;
 	ctx->omMsg.omh.iLength = -1;
 	ctx->texture           = ~0U;
@@ -175,24 +400,64 @@ static void newContext(Context *ctx) {
 	const char *vsource = vshader;
 	const char *fsource = fshader;
 	char buffer[8192];
-	GLint l;
+	GLint status;
 	GLuint vs = glCreateShader(GL_VERTEX_SHADER);
 	GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(vs, 1, &vsource, NULL);
 	glShaderSource(fs, 1, &fsource, NULL);
 	glCompileShader(vs);
+	glGetShaderiv(vs, GL_COMPILE_STATUS, &status);
+	if (!status) {
+		glGetShaderInfoLog(vs, 8192, NULL, buffer);
+		ods("Vertex shader compile failed: %s", buffer);
+		glDeleteShader(vs);
+		glDeleteShader(fs);
+		return;
+	}
 	glCompileShader(fs);
-	glGetShaderInfoLog(vs, 8192, &l, buffer);
-	ods("VERTEX: %s", buffer);
-	glGetShaderInfoLog(fs, 8192, &l, buffer);
-	ods("FRAGMENT: %s", buffer);
+	glGetShaderiv(fs, GL_COMPILE_STATUS, &status);
+	if (!status) {
+		glGetShaderInfoLog(fs, 8192, NULL, buffer);
+		ods("Fragment shader compile failed: %s", buffer);
+		glDeleteShader(vs);
+		glDeleteShader(fs);
+		return;
+	}
 	ctx->uiProgram = glCreateProgram();
 	glAttachShader(ctx->uiProgram, vs);
 	glAttachShader(ctx->uiProgram, fs);
 	glLinkProgram(ctx->uiProgram);
+	glDeleteShader(vs);
+	glDeleteShader(fs);
+	glGetProgramiv(ctx->uiProgram, GL_LINK_STATUS, &status);
+	if (!status) {
+		glGetProgramInfoLog(ctx->uiProgram, 8192, NULL, buffer);
+		glDeleteProgram(ctx->uiProgram);
+		ctx->uiProgram = 0;
+		ods("Shader program link failed: %s", buffer);
+		return;
+	}
 
-	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &ctx->maxVertexAttribs);
-	ctx->vertexAttribStates = calloc((size_t) ctx->maxVertexAttribs, sizeof(GLboolean));
+	ctx->locMvp = glGetUniformLocation(ctx->uiProgram, "mvp");
+	ctx->locTex = glGetUniformLocation(ctx->uiProgram, "tex");
+
+	glGenVertexArrays(1, &ctx->vao);
+	glGenBuffers(1, &ctx->vbo);
+
+	GLint savedVao, savedVbo;
+	glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &savedVao);
+	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &savedVbo);
+
+	glBindVertexArray(ctx->vao);
+	glBindBuffer(GL_ARRAY_BUFFER, ctx->vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 24, NULL, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void *) 0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void *) (2 * sizeof(GLfloat)));
+
+	glBindVertexArray((GLuint) savedVao);
+	glBindBuffer(GL_ARRAY_BUFFER, (GLuint) savedVbo);
 }
 
 static void releaseMem(Context *ctx) {
@@ -254,7 +519,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		releaseMem(ctx);
 		if (!ctx->saName.sun_path[0])
 			return;
-		ctx->iSocket = socket(AF_UNIX, SOCK_STREAM, 0);
+		ctx->iSocket = socket(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0);
 		if (ctx->iSocket == -1) {
 			ods("socket() failure");
 			return;
@@ -336,7 +601,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 					struct OverlayMsgShmem *oms = (struct OverlayMsgShmem *) &ctx->omMsg.omi;
 					ods("SHMEM %s", oms->a_cName);
 					releaseMem(ctx);
-					int fd = shm_open(oms->a_cName, O_RDONLY, 0600);
+					int fd = shm_open(oms->a_cName, O_RDONLY | O_CLOEXEC, 0600);
 					if (fd != -1) {
 						struct stat buf;
 
@@ -387,6 +652,10 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 							unsigned int w     = omb->w;
 							unsigned int h     = omb->h;
 							unsigned char *ptr = (unsigned char *) malloc(w * h * 4);
+							if (!ptr) {
+								ods("malloc failure for blit buffer");
+								break;
+							}
 							unsigned int row;
 							memset(ptr, 0, w * h * 4);
 
@@ -452,7 +721,6 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	}
 
 	glBindTexture(GL_TEXTURE_2D, ctx->texture);
-	glPushMatrix();
 
 	float w = (float) (ctx->uiWidth);
 	float h = (float) (ctx->uiHeight);
@@ -467,22 +735,31 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	float xmx = right / w;
 	float ymx = bottom / h;
 
-	GLfloat vertex[] = { left, bottom, left,  top, right, top,
+	GLfloat data[] = {
+		left,  bottom, xm,  ymx,
+		left,  top,    xm,  ym,
+		right, top,    xmx, ym,
+		left,  bottom, xm,  ymx,
+		right, top,    xmx, ym,
+		right, bottom, xmx, ymx
+	};
 
-						 left, bottom, right, top, right, bottom };
-	glVertexPointer(2, GL_FLOAT, 0, vertex);
-
-	GLfloat tex[] = { xm, ymx, xm,  ym, xmx, ym,
-
-					  xm, ymx, xmx, ym, xmx, ymx };
-	glTexCoordPointer(2, GL_FLOAT, 0, tex);
-
+	glBindVertexArray(ctx->vao);
+	glBindBuffer(GL_ARRAY_BUFFER, ctx->vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(data), data);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
-
-	glPopMatrix();
 }
 
 static void drawContext(Context *ctx, int width, int height) {
+	if (resolveFailed) {
+		static bool logged = false;
+		if (!logged) {
+			ods("OpenGL overlay: failed to resolve required GL functions");
+			logged = true;
+		}
+		return;
+	}
+
 	// calculate FPS and send it as an overlay message
 	clock_t t     = clock();
 	float elapsed = (float) (t - ctx->timeT) / CLOCKS_PER_SEC;
@@ -500,167 +777,129 @@ static void drawContext(Context *ctx, int width, int height) {
 		ctx->timeT      = t;
 	}
 
-	GLuint program;
-	GLint viewport[4];
-	int i;
+	GLint savedViewport[4];
+	GLint savedProgram, savedVao, savedVbo, savedPbo, savedTex, savedActiveTexture;
+	GLint savedUnpackAlignment, savedUnpackRowLength, savedUnpackSkipPixels, savedUnpackSkipRows;
+	GLboolean savedBlend, savedDepthTest, savedScissorTest, savedCullFace, savedStencilTest;
+	GLboolean savedFramebufferSrgb;
+	GLint savedBlendSrcRGB, savedBlendDstRGB, savedBlendSrcAlpha, savedBlendDstAlpha;
+	GLint savedBlendEqRGB, savedBlendEqAlpha;
+	GLint savedDrawFbo, savedReadFbo;
+	GLboolean savedColorMask[4];
+	GLint savedPolygonMode[2];
 
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-	glPushClientAttrib(GL_ALL_ATTRIB_BITS);
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	glGetIntegerv(GL_CURRENT_PROGRAM, (GLint *) &program);
+	glGetIntegerv(GL_VIEWPORT, savedViewport);
+	glGetIntegerv(GL_CURRENT_PROGRAM, &savedProgram);
+	glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &savedVao);
+	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &savedVbo);
+	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, &savedPbo);
+	glGetIntegerv(GL_ACTIVE_TEXTURE, &savedActiveTexture);
+	glActiveTexture(GL_TEXTURE0);
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, &savedTex);
+	glGetIntegerv(GL_UNPACK_ALIGNMENT, &savedUnpackAlignment);
+	glGetIntegerv(GL_UNPACK_ROW_LENGTH, &savedUnpackRowLength);
+	glGetIntegerv(GL_UNPACK_SKIP_PIXELS, &savedUnpackSkipPixels);
+	glGetIntegerv(GL_UNPACK_SKIP_ROWS, &savedUnpackSkipRows);
+	savedBlend          = glIsEnabled(GL_BLEND);
+	savedDepthTest      = glIsEnabled(GL_DEPTH_TEST);
+	savedScissorTest    = glIsEnabled(GL_SCISSOR_TEST);
+	savedCullFace       = glIsEnabled(GL_CULL_FACE);
+	savedStencilTest    = glIsEnabled(GL_STENCIL_TEST);
+	savedFramebufferSrgb = glIsEnabled(GL_FRAMEBUFFER_SRGB);
+	glGetIntegerv(GL_BLEND_SRC_RGB, &savedBlendSrcRGB);
+	glGetIntegerv(GL_BLEND_DST_RGB, &savedBlendDstRGB);
+	glGetIntegerv(GL_BLEND_SRC_ALPHA, &savedBlendSrcAlpha);
+	glGetIntegerv(GL_BLEND_DST_ALPHA, &savedBlendDstAlpha);
+	glGetIntegerv(GL_BLEND_EQUATION_RGB, &savedBlendEqRGB);
+	glGetIntegerv(GL_BLEND_EQUATION_ALPHA, &savedBlendEqAlpha);
+	glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &savedDrawFbo);
+	glGetIntegerv(GL_READ_FRAMEBUFFER_BINDING, &savedReadFbo);
+	glGetBooleanv(GL_COLOR_WRITEMASK, savedColorMask);
+	glGetIntegerv(GL_POLYGON_MODE, savedPolygonMode);
 
+	if (savedDrawFbo != 0) {
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	}
+	if (savedReadFbo != 0) {
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
+	}
 	glViewport(0, 0, width, height);
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
-	glOrtho(0, width, height, 0, -100.0, 100.0);
-
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-
-	glMatrixMode(GL_TEXTURE);
-	glPushMatrix();
-	glLoadIdentity();
-
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-
-	glDisable(GL_ALPHA_TEST);
-	glDisable(GL_AUTO_NORMAL);
-	// Skip clip planes, there are thousands of them.
-	glDisable(GL_COLOR_LOGIC_OP);
-	glDisable(GL_COLOR_TABLE);
-	glDisable(GL_CONVOLUTION_1D);
-	glDisable(GL_CONVOLUTION_2D);
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_DITHER);
-	glDisable(GL_FOG);
-	glDisable(GL_HISTOGRAM);
-	glDisable(GL_INDEX_LOGIC_OP);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_NORMALIZE);
-	// Skip line smmooth
-	// Skip map
-	glDisable(GL_MINMAX);
-	// Skip polygon offset
-	glDisable(GL_SEPARABLE_2D);
-	glDisable(GL_SCISSOR_TEST);
-	glDisable(GL_STENCIL_TEST);
-
-	GLboolean b = 0;
-	glGetBooleanv(GL_TEXTURE_GEN_Q, &b);
-	if (b)
-		glDisable(GL_TEXTURE_GEN_Q);
-	glGetBooleanv(GL_TEXTURE_GEN_R, &b);
-	if (b)
-		glDisable(GL_TEXTURE_GEN_R);
-	glGetBooleanv(GL_TEXTURE_GEN_S, &b);
-	if (b)
-		glDisable(GL_TEXTURE_GEN_S);
-	glGetBooleanv(GL_TEXTURE_GEN_T, &b);
-	if (b)
-		glDisable(GL_TEXTURE_GEN_T);
-
-	glRenderMode(GL_RENDER);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_INDEX_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_EDGE_FLAG_ARRAY);
-
-	glPixelStorei(GL_UNPACK_SWAP_BYTES, 0);
-	glPixelStorei(GL_UNPACK_LSB_FIRST, 0);
-	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
-	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-	GLint texunits = 1;
-
-	glGetIntegerv(GL_MAX_TEXTURE_UNITS, &texunits);
-
-	for (i = texunits - 1; i >= 0; --i) {
-		glActiveTexture(GL_TEXTURE0 + (GLenum) i);
-		glDisable(GL_TEXTURE_1D);
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_TEXTURE_3D);
-	}
-
-	glDisable(GL_TEXTURE_CUBE_MAP);
-	glDisable(GL_VERTEX_PROGRAM_ARB);
-	glDisable(GL_FRAGMENT_PROGRAM_ARB);
-
-	GLint enabled;
-	for (i = 0; i < ctx->maxVertexAttribs; ++i) {
-		enabled = GL_FALSE;
-		glGetVertexAttribiv((GLuint) i, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &enabled);
-		if (enabled == GL_TRUE) {
-			glDisableVertexAttribArray((GLuint) i);
-			ctx->vertexAttribStates[i] = GL_TRUE;
-		}
-	}
-
 	glUseProgram(ctx->uiProgram);
-
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_TEXTURE_2D);
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	glMatrixMode(GL_MODELVIEW);
-
-	GLint uni = glGetUniformLocation(ctx->uiProgram, "tex");
-	glUniform1i(uni, 0);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	GLuint bound = 0, vbobound = 0;
-	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, (GLint *) &bound);
-	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, (GLint *) &vbobound);
-
-	if (bound != 0) {
+	glBlendEquation(GL_FUNC_ADD);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_SCISSOR_TEST);
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_FRAMEBUFFER_SRGB);
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
+	glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
+	if (savedPbo != 0) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
 	}
-	if (vbobound != 0) {
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
+
+	GLfloat mvp[16];
+	memset(mvp, 0, sizeof(mvp));
+	mvp[0]  = 2.0f / (float) width;
+	mvp[5]  = -2.0f / (float) height;
+	mvp[10] = -0.01f;
+	mvp[12] = -1.0f;
+	mvp[13] = 1.0f;
+	mvp[15] = 1.0f;
+	glUniformMatrix4fv(ctx->locMvp, 1, GL_FALSE, mvp);
+	glUniform1i(ctx->locTex, 0);
 
 	drawOverlay(ctx, (unsigned int) width, (unsigned int) height);
 
-	if (bound != 0) {
-		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, bound);
-	}
-	if (vbobound != 0) {
-		glBindBuffer(GL_ARRAY_BUFFER, vbobound);
-	}
-
-	for (i = 0; i < ctx->maxVertexAttribs; ++i) {
-		if (ctx->vertexAttribStates[i] == GL_TRUE) {
-			glEnableVertexAttribArray((GLuint) i);
-			ctx->vertexAttribStates[i] = GL_FALSE;
+	{
+		GLenum err = glGetError();
+		if (err != GL_NO_ERROR) {
+			ods("GL error after drawOverlay: 0x%x", err);
 		}
 	}
 
-	glMatrixMode(GL_TEXTURE);
-	glPopMatrix();
-
-	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-
-	glPopClientAttrib();
-	glPopAttrib();
-	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
-	glUseProgram(program);
+	glBindVertexArray((GLuint) savedVao);
+	glBindBuffer(GL_ARRAY_BUFFER, (GLuint) savedVbo);
+	if (savedPbo != 0) {
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, (GLuint) savedPbo);
+	}
+	glBindTexture(GL_TEXTURE_2D, (GLuint) savedTex);
+	glActiveTexture((GLenum) savedActiveTexture);
+	glViewport(savedViewport[0], savedViewport[1], savedViewport[2], savedViewport[3]);
+	glUseProgram((GLuint) savedProgram);
+	if (savedBlend) { glEnable(GL_BLEND); } else { glDisable(GL_BLEND); }
+	if (savedDepthTest) { glEnable(GL_DEPTH_TEST); } else { glDisable(GL_DEPTH_TEST); }
+	if (savedScissorTest) { glEnable(GL_SCISSOR_TEST); } else { glDisable(GL_SCISSOR_TEST); }
+	if (savedCullFace) { glEnable(GL_CULL_FACE); } else { glDisable(GL_CULL_FACE); }
+	if (savedStencilTest) { glEnable(GL_STENCIL_TEST); } else { glDisable(GL_STENCIL_TEST); }
+	if (savedFramebufferSrgb) { glEnable(GL_FRAMEBUFFER_SRGB); } else { glDisable(GL_FRAMEBUFFER_SRGB); }
+	glBlendFuncSeparate((GLenum) savedBlendSrcRGB, (GLenum) savedBlendDstRGB,
+						(GLenum) savedBlendSrcAlpha, (GLenum) savedBlendDstAlpha);
+	glBlendEquationSeparate((GLenum) savedBlendEqRGB, (GLenum) savedBlendEqAlpha);
+	glColorMask(savedColorMask[0], savedColorMask[1], savedColorMask[2], savedColorMask[3]);
+	if (savedPolygonMode[0] != GL_FILL || savedPolygonMode[1] != GL_FILL) {
+		if (savedPolygonMode[0] == savedPolygonMode[1]) {
+			glPolygonMode(GL_FRONT_AND_BACK, (GLenum) savedPolygonMode[0]);
+		} else {
+			glPolygonMode(GL_FRONT, (GLenum) savedPolygonMode[0]);
+			glPolygonMode(GL_BACK, (GLenum) savedPolygonMode[1]);
+		}
+	}
+	glPixelStorei(GL_UNPACK_ALIGNMENT, savedUnpackAlignment);
+	glPixelStorei(GL_UNPACK_ROW_LENGTH, savedUnpackRowLength);
+	glPixelStorei(GL_UNPACK_SKIP_PIXELS, savedUnpackSkipPixels);
+	glPixelStorei(GL_UNPACK_SKIP_ROWS, savedUnpackSkipRows);
+	if (savedDrawFbo != 0) {
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, (GLuint) savedDrawFbo);
+	}
+	if (savedReadFbo != 0) {
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, (GLuint) savedReadFbo);
+	}
 
 	// drain opengl error queue
 	while (glGetError() != GL_NO_ERROR)
