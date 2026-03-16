@@ -77,7 +77,7 @@ else()
 	find_package("Soci" 4.1.0 COMPONENTS ${components} CONFIG REQUIRED)
 endif()
 
-target_link_libraries(mumble_database PUBLIC SOCI::soci)
+target_link_libraries(mumble_database PUBLIC SOCI::SOCI)
 
 
 if (NOT TARGET nlohmann_json)
