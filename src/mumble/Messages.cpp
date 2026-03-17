@@ -41,6 +41,12 @@
 
 #include <QTextDocumentFragment>
 
+namespace {
+bool containsEmbeddedContent(const QString &html) {
+	return QTextDocumentFragment::fromHtml(html).toPlainText().contains(QChar::ObjectReplacementCharacter);
+}
+} // namespace
+
 #define ACTOR_INIT                           \
 	ClientUser *pSrc = nullptr;              \
 	if (msg.has_actor())                     \
@@ -1004,6 +1010,8 @@ void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	ACTOR_INIT;
 	QString target;
+	const QString message      = u8(msg.message());
+	const QString plainMessage = QTextDocumentFragment::fromHtml(message).toPlainText();
 
 	// Silently drop the message if this user is set to "ignore"
 	if (pSrc && pSrc->bLocalIgnore)
@@ -1027,7 +1035,6 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		if (!Global::get().s.bTTSNoScope && !Global::get().s.bTTSNoAuthor) {
 			return QString();
 		}
-		const QString plainMessage = QTextDocumentFragment::fromHtml(u8(msg.message())).toPlainText();
 		if (Global::get().s.bTTSNoScope && Global::get().s.bTTSNoAuthor) {
 			return plainMessage;
 		}
@@ -1036,9 +1043,11 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	}();
 
 	const QString prefixMessage = target.isEmpty() ? name : tr("(%1) %2").arg(target).arg(name);
+	const bool isImageMessage   = containsEmbeddedContent(message);
+	const Log::MsgType msgType  = privateMessage ? (isImageMessage ? Log::PrivateImageMessage : Log::PrivateTextMessage)
+												 : (isImageMessage ? Log::ImageMessage : Log::TextMessage);
 
-	Global::get().l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
-						 tr("%1: %2").arg(prefixMessage).arg(u8(msg.message())), tr("Message from %1").arg(plainName),
+	Global::get().l->log(msgType, tr("%1: %2").arg(prefixMessage).arg(message), tr("Message from %1").arg(plainName),
 						 false, overrideTTS, pSrc ? pSrc->bLocalIgnoreTTS : false);
 }
 
