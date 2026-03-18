@@ -36,10 +36,12 @@ public slots:
 public:
 	static void
 		present(unsigned int sessionId,
-				std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker);
+				std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker,
+				QWidget *parent = nullptr);
 	UserLocalNicknameDialog(
 		unsigned int sessionId,
-		std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker);
+		std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker,
+		QWidget *parent = nullptr);
 };
 
 #endif

@@ -9,7 +9,8 @@
 #include "PluginManager.h"
 #include "Global.h"
 
-PositionalAudioViewer::PositionalAudioViewer() : m_ui(std::make_unique< Ui::PositionalAudioViewer >()) {
+PositionalAudioViewer::PositionalAudioViewer(QWidget *parent)
+	: QDialog(parent), m_ui(std::make_unique< Ui::PositionalAudioViewer >()) {
 	m_ui->setupUi(this);
 
 	connect(&m_timer, &QTimer::timeout, this, &PositionalAudioViewer::update);

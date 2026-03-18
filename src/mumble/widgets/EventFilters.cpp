@@ -6,10 +6,12 @@
 #include "EventFilters.h"
 
 #include <algorithm>
+#include <utility>
 
 #include <QApplication>
 #include <QKeyEvent>
 #include <QMouseEvent>
+#include <QTimer>
 #include <QWheelEvent>
 #include <QWidget>
 
@@ -172,4 +174,18 @@ bool FocusEventObserver::eventFilter(QObject *obj, QEvent *event) {
 	}
 
 	return QObject::eventFilter(obj, event);
+}
+
+ExposeEventFilter::ExposeEventFilter(QObject *parent, std::function< void() > callback)
+	: QObject(parent), m_callback(std::move(callback)) {
+}
+
+bool ExposeEventFilter::eventFilter(QObject *obj, QEvent *event) {
+	if (event->type() == QEvent::Expose) {
+		obj->removeEventFilter(this);
+		// Defer so the expose event is fully processed before the callback runs
+		QTimer::singleShot(0, [cb = std::move(m_callback)]() { cb(); });
+		deleteLater();
+	}
+	return false;
 }

@@ -14,8 +14,9 @@
 
 UserLocalNicknameDialog::UserLocalNicknameDialog(
 	unsigned int sessionId,
-	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker)
-	: QDialog(nullptr), m_clientSession(sessionId), m_qmUserNicknameTracker(qmUserNicknameTracker) {
+	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker,
+	QWidget *parent)
+	: QDialog(parent), m_clientSession(sessionId), m_qmUserNicknameTracker(qmUserNicknameTracker) {
 	setupUi(this);
 
 	qleUserLocalNickname->setFocus();
@@ -44,13 +45,14 @@ void UserLocalNicknameDialog::closeEvent(QCloseEvent *event) {
 
 void UserLocalNicknameDialog::present(
 	unsigned int sessionId,
-	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker) {
+	std::unordered_map< unsigned int, qt_unique_ptr< UserLocalNicknameDialog > > &qmUserNicknameTracker,
+	QWidget *parent) {
 	if (qmUserNicknameTracker.find(sessionId) != qmUserNicknameTracker.end()) {
 		qmUserNicknameTracker.at(sessionId)->show();
 		qmUserNicknameTracker.at(sessionId)->raise();
 	} else {
 		qt_unique_ptr< UserLocalNicknameDialog > userNickname =
-			make_qt_unique< UserLocalNicknameDialog >(sessionId, qmUserNicknameTracker);
+			make_qt_unique< UserLocalNicknameDialog >(sessionId, qmUserNicknameTracker, parent);
 		userNickname->show();
 		qmUserNicknameTracker.insert(std::make_pair(sessionId, std::move(userNickname)));
 	}
