@@ -15,9 +15,16 @@
 #endif
 
 class Zeroconf : public QObject {
-private:
-	Q_OBJECT
-	Q_DISABLE_COPY(Zeroconf)
+public:
+	inline bool isOk() const { return m_ok; }
+
+	void resetHelper();
+
+	bool registerService(const BonjourRecord &record, const uint16_t port);
+	bool unregisterService();
+
+	Zeroconf();
+	~Zeroconf();
 protected:
 	bool m_ok;
 	std::unique_ptr< BonjourServiceRegister > m_helper;
@@ -37,16 +44,9 @@ protected:
 	DWORD(WINAPI *DnsServiceDeRegister)(PDNS_SERVICE_REGISTER_REQUEST pRequest, PDNS_SERVICE_CANCEL pCancel);
 	DWORD(WINAPI *DnsServiceRegisterCancel)(PDNS_SERVICE_CANCEL pCancelHandle);
 #endif
-public:
-	inline bool isOk() const { return m_ok; }
-
-	void resetHelper();
-
-	bool registerService(const BonjourRecord &record, const uint16_t port);
-	bool unregisterService();
-
-	Zeroconf();
-	~Zeroconf();
+private:
+	Q_OBJECT
+	Q_DISABLE_COPY(Zeroconf)
 };
 
 #endif
