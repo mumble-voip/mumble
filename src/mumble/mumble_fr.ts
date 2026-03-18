@@ -589,7 +589,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Configurera les canaux d&apos;entrée pour l&apos;ASIO. Veuillez vous assurer que vous avez sélectionné au moins un canal comme micro et haut-parleurs. &lt;i&gt;Microphone&lt;/i&gt; indique l&apos;endroit où votre microphone est connecté, et &lt;i&gt;Haut-parleurs&lt;/i&gt;indique le canal qui joue &apos;&lt;i&gt;Ce que vous entendez&lt;/i&gt;&apos;.&lt;br /&gt;Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; tandis que haut-parleur est &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; et &apos;&lt;i&gt;Lix R&lt;/i&gt;&apos;.</translation>
+        <translation>Configurera les canaux d&apos;entrée pour l&apos;ASIO. Veuillez vous assurer que vous avez sélectionné au moins un canal comme micro et haut-parleurs. &lt;i&gt;Microphone&lt;/i&gt; indique l&apos;endroit où votre microphone est connecté, et &lt;i&gt;Haut-parleurs&lt;/i&gt; indique le canal qui joue &apos;&lt;i&gt;Ce que vous entendez&lt;/i&gt;&apos;.&lt;br /&gt;Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; tandis que haut-parleur est &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; et &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
@@ -1089,7 +1089,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Ceci active la transmission d&apos;indicateurs audio lors de l&apos;utilisation d&apos;appuyer pour parler&lt;/b&gt;&lt;br /&gt;Activer cela vous donnera un court bip sonore lorsque vous commencerez à ou cesserez de transmettre.</translation>
+        <translation>&lt;b&gt;Ceci active la transmission d&apos;indicateurs audio lors de l&apos;utilisation d&apos;appuyer pour parler.&lt;/b&gt;&lt;br /&gt;Activer cela vous donnera un court bip sonore lorsque vous commencerez à ou cesserez de transmettre.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
@@ -1371,7 +1371,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Active l&apos;un des tests de boucle locale.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Aucun&lt;/i&gt;- Test boucle locale désactivée.&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Émule un serveur local.&lt;br /&gt;&lt;i&gt;Serveur&lt;/i&gt; - Demande au serveur de retourner le son.&lt;br /&gt;Veuillez noter que si vous activez le test de boucle locale, aucun autre utilisateur ne vous entendra. Ce paramètre n&apos;est pas mémorisé en quittant.</translation>
+        <translation>&lt;b&gt;Active l&apos;un des tests de boucle locale.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Aucun&lt;/i&gt; - Test boucle locale désactivée.&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Émule un serveur local.&lt;br /&gt;&lt;i&gt;Serveur&lt;/i&gt; - Demande au serveur de retourner le son.&lt;br /&gt;Veuillez noter que si vous activez le test de boucle locale, aucun autre utilisateur ne vous entendra. Ce paramètre n&apos;est pas mémorisé en quittant.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1561,7 +1561,7 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Atténuer le son des autres lorsque vous parlez avec le statut &quot;Parole Prioritaire&quot;.&lt;/b&gt;&lt;br /&gt;Mumble supporte la réduction de volume lorsque vous avez le statut &lt;i&gt;Parole Prioritaire&lt;/i&gt; pour vous éviter d&apos;être dérangé. Cocher cette case activera cette fonctionnalité.</translation>
+        <translation>&lt;b&gt;Atténuer le son des autres lorsque vous parlez avec le statut Parole Prioritaire&lt;/b&gt;&lt;br /&gt;Mumble supporte la réduction de volume lorsque vous avez le statut &lt;i&gt;Parole Prioritaire&lt;/i&gt; pour vous éviter d&apos;être dérangé. Cocher cette case activera cette fonctionnalité.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
@@ -2227,7 +2227,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only applied once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ceci est l&apos;assistant de configuration audio de Mumble. Il vous aidera à régler correctement les niveaux d&apos;entrée de votre carte son, ainsi que les paramètres corrects pour le traitement du son sous Mumble. &lt;/p&gt;&lt;p&gt; Notez que tant que cet assistant sera actif, le son sera joué localement pour vous permettre de l&apos;écouter et qu&apos;aucun son ne sera envoyé au serveur. &lt;/p&gt;&lt;p&gt;Notez que vous pouvez annuler cet assistant à tout moment sans que cela n&apos;ait un effet sur vos systèmes audio actuels. Les réglages ne seront enregistrés qu&apos;une fois cet assistant terminé.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ceci est l&apos;assistant de configuration audio de Mumble. Il vous aidera à régler correctement les niveaux d&apos;entrée de votre carte son, ainsi que les paramètres corrects pour le traitement du son sous Mumble. &lt;/p&gt;&lt;p&gt;Notez que tant que cet assistant sera actif, le son sera joué localement pour vous permettre de l&apos;écouter et qu&apos;aucun son ne sera envoyé au serveur. &lt;/p&gt;&lt;p&gt;Notez que vous pouvez annuler cet assistant à tout moment sans que cela n&apos;ait un effet sur vos systèmes audio actuels. Les réglages ne seront enregistrés qu&apos;une fois cet assistant terminé.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -4703,7 +4703,7 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation>&lt;b&gt;Définit quel langue Mumble devrait utiliser&lt;/b&gt;&lt;br /&gt;Vous devez redémarrer Mumble pour utiliser une nouvelle langue.</translation>
+        <translation>&lt;b&gt;Définit quelle langue Mumble devrait utiliser.&lt;/b&gt;&lt;br /&gt;Vous devez redémarrer Mumble pour utiliser une nouvelle langue.</translation>
     </message>
     <message>
         <source>Look and Feel</source>
@@ -5379,7 +5379,7 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Vous êtes sur le point de vous enregistrer sur ce serveur. Cette action ne peut pas être annulée, et votre identifiant ne pourra plus être modifié une fois cette étape effectuée. Vous serez pour toujours connu comme &apos;%1&apos; sur ce serveur&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir vous enregistrer&#xa0;?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Vous êtes sur le point de vous enregistrer sur ce serveur. Cette action ne peut pas être annulée, et votre identifiant ne pourra plus être modifié une fois cette étape effectuée. Vous serez pour toujours connu comme &apos;%1&apos; sur ce serveur.&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir vous enregistrer&#x202f;?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Register user %1</source>
@@ -5636,7 +5636,7 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;ATTENTION :&lt;/b&gt;Le serveur présente un certificat différent de celui mémorisé.</translation>
+        <translation>&lt;b&gt;ATTENTION&#xa0;:&lt;/b&gt; Le serveur présente un certificat différent de celui mémorisé.</translation>
     </message>
     <message>
         <source>Server connection failed: %1.</source>
@@ -6247,19 +6247,19 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selon la configuration du serveur, votre nom d&apos;utilisateur est considéré comme invalide.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Refusé&#xa0;: selon la configuration du serveur, le nom du salon est considéré comme invalide.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selon la configuration du serveur, le nom d&apos;utilisateur %&amp; est considéré comme invalide.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selon la configuration du serveur, le nom d&apos;utilisateur est considéré comme invalide.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -7125,7 +7125,7 @@ pour filtrage depuis le menu du salon.</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>Ceci est la conséquence d&apos;un des scénarios suivants&#xa0;:&lt;ul&gt;&lt;li&gt; Votre client et le serveur utilisent des méthodes de chiffrement différents. Peut-être parce que vous utilisez un client trop vieux ou que le serveur auquel vous vous connectez est trop vieux. Dans le premier cas, vous devriez mettre votre client à jour et, dans le second cas, contacter l&apos;administrateur du serveur afin qu&apos;il fasse de même.&lt;/li&gt;&lt;li&gt;Soit votre client, soit le serveur utilisent un système d&apos;exploitation trop vieux qui ne propose pas des méthodes de chiffrement à jour. Dans ce cas, vous devriez mettre votre système à jour ou contacter l&apos;administrateur du serveur afin qu&apos;il fasse de même.&lt;/li&gt;&lt;li&gt;Le serveur que vous contactez n&apos;est pas un serveur Mumble. Assurez vous que l&apos;adresse de serveur que vous utilisez est bien celle d&apos;une serveur Mumble et pas, par exemple, celle d&apos;un serveur de jeu.&lt;/li&gt;&lt;li&gt;Le port que vous utilisez n&apos;appartient pas à un serveur Mumble mais est lié à un processus absolument sans rapport coté serveur. Vérifiez deux fois que vous utilisez le port correct.&lt;/li&gt;&lt;/ul&gt;</translation>
+        <translation>Ceci est la conséquence d&apos;un des scénarios suivants&#xa0;:&lt;ul&gt;&lt;li&gt;Votre client et le serveur utilisent des méthodes de chiffrement différents. Peut-être parce que vous utilisez un client trop vieux ou que le serveur auquel vous vous connectez est trop vieux. Dans le premier cas, vous devriez mettre votre client à jour et, dans le second cas, contacter l&apos;administrateur du serveur afin qu&apos;il fasse de même.&lt;/li&gt;&lt;li&gt;Soit votre client, soit le serveur utilisent un système d&apos;exploitation trop vieux qui ne propose pas des méthodes de chiffrement à jour. Dans ce cas, vous devriez mettre votre système à jour ou contacter l&apos;administrateur du serveur afin qu&apos;il fasse de même.&lt;/li&gt;&lt;li&gt;Le serveur que vous contactez n&apos;est pas un serveur Mumble. Assurez vous que l&apos;adresse de serveur que vous utilisez est bien celle d&apos;une serveur Mumble et pas, par exemple, celle d&apos;un serveur de jeu.&lt;/li&gt;&lt;li&gt;Le port que vous utilisez n&apos;appartient pas à un serveur Mumble mais est lié à un processus absolument sans rapport coté serveur. Vérifiez deux fois que vous utilisez le port correct.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>M&amp;ove back</source>
@@ -8766,8 +8766,8 @@ Vous pouvez les enregistrer à nouveau.</translation>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Si vous utilisez GNU/Linux, c&apos;est le plus probablement parce que vous employez une version du dépôt de paquet de votre distribution qui gère différemment son cycle de mises à jour.&lt;/p&gt;&lt;p&gt;Si vous désirez toujours utiliser la version la plus récente de Mumble, il conviendrait que vous employez une méthode d&apos;installation différente.
-Référez vous à &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; pour les alternatives possibles.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Si vous utilisez GNU/Linux, c&apos;est le plus probablement parce que vous employez une version du dépôt de paquet de votre distribution qui gère différemment son cycle de mises à jour.&lt;/p&gt;&lt;p&gt;Si vous désirez toujours utiliser la version la plus récente de Mumble, il conviendrait que vous employiez une méthode d&apos;installation différente.
+Référez vous au &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;dépôt du projet&lt;/a&gt; pour les alternatives possibles.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
