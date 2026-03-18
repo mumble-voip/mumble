@@ -62,6 +62,7 @@ const SettingsKey ATTENUATE_LOOPBACK_KEY                      = { "attenuate_loo
 const SettingsKey VAD_MODE_KEY                                = { "vad_mode" };
 const SettingsKey VAD_MIN_KEY                                 = { "vad_min" };
 const SettingsKey VAD_MAX_KEY                                 = { "vad_max" };
+const SettingsKey VAD_WEBRTC_AGGRESSIVENESS_KEY               = { "vad_webrtc_aggressiveness" };
 const SettingsKey NOISE_CANCEL_MODE_KEY                       = { "noise_cancel_mode" };
 const SettingsKey SPEEX_NOISE_CANCEL_STRENGTH_KEY             = { "speex_noise_cancel_strength" };
 const SettingsKey INPUT_CHANNEL_MASK_KEY                      = { "input_channel_mask" };

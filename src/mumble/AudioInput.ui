@@ -411,6 +411,22 @@
               </property>
              </widget>
             </item>
+	    <item>
+             <widget class="QRadioButton" name="qrbWebRTC">
+              <property name="toolTip">
+               <string>Use WebRTC GMM based speech detection</string>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;b&gt;This sets speech detection to use WebRTC VAD algorithm.&lt;/b&gt;&lt;br /&gt;In this mode, a config-free Gaussian Mixture Model was used to detecting speech.</string>
+              </property>
+	      <property name="visible">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>WebRTC GMM</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item row="4" column="0">
@@ -488,6 +504,44 @@
          </layout>
         </widget>
         <widget class="QWidget" name="qwContinuous"/>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="qliWebRTCAggressiveness">
+	<property name="visible">
+         <bool>false</bool>
+        </property>
+	<property name="text">
+	 <string>Aggressiveness</string>
+	</property>
+	<property name="buddy">
+	 <cstring>qsWebRTCAggressiveness</cstring>
+	</property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="SemanticSlider" name="qsWebRTCAggressiveness">
+	<property name="visible">
+         <bool>false</bool>
+        </property>
+	<property name="toolTip">
+	 <string>Controls aggressiveness of WebRTC VAD</string>
+	</property>
+	<property name="whatsThis">
+	 <string>Higher values make the VAD more aggressive in filtering noise.</string>
+	</property>
+	<property name="minimum">
+	 <number>0</number>
+        </property>
+	<property name="maximum">
+	 <number>3</number>
+	</property>
+	<property name="singleStep">
+	 <number>1</number>
+	</property>
+	<property name="orientation">
+	 <enum>Qt::Horizontal</enum>
+	</property>
        </widget>
       </item>
      </layout>

@@ -18,6 +18,7 @@
 #include "VoiceRecorder.h"
 #include "Global.h"
 
+#include "WebRTC_Priv.h"
 #include <opus.h>
 
 #ifdef USE_RNNOISE
@@ -250,6 +251,12 @@ AudioInput::AudioInput()
 #ifdef USE_RNNOISE
 	denoiseState = rnnoise_create(nullptr);
 #endif
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	m_vadWebrtcAggressiveness = static_cast< webrtc::Vad::Aggressiveness >(Global::get().s.fVADWebRTCAggressiveness);
+#endif
+
+	updateVad(Global::get().s.vsVAD);
 
 	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
 	iEchoFreq = iMicFreq = iSampleRate;
@@ -941,11 +948,19 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 						   static_cast< std::streamsize >(iFrameSize * sizeof(short)));
 	}
 
-	fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
+	switch (m_vad) {
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+		case Settings::WebRTC:
+			fSpeechProb = !!m_vadWebrtc->VoiceActivity(psSource, iFrameSize, iSampleRate);
+			break;
+#endif
+		default:
+			fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
+	}
 
 	// clean microphone level: peak of filtered signal attenuated by AGC gain
 	dPeakCleanMic = qMax(dPeakSignal - static_cast< float >(gainValue), -96.0f);
-	float level   = (Global::get().s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (1.0f + dPeakCleanMic / 96.0f);
+	float level   = (m_vad == Settings::Amplitude) ? (1.0f + dPeakCleanMic / 96.0f) : fSpeechProb;
 
 	bool bIsSpeech = false;
 
@@ -1242,6 +1257,15 @@ void AudioInput::updateUserMuteDeafState(const ClientUser *user) {
 		bUserIsMuted = bMuted;
 		onUserMutedChanged();
 	}
+}
+
+void AudioInput::updateVad(Settings::VADSource src) {
+	m_vad = src;
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	if (m_vad == Settings::WebRTC) {
+		m_vadWebrtc = webrtc::CreateVad(m_vadWebrtcAggressiveness);
+	}
+#endif
 }
 
 void AudioInput::onUserMutedChanged() {
