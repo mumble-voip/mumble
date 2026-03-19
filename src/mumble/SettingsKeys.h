@@ -193,6 +193,7 @@ const SettingsKey OVERLAY_HEADER_STATE                 = { "overlay_header_state
 const SettingsKey SERVER_FILTER_MODE_KEY               = { "server_filter_mode" };
 const SettingsKey HIDE_IN_TRAY_KEY                     = { "hide_in_tray" };
 const SettingsKey DISPLAY_TALKING_STATE_IN_TRAY_KEY    = { "display_talking_state_in_tray" };
+const SettingsKey INHIBIT_SLEEP_KEY                    = { "inhibit_sleep" };
 const SettingsKey SEND_USAGE_STATISTICS_KEY            = { "send_usage_statistics" };
 const SettingsKey DISPLAY_USER_COUNT_KEY               = { "display_user_count" };
 const SettingsKey DISPLAY_VOLUME_ADJUSTMENTS_KEY       = { "display_volume_adjustments" };
