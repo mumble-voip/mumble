@@ -15,6 +15,10 @@
 #	include "ManualPlugin.h"
 #endif
 
+#ifdef USE_HRTF
+#	include "HrtfSpatializer.h"
+#endif
+
 #include <memory>
 
 #ifndef SPEAKER_FRONT_LEFT
@@ -99,6 +103,10 @@ protected:
 
 #ifdef USE_MANUAL_PLUGIN
 	QHash< unsigned int, Position2D > positions;
+#endif
+
+#ifdef USE_HRTF
+	std::unique_ptr< HrtfSpatializer > m_hrtfSpatializer;
 #endif
 
 	void initializeMixer(const unsigned int *chanmasks, bool forceheadphone = false);

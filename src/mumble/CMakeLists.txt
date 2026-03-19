@@ -26,6 +26,8 @@ option(bundled-rnnoise "Build the included version of RNNoise instead of looking
 
 option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
 
+option(hrtf "Build with HRTF binaural spatialization (requires libmysofa)." ON)
+
 option(qtspeech "Use Qt's text-to-speech system (part of the Qt Speech module) instead of Mumble's own OS-specific text-to-speech implementations." OFF)
 
 option(jackaudio "Build support for JackAudio." ON)
@@ -939,6 +941,55 @@ if(gkey)
 	)
 
 	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_GKEY")
+endif()
+
+if(hrtf)
+	find_pkg("libmysofa" QUIET)
+	if(libmysofa_FOUND)
+		if(libmysofa_INCLUDE_DIRS)
+			target_include_directories(mumble_client_object_lib PRIVATE ${libmysofa_INCLUDE_DIRS})
+		endif()
+		target_link_libraries(mumble_client_object_lib PRIVATE ${libmysofa_LIBRARIES})
+	else()
+		# Direct search fallback
+		find_library(MYSOFA_LIB mysofa)
+		find_path(MYSOFA_INCLUDE_DIR mysofa.h)
+		if(MYSOFA_LIB AND MYSOFA_INCLUDE_DIR)
+			target_include_directories(mumble_client_object_lib PRIVATE ${MYSOFA_INCLUDE_DIR})
+			target_link_libraries(mumble_client_object_lib PRIVATE ${MYSOFA_LIB})
+		else()
+			message(WARNING "libmysofa not found - disabling HRTF support")
+			set(hrtf OFF CACHE BOOL "Build with HRTF binaural spatialization (requires libmysofa)." FORCE)
+		endif()
+	endif()
+endif()
+
+if(hrtf)
+	# Default SOFA file shipped with Mumble
+	set(MUMBLE_HRTF_DATA_DIR "${CMAKE_SOURCE_DIR}/data/hrtf")
+	set(MUMBLE_HRTF_DEFAULT_SOFA "${MUMBLE_HRTF_DATA_DIR}/default.sofa")
+
+	target_compile_definitions(mumble_client_object_lib PUBLIC
+		"USE_HRTF"
+		"MUMBLE_HRTF_DEFAULT_SOFA=\"${MUMBLE_HRTF_DEFAULT_SOFA}\""
+	)
+
+	target_sources(mumble_client_object_lib PRIVATE
+		"HrtfSpatializer.cpp"
+		"HrtfSpatializer.h"
+		"${3RDPARTY_DIR}/fftconvolver/FFTConvolver.cpp"
+		"${3RDPARTY_DIR}/fftconvolver/AudioFFT.cpp"
+		"${3RDPARTY_DIR}/fftconvolver/Utilities.cpp"
+	)
+
+	target_include_directories(mumble_client_object_lib PRIVATE
+		"${3RDPARTY_DIR}/fftconvolver"
+	)
+
+	install(FILES "${MUMBLE_HRTF_DEFAULT_SOFA}"
+	        DESTINATION "${CMAKE_INSTALL_DATADIR}/mumble/hrtf"
+	        COMPONENT mumble_client
+	        OPTIONAL)
 endif()
 
 if(g15)
