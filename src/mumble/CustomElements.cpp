@@ -399,7 +399,13 @@ void ChatbarTextEdit::historyDown() {
 }
 
 void ChatbarTextEdit::pasteAndSend_triggered() {
+	if (bDefaultVisible) {
+		// Clear placeholder
+		setPlainText(QString());
+	}
+
 	paste();
+
 	if (!toPlainText().isEmpty()) {
 		addToHistory(toPlainText());
 		emit entered(toPlainText());
