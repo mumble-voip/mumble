@@ -11,12 +11,14 @@
 #include <memory>
 
 #ifdef Q_OS_WIN
+#	include <optional>
+
 #	include <windns.h>
 #endif
 
 class Zeroconf : public QObject {
 public:
-	inline bool isOk() const { return m_ok; }
+	constexpr bool isOk() const { return m_ok; }
 
 	void resetHelper();
 
@@ -25,25 +27,58 @@ public:
 
 	Zeroconf();
 	~Zeroconf();
+
 protected:
 	bool m_ok;
-	std::unique_ptr< BonjourServiceRegister > m_helper;
 #ifdef Q_OS_WIN
-	std::unique_ptr< DNS_SERVICE_CANCEL > m_cancel;
-	std::unique_ptr< DNS_SERVICE_REGISTER_REQUEST > m_request;
+	class Reg {
+	public:
+		constexpr auto isOk() const { return m_module != nullptr; }
 
-	static void WINAPI callbackRegisterComplete(const DWORD status, void *context, DNS_SERVICE_INSTANCE *instance);
+		bool cancel();
+		bool request(const BonjourRecord &record, const uint16_t port);
+
+		Reg();
+		~Reg();
+
+	protected:
+		struct InstanceDeleter {
+			using FreeFn = VOID(WINAPI *)(PDNS_SERVICE_INSTANCE);
+
+			FreeFn &m_freeFn;
+
+			explicit InstanceDeleter(FreeFn &freeFn) noexcept : m_freeFn(freeFn) {}
+
+			void operator()(PDNS_SERVICE_INSTANCE instance) const noexcept {
+				if (instance) {
+					m_freeFn(instance);
+				}
+			}
+		};
+
+		std::optional< DNS_SERVICE_CANCEL > m_cancel;
+		std::unique_ptr< DNS_SERVICE_INSTANCE, InstanceDeleter > m_instance;
+
+		static void WINAPI callback(const DWORD status, void *context, DNS_SERVICE_INSTANCE *instance);
+
+		PDNS_SERVICE_INSTANCE(WINAPI *DnsServiceConstructInstance)
+		(PCWSTR pServiceName, PCWSTR pHostName, PIP4_ADDRESS pIp4, PIP6_ADDRESS pIp6, WORD wPort, WORD wPriority,
+		 WORD wWeight, DWORD dwPropertiesCount, PCWSTR *keys, PCWSTR *values);
+		VOID(WINAPI *DnsServiceFreeInstance)(PDNS_SERVICE_INSTANCE pInstance);
+		DWORD(WINAPI *DnsServiceRegister)(PDNS_SERVICE_REGISTER_REQUEST pRequest, PDNS_SERVICE_CANCEL pCancel);
+		DWORD(WINAPI *DnsServiceDeRegister)(PDNS_SERVICE_REGISTER_REQUEST pRequest, PDNS_SERVICE_CANCEL pCancel);
+		DWORD(WINAPI *DnsServiceRegisterCancel)(PDNS_SERVICE_CANCEL pCancelHandle);
+
+	private:
+		HMODULE m_module;
+	};
+
+	Reg m_reg;
 #endif
+	std::unique_ptr< BonjourServiceRegister > m_helper;
+
 	void helperError(const DNSServiceErrorType error);
-#ifdef Q_OS_WIN
-	PDNS_SERVICE_INSTANCE(WINAPI *DnsServiceConstructInstance)
-	(PCWSTR pServiceName, PCWSTR pHostName, PIP4_ADDRESS pIp4, PIP6_ADDRESS pIp6, WORD wPort, WORD wPriority,
-	 WORD wWeight, DWORD dwPropertiesCount, PCWSTR *keys, PCWSTR *values);
-	VOID(WINAPI *DnsServiceFreeInstance)(PDNS_SERVICE_INSTANCE pInstance);
-	DWORD(WINAPI *DnsServiceRegister)(PDNS_SERVICE_REGISTER_REQUEST pRequest, PDNS_SERVICE_CANCEL pCancel);
-	DWORD(WINAPI *DnsServiceDeRegister)(PDNS_SERVICE_REGISTER_REQUEST pRequest, PDNS_SERVICE_CANCEL pCancel);
-	DWORD(WINAPI *DnsServiceRegisterCancel)(PDNS_SERVICE_CANCEL pCancelHandle);
-#endif
+
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(Zeroconf)
