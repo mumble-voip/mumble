@@ -21,17 +21,30 @@ static void crashhandler_signals_restore();
 static void crashhandler_handle_crash();
 
 void query_language() {
-	CFPropertyListRef cfaLangs;
-	CFStringRef cfsLang;
-	static char lang[16];
+	@autoreleasepool {
+		CFPropertyListRef cfaLangs;
+		CFStringRef cfsLang;
+		static char lang[16];
 
-	cfaLangs = CFPreferencesCopyAppValue(CFSTR("AppleLanguages"), kCFPreferencesCurrentApplication);
-	cfsLang = (CFStringRef) CFArrayGetValueAtIndex((CFArrayRef)cfaLangs, 0);
+		cfaLangs = CFPreferencesCopyAppValue(CFSTR("AppleLanguages"), kCFPreferencesCurrentApplication);
+		if (!cfaLangs || CFGetTypeID(cfaLangs) != CFArrayGetTypeID()
+		    || CFArrayGetCount((CFArrayRef)cfaLangs) == 0) {
+			if (cfaLangs) {
+				CFRelease(cfaLangs);
+			}
+			return;
+		}
 
-	if (! CFStringGetCString(cfsLang, lang, 16, kCFStringEncodingUTF8))
-		return;
+		cfsLang = (CFStringRef) CFArrayGetValueAtIndex((CFArrayRef)cfaLangs, 0);
 
-	os_lang = lang;
+		if (!CFStringGetCString(cfsLang, lang, sizeof(lang), kCFStringEncodingUTF8)) {
+			CFRelease(cfaLangs);
+			return;
+		}
+
+		os_lang = lang;
+		CFRelease(cfaLangs);
+	}
 }
 
 static void crashhandler_signal_handler(int signal) {
