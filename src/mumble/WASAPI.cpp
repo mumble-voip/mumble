@@ -331,14 +331,75 @@ const QHash< QString, QString > WASAPISystem::getDevices(EDataFlow dataflow) {
 	return devices;
 }
 
-WASAPIInput::WASAPIInput(){};
-
-WASAPIInput::~WASAPIInput() {
-	bRunning = false;
-	wait();
+void WASAPIDevice::ClearUsage() {
+	if (wanted) {
+		WASAPINotificationClient::get().unlistDeviceAsWanted(devName);
+		wanted = false;
+	}
+	if (used) {
+		WASAPINotificationClient::get().unlistDeviceAsUsed(devName);
+		used = false;
+	}
+	if (usedDefault) {
+		WASAPINotificationClient::get().unlistDefaultDeviceAsUsed(defaultDevName);
+		usedDefault = false;
+	}
+	if (wantDefault) {
+		WASAPINotificationClient::get().decrementWantDefault();
+		wantDefault = false;
+	}
 }
 
-static IMMDevice *openNamedOrDefaultDevice(const QString &name, EDataFlow dataFlow, ERole role) {
+void WASAPIDevice::ClearDevice() {
+	if (pDevice) {
+		pDevice->Release();
+		pDevice = nullptr;
+	}
+}
+
+void WASAPIDevice::Move(WASAPIDevice&& other) {
+	devName = std::move(other.devName);
+	defaultDevName = std::move(other.defaultDevName);
+	used = other.used;
+	other.used = false;
+	wanted = other.wanted;
+	other.wanted = false;
+	usedDefault = other.usedDefault;
+	other.usedDefault = false;
+	wantDefault = other.wantDefault;
+	other.wantDefault = false;
+	pDevice = other.pDevice;
+	other.pDevice = nullptr;
+}
+
+WASAPIDevice::WASAPIDevice() {}
+WASAPIDevice::WASAPIDevice(nullptr_t) {}
+WASAPIDevice::WASAPIDevice(WASAPIDevice&& other) {
+	Move(std::move(other));
+}
+WASAPIDevice::~WASAPIDevice() {
+	ClearDevice();
+}
+WASAPIDevice& WASAPIDevice::operator=(WASAPIDevice&& other) {
+	ClearDevice();
+	ClearUsage();
+	Move(std::move(other));
+}
+
+WASAPIDevice::operator bool() const {
+	return (pDevice != nullptr);
+}
+IMMDevice* WASAPIDevice::operator->() const {
+	return pDevice;
+}
+WASAPIDevice::operator IMMDevice*() const {
+	return pDevice;
+}
+
+void WASAPIDevice::OpenNamedOrDefaultDevice(const QString &name, EDataFlow dataFlow, ERole role) {
+	ClearDevice();
+	ClearUsage();
+
 	HRESULT hr;
 	IMMDeviceEnumerator *pEnumerator = nullptr;
 
@@ -346,22 +407,21 @@ static IMMDevice *openNamedOrDefaultDevice(const QString &name, EDataFlow dataFl
 						  reinterpret_cast< void ** >(&pEnumerator));
 	if (!pEnumerator || FAILED(hr)) {
 		qWarning("WASAPI: Failed to instantiate enumerator: hr=0x%08lx", hr);
-		return nullptr;
+		return;
 	}
 
-	IMMDevice *pDevice = nullptr;
 	// Try to find a device pointer for |name|.
 	if (!name.isEmpty()) {
-		std::vector< wchar_t > devname;
-		devname.resize(name.length() + 1);
-		int len      = name.toWCharArray(devname.data());
-		devname[len] = 0;
-		hr           = pEnumerator->GetDevice(devname.data(), &pDevice);
+		devName = name;
+		hr           = pEnumerator->GetDevice(reinterpret_cast<LPCWSTR>(devName.utf16()), &pDevice);
 		if (FAILED(hr)) {
 			qWarning("WASAPI: Failed to open selected device %s %ls (df=%d, e=%d, hr=0x%08lx), falling back to default",
-					 qPrintable(name), devname.data(), dataFlow, role, hr);
+					 qPrintable(name), devName.utf16(), dataFlow, role, hr);
+			WASAPINotificationClient::get().enlistDeviceAsWanted(devName);
+			wanted = true;
 		} else {
-			WASAPINotificationClient::get().enlistDeviceAsUsed(devname.data());
+			WASAPINotificationClient::get().enlistDeviceAsUsed(devName);
+			used = true;
 		}
 	}
 
@@ -375,35 +435,50 @@ static IMMDevice *openNamedOrDefaultDevice(const QString &name, EDataFlow dataFl
 			qWarning("WASAPI: Failed to open device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
 			goto cleanup;
 		}
-		wchar_t *devname = nullptr;
-		hr               = pDevice->GetId(&devname);
+		wchar_t *defdevname = nullptr;
+		hr               = pDevice->GetId(&defdevname);
 		if (FAILED(hr)) {
 			qWarning("WASAPI: Failed to query device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
 			goto cleanup;
 		}
 		pDevice->Release();
-		hr = pEnumerator->GetDevice(devname, &pDevice);
+		pDevice = nullptr;
+
+		defaultDevName = QString::fromWCharArray(defdevname);
+
+		hr = pEnumerator->GetDevice(defdevname, &pDevice);
 		if (FAILED(hr)) {
 			qWarning("WASAPI: Failed to reopen default device: df=%d, e=%d, hr=0x%08lx", dataFlow, role, hr);
-			goto cleanup;
+			wantDefault = true;
+			WASAPINotificationClient::get().incrementWantDefault();
+		} else {
+			usedDefault = true;
+			WASAPINotificationClient::get().enlistDefaultDeviceAsUsed(defaultDevName);
 		}
-		WASAPINotificationClient::get().enlistDefaultDeviceAsUsed(devname);
-		CoTaskMemFree(devname);
+		CoTaskMemFree(defdevname);
 	}
 
 cleanup:
 	if (pEnumerator)
 		pEnumerator->Release();
+}
 
-	return pDevice;
+
+
+
+WASAPIInput::WASAPIInput(){};
+
+WASAPIInput::~WASAPIInput() {
+	bRunning = false;
+	wait();
 }
 
 void WASAPIInput::run() {
 	HRESULT hr;
-	IMMDevice *pMicDevice                   = nullptr;
+	WASAPIDevice pMicDevice;
 	IAudioClient *pMicAudioClient           = nullptr;
 	IAudioCaptureClient *pMicCaptureClient  = nullptr;
-	IMMDevice *pEchoDevice                  = nullptr;
+	WASAPIDevice pEchoDevice;
 	IAudioClient *pEchoAudioClient          = nullptr;
 	IAudioCaptureClient *pEchoCaptureClient = nullptr;
 	WAVEFORMATEX *micpwfx = nullptr, *echopwfx = nullptr;
@@ -428,283 +503,315 @@ void WASAPIInput::run() {
 
 	CoInitialize(nullptr);
 
-	hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
-
 	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
 	if (!hMmThread) {
 		qWarning("WASAPIInput: Failed to set Pro Audio thread priority");
 	}
 
-	// Open mic device.
-	pMicDevice = openNamedOrDefaultDevice(Global::get().s.qsWASAPIInput, eCapture, WASAPIRoleFromSettings());
-	if (!pMicDevice)
-		goto cleanup;
+	// Outer retry loop - For handling AUDCLNT_E_DEVICE_INVALIDATED which requires complete cleanup and then re-creation of audio endpoint.
+	bool doOuterRetry = true;
+	while (doOuterRetry) {
+		hr = 0;
 
-	// Open echo capture device.
-	if (doecho) {
-		pEchoDevice = openNamedOrDefaultDevice(Global::get().s.qsWASAPIOutput, eRender, WASAPIRoleFromSettings());
-		if (!pEchoDevice)
-			doecho = false;
-	}
+		hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
-	hr = pMicDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pMicAudioClient);
-	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Activate Mic AudioClient failed: hr=0x%08lx", hr);
-		goto cleanup;
-	}
-
-	def = min = latency = 0;
-
-	pMicAudioClient->GetDevicePeriod(&def, &min);
-
-	want = qMax< REFERENCE_TIME >(min, 100000);
-	qWarning("WASAPIInput: Latencies %lld %lld => %lld", def, min, want);
-
-	if (Global::get().s.bExclusiveInput && !doecho) {
-		for (int channels = 1; channels <= 2; ++channels) {
-			ZeroMemory(&wfe, sizeof(wfe));
-			wfe.Format.cbSize          = 0;
-			wfe.Format.wFormatTag      = WAVE_FORMAT_PCM;
-			wfe.Format.nChannels       = channels;
-			wfe.Format.nSamplesPerSec  = 48000;
-			wfe.Format.wBitsPerSample  = 16;
-			wfe.Format.nBlockAlign     = wfe.Format.nChannels * wfe.Format.wBitsPerSample / 8;
-			wfe.Format.nAvgBytesPerSec = wfe.Format.nBlockAlign * wfe.Format.nSamplesPerSec;
-
-			micpwfxe = &wfe;
-			micpwfx  = reinterpret_cast< WAVEFORMATEX * >(&wfe);
-
-			hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want,
-											 micpwfx, nullptr);
-			if (SUCCEEDED(hr)) {
-				eMicFormat = SampleShort;
-				exclusive  = true;
-				qWarning("WASAPIInput: Successfully opened exclusive mode");
-				break;
-			}
-
-			micpwfxe = nullptr;
-			micpwfx  = nullptr;
-		}
-	}
-
-	if (!micpwfxe) {
-		if (Global::get().s.bExclusiveInput)
-			qWarning("WASAPIInput: Failed to open exclusive mode.");
-
-		if (!getAndCheckMixFormat("WASAPIInput", "Mic", pMicAudioClient, &micpwfx, &micpwfxe, &eMicFormat)) {
+		// Open mic device.
+		pMicDevice.OpenNamedOrDefaultDevice(Global::get().s.qsWASAPIInput, eCapture, WASAPIRoleFromSettings());
+		if (!pMicDevice)
 			goto cleanup;
+
+		// Open echo capture device.
+		if (doecho) {
+			pEchoDevice.OpenNamedOrDefaultDevice(Global::get().s.qsWASAPIOutput, eRender, WASAPIRoleFromSettings());
+			if (!pEchoDevice)
+				doecho = false;
 		}
 
-		hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx,
-										 nullptr);
+		hr = pMicDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pMicAudioClient);
 		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Mic Initialize failed: hr=0x%08lx", hr);
-			if (hr == E_ACCESSDENIED) {
-				WASAPIInputRegistrar::hasOSPermissionDenied = true;
-				Global::get().mw->msgBox(
-					tr("Access to the microphone was denied. Please check that your operating system's "
-					   "microphone settings allow Mumble to use the microphone."));
-			}
-			goto cleanup;
-		}
-	}
-
-	qWarning() << "WASAPIInput: Mic Stream format" << eMicFormat;
-
-	pMicAudioClient->GetStreamLatency(&latency);
-	hr = pMicAudioClient->GetBufferSize(&bufferFrameCount);
-	qWarning("WASAPIInput: Stream Latency %lld (%d)", latency, bufferFrameCount);
-
-	hr = pMicAudioClient->GetService(__uuidof(IAudioCaptureClient), (void **) &pMicCaptureClient);
-	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Mic GetService failed: hr=0x%08lx", hr);
-		goto cleanup;
-	}
-
-	pMicAudioClient->SetEventHandle(hEvent);
-	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Failed to set mic event: hr=0x%08lx", hr);
-		goto cleanup;
-	}
-
-	hr = pMicAudioClient->Start();
-	if (FAILED(hr)) {
-		qWarning("WASAPIInput: Failed to start mic: hr=0x%08lx", hr);
-		goto cleanup;
-	}
-
-	iMicChannels = micpwfx->nChannels;
-	iMicFreq     = micpwfx->nSamplesPerSec;
-
-	if (doecho) {
-		hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pEchoAudioClient);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Activate Echo AudioClient failed: hr=0x%08lx", hr);
+			qWarning("WASAPIInput: Activate Mic AudioClient failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
-		if (!getAndCheckMixFormat("WASAPIInput", "Echo", pEchoAudioClient, &echopwfx, &echopwfxe, &eEchoFormat)) {
-			goto cleanup;
-		}
+		def = min = latency = 0;
 
-		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED,
-										  AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0,
-										  echopwfx, nullptr);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Echo Initialize failed: hr=0x%08lx", hr);
-			goto cleanup;
-		}
+		pMicAudioClient->GetDevicePeriod(&def, &min);
 
-		hr = pEchoAudioClient->GetBufferSize(&bufferFrameCount);
-		hr = pEchoAudioClient->GetService(__uuidof(IAudioCaptureClient), (void **) &pEchoCaptureClient);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Echo GetService failed: hr=0x%08lx", hr);
-			goto cleanup;
-		}
+		want = qMax< REFERENCE_TIME >(min, 100000);
+		qWarning("WASAPIInput: Latencies %lld %lld => %lld", def, min, want);
 
-		pEchoAudioClient->SetEventHandle(hEvent);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to set echo event: hr=0x%08lx", hr);
-			goto cleanup;
-		}
+		if (Global::get().s.bExclusiveInput && !doecho) {
+			for (int channels = 1; channels <= 2; ++channels) {
+				ZeroMemory(&wfe, sizeof(wfe));
+				wfe.Format.cbSize          = 0;
+				wfe.Format.wFormatTag      = WAVE_FORMAT_PCM;
+				wfe.Format.nChannels       = channels;
+				wfe.Format.nSamplesPerSec  = 48000;
+				wfe.Format.wBitsPerSample  = 16;
+				wfe.Format.nBlockAlign     = wfe.Format.nChannels * wfe.Format.wBitsPerSample / 8;
+				wfe.Format.nAvgBytesPerSec = wfe.Format.nBlockAlign * wfe.Format.nSamplesPerSec;
 
-		hr = pEchoAudioClient->Start();
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to start Echo: hr=0x%08lx", hr);
-			goto cleanup;
-		}
+				micpwfxe = &wfe;
+				micpwfx  = reinterpret_cast< WAVEFORMATEX * >(&wfe);
 
-		qWarning() << "WASAPIInput: Echo Stream format" << eEchoFormat;
-
-		iEchoChannels = echopwfx->nChannels;
-		iEchoFreq     = echopwfx->nSamplesPerSec;
-	}
-
-	initializeMixer();
-
-	allocLength = (iMicLength / 2) * micpwfx->nChannels;
-
-	if (exclusive) {
-		sbuff = new short[allocLength];
-		while (bRunning && !FAILED(hr)) {
-			hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
-			if (hr != AUDCLNT_S_BUFFER_EMPTY) {
-				if (FAILED(hr))
-					goto cleanup;
-
-				UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
-				if (nFrames > allocLength) {
-					delete[] sbuff;
-					allocLength = nFrames;
-					sbuff       = new short[allocLength];
+				hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want,
+												micpwfx, nullptr);
+				if (SUCCEEDED(hr)) {
+					eMicFormat = SampleShort;
+					exclusive  = true;
+					qWarning("WASAPIInput: Successfully opened exclusive mode");
+					break;
 				}
 
-				memcpy(sbuff, pData, nFrames * sizeof(short));
-				hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
-				if (FAILED(hr))
-					goto cleanup;
-				addMic(sbuff, numFramesAvailable);
+				micpwfxe = nullptr;
+				micpwfx  = nullptr;
 			}
-			if (!FAILED(hr))
-				WaitForSingleObject(hEvent, 100);
 		}
-	} else {
-		tbuff = new float[allocLength];
-		while (bRunning && !FAILED(hr)) {
-			hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
-			if (!FAILED(hr) && iEchoChannels)
-				hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
-			if (FAILED(hr)) {
-				qWarning("WASAPIInput: GetNextPacketSize failed: hr=0x%08lx", hr);
+
+		if (!micpwfxe) {
+			if (Global::get().s.bExclusiveInput)
+				qWarning("WASAPIInput: Failed to open exclusive mode.");
+
+			if (!getAndCheckMixFormat("WASAPIInput", "Mic", pMicAudioClient, &micpwfx, &micpwfxe, &eMicFormat)) {
 				goto cleanup;
 			}
 
-			while ((micPacketLength > 0) || (echoPacketLength > 0)) {
-				if (echoPacketLength > 0) {
-					hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition,
-													   &qpcPosition);
-					if (FAILED(hr)) {
-						qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
-						goto cleanup;
-					}
+			hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx,
+											nullptr);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Mic Initialize failed: hr=0x%08lx", hr);
+				if (hr == E_ACCESSDENIED) {
+					WASAPIInputRegistrar::hasOSPermissionDenied = true;
+					Global::get().mw->msgBox(
+						tr("Access to the microphone was denied. Please check that your operating system's "
+						"microphone settings allow Mumble to use the microphone."));
+				}
+				goto cleanup;
+			}
+		}
 
-					UINT32 nFrames = numFramesAvailable * echopwfx->nChannels;
-					if (nFrames > allocLength) {
-						delete[] tbuff;
-						allocLength = nFrames;
-						tbuff       = new float[allocLength];
-					}
-					memcpy(tbuff, pData, nFrames * sizeof(float));
-					hr = pEchoCaptureClient->ReleaseBuffer(numFramesAvailable);
-					if (FAILED(hr)) {
-						qWarning("WASAPIInput: ReleaseBuffer failed: hr=0x%08lx", hr);
+		qWarning() << "WASAPIInput: Mic Stream format" << eMicFormat;
+
+		pMicAudioClient->GetStreamLatency(&latency);
+		hr = pMicAudioClient->GetBufferSize(&bufferFrameCount);
+		qWarning("WASAPIInput: Stream Latency %lld (%d)", latency, bufferFrameCount);
+
+		hr = pMicAudioClient->GetService(__uuidof(IAudioCaptureClient), (void **) &pMicCaptureClient);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Mic GetService failed: hr=0x%08lx", hr);
+			goto cleanup;
+		}
+
+		pMicAudioClient->SetEventHandle(hEvent);
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to set mic event: hr=0x%08lx", hr);
+			goto cleanup;
+		}
+
+		hr = pMicAudioClient->Start();
+		if (FAILED(hr)) {
+			qWarning("WASAPIInput: Failed to start mic: hr=0x%08lx", hr);
+			goto cleanup;
+		}
+
+		iMicChannels = micpwfx->nChannels;
+		iMicFreq     = micpwfx->nSamplesPerSec;
+
+		if (doecho) {
+			hr = pEchoDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pEchoAudioClient);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Activate Echo AudioClient failed: hr=0x%08lx", hr);
+				goto cleanup;
+			}
+
+			if (!getAndCheckMixFormat("WASAPIInput", "Echo", pEchoAudioClient, &echopwfx, &echopwfxe, &eEchoFormat)) {
+				goto cleanup;
+			}
+
+			hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED,
+											AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0,
+											echopwfx, nullptr);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Echo Initialize failed: hr=0x%08lx", hr);
+				goto cleanup;
+			}
+
+			hr = pEchoAudioClient->GetBufferSize(&bufferFrameCount);
+			hr = pEchoAudioClient->GetService(__uuidof(IAudioCaptureClient), (void **) &pEchoCaptureClient);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Echo GetService failed: hr=0x%08lx", hr);
+				goto cleanup;
+			}
+
+			pEchoAudioClient->SetEventHandle(hEvent);
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Failed to set echo event: hr=0x%08lx", hr);
+				goto cleanup;
+			}
+
+			hr = pEchoAudioClient->Start();
+			if (FAILED(hr)) {
+				qWarning("WASAPIInput: Failed to start Echo: hr=0x%08lx", hr);
+				goto cleanup;
+			}
+
+			qWarning() << "WASAPIInput: Echo Stream format" << eEchoFormat;
+
+			iEchoChannels = echopwfx->nChannels;
+			iEchoFreq     = echopwfx->nSamplesPerSec;
+		}
+
+		initializeMixer();
+
+		allocLength = (iMicLength / 2) * micpwfx->nChannels;
+
+		if (exclusive) {
+			sbuff = new short[allocLength];
+			while (bRunning && !FAILED(hr)) {
+				hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition, &qpcPosition);
+				if (hr != AUDCLNT_S_BUFFER_EMPTY) {
+					if (FAILED(hr))
 						goto cleanup;
-					}
-					addEcho(tbuff, numFramesAvailable);
-				} else if (micPacketLength > 0) {
-					hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition,
-													  &qpcPosition);
-					if (FAILED(hr)) {
-						qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
-						goto cleanup;
-					}
 
 					UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
 					if (nFrames > allocLength) {
-						delete[] tbuff;
+						delete[] sbuff;
 						allocLength = nFrames;
-						tbuff       = new float[allocLength];
+						sbuff       = new short[allocLength];
 					}
-					memcpy(tbuff, pData, nFrames * sizeof(float));
+
+					memcpy(sbuff, pData, nFrames * sizeof(short));
 					hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
-					if (FAILED(hr)) {
-						qWarning("WASAPIInput: ReleaseBuffer failed: hr=0x%08lx", hr);
+					if (FAILED(hr))
 						goto cleanup;
-					}
-					addMic(tbuff, numFramesAvailable);
+					addMic(sbuff, numFramesAvailable);
 				}
+				if (!FAILED(hr))
+					WaitForSingleObject(hEvent, 100);
+			}
+		} else {
+			tbuff = new float[allocLength];
+			while (bRunning && !FAILED(hr)) {
 				hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
 				if (!FAILED(hr) && iEchoChannels)
 					hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
+				if (FAILED(hr)) {
+					qWarning("WASAPIInput: GetNextPacketSize failed: hr=0x%08lx", hr);
+					goto cleanup;
+				}
+
+				while ((micPacketLength > 0) || (echoPacketLength > 0)) {
+					if (echoPacketLength > 0) {
+						hr = pEchoCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition,
+														&qpcPosition);
+						if (FAILED(hr)) {
+							qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
+							goto cleanup;
+						}
+
+						UINT32 nFrames = numFramesAvailable * echopwfx->nChannels;
+						if (nFrames > allocLength) {
+							delete[] tbuff;
+							allocLength = nFrames;
+							tbuff       = new float[allocLength];
+						}
+						memcpy(tbuff, pData, nFrames * sizeof(float));
+						hr = pEchoCaptureClient->ReleaseBuffer(numFramesAvailable);
+						if (FAILED(hr)) {
+							qWarning("WASAPIInput: ReleaseBuffer failed: hr=0x%08lx", hr);
+							goto cleanup;
+						}
+						addEcho(tbuff, numFramesAvailable);
+					} else if (micPacketLength > 0) {
+						hr = pMicCaptureClient->GetBuffer(&pData, &numFramesAvailable, &flags, &devicePosition,
+														&qpcPosition);
+						if (FAILED(hr)) {
+							qWarning("WASAPIInput: GetBuffer failed: hr=0x%08lx", hr);
+							goto cleanup;
+						}
+
+						UINT32 nFrames = numFramesAvailable * micpwfx->nChannels;
+						if (nFrames > allocLength) {
+							delete[] tbuff;
+							allocLength = nFrames;
+							tbuff       = new float[allocLength];
+						}
+						memcpy(tbuff, pData, nFrames * sizeof(float));
+						hr = pMicCaptureClient->ReleaseBuffer(numFramesAvailable);
+						if (FAILED(hr)) {
+							qWarning("WASAPIInput: ReleaseBuffer failed: hr=0x%08lx", hr);
+							goto cleanup;
+						}
+						addMic(tbuff, numFramesAvailable);
+					}
+					hr = pMicCaptureClient->GetNextPacketSize(&micPacketLength);
+					if (!FAILED(hr) && iEchoChannels)
+						hr = pEchoCaptureClient->GetNextPacketSize(&echoPacketLength);
+				}
+				if (!FAILED(hr))
+					WaitForSingleObject(hEvent, 2000);
 			}
-			if (!FAILED(hr))
-				WaitForSingleObject(hEvent, 2000);
 		}
-	}
 
 cleanup:
-	if (micpwfx && !exclusive)
-		CoTaskMemFree(micpwfx);
-	if (echopwfx)
-		CoTaskMemFree(echopwfx);
+		doOuterRetry = (hr == AUDCLNT_E_DEVICE_INVALIDATED);
+		if (doOuterRetry) {
+			qWarning("WASAPIInput: Got AUDCLNT_E_DEVICE_INVALIDATED. Reinitializing");
+		}
 
-	if (pMicAudioClient) {
-		pMicAudioClient->Stop();
-		pMicAudioClient->Release();
-	}
-	if (pMicCaptureClient)
-		pMicCaptureClient->Release();
-	if (pMicDevice)
-		pMicDevice->Release();
+		if (micpwfx && !exclusive) {
+			CoTaskMemFree(micpwfx);
+		}
+		micpwfx = nullptr;
+		micpwfxe = nullptr;
 
-	if (pEchoAudioClient) {
-		pEchoAudioClient->Stop();
-		pEchoAudioClient->Release();
+		if (echopwfx) {
+			CoTaskMemFree(echopwfx);
+			echopwfx = nullptr;
+			echopwfxe = nullptr;
+		}
+
+		if (pMicAudioClient) {
+			pMicAudioClient->Stop();
+			pMicAudioClient->Release();
+			pMicAudioClient = nullptr;
+		}
+		if (pMicCaptureClient) {
+			pMicCaptureClient->Release();
+			pMicCaptureClient = nullptr;
+		}
+		pMicDevice.ClearDevice();
+
+		if (pEchoAudioClient) {
+			pEchoAudioClient->Stop();
+			pEchoAudioClient->Release();
+			pEchoAudioClient = nullptr;
+		}
+		if (pEchoCaptureClient) {
+			pEchoCaptureClient->Release();
+			pEchoCaptureClient = nullptr;
+		}
+		pEchoDevice.ClearDevice();
+
+		if (hEvent) {
+			CloseHandle(hEvent);
+			hEvent = nullptr;
+		}
+
+		if (tbuff) {
+			delete[] tbuff;
+			tbuff = nullptr;
+		}
+		if (sbuff) {
+			delete[] sbuff;
+			sbuff = nullptr;
+		}
+
 	}
-	if (pEchoCaptureClient)
-		pEchoCaptureClient->Release();
-	if (pEchoDevice)
-		pEchoDevice->Release();
 
 	if (hMmThread)
 		AvRevertMmThreadCharacteristics(hMmThread);
 
-	if (hEvent)
-		CloseHandle(hEvent);
-
-	delete[] tbuff;
-	delete[] sbuff;
 }
 
 WASAPIOutput::WASAPIOutput() {
@@ -888,7 +995,7 @@ cleanup:
 
 void WASAPIOutput::run() {
 	HRESULT hr;
-	IMMDevice *pDevice                = nullptr;
+	WASAPIDevice pDevice;
 	IAudioClient *pAudioClient        = nullptr;
 	IAudioRenderClient *pRenderClient = nullptr;
 	WAVEFORMATEX *pwfx                = nullptr;
@@ -910,252 +1017,271 @@ void WASAPIOutput::run() {
 
 	CoInitialize(nullptr);
 
-	hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
-
 	hMmThread = AvSetMmThreadCharacteristics(L"Pro Audio", &dwTaskIndex);
 	if (!hMmThread) {
 		qWarning("WASAPIOutput: Failed to set Pro Audio thread priority");
 	}
 
-	// Open the output device.
-	pDevice = openNamedOrDefaultDevice(Global::get().s.qsWASAPIOutput, eRender, WASAPIRoleFromSettings());
-	if (!pDevice)
-		goto cleanup;
+	// Outer retry loop - For handling AUDCLNT_E_DEVICE_INVALIDATED which requires complete cleanup and then re-creation of audio endpoint.
+	bool doOuterRetry = true;
+	while (doOuterRetry) {
+		hr = 0;
 
-	// Opt-out of the Windows 7 ducking behavior
-	SetDuckingOptOut(pDevice);
+		hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
-	hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pAudioClient);
-	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: Activate AudioClient failed: hr=0x%08lx", hr);
-		goto cleanup;
-	}
+		// Open the output device.
+		pDevice.OpenNamedOrDefaultDevice(Global::get().s.qsWASAPIOutput, eRender, WASAPIRoleFromSettings());
+		if (!pDevice)
+			goto cleanup;
 
-	pAudioClient->GetDevicePeriod(&def, &min);
-	want = qMax< REFERENCE_TIME >(min, 100000);
-	qWarning("WASAPIOutput: Latencies %lld %lld => %lld", def, min, want);
+		// Opt-out of the Windows 7 ducking behavior
+		SetDuckingOptOut(pDevice);
 
-	if (Global::get().s.bExclusiveOutput) {
-		hr = pAudioClient->GetMixFormat(&pwfx);
+		hr = pDevice->Activate(__uuidof(IAudioClient), CLSCTX_ALL, nullptr, (void **) &pAudioClient);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: GetMixFormat failed: hr=0x%08lx", hr);
+			qWarning("WASAPIOutput: Activate AudioClient failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
 
-		if (pwfx->wFormatTag == WAVE_FORMAT_EXTENSIBLE) {
-			pwfxe = reinterpret_cast< WAVEFORMATEXTENSIBLE * >(pwfx);
-		}
+		pAudioClient->GetDevicePeriod(&def, &min);
+		want = qMax< REFERENCE_TIME >(min, 100000);
+		qWarning("WASAPIOutput: Latencies %lld %lld => %lld", def, min, want);
 
-		if (!Global::get().s.bPositionalAudio) {
-			// Override mix format and request stereo
-			pwfx->nChannels = 2;
-			if (pwfxe) {
-				pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
+		if (Global::get().s.bExclusiveOutput) {
+			hr = pAudioClient->GetMixFormat(&pwfx);
+			if (FAILED(hr)) {
+				qWarning("WASAPIOutput: GetMixFormat failed: hr=0x%08lx", hr);
+				goto cleanup;
 			}
-		}
 
-		pwfx->cbSize = 0;
-		if (pwfxe) {
-			pwfxe->SubFormat = KSDATAFORMAT_SUBTYPE_PCM;
-		} else {
-			pwfx->wFormatTag = WAVE_FORMAT_PCM;
-		}
-		pwfx->nSamplesPerSec  = 48000;
-		pwfx->wBitsPerSample  = 16;
-		pwfx->nBlockAlign     = pwfx->nChannels * pwfx->wBitsPerSample / 8;
-		pwfx->nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
+			if (pwfx->wFormatTag == WAVE_FORMAT_EXTENSIBLE) {
+				pwfxe = reinterpret_cast< WAVEFORMATEXTENSIBLE * >(pwfx);
+			}
 
-		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx,
-									  nullptr);
-		if (SUCCEEDED(hr)) {
-			eSampleFormat = SampleShort;
-			exclusive     = true;
-			qWarning("WASAPIOutput: Successfully opened exclusive mode");
-		} else {
-			CoTaskMemFree(pwfx);
+			if (!Global::get().s.bPositionalAudio) {
+				// Override mix format and request stereo
+				pwfx->nChannels = 2;
+				if (pwfxe) {
+					pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
+				}
+			}
 
-			pwfxe = nullptr;
-			pwfx  = nullptr;
-		}
-	}
-
-	if (!pwfx) {
-		if (Global::get().s.bExclusiveOutput)
-			qWarning("WASAPIOutput: Failed to open exclusive mode.");
-
-		if (!getAndCheckMixFormat("WASAPIOutput", "Output", pAudioClient, &pwfx, &pwfxe, &eSampleFormat)) {
-			goto cleanup;
-		}
-
-		if (!Global::get().s.bPositionalAudio) {
-			pwfx->nChannels       = 2;
+			pwfx->cbSize = 0;
+			if (pwfxe) {
+				pwfxe->SubFormat = KSDATAFORMAT_SUBTYPE_PCM;
+			} else {
+				pwfx->wFormatTag = WAVE_FORMAT_PCM;
+			}
+			pwfx->nSamplesPerSec  = 48000;
+			pwfx->wBitsPerSample  = 16;
 			pwfx->nBlockAlign     = pwfx->nChannels * pwfx->wBitsPerSample / 8;
 			pwfx->nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
 
-			if (pwfxe) {
-				pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
-			}
-
-			WAVEFORMATEX *closestFormat = nullptr;
-			hr = pAudioClient->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pwfx, &closestFormat);
-			if (hr == S_FALSE) {
-				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %lu kHz",
-						 closestFormat->nChannels, static_cast< unsigned long >(closestFormat->nSamplesPerSec));
+			hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_EXCLUSIVE, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, want, want, pwfx,
+										nullptr);
+			if (SUCCEEDED(hr)) {
+				eSampleFormat = SampleShort;
+				exclusive     = true;
+				qWarning("WASAPIOutput: Successfully opened exclusive mode");
+			} else {
 				CoTaskMemFree(pwfx);
 
-				// Fall back to whatever the device offers.
+				pwfxe = nullptr;
+				pwfx  = nullptr;
+			}
+		}
 
-				if (!getAndCheckMixFormat("WASAPIOutput", "Output", pAudioClient, &pwfx, &pwfxe, &eSampleFormat)) {
-					CoTaskMemFree(closestFormat);
-					goto cleanup;
-				}
-			} else if (FAILED(hr)) {
-				qWarning("WASAPIOutput: IsFormatSupported failed: hr=0x%08lx", hr);
+		if (!pwfx) {
+			if (Global::get().s.bExclusiveOutput)
+				qWarning("WASAPIOutput: Failed to open exclusive mode.");
+
+			if (!getAndCheckMixFormat("WASAPIOutput", "Output", pAudioClient, &pwfx, &pwfxe, &eSampleFormat)) {
+				goto cleanup;
 			}
 
-			CoTaskMemFree(closestFormat);
+			if (!Global::get().s.bPositionalAudio) {
+				pwfx->nChannels       = 2;
+				pwfx->nBlockAlign     = pwfx->nChannels * pwfx->wBitsPerSample / 8;
+				pwfx->nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
+
+				if (pwfxe) {
+					pwfxe->dwChannelMask = KSAUDIO_SPEAKER_STEREO;
+				}
+
+				WAVEFORMATEX *closestFormat = nullptr;
+				hr = pAudioClient->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, pwfx, &closestFormat);
+				if (hr == S_FALSE) {
+					qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %lu kHz",
+							closestFormat->nChannels, static_cast< unsigned long >(closestFormat->nSamplesPerSec));
+					CoTaskMemFree(pwfx);
+
+					// Fall back to whatever the device offers.
+
+					if (!getAndCheckMixFormat("WASAPIOutput", "Output", pAudioClient, &pwfx, &pwfxe, &eSampleFormat)) {
+						CoTaskMemFree(closestFormat);
+						goto cleanup;
+					}
+				} else if (FAILED(hr)) {
+					qWarning("WASAPIOutput: IsFormatSupported failed: hr=0x%08lx", hr);
+				}
+
+				CoTaskMemFree(closestFormat);
+			}
+
+			hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0,
+										pwfx, nullptr);
+			if (FAILED(hr)) {
+				qWarning("WASAPIOutput: Initialize failed: hr=0x%08lx", hr);
+				goto cleanup;
+			}
 		}
 
-		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0,
-									  pwfx, nullptr);
+		qWarning() << "WASAPIOutput: Output stream format" << eSampleFormat;
+
+		pAudioClient->GetStreamLatency(&latency);
+		pAudioClient->GetBufferSize(&bufferFrameCount);
+		qWarning("WASAPIOutput: Stream Latency %lld (%d)", latency, bufferFrameCount);
+
+		iMixerFreq = pwfx->nSamplesPerSec;
+
+		qWarning("WASAPIOutput: Periods %lldus %lldus (latency %lldus)", def / 10LL, min / 10LL, latency / 10LL);
+		qWarning("WASAPIOutput: Buffer is %dus (%d)", (bufferFrameCount * 1000000) / iMixerFreq,
+				Global::get().s.iOutputDelay);
+
+		hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void **) &pRenderClient);
 		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: Initialize failed: hr=0x%08lx", hr);
+			qWarning("WASAPIOutput: GetService failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
-	}
 
-	qWarning() << "WASAPIOutput: Output stream format" << eSampleFormat;
+		pAudioClient->SetEventHandle(hEvent);
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Failed to set event: hr=0x%08lx", hr);
+			goto cleanup;
+		}
 
-	pAudioClient->GetStreamLatency(&latency);
-	pAudioClient->GetBufferSize(&bufferFrameCount);
-	qWarning("WASAPIOutput: Stream Latency %lld (%d)", latency, bufferFrameCount);
+		hr = pAudioClient->Start();
+		if (FAILED(hr)) {
+			qWarning("WASAPIOutput: Failed to start: hr=0x%08lx", hr);
+			goto cleanup;
+		}
 
-	iMixerFreq = pwfx->nSamplesPerSec;
+		if (pwfxe) {
+			for (int i = 0; i < 32; i++) {
+				if (pwfxe->dwChannelMask & (1 << i)) {
+					chanmasks[ns++] = 1 << i;
+				}
+			}
+		} else {
+			qWarning("WASAPIOutput: No chanmask available. Assigning in order.");
 
-	qWarning("WASAPIOutput: Periods %lldus %lldus (latency %lldus)", def / 10LL, min / 10LL, latency / 10LL);
-	qWarning("WASAPIOutput: Buffer is %dus (%d)", (bufferFrameCount * 1000000) / iMixerFreq,
-			 Global::get().s.iOutputDelay);
-
-	hr = pAudioClient->GetService(__uuidof(IAudioRenderClient), (void **) &pRenderClient);
-	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: GetService failed: hr=0x%08lx", hr);
-		goto cleanup;
-	}
-
-	pAudioClient->SetEventHandle(hEvent);
-	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: Failed to set event: hr=0x%08lx", hr);
-		goto cleanup;
-	}
-
-	hr = pAudioClient->Start();
-	if (FAILED(hr)) {
-		qWarning("WASAPIOutput: Failed to start: hr=0x%08lx", hr);
-		goto cleanup;
-	}
-
-	if (pwfxe) {
-		for (int i = 0; i < 32; i++) {
-			if (pwfxe->dwChannelMask & (1 << i)) {
+			for (int i = 0; i < pwfx->nChannels && i < 32; ++i) {
 				chanmasks[ns++] = 1 << i;
 			}
 		}
-	} else {
-		qWarning("WASAPIOutput: No chanmask available. Assigning in order.");
 
-		for (int i = 0; i < pwfx->nChannels && i < 32; ++i) {
-			chanmasks[ns++] = 1 << i;
-		}
-	}
-
-	if (ns != pwfx->nChannels) {
-		qWarning("WASAPIOutput: Chanmask bits doesn't match number of channels.");
-	}
-
-	iChannels = pwfx->nChannels;
-	initializeMixer(chanmasks);
-
-	numFramesAvailable = 0;
-
-	while (bRunning && !FAILED(hr)) {
-		if (!exclusive) {
-			// Attenuate stream volumes.
-			if (lastspoke != (Global::get().bAttenuateOthers || mixed)) {
-				lastspoke = Global::get().bAttenuateOthers || mixed;
-				setVolumes(pDevice, lastspoke);
-			}
-
-			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
-			if (FAILED(hr)) {
-				qWarning("WASAPIOutput: GetCurrentPadding failed: hr=0x%08lx", hr);
-				goto cleanup;
-			}
+		if (ns != pwfx->nChannels) {
+			qWarning("WASAPIOutput: Chanmask bits doesn't match number of channels.");
 		}
 
-		UINT32 packetLength = bufferFrameCount - numFramesAvailable;
+		iChannels = pwfx->nChannels;
+		initializeMixer(chanmasks);
 
-		while (packetLength > 0) {
-			hr = pRenderClient->GetBuffer(packetLength, &pData);
-			if (FAILED(hr)) {
-				qWarning("WASAPIOutput: GetBuffer failed: hr=0x%08lx", hr);
-				goto cleanup;
+		numFramesAvailable = 0;
+
+		while (bRunning && !FAILED(hr)) {
+			if (!exclusive) {
+				// Attenuate stream volumes.
+				if (lastspoke != (Global::get().bAttenuateOthers || mixed)) {
+					lastspoke = Global::get().bAttenuateOthers || mixed;
+					setVolumes(pDevice, lastspoke);
+				}
+
+				hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
+				if (FAILED(hr)) {
+					qWarning("WASAPIOutput: GetCurrentPadding failed: hr=0x%08lx", hr);
+					goto cleanup;
+				}
 			}
 
-			mixed = mix(reinterpret_cast< float * >(pData), packetLength);
-			if (mixed)
-				hr = pRenderClient->ReleaseBuffer(packetLength, 0);
-			else
-				hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
-			if (FAILED(hr)) {
-				qWarning("WASAPIOutput: ReleaseBuffer failed: hr=0x%08lx", hr);
-				goto cleanup;
+			UINT32 packetLength = bufferFrameCount - numFramesAvailable;
+
+			while (packetLength > 0) {
+				hr = pRenderClient->GetBuffer(packetLength, &pData);
+				if (FAILED(hr)) {
+					qWarning("WASAPIOutput: GetBuffer failed: hr=0x%08lx", hr);
+					goto cleanup;
+				}
+
+				mixed = mix(reinterpret_cast< float * >(pData), packetLength);
+				if (mixed)
+					hr = pRenderClient->ReleaseBuffer(packetLength, 0);
+				else
+					hr = pRenderClient->ReleaseBuffer(packetLength, AUDCLNT_BUFFERFLAGS_SILENT);
+				if (FAILED(hr)) {
+					qWarning("WASAPIOutput: ReleaseBuffer failed: hr=0x%08lx", hr);
+					goto cleanup;
+				}
+
+				// Exclusive mode rendering ends here.
+				if (exclusive)
+					break;
+
+				if (!Global::get().s.bAttenuateOthers && !Global::get().bAttenuateOthers) {
+					mixed = false;
+				}
+
+				if (lastspoke != (Global::get().bAttenuateOthers || mixed)) {
+					lastspoke = Global::get().bAttenuateOthers || mixed;
+					setVolumes(pDevice, lastspoke);
+				}
+
+				hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
+				if (FAILED(hr)) {
+					qWarning("WASAPIOutput: GetCurrentPadding failed: hr=0x%08lx", hr);
+					goto cleanup;
+				}
+
+				packetLength = bufferFrameCount - numFramesAvailable;
 			}
-
-			// Exclusive mode rendering ends here.
-			if (exclusive)
-				break;
-
-			if (!Global::get().s.bAttenuateOthers && !Global::get().bAttenuateOthers) {
-				mixed = false;
-			}
-
-			if (lastspoke != (Global::get().bAttenuateOthers || mixed)) {
-				lastspoke = Global::get().bAttenuateOthers || mixed;
-				setVolumes(pDevice, lastspoke);
-			}
-
-			hr = pAudioClient->GetCurrentPadding(&numFramesAvailable);
-			if (FAILED(hr)) {
-				qWarning("WASAPIOutput: GetCurrentPadding failed: hr=0x%08lx", hr);
-				goto cleanup;
-			}
-
-			packetLength = bufferFrameCount - numFramesAvailable;
+			if (!FAILED(hr))
+				WaitForSingleObject(hEvent, exclusive ? 100 : 2000);
 		}
-		if (!FAILED(hr))
-			WaitForSingleObject(hEvent, exclusive ? 100 : 2000);
-	}
 
-cleanup:
-	if (pwfx)
-		CoTaskMemFree(pwfx);
+	cleanup:
+		doOuterRetry = (hr == AUDCLNT_E_DEVICE_INVALIDATED);
+		if (doOuterRetry) {
+			qWarning("WASAPIOutput: Got AUDCLNT_E_DEVICE_INVALIDATED. Reinitializing");
+		}
 
-	if (pDevice) {
-		setVolumes(pDevice, false);
-	}
+		if (pwfx) {
+			CoTaskMemFree(pwfx);
+			pwfx = nullptr;
+			pwfxe = nullptr;
+		}
 
-	if (pAudioClient) {
-		pAudioClient->Stop();
-		pAudioClient->Release();
+		if (pDevice) {
+			setVolumes(pDevice, false);
+		}
+
+		if (pAudioClient) {
+			pAudioClient->Stop();
+			pAudioClient->Release();
+			pAudioClient = nullptr;
+		}
+		if (pRenderClient) {
+			pRenderClient->Release();
+			pRenderClient = nullptr;
+		}
+		pDevice.ClearDevice();
+
+		if (hEvent) {
+			CloseHandle(hEvent);
+			hEvent = nullptr;
+		}
+	
 	}
-	if (pRenderClient)
-		pRenderClient->Release();
-	if (pDevice)
-		pDevice->Release();
 
 	if (hMmThread)
 		AvRevertMmThreadCharacteristics(hMmThread);
-
-	if (hEvent)
-		CloseHandle(hEvent);
 }

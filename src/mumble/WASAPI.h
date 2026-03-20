@@ -38,6 +38,34 @@ public:
 	static const QHash< QString, QString > getOutputDevices();
 };
 
+struct WASAPIDevice {
+public:
+	WASAPIDevice();
+	WASAPIDevice(nullptr_t);
+	WASAPIDevice(WASAPIDevice&& other);
+	~WASAPIDevice();
+	void ClearDevice();
+	void ClearUsage();
+
+	operator bool() const;
+	operator IMMDevice*() const;
+	IMMDevice* operator->() const;
+	WASAPIDevice& operator=(WASAPIDevice&& other);
+
+	void OpenNamedOrDefaultDevice(const QString &name, EDataFlow dataFlow, ERole role);
+private:
+	void Move(WASAPIDevice&& other);
+
+	IMMDevice* pDevice = nullptr;
+	QString devName;
+	bool used = false;
+	bool wanted = false;
+	QString defaultDevName;
+	bool usedDefault = false;
+	bool wantDefault = false;
+};
+
+
 class WASAPIInput : public AudioInput {
 private:
 	Q_OBJECT

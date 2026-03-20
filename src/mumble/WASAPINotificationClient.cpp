@@ -20,7 +20,7 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EData
 			 << device;
 
 	QMutexLocker lock(&listsMutex);
-	if (!usedDefaultDevices.empty() && role == eCommunications) {
+	if (((wantDefaultCount > 0) || !usedDefaultDevices.empty()) && role == eCommunications) {
 		restartAudio();
 	}
 	return S_OK;
@@ -34,7 +34,7 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnPropertyValueChanged(LPCWS
 	const bool channelConfigChanged = (key == PKEY_AudioEndpoint_PhysicalSpeakers);
 
 	QMutexLocker lock(&listsMutex);
-	if ((formatChanged || channelConfigChanged) && usedDevices.contains(device)) {
+	if ((formatChanged || channelConfigChanged) && (usedDevices.contains(device) || usedDefaultDevices.contains(device))) {
 		qDebug() << "WASAPINotificationClient: Property changed device=" << device << "formatChanged=" << formatChanged
 				 << "channelConfigChanged=" << channelConfigChanged;
 
@@ -47,7 +47,7 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceAdded(LPCWSTR pwstrD
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 	qDebug() << "WASAPINotificationClient: Device added=" << device;
 
-	if (usedDevices.contains(device)) {
+	if (wantedDevices.contains(device)) {
 		restartAudio();
 	}
 
@@ -57,6 +57,9 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceAdded(LPCWSTR pwstrD
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceRemoved(LPCWSTR pwstrDeviceId) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 	qDebug() << "WASAPINotificationClient: Device removed=" << device;
+	if (usedDefaultDevices.contains(device) || usedDevices.contains(device)) {
+		restartAudio();
+	}
 	return S_OK;
 }
 
@@ -103,8 +106,18 @@ ULONG STDMETHODCALLTYPE WASAPINotificationClient::Release() {
 	return ulRef;
 }
 
-void WASAPINotificationClient::enlistDefaultDeviceAsUsed(LPCWSTR pwstrDefaultDevice) {
-	const QString device = QString::fromWCharArray(pwstrDefaultDevice);
+
+void WASAPINotificationClient::incrementWantDefault() {
+	wantDefaultCount += 1;
+}
+void WASAPINotificationClient::decrementWantDefault() {
+	wantDefaultCount -= 1;
+}
+void WASAPINotificationClient::_clearWantDefaultDeviceCount() {
+	wantDefaultCount = 0;
+}
+
+void WASAPINotificationClient::enlistDefaultDeviceAsUsed(const QString& device) {
 	QMutexLocker lock(&listsMutex);
 	if (!usedDefaultDevices.contains(device)) {
 		usedDefaultDevices.append(device);
@@ -112,10 +125,9 @@ void WASAPINotificationClient::enlistDefaultDeviceAsUsed(LPCWSTR pwstrDefaultDev
 	}
 }
 
-void WASAPINotificationClient::enlistDeviceAsUsed(LPCWSTR pwstrDevice) {
-	const QString device = QString::fromWCharArray(pwstrDevice);
+void WASAPINotificationClient::unlistDefaultDeviceAsUsed(const QString &device) {
 	QMutexLocker lock(&listsMutex);
-	_enlistDeviceAsUsed(device);
+	usedDefaultDevices.removeOne(device);
 }
 
 void WASAPINotificationClient::_enlistDeviceAsUsed(const QString &device) {
@@ -129,26 +141,54 @@ void WASAPINotificationClient::enlistDeviceAsUsed(const QString &device) {
 	_enlistDeviceAsUsed(device);
 }
 
-void WASAPINotificationClient::unlistDevice(LPCWSTR pwstrDevice) {
-	const QString device = QString::fromWCharArray(pwstrDevice);
+void WASAPINotificationClient::unlistDeviceAsUsed(const QString &device) {
 	QMutexLocker lock(&listsMutex);
 	usedDevices.removeOne(device);
-	usedDefaultDevices.removeOne(device);
+}
+
+void WASAPINotificationClient::_enlistDeviceAsWanted(const QString &device) {
+	if (!wantedDevices.contains(device)) {
+		wantedDevices.append(device);
+	}
+}
+
+void WASAPINotificationClient::enlistDeviceAsWanted(const QString &device) {
+	qDebug() << "WASAPINotificationClient: Device wanted=" << device;
+	QMutexLocker lock(&listsMutex);
+	_enlistDeviceAsWanted(device);
+}
+
+void WASAPINotificationClient::unlistDeviceAsWanted(const QString &device) {
+	qDebug() << "WASAPINotificationClient: Device unwanted=" << device;
+	QMutexLocker lock(&listsMutex);
+	wantedDevices.removeOne(device);
+}
+
+void WASAPINotificationClient::_clearUsedDefaultDeviceList() {
+	usedDefaultDevices.clear();
 }
 
 void WASAPINotificationClient::clearUsedDefaultDeviceList() {
 	QMutexLocker lock(&listsMutex);
-	usedDefaultDevices.clear();
+	_clearUsedDefaultDeviceList();
 }
 
-void WASAPINotificationClient::_clearUsedDeviceLists() {
-	usedDefaultDevices.clear();
+void WASAPINotificationClient::_clearUsedDeviceList() {
 	usedDevices.clear();
 }
 
-void WASAPINotificationClient::clearUsedDeviceLists() {
+void WASAPINotificationClient::clearUsedDeviceList() {
 	QMutexLocker lock(&listsMutex);
-	_clearUsedDeviceLists();
+	_clearUsedDeviceList();
+}
+
+void WASAPINotificationClient::_clearWantedDeviceList() {
+	wantedDevices.clear();
+}
+
+void WASAPINotificationClient::clearWantedDeviceList() {
+	QMutexLocker lock(&listsMutex);
+	_clearWantedDeviceList();
 }
 
 void WASAPINotificationClient::doGetOnce() {
@@ -194,6 +234,9 @@ WASAPINotificationClient::~WASAPINotificationClient() {
 
 void WASAPINotificationClient::restartAudio() {
 	qWarning("WASAPINotificationClient: Triggering audio reset");
-	_clearUsedDeviceLists();
+	_clearUsedDefaultDeviceList();
+	_clearWantDefaultDeviceCount();
+	_clearUsedDeviceList();
+	_clearWantedDeviceList();
 	emit doResetAudio();
 }
