@@ -43,6 +43,7 @@ public:
 	WASAPIDevice();
 	WASAPIDevice(nullptr_t);
 	WASAPIDevice(WASAPIDevice&& other);
+	WASAPIDevice(const WASAPIDevice&) = delete;
 	~WASAPIDevice();
 	void ClearDevice();
 	void ClearUsage();
@@ -51,6 +52,7 @@ public:
 	operator IMMDevice*() const;
 	IMMDevice* operator->() const;
 	WASAPIDevice& operator=(WASAPIDevice&& other);
+	WASAPIDevice& operator=(const WASAPIDevice&) = delete;
 
 	void OpenNamedOrDefaultDevice(const QString &name, EDataFlow dataFlow, ERole role);
 private:

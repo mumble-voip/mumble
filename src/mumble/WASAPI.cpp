@@ -384,6 +384,7 @@ WASAPIDevice& WASAPIDevice::operator=(WASAPIDevice&& other) {
 	ClearDevice();
 	ClearUsage();
 	Move(std::move(other));
+	return *this;
 }
 
 WASAPIDevice::operator bool() const {
@@ -497,9 +498,9 @@ void WASAPIInput::run() {
 	HANDLE hMmThread;
 	float *tbuff = nullptr;
 	short *sbuff = nullptr;
-	bool doecho  = Global::get().s.doEcho();
+	bool doecho;
 	REFERENCE_TIME def, min, latency, want;
-	bool exclusive = false;
+	bool exclusive;
 
 	CoInitialize(nullptr);
 
@@ -512,6 +513,8 @@ void WASAPIInput::run() {
 	bool doOuterRetry = true;
 	while (doOuterRetry) {
 		hr = 0;
+		doecho  = Global::get().s.doEcho();
+		exclusive = false;
 
 		hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
@@ -1007,13 +1010,13 @@ void WASAPIOutput::run() {
 	BYTE *pData;
 	DWORD dwTaskIndex = 0;
 	HANDLE hMmThread;
-	int ns = 0;
+	int ns;
 	unsigned int chanmasks[32];
-	bool lastspoke = false;
+	bool lastspoke;
 	REFERENCE_TIME bufferDuration =
 		(Global::get().s.iOutputDelay > 1) ? (Global::get().s.iOutputDelay + 1) * 100000 : 0;
-	bool exclusive = false;
-	bool mixed     = false;
+	bool exclusive;
+	bool mixed;
 
 	CoInitialize(nullptr);
 
@@ -1026,6 +1029,10 @@ void WASAPIOutput::run() {
 	bool doOuterRetry = true;
 	while (doOuterRetry) {
 		hr = 0;
+		ns = 0;
+		lastspoke = false;
+		exclusive = false;
+		mixed     = false;
 
 		hEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 
