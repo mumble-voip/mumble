@@ -47,6 +47,7 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceAdded(LPCWSTR pwstrD
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 	qDebug() << "WASAPINotificationClient: Device added=" << device;
 
+	QMutexLocker lock(&listsMutex);
 	if (wantedDevices.contains(device)) {
 		restartAudio();
 	}
@@ -57,6 +58,8 @@ HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceAdded(LPCWSTR pwstrD
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDeviceRemoved(LPCWSTR pwstrDeviceId) {
 	const QString device = QString::fromWCharArray(pwstrDeviceId);
 	qDebug() << "WASAPINotificationClient: Device removed=" << device;
+
+	QMutexLocker lock(&listsMutex);
 	if (usedDefaultDevices.contains(device) || usedDevices.contains(device)) {
 		restartAudio();
 	}
