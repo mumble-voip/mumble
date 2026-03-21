@@ -18,7 +18,10 @@
 #include "VoiceRecorder.h"
 #include "Global.h"
 
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
 #include "WebRTC_Priv.h"
+#endif
+
 #include <opus.h>
 
 #ifdef USE_RNNOISE

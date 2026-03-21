@@ -15,7 +15,10 @@
 #include "GlobalShortcut.h"
 #include "GlobalShortcutButtons.h"
 
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
 #include "WebRTC_Priv.h"
+#endif
+
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QGraphicsEllipseItem>
 
