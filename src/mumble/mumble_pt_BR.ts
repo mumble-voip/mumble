@@ -1239,6 +1239,30 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation>&lt;b&gt;Exibe o pico de uso de largura de banda de saída.&lt;/b&gt;&lt;br /&gt;Exibe a quantidade máxima de largura de banda enviada do seu dispositivo. A taxa de bits de áudio representa o valor máximo somente para os dados de áudio. Posição é a taxa de bits utilizada para informações de posição. Sobrecarga é o nosso enquadramento e cabeçalhos de pacotes de IP (IP e UDP representam 75% dessa sobrecarga).</translation>
     </message>
+    <message>
+        <source>Use WebRTC GMM based speech detection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This sets speech detection to use the WebRTC VAD algorithm.&lt;/b&gt;&lt;br /&gt;In this mode, a configuration-free Gaussian Mixture Model is used to detect speech.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WebRTC GMM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aggressiveness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Controls aggressiveness of WebRTC VAD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher values make the VAD more aggressive in filtering noise.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -2308,6 +2332,22 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
         <translation>Representa visualmente o áudio posicional que está sendo reproduzido no momento</translation>
+    </message>
+    <message>
+        <source>Next you need to choose the voice detection sensitivity. The aggressiveness level controls how strictly speech is detected. Lower levels are more permissive and will pick up quiet or distant speech, but may also trigger on background noise. Higher levels are more strict and will better filter out noise, but may cut off softer speech.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice activity detection aggressiveness level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will set the aggressiveness in which Mumble will consider a signal speech. Increase value to make voice activation less sensitive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WebRTC GMM</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
