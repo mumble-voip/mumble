@@ -234,7 +234,7 @@ protected:
 	std::atomic< Settings::VADSource > m_vad;
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
-	std::unique_ptr< webrtc::Vad > m_vadWebrtc;
+	std::shared_ptr< webrtc::Vad > m_vadWebrtc;
 	webrtc::Vad::Aggressiveness m_vadWebrtcAggressiveness;
 #endif
 
