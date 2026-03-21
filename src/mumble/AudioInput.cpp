@@ -28,6 +28,7 @@ extern "C" {
 #endif
 
 #include <algorithm>
+#include <atomic>
 #include <cassert>
 #include <chrono>
 #include <exception>
@@ -948,7 +949,9 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 						   static_cast< std::streamsize >(iFrameSize * sizeof(short)));
 	}
 
-	switch (m_vad) {
+	Settings::VADSource currentVad = m_vad.load();
+
+	switch (currentVad) {
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
 		case Settings::WebRTC:
 			fSpeechProb = !!m_vadWebrtc->VoiceActivity(psSource, iFrameSize, iSampleRate);
@@ -960,7 +963,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	// clean microphone level: peak of filtered signal attenuated by AGC gain
 	dPeakCleanMic = qMax(dPeakSignal - static_cast< float >(gainValue), -96.0f);
-	float level   = (m_vad == Settings::Amplitude) ? (1.0f + dPeakCleanMic / 96.0f) : fSpeechProb;
+	float level   = (currentVad == Settings::Amplitude) ? (1.0f + dPeakCleanMic / 96.0f) : fSpeechProb;
 
 	bool bIsSpeech = false;
 
@@ -1260,20 +1263,20 @@ void AudioInput::updateUserMuteDeafState(const ClientUser *user) {
 }
 
 void AudioInput::updateVad(Settings::VADSource src) {
-	m_vad = src;
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
-	if (m_vad == Settings::WebRTC) {
+	if (src == Settings::WebRTC) {
 		m_vadWebrtc = webrtc::CreateVad(m_vadWebrtcAggressiveness);
 	} else {
 		m_vadWebrtc.reset();
 	}
 #endif
+	m_vad.store(src);
 }
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
 void AudioInput::updateWebrtcAggressiveness(webrtc::Vad::Aggressiveness aggressiveness) {
 	m_vadWebrtcAggressiveness = aggressiveness;
-	if (m_vad == Settings::WebRTC && m_vadWebrtc) {
+	if (m_vad.load() == Settings::WebRTC && m_vadWebrtc) {
 		m_vadWebrtc = webrtc::CreateVad(m_vadWebrtcAggressiveness);
 	}
 }

@@ -11,6 +11,7 @@
 #include <QThread>
 
 #include <array>
+#include <atomic>
 #include <cstdint>
 #include <fstream>
 #include <list>
@@ -230,7 +231,7 @@ protected:
 	AudioPreprocessor m_preprocessor;
 	SpeexEchoState *sesEcho;
 
-	Settings::VADSource m_vad;
+	std::atomic< Settings::VADSource > m_vad;
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
 	std::unique_ptr< webrtc::Vad > m_vadWebrtc;
