@@ -417,7 +417,7 @@
                <string>Use WebRTC GMM based speech detection</string>
               </property>
               <property name="whatsThis">
-               <string>&lt;b&gt;This sets speech detection to use WebRTC VAD algorithm.&lt;/b&gt;&lt;br /&gt;In this mode, a config-free Gaussian Mixture Model was used to detecting speech.</string>
+               <string>&lt;b&gt;This sets speech detection to use the WebRTC VAD algorithm.&lt;/b&gt;&lt;br /&gt;In this mode, a configuration-free Gaussian Mixture Model is used to detect speech.</string>
               </property>
 	      <property name="visible">
                <bool>false</bool>
