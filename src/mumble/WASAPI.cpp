@@ -520,8 +520,10 @@ void WASAPIInput::run() {
 
 		// Open mic device.
 		pMicDevice.OpenNamedOrDefaultDevice(Global::get().s.qsWASAPIInput, eCapture, WASAPIRoleFromSettings());
-		if (!pMicDevice)
+		if (!pMicDevice) {
+			micGone();
 			goto cleanup;
+		}
 
 		// Open echo capture device.
 		if (doecho) {
