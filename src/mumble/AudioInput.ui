@@ -1229,9 +1229,11 @@
   <tabstop>qcbTransmit</tabstop>
   <tabstop>qrbAmplitude</tabstop>
   <tabstop>qrbSNR</tabstop>
+  <tabstop>qrbWebRTC</tabstop>
   <tabstop>qsTransmitHold</tabstop>
   <tabstop>qsTransmitMin</tabstop>
   <tabstop>qsTransmitMax</tabstop>
+  <tabstop>qsWebRTCAggressiveness</tabstop>
   <tabstop>qsQuality</tabstop>
   <tabstop>qsDoublePush</tabstop>
   <tabstop>qsPTTHold</tabstop>
