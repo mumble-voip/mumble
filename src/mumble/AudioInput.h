@@ -234,6 +234,7 @@ protected:
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
 	std::unique_ptr< webrtc::Vad > m_vadWebrtc;
+	webrtc::Vad::Aggressiveness m_vadWebrtcAggressiveness;
 #endif
 
 	/// bResetEncoder is a flag that notifies
@@ -326,7 +327,7 @@ public:
 	void updateVad(Settings::VADSource src);
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
-	webrtc::Vad::Aggressiveness m_vadWebrtcAggressiveness;
+	void updateWebrtcAggressiveness(webrtc::Vad::Aggressiveness);
 #endif
 
 

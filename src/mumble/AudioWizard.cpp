@@ -666,7 +666,7 @@ void AudioWizard::on_qrWebRTC_toggled(bool on) {
 
 void AudioWizard::on_qsWebRTCAggressiveness_valueChanged(int aggressiveness) {
 	Global::get().s.fVADWebRTCAggressiveness    = aggressiveness;
-	Global::get().ai->m_vadWebrtcAggressiveness = static_cast< webrtc::Vad::Aggressiveness >(aggressiveness);
+	Global::get().ai->updateWebrtcAggressiveness(static_cast< webrtc::Vad::Aggressiveness >(aggressiveness));
 	updateVad();
 }
 #endif

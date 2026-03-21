@@ -1264,9 +1264,20 @@ void AudioInput::updateVad(Settings::VADSource src) {
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
 	if (m_vad == Settings::WebRTC) {
 		m_vadWebrtc = webrtc::CreateVad(m_vadWebrtcAggressiveness);
+	} else {
+		m_vadWebrtc.reset();
 	}
 #endif
 }
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+void AudioInput::updateWebrtcAggressiveness(webrtc::Vad::Aggressiveness aggressiveness) {
+	m_vadWebrtcAggressiveness = aggressiveness;
+	if (m_vad == Settings::WebRTC && m_vadWebrtc) {
+		m_vadWebrtc = webrtc::CreateVad(m_vadWebrtcAggressiveness);
+	}
+}
+#endif
 
 void AudioInput::onUserMutedChanged() {
 }
