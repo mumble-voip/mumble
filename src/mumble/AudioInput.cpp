@@ -291,6 +291,8 @@ AudioInput::AudioInput()
 	connect(this, SIGNAL(doDeaf()), Global::get().mw->qaAudioDeaf, SLOT(trigger()), Qt::QueuedConnection);
 	connect(this, SIGNAL(doMute()), Global::get().mw->qaAudioMute, SLOT(trigger()), Qt::QueuedConnection);
 	connect(this, SIGNAL(doMuteCue()), Global::get().mw, SLOT(on_muteCuePopup_triggered()));
+
+	resetAudioProcessor();
 }
 
 AudioInput::~AudioInput() {
@@ -546,12 +548,14 @@ void AudioInput::initializeMixer() {
 		static_cast< unsigned int >(iEchoChannels * ((eEchoFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
 
 	bResetProcessor = true;
+	resetAudioProcessor();
 
 	qWarning("AudioInput: Initialized mixer for %d channel %d hz mic and %d channel %d hz echo", iMicChannels, iMicFreq,
 			 iEchoChannels, iEchoFreq);
 	if (uiMicChannelMask != 0xffffffffffffffffULL) {
 		qWarning("AudioInput: using mic channel mask 0x%llx", static_cast< unsigned long long >(uiMicChannelMask));
 	}
+
 }
 
 void AudioInput::addMic(const void *data, unsigned int nsamp) {
@@ -891,7 +895,6 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	}
 
 	QMutexLocker l(&qmSpeex);
-	resetAudioProcessor();
 
 	const std::int32_t gainValue = m_preprocessor.getAGCGain();
 
