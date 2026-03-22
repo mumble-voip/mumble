@@ -651,10 +651,10 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 			m_serverDB.getGroupMemberTable().addEntry(serverID, groupID,
 													  static_cast< unsigned int >(addedGroupMemberID), true);
 		}
-		for (int removeddGroupMemberID : currentGroup->qsRemove) {
-			assert(removeddGroupMemberID >= 0);
+		for (int removedGroupMemberID : currentGroup->qsRemove) {
+			assert(removedGroupMemberID >= 0);
 			m_serverDB.getGroupMemberTable().addEntry(serverID, groupID,
-													  static_cast< unsigned int >(removeddGroupMemberID), false);
+													  static_cast< unsigned int >(removedGroupMemberID), false);
 		}
 	}
 
