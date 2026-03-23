@@ -102,7 +102,12 @@ namespace Protocol {
 
 		buffer.resize(serializedSize + offset);
 
-		message.SerializePartialToArray(buffer.data() + offset, static_cast< int >(serializedSize));
+		bool success = message.SerializePartialToArray(buffer.data() + offset, static_cast< int >(serializedSize));
+
+		if (!success) {
+			qWarning("Failed to serialize protobuf message");
+			return 0;
+		}
 
 		return serializedSize;
 	}

@@ -173,7 +173,12 @@ void Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble
 	qToBigEndian< quint16 >(static_cast< quint16 >(msgType), &uc[0]);
 	qToBigEndian< quint32 >(static_cast< unsigned int >(len), &uc[2]);
 
-	msg.SerializeToArray(uc + 6, static_cast< int >(len));
+	bool success = msg.SerializeToArray(uc + 6, static_cast< int >(len));
+	if (!success) {
+		qWarning("Failed to serialize protobuf message");
+		cache.clear();
+		return;
+	}
 }
 
 void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
