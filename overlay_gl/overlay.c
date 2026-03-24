@@ -92,25 +92,23 @@ typedef struct _Context {
 	unsigned int frameCount;
 } Context;
 
-static const char vshader[] =
-	"#version 330\n"
-	"layout(location = 0) in vec2 position;\n"
-	"layout(location = 1) in vec2 texcoord;\n"
-	"uniform mat4 mvp;\n"
-	"out vec2 v_texcoord;\n"
-	"void main() {\n"
-	"    gl_Position = mvp * vec4(position, 0.0, 1.0);\n"
-	"    v_texcoord = texcoord;\n"
-	"}\n";
+static const char vshader[] = "#version 330\n"
+							  "layout(location = 0) in vec2 position;\n"
+							  "layout(location = 1) in vec2 texcoord;\n"
+							  "uniform mat4 mvp;\n"
+							  "out vec2 v_texcoord;\n"
+							  "void main() {\n"
+							  "    gl_Position = mvp * vec4(position, 0.0, 1.0);\n"
+							  "    v_texcoord = texcoord;\n"
+							  "}\n";
 
-static const char fshader[] =
-	"#version 330\n"
-	"uniform sampler2D tex;\n"
-	"in vec2 v_texcoord;\n"
-	"layout(location = 0) out vec4 fragColor;\n"
-	"void main() {\n"
-	"    fragColor = texture(tex, v_texcoord);\n"
-	"}\n";
+static const char fshader[] = "#version 330\n"
+							  "uniform sampler2D tex;\n"
+							  "in vec2 v_texcoord;\n"
+							  "layout(location = 0) out vec4 fragColor;\n"
+							  "void main() {\n"
+							  "    fragColor = texture(tex, v_texcoord);\n"
+							  "}\n";
 
 const GLfloat fBorder[] = { 0.125f, 0.250f, 0.5f, 0.75f };
 
@@ -201,17 +199,17 @@ static void resolveGLFunctions(void) {
 	}
 	resolved = true;
 
-#	define GLRESOLVE(name)                                                                    \
-		do {                                                                                  \
-			if (oglXGetProcAddressARB) {                                                      \
+#	define GLRESOLVE(name)                                                                     \
+		do {                                                                                    \
+			if (oglXGetProcAddressARB) {                                                        \
 				o##name = (__typeof__(o##name)) oglXGetProcAddressARB((const GLubyte *) #name); \
-			}                                                                                 \
-			if (!o##name && oglXGetProcAddress) {                                              \
-				o##name = (__typeof__(o##name)) oglXGetProcAddress((const GLubyte *) #name);   \
-			}                                                                                 \
-			if (!o##name && odlsym) {                                                         \
-				o##name = (__typeof__(o##name)) odlsym(RTLD_DEFAULT, #name);                  \
-			}                                                                                 \
+			}                                                                                   \
+			if (!o##name && oglXGetProcAddress) {                                               \
+				o##name = (__typeof__(o##name)) oglXGetProcAddress((const GLubyte *) #name);    \
+			}                                                                                   \
+			if (!o##name && odlsym) {                                                           \
+				o##name = (__typeof__(o##name)) odlsym(RTLD_DEFAULT, #name);                    \
+			}                                                                                   \
 		} while (0)
 
 	GLRESOLVE(glXGetCurrentContext);
@@ -273,13 +271,12 @@ static void resolveGLFunctions(void) {
 
 #	undef GLRESOLVE
 
-	if (!oglBindBuffer || !oglBindTexture || !oglBindVertexArray || !oglUseProgram || !oglDrawArrays
-		|| !oglEnable || !oglDisable || !oglViewport || !oglGetIntegerv || !oglGetError
-		|| !oglGenBuffers || !oglGenTextures || !oglGenVertexArrays
-		|| !oglCreateProgram || !oglCreateShader || !oglCompileShader || !oglLinkProgram || !oglAttachShader
-		|| !oglBlendEquation || !oglTexImage2D || !oglTexSubImage2D || !oglTexParameteri
-		|| !oglGetTexParameterfv || !oglGetUniformLocation || !oglUniform1i || !oglUniformMatrix4fv
-		|| !oglGetShaderiv || !oglGetProgramiv) {
+	if (!oglBindBuffer || !oglBindTexture || !oglBindVertexArray || !oglUseProgram || !oglDrawArrays || !oglEnable
+		|| !oglDisable || !oglViewport || !oglGetIntegerv || !oglGetError || !oglGenBuffers || !oglGenTextures
+		|| !oglGenVertexArrays || !oglCreateProgram || !oglCreateShader || !oglCompileShader || !oglLinkProgram
+		|| !oglAttachShader || !oglBlendEquation || !oglTexImage2D || !oglTexSubImage2D || !oglTexParameteri
+		|| !oglGetTexParameterfv || !oglGetUniformLocation || !oglUniform1i || !oglUniformMatrix4fv || !oglGetShaderiv
+		|| !oglGetProgramiv) {
 		resolveFailed = true;
 	}
 }
@@ -735,14 +732,8 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	float xmx = right / w;
 	float ymx = bottom / h;
 
-	GLfloat data[] = {
-		left,  bottom, xm,  ymx,
-		left,  top,    xm,  ym,
-		right, top,    xmx, ym,
-		left,  bottom, xm,  ymx,
-		right, top,    xmx, ym,
-		right, bottom, xmx, ymx
-	};
+	GLfloat data[] = { left, bottom, xm, ymx, left,  top, xm,  ym, right, top,    xmx, ym,
+					   left, bottom, xm, ymx, right, top, xmx, ym, right, bottom, xmx, ymx };
 
 	glBindVertexArray(ctx->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, ctx->vbo);
@@ -800,11 +791,11 @@ static void drawContext(Context *ctx, int width, int height) {
 	glGetIntegerv(GL_UNPACK_ROW_LENGTH, &savedUnpackRowLength);
 	glGetIntegerv(GL_UNPACK_SKIP_PIXELS, &savedUnpackSkipPixels);
 	glGetIntegerv(GL_UNPACK_SKIP_ROWS, &savedUnpackSkipRows);
-	savedBlend          = glIsEnabled(GL_BLEND);
-	savedDepthTest      = glIsEnabled(GL_DEPTH_TEST);
-	savedScissorTest    = glIsEnabled(GL_SCISSOR_TEST);
-	savedCullFace       = glIsEnabled(GL_CULL_FACE);
-	savedStencilTest    = glIsEnabled(GL_STENCIL_TEST);
+	savedBlend           = glIsEnabled(GL_BLEND);
+	savedDepthTest       = glIsEnabled(GL_DEPTH_TEST);
+	savedScissorTest     = glIsEnabled(GL_SCISSOR_TEST);
+	savedCullFace        = glIsEnabled(GL_CULL_FACE);
+	savedStencilTest     = glIsEnabled(GL_STENCIL_TEST);
 	savedFramebufferSrgb = glIsEnabled(GL_FRAMEBUFFER_SRGB);
 	glGetIntegerv(GL_BLEND_SRC_RGB, &savedBlendSrcRGB);
 	glGetIntegerv(GL_BLEND_DST_RGB, &savedBlendDstRGB);
@@ -872,14 +863,38 @@ static void drawContext(Context *ctx, int width, int height) {
 	glActiveTexture((GLenum) savedActiveTexture);
 	glViewport(savedViewport[0], savedViewport[1], savedViewport[2], savedViewport[3]);
 	glUseProgram((GLuint) savedProgram);
-	if (savedBlend) { glEnable(GL_BLEND); } else { glDisable(GL_BLEND); }
-	if (savedDepthTest) { glEnable(GL_DEPTH_TEST); } else { glDisable(GL_DEPTH_TEST); }
-	if (savedScissorTest) { glEnable(GL_SCISSOR_TEST); } else { glDisable(GL_SCISSOR_TEST); }
-	if (savedCullFace) { glEnable(GL_CULL_FACE); } else { glDisable(GL_CULL_FACE); }
-	if (savedStencilTest) { glEnable(GL_STENCIL_TEST); } else { glDisable(GL_STENCIL_TEST); }
-	if (savedFramebufferSrgb) { glEnable(GL_FRAMEBUFFER_SRGB); } else { glDisable(GL_FRAMEBUFFER_SRGB); }
-	glBlendFuncSeparate((GLenum) savedBlendSrcRGB, (GLenum) savedBlendDstRGB,
-						(GLenum) savedBlendSrcAlpha, (GLenum) savedBlendDstAlpha);
+	if (savedBlend) {
+		glEnable(GL_BLEND);
+	} else {
+		glDisable(GL_BLEND);
+	}
+	if (savedDepthTest) {
+		glEnable(GL_DEPTH_TEST);
+	} else {
+		glDisable(GL_DEPTH_TEST);
+	}
+	if (savedScissorTest) {
+		glEnable(GL_SCISSOR_TEST);
+	} else {
+		glDisable(GL_SCISSOR_TEST);
+	}
+	if (savedCullFace) {
+		glEnable(GL_CULL_FACE);
+	} else {
+		glDisable(GL_CULL_FACE);
+	}
+	if (savedStencilTest) {
+		glEnable(GL_STENCIL_TEST);
+	} else {
+		glDisable(GL_STENCIL_TEST);
+	}
+	if (savedFramebufferSrgb) {
+		glEnable(GL_FRAMEBUFFER_SRGB);
+	} else {
+		glDisable(GL_FRAMEBUFFER_SRGB);
+	}
+	glBlendFuncSeparate((GLenum) savedBlendSrcRGB, (GLenum) savedBlendDstRGB, (GLenum) savedBlendSrcAlpha,
+						(GLenum) savedBlendDstAlpha);
 	glBlendEquationSeparate((GLenum) savedBlendEqRGB, (GLenum) savedBlendEqAlpha);
 	glColorMask(savedColorMask[0], savedColorMask[1], savedColorMask[2], savedColorMask[3]);
 	if (savedPolygonMode[0] != GL_FILL || savedPolygonMode[1] != GL_FILL) {
