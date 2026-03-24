@@ -180,7 +180,7 @@ void Connection::socketDisconnected() {
 	emit connectionClosed(QAbstractSocket::UnknownSocketError, QString());
 }
 
-void Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+bool Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 								  QByteArray &cache) {
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
 	std::size_t len = msg.ByteSizeLong();
@@ -189,7 +189,7 @@ void Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble
 	std::size_t len = msg.ByteSize();
 #endif
 	if (len > 0x7fffff)
-		return;
+		return false;
 	cache.resize(static_cast< int >(len + 6));
 	unsigned char *uc = reinterpret_cast< unsigned char * >(cache.data());
 	qToBigEndian< quint16 >(static_cast< quint16 >(msgType), &uc[0]);
@@ -199,14 +199,18 @@ void Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble
 	if (!success) {
 		qWarning("Failed to serialize protobuf message");
 		cache.clear();
-		return;
+		return false;
 	}
+	return true;
 }
 
 void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 							 QByteArray &cache) {
 	if (cache.isEmpty()) {
-		messageToNetwork(msg, msgType, cache);
+		if (!messageToNetwork(msg, msgType, cache)) {
+			qWarning("Sending message to network failed");
+			return;
+		};
 	}
 
 	sendMessage(cache);
