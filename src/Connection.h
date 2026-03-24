@@ -63,7 +63,7 @@ signals:
 public:
 	Connection(QObject *parent, QSslSocket *qtsSocket);
 	~Connection();
-	static void messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+	static bool messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 								 QByteArray &cache);
 	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 					 QByteArray &cache);
