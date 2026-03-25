@@ -302,18 +302,15 @@ CLIOptions parseCLI(int argc, char **argv) {
 		std::stringstream info_stream, error_stream;
 		app.exit(e, info_stream, error_stream);
 
-		if (e.get_exit_code() != static_cast< int >(CLI::ExitCodes::Success)) {
-			const std::string err  = error_stream.str();
-			const std::string info = info_stream.str();
+		const std::string err  = error_stream.str();
+		const std::string info = info_stream.str();
 
-			if (!err.empty()) {
-				std::cerr << err;
-			}
-			if (!info.empty()) {
-				std::cerr << info;
-			}
-		} else {
-			std::cout << info_stream.str();
+		if (!err.empty()) {
+			std::cerr << err << std::endl;
+		}
+
+		if (!info.empty()) {
+			std::cout << info << std::endl;
 		}
 
 		options.quit     = true;
@@ -387,7 +384,7 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qInfo("%s\n", qPrintable(License::license()));
+			std::cout << qPrintable(License::license()) << std::endl;
 			return 0;
 #endif
 		} else if (cli_options.printAuthors) {
@@ -396,8 +393,8 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qInfo("%s\n",
-				  "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
+			std::cout << "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors"
+					  << std::endl;
 			return 0;
 #endif
 		} else if (cli_options.printThirdPartyLicenses) {
@@ -406,7 +403,7 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+			std::cout << qPrintable(License::printableThirdPartyLicenseInfo()) << std::endl;
 			return 0;
 #endif
 		}

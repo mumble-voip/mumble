@@ -360,11 +360,17 @@ CLIOptions parseCLI(int argc, char **argv) {
 		std::stringstream info_stream, error_stream;
 		app.exit(e, info_stream, error_stream);
 
-		if (e.get_exit_code() != static_cast< int >(CLI::ExitCodes::Success)) {
-			qWarning("%s", error_stream.str().c_str());
-		} else {
-			qInfo("%s", info_stream.str().c_str());
+		const std::string err  = error_stream.str();
+		const std::string info = info_stream.str();
+
+		if (!err.empty()) {
+			std::cerr << err << std::endl;
 		}
+
+		if (!info.empty()) {
+			std::cout << info << std::endl;
+		}
+
 		options.quit     = true;
 		options.exitCode = e.get_exit_code();
 	}
@@ -420,8 +426,9 @@ int main(int argc, char **argv) {
 			Global::g_global_struct = new Global(inifile.fileName());
 			settingsFile            = inifile.fileName();
 		} else {
-			printf("%s", qPrintable(MainWindow::tr("Configuration file %1 does not exist or is not writable.\n")
-										.arg(inifile.fileName())));
+			std::cerr << qPrintable(
+				MainWindow::tr("Configuration file %1 does not exist or is not writable.\n").arg(inifile.fileName()))
+					  << std::endl;
 			return 1;
 		}
 	} else {
@@ -451,15 +458,16 @@ int main(int argc, char **argv) {
 		Global::get().windowTitlePostfix = QString::fromStdString(*options.windowTitleExt);
 	}
 	if (options.showLicense) {
-		printf("%s\n", qPrintable(License::license()));
+		std::cout << qPrintable(License::license()) << std::endl;
 		return 0;
 	}
 	if (options.showAuthors) {
-		printf("%s\n", "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
+		std::cout << "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors"
+				  << std::endl;
 		return 0;
 	}
 	if (options.showThirdPartyLicenses) {
-		printf("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+		std::cout << qPrintable(License::printableThirdPartyLicenseInfo()) << std::endl;
 		return 0;
 	}
 	if (options.rpcCommand) {
@@ -478,7 +486,7 @@ int main(int argc, char **argv) {
 		// (doc.qt.io/qt-5/qfile.html#platform-specific-issues)
 		// so we can just let things fail down below when this directory is used.
 		if (!qdCert.exists()) { // probably not reached since cli11 checks for existence
-			printf("%s", qPrintable(MainWindow::tr("Directory %1 does not exist.\n").arg(qdCert.absolutePath())));
+			std::cerr << qPrintable(MainWindow::tr("Directory %1 does not exist.\n").arg(qdCert.absolutePath()));
 			return 1;
 		}
 	}
@@ -528,7 +536,7 @@ int main(int argc, char **argv) {
 #if defined(Q_OS_WIN)
 		QMessageBox::information(nullptr, QObject::tr("Invocation"), infoString);
 #else
-		printf("%s", qUtf8Printable(infoString));
+		std::cout << qUtf8Printable(infoString);
 #endif
 
 		return 0;
@@ -627,8 +635,9 @@ int main(int argc, char **argv) {
 	UserLockFile userLockFile(Global::get().qdBasePath.filePath(QLatin1String("mumble.lock")));
 	if (!options.allowMultiple) {
 		if (!userLockFile.acquire()) {
-			qWarning("Another process has already acquired the lock file at '%s'. Terminating...",
-					 qPrintable(userLockFile.path()));
+			std::cerr << qPrintable(
+				QString("Another process has already acquired the lock file at '%1'. Terminating...\n")
+					.arg(userLockFile.path()));
 			return 1;
 		}
 	}
@@ -696,7 +705,7 @@ int main(int argc, char **argv) {
 		settingsLocale = QLocale(localeOverwrite);
 
 		if (settingsLocale == QLocale::c()) {
-			qFatal("Invalid locale specification \"%s\"", qUtf8Printable(localeOverwrite));
+			std::cerr << qUtf8Printable(QString("Invalid locale specification \"%1\"\n").arg(localeOverwrite));
 			return 1;
 		}
 
