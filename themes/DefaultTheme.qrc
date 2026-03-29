@@ -105,4 +105,8 @@
     <file alias="OSX Lite.qss">Default/OSX Lite.qss</file>
     <file alias="status/text-missing.svg">Default/status/text-missing.svg</file>
 </qresource>
+<qresource prefix="themes/Discord">
+    <file alias="theme.ini">Discord/theme.ini</file>
+    <file alias="Discord.qss">Discord/Discord.qss</file>
+</qresource>
 </RCC>
