@@ -120,6 +120,7 @@ jobs:
         compression-level: 9
         path: |
           build/mumble
+          build/Mumble.app
           build/mumble-server
           build/**/mumble*.msi
           build/**/mumble*.exe
