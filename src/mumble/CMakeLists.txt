@@ -145,6 +145,8 @@ set(MUMBLE_SOURCES
 	"Database.h"
 	"DeveloperConsole.cpp"
 	"DeveloperConsole.h"
+	"Documentation.cpp"
+	"Documentation.h"
 	"EchoCancelOption.cpp"
 	"EchoCancelOption.h"
 	"EnumStringConversions.cpp"
