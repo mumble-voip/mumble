@@ -39,6 +39,9 @@ if(WIN32)
 	option(wasapi "Build support for WASAPI." ON)
 	option(xboxinput "Build support for global shortcuts from Xbox controllers via the XInput DLL." ON)
 	option(gkey "Build support for Logitech G-Keys. Note: This feature does not require any build-time dependencies, and requires Logitech Gaming Software to be installed to have any effect at runtime." ON)
+	if(MSVC)
+		option(win-universal-mute "Build support for Windows Universal Mute (Win11 22H2+) with simple fallback for earlier versions." ON)
+	endif()
 elseif(UNIX)
 	if(APPLE)
 		option(coreaudio "Build support for CoreAudio." ON)
@@ -657,6 +660,18 @@ if(WIN32)
 			hid.lib
 			wintrust.lib
 	)
+
+	if(win-universal-mute)
+		target_sources(mumble_client_object_lib PRIVATE
+			"UniversalMute.cpp"
+			"UniversalMute.h"
+		)
+		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_WIN_UNIVERSAL_MUTE")
+		# WinRT required; delay-load so the binary still starts on Windows 7 where runtimeobject.dll
+		# does not exist. IsWindows8OrGreater() must guard call sites at runtime.
+		target_link_libraries(mumble_client_object_lib PUBLIC runtimeobject.lib)
+		set_property(TARGET mumble_client_object_lib APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:runtimeobject.dll")
+	endif()
 else()
 	target_sources(mumble_client_object_lib PRIVATE "SharedMemory_unix.cpp")
 
