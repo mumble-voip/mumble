@@ -41,29 +41,19 @@ For common configurations, you can also use the [pre-built vcpkg environments](h
 
 1. Download & unzip the appropriate environment from [the releases page](https://github.com/mumble-voip/vcpkg/releases).
 2. When using the `cmake` commands below, use the unzipped folder as `<vcpkg dir>` in the `-DCMAKE_TOOLCHAIN_FILE` and `-DIce_HOME` arguments. Use
-   the corresponding triplet for `-DVCPKG_TARGET_TRIPLET`.
+   the corresponding triplet for `-DVCPKG_TARGET_TRIPLET`. You'll also need to set `-Dbundled-cli11=OFF` and `-Dbundled-spdlog=OFF`
 
 For example, on Windows, after extracting `mumble_env.x64-windows-static-md.<hash>.7z` to `C:\mumble-env\`:
 
-```powershell
-cmake -G Ninja `
-      "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" `
-      "-Dstatic=ON" `
-      "-DCMAKE_TOOLCHAIN_FILE=C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\scripts\buildsystems\vcpkg.cmake" `
-      "-DIce_HOME=C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\installed\x64-windows-static-md" `
-      "-DCMAKE_BUILD_TYPE=Release" `
-      -Dbundled-cli11=OFF `
-      -Dbundled-spdlog=OFF `
-      ..
-```
+|CMake generator option|Value|
+|-|-|
+|`VCPKG_TARGET_TRIPLET`|`x64-windows-static-md`|
+|`CMAKE_TOOLCHAIN_FILE`|`C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\scripts\buildsystems\vcpkg.cmake"`|
+|`Ice_HOME`|`C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\installed\x64-windows-static-md"`|
+|`bundled-cli11`|`OFF`|
+|`bundled-spdlog`|`OFF`|
 
 (Replace `<hash>` with the commit hash in the filename, e.g. `b1fe4a4257`.)
-
-> [!NOTE]
-> The `-Dbundled-cli11=OFF -Dbundled-spdlog=OFF` flags are required when using pre-built environments from after 2026-02. Without these flags, linker errors for unresolved CLI11/spdlog/fmt symbols will occur. See [common build errors](common_build_errors.md) for details.
-
-If you ran previous builds that failed with missing dependencies, you may need to delete and recreate your `build/` directory before using the new toolchain, or CMake will continue to struggle finding dependencies.
-
 
 ### Manual installation
 
@@ -152,12 +142,14 @@ Important configuration options
 | `CMAKE_TOOLCHAIN_FILE` | `<vcpkg_root>/scripts/buildsystems/vcpkg.cmake` | |
 | `Ice_HOME` | `<vcpkg dir>/installed/x64-windows-static-md` | Required if you build with Ice (enabled by default) |
 | `static` | `ON` | |
+| `bundled-cli11` and<br />`bundled-spdlog`|`OFF`|Required when using pre-built environments from after 2026-02. Without these flags, linker errors for unresolved CLI11/spdlog/fmt symbols will occur. See [common build errors](common_build_errors.md)|
 
-`<vcpkg dir>` is a placeholder for your prepared build environment vcpkg setup (the path to the vcpkg directory created by the get_dependency script).
+`<vcpkg dir>` is a placeholder for your prepared build environment vcpkg setup (the path to the vcpkg directory created by the get_dependency script, or the path to your pre-built environment).
 
 For Linux the cmake invokation may be (using the default generator `make`)
 
 ```bash
+# From your build/ directory
 cmake \
       "-DVCPKG_TARGET_TRIPLET=x64-linux" \
       "-Dstatic=ON" \
@@ -169,6 +161,7 @@ cmake \
 
 For macOS the command may be:
 ```bash
+# From your build/ directory
 cmake \
       "-DVCPKG_TARGET_TRIPLET=x64-osx" \
       "-Dstatic=ON" \
@@ -178,9 +171,10 @@ cmake \
       ..
 ```
 
-For Windows the command may be:
+For Windows the command may be (using a pre-built environment):
 
 ```powershell
+# From your build/ directory
 # See note about using `-G "Ninja"` instead.
 cmake -G "NMake Makefiles" `
       "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" `
@@ -188,12 +182,16 @@ cmake -G "NMake Makefiles" `
       "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" `
       "-DIce_HOME=<vcpkg dir>/installed/x64-windows-static-md" `
       "-DCMAKE_BUILD_TYPE=Release" `
+      -Dbundled-cli11=OFF `
+      -Dbundled-spdlog=OFF `
       ..
 ```
 
 Optionally you can use `-G "Ninja"` to use the [Ninja buildsystem](https://ninja-build.org/) (which probably has to be installed separately).
 Especially on Windows this is recommended as the default `NMake Makefiles` only compile using a single thread (which takes quite a while).
 
+> [!NOTE]
+> If you ran previous builds that failed with missing dependencies, you may need to delete and recreate your `build/` directory before trying new approaches, or CMake will continue to struggle finding dependencies.
 
 ### Customizing the build
 
