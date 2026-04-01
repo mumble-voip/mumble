@@ -3,6 +3,7 @@
 These instructions are for creating a static build of Mumble. "Static" means that it bundles most (all) of its dependencies into the built library in
 order to make it run on systems that don't have the necessary dependencies installed.
 
+This will typically take 3 steps: installing dependencies, running the CMake generator, then (for your inner loop) building Mumble as you edit code.
 
 ## Dependencies
 
@@ -19,7 +20,7 @@ In addition to the dependencies installed via vcpkg, you'll also need [cmake](ht
 cmake using a [PPA](https://apt.kitware.com/) and on macOS you can install it using [homebrew](https://formulae.brew.sh/formula/cmake).
 
 Furthermore you need a C++ compiler. On Linux and MacOS that'd usually be `gcc` (`g++`) or `clang`. On Windows you probably want to use MSVC
-(checkout [these instructions](setup_visual_studio.md) on how to install it).
+(check out [Setup Visual Studio](setup_visual_studio.md) on how to install it).
 
 
 ### Installing via script
@@ -34,9 +35,39 @@ If you already have vcpkg installed on your system, you should probably prefer u
 second vcpkg installation.
 
 
+### Using pre-built environments
+
+For common configurations, you can also use the [pre-built vcpkg environments](https://github.com/mumble-voip/vcpkg/releases) mentioned above instead of using the script.
+
+1. Download & unzip the appropriate environment from [the releases page](https://github.com/mumble-voip/vcpkg/releases).
+2. When using the `cmake` commands below, use the unzipped folder as `<vcpkg dir>` in the `-DCMAKE_TOOLCHAIN_FILE` and `-DIce_HOME` arguments. Use
+   the corresponding triplet for `-DVCPKG_TARGET_TRIPLET`.
+
+For example, on Windows, after extracting `mumble_env.x64-windows-static-md.<hash>.7z` to `C:\mumble-env\`:
+
+```powershell
+cmake -G Ninja `
+      "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" `
+      "-Dstatic=ON" `
+      "-DCMAKE_TOOLCHAIN_FILE=C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\scripts\buildsystems\vcpkg.cmake" `
+      "-DIce_HOME=C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\installed\x64-windows-static-md" `
+      "-DCMAKE_BUILD_TYPE=Release" `
+      -Dbundled-cli11=OFF `
+      -Dbundled-spdlog=OFF `
+      ..
+```
+
+(Replace `<hash>` with the commit hash in the filename, e.g. `b1fe4a4257`.)
+
+> [!NOTE]
+> The `-Dbundled-cli11=OFF -Dbundled-spdlog=OFF` flags are required when using pre-built environments from after 2026-02. Without these flags, linker errors for unresolved CLI11/spdlog/fmt symbols will occur. See [common build errors](common_build_errors.md) for details.
+
+If you ran previous builds that failed with missing dependencies, you may need to delete and recreate your `build/` directory before using the new toolchain, or CMake will continue to struggle finding dependencies.
+
+
 ### Manual installation
 
-Again, we advice to use our vcpkg fork. If you are using upstream vcpkg, you do not have access to a compatible version of ZeroC Ice, so you'll have
+Again, we advise you to use our vcpkg fork or pre-built environments. If you are using upstream vcpkg, you do not have access to a compatible version of ZeroC Ice, so you'll have
 to disable that when building the server.
 
 The current list of vcpkg packages required to build Mumble can be found at https://github.com/mumble-voip/vcpkg/blob/master/mumble_dependencies.txt.
@@ -84,6 +115,13 @@ The following is required for macOS:
 * `Xquartz`
 
 
+### Additional dependencies on Windows
+
+The following is required for Windows:
+
+* `python` (`winget install --id=Python.Python.3.13 -e`)
+
+
 ## Building Mumble
 
 After all dependencies are installed, you can follow these steps in order to actually build Mumble itself:
@@ -101,45 +139,8 @@ cmake will generate a bunch of files so you should call it from a dedicated, emp
 
 #### Windows caveats
 
-On Windows you can't use the default command-prompt (as is) as it won't have the needed development tools in its PATH. Instead you have to use
-a "Developer Command Prompt". You can find it by searching in the start-menu. If you are on a 64bit system, then special care must be taken
-that you use a "x64" version of the Developer Prompt (often these are then called "x64 Native Tools Command Prompt"). The easiest way to get a hold of
-the correct command prompt is to search for "x64" and usually that is enough to bring up the x64 developer prompt in the search results.
+On Windows you can't use the default command-prompt (as is) as it won't have the needed development tools in its PATH. See [Setup Visual Studio](setup_visual_studio.md) for simple ways to access the development tools.
 
-Note also that you **have** to use the command prompt and **not** the Developer Powershell as the latter is always 32bit only.
-
-If you are on a 64bit system, then you'll know that you have opened the correct prompt, if it prints `Environment initialized for: 'x64'`.
-
-However, you can use powershell 64bit if you run the following script prior to cmake. You can either run it as required, or include it in your powershell profile. 
-
-```powershell
-# Based on the version of Visual Studio you have installed, the VC++ tools will be in a specific location.
-# Using the "x64 Native Tools Command Prompt" shortcut referenced above, you can find the root folder by viewing the properties of the shortcut.
-
-# e.g. Visual Studio 2015 path
-# "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio 14.0\VC\"
-
-# e.g. Vistual Studio 2019 path
-# "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\"
-
-# Here we're using VS 2015.
-$vcToolsPath = "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio 14.0\VC\"
-
-# Shift context to VS
-Push-Location $vcToolsPath
-
-$architecture = 'x64' # amd64 and x64 resolve to the same path in vcvarsall.bat and are interchangeable.
-
-# Have vcvarsall.bat load the 64 bit environment variables.
-cmd /c "vcvarsall.bat $architecture&set" |
-foreach {
-	if ($_ -match "=") {
-		$v = $_.split("="); set-item -force -path "ENV:\$($v[0])"  -value "$($v[1])"
-	}
-}
-# Go back to where we were before.
-Pop-Location
-```
 
 #### CMake Generator
 
@@ -157,18 +158,37 @@ Important configuration options
 For Linux the cmake invokation may be (using the default generator `make`)
 
 ```bash
-cmake "-DVCPKG_TARGET_TRIPLET=x64-linux" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg dir>/installed/x64-linux" "-DCMAKE_BUILD_TYPE=Release" ..
+cmake \
+      "-DVCPKG_TARGET_TRIPLET=x64-linux" \
+      "-Dstatic=ON" \
+      "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" \
+      "-DIce_HOME=<vcpkg dir>/installed/x64-linux" \
+      "-DCMAKE_BUILD_TYPE=Release" \
+      ..
 ```
 
-For macOS the command may be
+For macOS the command may be:
 ```bash
-cmake "-DVCPKG_TARGET_TRIPLET=x64-osx" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg dir>/installed/x64-osx" "-DCMAKE_BUILD_TYPE=Release" ..
+cmake \
+      "-DVCPKG_TARGET_TRIPLET=x64-osx" \
+      "-Dstatic=ON" \
+      "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" \
+      "-DIce_HOME=<vcpkg dir>/installed/x64-osx" \
+      "-DCMAKE_BUILD_TYPE=Release" \
+      ..
 ```
 
-For Windows the command may be
+For Windows the command may be:
 
-```bash
-cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DCMAKE_BUILD_TYPE=Release" ..
+```powershell
+# See note about using `-G "Ninja"` instead.
+cmake -G "NMake Makefiles" `
+      "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" `
+      "-Dstatic=ON" `
+      "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" `
+      "-DIce_HOME=<vcpkg dir>/installed/x64-windows-static-md" `
+      "-DCMAKE_BUILD_TYPE=Release" `
+      ..
 ```
 
 Optionally you can use `-G "Ninja"` to use the [Ninja buildsystem](https://ninja-build.org/) (which probably has to be installed separately).
@@ -178,6 +198,18 @@ Especially on Windows this is recommended as the default `NMake Makefiles` only 
 ### Customizing the build
 
 There are various options that can be passed to cmake when performing step 6 from above. See [here](cmake_options.md) for details.
+
+
+### Building
+
+Finally, you're ready to build. From your `build/` directory:
+
+```bash
+# Or invoke your buildsystem of choice directly (e.g. `make -j $(nproc)`)
+cmake --build .
+```
+
+As you edit C++, you only need to rerun this one step to rebuild Mumble.
 
 
 ## Troubleshooting
