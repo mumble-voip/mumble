@@ -6946,6 +6946,10 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
         <translation>Bu, mumble&apos;ın güncel olup olmadığını kontrol edecektir</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>Bu ses, susturulduğunuzun işaretiydi. Susturulduğunuzda konuşursanız etkinleşir. Bunu faal olarak muhafaza etmek ister misiniz?</translation>
     </message>

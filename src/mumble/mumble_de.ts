@@ -6947,6 +6947,10 @@ des Kanals auswählen.</translation>
         <translation>Dies prüft, ob mumble auf dem neuesten Stand ist</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>Dieser Sound war der Stumm-Hinweis. Er wird aktiviert, wenn gesprochen wird, obwohl eine Stummschaltung besteht. Aktiviert lassen?</translation>
     </message>

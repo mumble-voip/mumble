@@ -6947,6 +6947,10 @@ al menú contextual del canal.</translation>
         <translation>Això comprova si el mumble està actualitzat</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>Aquest so és el senyal de treure la paraula. S&apos;activa quan es parla mentre es no teniu la paraula. Voleu mantenir-ho activat?</translation>
     </message>

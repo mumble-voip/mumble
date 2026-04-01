@@ -6064,6 +6064,10 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>

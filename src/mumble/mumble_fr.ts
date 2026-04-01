@@ -6947,6 +6947,10 @@ pour filtrage depuis le menu du salon.</translation>
         <translation>Ceci vérifiera si mumble est à jour</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>Ce son était l&apos;indicateur de l&apos;état muet. Il s&apos;active lorsque vous parlez alors que vous êtes muet. Souhaitez-vous le garder activé&#x202f;?</translation>
     </message>

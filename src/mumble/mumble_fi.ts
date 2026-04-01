@@ -6947,6 +6947,10 @@ kanavien alivalikosta.</translation>
         <translation>Tämä tarkistaa onko mumble ajantasalla</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>Tuo ääni oli mykistyksen äänimerkki. Se kuuluu kun puhut mykistettynä. Haluatko pitää äänimerkin päällä?</translation>
     </message>

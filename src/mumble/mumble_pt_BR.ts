@@ -6947,6 +6947,10 @@ no menu contextual do canal.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation type="unfinished"></translation>
     </message>

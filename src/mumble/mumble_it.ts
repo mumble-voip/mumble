@@ -6947,6 +6947,10 @@ contestuale del canale.</translation>
         <translation>Questo controllerà se Mumble sia aggiornato</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>Quel suono era l&apos;attivazione del muto. Si attiva quando parli mentre sei mutato. Voui mantenerlo attivo?</translation>
     </message>
