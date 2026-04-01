@@ -6946,6 +6946,10 @@ the channel&apos;s context menu.</source>
         <translation>这会检查 Mumble 是否为最新版</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>此声音是静音提示。您在静音时发言会激活它。您希望保持启用吗？</translation>
     </message>

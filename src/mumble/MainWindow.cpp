@@ -3564,7 +3564,7 @@ void MainWindow::serverConnected() {
 	qaServerBanList->setEnabled(true);
 
 #ifdef USE_WIN_UNIVERSAL_MUTE
-	m_universalMuter->startCall(L"Connecting...", L"Mumble");
+	m_universalMuter->startCall(tr("Connecting...").toStdWString(), tr("Mumble").toStdWString());
 #endif
 
 	Channel *root = Channel::get(Mumble::ROOT_CHANNEL_ID);

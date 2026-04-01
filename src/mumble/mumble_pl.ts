@@ -6948,6 +6948,10 @@ kanały mają być filtrowane.</translation>
         <translation>Sprawdza, czy program Mumble jest aktualny</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>Ten dźwięk był niemym sygnałem. Włącza się, gdy mówisz po wyciszeniu. Czy chcesz, aby była on włączony?</translation>
     </message>
