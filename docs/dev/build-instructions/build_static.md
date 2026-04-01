@@ -43,17 +43,7 @@ For common configurations, you can also use the [pre-built vcpkg environments](h
 2. When using the `cmake` commands below, use the unzipped folder as `<vcpkg dir>` in the `-DCMAKE_TOOLCHAIN_FILE` and `-DIce_HOME` arguments. Use
    the corresponding triplet for `-DVCPKG_TARGET_TRIPLET`. You'll also need to set `-Dbundled-cli11=OFF` and `-Dbundled-spdlog=OFF`
 
-For example, on Windows, after extracting `mumble_env.x64-windows-static-md.<hash>.7z` to `C:\mumble-env\`:
-
-|CMake generator option|Value|
-|-|-|
-|`VCPKG_TARGET_TRIPLET`|`x64-windows-static-md`|
-|`CMAKE_TOOLCHAIN_FILE`|`C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\scripts\buildsystems\vcpkg.cmake"`|
-|`Ice_HOME`|`C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\installed\x64-windows-static-md"`|
-|`bundled-cli11`|`OFF`|
-|`bundled-spdlog`|`OFF`|
-
-(Replace `<hash>` with the commit hash in the filename, e.g. `b1fe4a4257`.)
+For example, on Windows, after extracting `mumble_env.x64-windows-static-md.<hash>.7z` to `C:\mumble-env\`, `CMAKE_TOOLCHAIN_FILE` would be `C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\scripts\buildsystems\vcpkg.cmake"`. (Replace `<hash>` with the commit hash in the filename, e.g. `b1fe4a4257`.)
 
 ### Manual installation
 

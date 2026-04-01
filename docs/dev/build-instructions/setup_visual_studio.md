@@ -25,7 +25,7 @@ $vswhere = "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe
 
 # e.g. Visual Studio 2015 path
 # "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio 14.0\VC\"
-# e.g. Vistual Studio 2019 path
+# e.g. Visual Studio 2019 path
 # "${Env:PROGRAMFILES(X86)}\Microsoft Visual Studio\2019\Professional\VC\Auxiliary\Build\"
 $vcvars64 = . $vswhere -latest -products * -find "VC\Auxiliary\Build\vcvars64.bat"
 
@@ -44,7 +44,7 @@ See MSDN's [Use the Microsoft C++ Build Tools from the command line](https://lea
 
 You can also use [prebuilt shortcuts](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=msvc-170#developer_command_prompt_shortcuts) like **x64 Native Tools Command Prompt**, which you can find in the Start menu after installing the MSVC.
 
-These have some caveats that recommend using the `vcvars64.bat` or `vcvarsall.bat` techhnique instead: only **x64 Native Tools Command Prompt** supports building in 64-bit, but it is CMD, not PowerShell. The **Developer Powershell** shortcut is 32-bit only. If you are on a 64bit system, then you'll know that you have opened the correct prompt, if it prints `Environment initialized for: 'x64'`.
+These have some caveats that recommend using the `vcvars64.bat` or `vcvarsall.bat` technique instead: only **x64 Native Tools Command Prompt** supports building in 64-bit, but it is CMD, not PowerShell. The **Developer Powershell** shortcut is 32-bit only. If you are on a 64bit system, then you'll know that you have opened the correct prompt, if it prints `Environment initialized for: 'x64'`.
 
 You can also use `vcvarsall.bat`, with args, instead of `vcvars64.bat`, to set up different environments:
 
