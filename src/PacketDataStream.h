@@ -217,15 +217,28 @@ public:
 			// The four most significant bits are set
 			// This is a special variant where the entire value is encoded in subsequent bytes
 			switch (v & 0xFC) {
-				case 0xF0:
+				case 0xF0: {
 					// Of the first six most significant bits, only the first four are set
 					// -> this is followed by a regular 32-bit positive integer
-					return next() << 24 | next() << 16 | next() << 8 | next();
-				case 0xF4:
+					quint64 result = next() << 24;
+					result |= next() << 16;
+					result |= next() << 8;
+					result |= next();
+					return result;
+				}
+				case 0xF4: {
 					// Bit pattern 111101
 					// -> this is followed by a 64-bit integer
-					return next() << 56 | next() << 48 | next() << 40 | next() << 32 | next() << 24 | next() << 16
-						   | next() << 8 | next();
+					quint64 result = next() << 56;
+					result |= next() << 48;
+					result |= next() << 40;
+					result |= next() << 32;
+					result |= next() << 24;
+					result |= next() << 16;
+					result |= next() << 8;
+					result |= next();
+					return result;
+				}
 				case 0xF8:
 					// Of the first six most significant bits, only the first five are set
 					// -> this is followed by another varint-encoded integer,
@@ -256,13 +269,20 @@ public:
 			// Among the four most significant bits, only the first three are set
 			// -> remaining 4 bits along with the next 3 bytes encode a
 			// 28-bit positive number
-			return (v & 0x0F) << 24 | next() << 16 | next() << 8 | next();
+			quint64 result = (v & 0x0F) << 24;
+			result |= next() << 16;
+			result |= next() << 8;
+			result |= next();
+			return result;
 		}
 		if ((v & 0xE0) == 0xC0) {
 			// Among the three most significant bits, only the first two are set
 			// -> remaining 5 bits along with the 2 following bytes, this encodes
 			// a 21-bit positive number
-			return (v & 0x1F) << 16 | next() << 8 | next();
+			quint64 result = (v & 0x1F) << 16;
+			result |= next() << 8;
+			result |= next();
+			return result;
 		}
 
 		// Unhandled case
