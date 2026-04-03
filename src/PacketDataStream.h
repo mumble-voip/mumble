@@ -199,61 +199,81 @@ public:
 		return *this;
 	}
 
-	PacketDataStream &operator>>(quint64 &i) {
+	quint64 decode_next_int(std::size_t recursionLevel = 0) {
 		quint64 v = next();
 
 		if ((v & 0x80) == 0x00) {
 			// most significant bit is unset
 			// -> remaining 7-bit are the encoded positive number
-			i = (v & 0x7F);
-		} else if ((v & 0xC0) == 0x80) {
+			return (v & 0x7F);
+		}
+		if ((v & 0xC0) == 0x80) {
 			// most significant bit is set but second most significant is not
 			// -> remaining 6 bits plus the 8 bits of the subsequent byte encode
 			// a 14-bit positive integer
-			i = (v & 0x3F) << 8 | next();
-		} else if ((v & 0xF0) == 0xF0) {
+			return (v & 0x3F) << 8 | next();
+		}
+		if ((v & 0xF0) == 0xF0) {
 			// The four most significant bits are set
+			// This is a special variant where the entire value is encoded in subsequent bytes
 			switch (v & 0xFC) {
 				case 0xF0:
 					// Of the first six most significant bits, only the first four are set
 					// -> this is followed by a regular 32-bit positive integer
-					i = next() << 24 | next() << 16 | next() << 8 | next();
-					break;
+					return next() << 24 | next() << 16 | next() << 8 | next();
 				case 0xF4:
 					// Bit pattern 111101
 					// -> this is followed by a 64-bit integer
-					i = next() << 56 | next() << 48 | next() << 40 | next() << 32 | next() << 24 | next() << 16
-						| next() << 8 | next();
-					break;
+					return next() << 56 | next() << 48 | next() << 40 | next() << 32 | next() << 24 | next() << 16
+						   | next() << 8 | next();
 				case 0xF8:
 					// Of the first six most significant bits, only the first five are set
 					// -> this is followed by another varint-encoded integer,
 					// which we understand to be negative
-					*this >> i;
-					i = ~i;
-					break;
+
+					if (recursionLevel >= 8) {
+						// Normally, we shouldn't recurse more than once so once we have reached
+						// this recursion depth, something fishy is going on. Presumably an
+						// invalid packet or something like that.
+						// In either case, we won't recurse any further and just give up...
+						ok = false;
+						return 0;
+					}
+
+					return ~(decode_next_int(recursionLevel + 1));
 				case 0xFC:
 					// All six most significant bits are set
 					// -> remaining 2 bits encode a 2-bit integer that we understand to be negative
-					i = v & 0x03;
-					i = ~i;
-					break;
-				default:
-					ok = false;
-					i  = 0;
-					break;
+					return ~(v & 0x03);
 			}
-		} else if ((v & 0xF0) == 0xE0) {
+
+			// Unhandled special case
+			ok = false;
+
+			return 0;
+		}
+		if ((v & 0xF0) == 0xE0) {
 			// Among the four most significant bits, only the first three are set
 			// -> remaining 4 bits along with the next 3 bytes encode a
 			// 28-bit positive number
-			i = (v & 0x0F) << 24 | next() << 16 | next() << 8 | next();
-		} else if ((v & 0xE0) == 0xC0) {
+			return (v & 0x0F) << 24 | next() << 16 | next() << 8 | next();
+		}
+		if ((v & 0xE0) == 0xC0) {
 			// Among the three most significant bits, only the first two are set
 			// -> remaining 5 bits along with the 2 following bytes, this encodes
 			// a 21-bit positive number
-			i = (v & 0x1F) << 16 | next() << 8 | next();
+			return (v & 0x1F) << 16 | next() << 8 | next();
 		}
+
+		// Unhandled case
+		ok = false;
+
+		return 0;
+	}
+
+	PacketDataStream &operator>>(quint64 &i) {
+		i = decode_next_int();
+
 		return *this;
 	}
 
