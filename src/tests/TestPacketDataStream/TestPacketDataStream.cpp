@@ -10,6 +10,10 @@
 #include <QtNetwork>
 #include <QtTest>
 
+#include <algorithm>
+#include <array>
+#include <cstdint>
+
 class TestPacketDataStream : public QObject {
 	Q_OBJECT
 private slots:
@@ -21,6 +25,7 @@ private slots:
 	void floating();
 	void floating_data();
 	void undersize();
+	void recursive();
 };
 
 void TestPacketDataStream::floating_data() {
@@ -147,6 +152,26 @@ void TestPacketDataStream::space() {
 	QVERIFY(!in.isValid());
 	QVERIFY(in.size() == 1);
 	QVERIFY(in.left() == 0);
+}
+
+void TestPacketDataStream::recursive() {
+	// A buffer that has a size of a couple hundred kB
+	// We fill it to mimic a particular case of an invalid packet where
+	// every byte (except the last one) will indicate that another varint
+	// will follow in the next byte(s).
+	std::array< char, 1 << 18 > hugeBuf;
+	std::fill(hugeBuf.begin(), hugeBuf.end(), 0xF8);
+	hugeBuf.back() = 0x02;
+
+	PacketDataStream stream(hugeBuf.data(), static_cast< unsigned int >(hugeBuf.size()));
+	QVERIFY(stream.isValid());
+
+	std::int64_t val = 0;
+	stream >> val;
+	(void) val;
+
+	// For this kind of packet, we expect the stream to figure out that it is invalid
+	QVERIFY(!stream.isValid());
 }
 
 QTEST_MAIN(TestPacketDataStream)
