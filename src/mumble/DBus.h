@@ -11,9 +11,12 @@
 class QDBusMessage;
 
 class MumbleDBus : public QDBusAbstractAdaptor {
+protected:
+	virtual QString dbusErrorPrefix() const { return QLatin1String("info.mumble.Error"); }
+
 private:
 	Q_OBJECT
-	Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Mumble")
+	Q_CLASSINFO("D-Bus Interface", "info.mumble.Mumble")
 	Q_DISABLE_COPY(MumbleDBus)
 	Q_PROPERTY(bool mute READ isSelfMuted WRITE setSelfMuted)
 	Q_PROPERTY(bool deaf READ isSelfDeaf WRITE setSelfDeaf)
@@ -43,6 +46,23 @@ public slots:
 	bool isSelfDeaf();
 	void startTalking();
 	void stopTalking();
+};
+
+/**
+ * Legacy DBus adaptor for backwards compatibility.
+ * Exposes the same interface as MumbleDBus but under the old
+ * net.sourceforge.mumble.Mumble name.
+ */
+class MumbleDBusLegacy : public MumbleDBus {
+protected:
+	QString dbusErrorPrefix() const override { return QLatin1String("net.sourceforge.mumble.Error"); }
+
+private:
+	Q_OBJECT
+	Q_CLASSINFO("D-Bus Interface", "net.sourceforge.mumble.Mumble")
+	Q_DISABLE_COPY(MumbleDBusLegacy)
+public:
+	MumbleDBusLegacy(QObject *parent) : MumbleDBus(parent) {}
 };
 
 #endif
