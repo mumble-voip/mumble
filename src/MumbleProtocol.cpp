@@ -107,9 +107,7 @@ namespace Protocol {
 			qWarning("Failed to serialize protobuf message");
 			return std::nullopt;
 		}
-		if (buffer.size() < offset + serializedSize)
-			buffer.resize(offset + serializedSize);
-
+		buffer.resize(offset + serializedSize);
 		std::copy(temp.begin(), temp.end(),
 				  buffer.begin() + static_cast< std::vector< byte >::difference_type >(offset));
 
@@ -302,7 +300,8 @@ namespace Protocol {
 		m_audioMessage.set_is_terminator(data.isLastFrame);
 
 		// +1 to account for the header byte set below
-		auto maybeSize = encodeProtobuf(m_audioMessage, m_byteBuffer, 1, MAX_UDP_PACKET_SIZE, false);
+		std::optional< std::size_t > maybeSize =
+			encodeProtobuf(m_audioMessage, m_byteBuffer, 1, MAX_UDP_PACKET_SIZE, false);
 		if (!maybeSize) {
 			qWarning("MumbleProtocol: Failed to encode fixed part of audio packet");
 			return; // Abort sending this packet
@@ -342,7 +341,8 @@ namespace Protocol {
 				m_audioMessage.Clear();
 				m_audioMessage.set_target(data.targetOrContext);
 
-				auto maybeSize = encodeProtobuf(m_audioMessage, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE, false);
+				std::optional< std::size_t > maybeSize =
+					encodeProtobuf(m_audioMessage, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE, false);
 				if (!maybeSize) {
 					qWarning("MumbleProtocol: Failed to encode Client audio message");
 					return {}; // abort update
@@ -361,7 +361,7 @@ namespace Protocol {
 						// No pre-encoded snippet found -> use explicit encoding
 						m_audioMessage.Clear();
 						m_audioMessage.set_volume_adjustment(data.volumeAdjustment.factor);
-						auto maybeSize =
+						std::optional< std::size_t > maybeSize =
 							encodeProtobuf(m_audioMessage, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE, false);
 						if (!maybeSize) {
 							qWarning("MumbleProtocol: Failed to encode Client audio message");
@@ -380,7 +380,8 @@ namespace Protocol {
 					m_audioMessage.Clear();
 					m_audioMessage.set_context(data.targetOrContext);
 
-					auto maybeSize = encodeProtobuf(m_audioMessage, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE, false);
+					std::optional< std::size_t > maybeSize =
+						encodeProtobuf(m_audioMessage, m_byteBuffer, offset, MAX_UDP_PACKET_SIZE, false);
 					if (!maybeSize) {
 						qWarning("MumbleProtocol: Failed to encode Client audio message");
 						return {}; // abort update
@@ -425,7 +426,7 @@ namespace Protocol {
 
 			// The max size of the properly encoded package is the size of the used field type (uint32) plus 1 byte
 			// overhead for the varint-encoding plus 1 byte of overhead for encoding the message type and field number.
-			auto maybeSize =
+			std::optional< std::size_t > maybeSize =
 				encodeProtobuf(m_audioMessage, m_preEncodedContext[current], 0, sizeof(std::uint32_t) + 2, false);
 			assert(maybeSize.has_value());
 			if (!maybeSize) {
@@ -448,7 +449,7 @@ namespace Protocol {
 			// Store the pre-encoded packet
 			// The max-size is the size of the used field (float) plus 1 byte overhead for encoding the field type and
 			// number
-			auto maybeSize = encodeProtobuf(
+			std::optional< std::size_t > maybeSize = encodeProtobuf(
 				m_audioMessage,
 				m_preEncodedVolumeAdjustment[static_cast< std::size_t >(dbAdjustment - preEncodedDBAdjustmentBegin)], 0,
 				sizeof(float) + 1, false);
@@ -581,7 +582,8 @@ namespace Protocol {
 		}
 
 		// +1 in order to account for the header byte written below
-		auto maybeSize = encodeProtobuf(m_pingMessage, m_byteBuffer, 1, MAX_UDP_PACKET_SIZE, false);
+		std::optional< std::size_t > maybeSize =
+			encodeProtobuf(m_pingMessage, m_byteBuffer, 1, MAX_UDP_PACKET_SIZE, false);
 		if (!maybeSize) {
 			qWarning("Failed to encode ping message");
 			return {}; // Return an empty span to indicate failure

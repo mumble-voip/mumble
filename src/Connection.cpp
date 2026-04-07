@@ -187,6 +187,7 @@ void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Pro
 	if (cache.isEmpty()) {
 		if (!messageToNetwork(msg, msgType, cache)) {
 			qWarning("Sending message to network failed");
+			return;
 		};
 	}
 
