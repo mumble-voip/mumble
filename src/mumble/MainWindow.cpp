@@ -179,6 +179,10 @@ MainWindow::MainWindow(QWidget *p)
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarText(QString)));
 	connect(qteChat, &ChatbarTextEdit::ctrlEnterPressed, [this](const QString &msg) { sendChatbarText(msg, true); });
 	connect(qteChat, SIGNAL(pastedImage(QString)), this, SLOT(sendChatbarMessage(QString)));
+#ifdef Q_OS_MACOS
+	// Use default preferences icon in the macOS menu bar
+	qaConfigDialog->setIconVisibleInMenu(false);
+#endif
 
 	QObject::connect(qaServerAddToFavorites, &QAction::triggered, this, &MainWindow::addServerAsFavorite);
 
