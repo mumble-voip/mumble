@@ -256,6 +256,9 @@
    <property name="whatsThis">
     <string>Exits the application.</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
    </property>
