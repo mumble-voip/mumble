@@ -1666,8 +1666,14 @@ void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->addAction(qaServerTokens);
 	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerBanList);
+#ifndef Q_OS_MACOS
+	// On macOS, the "Quit" action is automatically placed in the application menu
+	// by Qt when the QAction's menuRole is set to QAction::QuitRole (see MainWindow.ui).
+	// Adding it manually to the "Server" menu would result in duplicate entries.
+	// See GitHub issue #7151: Move the Quit button to the "Mumble" application menu on macOS.
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
+#endif
 
 	qaServerBanList->setEnabled(Global::get().pPermissions & (ChanACL::Ban | ChanACL::Write));
 	qaServerUserList->setEnabled(Global::get().pPermissions & (ChanACL::Register | ChanACL::Write));
