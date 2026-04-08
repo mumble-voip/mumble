@@ -376,11 +376,13 @@ if(WIN32)
 		set_property(TARGET mumble APPEND_STRING PROPERTY LINK_FLAGS " /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"")
 	endif()
 elseif(APPLE)
+	set_source_files_properties("${MUMBLE_ICNS}" PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+	target_sources(mumble PRIVATE "${MUMBLE_ICNS}")
+
 	set_target_properties(mumble
 		PROPERTIES
 			OUTPUT_NAME "Mumble"
 			MACOSX_BUNDLE TRUE
-			RESOURCE ${MUMBLE_ICNS}
 			MACOSX_BUNDLE_INFO_PLIST ${MUMBLE_PLIST}
 	)
 endif()
