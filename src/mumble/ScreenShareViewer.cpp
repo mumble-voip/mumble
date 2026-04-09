@@ -5,8 +5,8 @@
 
 #include "ScreenShareViewer.h"
 
+#include <QtGui/QCloseEvent>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QVBoxLayout>
 
 ScreenShareViewer::ScreenShareViewer(quint32 senderSession, const QString &senderName, QWidget *parent)
@@ -16,30 +16,41 @@ ScreenShareViewer::ScreenShareViewer(quint32 senderSession, const QString &sende
 
 	m_imageLabel = new QLabel(this);
 	m_imageLabel->setAlignment(Qt::AlignCenter);
-	m_imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+	m_imageLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	m_imageLabel->setMinimumSize(320, 240);
 	m_imageLabel->setText(tr("Waiting for first frame…"));
 
-	m_scrollArea = new QScrollArea(this);
-	m_scrollArea->setWidget(m_imageLabel);
-	m_scrollArea->setWidgetResizable(false);
-	m_scrollArea->setAlignment(Qt::AlignCenter);
-
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setContentsMargins(0, 0, 0, 0);
-	layout->addWidget(m_scrollArea);
+	layout->addWidget(m_imageLabel);
 
 	resize(800, 600);
+}
+
+bool ScreenShareViewer::isDismissed() const {
+	return m_dismissed;
+}
+
+void ScreenShareViewer::showAndRefresh() {
+	m_dismissed = false;
+	show();
+	raise();
+	activateWindow();
+	updateImageDisplay();
+}
+
+void ScreenShareViewer::closeEvent(QCloseEvent *event) {
+	// Remember that the user explicitly closed the window so we don't reopen it
+	// automatically when new frames arrive.
+	m_dismissed = true;
+	QDialog::closeEvent(event);
 }
 
 void ScreenShareViewer::updateImageDisplay() {
 	if (m_currentFrame.isNull())
 		return;
 
-	// Get the available size in the scroll area
-	QSize areaSize = m_scrollArea->viewport()->size();
-
-	// Scale the image to fit, keeping aspect ratio
+	QSize areaSize = size();
 	QPixmap scaled = QPixmap::fromImage(m_currentFrame).scaled(areaSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
 	m_imageLabel->setPixmap(scaled);
@@ -57,13 +68,8 @@ void ScreenShareViewer::updateFrame(QImage frame) {
 
 	m_currentFrame = frame;
 
-	// Show scaled version to fit the window
-	updateImageDisplay();
-
-	// Auto-resize the window on first real frame (up to the available screen).
-	if (!isVisible()) {
-		QSize desired = frame.size().boundedTo(QSize(1280, 800));
-		resize(desired);
-		show();
-	}
+	// Always update the image data so the viewer shows the latest frame
+	// when the user re-opens it via the context menu.
+	if (isVisible())
+		updateImageDisplay();
 }

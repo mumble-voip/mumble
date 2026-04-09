@@ -273,6 +273,7 @@ public slots:
 	void on_qaUserTextMessage_triggered();
 	void on_qaUserRegister_triggered();
 	void on_qaUserInformation_triggered();
+	void on_qaUserViewScreenShare_triggered();
 	void on_qaUserFriendAdd_triggered();
 	void on_qaUserFriendRemove_triggered();
 	void on_qaUserFriendUpdate_triggered();

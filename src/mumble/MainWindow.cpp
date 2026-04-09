@@ -1781,6 +1781,11 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserTextureReset);
 	}
 
+	if (p && !isSelf && p->bScreenSharing) {
+		qmUser->addSeparator();
+		qmUser->addAction(qaUserViewScreenShare);
+	}
+
 	qmUser->addAction(qaUserTextMessage);
 	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 2))
 		qmUser->addAction(qaUserInformation);
@@ -4239,7 +4244,25 @@ void MainWindow::onRemoteFrameDecoded(quint32 senderSession, QImage frame) {
 	}
 
 	ScreenShareViewer *viewer = m_screenShareViewers[senderSession];
+	// Always store the latest frame, but never reopen a window the user closed.
+	// Ideally, the user should subcribe to the server. Otherwise, when a user doesn't have the stream open
+	// it will use bandwith for no reason
 	viewer->updateFrame(frame);
+}
+
+void MainWindow::on_qaUserViewScreenShare_triggered() {
+	ClientUser *p = getContextMenuTargets().user;
+	if (!p || !p->bScreenSharing)
+		return;
+
+	if (!m_screenShareViewers.contains(p->uiSession)) {
+		ScreenShareViewer *viewer = new ScreenShareViewer(p->uiSession, p->qsName, this);
+		m_screenShareViewers.insert(p->uiSession, viewer);
+	}
+
+	ScreenShareViewer *viewer = m_screenShareViewers[p->uiSession];
+	// Clears dismissed flag, shows, raises, and repaints with the last frame.
+	viewer->showAndRefresh();
 }
 
 void MainWindow::onRemoteScreenShareStopped(quint32 senderSession) {
