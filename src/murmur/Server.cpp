@@ -1022,9 +1022,11 @@ void Server::run() {
 							}
 							break;
 						}
-						case Mumble::Protocol::UDPMessageType::Video:
-							// Video packets are not handled by the decoder path; silently discard.
+						case Mumble::Protocol::UDPMessageType::Video: {
+							Mumble::Protocol::VideoData videoData = m_udpDecoder.getVideoData();
+							processVideoMsg(u, videoData);
 							break;
+						}
 					}
 				}
 #ifdef Q_OS_UNIX
@@ -1164,6 +1166,51 @@ void Server::addListener(QHash< ServerUser *, VolumeAdjustment > &listeners, Ser
 
 	if (it == listeners.end() || it->factor < volumeAdjustment.factor) {
 		listeners[&user] = volumeAdjustment;
+	}
+}
+
+void Server::processVideoMsg(ServerUser *u, const Mumble::Protocol::VideoData &videoData) {
+	ZoneScoped;
+
+	if (u->sState != ServerUser::Authenticated || !u->bScreenSharing || !u->cChannel)
+		return;
+
+	QByteArray cache;
+
+	MumbleUDP::Video videoMsg;
+
+	videoMsg.set_sender_session(u->uiSession);
+	videoMsg.set_codec(videoData.codec);
+	videoMsg.set_width(videoData.width);
+	videoMsg.set_height(videoData.height);
+	videoMsg.set_frame_number(videoData.frameNumber);
+	videoMsg.set_fragment_index(videoData.fragmentIndex);
+	videoMsg.set_fragment_count(videoData.fragmentCount);
+	videoMsg.set_is_keyframe(videoData.isKeyFrame);
+
+	videoMsg.set_video_data(reinterpret_cast< const char * >(videoData.payload.data()),
+							static_cast< int >(videoData.payload.size()));
+	const std::size_t size = videoMsg.ByteSizeLong();
+
+	if (size > static_cast< std::size_t >(std::numeric_limits< int >::max())) {
+		return;
+	}
+
+	std::vector< unsigned char > packet(size + 1);
+	packet[0] = static_cast< unsigned char >(Mumble::Protocol::UDPMessageType::Video);
+
+	if (!videoMsg.SerializeToArray(packet.data() + 1, static_cast< int >(size))) {
+		return;
+	}
+
+	// Broadcast packet to all users in channel
+	for (User *p : u->cChannel->qlUsers) {
+		ServerUser *dst = static_cast< ServerUser * >(p);
+
+		if (dst == u)
+			continue;
+
+		sendMessage(*dst, packet.data(), static_cast< int >(packet.size()), cache);
 	}
 }
 
@@ -1743,6 +1790,9 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 
 					processMsg(u, std::move(audioData), m_tcpAudioReceivers, m_tcpAudioEncoder);
 				}
+			} else if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Video) {
+				Mumble::Protocol::VideoData videoData = m_tcpTunnelDecoder.getVideoData();
+				processVideoMsg(u, videoData);
 			}
 		}
 

@@ -626,8 +626,12 @@ namespace Protocol {
 				case UDPMessageType::Ping:
 					return decodePing_protobuf(data.subspan(1, data.size() - 1));
 				case UDPMessageType::Video:
-					// Silently dropping video packets this commit as the rest isn't implemented yet
-					return false;
+					if (restrictToPing) {
+						// Not a ping
+						return false;
+					}
+
+					return decodeVideo_protobuf(data.subspan(1, data.size() - 1));
 			}
 
 			// Unknown package type
@@ -640,6 +644,12 @@ namespace Protocol {
 	}
 
 	template< Role role > UDPMessageType UDPDecoder< role >::getMessageType() const { return m_messageType; }
+
+	template< Role role > VideoData UDPDecoder< role >::getVideoData() const {
+		assert(m_messageType == UDPMessageType::Video);
+
+		return m_videoData;
+	}
 
 	template< Role role > AudioData UDPDecoder< role >::getAudioData() const {
 		assert(m_messageType == UDPMessageType::Audio);
@@ -847,6 +857,54 @@ namespace Protocol {
 		}
 
 		// Legacy audio packets don't contain volume adjustments
+
+		return true;
+	}
+
+	template< Role role > bool UDPDecoder< role >::decodeVideo_protobuf(const std::span< const byte > data) {
+		m_messageType = UDPMessageType::Video;
+		m_videoData   = {};
+
+		if (!m_videoMessage.ParseFromArray(data.data(), static_cast< int >(data.size()))) {
+			// Invalid format
+			return false;
+		}
+
+		// Sender
+		m_videoData.senderSession = m_videoMessage.sender_session();
+
+		// Codec (string, unlike Audio enum)
+		m_videoData.codec = m_videoMessage.codec();
+
+		// Resolution
+		m_videoData.width  = m_videoMessage.width();
+		m_videoData.height = m_videoMessage.height();
+
+		// Frame / fragmentation info
+		m_videoData.frameNumber   = m_videoMessage.frame_number();
+		m_videoData.fragmentIndex = m_videoMessage.fragment_index();
+		m_videoData.fragmentCount = m_videoMessage.fragment_count();
+		if (m_videoData.fragmentIndex >= m_videoData.fragmentCount) {
+			// Sending more fragments than the fargment count isn't supported.
+			return false;
+		}
+
+		if (m_videoData.width == 0 || m_videoData.height == 0) {
+			// Sending a video with no pixels isn't supported
+			return false;
+		}
+
+		// Payload
+		if (m_videoMessage.video_data().empty()) {
+			// Video packets without payload are invalid
+			return false;
+		}
+
+		std::string &videoPayload = *m_videoMessage.mutable_video_data();
+		m_videoData.payload = std::span< byte >(reinterpret_cast< byte * >(&videoPayload[0]), videoPayload.size());
+
+		// Keyframe flag
+		m_videoData.isKeyFrame = m_videoMessage.is_keyframe();
 
 		return true;
 	}
