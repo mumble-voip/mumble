@@ -287,20 +287,24 @@ namespace Protocol {
 		UDPMessageType getMessageType() const;
 
 		AudioData getAudioData() const;
+		VideoData getVideoData() const;
 		PingData getPingData() const;
 
 	protected:
 		std::vector< byte > m_byteBuffer;
 		UDPMessageType m_messageType;
 		AudioData m_audioData = {};
+		VideoData m_videoData = {};
 		PingData m_pingData   = {};
 		MumbleUDP::Ping m_pingMessage;
 		MumbleUDP::Audio m_audioMessage;
+		MumbleUDP::Video m_videoMessage;
 
 		bool decodePing_legacy(const std::span< const byte > data);
 		bool decodePing_protobuf(const std::span< const byte > data);
 		bool decodeAudio_legacy(const std::span< const byte > data, AudioCodec codec);
 		bool decodeAudio_protobuf(const std::span< const byte > data);
+		bool decodeVideo_protobuf(const std::span< const byte > data);
 	};
 
 } // namespace Protocol
