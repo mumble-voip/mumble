@@ -57,7 +57,8 @@
  */
 #define MUMBLE_ALL_UDP_MESSAGES          \
 	PROCESS_MUMBLE_UDP_MESSAGE(Audio, 0) \
-	PROCESS_MUMBLE_UDP_MESSAGE(Ping, 1)
+	PROCESS_MUMBLE_UDP_MESSAGE(Ping, 1)  \
+	PROCESS_MUMBLE_UDP_MESSAGE(Video, 2)
 
 namespace Mumble {
 namespace Protocol {
@@ -147,6 +148,24 @@ namespace Protocol {
 
 		friend bool operator==(const AudioData &lhs, const AudioData &rhs);
 		friend bool operator!=(const AudioData &lhs, const AudioData &rhs);
+	};
+
+	/// Largest number of fragments a video frame may be split into. Receivers set aside room for all fragments of a
+	/// frame as soon as its first fragment arrives, so the count has to be limited. At up to 900 bytes per fragment,
+	/// this still allows frames of more than 3 MB.
+	constexpr std::uint32_t MAX_VIDEO_FRAGMENTS = 4096;
+
+	/// Carries all fields from a decoded MumbleUDP::Video fragment.
+	struct VideoData {
+		std::uint32_t senderSession  = 0;
+		MumbleUDP::Video_Codec codec = MumbleUDP::Video_Codec_H264;
+		std::uint32_t width          = 0;
+		std::uint32_t height         = 0;
+		std::uint64_t frameNumber    = 0;
+		std::uint32_t fragmentIndex  = 0;
+		std::uint32_t fragmentCount  = 0;
+		std::span< const byte > payload;
+		bool isKeyFrame = false;
 	};
 
 	struct PingData {
