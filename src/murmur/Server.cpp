@@ -1022,6 +1022,9 @@ void Server::run() {
 							}
 							break;
 						}
+						case Mumble::Protocol::UDPMessageType::Video:
+							// Video packets are not handled by the decoder path; silently discard.
+							break;
 					}
 				}
 #ifdef Q_OS_UNIX

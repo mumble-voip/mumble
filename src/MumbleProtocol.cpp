@@ -625,6 +625,9 @@ namespace Protocol {
 					return decodeAudio_protobuf(data.subspan(1, data.size() - 1));
 				case UDPMessageType::Ping:
 					return decodePing_protobuf(data.subspan(1, data.size() - 1));
+				case UDPMessageType::Video:
+					// Silently dropping video packets this commit as the rest isn't implemented yet
+					return false;
 			}
 
 			// Unknown package type

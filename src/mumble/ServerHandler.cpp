@@ -295,6 +295,9 @@ void ServerHandler::udpReady() {
 					handleVoicePacket(audioData);
 					break;
 				};
+				case Mumble::Protocol::UDPMessageType::Video:
+					// Video packets are not yet handled by this client; silently discard.
+					break;
 			}
 		}
 	}

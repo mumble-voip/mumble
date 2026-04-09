@@ -57,7 +57,8 @@
  */
 #define MUMBLE_ALL_UDP_MESSAGES          \
 	PROCESS_MUMBLE_UDP_MESSAGE(Audio, 0) \
-	PROCESS_MUMBLE_UDP_MESSAGE(Ping, 1)
+	PROCESS_MUMBLE_UDP_MESSAGE(Ping, 1)  \
+	PROCESS_MUMBLE_UDP_MESSAGE(Video, 2)
 
 namespace Mumble {
 namespace Protocol {
@@ -147,6 +148,19 @@ namespace Protocol {
 
 		friend bool operator==(const AudioData &lhs, const AudioData &rhs);
 		friend bool operator!=(const AudioData &lhs, const AudioData &rhs);
+	};
+
+	/// Carries all fields from a decoded MumbleUDP::Video fragment.
+	struct VideoData {
+		std::uint32_t senderSession = 0;
+		std::string codec;
+		std::uint32_t width         = 0;
+		std::uint32_t height        = 0;
+		std::uint64_t frameNumber   = 0;
+		std::uint32_t fragmentIndex = 0;
+		std::uint32_t fragmentCount = 0;
+		std::span< const byte > payload;
+		bool isKeyFrame = false;
 	};
 
 	struct PingData {
