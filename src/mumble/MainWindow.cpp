@@ -1834,6 +1834,11 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserTextureReset);
 	}
 
+	if (p && !isSelf && p->bScreenSharing) {
+		qmUser->addSeparator();
+		qmUser->addAction(qaUserViewScreenShare);
+	}
+
 	qmUser->addAction(qaUserTextMessage);
 	if (Global::get().sh && Global::get().sh->m_version >= Version::fromComponents(1, 2, 2))
 		qmUser->addAction(qaUserInformation);
@@ -4360,6 +4365,20 @@ void MainWindow::requestScreenShareKeyFrame(quint32 senderSession) {
 	MumbleProto::VideoKeyFrameRequest mpvkfr;
 	mpvkfr.set_session(senderSession);
 	Global::get().sh->sendMessage(mpvkfr);
+}
+
+void MainWindow::on_qaUserViewScreenShare_triggered() {
+	ClientUser *p = getContextMenuTargets().user;
+	if (!p || !p->bScreenSharing)
+		return;
+
+	if (!m_screenShareViewers.contains(p->uiSession)) {
+		ScreenShareViewer *viewer = new ScreenShareViewer(p->uiSession, p->qsName, this);
+		m_screenShareViewers.insert(p->uiSession, viewer);
+	}
+
+	ScreenShareViewer *viewer = m_screenShareViewers[p->uiSession];
+	viewer->showAndRefresh();
 }
 
 void MainWindow::onRemoteScreenShareStopped(quint32 senderSession) {

@@ -21,6 +21,9 @@ private:
 public:
 	explicit ScreenShareViewer(quint32 senderSession, const QString &senderName, QWidget *parent = nullptr);
 
+	/// Show the window and repaint with the last stored frame.
+	void showAndRefresh();
+
 public slots:
 	void updateFrame(QImage frame);
 
@@ -31,11 +34,8 @@ private:
 	void updateImageDisplay();
 
 	QLabel *m_imageLabel;
-	QScrollArea *m_scrollArea;
 	quint32 m_senderSession;
 	QImage m_currentFrame;
-	/// Whether the window has been opened already.
-	bool m_opened = false;
 };
 
 #endif // MUMBLE_MUMBLE_SCREENSHAREVIEWER_H_

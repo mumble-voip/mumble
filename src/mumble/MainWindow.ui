@@ -961,6 +961,21 @@ the channel's context menu.</string>
     <bool>true</bool>
    </property>
   </action>
+  <action name="qaUserViewScreenShare">
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:actions/screenshare.svg</normaloff>skin:actions/screenshare.svg</iconset>
+   </property>
+   <property name="text">
+    <string>View &amp;Screen Share</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the screen share viewer for this user</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
   <action name="qaSelfComment">
    <property name="icon">
     <iconset>
