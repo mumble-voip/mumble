@@ -295,6 +295,7 @@ public slots:
 	void on_qaAudioMute_triggered();
 	void on_qaAudioDeaf_triggered();
 	void on_qaRecording_triggered();
+	void on_qaScreenShare_triggered();
 	void on_qaAudioTTS_triggered();
 	void on_qaAudioUnlink_triggered();
 	void on_qaAudioStats_triggered();
@@ -470,6 +471,8 @@ public:
 	void openServerBanListDialog();
 	void toggleSelfPrioritySpeaker();
 	void recording();
+	void screenShare();
+	void sendScreenShareFrame(QByteArray encodedData, quint64 frameNumber, bool isKeyFrame);
 	void onRemoteFrameDecoded(quint32 senderSession, QImage frame);
 	void onRemoteScreenShareStopped(quint32 senderSession);
 	void openSelfCommentDialog();

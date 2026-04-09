@@ -220,6 +220,8 @@ set(MUMBLE_SOURCES
 	"RichTextEditor.ui"
 	"Screen.cpp"
 	"Screen.h"
+	"ScreenCapture.cpp"
+	"ScreenCapture.h"
 	"ScreenShareReceiver.cpp"
 	"ScreenShareReceiver.h"
 	"ScreenShareViewer.cpp"
@@ -915,6 +917,14 @@ if(screen-sharing)
 		if(NOT FFMPEG_DIR)
 			set(FFMPEG_DIR "${3RDPARTY_DIR}/ffmpeg")
 		endif()
+
+		target_sources(mumble_client_lib
+			PRIVATE
+				"ScreenCapture.h"
+				"ScreenCapture.cpp"
+				"ScreenShareReceiver.h"
+				"ScreenShareReceiver.cpp"
+		)
 
 		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
 		target_include_directories(mumble_client_lib

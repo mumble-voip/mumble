@@ -82,6 +82,7 @@
     <addaction name="qaSelfPrioritySpeaker"/>
     <addaction name="separator"/>
     <addaction name="qaRecording"/>
+    <addaction name="qaScreenShare"/>
     <addaction name="separator"/>
     <addaction name="qaSelfComment"/>
     <addaction name="qaServerTexture"/>
@@ -188,6 +189,7 @@
    <addaction name="qaAudioMute"/>
    <addaction name="qaAudioDeaf"/>
    <addaction name="qaRecording"/>
+   <addaction name="qaScreenShare"/>
    <addaction name="separator"/>
    <addaction name="qaSelfComment"/>
    <addaction name="separator"/>
@@ -1014,6 +1016,30 @@ the channel's context menu.</string>
    </property>
    <property name="whatsThis">
     <string>This will open the audio recording dialog.</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="qaScreenShare">
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:actions/screenshare.svg</normaloff>skin:actions/screenshare.svg</iconset>
+   </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Share &amp;Screen</string>
+   </property>
+   <property name="toolTip">
+    <string>Start or stop sharing your screen with others in the channel</string>
+   </property>
+   <property name="whatsThis">
+    <string>Captures and streams your primary screen as H.264 video to all users in the current channel.</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>

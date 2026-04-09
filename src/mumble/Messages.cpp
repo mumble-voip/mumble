@@ -603,6 +603,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		// Do nothing during initial sync
 		if (pSelf) {
 			if (pDst == pSelf) {
+				// Reflect the toggle state back onto the toolbar button.
+				Global::get().mw->qaScreenShare->setChecked(pDst->bScreenSharing);
 				if (pDst->bScreenSharing) {
 					Global::get().l->log(Log::Information, tr("Screen sharing started."));
 				} else {
