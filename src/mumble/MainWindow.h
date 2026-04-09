@@ -6,8 +6,10 @@
 #ifndef MUMBLE_MUMBLE_MAINWINDOW_H_
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
+#include <QtCore/QMap>
 #include <QtCore/QPointer>
 #include <QtCore/QtGlobal>
+#include <QtGui/QImage>
 #include <QtNetwork/QAbstractSocket>
 #include <QtWidgets/QMainWindow>
 
@@ -33,6 +35,7 @@ class ACLEditor;
 class BanEditor;
 class UserEdit;
 class ServerHandler;
+class ScreenShareViewer;
 class GlobalShortcut;
 class TextToSpeech;
 class UserModel;
@@ -124,6 +127,7 @@ public:
 	Tokens *tokenEdit;
 
 	VoiceRecorderDialog *voiceRecorderDialog;
+	QMap< quint32, ScreenShareViewer * > m_screenShareViewers;
 
 	MumbleProto::Reject_RejectType rtLast;
 	bool bRetryServer;
@@ -291,6 +295,7 @@ public slots:
 	void on_qaAudioMute_triggered();
 	void on_qaAudioDeaf_triggered();
 	void on_qaRecording_triggered();
+	void on_qaScreenShare_triggered();
 	void on_qaAudioTTS_triggered();
 	void on_qaAudioUnlink_triggered();
 	void on_qaAudioStats_triggered();
@@ -466,6 +471,10 @@ public:
 	void openServerBanListDialog();
 	void toggleSelfPrioritySpeaker();
 	void recording();
+	void screenShare();
+	void sendScreenShareFrame(QByteArray encodedData, quint64 frameNumber, bool isKeyFrame);
+	void onRemoteFrameDecoded(quint32 senderSession, QImage frame);
+	void onRemoteScreenShareStopped(quint32 senderSession);
 	void openSelfCommentDialog();
 	void changeServerTexture();
 	void removeServerTexture();

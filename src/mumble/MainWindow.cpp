@@ -39,6 +39,9 @@
 #include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
 #include "Screen.h"
+#include "ScreenCapture.h"
+#include "ScreenShareReceiver.h"
+#include "ScreenShareViewer.h"
 #include "SearchDialog.h"
 #include "ServerHandler.h"
 #include "ServerInformation.h"
@@ -73,6 +76,7 @@
 #include <QtCore/QUrlQuery>
 #include <QtGui/QClipboard>
 #include <QtGui/QDesktopServices>
+#include <QtGui/QGuiApplication>
 #include <QtGui/QImageReader>
 #include <QtGui/QScreen>
 #include <QtGui/QWindow>
@@ -215,6 +219,12 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::channelStateChanged, this, &MainWindow::on_channelStateChanged);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
+
+	// Create the screen-share receiver and connect its frameDecoded signal so that decoded
+	// frames from remote users are delivered on the GUI thread (queued connection).
+	Global::get().screenShareReceiver = new ScreenShareReceiver(this);
+	connect(Global::get().screenShareReceiver, &ScreenShareReceiver::frameDecoded, this,
+			&MainWindow::onRemoteFrameDecoded, Qt::QueuedConnection);
 }
 
 // Loading a state that was stored by a different version of Qt can lead to a crash.
@@ -2823,6 +2833,10 @@ void MainWindow::on_qaRecording_triggered() {
 	recording();
 }
 
+void MainWindow::on_qaScreenShare_triggered() {
+	screenShare();
+}
+
 void MainWindow::on_qaAudioTTS_triggered() {
 	enableAudioTTS(qaAudioTTS->isChecked());
 }
@@ -3553,6 +3567,7 @@ void MainWindow::serverConnected() {
 	Global::get().uiMaxUsers      = 0;
 
 	enableRecording(true);
+	qaScreenShare->setEnabled(true);
 
 	if (Global::get().s.bMute || Global::get().s.bDeaf) {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
@@ -3665,8 +3680,12 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qmUser_aboutToShow();
 	on_qmConfig_aboutToShow();
 
-	// We can't record without a server anyway, so we disable the functionality here
+	// We can't record or share screen without a server, so disable that functionality here
 	enableRecording(false);
+	qaScreenShare->setEnabled(false);
+	if (Global::get().sc && Global::get().sc->isCapturing()) {
+		Global::get().sc->stopCapture();
+	}
 
 	if (!Global::get().sh->qlErrors.isEmpty()) {
 		for (const QSslError &e : Global::get().sh->qlErrors) {
@@ -4138,6 +4157,99 @@ void MainWindow::recording() {
 		connect(voiceRecorderDialog, SIGNAL(finished(int)), this, SLOT(voiceRecorderDialog_finished(int)));
 		QObject::connect(Global::get().sh.get(), &ServerHandler::disconnected, voiceRecorderDialog, &QDialog::reject);
 		voiceRecorderDialog->show();
+	}
+}
+
+void MainWindow::screenShare() {
+	ClientUser *p = ClientUser::get(Global::get().uiSession);
+	if (!p || !Global::get().sh)
+		return;
+
+	const bool currentlySharing = Global::get().sc && Global::get().sc->isCapturing();
+
+	if (!currentlySharing) {
+		if (!Global::get().sc) {
+			Global::get().sc = new ScreenCapture(this);
+			connect(Global::get().sc, &ScreenCapture::frameEncoded, this, &MainWindow::sendScreenShareFrame);
+		}
+		Global::get().sc->startCapture();
+
+		MumbleProto::UserState mpus;
+		mpus.set_session(p->uiSession);
+		mpus.set_screen_sharing(true);
+		Global::get().sh->sendMessage(mpus);
+	} else {
+		Global::get().sc->stopCapture();
+
+		MumbleProto::UserState mpus;
+		mpus.set_session(p->uiSession);
+		mpus.set_screen_sharing(false);
+		Global::get().sh->sendMessage(mpus);
+	}
+}
+
+void MainWindow::sendScreenShareFrame(QByteArray encodedData, quint64 frameNumber, bool isKeyFrame) {
+	ServerHandlerPtr sh = Global::get().sh;
+	ClientUser *p       = ClientUser::get(Global::get().uiSession);
+	if (!p || !sh || encodedData.isEmpty())
+		return;
+
+	// Fragment the encoded frame into UDP-safe chunks and send each as a MumbleUDP::Video message.
+	// 900 is a bit of a hardcoded arbitrary data. But it seems like a safe value for most MTU
+	static constexpr int MAX_FRAGMENT_BYTES = 900;
+	const int dataSize                      = static_cast< int >(encodedData.size());
+	const int fragmentCount                 = (dataSize + MAX_FRAGMENT_BYTES - 1) / MAX_FRAGMENT_BYTES;
+
+	QScreen *screen  = QGuiApplication::primaryScreen();
+	const int width  = screen ? screen->size().width() : 0;
+	const int height = screen ? screen->size().height() : 0;
+
+	for (int i = 0; i < fragmentCount; ++i) {
+		const int offset    = i * MAX_FRAGMENT_BYTES;
+		const int chunkSize = std::min(MAX_FRAGMENT_BYTES, dataSize - offset);
+
+		MumbleUDP::Video videoMsg;
+		videoMsg.set_sender_session(p->uiSession);
+		videoMsg.set_codec(MumbleUDP::Video_Codec_H264);
+		videoMsg.set_width(static_cast< std::uint32_t >(width));
+		videoMsg.set_height(static_cast< std::uint32_t >(height));
+		videoMsg.set_frame_number(frameNumber);
+		videoMsg.set_fragment_index(static_cast< std::uint32_t >(i));
+		videoMsg.set_fragment_count(static_cast< std::uint32_t >(fragmentCount));
+		videoMsg.set_video_data(encodedData.constData() + offset, static_cast< std::size_t >(chunkSize));
+		videoMsg.set_is_keyframe(isKeyFrame && i == 0);
+
+		const int msgSize = static_cast< int >(videoMsg.ByteSizeLong());
+		std::vector< unsigned char > packet(static_cast< std::size_t >(msgSize + 1));
+		packet[0] = static_cast< unsigned char >(Mumble::Protocol::UDPMessageType::Video);
+		if (!videoMsg.SerializeToArray(packet.data() + 1, msgSize))
+			continue;
+
+		sh->sendMessage(packet.data(), static_cast< int >(packet.size()));
+	}
+}
+
+void MainWindow::onRemoteFrameDecoded(quint32 senderSession, QImage frame) {
+	ClientUser *sender = ClientUser::get(senderSession);
+	const QString name = sender ? sender->qsName : tr("Unknown");
+
+	if (!m_screenShareViewers.contains(senderSession)) {
+		ScreenShareViewer *viewer = new ScreenShareViewer(senderSession, name, this);
+		m_screenShareViewers.insert(senderSession, viewer);
+	}
+
+	ScreenShareViewer *viewer = m_screenShareViewers[senderSession];
+	viewer->updateFrame(frame);
+}
+
+void MainWindow::onRemoteScreenShareStopped(quint32 senderSession) {
+	if (Global::get().screenShareReceiver)
+		Global::get().screenShareReceiver->resetSender(senderSession);
+
+	if (m_screenShareViewers.contains(senderSession)) {
+		ScreenShareViewer *viewer = m_screenShareViewers.take(senderSession);
+		viewer->close();
+		viewer->deleteLater();
 	}
 }
 

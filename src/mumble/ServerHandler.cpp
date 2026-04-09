@@ -26,6 +26,7 @@
 #include "ProtoUtils.h"
 #include "RichTextEditor.h"
 #include "SSL.h"
+#include "ScreenShareReceiver.h"
 #include "ServerResolver.h"
 #include "ServerResolverRecord.h"
 #include "User.h"
@@ -296,7 +297,9 @@ void ServerHandler::udpReady() {
 					break;
 				};
 				case Mumble::Protocol::UDPMessageType::Video:
-					// Video packets are not yet handled by this client; silently discard.
+					const Mumble::Protocol::VideoData videoData = m_udpDecoder.getVideoData();
+
+					handleVideoPacket(videoData);
 					break;
 			}
 		}
@@ -317,6 +320,18 @@ void ServerHandler::handleVoicePacket(const Mumble::Protocol::AudioData &audioDa
 			 && sender->qsFriendName.isEmpty())) {
 		ao->addFrameToBuffer(sender, audioData);
 	}
+}
+
+void ServerHandler::handleVideoPacket(const Mumble::Protocol::VideoData &videoData) {
+	ClientUser *sender = ClientUser::get(videoData.senderSession);
+	if (!sender || !sender->bScreenSharing)
+		return;
+
+	// Forward to the receiver for fragment reassembly and decoding.
+	// ScreenShareReceiver::frameDecoded is connected with Qt::QueuedConnection so
+	// the actual display happens on the GUI thread.
+	if (Global::get().screenShareReceiver)
+		Global::get().screenShareReceiver->handleVideoPacket(videoData);
 }
 
 void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) {
