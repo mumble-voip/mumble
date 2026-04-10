@@ -71,7 +71,6 @@ private:
 		/// Drop P-frames until the decoder has seen at least one IDR keyframe.
 		bool gotKeyFrame = false;
 	};
-
 	std::map< quint32, DecoderState > m_decoders;
 
 	bool ensureDecoder(quint32 session, MumbleUDP::Video::Codec codec);

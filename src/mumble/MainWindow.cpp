@@ -28,6 +28,7 @@
 #	include "OverlayClient.h"
 #endif
 #include "../SignalCurry.h"
+#include "CaptureSource.h"
 #include "ChannelListenerManager.h"
 #include "FailedConnectionDialog.h"
 #include "ListenerVolumeSlider.h"
@@ -40,6 +41,10 @@
 #include "RichTextEditor.h"
 #include "Screen.h"
 #include "ScreenCapture.h"
+#include "ScreenPickerDialog.h"
+#ifdef Q_OS_MAC
+#	include "SCKitCapture.h"
+#endif
 #include "ScreenShareReceiver.h"
 #include "ScreenShareViewer.h"
 #include "SearchDialog.h"
@@ -4177,6 +4182,53 @@ void MainWindow::screenShare() {
 			Global::get().sc = new ScreenCapture(this);
 			connect(Global::get().sc, &ScreenCapture::frameEncoded, this, &MainWindow::sendScreenShareFrame);
 		}
+
+#if defined(USE_SCREEN_SHARING) && defined(Q_OS_MAC)
+		if (sckit_isNativePickerAvailable()) {
+			// Async path: show native SCContentSharingPicker.
+			// The picker is a non-blocking OS overlay; we return immediately and wait for signals.
+			const quint32 session = p->uiSession;
+			auto *sc              = Global::get().sc;
+
+			// One-shot: when the stream actually starts, tell the server.
+			connect(
+				sc, &ScreenCapture::captureStarted, this,
+				[this, session, sc]() {
+					disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
+					disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
+					if (Global::get().sh) {
+						MumbleProto::UserState mpus;
+						mpus.set_session(session);
+						mpus.set_screen_sharing(true);
+						Global::get().sh->sendMessage(mpus);
+					}
+				},
+				Qt::SingleShotConnection);
+
+			// One-shot: if the user cancels, revert the toggle.
+			connect(
+				sc, &ScreenCapture::captureAborted, this,
+				[this, sc]() {
+					disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
+					disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
+					qaScreenShare->setChecked(false);
+				},
+				Qt::SingleShotConnection);
+
+			sc->startCaptureNative();
+			return; // Don't send UserState yet — wait for captureStarted.
+		}
+#endif
+
+#ifdef USE_SCREEN_SHARING
+		// Sync path: show ScreenPickerDialog (non-macOS or macOS < 14).
+		ScreenPickerDialog dlg(this);
+		if (dlg.exec() != QDialog::Accepted) {
+			qaScreenShare->setChecked(false);
+			return;
+		}
+		Global::get().sc->setSource(dlg.selectedSource());
+#endif
 		Global::get().sc->startCapture();
 
 		MumbleProto::UserState mpus;

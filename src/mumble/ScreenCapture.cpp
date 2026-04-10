@@ -8,10 +8,12 @@
 #include "Log.h"
 
 #ifdef USE_SCREEN_SHARING
-#	include <QtGui/QGuiApplication>
+#	include "CaptureSourceLister.h"
+#	include <QtCore/QPointer>
 #	include <QtGui/QImage>
-#	include <QtGui/QPixmap>
-#	include <QtGui/QScreen>
+#	ifdef Q_OS_MAC
+#		include "SCKitCapture.h"
+#	endif
 #endif
 
 #include "Global.h"
@@ -56,6 +58,9 @@ void ScreenCapture::stopCapture() {
 	m_capturing = false;
 
 #ifdef USE_SCREEN_SHARING
+#	ifdef Q_OS_MAC
+	sckit_stop();
+#	endif
 	destroyEncoder();
 #endif
 }
@@ -64,28 +69,65 @@ bool ScreenCapture::isCapturing() const {
 	return m_capturing;
 }
 
-void ScreenCapture::captureFrame() {
 #ifdef USE_SCREEN_SHARING
-	QScreen *screen = QGuiApplication::primaryScreen();
-	if (!screen)
+
+void ScreenCapture::setSource(const CaptureSource &source) {
+	m_source = source;
+	destroyEncoder(); // Reset so the encoder reinitialises at the new source's resolution.
+}
+
+#	ifdef Q_OS_MAC
+void ScreenCapture::startCaptureNative() {
+	if (m_capturing)
 		return;
 
-	// Grab the entire primary screen.
-	QPixmap pixmap = screen->grabWindow(0);
-	if (pixmap.isNull()) {
-		// grabWindow(0) fails silently under Wayland.
-		// In the future, this should be replaced with dg-desktop-portal
-		Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed: grabWindow returned null. "));
-		stopCapture();
+	// Keep a safe pointer — the lambdas below must not capture `this` without guard.
+	QPointer< ScreenCapture > self = this;
+
+	sckit_startWithNativePicker(
+		// onStarted: SCStream is running — flip the capturing flag and notify MainWindow.
+		[self]() {
+			if (!self)
+				return;
+			self->m_capturing   = true;
+			self->m_frameNumber = 0;
+			emit self->captureStarted();
+		},
+		// onCancelled: user dismissed the picker without choosing a source.
+		[self]() {
+			if (!self)
+				return;
+			emit self->captureAborted();
+		},
+		// onError: stream startup failed after the picker was shown.
+		[self](QString error) {
+			if (!self)
+				return;
+			Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed: %1").arg(error));
+			self->m_capturing = false;
+			self->destroyEncoder();
+			emit self->captureAborted();
+		},
+		// onFrame: frame delivered on the main thread; encode and forward.
+		[self](QImage frame) {
+			if (!self || !self->m_capturing)
+				return;
+			self->encodeImage(frame);
+		});
+}
+#	endif // Q_OS_MAC
+
+void ScreenCapture::encodeImage(const QImage &srcImage) {
+	// Caller must supply a non-null Format_RGB888 image.
+	if (srcImage.isNull())
 		return;
-	}
 
 	// Convert to Format_RGBA8888 for mapping to AV_PIX_FMT_RGB24.
-	QImage image     = pixmap.toImage().convertToFormat(QImage::Format_RGBA8888);
+	QImage image     = srcImage.convertToFormat(QImage::Format_RGBA8888);
 	const int width  = image.width();
 	const int height = image.height();
 
-	// (Re-)initialise the encoder if this is the first frame or the resolution changed.
+	// (Re-)initialise the encoder when the resolution changes.
 	if (!m_codecCtx || m_encoderWidth != width || m_encoderHeight != height) {
 		destroyEncoder();
 		if (!initEncoder(width, height))
@@ -118,6 +160,23 @@ void ScreenCapture::captureFrame() {
 	}
 
 	++m_frameNumber;
+}
+
+#endif // USE_SCREEN_SHARING
+
+void ScreenCapture::captureFrame() {
+#ifdef USE_SCREEN_SHARING
+	// Delegate platform-specific grab to CaptureSourceLister.
+	QImage image = grabCaptureSource(m_source);
+	if (image.isNull()) {
+		Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed. "
+													   "If running under Wayland, set QT_QPA_PLATFORM=xcb."));
+		stopCapture();
+		return;
+	}
+
+	// Ensure Format_RGB888 (24-bit RGB, no alpha) for AV_PIX_FMT_RGB24 mapping.
+	encodeImage(image.convertToFormat(QImage::Format_RGB888));
 #endif
 }
 
