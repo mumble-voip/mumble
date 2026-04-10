@@ -954,6 +954,14 @@ if(screen-sharing)
 			PkgConfig::LIBAVUTIL
 		)
 		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
+
+		if(NOT APPLE)
+			target_sources(mumble_client_lib PRIVATE "CaptureSourceLister_unix.cpp")
+			if(TARGET X11::X11)
+				target_link_libraries(mumble_client_lib PUBLIC X11::X11)
+				target_compile_definitions(mumble_client_lib PRIVATE "HAS_X11_WINDOW_LIST")
+			endif()
+		endif()
 	endif()
 endif()
 
