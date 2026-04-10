@@ -18,9 +18,12 @@
 QList< CaptureSource > listCaptureSources();
 
 /// Grabs one full-resolution frame from the given source and returns it as QImage (Format_RGBA8888).
-/// On macOS uses ScreenCaptureKit for Window sources; uses QScreen::grabWindow elsewhere.
 /// Must be called on the GUI thread (screen capture APIs require it).
 QImage grabCaptureSource(const CaptureSource &source);
+
+/// Returns the visible application windows, without thumbnails. Implemented per platform, used by
+/// listCaptureSources().
+QList< CaptureSource > listCaptureWindows();
 
 #endif // USE_SCREEN_SHARING
 #endif // MUMBLE_MUMBLE_CAPTURESOURCELISTER_H_

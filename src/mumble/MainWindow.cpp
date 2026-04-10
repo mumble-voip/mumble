@@ -28,6 +28,7 @@
 #	include "OverlayClient.h"
 #endif
 #include "../SignalCurry.h"
+#include "CaptureSource.h"
 #include "ChannelListenerManager.h"
 #include "FailedConnectionDialog.h"
 #include "ListenerVolumeSlider.h"
@@ -40,6 +41,10 @@
 #include "RichTextEditor.h"
 #include "Screen.h"
 #include "ScreenCapture.h"
+#include "ScreenPickerDialog.h"
+#ifdef Q_OS_MAC
+#	include "SCKitCapture.h"
+#endif
 #include "ScreenShareReceiver.h"
 #include "ScreenShareViewer.h"
 #include "SearchDialog.h"
@@ -4235,6 +4240,69 @@ void MainWindow::screenShare() {
 				Global::get().sh->sendMessage(mpus);
 			});
 		}
+
+#if defined(USE_SCREEN_SHARING) && defined(Q_OS_MAC)
+		{
+			// Async path: show native SCContentSharingPicker.
+			// The picker is a non-blocking OS overlay; we return immediately and wait for signals.
+			const quint32 session = p->uiSession;
+			auto *sc              = Global::get().sc;
+
+			if (m_screenSharePickerOpen) {
+				// Only bring the picker back, the screen share is still about to start
+				qaScreenShare->setChecked(true);
+				sc->startCaptureNative();
+				return;
+			}
+			m_screenSharePickerOpen = true;
+
+			// One-shot: when the stream actually starts, tell the server.
+			connect(
+				sc, &ScreenCapture::captureStarted, this,
+				[this, session, sc]() {
+					disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
+					disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
+					m_screenSharePickerOpen = false;
+					if (Global::get().sh) {
+						MumbleProto::UserState mpus;
+						mpus.set_session(session);
+						mpus.set_screen_sharing(true);
+						Global::get().sh->sendMessage(mpus);
+					}
+				},
+				Qt::SingleShotConnection);
+
+			// One-shot: if the user cancels, revert the toggle.
+			connect(
+				sc, &ScreenCapture::captureAborted, this,
+				[this, sc]() {
+					disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
+					disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
+					m_screenSharePickerOpen = false;
+					qaScreenShare->setChecked(false);
+				},
+				Qt::SingleShotConnection);
+
+			sc->startCaptureNative();
+			return; // Don't send UserState yet — wait for captureStarted.
+		}
+#endif
+
+#ifdef USE_SCREEN_SHARING
+		// Sync path: show ScreenPickerDialog (where the system's picker isn't used).
+		ScreenPickerDialog dlg(this);
+		if (dlg.exec() != QDialog::Accepted) {
+			qaScreenShare->setChecked(false);
+			return;
+		}
+		// The dialog runs its own event loop, during which we may have been disconnected, deleting our user
+		p = ClientUser::get(Global::get().uiSession);
+		if (!p) {
+			qaScreenShare->setChecked(false);
+			return;
+		}
+		Global::get().sc->setSource(dlg.selectedSource());
+#endif
 		Global::get().sc->startCapture();
 		if (!Global::get().sc->isCapturing()) {
 			// E.g. because this build doesn't support screen sharing. Nothing would be sent, so don't claim to share.

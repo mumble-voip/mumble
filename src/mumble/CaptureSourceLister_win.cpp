@@ -9,19 +9,8 @@
 
 #	include "win.h"
 
-#	include <QtGui/QGuiApplication>
-#	include <QtGui/QPixmap>
-#	include <QtGui/QScreen>
-
-static constexpr int THUMBNAIL_WIDTH  = 160;
-static constexpr int THUMBNAIL_HEIGHT = 90;
-
-struct EnumWindowsContext {
-	QList< CaptureSource > *sources;
-};
-
 static BOOL CALLBACK enumWindowsProc(HWND hwnd, LPARAM lParam) {
-	auto *ctx = reinterpret_cast< EnumWindowsContext * >(lParam);
+	auto *windows = reinterpret_cast< QList< CaptureSource > * >(lParam);
 
 	if (!IsWindowVisible(hwnd))
 		return TRUE;
@@ -34,74 +23,19 @@ static BOOL CALLBACK enumWindowsProc(HWND hwnd, LPARAM lParam) {
 
 	wchar_t title[512] = {};
 	GetWindowTextW(hwnd, title, 512);
-	const QString displayName = QString::fromWCharArray(title);
-
-	// Thumbnail: grab via Qt (works for windows on Windows via QScreen::grabWindow(HWND)).
-	QPixmap px;
-	QScreen *screen = QGuiApplication::primaryScreen();
-	if (screen) {
-		px = screen->grabWindow(reinterpret_cast< WId >(hwnd));
-		if (!px.isNull()) {
-			px = QPixmap::fromImage(
-				px.toImage().scaled(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-		}
-	}
 
 	CaptureSource s;
 	s.type           = CaptureSource::Type::Window;
 	s.nativeWindowId = reinterpret_cast< quintptr >(hwnd);
-	s.displayName    = displayName;
-	s.thumbnail      = px;
-	ctx->sources->append(s);
+	s.displayName    = QString::fromWCharArray(title);
+	windows->append(s);
 	return TRUE;
 }
 
-QList< CaptureSource > listCaptureSources() {
-	QList< CaptureSource > sources;
-
-	// Screens.
-	const QList< QScreen * > screens = QGuiApplication::screens();
-	for (int i = 0; i < screens.size(); ++i) {
-		QScreen *screen = screens.at(i);
-		CaptureSource s;
-		s.type        = CaptureSource::Type::EntireScreen;
-		s.screenIndex = i;
-		s.displayName =
-			QObject::tr("Display %1 (%2×%3)").arg(i + 1).arg(screen->size().width()).arg(screen->size().height());
-		QPixmap px = screen->grabWindow(0);
-		if (!px.isNull()) {
-			s.thumbnail = QPixmap::fromImage(
-				px.toImage().scaled(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-		}
-		sources.append(s);
-	}
-
-	// Windows.
-	EnumWindowsContext ctx{ &sources };
-	EnumWindows(enumWindowsProc, reinterpret_cast< LPARAM >(&ctx));
-
-	return sources;
-}
-
-QImage grabCaptureSource(const CaptureSource &source) {
-	if (source.type == CaptureSource::Type::EntireScreen) {
-		const QList< QScreen * > screens = QGuiApplication::screens();
-		if (source.screenIndex < 0 || source.screenIndex >= screens.size())
-			return {};
-		QPixmap px = screens.at(source.screenIndex)->grabWindow(0);
-		if (px.isNull())
-			return {};
-		return px.toImage().convertToFormat(QImage::Format_RGBA8888);
-	}
-
-	// Qt's grabWindow with HWND works on Windows.
-	QScreen *screen = QGuiApplication::primaryScreen();
-	if (!screen)
-		return {};
-	QPixmap px = screen->grabWindow(static_cast< WId >(source.nativeWindowId));
-	if (px.isNull())
-		return {};
-	return px.toImage().convertToFormat(QImage::Format_RGBA8888);
+QList< CaptureSource > listCaptureWindows() {
+	QList< CaptureSource > windows;
+	EnumWindows(enumWindowsProc, reinterpret_cast< LPARAM >(&windows));
+	return windows;
 }
 
 #endif // USE_SCREEN_SHARING

@@ -136,6 +136,8 @@ public:
 	void unsubscribeFromScreenShare(quint32 senderSession);
 	/// Thread that Global::get().screenShareReceiver lives on.
 	QThread *m_screenShareThread = nullptr;
+	/// Whether the system's screen picker is open, i.e. a screen share is about to start.
+	bool m_screenSharePickerOpen = false;
 
 	MumbleProto::Reject_RejectType rtLast;
 	bool bRetryServer;

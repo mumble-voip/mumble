@@ -913,11 +913,17 @@ if(plugins)
 endif()
 
 if(screen-sharing)
-	target_sources(mumble_client_lib
-		PRIVATE
-			"CaptureSource.h"
-			"CaptureSourceLister.h"
-	)
+
+	# Shared sources (all platforms)
+	target_sources(mumble_client_lib PRIVATE
+						"CaptureSource.h"
+						"CaptureSourceLister.h"
+						"CaptureSourceLister.cpp"
+						"ScreenPickerDialog.h"
+						"ScreenPickerDialog.cpp"
+						"ScreenShareReceiver.h"
+						"ScreenShareReceiver.cpp"
+				)
 
 	if(WIN32)
 		target_sources(mumble_client_lib PRIVATE "CaptureSourceLister_win.cpp")
@@ -926,18 +932,10 @@ if(screen-sharing)
 			set(FFMPEG_DIR "${3RDPARTY_DIR}/ffmpeg")
 		endif()
 
-		target_sources(mumble_client_lib
-			PRIVATE
-				"ScreenCapture.h"
-				"ScreenCapture.cpp"
-				"ScreenShareReceiver.h"
-				"ScreenShareReceiver.cpp"
-		)
-
 		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
 		target_include_directories(mumble_client_lib
-			SYSTEM PUBLIC
-				"${FFMPEG_DIR}/include"
+				SYSTEM PUBLIC
+					"${FFMPEG_DIR}/include"
 		)
 
 		foreach(FFMPEG_LIB IN ITEMS avcodec swscale avutil)
@@ -955,10 +953,37 @@ if(screen-sharing)
 			PkgConfig::LIBSWSCALE
 			PkgConfig::LIBAVUTIL
 		)
-		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
 
-		if(NOT APPLE)
-			target_sources(mumble_client_lib PRIVATE "CaptureSourceLister_unix.cpp")
+		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
+		target_sources(mumble_client_lib PRIVATE "CaptureSourceLister_unix.cpp")
+
+		if(APPLE)
+			target_sources(mumble_client_lib PRIVATE
+																"SCKitCapture.h"
+																"SCKitCapture_macx.mm"
+			)
+
+			find_library(LIB_COREGRAPHICS CoreGraphics)
+			if(LIB_COREGRAPHICS)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_COREGRAPHICS})
+			endif()
+
+			find_library(LIB_SCREENCAPTUREKIT ScreenCaptureKit)
+			if(LIB_SCREENCAPTUREKIT)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_SCREENCAPTUREKIT})
+			endif()
+
+			find_library(LIB_COREMEDIA CoreMedia)
+			if(LIB_COREMEDIA)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_COREMEDIA})
+			endif()
+
+			find_library(LIB_COREVIDEO CoreVideo)
+			if(LIB_COREVIDEO)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_COREVIDEO})
+			endif()
+
+		else()
 			if(TARGET X11::X11)
 				target_link_libraries(mumble_client_lib PUBLIC X11::X11)
 				target_compile_definitions(mumble_client_lib PRIVATE "HAS_X11_WINDOW_LIST")

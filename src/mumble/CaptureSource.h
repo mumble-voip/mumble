@@ -18,7 +18,7 @@ struct CaptureSource {
 
 	Type type               = Type::EntireScreen;
 	int screenIndex         = 0; ///< Index into QGuiApplication::screens() — used when type == EntireScreen.
-	quintptr nativeWindowId = 0; ///< Platform window handle: CGWindowID on macOS, XID on X11, HWND on Windows.
+	quintptr nativeWindowId = 0; ///< Platform window handle: XID on X11, HWND on Windows.
 
 	QString displayName; ///< Human-readable label shown in the picker (e.g. "Display 1 (2560×1440)").
 	QPixmap thumbnail;   ///< Scaled preview (≈160×90), populated by listCaptureSources().
