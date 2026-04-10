@@ -920,6 +920,8 @@ if(screen-sharing)
 	)
 
 	if(WIN32)
+		target_sources(mumble_client_lib PRIVATE "CaptureSourceLister_win.cpp")
+
 		if(NOT FFMPEG_DIR)
 			set(FFMPEG_DIR "${3RDPARTY_DIR}/ffmpeg")
 		endif()
