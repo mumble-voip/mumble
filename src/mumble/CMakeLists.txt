@@ -989,6 +989,20 @@ if(screen-sharing)
 				target_compile_definitions(mumble_client_lib PRIVATE "HAS_X11_WINDOW_LIST")
 			endif()
 		endif()
+
+		# Wayland screen capture via xdg-desktop-portal + PipeWire.
+		# Requires Qt D-Bus (already linked when dbus=ON) and libpipewire-0.3.
+		if(dbus)
+			pkg_check_modules(LIBPIPEWIRE_SCREENSHARE IMPORTED_TARGET libpipewire-0.3)
+			if(LIBPIPEWIRE_SCREENSHARE_FOUND)
+				target_sources(mumble_client_lib PRIVATE
+					"XdgPortalCapture.h"
+					"XdgPortalCapture_unix.cpp"
+				)
+				target_link_libraries(mumble_client_lib PUBLIC PkgConfig::LIBPIPEWIRE_SCREENSHARE)
+				target_compile_definitions(mumble_client_lib PRIVATE "HAS_WAYLAND_PORTAL")
+			endif()
+		endif()
 	endif()
 endif()
 

@@ -40,7 +40,9 @@ struct EncodedVideoFrame {
 ///
 /// On macOS, startCaptureNative() shows the OS-native SCContentSharingPicker and streams
 /// frames via SCStream; captureStarted() / captureAborted() signals report the async outcome.
-/// On other platforms, use setSource() + startCapture() with ScreenPickerDialog.
+/// On Linux under Wayland, startCaptureNative() uses the xdg-desktop-portal ScreenCast interface
+/// and delivers frames via a PipeWire stream.
+/// On other platforms (or X11), use setSource() + startCapture() with ScreenPickerDialog.
 ///
 /// Requires the build option -Dscreen-sharing=ON (links libavcodec/libswscale).
 class ScreenCapture : public QObject {
@@ -65,10 +67,11 @@ public:
 	/// Sets the capture source for the non-native picker path. Call before startCapture().
 	void setSource(const CaptureSource &source);
 
-#	ifdef Q_OS_MAC
-	/// Shows the native macOS SCContentSharingPicker and starts capturing
-	/// the selected source via SCStream. Asynchronous: returns immediately.
-	/// captureStarted() is emitted when the stream is running; captureAborted() if cancelled/failed.
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	/// Shows the platform-native picker and starts capturing asynchronously.
+	/// On macOS: uses SCContentSharingPicker / SCStream.
+	/// On Linux (Wayland): uses xdg-desktop-portal ScreenCast + PipeWire.
+	/// captureStarted() is emitted when frames begin; captureAborted() if cancelled/failed.
 	void startCaptureNative();
 #	endif
 #endif
@@ -80,8 +83,8 @@ signals:
 	/// failed. Capturing has already stopped by then.
 	void captureEnded();
 
-#if defined(USE_SCREEN_SHARING) && defined(Q_OS_MAC)
-	/// Emitted on the main thread when the native SCStream starts delivering frames.
+#if defined(USE_SCREEN_SHARING) && (defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL))
+	/// Emitted on the main thread when the native stream starts delivering frames.
 	void captureStarted();
 	/// Emitted on the main thread when the native picker is cancelled or the stream fails to start.
 	void captureAborted();
