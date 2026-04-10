@@ -13,6 +13,8 @@
 #	include <QtGui/QImage>
 #	ifdef Q_OS_MAC
 #		include "SCKitCapture.h"
+#	elif defined(HAS_WAYLAND_PORTAL)
+#		include "XdgPortalCapture.h"
 #	endif
 #endif
 
@@ -60,6 +62,8 @@ void ScreenCapture::stopCapture() {
 #ifdef USE_SCREEN_SHARING
 #	ifdef Q_OS_MAC
 	sckit_stop();
+#	elif defined(HAS_WAYLAND_PORTAL)
+	xdg_portal_stop();
 #	endif
 	destroyEncoder();
 #endif
@@ -76,7 +80,7 @@ void ScreenCapture::setSource(const CaptureSource &source) {
 	destroyEncoder(); // Reset so the encoder reinitialises at the new source's resolution.
 }
 
-#	ifdef Q_OS_MAC
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
 void ScreenCapture::startCaptureNative() {
 	if (m_capturing)
 		return;
@@ -84,38 +88,39 @@ void ScreenCapture::startCaptureNative() {
 	// Keep a safe pointer — the lambdas below must not capture `this` without guard.
 	QPointer< ScreenCapture > self = this;
 
-	sckit_startWithNativePicker(
-		// onStarted: SCStream is running — flip the capturing flag and notify MainWindow.
-		[self]() {
-			if (!self)
-				return;
-			self->m_capturing   = true;
-			self->m_frameNumber = 0;
-			emit self->captureStarted();
-		},
-		// onCancelled: user dismissed the picker without choosing a source.
-		[self]() {
-			if (!self)
-				return;
-			emit self->captureAborted();
-		},
-		// onError: stream startup failed after the picker was shown.
-		[self](QString error) {
-			if (!self)
-				return;
-			Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed: %1").arg(error));
-			self->m_capturing = false;
-			self->destroyEncoder();
-			emit self->captureAborted();
-		},
-		// onFrame: frame delivered on the main thread; encode and forward.
-		[self](QImage frame) {
-			if (!self || !self->m_capturing)
-				return;
-			self->encodeImage(frame);
-		});
+	auto onStarted = [self]() {
+		if (!self)
+			return;
+		self->m_capturing   = true;
+		self->m_frameNumber = 0;
+		emit self->captureStarted();
+	};
+	auto onCancelled = [self]() {
+		if (!self)
+			return;
+		emit self->captureAborted();
+	};
+	auto onError = [self](QString error) {
+		if (!self)
+			return;
+		Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed: %1").arg(error));
+		self->m_capturing = false;
+		self->destroyEncoder();
+		emit self->captureAborted();
+	};
+	auto onFrame = [self](QImage frame) {
+		if (!self || !self->m_capturing)
+			return;
+		self->encodeImage(frame);
+	};
+
+#		ifdef Q_OS_MAC
+	sckit_startWithNativePicker(std::move(onStarted), std::move(onCancelled), std::move(onError), std::move(onFrame));
+#		else
+	xdg_portal_startCapture(std::move(onStarted), std::move(onCancelled), std::move(onError), std::move(onFrame));
+#		endif
 }
-#	endif // Q_OS_MAC
+#	endif // Q_OS_MAC || HAS_WAYLAND_PORTAL
 
 void ScreenCapture::encodeImage(const QImage &srcImage) {
 	// Caller must supply a non-null Format_RGB888 image.
@@ -123,9 +128,14 @@ void ScreenCapture::encodeImage(const QImage &srcImage) {
 		return;
 
 	// Convert to Format_RGBA8888 for mapping to AV_PIX_FMT_RGB24.
-	QImage image     = srcImage.convertToFormat(QImage::Format_RGBA8888);
-	const int width  = image.width();
-	const int height = image.height();
+	QImage image = srcImage.convertToFormat(QImage::Format_RGBA8888);
+	// libx264 (YUV420P) requires even dimensions — crop one pixel if needed.
+	const int width  = image.width() & ~1;
+	const int height = image.height() & ~1;
+	if (width <= 0 || height <= 0)
+		return;
+	if (width != image.width() || height != image.height())
+		image = image.copy(0, 0, width, height);
 
 	// (Re-)initialise the encoder when the resolution changes.
 	if (!m_codecCtx || m_encoderWidth != width || m_encoderHeight != height) {
@@ -169,8 +179,7 @@ void ScreenCapture::captureFrame() {
 	// Delegate platform-specific grab to CaptureSourceLister.
 	QImage image = grabCaptureSource(m_source);
 	if (image.isNull()) {
-		Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed. "
-													   "If running under Wayland, set QT_QPA_PLATFORM=xcb."));
+		Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed."));
 		stopCapture();
 		return;
 	}

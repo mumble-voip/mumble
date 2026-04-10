@@ -44,6 +44,8 @@
 #include "ScreenPickerDialog.h"
 #ifdef Q_OS_MAC
 #	include "SCKitCapture.h"
+#elif defined(HAS_WAYLAND_PORTAL)
+#	include "XdgPortalCapture.h"
 #endif
 #include "ScreenShareReceiver.h"
 #include "ScreenShareViewer.h"
@@ -4183,40 +4185,49 @@ void MainWindow::screenShare() {
 			connect(Global::get().sc, &ScreenCapture::frameEncoded, this, &MainWindow::sendScreenShareFrame);
 		}
 
-#if defined(USE_SCREEN_SHARING) && defined(Q_OS_MAC)
-		if (sckit_isNativePickerAvailable()) {
-			// Async path: show native SCContentSharingPicker.
-			// The picker is a non-blocking OS overlay; we return immediately and wait for signals.
-			const quint32 session = p->uiSession;
-			auto *sc              = Global::get().sc;
+#if defined(USE_SCREEN_SHARING) && (defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL))
+		{
+			bool useNativePicker = false;
+#	ifdef Q_OS_MAC
+			useNativePicker = sckit_isNativePickerAvailable();
+#	else
+			useNativePicker = xdg_portal_isNativePickerAvailable();
+#	endif
+			if (useNativePicker) {
+				// Async path: show native OS picker (SCContentSharingPicker on macOS,
+				// xdg-desktop-portal on Wayland Linux).
+				// The picker is a non-blocking overlay; we return immediately and wait for signals.
+				const quint32 session = p->uiSession;
+				auto *sc              = Global::get().sc;
 
-			// One-shot: when the stream actually starts, tell the server.
-			connect(
-				sc, &ScreenCapture::captureStarted, this,
-				[this, session, sc]() {
-					disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
-					disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
-					if (Global::get().sh) {
-						MumbleProto::UserState mpus;
-						mpus.set_session(session);
-						mpus.set_screen_sharing(true);
-						Global::get().sh->sendMessage(mpus);
-					}
-				},
-				Qt::SingleShotConnection);
+				// One-shot: when the stream actually starts, tell the server.
+				connect(
+					sc, &ScreenCapture::captureStarted, this,
+					[this, session, sc]() {
+						disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
+						disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
+						if (Global::get().sh) {
+							MumbleProto::UserState mpus;
+							mpus.set_session(session);
+							mpus.set_screen_sharing(true);
+							Global::get().sh->sendMessage(mpus);
+						}
+					},
+					Qt::SingleShotConnection);
 
-			// One-shot: if the user cancels, revert the toggle.
-			connect(
-				sc, &ScreenCapture::captureAborted, this,
-				[this, sc]() {
-					disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
-					disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
-					qaScreenShare->setChecked(false);
-				},
-				Qt::SingleShotConnection);
+				// One-shot: if the user cancels, revert the toggle.
+				connect(
+					sc, &ScreenCapture::captureAborted, this,
+					[this, sc]() {
+						disconnect(sc, &ScreenCapture::captureStarted, this, nullptr);
+						disconnect(sc, &ScreenCapture::captureAborted, this, nullptr);
+						qaScreenShare->setChecked(false);
+					},
+					Qt::SingleShotConnection);
 
-			sc->startCaptureNative();
-			return; // Don't send UserState yet — wait for captureStarted.
+				sc->startCaptureNative();
+				return; // Don't send UserState yet — wait for captureStarted.
+			}
 		}
 #endif
 
