@@ -1037,9 +1037,17 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 
 	const QString prefixMessage = target.isEmpty() ? name : tr("(%1) %2").arg(target).arg(name);
 
-	Global::get().l->log(privateMessage ? Log::PrivateTextMessage : Log::TextMessage,
-						 tr("%1: %2").arg(prefixMessage).arg(u8(msg.message())), tr("Message from %1").arg(plainName),
-						 false, overrideTTS, pSrc ? pSrc->bLocalIgnoreTTS : false);
+	// Determine if this message contains an image embed
+	const QString messageContent = u8(msg.message());
+	const bool hasImage          = messageContent.contains(QLatin1String("<img"));
+
+	// Select the appropriate message type based on whether the message contains images
+	Log::MsgType msgType = (hasImage) ? (privateMessage ? Log::PrivateImageMessage : Log::ImageMessage)
+									  : (privateMessage ? Log::PrivateTextMessage : Log::TextMessage);
+
+	Global::get().l->log(msgType, tr("%1: %2").arg(prefixMessage).arg(messageContent),
+						 tr("Message from %1").arg(plainName), false, overrideTTS,
+						 pSrc ? pSrc->bLocalIgnoreTTS : false);
 }
 
 /// This message is being received when the server informs the client about the access control list (ACL) for

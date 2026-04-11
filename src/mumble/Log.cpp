@@ -461,7 +461,9 @@ const Log::MsgType Log::msgOrder[] = { DebugInfo,
 									   PermissionDenied,
 									   TextMessage,
 									   PrivateTextMessage,
-									   PluginMessage };
+									   PluginMessage,
+									   ImageMessage,
+									   PrivateImageMessage };
 
 const char *Log::msgNames[] = { QT_TRANSLATE_NOOP("Log", "Debug"),
 								QT_TRANSLATE_NOOP("Log", "Critical"),
@@ -494,7 +496,9 @@ const char *Log::msgNames[] = { QT_TRANSLATE_NOOP("Log", "Debug"),
 								QT_TRANSLATE_NOOP("Log", "Private text message"),
 								QT_TRANSLATE_NOOP("Log", "User started listening to channel"),
 								QT_TRANSLATE_NOOP("Log", "User stopped listening to channel"),
-								QT_TRANSLATE_NOOP("Log", "Plugin message") };
+								QT_TRANSLATE_NOOP("Log", "Plugin message"),
+								QT_TRANSLATE_NOOP("Log", "Image message"),
+								QT_TRANSLATE_NOOP("Log", "Private image message") };
 
 QString Log::msgName(MsgType t) const {
 	return tr(msgNames[t]);
@@ -870,6 +874,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 					case ChannelListeningRemove:
 					case PluginMessage:
 						msgIcon = QSystemTrayIcon::Information;
+						break;
+					case ImageMessage:
+					case PrivateImageMessage:
+						msgIcon = QSystemTrayIcon::NoIcon;
 						break;
 				}
 				emit notificationSpawned(msgName(mt), plain, msgIcon);

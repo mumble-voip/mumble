@@ -574,6 +574,8 @@ Settings::Settings() {
 	qmMessageSounds[Log::YouMuted]               = QLatin1String(":/UserMutedYouOrByYou.ogg");
 	qmMessageSounds[Log::YouKicked]              = QLatin1String(":/UserKickedYouOrByYou.ogg");
 	qmMessageSounds[Log::Recording]              = QLatin1String(":/RecordingStateChanged.ogg");
+	qmMessageSounds[Log::ImageMessage]           = qmMessageSounds[Log::TextMessage];
+	qmMessageSounds[Log::PrivateImageMessage]    = qmMessageSounds[Log::TextMessage];
 
 	qmMessages[Log::DebugInfo]       = Settings::LogConsole;
 	qmMessages[Log::Warning]         = Settings::LogConsole | Settings::LogBalloon;
