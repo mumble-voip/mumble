@@ -39,6 +39,7 @@
 #include "crypto/CryptState.h"
 #include "Global.h"
 
+#include <QRegularExpression>
 #include <QTextDocumentFragment>
 
 #define ACTOR_INIT                           \
@@ -1039,7 +1040,9 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 
 	// Determine if this message contains an image embed
 	const QString messageContent = u8(msg.message());
-	const bool hasImage          = messageContent.contains(QLatin1String("<img"));
+	static const QRegularExpression imageTagRegex(QLatin1String("<\\s*img\\b"),
+												  QRegularExpression::CaseInsensitiveOption);
+	const bool hasImage = imageTagRegex.match(messageContent).hasMatch();
 
 	// Select the appropriate message type based on whether the message contains images
 	Log::MsgType msgType = (hasImage) ? (privateMessage ? Log::PrivateImageMessage : Log::ImageMessage)
