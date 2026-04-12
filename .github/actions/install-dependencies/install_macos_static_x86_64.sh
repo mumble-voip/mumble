@@ -7,7 +7,7 @@ source "$( dirname "$0" )/common.sh"
 
 verify_required_env_variables_set
 
-brew install coreutils aria2 gnu-tar xz
+brew install coreutils aria2 gnu-tar xz ffmpeg
 
 make_build_env_available "tar.xz"
 

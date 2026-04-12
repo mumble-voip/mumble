@@ -34,6 +34,8 @@ option(portaudio "Build support for PortAudio" ON)
 option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
 option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
 
+option(screen-sharing "Build support for screen sharing (requires libavcodec + libswscale with libx264)." ON)
+
 if(WIN32)
 	option(asio "Build support for ASIO audio input." OFF)
 	option(wasapi "Build support for WASAPI." ON)
@@ -218,6 +220,12 @@ set(MUMBLE_SOURCES
 	"RichTextEditor.ui"
 	"Screen.cpp"
 	"Screen.h"
+	"ScreenCapture.cpp"
+	"ScreenCapture.h"
+	"ScreenShareReceiver.cpp"
+	"ScreenShareReceiver.h"
+	"ScreenShareViewer.cpp"
+	"ScreenShareViewer.h"
 	"SearchDialog.cpp"
 	"SearchDialog.h"
 	"SearchDialog.ui"
@@ -921,6 +929,45 @@ endif()
 
 if(plugins)
 	add_dependencies(mumble plugins)
+endif()
+
+if(screen-sharing)
+	if(WIN32)
+		if(NOT FFMPEG_DIR)
+			set(FFMPEG_DIR "${3RDPARTY_DIR}/ffmpeg")
+		endif()
+
+		target_sources(mumble_client_object_lib
+			PRIVATE
+				"ScreenCapture.h"
+				"ScreenCapture.cpp"
+				"ScreenShareReceiver.h"
+				"ScreenShareReceiver.cpp"
+		)
+
+		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_SCREEN_SHARING")
+		target_include_directories(mumble_client_object_lib
+			SYSTEM PUBLIC
+				"${FFMPEG_DIR}/include"
+		)
+	else()
+		find_package(PkgConfig REQUIRED)
+		pkg_check_modules(LIBAVCODEC REQUIRED libavcodec)
+		pkg_check_modules(LIBSWSCALE REQUIRED libswscale)
+		pkg_check_modules(LIBAVUTIL  REQUIRED libavutil)
+
+		target_include_directories(mumble_client_object_lib SYSTEM PUBLIC
+			${LIBAVCODEC_INCLUDE_DIRS}
+			${LIBSWSCALE_INCLUDE_DIRS}
+			${LIBAVUTIL_INCLUDE_DIRS}
+		)
+		target_link_libraries(mumble_client_object_lib PUBLIC
+			${LIBAVCODEC_LIBRARIES}
+			${LIBSWSCALE_LIBRARIES}
+			${LIBAVUTIL_LIBRARIES}
+		)
+		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_SCREEN_SHARING")
+	endif()
 endif()
 
 if(xboxinput)
