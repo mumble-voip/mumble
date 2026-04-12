@@ -1006,6 +1006,7 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(iTalkingUI_PrefixCharCount, "ui/talkingUI_PrefixCharCount");
 	LOAD(iTalkingUI_PostfixCharCount, "ui/talkingUI_PostfixCharCount");
 	LOAD(qsTalkingUI_AbbreviationReplacement, "ui/talkingUI_AbbreviationReplacement");
+	LOAD(iTalkingUI_TransparencyLevel, "ui/talkingUI_TransparencyLevel");
 
 	// Load the old setting first in case it is set and then load the actual setting
 	LOAD(qsHierarchyChannelSeparator, "ui/talkingUI_ChannelSeparator");

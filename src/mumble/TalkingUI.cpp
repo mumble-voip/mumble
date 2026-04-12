@@ -34,6 +34,10 @@
 #include <cassert>
 #include <optional>
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 TalkingUI::TalkingUI(QWidget *parent) : QWidget(parent), m_containers(), m_currentSelection(nullptr) {
 	setupUI();
 	QObject::connect(Global::get().mw->pmModel, &UserModel::userMoved, this, &TalkingUI::on_channelChanged);
@@ -233,6 +237,10 @@ void TalkingUI::setupUI() {
 	// that due to it taking valuable screen space so that the title can't be displayed
 	// properly and as the TalkingUI doesn't provide context help anyways, this is not a big loss.
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+
+    setAttribute(Qt::WA_TranslucentBackground, true);
+
 
 	if (Global::get().s.talkingUI_BackgroundColor.has_value()) {
 		setBackgroundColor(*Global::get().s.talkingUI_BackgroundColor);
@@ -899,10 +907,133 @@ void TalkingUI::on_channelListenerLocalVolumeAdjustmentChanged(unsigned int chan
 
 void TalkingUI::setBackgroundColor(QColor backgroundColor) {
 	if (backgroundColor.isValid()) {
-		setStyleSheet(QString("background-color: %1;").arg(backgroundColor.name()));
+		setStyleSheet(QString("background-color: rgba(%1, %2, %3, 4);")
+			.arg(backgroundColor.red())
+			.arg(backgroundColor.green())
+			.arg(backgroundColor.blue())
+			.arg(backgroundColor.alpha()));
 	}
 }
 
 void TalkingUI::clearBackgroundColor() {
 	setStyleSheet("");
+}
+
+void TalkingUI::updateTransparency() {
+	if (!this->isVisible()) {
+		return;
+	}
+	
+	int transparency = Global::get().s.iTalkingUI_TransparencyLevel;
+	double opacity = transparency / 255.0;
+	
+	hide();
+	setWindowFlags(windowFlags()|Qt::FramelessWindowHint);
+    // this is what we would like to do but it seems to have side effects when used with Qt:FramlessWindowHint
+    //setAttribute(Qt::WA_transparentForMouseEvents, true);
+	setWindowOpacity(opacity);
+	
+#ifdef Q_OS_WIN
+	HWND hwnd = (HWND)winId();
+	LONG_PTR exStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+	SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle | WS_EX_TRANSPARENT | WS_EX_LAYERED);
+#endif
+	
+	show();
+}
+
+void TalkingUI::clearTransparency() {
+	if (!this->isVisible()) {
+		return;
+	}
+	
+	hide();
+	setWindowFlags(windowFlags() & ~Qt::FramelessWindowHint);
+    // this is what we would like to do but it seems to have side effects when used with Qt:FramlessWindowHint
+    //setAttribute(Qt::WA_transparentForMouseEvents, false);
+	setWindowOpacity(1.0);
+	
+#ifdef Q_OS_WIN
+	// Remove mouse transparency
+	HWND hwnd = (HWND)winId();
+	LONG_PTR exStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+	SetWindowLongPtr(hwnd, GWL_EXSTYLE, exStyle & ~WS_EX_TRANSPARENT);
+#endif
+	
+	show();
+}
+
+void TalkingUI::toggleTransparency() {
+	if (!this->isVisible()) {
+		return;
+	}
+	
+	bool hasTransparency = windowOpacity() < 1.0;
+	
+	if (hasTransparency) {
+		clearTransparency();
+	} else {
+		updateTransparency();
+	}
+}
+
+void TalkingUI::paintEvent(QPaintEvent *event) {
+    QPainter painter(this);
+
+    bool isTransparent = windowOpacity() < 1.0;
+    if (isTransparent) {
+        painter.setCompositionMode(QPainter::CompositionMode_Clear);
+        painter.fillRect(rect(), Qt::transparent);
+        painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+        
+        // Only paint background where there's content
+        int transparency = Global::get().s.iTalkingUI_TransparencyLevel;
+        if (Global::get().s.talkingUI_BackgroundColor.has_value()) {
+            QColor bgColor = *Global::get().s.talkingUI_BackgroundColor;
+            // Paint background for text and icon content only
+            for (QLabel *label : findChildren<QLabel*>()) {
+                if (label->isVisible()) {
+                    QPoint labelPos = label->mapTo(this, QPoint(0, 0));
+                    
+                    if (!label->pixmap().isNull()) {
+                        QRect pixmapRect = QRect(labelPos, label->size());
+                        painter.fillRect(pixmapRect, QColor(bgColor.red(),bgColor.green(),bgColor.blue(),transparency));
+
+                    } else if (!label->text().isEmpty()) {
+                        QFontMetrics fm(label->font());
+                        QRect textRect = fm.boundingRect(label->text().trimmed());
+                        textRect.moveTopLeft(labelPos);
+                        painter.fillRect(textRect, QColor(bgColor.red(),bgColor.green(),bgColor.blue(),transparency));
+                    }
+                }
+            }
+            for (QGroupBox *groupBox : findChildren<QGroupBox*>()) {
+                if (groupBox->isVisible() && !groupBox->title().isEmpty()) {
+                    QStyleOptionGroupBox option;
+                    option.initFrom(groupBox);
+                    // it seems initFrom is not filling it properly, we need the following
+                    option.text = groupBox->title();
+                    option.textAlignment = groupBox->alignment();
+                    option.rect = groupBox->rect();
+                    option.subControls = QStyle::SC_GroupBoxLabel;
+
+                    QRect titleRect = groupBox->style()->subControlRect(
+                        QStyle::CC_GroupBox, &option, QStyle::SC_GroupBoxLabel, groupBox);
+                    
+                    QRect mappedRect = QRect(groupBox->mapTo(this, titleRect.topLeft()), titleRect.size());
+                    // add padding 2  pixel
+                    mappedRect.adjust(-2, -2, 2, 2);
+                    painter.fillRect(mappedRect, QColor(bgColor.red(), bgColor.green(), bgColor.blue(), transparency));
+                }
+            }
+        }
+    } else {
+        if (Global::get().s.talkingUI_BackgroundColor.has_value()) {
+            painter.fillRect(rect(), *Global::get().s.talkingUI_BackgroundColor);
+        } else {
+            painter.fillRect(rect(), QColor(255,255,255,255));
+        }
+    }
+
+    QWidget::paintEvent(event);
 }
