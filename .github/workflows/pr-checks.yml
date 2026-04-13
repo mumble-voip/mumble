@@ -49,3 +49,21 @@ jobs:
           clang-format-version: '10'
           check-path: '.'
           exclude-regex: '(\\.git/.*|3rdparty/.*|build/.*|.*proto$)'
+
+    - name: Install neocmakelsp
+      run: cargo install neocmakelsp
+      shell: bash
+
+    - name: Check CMake formatting
+      run: |
+        failed=0
+        while IFS= read -r file; do
+          if ! diff -q <(neocmakelsp format "$file") "$file" > /dev/null; then
+            echo "Not formatted: $file"
+            failed=1
+          fi
+        done < <(find . -type f \( -name "CMakeLists.txt" -o -name "*.cmake" \) \
+          -not -path "./3rdparty/*" \
+          -not -path "./build/*")
+        exit $failed
+      shell: bash

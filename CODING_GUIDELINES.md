@@ -8,6 +8,9 @@ We use [clang-format](https://clang.llvm.org/docs/ClangFormat.html) to format ou
 When making changes to the source code, please always reformat the changed files using this tool in order to ensure a consistent formatting across the
 code base.
 
+For CMake files (`CMakeLists.txt` and `*.cmake`), we use [neocmakelsp](https://github.com/Decodetalkers/neocmakelsp) as a formatter. Please reformat
+any changed CMake files using `neocmakelsp format --override <file>` before submitting.
+
 
 ## Use of `auto`
 
