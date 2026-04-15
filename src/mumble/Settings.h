@@ -261,7 +261,7 @@ struct Settings {
 	/// The setting is currently only supported by the speech-dispatcher
 	/// backend.
 	QString qsTTSLanguage = {};
-	int iQuality          = 96000;
+	int iQuality          = 80000;
 	int iMinLoudness      = 1000;
 	/// Actual mic hold time is (iVoiceHold / 100) seconds, where iVoiceHold is specified in 'frames',
 	/// each of which is has a size of iFrameSize (see AudioInput.h)
