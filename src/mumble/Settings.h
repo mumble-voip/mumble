@@ -280,7 +280,7 @@ struct Settings {
 	VADSource vsVAD                     = Amplitude;
 	float fVADmin                       = 0.80f;
 	float fVADmax                       = 0.98f;
-	int iFramesPerPacket                = 1;
+	int iFramesPerPacket                = 2;
 	QString qsAudioInput                = {};
 	QString qsAudioOutput               = {};
 	float fVolume                       = 1.0f;
