@@ -134,4 +134,7 @@ endforeach()
 # Expose the effective list of built plugins to the parent scope so that downstream
 # consumers (e.g. the Windows installer) can package exactly what was compiled,
 # rather than relying on a hardcoded list that easily drifts out of sync.
+# The debug-only test plugins are excluded — they are developer tooling and were
+# never part of the shipped installer payload.
+list(REMOVE_ITEM BUILT_PLUGINS "testPlugin" "deadLockPlugin")
 set(BUILT_PLUGINS "${BUILT_PLUGINS}" PARENT_SCOPE)
