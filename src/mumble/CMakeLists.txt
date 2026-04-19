@@ -1211,6 +1211,15 @@ if(packaging AND WIN32)
 		list(APPEND installer_vars
 			"--plugins" "${BUILT_PLUGINS_JOINED}"
 		)
+	elseif(NOT skip-msi-rebuild)
+		# If the MSI is being rebuilt, ClientInstaller requires a non-empty plugin
+		# list — fail at configure time rather than deferring the error to the
+		# post-build C# step.
+		message(FATAL_ERROR
+			"Windows packaging requires a non-empty BUILT_PLUGINS list. "
+			"Ensure plugins/CMakeLists.txt was processed before src/mumble/CMakeLists.txt "
+			"and that at least one plugin target was built."
+		)
 	endif()
 
 	if(overlay)

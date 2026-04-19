@@ -210,7 +210,9 @@ class BuildInstaller
 			if (args[i] == "--plugins" && i + 1 < args.Length) {
 				plugins = args[i + 1]
 					.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-					.Select(p => p.Trim() + ".dll")
+					.Select(p => p.Trim())
+					.Where(p => p.Length > 0)
+					.Select(p => p + ".dll")
 					.ToArray();
 			}
 		}
