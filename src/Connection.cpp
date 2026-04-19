@@ -186,8 +186,11 @@ void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Pro
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	if (!qbaMsg.isEmpty())
-		qtsSocket->write(qbaMsg);
+	if (qbaMsg.isEmpty() || qtsSocket->state() != QAbstractSocket::SocketState::ConnectedState) {
+		return;
+	}
+
+	qtsSocket->write(qbaMsg);
 }
 
 void Connection::forceFlush() {
