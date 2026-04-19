@@ -33,56 +33,12 @@ public class ClientInstaller : MumbleInstall {
 		return System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, "mumble_client-" + new Version(version) + "-" + arch) + ".msi");
 	}
 
-	public ClientInstaller(string version, string arch, Features features) {
+	public ClientInstaller(string version, string arch, Features features, string[] plugins) {
 		List<string> binaries = new List<string>();
-		string[] plugins = {
-			"amongus.dll",
-			"aoc.dll",
-			"arma2.dll",
-			"bf1.dll",
-			"bf2.dll",
-			"bf3.dll",
-			"bf4.dll",
-			"bf4_x86.dll",
-			"bf1942.dll",
-			"bf2142.dll",
-			"bfbc2.dll",
-			"bfheroes.dll",
-			"blacklight.dll",
-			"borderlands.dll",
-			"borderlands2.dll",
-			"breach.dll",
-			"cod2.dll",
-			"cod4.dll",
-			"cod5.dll",
-			"codmw2.dll",
-			"codmw2so.dll",
-			"cs.dll",
-			"dys.dll",
-			"etqw.dll",
-			"ffxiv.dll",
-			"ffxiv_x64.dll",
-			"gmod.dll",
-			"gtaiv.dll",
-			"gtasa.dll",
-			"gtav.dll",
-			"gw.dll",
-			"insurgency.dll",
-			"jc2.dll",
-			"link.dll",
-			"lol.dll",
-			"lotro.dll",
-			"ql.dll",
-			"rl.dll",
-			"se.dll",
-			"sr.dll",
-			"ut3.dll",
-			"ut99.dll",
-			"ut2004.dll",
-			"wolfet.dll",
-			"wow.dll",
-			"wow_x64.dll"
-		};
+
+		if (plugins == null || plugins.Length == 0) {
+			throw new ArgumentException("ClientInstaller requires a non-empty plugin list (pass --plugins from CMake).", "plugins");
+		}
 
 		string[] licenses = {
 			"qt.txt",
@@ -212,6 +168,7 @@ class BuildInstaller
 		bool isAllLangs = false;
 		Features features = new Features();
 		bool skipMSIRebuild = false;
+		string[] plugins = new string[0];
 
 		for (int i = 0; i < args.Length; i++) {
 			if (args[i] == "--version" && Regex.IsMatch(args[i + 1], @"^([0-9]+\.){2}[0-9]+$")) {
@@ -245,13 +202,24 @@ class BuildInstaller
 			if (args[i] == "--skip-msi-rebuild") {
 				skipMSIRebuild = true;
 			}
+
+			// Comma-separated list of plugin target names (no ".dll" suffix), e.g.
+			// "amongus,aoc,grounded,link". CMake builds this list dynamically from
+			// the set of plugins that were actually compiled (retracted plugins
+			// filtered out) and passes it here so the MSI matches the build output.
+			if (args[i] == "--plugins" && i + 1 < args.Length) {
+				plugins = args[i + 1]
+					.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(p => p.Trim() + ".dll")
+					.ToArray();
+			}
 		}
 
 		if (version != null && arch != null) {
 			string msiPath;
 
 			if (!skipMSIRebuild) {
-				var clInstaller = new ClientInstaller(version, arch, features);
+				var clInstaller = new ClientInstaller(version, arch, features, plugins);
 				clInstaller.Version = new Version(version);
 				msiPath = isAllLangs
 							? clInstaller.BuildMultilanguageMsi()

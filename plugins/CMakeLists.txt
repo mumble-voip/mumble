@@ -12,6 +12,7 @@ endif()
 add_custom_target(plugins ALL)
 
 set(AVAILABLE_PLUGINS "")
+set(BUILT_PLUGINS "")
 
 # Plugins available on all platforms
 list(APPEND AVAILABLE_PLUGINS
@@ -126,4 +127,11 @@ foreach(CURRENT_PLUGIN IN LISTS AVAILABLE_PLUGINS)
 	endif()
 
 	add_dependencies(plugins ${CURRENT_PLUGIN})
+
+	list(APPEND BUILT_PLUGINS "${CURRENT_PLUGIN}")
 endforeach()
+
+# Expose the effective list of built plugins to the parent scope so that downstream
+# consumers (e.g. the Windows installer) can package exactly what was compiled,
+# rather than relying on a hardcoded list that easily drifts out of sync.
+set(BUILT_PLUGINS "${BUILT_PLUGINS}" PARENT_SCOPE)

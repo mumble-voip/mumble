@@ -1202,6 +1202,17 @@ if(packaging AND WIN32)
 		"--vc-redist-required" "${VC_REDIST_VERSION}"
 	)
 
+	# BUILT_PLUGINS is populated by plugins/CMakeLists.txt and contains the
+	# effective list of plugin targets that were compiled (retracted plugins
+	# filtered out). Pass it to the installer so the MSI packages exactly
+	# what was built — no more hardcoded list to maintain.
+	if(BUILT_PLUGINS)
+		string(REPLACE ";" "," BUILT_PLUGINS_JOINED "${BUILT_PLUGINS}")
+		list(APPEND installer_vars
+			"--plugins" "${BUILT_PLUGINS_JOINED}"
+		)
+	endif()
+
 	if(overlay)
 		list(APPEND installer_vars
 			"--overlay"
