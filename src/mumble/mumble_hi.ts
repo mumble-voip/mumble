@@ -472,6 +472,14 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>List of available permissions</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Mumble — Unregistered user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The user &quot;%1&quot; is not registered on this server. ACL entries for unregistered users are discarded by the server and will have no effect. Please register this user before adding them to an ACL.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
