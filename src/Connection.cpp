@@ -6,6 +6,7 @@
 #include "Connection.h"
 #include "Mumble.pb.h"
 #include "SSL.h"
+#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QtEndian>
 #include <QtNetwork/QHostAddress>

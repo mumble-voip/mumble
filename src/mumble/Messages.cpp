@@ -36,6 +36,7 @@
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "crypto/CryptState.h"
+#include "crypto/CryptStateOCB2.h"
 #include "Global.h"
 
 #include <QTextDocumentFragment>
