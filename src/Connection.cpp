@@ -6,6 +6,7 @@
 #include "Connection.h"
 #include "Mumble.pb.h"
 #include "SSL.h"
+#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QtEndian>
 #include <QtNetwork/QHostAddress>
@@ -158,8 +159,8 @@ void Connection::socketDisconnected() {
 	emit connectionClosed(QAbstractSocket::UnknownSocketError, QString());
 }
 
-void Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
-								  QByteArray &cache) {
+[[nodiscard]] bool Connection::messageToNetwork(const ::google::protobuf::Message &msg,
+												Mumble::Protocol::TCPMessageType msgType, QByteArray &cache) {
 #if GOOGLE_PROTOBUF_VERSION >= 3004000
 	std::size_t len = msg.ByteSizeLong();
 #else
@@ -167,27 +168,39 @@ void Connection::messageToNetwork(const ::google::protobuf::Message &msg, Mumble
 	std::size_t len = msg.ByteSize();
 #endif
 	if (len > 0x7fffff)
-		return;
+		return false;
 	cache.resize(static_cast< int >(len + 6));
 	unsigned char *uc = reinterpret_cast< unsigned char * >(cache.data());
 	qToBigEndian< quint16 >(static_cast< quint16 >(msgType), &uc[0]);
 	qToBigEndian< quint32 >(static_cast< unsigned int >(len), &uc[2]);
 
-	msg.SerializeToArray(uc + 6, static_cast< int >(len));
+	bool success = msg.SerializeToArray(uc + 6, static_cast< int >(len));
+	if (!success) {
+		qWarning("Failed to serialize protobuf message");
+		cache.clear();
+		return false;
+	}
+	return true;
 }
 
 void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 							 QByteArray &cache) {
 	if (cache.isEmpty()) {
-		messageToNetwork(msg, msgType, cache);
+		if (!messageToNetwork(msg, msgType, cache)) {
+			qWarning("Sending message to network failed");
+			return;
+		};
 	}
 
 	sendMessage(cache);
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	if (!qbaMsg.isEmpty())
-		qtsSocket->write(qbaMsg);
+	if (qbaMsg.isEmpty() || qtsSocket->state() != QAbstractSocket::SocketState::ConnectedState) {
+		return;
+	}
+
+	qtsSocket->write(qbaMsg);
 }
 
 void Connection::forceFlush() {

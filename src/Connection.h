@@ -15,13 +15,13 @@
 #endif
 
 #include "crypto/CryptState.h"
-#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
+
 #include <memory>
 
 #ifdef Q_OS_WIN
@@ -63,7 +63,7 @@ signals:
 public:
 	Connection(QObject *parent, QSslSocket *qtsSocket);
 	~Connection();
-	static void messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+	static bool messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 								 QByteArray &cache);
 	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 					 QByteArray &cache);
