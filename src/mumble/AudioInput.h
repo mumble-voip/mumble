@@ -11,6 +11,7 @@
 #include <QThread>
 
 #include <array>
+#include <atomic>
 #include <cstdint>
 #include <fstream>
 #include <list>
@@ -28,6 +29,10 @@
 #include "MumbleProtocol.h"
 #include "Settings.h"
 #include "Timer.h"
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+#include "WebRTC_Priv.h"
+#endif
 
 class AudioInput;
 struct OpusEncoder;
@@ -226,6 +231,13 @@ protected:
 	AudioPreprocessor m_preprocessor;
 	SpeexEchoState *sesEcho;
 
+	std::atomic< Settings::VADSource > m_vad;
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	std::shared_ptr< webrtc::Vad > m_vadWebrtc;
+	webrtc::Vad::Aggressiveness m_vadWebrtcAggressiveness;
+#endif
+
 	/// bResetEncoder is a flag that notifies
 	/// our encoder functions that the encoder
 	/// needs to be reset.
@@ -312,6 +324,13 @@ public:
 	void run() Q_DECL_OVERRIDE = 0;
 	virtual bool isAlive() const;
 	bool isTransmitting() const;
+
+	void updateVad(Settings::VADSource src);
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	void updateWebrtcAggressiveness(webrtc::Vad::Aggressiveness);
+#endif
+
 
 	void updateUserMuteDeafState(const ClientUser *user);
 
