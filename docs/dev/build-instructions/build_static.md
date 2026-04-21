@@ -3,7 +3,7 @@
 These instructions are for creating a static build of Mumble. "Static" means that it bundles most (all) of its dependencies into the built library in
 order to make it run on systems that don't have the necessary dependencies installed.
 
-This will typically take 3 steps: installing dependencies, running the CMake generator, then (for your inner loop) building Mumble as you edit code.
+This will typically take 3 steps: installing dependencies, running the CMake generator, then building Mumble.
 
 ## Dependencies
 
@@ -136,7 +136,7 @@ Important configuration options
 
 `<vcpkg dir>` is a placeholder for your prepared build environment vcpkg setup (the path to the vcpkg directory created by the get_dependency script, or the path to your pre-built environment).
 
-For Linux the cmake invokation may be (using the default generator `make`)
+For Linux the cmake invokation may be (using the default generator `make`):
 
 ```bash
 # From your build/ directory
@@ -146,6 +146,8 @@ cmake \
       "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" \
       "-DIce_HOME=<vcpkg dir>/installed/x64-linux" \
       "-DCMAKE_BUILD_TYPE=Release" \
+      "-Dbundled-cli11=OFF" \
+      "-Dbundled-spdlog=OFF" \
       ..
 ```
 
@@ -158,10 +160,12 @@ cmake \
       "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" \
       "-DIce_HOME=<vcpkg dir>/installed/x64-osx" \
       "-DCMAKE_BUILD_TYPE=Release" \
+      "-Dbundled-cli11=OFF" \
+      "-Dbundled-spdlog=OFF" \
       ..
 ```
 
-For Windows the command may be (using a pre-built environment):
+For Windows the command may be:
 
 ```powershell
 # From your build/ directory
