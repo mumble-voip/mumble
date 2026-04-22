@@ -6,6 +6,7 @@
 #include "Connection.h"
 #include "Mumble.pb.h"
 #include "SSL.h"
+#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QtEndian>
 #include <QtNetwork/QHostAddress>
@@ -186,8 +187,11 @@ void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Pro
 }
 
 void Connection::sendMessage(const QByteArray &qbaMsg) {
-	if (!qbaMsg.isEmpty())
-		qtsSocket->write(qbaMsg);
+	if (qbaMsg.isEmpty() || qtsSocket->state() != QAbstractSocket::SocketState::ConnectedState) {
+		return;
+	}
+
+	qtsSocket->write(qbaMsg);
 }
 
 void Connection::forceFlush() {
