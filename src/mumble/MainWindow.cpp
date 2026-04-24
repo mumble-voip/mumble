@@ -18,6 +18,7 @@
 #include "Connection.h"
 #include "Database.h"
 #include "DeveloperConsole.h"
+#include "Documentation.h"
 #include "Log.h"
 #include "MumbleConstants.h"
 #include "Net.h"
@@ -2884,6 +2885,10 @@ void MainWindow::on_qaHelpAboutQt_triggered() {
 	openAboutQtDialog();
 }
 
+void MainWindow::on_qaHelpDocumentation_triggered() {
+	openDocumentationDialog();
+}
+
 void MainWindow::on_qaHelpVersionCheck_triggered() {
 	versionCheck();
 }
@@ -4279,6 +4284,11 @@ void MainWindow::openAboutDialog() {
 
 void MainWindow::openAboutQtDialog() {
 	QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::openDocumentationDialog() {
+	DocumentationDialog documentationDialog(this);
+	documentationDialog.exec();
 }
 
 void MainWindow::versionCheck() {
