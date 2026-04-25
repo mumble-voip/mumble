@@ -1216,17 +1216,13 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			}
 		}
 	} else if (u->qmTargets.contains(static_cast< int >(audioData.targetOrContext))) { // Whisper/Shout
-		QSet< ServerUser * > channel;
-		QSet< ServerUser * > direct;
-		QHash< ServerUser *, VolumeAdjustment > cachedListeners;
+		const WhisperTargetCache *cache = nullptr;
 
-		if (u->qmTargetCache.contains(static_cast< int >(audioData.targetOrContext))) {
+		auto whisper_it = u->qmTargetCache.find(static_cast< int >(audioData.targetOrContext));
+		if (whisper_it != u->qmTargetCache.end()) {
 			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_STORE);
 
-			const WhisperTargetCache &cache = u->qmTargetCache.value(static_cast< int >(audioData.targetOrContext));
-			channel                         = cache.channelTargets;
-			direct                          = cache.directTargets;
-			cachedListeners                 = cache.listeningTargets;
+			cache = &(*whisper_it);
 		} else {
 			ZoneScopedN(TracyConstants::AUDIO_WHISPER_CACHE_CREATE);
 
@@ -1234,7 +1230,7 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			qrwlVoiceThread.unlock();
 			qrwlVoiceThread.lockForWrite();
 
-			if (!qhUsers.contains(uiSession)) {
+			if (u != qhUsers.value(uiSession, nullptr)) {
 				return;
 			}
 
@@ -1243,28 +1239,43 @@ void Server::processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, Au
 			// transaction (ensured by the lock) to avoid running into situations in which a user from the cache
 			// gets deleted without this particular cache entry being purged (which happens, if the cache entry is
 			// in the store at the point of deleting the user).
-			const WhisperTarget &wt  = u->qmTargets.value(static_cast< int >(audioData.targetOrContext));
-			WhisperTargetCache cache = createWhisperTargetCacheFor(*u, wt);
+			const WhisperTarget &wt     = u->qmTargets.value(static_cast< int >(audioData.targetOrContext));
+			WhisperTargetCache newCache = createWhisperTargetCacheFor(*u, wt);
 
-			u->qmTargetCache.insert(static_cast< int >(audioData.targetOrContext), std::move(cache));
+			u->qmTargetCache.insert(static_cast< int >(audioData.targetOrContext), std::move(newCache));
 
 
 			qrwlVoiceThread.unlock();
 			qrwlVoiceThread.lockForRead();
-			if (!qhUsers.contains(uiSession))
+
+			if (u != qhUsers.value(uiSession, nullptr)) {
 				return;
+			}
+
+			whisper_it = u->qmTargetCache.find(static_cast< int >(audioData.targetOrContext));
+			if (whisper_it == u->qmTargetCache.end()) {
+				return;
+			}
+
+			cache = &(*whisper_it);
+		}
+
+		assert(cache);
+		if (!cache) {
+			// Shouldn't happen
+			return;
 		}
 
 		// These users receive the audio because someone is shouting to their channel
-		for (ServerUser *pDst : channel) {
+		for (ServerUser *pDst : cache->channelTargets) {
 			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::SHOUT, audioData.containsPositionalData);
 		}
 		// These users receive audio because someone is whispering to them
-		for (ServerUser *pDst : direct) {
+		for (ServerUser *pDst : cache->directTargets) {
 			buffer.addReceiver(*u, *pDst, Mumble::Protocol::AudioContext::WHISPER, audioData.containsPositionalData);
 		}
 		// These users receive audio because someone is sending audio to one of their listeners
-		QHashIterator< ServerUser *, VolumeAdjustment > it(cachedListeners);
+		QHashIterator< ServerUser *, VolumeAdjustment > it(cache->listeningTargets);
 		while (it.hasNext()) {
 			it.next();
 			ServerUser *user                         = it.key();
