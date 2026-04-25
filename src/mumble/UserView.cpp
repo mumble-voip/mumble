@@ -178,6 +178,8 @@ void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 				commentIconPxOffset -= m_iconTotalDimension;
 			if (clientUser->bRecording)
 				commentIconPxOffset -= m_iconTotalDimension;
+			if (clientUser->bScreenSharing)
+				commentIconPxOffset -= m_iconTotalDimension;
 			if (clientUser->bPrioritySpeaker)
 				commentIconPxOffset -= m_iconTotalDimension;
 			if (clientUser->bMute)

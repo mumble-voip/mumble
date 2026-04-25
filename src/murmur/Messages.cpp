@@ -945,7 +945,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	// Prevent self-targeting state changes from being applied to others
 	if ((pDstServerUser != uSource)
 		&& (msg.has_self_deaf() || msg.has_self_mute() || msg.has_plugin_context() || msg.has_plugin_identity()
-			|| msg.has_recording() || msg.listening_channel_add_size() > 0
+			|| msg.has_recording() || msg.has_screen_sharing() || msg.listening_channel_add_size() > 0
 			|| msg.listening_channel_remove_size() > 0)) {
 		return;
 	}
@@ -1072,6 +1072,25 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			mptm.set_message(u8(QString(QLatin1String("User '%1' stopped recording")).arg(pDstServerUser->qsName)));
 		}
 
+		sendAll(mptm, Version::fromComponents(1, 2, 3), Version::CompareMode::LessThan);
+
+		bBroadcast = true;
+	}
+
+	if (msg.has_screen_sharing() && (pDstServerUser->bScreenSharing != msg.screen_sharing())) {
+		assert(uSource == pDstServerUser);
+
+		pDstServerUser->bScreenSharing = msg.screen_sharing();
+
+		MumbleProto::TextMessage mptm;
+		mptm.add_tree_id(0);
+		if (pDstServerUser->bScreenSharing) {
+			mptm.set_message(
+				u8(QString(QLatin1String("User '%1' started screen sharing")).arg(pDstServerUser->qsName)));
+		} else {
+			mptm.set_message(
+				u8(QString(QLatin1String("User '%1' stopped screen sharing")).arg(pDstServerUser->qsName)));
+		}
 		sendAll(mptm, Version::fromComponents(1, 2, 3), Version::CompareMode::LessThan);
 
 		bBroadcast = true;

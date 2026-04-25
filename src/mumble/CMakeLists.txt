@@ -18,7 +18,7 @@ include(install-library)
 option(update "Check for updates by default." ON)
 
 option(translations "Include languages other than English." ON)
-option(bundle-qt-translations "Bundle Qt's translations as well" ${static}) 
+option(bundle-qt-translations "Bundle Qt's translations as well" ${static})
 
 option(bundled-speex "Build the included version of Speex instead of looking for one on the system." ON)
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
@@ -33,6 +33,8 @@ option(portaudio "Build support for PortAudio" ON)
 
 option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
 option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
+
+option(screen-sharing "Build support for screen sharing (requires libavcodec + libswscale with libx264)." ON)
 
 if(WIN32)
 	option(asio "Build support for ASIO audio input." OFF)
@@ -57,7 +59,7 @@ elseif(UNIX)
 	# so single out common options into combined conditions.
 	# https://github.com/mumble-voip/mumble/issues/5488
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" OR
-	   ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
+				${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
 		option(xinput2 "Build support for XI2." ON)
 	endif()
 endif()
@@ -218,6 +220,12 @@ set(MUMBLE_SOURCES
 	"RichTextEditor.ui"
 	"Screen.cpp"
 	"Screen.h"
+	"ScreenCapture.cpp"
+	"ScreenCapture.h"
+	"ScreenShareReceiver.cpp"
+	"ScreenShareReceiver.h"
+	"ScreenShareViewer.cpp"
+	"ScreenShareViewer.h"
 	"SearchDialog.cpp"
 	"SearchDialog.h"
 	"SearchDialog.ui"
@@ -835,7 +843,7 @@ if(manual-plugin)
 			"ManualPlugin.ui"
 	)
 
-target_compile_definitions(mumble_client_object_lib PUBLIC "USE_MANUAL_PLUGIN")
+	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_MANUAL_PLUGIN")
 endif()
 
 if(NOT update)
@@ -850,7 +858,7 @@ if(dbus AND (NOT WIN32 AND NOT APPLE))
 			"DBus.cpp"
 			"DBus.h"
 	)
-	
+
 	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_DBUS")
 	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::DBus)
 endif()
@@ -911,7 +919,7 @@ if(overlay)
 			target_sources(mumble_client_object_lib PRIVATE "Overlay_unix.cpp")
 		endif()
 
-                if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
+		if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
 			add_dependencies(mumble overlay_gl)
 		endif()
 	endif()
@@ -921,6 +929,105 @@ endif()
 
 if(plugins)
 	add_dependencies(mumble plugins)
+endif()
+
+if(screen-sharing)
+
+	# Shared sources (all platforms)
+	target_sources(mumble_client_object_lib PRIVATE
+						"CaptureSource.h"
+						"CaptureSourceLister.h"
+						"ScreenPickerDialog.h"
+						"ScreenPickerDialog.cpp"
+						"ScreenShareReceiver.h"
+						"ScreenShareReceiver.cpp"
+				)
+
+	if(WIN32)
+		if(NOT FFMPEG_DIR)
+			set(FFMPEG_DIR "${3RDPARTY_DIR}/ffmpeg")
+		endif()
+
+		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_SCREEN_SHARING")
+		target_include_directories(mumble_client_object_lib
+				SYSTEM PUBLIC
+					"${FFMPEG_DIR}/include"
+		)
+	else()
+		find_package(PkgConfig REQUIRED)
+		pkg_check_modules(LIBAVCODEC REQUIRED libavcodec)
+		pkg_check_modules(LIBSWSCALE REQUIRED libswscale)
+		pkg_check_modules(LIBAVUTIL  REQUIRED libavutil)
+
+		target_include_directories(mumble_client_object_lib SYSTEM PUBLIC
+												${LIBAVCODEC_INCLUDE_DIRS}
+												${LIBSWSCALE_INCLUDE_DIRS}
+												${LIBAVUTIL_INCLUDE_DIRS}
+								)
+
+		target_link_libraries(mumble_client_object_lib PUBLIC
+												${LIBAVCODEC_LIBRARIES}
+												${LIBSWSCALE_LIBRARIES}
+												${LIBAVUTIL_LIBRARIES}
+								)
+
+		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_SCREEN_SHARING")
+		if(APPLE)
+			target_sources(mumble_client_object_lib PRIVATE
+																"CaptureSourceLister_macx.mm"
+																"SCKitCapture.h"
+																"SCKitCapture_macx.mm"
+			)
+
+			find_library(LIB_COREGRAPHICS CoreGraphics)
+			if(LIB_COREGRAPHICS)
+				target_link_libraries(mumble_client_object_lib PUBLIC ${LIB_COREGRAPHICS})
+			endif()
+
+			find_library(LIB_SCREENCAPTUREKIT ScreenCaptureKit)
+			if(LIB_SCREENCAPTUREKIT)
+				target_link_libraries(mumble_client_object_lib PUBLIC ${LIB_SCREENCAPTUREKIT})
+			endif()
+
+			find_library(LIB_COREMEDIA CoreMedia)
+			if(LIB_COREMEDIA)
+				target_link_libraries(mumble_client_object_lib PUBLIC ${LIB_COREMEDIA})
+			endif()
+
+			find_library(LIB_COREVIDEO CoreVideo)
+			if(LIB_COREVIDEO)
+				target_link_libraries(mumble_client_object_lib PUBLIC ${LIB_COREVIDEO})
+			endif()
+
+		else()
+			target_sources(mumble_client_object_lib PRIVATE
+																"CaptureSourceLister_unix.cpp"
+			)
+			if(TARGET X11::X11)
+				target_link_libraries(mumble_client_object_lib PUBLIC X11::X11)
+				target_compile_definitions(mumble_client_object_lib PRIVATE "HAS_X11_WINDOW_LIST")
+			endif()
+		endif()
+
+		# Wayland screen capture via xdg-desktop-portal + PipeWire.
+		# Requires Qt D-Bus (already linked when dbus=ON) and libpipewire-0.3.
+		if(dbus)
+			pkg_check_modules(LIBPIPEWIRE_SCREENSHARE libpipewire-0.3)
+			if(LIBPIPEWIRE_SCREENSHARE_FOUND)
+				target_sources(mumble_client_object_lib PRIVATE
+					"XdgPortalCapture.h"
+					"XdgPortalCapture_unix.cpp"
+				)
+				target_include_directories(mumble_client_object_lib SYSTEM PRIVATE
+					${LIBPIPEWIRE_SCREENSHARE_INCLUDE_DIRS}
+				)
+				target_link_libraries(mumble_client_object_lib PUBLIC
+					${LIBPIPEWIRE_SCREENSHARE_LIBRARIES}
+				)
+				target_compile_definitions(mumble_client_object_lib PRIVATE "HAS_WAYLAND_PORTAL")
+			endif()
+		endif()
+	endif()
 endif()
 
 if(xboxinput)
@@ -950,8 +1057,8 @@ if(g15)
 				"G15LCDEngine_helper.cpp"
 				"G15LCDEngine_helper.h"
 		)
-	target_include_directories(mumble_client_object_lib PUBLIC "${CMAKE_SOURCE_DIR}/helpers")
-	add_dependencies(mumble g15-helper)
+		target_include_directories(mumble_client_object_lib PUBLIC "${CMAKE_SOURCE_DIR}/helpers")
+		add_dependencies(mumble g15-helper)
 	else()
 		find_library(LIB_G15DAEMON_CLIENT "g15daemon_client")
 		if(LIB_G15DAEMON_CLIENT-NOTFOUND)
@@ -988,8 +1095,8 @@ if(zeroconf)
 		PRIVATE
 			"Zeroconf.cpp"
 			"Zeroconf.h"
-			# Unlike what the name implies, this 3rdparty helper is not actually related to Bonjour.
-			# It just uses the API provided by mDNSResponder, making it compatible with Avahi too.
+				# Unlike what the name implies, this 3rdparty helper is not actually related to Bonjour.
+				# It just uses the API provided by mDNSResponder, making it compatible with Avahi too.
 			"${3RDPARTY_DIR}/qqbonjour/BonjourRecord.h"
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceBrowser.cpp"
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceBrowser.h"
@@ -1178,13 +1285,13 @@ endif()
 set(TARGET_NAME "mumble_client_object_lib")
 get_property(_isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(_isMultiConfig)
-  set(AUTOGEN_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>)
+	set(AUTOGEN_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>)
 else()
-  set(AUTOGEN_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include)
+	set(AUTOGEN_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include)
 endif()
 
 target_include_directories(${TARGET_NAME} INTERFACE
-  $<BUILD_INTERFACE:${AUTOGEN_INCLUDE_DIR}>
+		$<BUILD_INTERFACE:${AUTOGEN_INCLUDE_DIR}>
 )
 
 if(packaging AND WIN32)
