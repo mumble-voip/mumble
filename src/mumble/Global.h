@@ -14,6 +14,7 @@
 #include "Timer.h"
 #include "Version.h"
 
+#include <atomic>
 #include <memory>
 
 // Global helper class to spread variables around across threads.
@@ -94,6 +95,9 @@ public:
 	ChanACL::Permissions pPermissions;
 	int iMaxBandwidth;
 	int iAudioBandwidth;
+	/// Measured output latency in ms (hardware + software buffer), used for WebRTC AEC delay estimation.
+	/// Set by the audio output backend after stream initialization; defaults to 50ms until then.
+	std::atomic< int > iOutputLatencyMs{ 50 };
 	QDir qdBasePath;
 	bool bAttenuateOthers;
 	/// If set the AudioOutput::mix will forcefully adjust the volume of all

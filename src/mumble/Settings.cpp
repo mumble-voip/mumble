@@ -521,10 +521,8 @@ Settings::Settings() {
 	qRegisterMetaType< Search::SearchDialog::UserAction >("SearchDialog::UserAction");
 	qRegisterMetaType< Search::SearchDialog::ChannelAction >("SearchDialog::ChannelAction");
 #ifdef Q_OS_MACOS
-	// The echo cancellation feature on macOS is experimental and known to be able to cause problems
-	// (e.g. muting the user instead of only cancelling echo - https://github.com/mumble-voip/mumble/issues/4912)
-	// Therefore we disable it by default until the issues are fixed.
-	echoOption = EchoCancelOptionID::DISABLED;
+	// Use Apple's VoiceProcessingIO for echo cancellation by default on macOS.
+	echoOption = EchoCancelOptionID::APPLE_AEC;
 #endif
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on Windows >= 7

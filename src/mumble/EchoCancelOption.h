@@ -17,7 +17,8 @@ enum class EchoCancelOptionID {
 	DISABLED           = 0,
 	SPEEX_MIXED        = 1,
 	SPEEX_MULTICHANNEL = 2,
-	APPLE_AEC          = 3 // Apple's Acoustic Echo Cancellation support for macOS and iOS.
+	APPLE_AEC          = 3, // Apple's Acoustic Echo Cancellation support for macOS and iOS.
+	WEBRTC_AEC         = 4  // WebRTC AEC3 via the webrtc-audio-processing library.
 };
 
 struct EchoCancelOption {

@@ -24,6 +24,8 @@ option(bundled-speex "Build the included version of Speex instead of looking for
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
 
+option(webrtc-apm "Use WebRTC AEC3 for echo cancellation via webrtc-audio-processing." OFF)
+
 option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
 
 option(qtspeech "Use Qt's text-to-speech system (part of the Qt Speech module) instead of Mumble's own OS-specific text-to-speech implementations." OFF)
@@ -785,6 +787,65 @@ if(rnnoise)
 
 		target_link_libraries(mumble_client_object_lib PRIVATE ${rnnoise_LIBRARIES})
 	endif()
+endif()
+
+if(webrtc-apm)
+	target_compile_definitions(mumble_client_object_lib PRIVATE "USE_WEBRTC_APM")
+
+	# Try pkg-config first (Linux), then fall back to find_path/find_library (Windows/macOS).
+	# The installed include dir is <prefix>/include/webrtc-audio-processing-{1,2}/
+	# Headers are then included as <modules/audio_processing/include/audio_processing.h>.
+	find_pkg("webrtc-audio-processing-2;webrtc-audio-processing-1;webrtc-audio-processing")
+
+	set(WEBRTC_APM_FOUND FALSE)
+	foreach(_wap_name webrtc-audio-processing-2 webrtc-audio-processing-1 webrtc-audio-processing)
+		if(${_wap_name}_FOUND)
+			target_include_directories(mumble_client_object_lib PRIVATE ${${_wap_name}_INCLUDE_DIRS})
+			target_link_libraries(mumble_client_object_lib PRIVATE ${${_wap_name}_LIBRARIES})
+			set(WEBRTC_APM_FOUND TRUE)
+			break()
+		endif()
+	endforeach()
+
+	if(NOT WEBRTC_APM_FOUND)
+		# pkg-config not available (e.g. Windows). Search manually via CMAKE_PREFIX_PATH.
+		# Supports both version 1.x and 2.x install layouts.
+		find_path(WEBRTC_APM_INCLUDE_DIR
+			NAMES modules/audio_processing/include/audio_processing.h
+			PATH_SUFFIXES webrtc-audio-processing-2 webrtc-audio-processing-1 webrtc-audio-processing
+		)
+		find_library(WEBRTC_APM_LIBRARY
+			NAMES webrtc-audio-processing-2 webrtc-audio-processing-1 webrtc-audio-processing
+		)
+
+		if(NOT WEBRTC_APM_INCLUDE_DIR OR NOT WEBRTC_APM_LIBRARY)
+			message(FATAL_ERROR "webrtc-audio-processing not found. "
+				"Set CMAKE_PREFIX_PATH to the install prefix (e.g. C:/Users/ben/Projects/webrtc-apm-prefix).")
+		endif()
+
+		target_include_directories(mumble_client_object_lib PRIVATE "${WEBRTC_APM_INCLUDE_DIR}")
+		target_link_libraries(mumble_client_object_lib PRIVATE "${WEBRTC_APM_LIBRARY}")
+		target_compile_definitions(mumble_client_object_lib PRIVATE WEBRTC_WIN _WIN32 NOMINMAX _USE_MATH_DEFINES)
+	endif()
+
+	if(WIN32)
+		find_file(WEBRTC_APM_DLL
+			NAMES webrtc-audio-processing-2-1.dll webrtc-audio-processing-1.dll webrtc-audio-processing.dll
+			PATH_SUFFIXES bin
+		)
+		if(WEBRTC_APM_DLL)
+			add_custom_command(TARGET mumble POST_BUILD
+				COMMAND ${CMAKE_COMMAND} -E copy_if_different
+					"${WEBRTC_APM_DLL}"
+					"$<TARGET_FILE_DIR:mumble>"
+				COMMENT "Copying WebRTC APM DLL"
+			)
+		else()
+			message(WARNING "webrtc-audio-processing DLL not found — copy it manually to the build directory.")
+		endif()
+	endif()
+
+	message(STATUS "WebRTC APM (AEC3) support enabled")
 endif()
 
 if(qtspeech)
