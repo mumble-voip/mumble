@@ -603,9 +603,12 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 			// If we have echo cancellation enabled...
 			if (iEchoChannels > 0) {
 #ifdef USE_WEBRTC_APM
-				// WebRTC path: render stream was already fed in addEcho(), process capture directly
+				// WebRTC path: render stream was already fed in addEcho(), process capture directly.
 				if (m_apm) {
 					encodeAudioFrame(AudioChunk(psMic));
+					// psMic is heap-allocated because iEchoChannels > 0 (see above).
+					// The Speex path hands it to the Resynchronizer which owns and frees it;
+					// the WebRTC path bypasses the Resynchronizer, so we free it here.
 					delete[] psMic;
 				} else
 #endif
@@ -668,8 +671,9 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 			}
 
 #ifdef USE_WEBRTC_APM
-			// WebRTC path: feed render stream directly to APM; mic side calls encodeAudioFrame from addMic()
-			// Hold qmSpeex briefly to guard against m_apm being reset concurrently in resetAudioProcessor()
+			// WebRTC path: feed the render (speaker) stream directly to the Audio Processing Module (APM).
+			// The capture (mic) side calls encodeAudioFrame() from addMic() to complete the AEC loop.
+			// Hold qmSpeex briefly to guard against m_apm being reset concurrently in resetAudioProcessor().
 			{
 				QMutexLocker l(&qmSpeex);
 				if (m_apm) {
@@ -776,7 +780,7 @@ void AudioInput::resetAudioProcessor() {
 
 	if (sesEcho)
 		speex_echo_state_destroy(sesEcho);
-	sesEcho = nullptr;
+	sesEcho = nullptr; // Null immediately after destroy to prevent a dangling pointer on re-entry.
 
 #ifdef USE_WEBRTC_APM
 	m_apm = nullptr;
@@ -947,15 +951,17 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	short psClean[iFrameSize];
 #ifdef USE_WEBRTC_APM
 	if (m_apm) {
+		// WebRTC APM works in float [-1.0, 1.0]; convert to/from int16 PCM [-32768, 32767].
+		static constexpr float kInt16Scale = 32768.f;
 		float floatBuf[iFrameSize];
 		for (int i = 0; i < iFrameSize; ++i)
-			floatBuf[i] = chunk.mic[i] / 32768.f;
+			floatBuf[i] = chunk.mic[i] / kInt16Scale;
 		float *floatPtr = floatBuf;
 		webrtc::StreamConfig cfg(iSampleRate, 1);
 		m_apm->set_stream_delay_ms(Global::get().iOutputLatencyMs.load());
 		m_apm->ProcessStream(&floatPtr, cfg, cfg, &floatPtr);
 		for (int i = 0; i < iFrameSize; ++i)
-			psClean[i] = static_cast< short >(qBound(-32768.f, floatBuf[i] * 32768.f, 32767.f));
+			psClean[i] = static_cast< short >(qBound(-kInt16Scale, floatBuf[i] * kInt16Scale, kInt16Scale - 1.f));
 		psSource = psClean;
 	} else
 #endif

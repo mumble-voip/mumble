@@ -23,6 +23,7 @@
 
 #ifdef USE_WEBRTC_APM
 #	ifdef _MSC_VER
+	// webrtc-audio-processing headers emit warnings we can't fix (third-party code).
 #		pragma warning(push, 0)
 #	endif
 #	include <modules/audio_processing/include/audio_processing.h>
