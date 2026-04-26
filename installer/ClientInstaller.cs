@@ -66,6 +66,7 @@ public class ClientInstaller : MumbleInstall {
 			"gtaiv.dll",
 			"gtasa.dll",
 			"gtav.dll",
+t		"grounded.dll",
 			"gw.dll",
 			"insurgency.dll",
 			"jc2.dll",
