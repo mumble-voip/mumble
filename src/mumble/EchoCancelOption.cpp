@@ -28,10 +28,12 @@ const std::vector< EchoCancelOption > &EchoCancelOption::getOptions() {
 		{ EchoCancelOptionID::APPLE_AEC, QObject::tr("Acoustic echo cancellation (Apple)"),
 		  QObject::tr("Uses Apple's built-in voice processing for echo cancellation. Works best with built-in "
 					  "microphone and speaker.") },
+#ifdef USE_WEBRTC_APM
 		// Available when built with webrtc-audio-processing (-Dwebrtc-apm=ON)
 		{ EchoCancelOptionID::WEBRTC_AEC, QObject::tr("Echo cancellation (WebRTC AEC3)"),
 		  QObject::tr("Uses the WebRTC AEC3 algorithm for high-quality echo cancellation. "
-					  "Recommended for use with speakers instead of headphones.") }
+					  "Recommended for use with speakers instead of headphones.") },
+#endif
 	};
 
 	return echoCancelOptions;
