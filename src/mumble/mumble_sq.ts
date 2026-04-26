@@ -6092,6 +6092,10 @@ the channel&apos;s context menu.</source>
         <translation>Rilidhje e Jetpack-ut</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Change your comment</source>
         <translation>Ndryshoni komentin tuaj</translation>
     </message>
