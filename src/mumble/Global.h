@@ -95,8 +95,11 @@ public:
 	ChanACL::Permissions pPermissions;
 	int iMaxBandwidth;
 	int iAudioBandwidth;
-	/// Measured output latency in ms (hardware + software buffer), used for WebRTC AEC delay estimation.
-	/// Set by the audio output backend after stream initialization; defaults to 50ms until then.
+	/// End-to-end output latency in ms (hardware path + software buffer occupancy), used by WebRTC
+	/// AEC3 to align the render and capture streams for echo cancellation.
+	/// AudioInput and AudioOutput are decoupled — they cannot call methods on each other — so
+	/// Global is the appropriate channel for this runtime-measured value (same pattern as
+	/// iAudioPathTime). Set by the audio output backend after stream init; 50ms is a safe default.
 	std::atomic< int > iOutputLatencyMs{ 50 };
 	QDir qdBasePath;
 	bool bAttenuateOthers;
