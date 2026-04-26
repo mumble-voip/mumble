@@ -55,6 +55,7 @@ add_subdirectory("TestSSLLocks")
 add_subdirectory("TestStdAbs")
 add_subdirectory("TestTimer")
 add_subdirectory("TestUnresolvedServerAddress")
+add_subdirectory("TestACLUserRegistration")
 add_subdirectory("TestVersion")
 
 if(online-tests)

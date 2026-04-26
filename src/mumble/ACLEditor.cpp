@@ -417,6 +417,24 @@ void ACLEditor::returnQuery(const MumbleProto::QueryUsers &mqu) {
 			qhNameCache.remove(tid);
 		}
 	}
+	// Warn once per unregistered user that was just looked up. An unregistered
+	// user is one whose name was queried but for which the server did not return
+	// a valid registration ID in this response batch.
+	for (int i = 0; i < mqu.names_size(); ++i) {
+		const QString name  = u8(mqu.names(i));
+		const QString lname = name.toLower();
+		if (qhNameWait.contains(lname) && !qsWarnedUnregistered.contains(lname)) {
+			qsWarnedUnregistered.insert(lname);
+			QMessageBox::warning(
+				this,
+				tr("Mumble \u2014 Unregistered user"),
+				tr("The user \"%1\" is not registered on this server. "
+				   "ACL entries for unregistered users are discarded by the server and will have no effect. "
+				   "Please register this user before adding them to an ACL.")
+					.arg(name));
+		}
+	}
+
 	refillGroupInherit();
 	refillGroupRemove();
 	refillGroupAdd();

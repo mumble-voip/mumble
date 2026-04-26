@@ -31,6 +31,7 @@ protected:
 	QHash< int, QString > qhNameCache;
 	QHash< QString, int > qhIDCache;
 	QHash< QString, int > qhNameWait;
+	QSet< QString > qsWarnedUnregistered;
 
 	int iUnknown;
 
