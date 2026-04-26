@@ -1740,8 +1740,8 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 		unsigned int session = msg.session(i);
 		ServerUser *u        = qhUsers.value(session);
 		if (u) {
-			if (!ChanACL::hasPermission(uSource, u->cChannel, ChanACL::TextMessage, &acCache)) {
-				PERM_DENIED(uSource, u->cChannel, ChanACL::TextMessage);
+			if (!ChanACL::hasPermission(uSource, u->cChannel, ChanACL::PrivateMessage, &acCache)) {
+				PERM_DENIED(uSource, u->cChannel, ChanACL::PrivateMessage);
 				return;
 			}
 			users.insert(u);
