@@ -43,6 +43,7 @@
 #include "ServerHandler.h"
 #include "ServerInformation.h"
 #include "Settings.h"
+#include "SleepInhibitor.h"
 #include "SvgIcon.h"
 #include "TalkingUI.h"
 #include "TextMessage.h"
@@ -215,6 +216,8 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::channelStateChanged, this, &MainWindow::on_channelStateChanged);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
+
+	m_sleepInhibitor = new SleepInhibitor(this);
 }
 
 // Loading a state that was stored by a different version of Qt can lead to a crash.
@@ -3528,6 +3531,10 @@ void MainWindow::serverConnected() {
 	MUSuppressAppNap(true);
 #endif
 
+	if (Global::get().s.bInhibitSleep) {
+		m_sleepInhibitor->setInhibit(true);
+	}
+
 	Global::get().l->clearIgnore();
 	Global::get().l->setIgnore(Log::UserJoin);
 	Global::get().l->setIgnore(Log::OtherSelfMute);
@@ -3595,6 +3602,8 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	// Remove App Nap suppression now that we're disconnected.
 	MUSuppressAppNap(false);
 #endif
+
+	m_sleepInhibitor->setInhibit(false);
 
 	QString uname, pw, host;
 	unsigned short port;
@@ -4248,6 +4257,10 @@ void MainWindow::openConfigDialog() {
 
 				close();
 			}
+		}
+
+		if (Global::get().uiSession != 0) {
+			m_sleepInhibitor->setInhibit(Global::get().s.bInhibitSleep);
 		}
 	}
 

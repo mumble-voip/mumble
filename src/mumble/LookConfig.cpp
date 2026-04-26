@@ -234,6 +234,7 @@ void LookConfig::load(const Settings &r) {
 
 	loadCheckBox(qcbEnableDeveloperMenu, r.bEnableDeveloperMenu);
 	loadCheckBox(qcbLockLayout, (r.wlWindowLayout == Settings::LayoutCustom) && r.bLockLayout);
+	loadCheckBox(qcbInhibitSleep, r.bInhibitSleep);
 	loadCheckBox(qcbHideTray, r.bHideInTray);
 	loadCheckBox(qcbStateInTray, r.bStateInTray);
 	loadCheckBox(qcbShowUserCount, r.bShowUserCount);
@@ -309,6 +310,7 @@ void LookConfig::save() const {
 	s.quitBehavior              = static_cast< QuitBehavior >(qcbQuitBehavior->currentIndex());
 	s.bEnableDeveloperMenu      = qcbEnableDeveloperMenu->isChecked();
 	s.bLockLayout               = qcbLockLayout->isChecked();
+	s.bInhibitSleep             = qcbInhibitSleep->isChecked();
 	s.bHideInTray               = qcbHideTray->isChecked();
 	s.bStateInTray              = qcbStateInTray->isChecked();
 	s.bShowUserCount            = qcbShowUserCount->isChecked();
