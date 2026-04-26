@@ -21,6 +21,17 @@
 #include <speex/speex_echo.h>
 #include <speex/speex_resampler.h>
 
+#ifdef USE_WEBRTC_APM
+#	ifdef _MSC_VER
+	// webrtc-audio-processing headers emit warnings we can't fix (third-party code).
+#		pragma warning(push, 0)
+#	endif
+#	include <modules/audio_processing/include/audio_processing.h>
+#	ifdef _MSC_VER
+#		pragma warning(pop)
+#	endif
+#endif
+
 #include "Audio.h"
 #include "AudioOutputToken.h"
 #include "AudioPreprocessor.h"
@@ -225,6 +236,9 @@ protected:
 	QMutex qmSpeex;
 	AudioPreprocessor m_preprocessor;
 	SpeexEchoState *sesEcho;
+#ifdef USE_WEBRTC_APM
+	rtc::scoped_refptr< webrtc::AudioProcessing > m_apm;
+#endif
 
 	/// bResetEncoder is a flag that notifies
 	/// our encoder functions that the encoder
