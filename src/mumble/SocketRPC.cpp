@@ -110,8 +110,46 @@ void SocketRPCClient::processXml() {
 
 			ack = true;
 		} else if (request.nodeName() == QLatin1String("self")) {
+			bool selfCommandSeen      = false;
+			bool selfCommandSucceeded = true;
+			auto markSelfCommand      = [&selfCommandSeen]() { selfCommandSeen = true; };
+			auto handleWhisperCommand = [&](const QString &command, bool down) {
+				iter = qmRequest.find(command);
+				if (iter == qmRequest.constEnd()) {
+					return;
+				}
+
+				markSelfCommand();
+
+				bool useChannelID = false;
+				int channelID     = 0;
+				iter              = qmRequest.find(QLatin1String("channel_id"));
+				if (iter != qmRequest.constEnd()) {
+					bool ok      = false;
+					channelID    = iter.value().toInt(&ok);
+					useChannelID = ok;
+					if (!ok) {
+						selfCommandSucceeded = false;
+						return;
+					}
+				}
+
+				const QString channelName = qmRequest.value(QLatin1String("channel")).toString();
+				const bool children       = qmRequest.value(QLatin1String("subchannels")).toBool()
+									  || qmRequest.value(QLatin1String("children")).toBool();
+				const bool links          = qmRequest.value(QLatin1String("links")).toBool();
+				const bool forceCenter    = qmRequest.value(QLatin1String("force_center")).toBool();
+				const QString group       = qmRequest.value(QLatin1String("group")).toString();
+
+				selfCommandSucceeded =
+					selfCommandSucceeded
+					&& Global::get().mw->setRpcWhispering(down, channelName, channelID, useChannelID, children, links,
+														   forceCenter, group);
+			};
+
 			iter = qmRequest.find(QLatin1String("mute"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				bool set = iter.value().toBool();
 				if (set != Global::get().s.bMute) {
 					Global::get().mw->qaAudioMute->setChecked(!set);
@@ -120,6 +158,7 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("unmute"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				bool set = iter.value().toBool();
 				if (set == Global::get().s.bMute) {
 					Global::get().mw->qaAudioMute->setChecked(set);
@@ -128,6 +167,7 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("togglemute"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				bool set = iter.value().toBool();
 				if (set == Global::get().s.bMute) {
 					Global::get().mw->qaAudioMute->setChecked(set);
@@ -139,6 +179,7 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("deaf"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				bool set = iter.value().toBool();
 				if (set != Global::get().s.bDeaf) {
 					Global::get().mw->qaAudioDeaf->setChecked(!set);
@@ -147,6 +188,7 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("undeaf"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				bool set = iter.value().toBool();
 				if (set == Global::get().s.bDeaf) {
 					Global::get().mw->qaAudioDeaf->setChecked(set);
@@ -155,6 +197,7 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("toggledeaf"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				bool set = iter.value().toBool();
 				if (set == Global::get().s.bDeaf) {
 					Global::get().mw->qaAudioDeaf->setChecked(set);
@@ -166,13 +209,20 @@ void SocketRPCClient::processXml() {
 			}
 			iter = qmRequest.find(QLatin1String("starttalking"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				Global::get().mw->on_PushToTalk_triggered(true, QVariant());
 			}
 			iter = qmRequest.find(QLatin1String("stoptalking"));
 			if (iter != qmRequest.constEnd()) {
+				markSelfCommand();
 				Global::get().mw->on_PushToTalk_triggered(false, QVariant());
 			}
-			ack = true;
+			handleWhisperCommand(QLatin1String("startwhisper"), true);
+			handleWhisperCommand(QLatin1String("stopwhisper"), false);
+			handleWhisperCommand(QLatin1String("startshout"), true);
+			handleWhisperCommand(QLatin1String("stopshout"), false);
+
+			ack = selfCommandSeen ? selfCommandSucceeded : true;
 		} else if (request.nodeName() == QLatin1String("url")) {
 			if (Global::get().sh && Global::get().sh->isRunning() && Global::get().uiSession) {
 				QString host, user, pw;

@@ -43,6 +43,10 @@ public slots:
 	bool isSelfDeaf();
 	void startTalking();
 	void stopTalking();
+	void startWhisper(const QString &channel, bool subchannels, bool links, bool forceCenter, const QString &group,
+					  const QDBusMessage &);
+	void stopWhisper(const QString &channel, bool subchannels, bool links, bool forceCenter, const QString &group,
+					 const QDBusMessage &);
 };
 
 #endif

@@ -236,6 +236,12 @@ struct CLIOptions {
 	std::optional< std::string > defaultCertDir;
 
 	std::optional< std::string > rpcCommand;
+	std::optional< std::string > rpcChannel;
+	std::optional< unsigned int > rpcChannelID;
+	std::optional< std::string > rpcGroup;
+	bool rpcSubchannels = false;
+	bool rpcLinks       = false;
+	bool rpcForceCenter = false;
 
 	static constexpr const char *CLI_GENERAL_SECTION  = "General";
 	static constexpr const char *CLI_LANGUAGE_SECTION = "Language";
@@ -247,7 +253,18 @@ struct CLIOptions {
 };
 
 const std::set< std::string > CLIOptions::knownRpcCommands = {
-	"mute", "unmute", "togglemute", "deaf", "undeaf", "toggledeaf", "starttalking", "stoptalking",
+	"mute",
+	"unmute",
+	"togglemute",
+	"deaf",
+	"undeaf",
+	"toggledeaf",
+	"starttalking",
+	"stoptalking",
+	"startwhisper",
+	"stopwhisper",
+	"startshout",
+	"stopshout",
 };
 
 CLIOptions parseCLI(int argc, char **argv) {
@@ -353,6 +370,22 @@ CLIOptions parseCLI(int argc, char **argv) {
 	rpc->add_option("action", options.rpcCommand, "Action to perform")
 		->required()
 		->check(CLI::IsMember(CLIOptions::knownRpcCommands, CLI::ignore_case));
+	CLI::Option *rpcChannel =
+		rpc->add_option("--channel", options.rpcChannel,
+						"Channel target for startwhisper/startshout. Stop actions may omit a target to clear active "
+						"RPC whispers. Accepts Current, Parent, Root, an exact channel name, or a slash-separated "
+						"channel path.")
+			->option_text("<channel>");
+	CLI::Option *rpcChannelID =
+		rpc->add_option("--channel-id", options.rpcChannelID, "Channel ID target for startwhisper/startshout.")
+			->option_text("<id>");
+	rpcChannel->excludes(rpcChannelID);
+	rpc->add_flag("--subchannels,--children", options.rpcSubchannels,
+				  "Also whisper to the target channel's subchannels.");
+	rpc->add_flag("--links", options.rpcLinks, "Also whisper to channels linked to the target channel.");
+	rpc->add_flag("--force-center", options.rpcForceCenter,
+				  "Do not send positional audio information while whispering.");
+	rpc->add_option("--group", options.rpcGroup, "Restrict the whisper to a channel ACL group.")->option_text("<group>");
 
 	try {
 		app.parse(argc, argv);
@@ -570,8 +603,26 @@ int main(int argc, char **argv) {
 	if (options.rpcMode) {
 		bool sent = false;
 		QMap< QString, QVariant > param;
-		QString rpcCommand = QString::fromStdString(*options.rpcCommand);
+		QString rpcCommand = QString::fromStdString(*options.rpcCommand).toLower();
 		param.insert(rpcCommand, rpcCommand);
+		if (options.rpcChannel) {
+			param.insert(QLatin1String("channel"), QString::fromStdString(*options.rpcChannel));
+		}
+		if (options.rpcChannelID) {
+			param.insert(QLatin1String("channel_id"), *options.rpcChannelID);
+		}
+		if (options.rpcSubchannels) {
+			param.insert(QLatin1String("subchannels"), true);
+		}
+		if (options.rpcLinks) {
+			param.insert(QLatin1String("links"), true);
+		}
+		if (options.rpcForceCenter) {
+			param.insert(QLatin1String("force_center"), true);
+		}
+		if (options.rpcGroup) {
+			param.insert(QLatin1String("group"), QString::fromStdString(*options.rpcGroup));
+		}
 		sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("self"), param);
 		if (sent) {
 			return 0;

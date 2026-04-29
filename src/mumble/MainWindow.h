@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
 #include <QtCore/QPointer>
+#include <QtCore/QSet>
 #include <QtCore/QtGlobal>
 #include <QtNetwork/QAbstractSocket>
 #include <QtWidgets/QMainWindow>
@@ -157,6 +158,8 @@ public:
 	void updateChatBar();
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
+	bool setRpcWhispering(bool down, const QString &channelName, int channelID, bool useChannelID, bool children,
+						  bool links, bool forceCenter, const QString &group);
 
 #ifdef Q_OS_WIN
 	bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) Q_DECL_OVERRIDE;
@@ -172,6 +175,7 @@ protected:
 	QList< QAction * > qlUserActions;
 
 	QHash< ShortcutTarget, int > qmCurrentTargets;
+	QSet< ShortcutTarget > qsActiveRpcWhisperTargets;
 	/// A map that contains information about the currently active
 	/// shout/whisper targets. The mapping is between a List of
 	/// ShortcutTargets that are all triggered together and the

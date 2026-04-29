@@ -145,6 +145,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	// VoiceTargets
 	qmTargetUse.clear();
 	qmTargets.clear();
+	qsActiveRpcWhisperTargets.clear();
 	const int uniqueTargetIDCount = 5;
 	for (int i = 1; i < uniqueTargetIDCount + 1; ++i) {
 		qmTargetUse.insert(i, i);

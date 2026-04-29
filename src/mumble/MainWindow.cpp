@@ -69,6 +69,7 @@
 #endif
 
 #include <QAccessible>
+#include <QtCore/QReadLocker>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QUrlQuery>
 #include <QtGui/QClipboard>
@@ -95,6 +96,82 @@
 #include <optional>
 
 #include "widgets/EventFilters.h"
+
+namespace {
+
+Channel *findChildChannelByName(Channel *parent, const QString &name) {
+	QList< Channel * > caseInsensitiveMatches;
+
+	for (Channel *child : parent->qlChannels) {
+		if (child->qsName == name) {
+			return child;
+		}
+
+		if (QString::compare(child->qsName, name, Qt::CaseInsensitive) == 0) {
+			caseInsensitiveMatches.append(child);
+		}
+	}
+
+	return caseInsensitiveMatches.count() == 1 ? caseInsensitiveMatches.constFirst() : nullptr;
+}
+
+std::optional< int > resolveRpcChannelTarget(const QString &channelName) {
+	const QString target = channelName.trimmed();
+
+	if (target.isEmpty() || QString::compare(target, QLatin1String("current"), Qt::CaseInsensitive) == 0) {
+		return SHORTCUT_TARGET_CURRENT;
+	}
+
+	if (QString::compare(target, QLatin1String("parent"), Qt::CaseInsensitive) == 0) {
+		return SHORTCUT_TARGET_PARENT;
+	}
+
+	if (QString::compare(target, QLatin1String("root"), Qt::CaseInsensitive) == 0 || target == QLatin1String("/")) {
+		return SHORTCUT_TARGET_ROOT;
+	}
+
+	QReadLocker lock(&Channel::c_qrwlChannels);
+
+	if (target.contains(QLatin1Char('/'))) {
+		Channel *channel = Channel::c_qhChannels.value(Mumble::ROOT_CHANNEL_ID);
+		if (!channel) {
+			return std::nullopt;
+		}
+
+		const QStringList path = target.split(QLatin1Char('/'), Qt::SkipEmptyParts);
+		for (const QString &pathElement : path) {
+			channel = findChildChannelByName(channel, pathElement);
+			if (!channel) {
+				return std::nullopt;
+			}
+		}
+
+		return static_cast< int >(channel->iId);
+	}
+
+	QList< Channel * > exactMatches;
+	QList< Channel * > caseInsensitiveMatches;
+
+	for (Channel *channel : Channel::c_qhChannels) {
+		if (channel->qsName == target) {
+			exactMatches.append(channel);
+		} else if (QString::compare(channel->qsName, target, Qt::CaseInsensitive) == 0) {
+			caseInsensitiveMatches.append(channel);
+		}
+	}
+
+	if (exactMatches.count() == 1) {
+		return static_cast< int >(exactMatches.constFirst()->iId);
+	}
+
+	if (exactMatches.isEmpty() && caseInsensitiveMatches.count() == 1) {
+		return static_cast< int >(caseInsensitiveMatches.constFirst()->iId);
+	}
+
+	return std::nullopt;
+}
+
+} // namespace
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast< QEvent::Type >(MB_QEVENT)) {
 	msg = m;
@@ -2918,6 +2995,61 @@ void MainWindow::pttReleased() {
 	if (Global::get().iPushToTalk > 0) {
 		Global::get().iPushToTalk--;
 	}
+}
+
+bool MainWindow::setRpcWhispering(bool down, const QString &channelName, int channelID, bool useChannelID,
+								  bool children, bool links, bool forceCenter, const QString &group) {
+	if (!Global::get().sh || !Global::get().sh->isRunning() || !Global::get().uiSession) {
+		return false;
+	}
+
+	if (!down && !useChannelID && channelName.trimmed().isEmpty()) {
+		const QList< ShortcutTarget > activeTargets = qsActiveRpcWhisperTargets.values();
+		qsActiveRpcWhisperTargets.clear();
+		for (const ShortcutTarget &activeTarget : activeTargets) {
+			on_gsWhisper_triggered(false, QVariant::fromValue(activeTarget));
+		}
+		return true;
+	}
+
+	ShortcutTarget target;
+	target.bUsers       = false;
+	target.bChildren    = children;
+	target.bLinks       = links;
+	target.bForceCenter = forceCenter;
+	target.qsGroup      = group.trimmed();
+
+	if (useChannelID) {
+		if (channelID < 0) {
+			return false;
+		}
+
+		if (down && !Channel::get(static_cast< unsigned int >(channelID))) {
+			return false;
+		}
+
+		target.iChannel = channelID;
+	} else {
+		std::optional< int > resolvedChannel = resolveRpcChannelTarget(channelName);
+		if (!resolvedChannel) {
+			return false;
+		}
+
+		target.iChannel = *resolvedChannel;
+	}
+
+	if (down) {
+		if (qsActiveRpcWhisperTargets.contains(target)) {
+			return true;
+		}
+
+		qsActiveRpcWhisperTargets.insert(target);
+	} else if (!qsActiveRpcWhisperTargets.remove(target)) {
+		return true;
+	}
+
+	on_gsWhisper_triggered(down, QVariant::fromValue(target));
+	return true;
 }
 
 void MainWindow::on_PushToMute_triggered(bool down, QVariant) {
