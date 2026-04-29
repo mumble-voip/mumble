@@ -3003,11 +3003,30 @@ bool MainWindow::setRpcWhispering(bool down, const QString &channelName, int cha
 		return false;
 	}
 
+	auto releaseTarget = [this](const ShortcutTarget &activeTarget) {
+		ShortcutTarget target = activeTarget;
+
+		if (!qmCurrentTargets.contains(target)) {
+			updateTarget();
+			return;
+		}
+
+		if (Global::get().iPushToTalk > 0) {
+			Global::get().iPushToTalk--;
+		}
+
+		removeTarget(&target);
+		updateTarget();
+	};
+
 	if (!down && !useChannelID && channelName.trimmed().isEmpty()) {
 		const QList< ShortcutTarget > activeTargets = qsActiveRpcWhisperTargets.values();
 		qsActiveRpcWhisperTargets.clear();
 		for (const ShortcutTarget &activeTarget : activeTargets) {
-			on_gsWhisper_triggered(false, QVariant::fromValue(activeTarget));
+			releaseTarget(activeTarget);
+		}
+		if (activeTargets.isEmpty()) {
+			updateTarget();
 		}
 		return true;
 	}
@@ -3044,7 +3063,14 @@ bool MainWindow::setRpcWhispering(bool down, const QString &channelName, int cha
 		}
 
 		qsActiveRpcWhisperTargets.insert(target);
-	} else if (!qsActiveRpcWhisperTargets.remove(target)) {
+	} else {
+		const bool activeTarget = qsActiveRpcWhisperTargets.remove(target);
+		const bool currentTarget = qmCurrentTargets.contains(target);
+		if (!activeTarget && !currentTarget) {
+			return true;
+		}
+
+		releaseTarget(target);
 		return true;
 	}
 
@@ -3290,7 +3316,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		updateTarget();
 
 		Global::get().iPushToTalk++;
-	} else if (Global::get().iPushToTalk > 0) {
+	} else if (Global::get().iPushToTalk > 0 || qmCurrentTargets.contains(st)) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
 		QTimer::singleShot(static_cast< int >(Global::get().s.pttHold), fwd, SLOT(call()));
@@ -3622,12 +3648,11 @@ void MainWindow::on_gsAdaptivePush_triggered(bool down, QVariant variant) {
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
-	if (Global::get().iPushToTalk <= 0)
-		return;
-
 	ShortcutTarget st = scdata.value< ShortcutTarget >();
 
-	Global::get().iPushToTalk--;
+	if (Global::get().iPushToTalk > 0) {
+		Global::get().iPushToTalk--;
+	}
 
 	removeTarget(&st);
 	updateTarget();
