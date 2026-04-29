@@ -63,6 +63,7 @@ public class ClientInstaller : MumbleInstall {
 			"ffxiv.dll",
 			"ffxiv_x64.dll",
 			"gmod.dll",
+			"grounded.dll",
 			"gtaiv.dll",
 			"gtasa.dll",
 			"gtav.dll",
