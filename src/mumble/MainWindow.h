@@ -376,7 +376,8 @@ public:
 	bool handleModernShellParticipantAction(qulonglong session, const QString &actionId);
 	bool handleModernShellParticipantActionValueChanged(qulonglong session, const QString &actionId, int value,
 														bool final);
-	bool handleModernShellChannelMove(const QString &sourceScopeToken, const QString &targetScopeToken);
+	bool handleModernShellChannelMove(const QString &sourceScopeToken, const QString &targetScopeToken,
+									  const QString &placement);
 	bool handleModernShellAppAction(const QString &actionId);
 	void togglePreferredModernShellLayout();
 	enum class ModernShellMenuContext : unsigned char {

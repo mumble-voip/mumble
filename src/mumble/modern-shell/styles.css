@@ -1955,6 +1955,13 @@ textarea:focus-visible {
 	color: var(--text-main);
 	font-size: 12px;
 	font-weight: 600;
+	border-left: 2px solid transparent;
+	transition: background 150ms ease, border-color 150ms ease;
+}
+
+.rail-root-label.is-drop-target {
+	background: rgba(78, 184, 159, 0.12);
+	border-left-color: var(--accent);
 }
 
 .rail-row {
@@ -1987,6 +1994,18 @@ textarea:focus-visible {
 	border-left-color: var(--accent);
 	box-shadow: inset 0 0 0 1px rgba(78, 184, 159, 0.18);
 	transform: translateX(2px);
+}
+
+.rail-row.is-drop-before {
+	box-shadow:
+		inset 0 2px 0 var(--accent),
+		inset 0 0 0 1px rgba(78, 184, 159, 0.18);
+}
+
+.rail-row.is-drop-after {
+	box-shadow:
+		inset 0 -2px 0 var(--accent),
+		inset 0 0 0 1px rgba(78, 184, 159, 0.18);
 }
 
 .rail-row.is-selected {

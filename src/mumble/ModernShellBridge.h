@@ -39,7 +39,8 @@ public:
 	Q_INVOKABLE void moveParticipantToChannel(qulonglong session, const QString &scopeToken);
 	Q_INVOKABLE void invokeParticipantAction(qulonglong session, const QString &actionId);
 	Q_INVOKABLE void participantActionValueChanged(qulonglong session, const QString &actionId, int value, bool final);
-	Q_INVOKABLE void moveChannelToChannel(const QString &sourceScopeToken, const QString &targetScopeToken);
+	Q_INVOKABLE void moveChannelToChannel(const QString &sourceScopeToken, const QString &targetScopeToken,
+										  const QString &placement);
 	Q_INVOKABLE void loadOlderHistory();
 	Q_INVOKABLE void markRead();
 	Q_INVOKABLE void toggleSelfMute();
@@ -74,7 +75,8 @@ signals:
 	void participantMoveRequested(qulonglong session, const QString &scopeToken);
 	void participantActionRequested(qulonglong session, const QString &actionId);
 	void participantActionValueChangedRequested(qulonglong session, const QString &actionId, int value, bool final);
-	void channelMoveRequested(const QString &sourceScopeToken, const QString &targetScopeToken);
+	void channelMoveRequested(const QString &sourceScopeToken, const QString &targetScopeToken,
+							  const QString &placement);
 	void olderHistoryRequested();
 	void markReadRequested();
 	void selfMuteToggleRequested();

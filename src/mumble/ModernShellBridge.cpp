@@ -166,8 +166,9 @@ void ModernShellBridge::participantActionValueChanged(const qulonglong session, 
 	emit participantActionValueChangedRequested(session, actionId.trimmed(), value, final);
 }
 
-void ModernShellBridge::moveChannelToChannel(const QString &sourceScopeToken, const QString &targetScopeToken) {
-	emit channelMoveRequested(sourceScopeToken.trimmed(), targetScopeToken.trimmed());
+void ModernShellBridge::moveChannelToChannel(const QString &sourceScopeToken, const QString &targetScopeToken,
+											 const QString &placement) {
+	emit channelMoveRequested(sourceScopeToken.trimmed(), targetScopeToken.trimmed(), placement.trimmed());
 }
 
 void ModernShellBridge::loadOlderHistory() {

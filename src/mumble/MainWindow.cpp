@@ -5817,6 +5817,8 @@ QVariantMap MainWindow::buildModernShellSnapshot() {
 	appState.insert(QStringLiteral("selfAvatarUrl"), modernShellAvatarDataUrl(selfUser, 56));
 	if (const Channel *rootVoiceChannel = Channel::get(Mumble::ROOT_CHANNEL_ID)) {
 		appState.insert(QStringLiteral("voiceRootLabel"), rootVoiceChannel->qsName);
+		appState.insert(QStringLiteral("voiceRootScopeToken"),
+						modernShellScopeToken(static_cast< int >(MumbleProto::Channel), rootVoiceChannel->iId));
 	}
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
@@ -6344,30 +6346,40 @@ QVariantMap MainWindow::buildModernShellSnapshot() {
 				|| (!target.serverLog && !target.directMessage && target.valid && target.scopeID == scopeID
 					&& scopeValue == static_cast< int >(target.scope));
 
+			const bool voiceRoomChat = scopeValue == static_cast< int >(MumbleProto::Channel);
 			if (scopeValue == LocalServerLogScope || scopeValue == static_cast< int >(MumbleProto::TextChannel)
-				|| scopeValue == static_cast< int >(MumbleProto::ServerGlobal) || scopeValue == LocalDirectMessageScope
-				|| scopeValue == static_cast< int >(MumbleProto::Aggregate)) {
+				|| voiceRoomChat || scopeValue == static_cast< int >(MumbleProto::ServerGlobal)
+				|| scopeValue == LocalDirectMessageScope || scopeValue == static_cast< int >(MumbleProto::Aggregate)) {
 				QVariantMap room;
 				room.insert(QStringLiteral("token"), modernShellScopeToken(scopeValue, scopeID));
 				room.insert(QStringLiteral("label"), roomLabel.isEmpty() ? tr("Room") : roomLabel);
-				room.insert(QStringLiteral("description"), itemToolTip.isEmpty() ? tr("Conversation") : itemToolTip);
+				room.insert(QStringLiteral("description"),
+							itemToolTip.isEmpty()
+								? (voiceRoomChat ? tr("Voice room chat") : tr("Conversation"))
+								: itemToolTip);
 				room.insert(QStringLiteral("depth"), 0);
 				room.insert(QStringLiteral("selected"), selectedScope);
-				room.insert(QStringLiteral("joined"), false);
+				room.insert(QStringLiteral("joined"),
+							voiceRoomChat && joinedVoiceChannel && joinedVoiceChannel->iId == scopeID);
 				room.insert(QStringLiteral("unreadCount"), static_cast< qulonglong >(unreadRaw));
 				room.insert(QStringLiteral("kindLabel"),
 							scopeValue == LocalServerLogScope
 								? tr("Activity")
 								: (scopeValue == LocalDirectMessageScope
 									   ? tr("Direct message")
-									   : (scopeValue == static_cast< int >(MumbleProto::TextChannel) ? tr("Text room")
-																									 : tr("Legacy"))));
+									   : (voiceRoomChat
+											  ? tr("Voice room")
+											  : (scopeValue == static_cast< int >(MumbleProto::TextChannel)
+													 ? tr("Text room")
+													 : tr("Legacy")))));
 				Channel *roomChannel = nullptr;
 				if (scopeValue == static_cast< int >(MumbleProto::TextChannel)) {
 					const auto textChannelIt = m_persistentTextChannels.constFind(scopeID);
 					if (textChannelIt != m_persistentTextChannels.cend()) {
 						roomChannel = Channel::get(textChannelIt->aclChannelID);
 					}
+				} else if (voiceRoomChat) {
+					roomChannel = Channel::get(scopeID);
 				}
 				if (roomChannel) {
 					room.insert(QStringLiteral("actions"), buildChannelActions(roomChannel, false));
@@ -7056,7 +7068,8 @@ bool MainWindow::handleModernShellParticipantMove(const qulonglong session, cons
 	return true;
 }
 
-bool MainWindow::handleModernShellChannelMove(const QString &sourceScopeToken, const QString &targetScopeToken) {
+bool MainWindow::handleModernShellChannelMove(const QString &sourceScopeToken, const QString &targetScopeToken,
+											  const QString &placement) {
 	int sourceScopeValue       = 0;
 	unsigned int sourceScopeID = 0;
 	int targetScopeValue       = 0;
@@ -7074,8 +7087,30 @@ bool MainWindow::handleModernShellChannelMove(const QString &sourceScopeToken, c
 	if (!sourceChannel || !targetChannel || !serverHandler || sourceChannel == targetChannel) {
 		return false;
 	}
+	if (sourceChannel->iId == Mumble::ROOT_CHANNEL_ID) {
+		return false;
+	}
 
-	for (Channel *ancestor = targetChannel; ancestor; ancestor = ancestor->cParent) {
+	QString normalizedPlacement = placement.trimmed().toLower();
+	if (normalizedPlacement != QLatin1String("before") && normalizedPlacement != QLatin1String("after")
+		&& normalizedPlacement != QLatin1String("inside")) {
+		normalizedPlacement = QStringLiteral("inside");
+	}
+	if (targetChannel->iId == Mumble::ROOT_CHANNEL_ID) {
+		normalizedPlacement = QStringLiteral("inside");
+	}
+
+	Channel *targetParent = nullptr;
+	if (normalizedPlacement == QLatin1String("inside")) {
+		targetParent = targetChannel;
+	} else {
+		targetParent = targetChannel->cParent ? targetChannel->cParent : Channel::get(Mumble::ROOT_CHANNEL_ID);
+	}
+	if (!targetParent || targetParent == sourceChannel) {
+		return false;
+	}
+
+	for (Channel *ancestor = targetParent; ancestor; ancestor = ancestor->cParent) {
 		if (ancestor == sourceChannel) {
 			return false;
 		}
@@ -7097,26 +7132,121 @@ bool MainWindow::handleModernShellChannelMove(const QString &sourceScopeToken, c
 			break;
 	}
 
-	long long newPosition = 0;
-	for (Channel *child : targetChannel->qlChannels) {
-		if (!child || child == sourceChannel) {
-			continue;
-		}
-
-		newPosition = std::max(newPosition, static_cast< long long >(child->iPosition) + 20);
-	}
-
-	if (newPosition > INT_MAX || newPosition < INT_MIN) {
+	const auto showPositionError = [this]() {
 		QMessageBox::critical(this, QLatin1String("Mumble"),
 							  tr("Cannot perform this movement automatically, please reset the numeric sorting "
 								 "indicators or adjust it manually."));
+	};
+	const auto sendPositionAdjustment = [serverHandler](Channel *channel, const int position) {
+		if (!channel) {
+			return;
+		}
+
+		MumbleProto::ChannelState adjustedState;
+		adjustedState.set_channel_id(channel->iId);
+		adjustedState.set_position(position);
+		serverHandler->sendMessage(adjustedState);
+	};
+	const auto sortedChildren = [sourceChannel](Channel *parent) {
+		QList< Channel * > children;
+		if (!parent) {
+			return children;
+		}
+
+		for (Channel *child : parent->qlChannels) {
+			if (child && child != sourceChannel) {
+				children.push_back(child);
+			}
+		}
+		std::sort(children.begin(), children.end(), Channel::lessThan);
+		return children;
+	};
+
+	long long newPosition = 0;
+	if (normalizedPlacement == QLatin1String("inside")) {
+		bool hasSiblings = false;
+		for (Channel *child : sortedChildren(targetParent)) {
+			if (!child) {
+				continue;
+			}
+
+			hasSiblings = true;
+			newPosition = std::max(newPosition, static_cast< long long >(child->iPosition) + 20);
+		}
+		if (!hasSiblings) {
+			newPosition = 0;
+		}
+	} else {
+		QList< Channel * > siblings = sortedChildren(targetParent);
+		const auto targetIt         = std::find(siblings.begin(), siblings.end(), targetChannel);
+		if (targetIt == siblings.end()) {
+			return false;
+		}
+
+		const int targetIndex = static_cast< int >(std::distance(siblings.begin(), targetIt));
+		const int insertIndex =
+			normalizedPlacement == QLatin1String("before") ? targetIndex : targetIndex + 1;
+		Channel *previous = insertIndex > 0 ? siblings.at(insertIndex - 1) : nullptr;
+		Channel *next     = insertIndex < siblings.size() ? siblings.at(insertIndex) : nullptr;
+
+		if (!previous && !next) {
+			newPosition = 0;
+		} else if (!previous) {
+			if (static_cast< long long >(next->iPosition) - 20 >= INT_MIN) {
+				newPosition = static_cast< long long >(next->iPosition) - 20;
+			} else {
+				if (siblings.isEmpty()
+					|| static_cast< long long >(siblings.last()->iPosition) + 40 > INT_MAX) {
+					showPositionError();
+					return false;
+				}
+				for (Channel *child : siblings) {
+					sendPositionAdjustment(child, child->iPosition + 40);
+				}
+				newPosition = static_cast< long long >(next->iPosition) + 20;
+			}
+		} else if (!next) {
+			if (static_cast< long long >(previous->iPosition) + 20 <= INT_MAX) {
+				newPosition = static_cast< long long >(previous->iPosition) + 20;
+			} else {
+				if (siblings.isEmpty()
+					|| static_cast< long long >(siblings.first()->iPosition) - 40 < INT_MIN) {
+					showPositionError();
+					return false;
+				}
+				for (Channel *child : siblings) {
+					sendPositionAdjustment(child, child->iPosition - 40);
+				}
+				newPosition = static_cast< long long >(previous->iPosition) - 20;
+			}
+		} else {
+			const long long gap = static_cast< long long >(next->iPosition) - previous->iPosition;
+			if (gap > 1) {
+				newPosition = static_cast< long long >(previous->iPosition) + (gap / 2);
+			} else {
+				if (siblings.isEmpty()
+					|| static_cast< long long >(siblings.last()->iPosition) + 40 > INT_MAX) {
+					showPositionError();
+					return false;
+				}
+				for (int i = insertIndex; i < siblings.size(); ++i) {
+					Channel *child = siblings.at(i);
+					sendPositionAdjustment(child, child->iPosition + 40);
+				}
+				newPosition = static_cast< long long >(previous->iPosition) + 20;
+			}
+		}
+	}
+
+	if (newPosition > INT_MAX || newPosition < INT_MIN) {
+		showPositionError();
 		return false;
 	}
 
 	MumbleProto::ChannelState channelState;
 	channelState.set_channel_id(sourceChannel->iId);
-	if (sourceChannel->cParent != targetChannel) {
-		channelState.set_parent(targetChannel->iId);
+	if (sourceChannel->cParent != targetParent) {
+		channelState.set_parent(targetParent->iId);
 	}
 	channelState.set_position(static_cast< int >(newPosition));
 	serverHandler->sendMessage(channelState);
@@ -9678,6 +9808,7 @@ void MainWindow::focusPersistentChatVoiceChannel(Channel *channel) {
 		qtvUsers->scrollTo(channelIndex);
 	}
 
+	setPersistentChatTargetUsesVoiceTree(true);
 	rebuildPersistentChatChannelList();
 	setPersistentChatTargetUsesVoiceTree(false);
 	navigateToPersistentChatScope(MumbleProto::Channel, channel->iId);

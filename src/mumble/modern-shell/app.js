@@ -1466,7 +1466,45 @@
 		if (!target || !target.classList) {
 			return;
 		}
-		target.classList.remove("is-drop-target");
+		target.classList.remove("is-drop-target", "is-drop-before", "is-drop-after", "is-drop-inside");
+		target.removeAttribute("data-drop-placement");
+	}
+
+	function clearAllRoomDropTargets() {
+		document.querySelectorAll(".rail-row.is-drop-target, .rail-root-label.is-drop-target").forEach(function(element) {
+			element.classList.remove("is-drop-target", "is-drop-before", "is-drop-after", "is-drop-inside");
+			element.removeAttribute("data-drop-placement");
+		});
+	}
+
+	function roomDropPlacement(event, target) {
+		if (!dragState || dragState.kind !== "room" || !target || target.dataset.dropTarget === "root") {
+			return "inside";
+		}
+
+		const bounds = target.getBoundingClientRect();
+		if (!bounds.height) {
+			return "inside";
+		}
+
+		const y = Math.max(0, Math.min(bounds.height, event.clientY - bounds.top));
+		if (y <= bounds.height * 0.30) {
+			return "before";
+		}
+		if (y >= bounds.height * 0.70) {
+			return "after";
+		}
+		return "inside";
+	}
+
+	function applyRoomDropTarget(target, placement) {
+		if (!target || !target.classList) {
+			return;
+		}
+
+		target.classList.remove("is-drop-before", "is-drop-after", "is-drop-inside");
+		target.classList.add("is-drop-target", "is-drop-" + (placement || "inside"));
+		target.dataset.dropPlacement = placement || "inside";
 	}
 
 	function handleRoomDragEnter(event) {
@@ -1475,9 +1513,13 @@
 			return;
 		}
 
+		if (target.dataset.dropTarget === "root" && dragState.kind !== "room") {
+			return;
+		}
+
 		if (dragState.kind === "participant" || dragState.kind === "room") {
 			event.preventDefault();
-			target.classList.add("is-drop-target");
+			applyRoomDropTarget(target, roomDropPlacement(event, target));
 		}
 	}
 
@@ -1487,12 +1529,16 @@
 			return;
 		}
 
+		if (target.dataset.dropTarget === "root" && dragState.kind !== "room") {
+			return;
+		}
+
 		if (dragState.kind === "participant" || dragState.kind === "room") {
 			event.preventDefault();
 			if (event.dataTransfer) {
 				event.dataTransfer.dropEffect = "move";
 			}
-			target.classList.add("is-drop-target");
+			applyRoomDropTarget(target, roomDropPlacement(event, target));
 		}
 	}
 
@@ -1648,9 +1694,7 @@
 			row.addEventListener("dragend", function() {
 				row.classList.remove("is-dragging");
 				dragState = null;
-				document.querySelectorAll(".rail-row.is-drop-target").forEach(function(element) {
-					element.classList.remove("is-drop-target");
-				});
+				clearAllRoomDropTargets();
 			});
 			list.appendChild(entry);
 		});
@@ -1828,9 +1872,7 @@
 		button.addEventListener("dragend", function() {
 			button.classList.remove("is-dragging");
 			dragState = null;
-			document.querySelectorAll(".rail-row.is-drop-target").forEach(function(element) {
-				element.classList.remove("is-drop-target");
-			});
+			clearAllRoomDropTargets();
 		});
 		button.addEventListener("dragenter", handleRoomDragEnter);
 		button.addEventListener("dragover", handleRoomDragOver);
@@ -1845,7 +1887,10 @@
 			if (dragState.kind === "participant" && dragState.session) {
 				notifyBridge("moveParticipantToChannel", dragState.session, room.token);
 			} else if (dragState.kind === "room" && dragState.scopeToken && dragState.scopeToken !== room.token) {
-				notifyBridge("moveChannelToChannel", dragState.scopeToken, room.token);
+				notifyBridge("moveChannelToChannel",
+					dragState.scopeToken,
+					room.token,
+					button.dataset.dropPlacement || roomDropPlacement(event, button));
 			}
 		});
 
@@ -1888,6 +1933,22 @@
 			const rootLabel = document.createElement("div");
 			rootLabel.className = "rail-root-label";
 			rootLabel.textContent = options.rootLabel;
+			rootLabel.dataset.dropTarget = "root";
+			rootLabel.dataset.scopeToken = options.rootToken || "";
+			if (options.joinable && options.rootToken) {
+				rootLabel.addEventListener("dragenter", handleRoomDragEnter);
+				rootLabel.addEventListener("dragover", handleRoomDragOver);
+				rootLabel.addEventListener("dragleave", clearRoomDropTarget);
+				rootLabel.addEventListener("drop", function(event) {
+					clearRoomDropTarget(event);
+					if (!dragState || dragState.kind !== "room" || !dragState.scopeToken) {
+						return;
+					}
+
+					event.preventDefault();
+					notifyBridge("moveChannelToChannel", dragState.scopeToken, options.rootToken, "inside");
+				});
+			}
 			container.appendChild(rootLabel);
 		}
 
@@ -3531,7 +3592,8 @@
 		renderRoomList(refs.voiceRoomList, voiceRooms, {
 			joinable: true,
 			voicePresence: voicePresence,
-			rootLabel: app.voiceRootLabel || ""
+			rootLabel: app.voiceRootLabel || "",
+			rootToken: app.voiceRootScopeToken || ""
 		});
 		renderRoomList(refs.textRoomList, textRooms, {
 			joinable: false,
