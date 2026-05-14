@@ -36,6 +36,8 @@
 	let imageViewerDragFrame = 0;
 	let imageViewerResizeObserver = null;
 	let footerAlignmentResizeObserver = null;
+	let cachedServerLogElement = null;
+	let cachedServerLogRevision = "";
 
 	const imageViewerStorageKey = "mumble-modern-image-viewer";
 	const imageViewerMinWidth = 280;
@@ -2877,12 +2879,24 @@
 			unreadDetachedMessages += freshTailCount;
 		}
 
-		if (scope.serverLogHtml) {
+		if (scope.serverLogRevision || Object.prototype.hasOwnProperty.call(scope, "serverLogHtml")) {
+			const serverLogRevision = String(scope.serverLogRevision || "");
+			if (Object.prototype.hasOwnProperty.call(scope, "serverLogHtml")) {
+				cachedServerLogElement = document.createElement("div");
+				cachedServerLogElement.className = "message-log";
+				cachedServerLogElement.innerHTML = scope.serverLogHtml || "";
+				cachedServerLogRevision = serverLogRevision;
+			}
+
 			refs.messageList.innerHTML = "";
-			const log = document.createElement("div");
-			log.className = "message-log";
-			log.innerHTML = scope.serverLogHtml;
-			refs.messageList.appendChild(log);
+			if (cachedServerLogElement && (!serverLogRevision || cachedServerLogRevision === serverLogRevision)) {
+				refs.messageList.appendChild(cachedServerLogElement);
+			} else {
+				const empty = document.createElement("div");
+				empty.className = "empty-state";
+				empty.innerHTML = "<h2>Activity is loading</h2><p>The latest activity will appear shortly.</p>";
+				refs.messageList.appendChild(empty);
+			}
 			requestAnimationFrame(function() {
 				if (!detachedBeforeRender) {
 					keepMessageListPinnedToBottom = true;

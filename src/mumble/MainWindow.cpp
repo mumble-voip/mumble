@@ -4033,12 +4033,17 @@ void MainWindow::setupGui() {
 
 	qteLog->document()->setMaximumBlockCount(Global::get().s.iMaxLogBlocks);
 	connect(qteLog->document(), &QTextDocument::contentsChanged, this, [this]() {
+		if (++m_modernShellServerLogRevision == 0) {
+			m_modernShellServerLogRevision     = 1;
+			m_modernShellServerLogHtmlRevision = 0;
+		}
 		if (modernShellMinimalSnapshotEnabled() && usesModernShell()) {
 			appendModernShellConnectTrace(QStringLiteral("UI qteLog contentsChanged minimal-skip"));
 			return;
 		}
 		if (const PersistentChatTarget target = currentPersistentChatTarget(); target.serverLog) {
 			renderServerLogView(true);
+			queueModernShellSnapshotSync();
 		}
 	});
 
@@ -5147,8 +5152,10 @@ void MainWindow::activateModernShell() {
 				&MainWindow::handleModernShellAppAction);
 		connect(m_modernShellHost->bridge(), &ModernShellBridge::layoutToggleRequested, this,
 				&MainWindow::togglePreferredModernShellLayout);
-		connect(m_modernShellHost->bridge(), &ModernShellBridge::bootReady, this,
-				&MainWindow::queueModernShellSnapshotSync);
+		connect(m_modernShellHost->bridge(), &ModernShellBridge::bootReady, this, [this]() {
+			m_modernShellServerLogHtmlRevision = 0;
+			queueModernShellSnapshotSync();
+		});
 		connect(m_modernShellHost, &ModernShellHost::imageDropped, this, &MainWindow::attachPersistentChatImage);
 		connect(m_modernShellHost, &ModernShellHost::imageUrlsDropped, this, &MainWindow::attachPersistentChatImages);
 		QString modernShellError;
@@ -6540,7 +6547,12 @@ QVariantMap MainWindow::buildModernShellSnapshot() {
 			persistentChatMessageTextSnippet(persistentChatMessageSourceText(*m_pendingPersistentChatReply)));
 	}
 	if ((target.serverLog || target.legacyTextPath) && qteLog && qteLog->document()) {
-		activeScope.insert(QStringLiteral("serverLogHtml"), qteLog->document()->toHtml());
+		activeScope.insert(QStringLiteral("serverLogRevision"),
+						   QString::number(m_modernShellServerLogRevision));
+		if (m_modernShellServerLogHtmlRevision != m_modernShellServerLogRevision) {
+			activeScope.insert(QStringLiteral("serverLogHtml"), qteLog->document()->toHtml());
+			m_modernShellServerLogHtmlRevision = m_modernShellServerLogRevision;
+		}
 	}
 	if (target.scope == MumbleProto::Channel && target.channel) {
 		activeScope.insert(QStringLiteral("screenShare"), buildVoiceRoomScreenShareState(target.channel));
@@ -9408,6 +9420,10 @@ void MainWindow::refreshTextDocumentStylesheets() {
 
 	if (qteLog && qteLog->document()) {
 		qteLog->document()->setDefaultStyleSheet(stylesheet);
+		if (++m_modernShellServerLogRevision == 0) {
+			m_modernShellServerLogRevision     = 1;
+			m_modernShellServerLogHtmlRevision = 0;
+		}
 	}
 
 	if (qteChat && qteChat->document()) {
