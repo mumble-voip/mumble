@@ -707,7 +707,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Avoimen koodin ja matalan latenssin korkealaatuinen puhechat</translation>
     </message>
 </context>
 <context>
@@ -1641,7 +1641,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>sijainnissa</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
@@ -2330,7 +2330,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Estä</translation>
+        <translation>Estä</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2338,7 +2338,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">Estämässä käyttäjä %1</translation>
+        <translation>Estämässä käyttäjää %1</translation>
     </message>
 </context>
 <context>
@@ -3661,11 +3661,11 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Annettu salasana ei ole kelvollinen tälle käyttäjälle. Yritä uudelleen eri salasanaa tai käytä sertifikaattipohjaista todennusta jättämällä salasana asettamatta.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytetty sertifikaatti ei ole kelvollinen tälle käyttäjälle. Yritä eri sertifikaattia tai määrittele salasana käyttääksesi salasanapohjaista autentikointia.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -5120,7 +5120,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyhjentää TalkingUI:n taustan asetuksen.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
@@ -5132,7 +5132,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Väri, jota käytetään TalkingUI:n taustalla.</translation>
     </message>
     <message>
         <source>Choose</source>
@@ -5140,7 +5140,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Teeman taustavärin korvaava taustaväri, joka sellainen on asetettu.</translation>
     </message>
     <message>
         <source>Background Color</source>
@@ -5180,7 +5180,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Asettaa teeman määriteltyyn tumman tilan asetukseen</translation>
     </message>
     <message>
         <source>Dark</source>
@@ -5188,7 +5188,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Asettaa teeman määriteltyyn vaalean teeman asetukseen</translation>
     </message>
     <message>
         <source>Light Theme</source>
@@ -5200,7 +5200,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Avaa teemojen kansio järjestelmän tiedostonhallintaohjelmalla</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
@@ -6247,19 +6247,19 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelinasetusten mukaan käyttäjänimesi ei ole kelvollinen.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Evätty: Palvelinasetusten mukaan kanavan nimi ei ole kelvollinen.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelinasetusten mukaan käyttäjänimi %1 ei ole kelvollinen.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palvelinasetusten mukaan käyttäjänimi ei ole kelvollinen.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -7183,7 +7183,7 @@ kanavien alivalikosta.</translation>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kun käytetään Push-to-Talk lähetystilaa, tämä toimii Push-to-Talk -toimintona. Muussa tapauksessa tämä toimi Push-to-Mute (mykistys) toimintona.</translation>
     </message>
     <message>
         <source>Open Image</source>
@@ -7195,11 +7195,11 @@ kanavien alivalikosta.</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuvan dekoodaus epäonnistui.</translation>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tämä avaa tekstieditorin, jossa voit muuttaa kommenttiasi. Kommentit ovat palvelunkohtaisia. Muut käyttäjät voivat lukea kommenttisi liikuttamalla kursoria kommenttikuvakkeen päällä käyttäjä- ja kanavalistassa.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
@@ -7808,7 +7808,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Display a frame counter in the overlay</source>
-        <translation>Näytä FPS-lukema Overlayssa</translation>
+        <translation>Näytä FPS-lukema overlayssa</translation>
     </message>
     <message>
         <source>Show FPS counter</source>

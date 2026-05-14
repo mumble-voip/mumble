@@ -6247,19 +6247,19 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Secondo la configurazione del server, il tuo nome utente non è considerato valido.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietato: Secondo la configurazione del server, il nome del canale non è considerato valido.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Secondo la configurazione del server, il nome utente %1 non è considerato valido.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Secondo la configurazione del server, il nome utente non è considerato valido.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>

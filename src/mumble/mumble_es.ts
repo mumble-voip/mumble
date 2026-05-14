@@ -707,7 +707,7 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Una utilidad de chat de voz de código abierto, de baja latencia y alta calidad</translation>
     </message>
 </context>
 <context>
@@ -1653,7 +1653,7 @@ Este valor permite fijar el número máximo de usuarios permitidos en el canal. 
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuar a los oyentes en un…</translation>
     </message>
 </context>
 <context>
@@ -2314,15 +2314,15 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Baneando usuario</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Introduzca el motivo</translation>
+        <translation>Introduzca el motivo</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Banear certificado de usuario</translation>
     </message>
     <message>
         <source>Ban IP</source>
