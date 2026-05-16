@@ -3593,10 +3593,10 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			qmb.setEscapeButton(QMessageBox::No);
 
 			QPushButton *qp = qmb.addButton(tr("&View Certificate"), QMessageBox::ActionRole);
-			forever {
+			while (true) {
 				int res = qmb.exec();
 
-				if ((res == 0) && (qmb.clickedButton() == qp)) {
+				if (qmb.clickedButton() == qp) {
 					ViewCert vc(Global::get().sh->qscCert, this);
 					vc.exec();
 					continue;
