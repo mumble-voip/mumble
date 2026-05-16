@@ -5414,10 +5414,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Ο διακομιστής παρουσίασε ένα πιστοποιητικό το οποίο δεν μπόρεσε να επιβεβαιωθεί.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Τα συγκεκριμένα σφάλματα με αυτό το πιστοποιητικό είναι:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Θέλετε να αποδεχτείτε αυτό το πιστοποιητικό ούτως ή άλλως;&lt;br /&gt;(θα αποθηκευτεί, ώστε να μην σας ζητηθεί ξανά.)&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Η σύνδεση διακομιστή απέτυχε.</translation>
     </message>
@@ -7223,6 +7219,14 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate &amp;mdash; Mumble will remember it for future connections. If you are the server administrator, consider obtaining a free trusted certificate from Let&apos;s Encrypt (https://letsencrypt.org).&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

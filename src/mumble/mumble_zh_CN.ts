@@ -5413,10 +5413,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>服务器提供的证书验证失败。</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;此证书的具体错误为：&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;您仍希望接受此证书吗？&lt;br /&gt;（此信任会被保存，您只会被询问这一次。）&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>连接服务器失败。</translation>
     </message>
@@ -7223,6 +7219,14 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Added %1 to favorites.</source>
         <translation>已添加 %1 为收藏。</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate &amp;mdash; Mumble will remember it for future connections. If you are the server administrator, consider obtaining a free trusted certificate from Let&apos;s Encrypt (https://letsencrypt.org).&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

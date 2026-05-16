@@ -5429,10 +5429,6 @@ Har kun innvirkning for nye meldinger. Gamle meldinger vises i foregående tidsf
         <translation>Tjeneren forela et sertifikat som feilet identitetsbekreftelse.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Den spesifikke feilen med dette sertifikatet er:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Ønsker du å godta dette sertifikatet likevel?&lt;br /&gt;(dette vil også bli lagret og du vil ikke bli spurt igjen.)&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation type="unfinished">Kunne ikke koble til tjener.</translation>
     </message>
@@ -7238,6 +7234,14 @@ Du kan markere ytterligere kanaler fra filtrering fra kanalens bindeleddsmeny.</
     </message>
     <message>
         <source>Added %1 to favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate &amp;mdash; Mumble will remember it for future connections. If you are the server administrator, consider obtaining a free trusted certificate from Let&apos;s Encrypt (https://letsencrypt.org).&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
