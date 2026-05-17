@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Lis akanal</translation>
+        <translation>Mumble - Lisa kanal</translation>
     </message>
     <message>
         <source>Default server value</source>
@@ -69,11 +69,11 @@
     </message>
     <message>
         <source>Password</source>
-        <translation>Parool</translation>
+        <translation>Salasõna</translation>
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Sisesta kanali parool siia.</translation>
+        <translation>Sisesta kanali salasõna siia.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
@@ -405,7 +405,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel password</source>
-        <translation>Kanali parool</translation>
+        <translation>Kanali salasõna</translation>
     </message>
     <message>
         <source>Channel name</source>
@@ -871,7 +871,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation type="unfinished">Praegu kõne tuvastamise tõenäosus</translation>
+        <translation>Praegune kõne tuvastamise tõenäosus</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
@@ -879,7 +879,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Pole kasutusel</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
@@ -987,7 +987,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>summuta</translation>
     </message>
     <message>
         <source>mute</source>
@@ -1111,7 +1111,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished">Ülekande režiim</translation>
+        <translation>Ülekanderežiim</translation>
     </message>
     <message>
         <source>Push to talk lock threshold</source>
@@ -1278,7 +1278,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Pole kasutusel</translation>
     </message>
     <message>
         <source>Disable echo cancellation.</source>
@@ -1455,7 +1455,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Loopback</source>
-        <translation type="unfinished"></translation>
+        <translation>Si&amp;lmustus</translation>
     </message>
     <message>
         <source>Desired loopback mode</source>
@@ -1507,7 +1507,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Exclusive</source>
-        <translation type="unfinished">Eksklusiivne</translation>
+        <translation>Välistav</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
@@ -1599,7 +1599,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished">Minimaalne helitugevus</translation>
+        <translation>Minimaalne helivaljus</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -2233,7 +2233,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Rääkimiseks vaja</translation>
+        <translation>Rääkimiseks vajuta</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -2505,7 +2505,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation>Importimine pole võimalik. Parool puudub või failitüüp pole ühilduv.</translation>
+        <translation>Importimine pole võimalik. Salasõna puudub või failitüüp pole ühilduv.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
@@ -2524,7 +2524,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Serveri autentimine ilma paroole kasutamata</translation>
+        <translation>Serveri autentimine ilma salasõnu kasutamata</translation>
     </message>
     <message>
         <source>Current certificate</source>
@@ -2605,15 +2605,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Password</source>
-        <translation>Parool</translation>
+        <translation>Salasõna</translation>
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
-        <translation>PKCS#12 faili parool</translation>
+        <translation>PKCS#12 faili salasõna</translation>
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation type="unfinished"></translation>
+        <translation>See on sinu sertifikaati sisaldava PKCS#12 faili salasõna.</translation>
     </message>
     <message>
         <source>Certificate to import</source>
@@ -2746,7 +2746,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished">Sertifikaadi fail, mida importida</translation>
+        <translation>Imporditav sertifikaadifail</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
@@ -2754,7 +2754,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished">Sertifikaadi parool</translation>
+        <translation>Sertifikaadi salasõna</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
@@ -2766,7 +2766,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished">Fail, millesse sertifikaat importida</translation>
+        <translation>Fail, kuhu sertifikaat eksportida</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
@@ -2805,7 +2805,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Mute/Deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>Summuta</translation>
     </message>
     <message>
         <source>Make channel</source>
@@ -2897,7 +2897,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Kick</source>
-        <translation type="unfinished"></translation>
+        <translation>Müksa välja</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -3367,11 +3367,11 @@ Host: %1 Port: %2</source>
     </message>
     <message>
         <source>Password</source>
-        <translation>Parool</translation>
+        <translation>Salasõna</translation>
     </message>
     <message>
         <source>Password to send to the server</source>
-        <translation>Parool, mis saadetakse serverile</translation>
+        <translation>Salasõna, mis saadetakse serverile</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
@@ -3380,7 +3380,7 @@ Password to be sent to the server on connect. This password is needed when conne
     </message>
     <message>
         <source>Show password</source>
-        <translation>Näita parooli</translation>
+        <translation>Näita salasõna</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
@@ -3405,7 +3405,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Your password</source>
-        <translation>Sinu parool</translation>
+        <translation>Sinu salasõna</translation>
     </message>
     <message>
         <source>&amp;Fill</source>
@@ -3624,7 +3624,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished">Seadistatud otseteed</translation>
+        <translation>Seadistatud kiirklahvid</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
@@ -3741,11 +3741,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiir</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Klahvistik</translation>
     </message>
 </context>
 <context>
@@ -3831,22 +3831,22 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiir</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Klahvistik</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Klahvistik</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiir</translation>
     </message>
 </context>
 <context>
@@ -4216,7 +4216,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Characters</source>
-        <translation>Märke</translation>
+        <translation> Tähemärke</translation>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
@@ -4248,7 +4248,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source> Lines</source>
-        <translation>Ridasid</translation>
+        <translation> Ridu</translation>
     </message>
     <message>
         <source>Highlight</source>
@@ -5176,7 +5176,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Choose image file</source>
-        <translation> pildifail</translation>
+        <translation>Vali pildifail</translation>
     </message>
     <message>
         <source>Failed to load image</source>
@@ -5411,7 +5411,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Wrong certificate or password</source>
-        <translation>Vale sertifikaat või parool</translation>
+        <translation>Vale sertifikaat või salasõna</translation>
     </message>
     <message>
         <source>Wrong certificate or password for registered user. If you are
@@ -5421,7 +5421,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <source>Wrong password</source>
-        <translation>Vale parool</translation>
+        <translation>Vale salasõna</translation>
     </message>
     <message>
         <source>Wrong server password for unregistered user account, please try again.</source>
@@ -6665,7 +6665,7 @@ Valid options are:
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Serverist lahti ühendatud</translation>
+        <translation>Ühendus serveriga on katkestatud</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
@@ -6909,7 +6909,7 @@ Valid options are:
     </message>
     <message>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;Info</translation>
+        <translation>&amp;Teave</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -7268,11 +7268,11 @@ Valid options are:
     </message>
     <message>
         <source>Password</source>
-        <translation>Parool</translation>
+        <translation>alasõna</translation>
     </message>
     <message>
         <source>Password for proxy authentication</source>
-        <translation>Proksi autentimise parool</translation>
+        <translation>Proksi autentimise salasõna</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
@@ -7373,7 +7373,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Proxy password</source>
-        <translation type="unfinished"></translation>
+        <translation>Proksi salasõna</translation>
     </message>
 </context>
 <context>
@@ -7589,7 +7589,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load…</source>
-        <translation>Laadi...</translation>
+        <translation>Laadi…</translation>
     </message>
     <message>
         <source>Save your overlay settings to file</source>
@@ -7597,7 +7597,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save…</source>
-        <translation>Salvesta...</translation>
+        <translation>Salvesta…</translation>
     </message>
     <message>
         <source>Set the overlay font.</source>
@@ -7926,7 +7926,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Luba</translation>
+        <translation>Lülita sisse</translation>
     </message>
     <message>
         <source>PA</source>
@@ -8354,7 +8354,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Pole kasutusel</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -8540,11 +8540,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>RichTextEditor</name>
     <message>
         <source>Failed to load image</source>
-        <translation>Pildi laadimine ebaõnnestus</translation>
+        <translation>Pildi laadimine ei õnnestunud</translation>
     </message>
     <message>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pildifail on pildiga lõimimiseks liiga suur. Palun kasuta pilte, mille maht jääb alla %1 kB.</translation>
     </message>
     <message>
         <source>Message is too long.</source>
@@ -8622,7 +8622,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Pole</translation>
+        <translation>Puudub</translation>
     </message>
     <message>
         <source>Join</source>
@@ -8962,7 +8962,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished">Peamine</translation>
+        <translation>Põhikanal</translation>
     </message>
     <message>
         <source>Current</source>
@@ -9357,7 +9357,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Your current channel.</source>
-        <translation>Sinu praegune kanal</translation>
+        <translation>Sinu praegune kanal.</translation>
     </message>
     <message>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>

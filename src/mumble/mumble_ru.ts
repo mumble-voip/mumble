@@ -4468,31 +4468,31 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Log message to console checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывести сообщение в консоль</translation>
     </message>
     <message>
         <source>Display pop-up notification for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать всплывающее уведомление для сообщения</translation>
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделить окно для сообщения</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прочитать сообщение с помощью синтеза речи</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Ограничивать уведомления о сообщениях при большом количестве пользователей</translation>
     </message>
     <message>
         <source>Play sound file for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Воспроизводить звуковой файл при получении сообщения</translation>
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation>Путь к звуковому файлу</translation>
+        <translation>Путь к файлу звука</translation>
     </message>
     <message>
         <source>checked</source>
@@ -4941,7 +4941,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Если эта опция отмечена, пользователи всегда будут видны в TalkingUI (независимо от состояния разговора).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
@@ -4961,11 +4961,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Always on top mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Всегда в режиме поверх</translation>
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим выхода</translation>
     </message>
     <message>
         <source>Channel separator string</source>
@@ -4977,27 +4977,27 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Символы замены аббревиатур</translation>
     </message>
     <message>
         <source>Relative font size (in percent)</source>
-        <translation type="unfinished"></translation>
+        <translation>Относительный размер шрифта (в процентах)</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Время отображения без звука для пользователя (в секундах)</translation>
     </message>
     <message>
         <source>Mumble theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Тема Mumble</translation>
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим поиска пользователей</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим поиска каналов</translation>
     </message>
 </context>
 <context>

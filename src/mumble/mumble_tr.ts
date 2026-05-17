@@ -7410,7 +7410,7 @@ Geçerli seçenekler şunlardır:
     </message>
     <message>
         <source>Username</source>
-        <translation>Kullanıcı ismi</translation>
+        <translation>Kullanıcı adı</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
@@ -7883,7 +7883,7 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     </message>
     <message>
         <source>Username</source>
-        <translation>Kullanıcı ismi</translation>
+        <translation>Kullanıcı adı</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>

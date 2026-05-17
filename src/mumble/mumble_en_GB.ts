@@ -1681,7 +1681,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>meters</source>
-        <translation>meters</translation>
+        <translation>metres</translation>
     </message>
 </context>
 <context>
@@ -2434,31 +2434,31 @@ Speak loudly as if you are annoyed or excited. Decrease the volume in the sound 
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Username to ban</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>IP address to ban</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban reason</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban start date/time</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ban end date/time</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Certificate hash to ban</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>List of banned users</translation>
     </message>
 </context>
 <context>
@@ -2782,7 +2782,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Displays current certificate</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
@@ -2790,7 +2790,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the &quot;open&quot; button to select a file using a dialogue.</translation>
     </message>
     <message>
         <source>Certificate password</source>
@@ -2798,11 +2798,11 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Displays imported certificate</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Displays new certificate</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
@@ -2810,19 +2810,19 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the &quot;save as&quot; button to select a file using a dialogue.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>Your name. For example: John Doe</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>Your email address. For example: johndoe@mumble.info</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3278,7 +3278,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>%1 ms</source>
-        <translation type="unfinished">%1ms</translation>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <source>Ping (95%)</source>
@@ -3306,27 +3306,27 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>This is the connection dialogue. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favourites.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>The server list contains your favourites and all publicly listed servers.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished"></translation>
+        <translation>With this search interface you can filter the Mumble servers displayed in the server list.</translation>
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Search for servername</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Search for location</translation>
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Set filter mode</translation>
     </message>
     <message>
         <source>Server</source>
@@ -3428,63 +3428,64 @@ Password to be sent to the server on connect. This password is needed when conne
     </message>
     <message>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Show password</translation>
     </message>
     <message>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
+Label of the server. This is what the server will be named like in your server list and can be chosen freely.</translation>
     </message>
     <message>
         <source>Local server label</source>
-        <translation type="unfinished"></translation>
+        <translation>Local server label</translation>
     </message>
     <message>
         <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <source>64738</source>
-        <translation type="unfinished"></translation>
+        <translation>64738</translation>
     </message>
     <message>
         <source>Your username</source>
-        <translation type="unfinished"></translation>
+        <translation>Your username</translation>
     </message>
     <message>
         <source>Your password</source>
-        <translation type="unfinished"></translation>
+        <translation>Your password</translation>
     </message>
     <message>
         <source>&amp;Fill</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fill</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignore</translation>
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Server IP address</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Server port</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Username</translation>
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Label for server</translation>
     </message>
 </context>
 <context>
     <name>CrashReporter</name>
     <message>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble Crash Report</translation>
     </message>
     <message>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
@@ -3492,48 +3493,48 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Email address (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Email address (optional)</translation>
     </message>
     <message>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Please describe briefly, in English, what you were doing at the time of the crash</translation>
     </message>
     <message>
         <source>Send Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Send Report</translation>
     </message>
     <message>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"></translation>
+        <translation>Don&apos;t send report</translation>
     </message>
     <message>
         <source>Crash upload successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Crash upload successful</translation>
     </message>
     <message>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"></translation>
+        <translation>Thanks for helping improve Mumble!</translation>
     </message>
     <message>
         <source>Crash upload failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Crash upload failed</translation>
     </message>
     <message>
         <source>Uploading crash report</source>
-        <translation type="unfinished"></translation>
+        <translation>Uploading crash report</translation>
     </message>
     <message>
         <source>Abort upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Abort upload</translation>
     </message>
     <message>
         <source>HTTP error %1: &quot;%2&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP error %1: &quot;%2&quot;</translation>
     </message>
     <message>
         <source>Internal error encountered in CrashReporter.cpp: Received network reply does not contain an HTTP status code. Please inform a developer about error code %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Internal error was encountered (in CrashReporter.cpp): Received network reply does not contain a HTTP status code. Please inform one of our developerers about the error code %1</translation>
     </message>
 </context>
 <context>
@@ -3541,11 +3542,11 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>The database &quot;%1&quot; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</translation>
     </message>
     <message>
         <source>The database file &apos;%1&apos; set in the configuration file does not exist. Do you want to create a new database file at this location?</source>
-        <translation type="unfinished"></translation>
+        <translation>The database file &quot;%1&quot; set in the configuration file does not exist. Do you want to create a new database file at this location?</translation>
     </message>
     <message>
         <source>Mumble failed to initialize a database in any of the possible locations.</source>
@@ -3556,49 +3557,49 @@ Label of the server. This is what the server will be named like in your server l
     <name>DeveloperConsole</name>
     <message>
         <source>Developer Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Developer Console</translation>
     </message>
 </context>
 <context>
     <name>DockTitleBar</name>
     <message>
         <source>Drag here</source>
-        <translation type="unfinished"></translation>
+        <translation>Drag here</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Shortcuts</translation>
     </message>
     <message>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>List of configured shortcuts</translation>
     </message>
     <message>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Function</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Data</translation>
     </message>
     <message>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Shortcut</translation>
     </message>
     <message>
         <source>Suppress</source>
-        <translation type="unfinished"></translation>
+        <translation>Suppress</translation>
     </message>
     <message>
         <source>Add new shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Add new shortcut</translation>
     </message>
     <message>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>This will add a new global shortcut</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -3606,11 +3607,11 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Remove selected shortcut</translation>
     </message>
     <message>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>This will permanently remove a selected shortcut.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -3622,88 +3623,90 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Accessibility Preferences</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Skip</translation>
     </message>
     <message>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable Global Shortcuts</translation>
     </message>
     <message>
         <source>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Additional Shortcut Engines&lt;/b&gt;&lt;br /&gt;This section allows you to configure the use of additional GlobalShortcut engines.</translation>
     </message>
     <message>
         <source>Additional Shortcut Engines</source>
-        <translation type="unfinished"></translation>
+        <translation>Additional Shortcut Engines</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Enable GKey&lt;/b&gt;.&lt;br /&gt;This setting enables support for the GKey shortcut engine, for &quot;G&quot;-keys found on Logitech keyboards.</translation>
     </message>
     <message>
         <source>Enable GKey</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable GKey</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Enable XInput&lt;/b&gt;&lt;br /&gt;This setting enables support for the XInput shortcut engine, for Xbox compatible controllers.</translation>
     </message>
     <message>
         <source>Enable XInput</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable XInput</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
 &lt;br /&gt;&lt;br /&gt;
 Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Enable shortcuts in privileged applications&lt;/b&gt;.&lt;br /&gt;Also known as &quot;UIAccess&quot;. This allows Mumble to receive global shortcut events from programs running at high privilege levels, such as an Admin Command Prompt or older games that run with admin privileges.
+&lt;br /&gt;&lt;br /&gt;
+Without this option enabled, using Mumble&apos;s global shortcuts in privileged applications will not work. This can seem inconsistent: for example, if the Push-to-Talk button is pressed in a non-privileged program, but released in a privileged application, Mumble will not observe that it has been released and you will continue to talk until you press the Push-to-Talk button again.</translation>
     </message>
     <message>
         <source>Enable shortcuts in privileged applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable shortcuts in privileged applications</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Configured shortcuts</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Add unassigned shortcut</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished"></translation>
+        <translation>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation type="unfinished"></translation>
+        <translation>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutButtons</name>
     <message>
         <source>Edit shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit shortcut</translation>
     </message>
     <message>
         <source>Start capture process</source>
-        <translation type="unfinished"></translation>
+        <translation>Start capture process</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the capture process: all buttons you press will be added to the tree.&lt;/p&gt;&lt;p&gt;Once all buttons are released, the capture process stops automatically.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3711,7 +3714,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove the currently selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Remove the currently selected items</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -3719,63 +3722,63 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>List of shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>List of shortcuts</translation>
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</translation>
     </message>
     <message>
         <source>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>This button will remove the selected shortcut for the current action. Note that you will have to select a shortcut from the list above first before this button has any effect.</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Shortcuts</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</translation>
     </message>
     <message>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"></translation>
+        <translation>Suppress keys from other applications</translation>
     </message>
     <message>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</translation>
     </message>
     <message>
         <source>Shortcut action</source>
-        <translation type="unfinished"></translation>
+        <translation>Shortcut action</translation>
     </message>
     <message>
         <source>Shortcut data</source>
-        <translation type="unfinished"></translation>
+        <translation>Shortcut data</translation>
     </message>
     <message>
         <source>Shortcut input combinations</source>
-        <translation type="unfinished"></translation>
+        <translation>Shortcut input combinations</translation>
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Unassigned</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>unchecked</translation>
     </message>
 </context>
 <context>
@@ -3789,34 +3792,34 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutMac</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mouse</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyboard</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutTarget</name>
     <message>
         <source>Whisper Target</source>
-        <translation type="unfinished"></translation>
+        <translation>Whisper Target</translation>
     </message>
     <message>
         <source>Channel Target</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel Target</translation>
     </message>
     <message>
         <source>Restrict to Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Restrict to Group</translation>
     </message>
     <message>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"></translation>
+        <translation>If specified, only members of this group will receive the whisper.</translation>
     </message>
     <message>
         <source>List of users</source>
-        <translation type="unfinished"></translation>
+        <translation>List of users</translation>
     </message>
     <message>
         <source>Add</source>
@@ -3828,23 +3831,23 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Modifiers</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifiers</translation>
     </message>
     <message>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"></translation>
+        <translation>Do not send positional audio information when using this whisper shortcut.</translation>
     </message>
     <message>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignore positional audio</translation>
     </message>
     <message>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Shout to Linked channels</translation>
     </message>
     <message>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"></translation>
+        <translation>Shout to subchannels</translation>
     </message>
     <message>
         <source>The whisper will also be transmitted to linked channels.</source>
@@ -5314,7 +5317,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <source>Save Image As...</source>
@@ -5346,7 +5349,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Enter reason</translation>
     </message>
     <message>
         <source>Sending message to %1</source>
@@ -7308,7 +7311,7 @@ Valid options are:
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Username</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
@@ -7776,7 +7779,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Username</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -9705,7 +9708,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>00:00:00</source>
-        <translation type="unfinished"></translation>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <source>&amp;Start</source>

@@ -464,7 +464,7 @@ Deze waarde laat je toe om een maximum aantal gebruikers in te stellen voor het 
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteert een groep waarop dit ACL-item van toepassing is. Het selecteren van een groep en het selecteren van een gebruiker sluiten elkaar uit.</translation>
     </message>
     <message>
         <source>Select user</source>

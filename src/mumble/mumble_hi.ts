@@ -3639,7 +3639,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>जोड़ें</translation>
     </message>
     <message>
         <source>Remove the currently selected items</source>
@@ -3647,7 +3647,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>हटाएँ</translation>
     </message>
     <message>
         <source>List of shortcuts</source>
@@ -3767,11 +3767,11 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>जोड़ें</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>हटाएँ</translation>
     </message>
     <message>
         <source>Channel Target</source>
@@ -7524,11 +7524,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>जोड़ें</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>हटाएँ</translation>
     </message>
     <message>
         <source>Allowed programs</source>
@@ -8491,7 +8491,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>जोड़ें</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -9040,7 +9040,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>हटाएँ</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>

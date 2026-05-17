@@ -5512,7 +5512,7 @@ Muutoin keskeytä ja tarkista varmenteesi sekä käyttäjänimesi.</translation>
     </message>
     <message>
         <source>&amp;Quit Mumble</source>
-        <translation>&amp;Sulje Mumble</translation>
+        <translation>&amp;Lopeta Mumble</translation>
     </message>
     <message>
         <source>Closes the program</source>
@@ -7734,7 +7734,7 @@ Paina alapuolen napista päivittääksesi Overlayn tiedostot viimeisimpään ver
     </message>
     <message>
         <source>Display a frame counter in the overlay</source>
-        <translation>Näytä FPS-lukema Overlayssa</translation>
+        <translation>Näytä FPS-lukema overlayssa</translation>
     </message>
     <message>
         <source>Show FPS counter</source>

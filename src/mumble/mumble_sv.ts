@@ -161,7 +161,7 @@ Detta värde tillåter dig att ändra hur Mumble sorterar kanalerna i trädet. E
     </message>
     <message>
         <source>Active ACLs</source>
-        <translation>Aktiva ACLer</translation>
+        <translation>Aktiva ACL:er</translation>
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
@@ -173,7 +173,7 @@ Detta värde tillåter dig att ändra hur Mumble sorterar kanalerna i trädet. E
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation>Ärv ACLer</translation>
+        <translation>Ärv ACL:er</translation>
     </message>
     <message>
         <source>Move entry up</source>
@@ -378,11 +378,11 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Lösenord&lt;/b&gt;&lt;br /&gt;Detta fält tillåter dig att lätt ändra lösenordet för en kanal. I bakgrunden används tillgångstoken-funktionen. Använd ACLer och grupper om du behöver bättre och mer kraftfull tillgångskontroll.</translation>
+        <translation>&lt;b&gt;Lösenord&lt;/b&gt;&lt;br /&gt;Detta fält tillåter dig att lätt ändra lösenordet för en kanal. I bakgrunden används tillgångstoken-funktionen. Använd ACL:er och grupper om du behöver bättre och mer kraftfull tillgångskontroll.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Detta visar alla poster aktiva i den här kanalen. Poster ärvda från föräldrakanaler kommer att visas kursivt.&lt;br /&gt;ACLer utvärderas från topp till botten, vilket betyder att prioriteten ökar om du flyttar nedåt i listan.</translation>
+        <translation>Detta visar alla poster aktiva i den här kanalen. Poster ärvda från föräldrakanaler kommer att visas kursivt.&lt;br /&gt;ACL:er utvärderas från topp till botten, vilket betyder att prioriteten ökar om du flyttar nedåt i listan.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
@@ -432,27 +432,27 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalposition</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Max användare för kanal</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalbeskrivning</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj medlem att lägga till</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Exkludera gruppmedlemmar</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj medlem att ta bort</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
@@ -460,7 +460,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj grupp</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -468,7 +468,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj användare</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -1293,11 +1293,11 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>millisekunder</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>sekunder</translation>
     </message>
     <message>
         <source>kilobits per second</source>
@@ -1305,7 +1305,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibeller</translation>
     </message>
 </context>
 <context>
@@ -1534,7 +1534,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation>Vid markering kommer PulsAudio returkopploingsmoduler att bli dämpade</translation>
+        <translation>Vid markering kommer PulseAudio returkopplingsmoduler att bli dämpade</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
@@ -1598,7 +1598,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Dämpningsprocent</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
@@ -1677,11 +1677,11 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>millisekunder</translation>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>metrar</translation>
     </message>
 </context>
 <context>
@@ -2442,7 +2442,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Anledning för bannlysning</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
@@ -3330,7 +3330,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server</translation>
     </message>
 </context>
 <context>
@@ -4463,7 +4463,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ av meddelande</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
@@ -4503,7 +4503,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibeller</translation>
     </message>
 </context>
 <context>
@@ -4756,7 +4756,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>Tal UI</translation>
+        <translation>Talargränssnitt</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
@@ -4768,7 +4768,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation>Om detta är markerat kommer den lokala användaren (du själv) alltid att vara synlig i TalkingUI (oavsett talstatus).</translation>
+        <translation>Om detta är markerat kommer den lokala användaren (du själv) alltid att vara synlig i Talargränssnittet (oavsett talstatus).</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
@@ -4792,7 +4792,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation>Namnen på hur många överordnade kanaler som ska ingå i kanalens namn när de visas i TalkingUI?</translation>
+        <translation>Namnen på hur många överordnade kanaler som ska ingå i kanalens namn när de visas i Talargränssnittet?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
@@ -4836,7 +4836,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation>Relativ teckenstorlek som ska användas i Talargränssnitt i procent.</translation>
+        <translation>Relativ teckenstorlek som ska användas i Talargränssnittet i procent.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
@@ -4940,7 +4940,7 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation>Om detta är markerat kommer användarna alltid att vara synliga i TalkingUI (oavsett samtalstillstånd).</translation>
+        <translation>Om detta är markerat kommer användarna alltid att vara synliga i Talargränssnittet (oavsett samtalstillstånd).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
@@ -5043,12 +5043,12 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     <message>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Växla i-spelet funktionen</translation>
+        <translation>Växla överlagring</translation>
     </message>
     <message>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Växla läget av i-spelet funktionen.</translation>
+        <translation>Växla tillstånd för överlaget i spelet.</translation>
     </message>
     <message>
         <source>Toggle Minimal</source>
@@ -6591,7 +6591,7 @@ Giltiga åtgärder är:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation>Växla TalkingUI</translation>
+        <translation>Växla Talargränssnitt</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -7013,23 +7013,23 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Information</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ig&amp;norera meddelanden</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skicka meddelande...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in sm&amp;eknamn...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;änk</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
@@ -7045,11 +7045,11 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljud &amp;Statistik</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inställningar</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
@@ -7065,15 +7065,15 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Om &amp;Qt</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>Re&amp;gistrera...</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrerade &amp;användare</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
@@ -7085,7 +7085,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>Återställ komment&amp;ar...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
@@ -7097,7 +7097,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>&amp;Join</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gå med</translation>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
@@ -7109,7 +7109,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Vi&amp;sa kommentar</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
@@ -7141,11 +7141,11 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Stäng av Te&amp;xt-Till-Tal</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sök...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
@@ -7392,7 +7392,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;Värdnamn för proxyn.&lt;/b&gt;&lt;br /&gt;Detta fält specifierar värdnamnet för proxyn som du vill tunnla nätverkstrafik genom.</translation>
+        <translation>&lt;b&gt;Värdnamn för proxyn.&lt;/b&gt;&lt;br /&gt;Detta fält specificerar värdnamnet för proxyn som du vill tunnla nätverkstrafik genom.</translation>
     </message>
     <message>
         <source>Port</source>
@@ -7404,7 +7404,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation>&lt;b&gt;Portnummer för proxyn.&lt;/b&gt;&lt;br /&gt;Detta fält specifierar portnumret som proxyn väntar anslutningar på.</translation>
+        <translation>&lt;b&gt;Portnummer för proxyn.&lt;/b&gt;&lt;br /&gt;Detta fält specificerar portnumret som proxyn väntar anslutningar på.</translation>
     </message>
     <message>
         <source>Username</source>
@@ -7416,7 +7416,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Användarnamn för proxyautentisering.&lt;/b&gt;&lt;br /&gt;Detta specifierar användarnamnet du använder för att autentisera dig själv med proxyn. Om proxyn inte använder autentisering, eller du vill ansluta anonymt, lämna detta fält tomt.</translation>
+        <translation>&lt;b&gt;Användarnamn för proxyautentisering.&lt;/b&gt;&lt;br /&gt;Detta specificerar användarnamnet du använder för att autentisera dig själv med proxyn. Om proxyn inte använder autentisering, eller du vill ansluta anonymt, lämna detta fält tomt.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -7428,7 +7428,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Lösenord för proxyautentisering.&lt;/b&gt;&lt;br /&gt;Detta specifierar lösenordet du använder för att autentisera dig själv med proxyn. Om proxyn inte använder autentisering, eller du vill ansluta anonymt, lämna detta fält tomt.</translation>
+        <translation>&lt;b&gt;Lösenord för proxyautentisering.&lt;/b&gt;&lt;br /&gt;Detta specificerar lösenordet du använder för att autentisera dig själv med proxyn. Om proxyn inte använder autentisering, eller du vill ansluta anonymt, lämna detta fält tomt.</translation>
     </message>
     <message>
         <source>Mumble services</source>
@@ -7436,7 +7436,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation>Leta efter nya utsälpp av Mumble automatiskt.</translation>
+        <translation>Leta efter nya utgåvor av Mumble automatiskt.</translation>
     </message>
     <message>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
@@ -7448,7 +7448,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>Check for new releases of plugins automatically.</source>
-        <translation>Leta automatiskt för nya utsälpp av insticksmoduler.</translation>
+        <translation>Leta automatiskt efter nya utgåvor av insticksmoduler.</translation>
     </message>
     <message>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
@@ -7456,7 +7456,7 @@ Giltiga värden för options är:
     </message>
     <message>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;Skicka anonym statistik.&lt;/b&gt;&lt;br /&gt;Mumble har ett litet utvecklingslag och fokuserar alltid på där utvecklingen behövs mest. Genom att skicka statistik hjälper du till med var utvecklarna behöver fokusera.</translation>
+        <translation>&lt;b&gt;Skicka anonym statistik.&lt;/b&gt;&lt;br /&gt;Mumble har ett litet utvecklingsteam och behöver därför fokusera utvecklingen där den gör mest nytta. Genom att skicka in lite statistik hjälper du projektet att avgöra vad som bör prioriteras.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
@@ -7510,23 +7510,23 @@ Förhindrar klienten från att skicka potentiellt identifierande information om 
     </message>
     <message>
         <source>Proxy type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ av proxy</translation>
     </message>
     <message>
         <source>Proxy hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Värdnamn för proxy</translation>
     </message>
     <message>
         <source>Proxy port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port för proxy</translation>
     </message>
     <message>
         <source>Proxy username</source>
-        <translation type="unfinished"></translation>
+        <translation>Användarnamn för proxy</translation>
     </message>
     <message>
         <source>Proxy password</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösenord för proxy</translation>
     </message>
 </context>
 <context>
@@ -7682,7 +7682,7 @@ Förhindrar klienten från att skicka potentiellt identifierande information om 
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Detta ställer in när överlag är aktiverat eller ej. Denna inställning kontrolleras endast när program startas, så se till att Mumble körs och att detta alternativ är aktiverat innan du startar programmet.&lt;br /&gt;Kom ihåg att om du startar Mumble efter programmet, eller om du avaktiverar överlaget när programmet körs finns det ingen säker väg att starta om överlaget utan att samtidigt starta om programmet.</translation>
+        <translation>Detta anger om överlagret ska vara aktiverat eller inte. Denna inställning kontrolleras endast när program startas, så se till att Mumble körs och att detta alternativ är aktiverat innan du startar programmet.&lt;br /&gt;Kom ihåg att om du startar Mumble efter programmet, eller om du avaktiverar överlaget när programmet körs finns det ingen säker väg att starta om överlaget utan att samtidigt starta om programmet.</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -7708,7 +7708,7 @@ Förhindrar klienten från att skicka potentiellt identifierande information om 
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation>Mumble har upptäckt att du inte har något överlag installerat.
+        <translation>Mumble har upptäckt att Mumble Overlay inte är installerat.
 
 Tryck på den här knappen för att installera överlaget.</translation>
     </message>
@@ -8147,7 +8147,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished"></translation>
+        <translation>Namn på insticksprogram</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
@@ -8171,7 +8171,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Inte tillgänglig</translation>
     </message>
 </context>
 <context>
@@ -8400,7 +8400,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation>Mumble misslyckades att starta om själv. Vänligen starta om manuellt.</translation>
+        <translation>Mumble kunde inte starta om sig självt. Starta om det manuellt.</translation>
     </message>
     <message>
         <source>Mumble is currently connected to a server</source>
@@ -8411,7 +8411,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <name>QObject</name>
     <message>
         <source>Talking UI</source>
-        <translation>TalargränssnittI</translation>
+        <translation>Talargränssnitt</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
@@ -8419,7 +8419,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Local Mute</source>
-        <translation>Blockerat lokalt ljud</translation>
+        <translation>Lokal tystning</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -8515,11 +8515,11 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation>Echo-annullering är inaktiverad.</translation>
+        <translation>Ekoreducering är inaktiverad</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation>Mixed ekoreducering (speex)</translation>
+        <translation>Blandad ekoreducering (Speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
@@ -8531,7 +8531,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation>Flerkanalig ekoreducering ger mycket bättre ekoreducering, men till en högre CPU-kostnad. Flerkanalig ekoavstängning kräver mer CPU, så du bör prova blandat först.</translation>
+        <translation>Flerkanalig ekoreducering ger mycket bättre ekoreducering, men till en högre CPU-kostnad. Flerkanalig ekoreducering kräver mer CPU, så du bör prova blandad först.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -8595,11 +8595,11 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Nästa</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Bakåt</translation>
     </message>
     <message>
         <source>This is you</source>
@@ -8607,15 +8607,15 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>friend</source>
-        <translation type="unfinished"></translation>
+        <translation>vän</translation>
     </message>
     <message>
         <source>user</source>
-        <translation type="unfinished"></translation>
+        <translation>användare</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
+        <translation>status</translation>
     </message>
     <message>
         <source>muted and deafened</source>
@@ -8635,7 +8635,7 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>recording</source>
-        <translation type="unfinished"></translation>
+        <translation>spelar in</translation>
     </message>
     <message>
         <source>priority speaker</source>
@@ -8655,11 +8655,11 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>channel</source>
-        <translation type="unfinished"></translation>
+        <translation>kanal</translation>
     </message>
     <message>
         <source>your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>din kanal</translation>
     </message>
     <message>
         <source>accessible</source>
@@ -8671,15 +8671,15 @@ Du kan registrera dem igen.</translation>
     </message>
     <message>
         <source>public</source>
-        <translation type="unfinished"></translation>
+        <translation>publik</translation>
     </message>
     <message>
         <source>filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>filtrerad</translation>
     </message>
     <message>
         <source>pinned</source>
-        <translation type="unfinished"></translation>
+        <translation>fastnålad</translation>
     </message>
     <message>
         <source>Listening for input</source>
@@ -8844,11 +8844,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Search string</source>
-        <translation type="unfinished"></translation>
+        <translation>Söksträng</translation>
     </message>
     <message>
         <source>Search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Sökresultat</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
@@ -9018,11 +9018,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;Users:&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Användare:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>TCP Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>TCP-parametrar</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -9030,7 +9030,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -9441,7 +9441,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detaljer</translation>
     </message>
 </context>
 <context>
