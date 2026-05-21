@@ -1642,6 +1642,11 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 		} else if (hiddenLegacyChannelModelSafeMode) {
 			queueModernShellSnapshotSync();
 		}
+		const PersistentChatTarget target = currentPersistentChatTarget();
+		if (target.valid && !target.serverLog && !target.directMessage && !target.legacyTextPath
+			&& target.channel == c && !canViewPersistentChatHistory(target, false)) {
+			refreshPersistentChatView(true);
+		}
 	}
 }
 

@@ -188,7 +188,8 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 	def->iUserId    = -1;
 	def->qsGroup    = QLatin1String("all");
 	def->pAllow =
-		ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::Listen;
+		ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::Listen
+		| ChanACL::ViewTextMessageHistory;
 	def->pDeny = (~def->pAllow) & ChanACL::All;
 
 	qlACLs << def;
@@ -724,16 +725,18 @@ void ACLEditor::updatePasswordACL() {
 
 			// Search and remove the @all deny ACL
 			ChanACL *denyall = nullptr;
+			const ChanACL::Permissions legacyPasswordPermissions = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper
+																  | ChanACL::TextMessage | ChanACL::LinkChannel;
+			const ChanACL::Permissions passwordPermissions =
+				legacyPasswordPermissions | ChanACL::ViewTextMessageHistory;
 			for (ChanACL *acl : qlACLs) {
 				if (acl->qsGroup == QLatin1String("all") && acl->bInherited == false && acl->bApplyHere == true
 					&& acl->pAllow == ChanACL::None
-					&& (acl->pDeny
-							== (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage
-								| ChanACL::LinkChannel)
+					&& (acl->pDeny == legacyPasswordPermissions
+						|| acl->pDeny == passwordPermissions
 						|| // Backwards compat with old behaviour that didn't deny traverse
-						acl->pDeny
-							== (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage
-								| ChanACL::LinkChannel | ChanACL::Traverse))) {
+						acl->pDeny == (legacyPasswordPermissions | ChanACL::Traverse)
+						|| acl->pDeny == (passwordPermissions | ChanACL::Traverse))) {
 					denyall = acl;
 				}
 			}
@@ -751,7 +754,7 @@ void ACLEditor::updatePasswordACL() {
 			pcaPassword->bInherited = false;
 			pcaPassword->pAllow     = ChanACL::None;
 			pcaPassword->pDeny      = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage
-								 | ChanACL::LinkChannel | ChanACL::Traverse;
+								 | ChanACL::LinkChannel | ChanACL::Traverse | ChanACL::ViewTextMessageHistory;
 			pcaPassword->qsGroup = QLatin1String("all");
 			qlACLs << pcaPassword;
 
@@ -760,7 +763,7 @@ void ACLEditor::updatePasswordACL() {
 			pcaPassword->bApplySubs = false;
 			pcaPassword->bInherited = false;
 			pcaPassword->pAllow     = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage
-								  | ChanACL::LinkChannel | ChanACL::Traverse;
+								  | ChanACL::LinkChannel | ChanACL::Traverse | ChanACL::ViewTextMessageHistory;
 			pcaPassword->pDeny   = ChanACL::None;
 			pcaPassword->qsGroup = QString(QLatin1String("#%1")).arg(qleChannelPassword->text());
 			qlACLs << pcaPassword;

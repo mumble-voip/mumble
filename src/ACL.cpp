@@ -14,6 +14,23 @@
 #	include <QtCore/QStack>
 #endif
 
+#ifdef MURMUR
+namespace {
+void applyLegacyTextMessageHistoryCompat(ChanACL::Permissions &allow, ChanACL::Permissions &deny) {
+	if ((allow | deny) & ChanACL::ViewTextMessageHistory) {
+		return;
+	}
+
+	if (allow & ChanACL::TextMessage) {
+		allow |= ChanACL::ViewTextMessageHistory;
+	}
+	if (deny & ChanACL::TextMessage) {
+		deny |= ChanACL::ViewTextMessageHistory;
+	}
+}
+} // namespace
+#endif
+
 ChanACL::ChanACL(Channel *chan) : QObject(chan) {
 	bApplyHere = true;
 	bApplySubs = true;
@@ -127,7 +144,7 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 	}
 
 	// Default permissions
-	Permissions def = Traverse | Enter | Speak | Whisper | TextMessage | Listen;
+	Permissions def = Traverse | Enter | Speak | Whisper | TextMessage | Listen | ViewTextMessageHistory;
 
 	granted = def;
 
@@ -168,6 +185,10 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 			bool applyTraverse = applyInherited || acl->bApplyHere;
 
 			if (matchUser || matchGroup) {
+				Permissions allow = acl->pAllow;
+				Permissions deny  = acl->pDeny;
+				applyLegacyTextMessageHistoryCompat(allow, deny);
+
 				// The "traverse" and "write" booleans do not grant or deny anything here.
 				// We merely check, if we are missing traverse AND write in this
 				// channel and therefore abort without any permissions later on.
@@ -195,27 +216,27 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 				// as they affect the users globally. For example: You can not
 				// kick a client from a channel without kicking them from the server.
 				if (ch->iId == 0 && applyFromSelf) {
-					if (acl->pAllow & Kick) {
+					if (allow & Kick) {
 						granted |= Kick;
 					}
-					if (acl->pAllow & Ban) {
+					if (allow & Ban) {
 						granted |= Ban;
 					}
-					if (acl->pAllow & ResetUserContent) {
+					if (allow & ResetUserContent) {
 						granted |= ResetUserContent;
 					}
-					if (acl->pAllow & Register) {
+					if (allow & Register) {
 						granted |= Register;
 					}
-					if (acl->pAllow & SelfRegister) {
+					if (allow & SelfRegister) {
 						granted |= SelfRegister;
 					}
 				}
 
 				// Every other regular ACL is handled here
 				if (apply) {
-					granted |= (acl->pAllow & ~(Kick | Ban | ResetUserContent | Register | SelfRegister | Cached));
-					granted &= ~acl->pDeny;
+					granted |= (allow & ~(Kick | Ban | ResetUserContent | Register | SelfRegister | Cached));
+					granted &= ~deny;
 				}
 			}
 		}
@@ -227,7 +248,7 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 
 	if (granted & Write) {
 		granted |= Traverse | Enter | MuteDeafen | Move | MakeChannel | LinkChannel | TextMessage | MakeTempChannel
-				   | Listen | DeleteTextMessage;
+				   | Listen | DeleteTextMessage | ViewTextMessageHistory;
 		if (chan->iId == 0)
 			granted |= Kick | Ban | ResetUserContent | Register | SelfRegister;
 	}
@@ -303,6 +324,8 @@ QString ChanACL::whatsThis(Perm p) {
 			return tr("This represents the permission to write text messages to other users in this channel.");
 		case DeleteTextMessage:
 			return tr("This represents the permission to delete persistent text messages from this channel's history.");
+		case ViewTextMessageHistory:
+			return tr("This represents the permission to view persistent text message history in this channel.");
 		case Kick:
 			return tr("This represents the permission to forcibly remove users from the server.");
 		case Ban:
@@ -361,6 +384,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Text message");
 		case DeleteTextMessage:
 			return tr("Delete text messages");
+		case ViewTextMessageHistory:
+			return tr("View chat history");
 		case Kick:
 			return tr("Kick");
 		case Ban:
@@ -382,16 +407,18 @@ QString ChanACL::permName(Perm p) {
 bool ChanACL::isPassword() const {
 	// A password is an ACL that applies to a group of the form '#<something>'
 	// AND grants 'Enter'
-	// AND grants 'Speak', 'Whisper', 'TextMessage', 'LinkChannel' and potentially Traverse but NOTHING else
+	// AND grants 'Speak', 'Whisper', 'TextMessage', 'LinkChannel', potentially 'ViewTextMessageHistory' and
+	// potentially Traverse but NOTHING else
 	// AND does not deny anything.
 	// Furthermore the ACL must apply directly to the channel and may not be inherited.
+	const Permissions legacyPasswordPermissions = ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper
+												  | ChanACL::TextMessage | ChanACL::LinkChannel;
+	const Permissions passwordPermissions = legacyPasswordPermissions | ChanACL::ViewTextMessageHistory;
 	return this->qsGroup.startsWith(QLatin1Char('#')) && this->bApplyHere && !this->bInherited
 		   && (this->pAllow & ChanACL::Enter)
-		   && (this->pAllow
-				   == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel)
-			   || // Backwards compat with old behaviour that didn't deny traverse
-			   this->pAllow
-				   == (ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::LinkChannel
-					   | ChanACL::Traverse))
+		   && (this->pAllow == legacyPasswordPermissions
+			   || this->pAllow == (legacyPasswordPermissions | ChanACL::Traverse)
+			   || this->pAllow == passwordPermissions
+			   || this->pAllow == (passwordPermissions | ChanACL::Traverse))
 		   && this->pDeny == ChanACL::None;
 }

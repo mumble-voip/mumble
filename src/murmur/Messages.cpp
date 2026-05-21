@@ -267,12 +267,12 @@ bool resolveStoredChatThread(const ::msdb::DBChatThread &thread, const QHash< un
 	return false;
 }
 
-QSet< ServerUser * > recipientsWithTextAccess(const QHash< unsigned int, ServerUser * > &connectedUsers,
-											  Channel *channel, ChanACL::ACLCache &cache) {
+QSet< ServerUser * > recipientsWithChatHistoryAccess(const QHash< unsigned int, ServerUser * > &connectedUsers,
+													 Channel *channel, ChanACL::ACLCache &cache) {
 	QSet< ServerUser * > recipients;
 
 	for (ServerUser *currentUser : connectedUsers) {
-		if (currentUser && ChanACL::hasPermission(currentUser, channel, ChanACL::TextMessage, &cache)) {
+		if (currentUser && ChanACL::hasPermission(currentUser, channel, ChanACL::ViewTextMessageHistory, &cache)) {
 			recipients.insert(currentUser);
 		}
 	}
@@ -1138,7 +1138,7 @@ void Server::sendTextChannelSync(ServerUser *uSource) {
 			continue;
 		}
 
-		if (!ChanACL::hasPermission(uSource, permissionChannel, ChanACL::TextMessage, &acCache)) {
+		if (!ChanACL::hasPermission(uSource, permissionChannel, ChanACL::ViewTextMessageHistory, &acCache)) {
 			continue;
 		}
 
@@ -1246,7 +1246,7 @@ void Server::persistAndBroadcastChatMessage(ServerUser *uSource, const QString &
 		persistentRecipients = legacyFallbackRecipients;
 		persistentRecipients.insert(uSource);
 	} else {
-		persistentRecipients = recipientsWithTextAccess(qhUsers, permissionChannel, acCache);
+		persistentRecipients = recipientsWithChatHistoryAccess(qhUsers, permissionChannel, acCache);
 	}
 
 	for (ServerUser *currentUser : persistentRecipients) {
@@ -1330,7 +1330,7 @@ void Server::applyChatEmbedFetchResult(unsigned int threadID, unsigned int messa
 		*state.add_embeds() = protoEmbedRefFromDB(currentEmbed);
 	}
 
-	for (ServerUser *currentUser : recipientsWithTextAccess(qhUsers, permissionChannel, acCache)) {
+	for (ServerUser *currentUser : recipientsWithChatHistoryAccess(qhUsers, permissionChannel, acCache)) {
 		if (clientSupportsPersistentChat(currentUser)) {
 			sendMessage(currentUser, state);
 		}
@@ -3472,7 +3472,7 @@ void Server::msgChatMessageDelete(ServerUser *uSource, MumbleProto::ChatMessageD
 		persistentRecipients = legacyChannelRecipients(qhUsers, m_channelListenerManager, permissionChannel);
 		persistentRecipients.insert(uSource);
 	} else {
-		persistentRecipients = recipientsWithTextAccess(qhUsers, permissionChannel, acCache);
+		persistentRecipients = recipientsWithChatHistoryAccess(qhUsers, permissionChannel, acCache);
 	}
 
 	for (ServerUser *currentUser : persistentRecipients) {
@@ -3560,7 +3560,7 @@ void Server::msgChatHistoryRequest(ServerUser *uSource, MumbleProto::ChatHistory
 
 	if (scope == MumbleProto::ServerGlobal && !bPersistentGlobalChatEnabled) {
 		MumbleProto::PermissionDenied denied;
-		denied.set_permission(static_cast< unsigned int >(ChanACL::TextMessage));
+		denied.set_permission(static_cast< unsigned int >(ChanACL::ViewTextMessageHistory));
 		denied.set_channel_id(Mumble::ROOT_CHANNEL_ID);
 		denied.set_session(uSource->uiSession);
 		denied.set_type(MumbleProto::PermissionDenied_DenyType_Permission);
@@ -3590,7 +3590,7 @@ void Server::msgChatHistoryRequest(ServerUser *uSource, MumbleProto::ChatHistory
 				continue;
 			}
 
-			if (!ChanACL::hasPermission(uSource, messagePermissionChannel, ChanACL::TextMessage, &acCache)) {
+			if (!ChanACL::hasPermission(uSource, messagePermissionChannel, ChanACL::ViewTextMessageHistory, &acCache)) {
 				continue;
 			}
 
@@ -3633,8 +3633,8 @@ void Server::msgChatHistoryRequest(ServerUser *uSource, MumbleProto::ChatHistory
 		return;
 	}
 
-	if (!ChanACL::hasPermission(uSource, permissionChannel, ChanACL::TextMessage, &acCache)) {
-		PERM_DENIED(uSource, permissionChannel, ChanACL::TextMessage);
+	if (!ChanACL::hasPermission(uSource, permissionChannel, ChanACL::ViewTextMessageHistory, &acCache)) {
+		PERM_DENIED(uSource, permissionChannel, ChanACL::ViewTextMessageHistory);
 		return;
 	}
 
@@ -3734,7 +3734,7 @@ void Server::msgChatReadStateUpdate(ServerUser *uSource, MumbleProto::ChatReadSt
 
 	if (scope == MumbleProto::ServerGlobal && !bPersistentGlobalChatEnabled) {
 		MumbleProto::PermissionDenied denied;
-		denied.set_permission(static_cast< unsigned int >(ChanACL::TextMessage));
+		denied.set_permission(static_cast< unsigned int >(ChanACL::ViewTextMessageHistory));
 		denied.set_channel_id(Mumble::ROOT_CHANNEL_ID);
 		denied.set_session(uSource->uiSession);
 		denied.set_type(MumbleProto::PermissionDenied_DenyType_Permission);
@@ -3747,8 +3747,8 @@ void Server::msgChatReadStateUpdate(ServerUser *uSource, MumbleProto::ChatReadSt
 		return;
 	}
 
-	if (!ChanACL::hasPermission(uSource, permissionChannel, ChanACL::TextMessage, &acCache)) {
-		PERM_DENIED(uSource, permissionChannel, ChanACL::TextMessage);
+	if (!ChanACL::hasPermission(uSource, permissionChannel, ChanACL::ViewTextMessageHistory, &acCache)) {
+		PERM_DENIED(uSource, permissionChannel, ChanACL::ViewTextMessageHistory);
 		return;
 	}
 
@@ -4261,7 +4261,7 @@ void Server::msgChatReactionToggle(ServerUser *uSource, MumbleProto::ChatReactio
 		persistentRecipients = legacyChannelRecipients(qhUsers, m_channelListenerManager, permissionChannel);
 		persistentRecipients.insert(uSource);
 	} else {
-		persistentRecipients = recipientsWithTextAccess(qhUsers, permissionChannel, acCache);
+		persistentRecipients = recipientsWithChatHistoryAccess(qhUsers, permissionChannel, acCache);
 	}
 
 	for (ServerUser *currentUser : persistentRecipients) {

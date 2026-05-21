@@ -697,7 +697,7 @@ bool Server::canAccessChatAsset(ServerUser *user, unsigned int assetID) {
 			continue;
 		}
 
-		if (ChanACL::hasPermission(user, permissionChannel, ChanACL::TextMessage, &acCache)) {
+		if (ChanACL::hasPermission(user, permissionChannel, ChanACL::ViewTextMessageHistory, &acCache)) {
 			return true;
 		}
 	}

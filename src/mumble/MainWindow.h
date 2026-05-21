@@ -343,6 +343,7 @@ public:
 	void handlePersistentChatReadState(const MumbleProto::ChatReadStateUpdate &msg);
 	void handlePersistentChatEmbedState(const MumbleProto::ChatEmbedState &msg);
 	void handlePersistentChatReactionState(const MumbleProto::ChatReactionState &msg);
+	bool canViewPersistentChatHistory(const PersistentChatTarget &target, bool requestPermissions) const;
 	bool canSendToPersistentChatTarget(const PersistentChatTarget &target, bool requestPermissions) const;
 	bool canDeletePersistentChatMessages(const PersistentChatTarget &target, bool requestPermissions) const;
 	bool deletePersistentChatMessage(unsigned int messageID);

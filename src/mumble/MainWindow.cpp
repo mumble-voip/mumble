@@ -13617,7 +13617,9 @@ bool MainWindow::canMarkPersistentChatRead(bool willScrollToBottom) const {
 #else
 	const bool modernShellVisible = false;
 #endif
+	const PersistentChatTarget target = currentPersistentChatTarget();
 	return m_visiblePersistentChatScope && *m_visiblePersistentChatScope != MumbleProto::Aggregate
+		   && canViewPersistentChatHistory(target, false)
 		   && !m_persistentChatMessages.empty() && Global::get().sh && Global::get().sh->isRunning() && isActiveWindow()
 		   && m_persistentChatHistory && (modernShellVisible || qdwChat->isVisible())
 		   && (modernShellVisible || willScrollToBottom
@@ -13715,6 +13717,17 @@ void MainWindow::refreshPersistentChatView(bool forceReload) {
 		return;
 	}
 
+	if (!canViewPersistentChatHistory(target, true)) {
+		if (m_persistentChatController) {
+			m_persistentChatController->clearActiveScope();
+		}
+		clearPersistentChatView(
+			target.statusMessage.isEmpty() ? tr("You do not have permission to view this chat history.")
+										   : target.statusMessage,
+			tr("History unavailable"), { tr("Ask a server administrator for View chat history access") });
+		return;
+	}
+
 	const bool targetChanged =
 		!m_persistentChatController || !m_persistentChatController->activeScopeMatches(target.scope, target.scopeID);
 	if (!forceReload && !targetChanged) {
@@ -13764,7 +13777,8 @@ void MainWindow::renderServerLogView(bool preserveScrollPosition) {
 void MainWindow::requestOlderPersistentChatHistory() {
 	const PersistentChatTarget target = currentPersistentChatTarget();
 	if (!target.valid || target.directMessage || !m_visiblePersistentChatScope || !m_visiblePersistentChatHasMore
-		|| m_persistentChatLoadingOlder || !m_persistentChatController) {
+		|| m_persistentChatLoadingOlder || !m_persistentChatController
+		|| !canViewPersistentChatHistory(target, true)) {
 		return;
 	}
 
@@ -14089,6 +14103,36 @@ void MainWindow::handlePersistentChatReactionState(const MumbleProto::ChatReacti
 			publishModernShellMessageUpdatePatch(*updatedLocalMessage);
 		}
 	}
+}
+
+bool MainWindow::canViewPersistentChatHistory(const PersistentChatTarget &target, bool requestPermissions) const {
+	if (Global::get().uiSession == 0 || !target.valid || target.serverLog || target.directMessage
+		|| target.legacyTextPath) {
+		return false;
+	}
+
+	if (target.scope == MumbleProto::ServerGlobal) {
+		return Global::get().bPersistentGlobalChatEnabled
+			   && (Global::get().pPermissions & (ChanACL::Write | ChanACL::ViewTextMessageHistory));
+	}
+
+	if (target.scope != MumbleProto::TextChannel && target.scope != MumbleProto::Channel) {
+		return false;
+	}
+
+	Channel *permissionChannel = target.channel;
+	if (!permissionChannel) {
+		return false;
+	}
+
+	ChanACL::Permissions textPermissions = static_cast< ChanACL::Permissions >(permissionChannel->uiPermissions);
+	if (!textPermissions && requestPermissions && Global::get().sh) {
+		Global::get().sh->requestChannelPermissions(permissionChannel->iId);
+		textPermissions                  = permissionChannel->iId == 0 ? Global::get().pPermissions : ChanACL::All;
+		permissionChannel->uiPermissions = textPermissions;
+	}
+
+	return textPermissions & (ChanACL::Write | ChanACL::ViewTextMessageHistory);
 }
 
 bool MainWindow::canSendToPersistentChatTarget(const PersistentChatTarget &target, bool requestPermissions) const {

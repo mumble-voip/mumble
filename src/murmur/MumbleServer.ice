@@ -166,6 +166,8 @@ module MumbleServer
 	const int PermissionTextMessage = 0x200;
 	/** Delete persistent text messages from channel history. */
 	const int PermissionDeleteTextMessage = 0x1000;
+	/** View persistent text message history in channel. */
+	const int PermissionViewTextMessageHistory = 0x2000;
 	/** Kick user from server. Only valid on root channel. */
 	const int PermissionKick = 0x10000;
 	/** Ban user from server. Only valid on root channel. */
