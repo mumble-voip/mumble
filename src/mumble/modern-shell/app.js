@@ -1396,25 +1396,60 @@
 		return String(person.participantKey || person.session || "");
 	}
 
-	function findParticipantState(snapshot, key) {
-		const targetKey = String(key || "");
-		const directMatch = (snapshot.voicePresence || []).concat(snapshot.participants || []).find(function(person) {
-			return participantStateKey(person) === targetKey;
-		});
-		if (directMatch) {
-			return directMatch;
+	function participantActionWeight(person) {
+		if (!person) {
+			return -1;
 		}
 
-		for (const room of (snapshot.voiceRooms || [])) {
-			const roomMatch = (room.participants || []).find(function(person) {
-				return participantStateKey(person) === targetKey;
-			});
-			if (roomMatch) {
-				return roomMatch;
+		let weight = 0;
+		if (Array.isArray(person.actions) && person.actions.length) {
+			weight += 1000 + person.actions.length;
+		}
+		if (person.canMessage) {
+			weight += 10;
+		}
+		if (person.canJoin) {
+			weight += 10;
+		}
+		if (person.avatarUrl) {
+			weight += 1;
+		}
+		return weight;
+	}
+
+	function findParticipantState(snapshot, key, scopeToken) {
+		const targetKey = String(key || "");
+		const targetScopeToken = String(scopeToken || "");
+		let bestMatch = null;
+
+		function consider(person, preferredScope) {
+			if (participantStateKey(person) !== targetKey) {
+				return;
+			}
+
+			const score = participantActionWeight(person) + (preferredScope ? 100 : 0);
+			const bestScore = participantActionWeight(bestMatch);
+			if (!bestMatch || score > bestScore) {
+				bestMatch = person;
 			}
 		}
 
-		return null;
+		(snapshot.participants || []).forEach(function(person) {
+			consider(person, !targetScopeToken || String(person.scopeToken || "") === targetScopeToken);
+		});
+
+		for (const room of (snapshot.voiceRooms || [])) {
+			const roomScopeToken = String(room && room.token || "");
+			(room.participants || []).forEach(function(person) {
+				consider(person, !!targetScopeToken && roomScopeToken === targetScopeToken);
+			});
+		}
+
+		(snapshot.voicePresence || []).forEach(function(person) {
+			consider(person, !targetScopeToken || String(person.scopeToken || "") === targetScopeToken);
+		});
+
+		return bestMatch;
 	}
 
 	function findMessageState(snapshot, messageId) {
@@ -5111,7 +5146,9 @@
 		}
 
 		if (presenceRow) {
-			const participant = findParticipantState(snapshot, presenceRow.dataset.participantKey || presenceRow.dataset.session);
+			const participant = findParticipantState(snapshot,
+				presenceRow.dataset.participantKey || presenceRow.dataset.session,
+				presenceRow.dataset.scopeToken || presenceRow.dataset.roomToken);
 			return participantContextMenuItems(participant, presenceRow.dataset.scopeToken);
 		}
 
