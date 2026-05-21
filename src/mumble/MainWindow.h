@@ -370,6 +370,7 @@ public:
 	QVariantMap buildModernShellPatchBase(const QString &kind, const PersistentChatTarget &target);
 	QVariantMap buildModernShellVoiceRoomScreenShareState(const Channel *channel) const;
 	QVariantMap buildModernShellActiveScopeState(const PersistentChatTarget &target);
+	QVariantMap buildModernShellServerLogActiveScopeState(const PersistentChatTarget &target, bool includeHtml);
 	QVariantMap buildModernShellParticipantPatchState(const ClientUser *user, const Channel *contextChannel,
 													  const ClientUser *directMessagePeer, int avatarSize,
 													  bool includeAvatar) const;
@@ -379,10 +380,20 @@ public:
 															   bool includeAvatar) const;
 	QVariantMap buildModernShellRoomStatePatch() const;
 	void publishModernShellPatch(const QString &kind, QVariantMap patch);
+	void publishModernShellPatchNow(const QString &kind, QVariantMap patch);
+	void queueModernShellCoalescedPatch(const QString &kind, QVariantMap patch);
+	void flushModernShellCoalescedPatches();
 	void publishModernShellMessagesPatch(const QString &kind, const QVariantList &messages, bool scrollToBottom);
 	void publishModernShellMessageUpdatePatch(const MumbleProto::ChatMessage &message);
 	void publishModernShellActiveScopePatch(const QString &kind);
 	void publishModernShellRoomStatePatch();
+	void publishModernShellServerLogPatch(int position, int charsRemoved, int charsAdded);
+	void clearModernShellMessageDtoCache(const char *reason);
+	QString modernShellMessageDtoCacheKey(const MumbleProto::ChatMessage &message, const PersistentChatTarget &target,
+										  bool canReply, bool canReact, bool canDeleteMessages) const;
+	QVariantMap buildModernShellCachedMessageState(const MumbleProto::ChatMessage &message,
+												   const PersistentChatTarget &target, bool canReply, bool canReact,
+												   bool canDeleteMessages);
 	bool handleModernShellScopeSelection(const QString &scopeToken);
 	bool handleModernShellVoiceJoin(const QString &scopeToken);
 	bool handleModernShellScopeAction(const QString &scopeToken, const QString &actionId);
@@ -583,6 +594,13 @@ protected:
 	QObject *m_persistentChatPreviewSnapshotRenderer       = nullptr;
 	quint64 m_modernShellPatchRevision                     = 0;
 	quint64 m_modernShellMessagePatchGeneration            = 0;
+	quint64 m_modernShellMessageDtoContextRevision         = 1;
+	QHash< QString, QVariantMap > m_modernShellMessageDtoCache;
+	QTimer *m_modernShellPatchCoalesceTimer                = nullptr;
+	bool m_modernShellRoomStatePatchPending               = false;
+	QVariantMap m_modernShellCoalescedRoomPatch;
+	QHash< QString, QVariantMap > m_modernShellCoalescedPresencePatches;
+	QStringList m_modernShellCoalescedPresenceOrder;
 	bool m_modernShellSnapshotPendingAfterNativeMoveResize = false;
 #endif
 	bool m_shellLayoutInitialized              = false;

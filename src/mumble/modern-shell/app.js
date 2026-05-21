@@ -39,6 +39,12 @@
 	let cachedServerLogElement = null;
 	let cachedServerLogRevision = "";
 	let liveSnapshot = {};
+	let railActionIntent = null;
+	let railJoinPriorityUntil = 0;
+	let lastVoiceJoinRequest = { token: "", time: 0 };
+	let messageRenderGeneration = 0;
+	let activeMessageChunkRender = null;
+	let pendingMessageUpdatePatches = [];
 
 	const imageViewerStorageKey = "mumble-modern-image-viewer";
 	const imageViewerMinWidth = 280;
@@ -46,6 +52,11 @@
 	const imageViewerViewportMargin = 12;
 	const compactRailBreakpointPx = 940;
 	const reactionPickerScrollCloseGraceMs = 220;
+	const railActionSuppressMs = 850;
+	const railJoinPriorityMs = 900;
+	const voiceJoinInputDedupeMs = 180;
+	const messageRenderChunkGroupCount = 28;
+	const messageRenderChunkBudgetMs = 7;
 
 	const refs = {
 		appShell: document.querySelector(".app-shell"),
@@ -410,6 +421,175 @@
 			return;
 		}
 		setRailCollapsed(true);
+	}
+
+	function stopRoomActionEvent(event) {
+		if (!event) {
+			return;
+		}
+
+		event.preventDefault();
+		event.stopPropagation();
+		if (typeof event.stopImmediatePropagation === "function") {
+			event.stopImmediatePropagation();
+		}
+	}
+
+	function markRailActionIntent(scopeToken) {
+		if (!scopeToken) {
+			return;
+		}
+
+		railActionIntent = {
+			scopeToken: String(scopeToken),
+			expiresAt: monotonicNow() + railActionSuppressMs
+		};
+	}
+
+	function shouldSuppressRailSelect(scopeToken) {
+		if (!railActionIntent) {
+			return false;
+		}
+
+		if (monotonicNow() > railActionIntent.expiresAt) {
+			railActionIntent = null;
+			return false;
+		}
+
+		return !scopeToken || railActionIntent.scopeToken === String(scopeToken);
+	}
+
+	function markRailJoinPriority() {
+		railJoinPriorityUntil = monotonicNow() + railJoinPriorityMs;
+	}
+
+	function railJoinPriorityActive() {
+		if (!railJoinPriorityUntil) {
+			return false;
+		}
+		if (monotonicNow() > railJoinPriorityUntil) {
+			railJoinPriorityUntil = 0;
+			return false;
+		}
+		return true;
+	}
+
+	function isRoomEmbeddedActionTarget(target, row) {
+		if (!target || !row || typeof target.closest !== "function") {
+			return false;
+		}
+
+		const action = target.closest("button, a, input, textarea, select, .mini-action, .room-action-button");
+		return !!action && row.contains(action);
+	}
+
+	function isRoomJoinActionTarget(target, row) {
+		if (!target || !row || typeof target.closest !== "function") {
+			return false;
+		}
+
+		const action = target.closest(".room-join-action");
+		return !!action && row.contains(action);
+	}
+
+	function isRoomNonJoinActionTarget(target, row) {
+		if (!target || !row || typeof target.closest !== "function") {
+			return false;
+		}
+
+		const action = target.closest(".room-action-button, .room-share-action");
+		return !!action && row.contains(action);
+	}
+
+	function isRoomJoinHotZone(event, row) {
+		if (!event || !row || typeof event.clientX !== "number" || typeof row.getBoundingClientRect !== "function") {
+			return false;
+		}
+
+		const rowRect = row.getBoundingClientRect();
+		if (event.clientX < rowRect.left || event.clientX > rowRect.right
+				|| event.clientY < rowRect.top || event.clientY > rowRect.bottom) {
+			return false;
+		}
+
+		const meta = row.querySelector(".rail-row-meta");
+		const metaRect = meta && typeof meta.getBoundingClientRect === "function"
+			? meta.getBoundingClientRect()
+			: null;
+		const metaStart = metaRect && metaRect.width > 0 ? metaRect.left - 10 : rowRect.right - 76;
+		const fallbackStart = rowRect.right - 82;
+		return event.clientX >= Math.min(metaStart, fallbackStart);
+	}
+
+	function isRoomJoinIntent(event, row) {
+		if (!event || !row || isRoomNonJoinActionTarget(event.target, row)) {
+			return false;
+		}
+
+		return isRoomJoinActionTarget(event.target, row)
+			|| isRoomJoinHotZone(event, row)
+			|| (railJoinPriorityActive() && row.dataset.roomType === "voice" && row.dataset.canJoin === "true");
+	}
+
+	function requestVoiceJoin(scopeToken) {
+		const token = String(scopeToken || "");
+		if (!token) {
+			return false;
+		}
+
+		const now = monotonicNow();
+		markRailJoinPriority();
+		if (lastVoiceJoinRequest.token === token && now - lastVoiceJoinRequest.time < voiceJoinInputDedupeMs) {
+			return false;
+		}
+
+		lastVoiceJoinRequest = { token, time: now };
+		notifyBridge("joinVoiceChannel", token);
+		return true;
+	}
+
+	function handleJoinButtonActivation(room, event) {
+		stopRoomActionEvent(event);
+		if (!room || room.joined) {
+			return;
+		}
+
+		markRailActionIntent(room.token);
+		requestVoiceJoin(room.token);
+		dismissCompactRailAfterAction();
+	}
+
+	function handleRailVoiceJoinCapture(event) {
+		if (!event || event.defaultPrevented) {
+			return;
+		}
+		if (event.type === "mousedown" && window.PointerEvent) {
+			return;
+		}
+		if ((event.type === "pointerdown" || event.type === "mousedown")
+				&& event.button !== undefined && event.button !== 0) {
+			return;
+		}
+		if (event.type === "pointerdown" && event.isPrimary === false) {
+			return;
+		}
+		if (!refs.voiceRoomList || !event.target || typeof event.target.closest !== "function") {
+			return;
+		}
+
+		const row = event.target.closest(".rail-row");
+		if (!row || !refs.voiceRoomList.contains(row)
+				|| row.dataset.roomType !== "voice" || row.dataset.canJoin !== "true") {
+			return;
+		}
+		if (!isRoomJoinIntent(event, row)) {
+			return;
+		}
+
+		stopRoomActionEvent(event);
+		markRailActionIntent(row.dataset.scopeToken);
+		requestVoiceJoin(row.dataset.scopeToken);
+		dismissCompactRailAfterAction();
 	}
 
 	function notifyBridge(method) {
@@ -1889,13 +2069,26 @@
 		if (joinable) {
 			const joinButton = document.createElement("button");
 			joinButton.type = "button";
-			joinButton.className = "mini-action";
+			joinButton.className = "mini-action room-join-action";
 			joinButton.textContent = room.joined ? "Live" : "Join";
 			joinButton.disabled = !!room.joined;
+			joinButton.addEventListener("pointerdown", function(event) {
+				if (event.button !== undefined && event.button !== 0) {
+					return;
+				}
+				if (event.isPrimary === false) {
+					return;
+				}
+				handleJoinButtonActivation(room, event);
+			}, true);
+			joinButton.addEventListener("mousedown", function(event) {
+				if (event.button !== undefined && event.button !== 0) {
+					return;
+				}
+				handleJoinButtonActivation(room, event);
+			}, true);
 			joinButton.addEventListener("click", function(event) {
-				event.stopPropagation();
-				notifyBridge("joinVoiceChannel", room.token);
-				dismissCompactRailAfterAction();
+				handleJoinButtonActivation(room, event);
 			});
 			meta.appendChild(joinButton);
 		}
@@ -1908,7 +2101,13 @@
 			shareActionButton.textContent = compactScreenShareActionLabel(screenShare.primaryLabel);
 			shareActionButton.disabled = screenShare.primaryEnabled === false;
 			shareActionButton.title = screenShare.primaryHint || screenShare.primaryLabel || "Screen share";
+			shareActionButton.addEventListener("pointerdown", function(event) {
+				markRailActionIntent(room.token);
+				event.stopPropagation();
+			}, true);
 			shareActionButton.addEventListener("click", function(event) {
+				markRailActionIntent(room.token);
+				event.preventDefault();
 				event.stopPropagation();
 				notifyBridge("invokeScopeAction", room.token, screenShare.primaryActionId);
 				dismissCompactRailAfterAction();
@@ -1923,7 +2122,12 @@
 			roomActionButton.title = "Room actions";
 			roomActionButton.setAttribute("aria-label", "Room actions for " + (room.label || "room"));
 			roomActionButton.innerHTML = "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"5\" cy=\"12\" r=\"1.8\"></circle><circle cx=\"12\" cy=\"12\" r=\"1.8\"></circle><circle cx=\"19\" cy=\"12\" r=\"1.8\"></circle></svg>";
+			roomActionButton.addEventListener("pointerdown", function(event) {
+				markRailActionIntent(room.token);
+				event.stopPropagation();
+			}, true);
 			roomActionButton.addEventListener("click", function(event) {
+				markRailActionIntent(room.token);
 				event.preventDefault();
 				event.stopPropagation();
 				const items = buildRoomContextMenuItems(getSnapshot(), room, button).filter(function(item) {
@@ -1938,7 +2142,29 @@
 		button.appendChild(chip);
 		button.appendChild(copy);
 		button.appendChild(meta);
-		button.addEventListener("click", function() {
+		button.addEventListener("pointerdown", function(event) {
+			if (!joinable || room.joined || (event.button !== undefined && event.button !== 0)
+					|| event.isPrimary === false || !isRoomJoinIntent(event, button)) {
+				return;
+			}
+			handleJoinButtonActivation(room, event);
+		}, true);
+		button.addEventListener("mousedown", function(event) {
+			if (window.PointerEvent || !joinable || room.joined || (event.button !== undefined && event.button !== 0)
+					|| !isRoomJoinIntent(event, button)) {
+				return;
+			}
+			handleJoinButtonActivation(room, event);
+		}, true);
+		button.addEventListener("click", function(event) {
+			if (joinable && !room.joined && isRoomJoinIntent(event, button)) {
+				handleJoinButtonActivation(room, event);
+				return;
+			}
+			if (isRoomEmbeddedActionTarget(event.target, button) || shouldSuppressRailSelect(room.token)) {
+				stopRoomActionEvent(event);
+				return;
+			}
 			notifyBridge("selectScope", room.token);
 			dismissCompactRailAfterAction();
 		});
@@ -1951,12 +2177,17 @@
 			dismissCompactRailAfterAction();
 		});
 		button.addEventListener("dblclick", function(event) {
+			if (isRoomEmbeddedActionTarget(event.target, button) || shouldSuppressRailSelect(room.token)) {
+				stopRoomActionEvent(event);
+				return;
+			}
 			if (!joinable) {
 				return;
 			}
 			event.preventDefault();
 			event.stopPropagation();
-			notifyBridge("joinVoiceChannel", room.token);
+			markRailActionIntent(room.token);
+			requestVoiceJoin(room.token);
 			dismissCompactRailAfterAction();
 		});
 		button.addEventListener("dragstart", function(event) {
@@ -2974,7 +3205,33 @@
 		return cluster;
 	}
 
+	function appendRenderedMessageGroup(fragment, group, freshStartIndex) {
+		if (group.type === "day") {
+			fragment.appendChild(renderDayDivider(group.label));
+			return;
+		}
+
+		if (group.type === "system") {
+			fragment.appendChild(renderSystemMessage(group.message));
+			return;
+		}
+
+		fragment.appendChild(renderMessageCluster(group, freshStartIndex));
+	}
+
+	function cancelActiveMessageChunkRender(reason) {
+		if (!activeMessageChunkRender) {
+			return;
+		}
+
+		const startedAt = activeMessageChunkRender.startedAt || monotonicNow();
+		activeMessageChunkRender = null;
+		messageRenderGeneration += 1;
+		traceModernUi("messages chunk cancel " + (reason || "render"), startedAt);
+	}
+
 	function renderTimeline(messages, emptyCopy, freshTailCount) {
+		cancelActiveMessageChunkRender("sync");
 		const indexedMessages = (messages || []).map(function(message, index) {
 			return Object.assign({ renderIndex: index }, message);
 		});
@@ -2995,19 +3252,110 @@
 		const freshStartIndex = Math.max(0, indexedMessages.length - Math.max(0, freshTailCount || 0));
 
 		groups.forEach(function(group) {
-			if (group.type === "day") {
-				fragment.appendChild(renderDayDivider(group.label));
-				return;
-			}
-
-			if (group.type === "system") {
-				fragment.appendChild(renderSystemMessage(group.message));
-				return;
-			}
-
-			fragment.appendChild(renderMessageCluster(group, freshStartIndex));
+			appendRenderedMessageGroup(fragment, group, freshStartIndex);
 		});
 		replaceChildrenWith(refs.messageList, fragment);
+	}
+
+	function applyTimelineRenderScrollState(renderState, complete) {
+		if (!renderState) {
+			return;
+		}
+
+		if (renderState.shouldStickToBottom) {
+			keepMessageListPinnedToBottom = true;
+			if (complete) {
+				scheduleMessageListBottomPin(4);
+			} else {
+				refs.messageList.scrollTop = Math.max(0, refs.messageList.scrollHeight - refs.messageList.clientHeight);
+			}
+			return;
+		}
+
+		if (renderState.detachedBeforeRender) {
+			refs.messageList.scrollTop = Math.max(0,
+				refs.messageList.scrollHeight - refs.messageList.clientHeight - renderState.distanceFromBottom);
+		}
+		if (complete) {
+			syncScrollState();
+		}
+	}
+
+	function renderTimelineChunked(messages, emptyCopy, freshTailCount, renderState) {
+		cancelActiveMessageChunkRender("restart");
+		const startedAt = monotonicNow();
+		const generation = messageRenderGeneration + 1;
+		messageRenderGeneration = generation;
+
+		const indexedMessages = (messages || []).map(function(message, index) {
+			return Object.assign({ renderIndex: index }, message);
+		});
+		const groups = renderMessageGroups(indexedMessages);
+		const emptyFragment = document.createDocumentFragment();
+		replaceChildrenWith(refs.messageList, emptyFragment);
+
+		if (!groups.length) {
+			const fragment = document.createDocumentFragment();
+			const empty = document.createElement("div");
+			empty.className = "empty-state";
+			empty.innerHTML = "<h2>No history yet</h2><p></p>";
+			empty.querySelector("p").textContent =
+				emptyCopy || "Messages will appear here once the selected room has activity.";
+			fragment.appendChild(empty);
+			replaceChildrenWith(refs.messageList, fragment);
+			activeMessageChunkRender = null;
+			applyTimelineRenderScrollState(renderState, true);
+			if (renderState && typeof renderState.onComplete === "function") {
+				renderState.onComplete();
+			}
+			traceModernUi("messages chunk empty", startedAt);
+			return;
+		}
+
+		const freshStartIndex = Math.max(0, indexedMessages.length - Math.max(0, freshTailCount || 0));
+		activeMessageChunkRender = {
+			generation: generation,
+			startedAt: startedAt
+		};
+
+		const appendChunk = function() {
+			if (!activeMessageChunkRender || activeMessageChunkRender.generation !== generation
+					|| messageRenderGeneration !== generation) {
+				return;
+			}
+
+			const chunkStartedAt = monotonicNow();
+			const fragment = document.createDocumentFragment();
+			let renderedGroupCount = 0;
+			while (renderState.nextGroupIndex < groups.length
+					&& renderedGroupCount < messageRenderChunkGroupCount
+					&& (renderedGroupCount === 0 || monotonicNow() - chunkStartedAt < messageRenderChunkBudgetMs)) {
+				appendRenderedMessageGroup(fragment, groups[renderState.nextGroupIndex], freshStartIndex);
+				renderState.nextGroupIndex += 1;
+				renderedGroupCount += 1;
+			}
+
+			refs.messageList.appendChild(fragment);
+			applyPendingMessageUpdatePatches(true);
+			applyTimelineRenderScrollState(renderState, false);
+			traceModernUi("messages chunk " + String(renderState.nextGroupIndex) + "/" + String(groups.length), chunkStartedAt);
+
+			if (renderState.nextGroupIndex < groups.length) {
+				requestAnimationFrame(appendChunk);
+				return;
+			}
+
+			activeMessageChunkRender = null;
+			applyPendingMessageUpdatePatches(false);
+			applyTimelineRenderScrollState(renderState, true);
+			if (typeof renderState.onComplete === "function") {
+				renderState.onComplete();
+			}
+			traceModernUi("messages chunk complete", startedAt);
+		};
+
+		renderState.nextGroupIndex = 0;
+		appendChunk();
 	}
 
 	function lastTimelineCluster() {
@@ -3109,6 +3457,55 @@
 		element.replaceWith(replacement);
 		requestAnimationFrame(syncScrollState);
 		return true;
+	}
+
+	function pendingMessageUpdateKey(message) {
+		const id = String(message && message.messageId || "");
+		const threadId = String(message && message.threadId || "");
+		if (id) {
+			return "id:" + id + ":" + threadId;
+		}
+		return "key:" + messageKey(message);
+	}
+
+	function queuePendingMessageUpdatePatch(message) {
+		const key = pendingMessageUpdateKey(message);
+		for (let index = 0; index < pendingMessageUpdatePatches.length; index += 1) {
+			if (pendingMessageUpdatePatches[index].key === key) {
+				pendingMessageUpdatePatches[index].message = message;
+				return;
+			}
+		}
+
+		pendingMessageUpdatePatches.push({
+			key: key,
+			message: message
+		});
+	}
+
+	function applyPendingMessageUpdatePatches(onlyRenderedTargets) {
+		if (!pendingMessageUpdatePatches.length) {
+			return 0;
+		}
+
+		let appliedCount = 0;
+		const remaining = [];
+		pendingMessageUpdatePatches.forEach(function(update) {
+			if (replaceRenderedMessage(update.message)) {
+				appliedCount += 1;
+				return;
+			}
+			remaining.push(update);
+		});
+		pendingMessageUpdatePatches = remaining;
+
+		if (appliedCount > 0) {
+			traceModernUi("messages update replay " + String(appliedCount), monotonicNow());
+		}
+		if (!onlyRenderedTargets && pendingMessageUpdatePatches.length) {
+			traceModernUi("messages update pending " + String(pendingMessageUpdatePatches.length), monotonicNow());
+		}
+		return appliedCount;
 	}
 
 	function messageListMetrics() {
@@ -3238,6 +3635,209 @@
 		window.console.debug("[modern-ui] " + label + " " + Math.round((monotonicNow() - startedAt) * 10) / 10 + "ms");
 	}
 
+	function serverLogPatchRevision(patch) {
+		if (patch && Object.prototype.hasOwnProperty.call(patch, "serverLogRevision")) {
+			return String(patch.serverLogRevision || "");
+		}
+		if (patch && patch.activeScope && Object.prototype.hasOwnProperty.call(patch.activeScope, "serverLogRevision")) {
+			return String(patch.activeScope.serverLogRevision || "");
+		}
+		return "";
+	}
+
+	function serverLogPatchHtml(patch) {
+		if (patch && Object.prototype.hasOwnProperty.call(patch, "serverLogHtml")) {
+			return String(patch.serverLogHtml || "");
+		}
+		if (patch && Object.prototype.hasOwnProperty.call(patch, "html")) {
+			return String(patch.html || "");
+		}
+		if (patch && patch.activeScope && Object.prototype.hasOwnProperty.call(patch.activeScope, "serverLogHtml")) {
+			return String(patch.activeScope.serverLogHtml || "");
+		}
+		return "";
+	}
+
+	function serverLogNodesFromHtml(html) {
+		const template = document.createElement("template");
+		template.innerHTML = String(html || "");
+		const body = template.content.querySelector("body");
+		const source = body || template.content;
+		const nodes = [];
+		while (source.firstChild) {
+			nodes.push(source.firstChild);
+		}
+		return nodes.filter(function(node) {
+			return node.nodeType !== Node.TEXT_NODE || String(node.textContent || "").trim();
+		});
+	}
+
+	function serverLogPatchRows(patch) {
+		if (!patch || typeof patch !== "object") {
+			return [];
+		}
+		if (Array.isArray(patch.rows)) {
+			return patch.rows;
+		}
+		if (Array.isArray(patch.entries)) {
+			return patch.entries;
+		}
+		if (Array.isArray(patch.fragments)) {
+			return patch.fragments;
+		}
+		if (Array.isArray(patch.messages)) {
+			return patch.messages;
+		}
+		if (Object.prototype.hasOwnProperty.call(patch, "rowHtml")) {
+			return [ { html: patch.rowHtml } ];
+		}
+		const html = serverLogPatchHtml(patch);
+		return html ? serverLogNodesFromHtml(html).map(function(node) {
+			const fragment = document.createDocumentFragment();
+			fragment.appendChild(node);
+			return {
+				fragment: fragment
+			};
+		}) : [];
+	}
+
+	function appendServerLogRow(logElement, row, rowIndex, revision) {
+		const wrapper = document.createElement("div");
+		wrapper.className = "server-log-row";
+		const rowObject = row && typeof row === "object" && !row.nodeType ? row : {};
+		const stableKey = rowObject.key || rowObject.id || rowObject.revision || (String(revision || "local") + ":" + String(rowIndex));
+		wrapper.dataset.serverLogKey = String(stableKey);
+
+		if (rowObject.fragment) {
+			wrapper.appendChild(rowObject.fragment);
+		} else if (row && row.nodeType) {
+			wrapper.appendChild(row);
+		} else if (Object.prototype.hasOwnProperty.call(rowObject, "html")) {
+			serverLogNodesFromHtml(rowObject.html).forEach(function(node) {
+				wrapper.appendChild(node);
+			});
+		} else {
+			wrapper.textContent = String(Object.prototype.hasOwnProperty.call(rowObject, "text") ? rowObject.text : row);
+		}
+
+		logElement.appendChild(wrapper);
+	}
+
+	function ensureServerLogElement() {
+		let logElement = refs.messageList.querySelector(".message-log");
+		if (logElement) {
+			cachedServerLogElement = logElement;
+			return logElement;
+		}
+
+		logElement = cachedServerLogElement;
+		if (!logElement) {
+			logElement = document.createElement("div");
+			logElement.className = "message-log";
+		}
+		cachedServerLogElement = logElement;
+		const fragment = document.createDocumentFragment();
+		fragment.appendChild(logElement);
+		replaceChildrenWith(refs.messageList, fragment);
+		return logElement;
+	}
+
+	function applyServerLogAppendPatch(snapshot, patch) {
+		if (!patchScopeMatches(snapshot, patch)) {
+			return true;
+		}
+
+		cancelActiveMessageChunkRender("server-log-append");
+		const startedAt = monotonicNow();
+		const hasAppendPayload = patch && (
+			Array.isArray(patch.rows)
+			|| Array.isArray(patch.entries)
+			|| Array.isArray(patch.fragments)
+			|| Array.isArray(patch.messages)
+			|| Object.prototype.hasOwnProperty.call(patch, "rowHtml")
+			|| Object.prototype.hasOwnProperty.call(patch, "html")
+			|| Object.prototype.hasOwnProperty.call(patch, "serverLogHtml"));
+		if (!hasAppendPayload && patch && patch.activeScope
+				&& Object.prototype.hasOwnProperty.call(patch.activeScope, "serverLogHtml")) {
+			return applyServerLogResetPatch(snapshot, patch);
+		}
+
+		const rows = serverLogPatchRows(patch);
+		if (!rows.length) {
+			return true;
+		}
+
+		const scope = snapshot.activeScope || {};
+		const scopeToken = String(scope.scopeToken || lastScopeToken || "");
+		const metricsBefore = messageListMetrics();
+		const detachedBeforeRender = !metricsBefore.nearBottom;
+		const distanceFromBottom = metricsBefore.distanceFromBottom;
+		const logElement = ensureServerLogElement();
+		const revision = serverLogPatchRevision(patch) || String(scope.serverLogRevision || cachedServerLogRevision || "");
+		const firstRowIndex = logElement.children.length;
+		rows.forEach(function(row, index) {
+			appendServerLogRow(logElement, row, firstRowIndex + index, revision);
+		});
+		cachedServerLogElement = logElement;
+		if (revision) {
+			cachedServerLogRevision = revision;
+			scope.serverLogRevision = revision;
+		}
+		if (detachedBeforeRender) {
+			unreadDetachedMessages += rows.length;
+		}
+
+		requestAnimationFrame(function() {
+			if (!detachedBeforeRender || keepMessageListPinnedToBottom) {
+				keepMessageListPinnedToBottom = true;
+				scheduleMessageListBottomPin(3);
+				return;
+			}
+
+			refs.messageList.scrollTop = Math.max(0,
+				refs.messageList.scrollHeight - refs.messageList.clientHeight - distanceFromBottom);
+			syncScrollState();
+		});
+		lastRenderedMessageCount = 0;
+		lastRenderedTailKey = "";
+		lastScopeToken = scopeToken;
+		traceModernUi("serverLog.append " + String(rows.length), startedAt);
+		return true;
+	}
+
+	function applyServerLogResetPatch(snapshot, patch) {
+		if (!patchScopeMatches(snapshot, patch)) {
+			return true;
+		}
+
+		cancelActiveMessageChunkRender("server-log-reset");
+		const startedAt = monotonicNow();
+		const scope = snapshot.activeScope || {};
+		const revision = serverLogPatchRevision(patch) || String(scope.serverLogRevision || "");
+		const html = serverLogPatchHtml(patch);
+		const rows = serverLogPatchRows(patch);
+
+		cachedServerLogElement = document.createElement("div");
+		cachedServerLogElement.className = "message-log";
+		if (rows.length && !html) {
+			rows.forEach(function(row, index) {
+				appendServerLogRow(cachedServerLogElement, row, index, revision);
+			});
+		} else {
+			cachedServerLogElement.innerHTML = html;
+		}
+		cachedServerLogRevision = revision;
+		if (revision) {
+			scope.serverLogRevision = revision;
+		}
+		if (html) {
+			scope.serverLogHtml = html;
+		}
+		renderMessages(snapshot, { forceSync: true });
+		traceModernUi("serverLog.reset", startedAt);
+		return true;
+	}
+
 	function pauseReactionPickerScrollClose() {
 		reactionPickerScrollClosePausedUntil = monotonicNow() + reactionPickerScrollCloseGraceMs;
 	}
@@ -3246,7 +3846,8 @@
 		return openReactionPickerMessageId !== null && monotonicNow() <= reactionPickerScrollClosePausedUntil;
 	}
 
-	function renderMessages(snapshot) {
+	function renderMessages(snapshot, options) {
+		const renderOptions = options || {};
 		const scope = snapshot.activeScope || {};
 		const messages = snapshot.messages || [];
 		const scopeToken = scope.scopeToken || [
@@ -3279,6 +3880,7 @@
 		}
 
 		if (scope.serverLogRevision || Object.prototype.hasOwnProperty.call(scope, "serverLogHtml")) {
+			cancelActiveMessageChunkRender("server-log");
 			const serverLogRevision = String(scope.serverLogRevision || "");
 			if (Object.prototype.hasOwnProperty.call(scope, "serverLogHtml")) {
 				cachedServerLogElement = document.createElement("div");
@@ -3316,28 +3918,40 @@
 			return;
 		}
 
-		renderTimeline(messages, scope.emptyCopy || "", freshTailCount);
-
 		const shouldStickToBottom = (scope.scrollToBottom !== false)
 			&& (scopeChanged || (!detachedBeforeRender && messages.length >= lastRenderedMessageCount));
+		const finishRender = function() {
+			lastRenderedMessageCount = messages.length;
+			lastRenderedTailKey = latestTailKey;
+			lastScopeToken = scopeToken;
+		};
 
-		requestAnimationFrame(function() {
-			if (shouldStickToBottom) {
-				keepMessageListPinnedToBottom = true;
-				scheduleMessageListBottomPin(4);
-				return;
-			}
+		if (renderOptions.forceSync) {
+			renderTimeline(messages, scope.emptyCopy || "", freshTailCount);
+			requestAnimationFrame(function() {
+				if (shouldStickToBottom) {
+					keepMessageListPinnedToBottom = true;
+					scheduleMessageListBottomPin(4);
+					return;
+				}
 
-			if (detachedBeforeRender) {
-				refs.messageList.scrollTop = Math.max(0,
-					refs.messageList.scrollHeight - refs.messageList.clientHeight - distanceFromBottom);
-			}
-			syncScrollState();
+				if (detachedBeforeRender) {
+					refs.messageList.scrollTop = Math.max(0,
+						refs.messageList.scrollHeight - refs.messageList.clientHeight - distanceFromBottom);
+				}
+				syncScrollState();
+			});
+			finishRender();
+			return;
+		}
+
+		pendingMessageUpdatePatches = [];
+		renderTimelineChunked(messages, scope.emptyCopy || "", freshTailCount, {
+			detachedBeforeRender: detachedBeforeRender,
+			distanceFromBottom: distanceFromBottom,
+			shouldStickToBottom: shouldStickToBottom,
+			onComplete: finishRender
 		});
-
-		lastRenderedMessageCount = messages.length;
-		lastRenderedTailKey = latestTailKey;
-		lastScopeToken = scopeToken;
 	}
 
 	function renderNote(app, scope) {
@@ -4129,6 +4743,10 @@
 
 		const willTrimHead = nextMessages.length > 200;
 		snapshot.messages = willTrimHead ? nextMessages.slice(nextMessages.length - 200) : nextMessages;
+		if (activeMessageChunkRender) {
+			renderMessages(snapshot, { forceSync: true });
+			return true;
+		}
 		if (willTrimHead || String((snapshot.activeScope || {}).scopeToken || "") !== lastScopeToken) {
 			renderMessages(snapshot);
 			return true;
@@ -4187,6 +4805,13 @@
 		const updated = Object.assign({}, messages[existingIndex], message);
 		messages[existingIndex] = updated;
 		snapshot.messages = messages;
+		if (activeMessageChunkRender) {
+			queuePendingMessageUpdatePatch(Object.assign({ renderIndex: existingIndex }, updated));
+			applyPendingMessageUpdatePatches(true);
+			lastRenderedTailKey = latestTailMessageKey(snapshot.messages);
+			return true;
+		}
+
 		if (!replaceRenderedMessage(Object.assign({ renderIndex: existingIndex }, updated))) {
 			renderMessages(snapshot);
 		}
@@ -4230,6 +4855,14 @@
 			}
 			if (kind === "messages.reset") {
 				applyMessagesResetPatch(snapshot, patch);
+				return;
+			}
+			if (kind === "serverLog.append") {
+				applyServerLogAppendPatch(snapshot, patch);
+				return;
+			}
+			if (kind === "serverLog.reset") {
+				applyServerLogResetPatch(snapshot, patch);
 				return;
 			}
 			if (kind === "rooms.update") {
@@ -4815,6 +5448,9 @@
 			}
 			scheduleRailLayoutSync();
 		}, true);
+		refs.voiceRoomList.addEventListener("pointerdown", handleRailVoiceJoinCapture, true);
+		refs.voiceRoomList.addEventListener("mousedown", handleRailVoiceJoinCapture, true);
+		refs.voiceRoomList.addEventListener("click", handleRailVoiceJoinCapture, true);
 		refs.utilityScroll.addEventListener("wheel", handleUtilityWheel, { passive: false });
 		refs.utilityScroll.addEventListener("scroll", function() {
 			hideContextMenu();
