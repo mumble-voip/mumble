@@ -5,33 +5,26 @@
 
 #include "Zeroconf.h"
 
-#define GET_SYMBOL(symbol) (symbol = reinterpret_cast< decltype(symbol) >(GetProcAddress(handle, #symbol)))
+#define GET_SYMBOL(symbol) (symbol = reinterpret_cast< decltype(symbol) >(GetProcAddress(m_module, #symbol)))
 
-Zeroconf::Zeroconf() : m_ok(false) {
 #ifdef Q_OS_WIN
-	auto handle = GetModuleHandle(L"dnsapi.dll");
-	if (handle) {
-		GET_SYMBOL(DnsServiceConstructInstance);
-		GET_SYMBOL(DnsServiceFreeInstance);
-		GET_SYMBOL(DnsServiceRegister);
-		GET_SYMBOL(DnsServiceDeRegister);
-		GET_SYMBOL(DnsServiceRegisterCancel);
-
-		if (DnsServiceConstructInstance && DnsServiceFreeInstance && DnsServiceRegister && DnsServiceDeRegister
-			&& DnsServiceRegisterCancel) {
-			m_ok = true;
-			return;
-		}
+Zeroconf::Zeroconf() : m_ok(false), m_reg(std::make_shared< Reg >()) {
+	if (m_reg->isOk()) {
+		m_ok = true;
+		return;
 	}
 
 	qWarning("Zeroconf: Native mDNS/DNS-SD API not available, falling back to third-party API");
 
-	handle = LoadLibrary(L"dnssd.dll");
-	if (!handle) {
+	HMODULE module = LoadLibrary(L"dnssd.dll");
+	if (!module) {
 		qWarning("Zeroconf: Failed to load dnssd.dll, assuming third-party API is not available");
 		return;
 	}
-	FreeLibrary(handle);
+
+	FreeLibrary(module);
+#else
+Zeroconf::Zeroconf() : m_ok(false) {
 #endif
 	resetHelper();
 
@@ -39,9 +32,6 @@ Zeroconf::Zeroconf() : m_ok(false) {
 }
 
 Zeroconf::~Zeroconf() {
-	if (!m_helper) {
-		unregisterService();
-	}
 }
 
 void Zeroconf::resetHelper() {
@@ -50,10 +40,6 @@ void Zeroconf::resetHelper() {
 }
 
 bool Zeroconf::registerService(const BonjourRecord &record, const uint16_t port) {
-	if (!m_ok) {
-		return false;
-	}
-
 	unregisterService();
 
 	if (m_helper) {
@@ -61,6 +47,95 @@ bool Zeroconf::registerService(const BonjourRecord &record, const uint16_t port)
 		return true;
 	}
 #ifdef Q_OS_WIN
+	return m_reg->request(record, port);
+#else
+	return false;
+#endif
+}
+
+bool Zeroconf::unregisterService() {
+	if (m_helper) {
+		resetHelper();
+		return true;
+	}
+#ifdef Q_OS_WIN
+	return m_reg->cancel();
+#else
+	return false;
+#endif
+}
+
+void Zeroconf::helperError(const DNSServiceErrorType error) {
+	qWarning("Zeroconf: Third-party API reports error %d, service registration probably failed", error);
+}
+
+#ifdef Q_OS_WIN
+Zeroconf::Reg::Reg() : m_instance(nullptr, InstanceDeleter{ DnsServiceFreeInstance }) {
+	m_module = GetModuleHandle(L"dnsapi.dll");
+	if (!m_module) {
+		return;
+	}
+
+	GET_SYMBOL(DnsServiceConstructInstance);
+	GET_SYMBOL(DnsServiceFreeInstance);
+	GET_SYMBOL(DnsServiceRegister);
+	GET_SYMBOL(DnsServiceDeRegister);
+	GET_SYMBOL(DnsServiceRegisterCancel);
+
+	if (!DnsServiceConstructInstance || !DnsServiceFreeInstance || !DnsServiceRegister || !DnsServiceDeRegister
+		|| !DnsServiceRegisterCancel) {
+		FreeModule(m_module);
+		m_module = nullptr;
+	}
+}
+
+Zeroconf::Reg::~Reg() {
+	if (!isOk()) {
+		return;
+	}
+
+	cancel();
+	FreeLibrary(m_module);
+}
+
+bool Zeroconf::Reg::cancel() {
+	if (!isOk()) {
+		return false;
+	}
+
+	if (m_cancel) {
+		const auto ret = DnsServiceRegisterCancel(&m_cancel.value());
+		if (ret != ERROR_SUCCESS && ret != ERROR_CANCELLED) {
+			qWarning("Zeroconf: DnsServiceRegisterCancel() failed with error %u!", ret);
+
+			m_cancel.reset();
+			m_instance.reset();
+
+			return false;
+		}
+	} else if (m_instance) {
+		DNS_SERVICE_REGISTER_REQUEST req{};
+		req.Version                     = DNS_QUERY_REQUEST_VERSION1;
+		req.pServiceInstance            = m_instance.get();
+		req.pRegisterCompletionCallback = callback;
+		req.pQueryContext               = new CallbackCtx(weak_from_this());
+
+		const auto ret = DnsServiceDeRegister(&req, nullptr);
+		if (ret != DNS_REQUEST_PENDING) {
+			qWarning("Zeroconf: DnsServiceDeRegister() failed with error %u!", ret);
+
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool Zeroconf::Reg::request(const BonjourRecord &record, const uint16_t port) {
+	if (!isOk()) {
+		return false;
+	}
+
 	DWORD size = 0;
 	GetComputerNameEx(ComputerNameDnsHostname, nullptr, &size);
 	std::vector< wchar_t > hostname(size);
@@ -84,76 +159,49 @@ bool Zeroconf::registerService(const BonjourRecord &record, const uint16_t port)
 		return false;
 	}
 
-	m_request.reset(new DNS_SERVICE_REGISTER_REQUEST{});
-	m_request->Version                     = DNS_QUERY_REQUEST_VERSION1;
-	m_request->pServiceInstance            = instance;
-	m_request->pRegisterCompletionCallback = callbackRegisterComplete;
-	m_request->pQueryContext               = this;
+	DNS_SERVICE_REGISTER_REQUEST req{};
+	req.Version                     = DNS_QUERY_REQUEST_VERSION1;
+	req.pServiceInstance            = instance;
+	req.pRegisterCompletionCallback = callback;
+	req.pQueryContext               = new CallbackCtx(weak_from_this());
 
-	m_cancel.reset(new DNS_SERVICE_CANCEL{});
-	const auto ret = DnsServiceRegister(m_request.get(), m_cancel.get());
-	DnsServiceFreeInstance(instance);
+	m_cancel = DNS_SERVICE_CANCEL{};
+	m_instance.reset(instance);
 
-	if (ret == DNS_REQUEST_PENDING) {
-		return true;
-	}
+	const auto ret = DnsServiceRegister(&req, &m_cancel.value());
+	if (ret != DNS_REQUEST_PENDING) {
+		qWarning("Zeroconf: DnsServiceRegister() failed with error %u!", ret);
 
-	qWarning("Zeroconf: DnsServiceRegister() failed with error %u!", ret);
-	m_request.reset();
-	m_cancel.reset();
-#endif
-	return false;
-}
+		m_instance.reset();
+		m_cancel.reset();
 
-bool Zeroconf::unregisterService() {
-	if (!m_ok) {
 		return false;
 	}
 
-	if (m_helper) {
-		resetHelper();
-		return true;
-	}
-#ifdef Q_OS_WIN
-	if (m_cancel) {
-		const auto ret = DnsServiceRegisterCancel(m_cancel.get());
-		if (ret == ERROR_SUCCESS || ret == ERROR_CANCELLED) {
-			return true;
-		}
-
-		m_cancel.reset();
-		qWarning("Zeroconf: DnsServiceRegisterCancel() failed with error %u!", ret);
-	} else if (m_request) {
-		const auto ret = DnsServiceDeRegister(m_request.get(), nullptr);
-		if (ret == DNS_REQUEST_PENDING) {
-			return true;
-		}
-
-		qWarning("Zeroconf: DnsServiceDeRegister() failed with error %u!", ret);
-	}
-#endif
-	return false;
+	return true;
 }
 
-void Zeroconf::helperError(const DNSServiceErrorType error) {
-	qWarning("Zeroconf: Third-party API reports error %d, service registration probably failed", error);
-}
-#ifdef Q_OS_WIN
-void WINAPI Zeroconf::callbackRegisterComplete(const DWORD status, void *context, DNS_SERVICE_INSTANCE *instance) {
-	auto zeroconf = static_cast< Zeroconf * >(context);
+void WINAPI Zeroconf::Reg::callback(const DWORD status, void *userdata, DNS_SERVICE_INSTANCE *instance) {
+	auto ctx = std::unique_ptr< CallbackCtx >(static_cast< CallbackCtx * >(userdata));
+	if (auto self = ctx->regWeak.lock()) {
+		self->m_instance.reset(instance);
 
-	if (instance) {
-		zeroconf->DnsServiceFreeInstance(instance);
-	}
+		if (!self->m_cancel) {
+			// No cancel handle, which means this is a de-registration.
+			return;
+		}
 
-	if (status == ERROR_CANCELLED) {
-		return;
-	}
+		self->m_cancel.reset();
 
-	zeroconf->m_cancel.reset();
-
-	if (status != ERROR_SUCCESS) {
-		qWarning("Zeroconf: DnsServiceRegister() reports status code %u, service registration probably failed", status);
+		switch (status) {
+			case ERROR_SUCCESS:
+			case ERROR_CANCELLED:
+				break;
+			default:
+				qWarning("Zeroconf: DnsServiceRegister() reports status code %u, service registration "
+						 "probably failed",
+						 status);
+		}
 	}
 }
 #endif
