@@ -1016,6 +1016,7 @@ textarea:focus-visible {
 	scroll-behavior: smooth;
 	scrollbar-gutter: stable;
 	padding: 4px 14px 14px 20px;
+	scroll-padding-bottom: calc(var(--footer-row-height) + 18px);
 	scrollbar-width: auto;
 	scrollbar-color: rgba(105, 163, 201, 0.72) rgba(255, 255, 255, 0.06);
 	transition: box-shadow 180ms ease;
@@ -1091,6 +1092,7 @@ textarea:focus-visible {
 	gap: 8px;
 	margin-bottom: 10px;
 	transition: transform 150ms ease, filter 150ms ease, opacity 180ms ease;
+	will-change: transform, opacity;
 }
 
 .message-cluster.is-own {
@@ -1158,6 +1160,7 @@ textarea:focus-visible {
 	line-height: 1.48;
 	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 	transition: transform 140ms ease, box-shadow 140ms ease, background 180ms ease;
+	overflow-wrap: anywhere;
 }
 
 .message-bubble.is-own,
@@ -1948,6 +1951,7 @@ textarea:focus-visible {
 	display: flex;
 	flex-direction: column;
 	--room-depth: 0;
+	contain: layout paint;
 }
 
 .rail-root-label {
@@ -1969,9 +1973,11 @@ textarea:focus-visible {
 	align-items: center;
 	gap: 5px;
 	width: 100%;
+	min-height: 32px;
 	padding: 4px 8px 4px calc(var(--utility-rail-inline-padding) + (var(--room-depth) * 11px));
 	background: transparent;
 	color: var(--text-main);
+	cursor: pointer;
 	text-align: left;
 	border-left: 2px solid transparent;
 	border-radius: 0 9px 9px 0;
@@ -2077,6 +2083,8 @@ textarea:focus-visible {
 	align-items: center;
 	gap: 4px;
 	margin-left: auto;
+	min-width: 32px;
+	justify-content: flex-end;
 }
 
 .row-badge,
@@ -2084,6 +2092,7 @@ textarea:focus-visible {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	flex: 0 0 auto;
 	min-height: 14px;
 	font-size: 9px;
 	font-weight: 700;
@@ -2143,6 +2152,7 @@ textarea:focus-visible {
 	display: flex;
 	align-items: center;
 	gap: 3px;
+	min-height: 22px;
 	min-width: 0;
 }
 
@@ -2600,7 +2610,7 @@ textarea:focus-visible {
 .jump-latest-button {
 	position: absolute;
 	right: 26px;
-	bottom: 84px;
+	bottom: calc(var(--footer-row-height) + 18px);
 	z-index: 5;
 	color: #d6eef8;
 	background: rgba(40, 63, 78, 0.92);
@@ -3284,6 +3294,50 @@ textarea:focus-visible {
 
 	.jump-latest-button {
 		right: 18px;
-		bottom: 78px;
+		bottom: calc(var(--footer-row-height) + 14px);
+	}
+}
+
+@media (max-width: 560px) {
+	.conversation-header {
+		min-height: 48px;
+		gap: 6px;
+	}
+
+	.scope-sidecar {
+		gap: 5px;
+	}
+
+	.conversation-actions .chip-button {
+		min-width: 28px;
+		max-width: 76px;
+		padding-inline: 6px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.message-stack {
+		max-width: 94%;
+	}
+
+	.rail-row {
+		min-height: 34px;
+	}
+
+	.composer-shell {
+		gap: 6px;
+		padding-inline: 10px 5px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 1ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 1ms !important;
 	}
 }

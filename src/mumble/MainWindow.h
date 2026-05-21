@@ -189,6 +189,8 @@ public:
 	void activateLegacyShell();
 	void activateModernShell();
 	void queueModernShellSnapshotSync();
+	void queueModernShellSnapshotSyncImmediate();
+	void queueModernShellSnapshotSyncInternal(bool immediate);
 	void syncModernShellSnapshot();
 	void beginNativeWindowMoveOrResize();
 	void endNativeWindowMoveOrResize();
@@ -361,6 +363,26 @@ public:
 	void updatePersistentChatSendButton();
 #if defined(MUMBLE_HAS_MODERN_LAYOUT)
 	QVariantMap buildModernShellSnapshot();
+	QVariantMap buildModernShellMessageState(const MumbleProto::ChatMessage &message,
+											 const PersistentChatTarget &target, bool canReply, bool canReact,
+											 bool canDeleteMessages);
+	QVariantList buildModernShellMessageStates(const PersistentChatTarget &target, std::size_t beginIndex = 0);
+	QVariantMap buildModernShellPatchBase(const QString &kind, const PersistentChatTarget &target);
+	QVariantMap buildModernShellVoiceRoomScreenShareState(const Channel *channel) const;
+	QVariantMap buildModernShellActiveScopeState(const PersistentChatTarget &target);
+	QVariantMap buildModernShellParticipantPatchState(const ClientUser *user, const Channel *contextChannel,
+													  const ClientUser *directMessagePeer, int avatarSize,
+													  bool includeAvatar) const;
+	QVariantMap buildModernShellListenerPatchState(const ClientUser *user, const Channel *channel, int avatarSize,
+												   bool includeAvatar) const;
+	QVariantList buildModernShellChannelParticipantPatchStates(const Channel *channel, int avatarSize,
+															   bool includeAvatar) const;
+	QVariantMap buildModernShellRoomStatePatch() const;
+	void publishModernShellPatch(const QString &kind, QVariantMap patch);
+	void publishModernShellMessagesPatch(const QString &kind, const QVariantList &messages, bool scrollToBottom);
+	void publishModernShellMessageUpdatePatch(const MumbleProto::ChatMessage &message);
+	void publishModernShellActiveScopePatch(const QString &kind);
+	void publishModernShellRoomStatePatch();
 	bool handleModernShellScopeSelection(const QString &scopeToken);
 	bool handleModernShellVoiceJoin(const QString &scopeToken);
 	bool handleModernShellScopeAction(const QString &scopeToken, const QString &actionId);
@@ -379,6 +401,8 @@ public:
 	bool handleModernShellChannelMove(const QString &sourceScopeToken, const QString &targetScopeToken,
 									  const QString &placement);
 	bool handleModernShellAppAction(const QString &actionId);
+	bool sendModernShellMessage(const QString &message);
+	void publishModernShellTalkState(const ClientUser *user);
 	void togglePreferredModernShellLayout();
 	enum class ModernShellMenuContext : unsigned char {
 		AppServer,
@@ -398,7 +422,8 @@ public:
 											Channel *contextChannel = nullptr);
 #endif
 	void triggerContextAction(const QString &actionData, ClientUser *user, Channel *channel);
-	void updateChatBar(bool forcePersistentChatReload = false);
+	bool sendChatbarTextToCurrentTarget(QString msg, bool plainText, bool clearNativeComposer);
+	void updateChatBar(bool forcePersistentChatReload = false, bool queueModernShellSnapshot = true);
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
 
@@ -556,6 +581,8 @@ protected:
 #if defined(MUMBLE_HAS_MODERN_LAYOUT)
 	ModernShellHost *m_modernShellHost                     = nullptr;
 	QObject *m_persistentChatPreviewSnapshotRenderer       = nullptr;
+	quint64 m_modernShellPatchRevision                     = 0;
+	quint64 m_modernShellMessagePatchGeneration            = 0;
 	bool m_modernShellSnapshotPendingAfterNativeMoveResize = false;
 #endif
 	bool m_shellLayoutInitialized              = false;

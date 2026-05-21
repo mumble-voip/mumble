@@ -251,12 +251,42 @@ void AudioOutputSpeech::applyRemoteSpeechCleanup(float *samples, unsigned int sa
 	}
 }
 
-void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audioData) {
-	QMutexLocker lock(&qmJitter);
+Settings::TalkState AudioOutputSpeech::talkStateForAudioContext(Mumble::Protocol::audio_context_t context) const {
+	switch (context) {
+		case Mumble::Protocol::AudioContext::LISTEN:
+			// Fallthrough
+		case Mumble::Protocol::AudioContext::NORMAL:
+			return Settings::Talking;
+		case Mumble::Protocol::AudioContext::SHOUT:
+			return Settings::Shouting;
+		case Mumble::Protocol::AudioContext::WHISPER:
+			return Settings::Whispering;
+		case Mumble::Protocol::AudioContext::INVALID:
+			return Settings::Passive;
+		default:
+			return Settings::Talking;
+	}
+}
 
+void AudioOutputSpeech::updateTalkingStateFromAudioContext(Mumble::Protocol::audio_context_t context) {
+	if (!p) {
+		return;
+	}
+
+	Settings::TalkState ts = talkStateForAudioContext(context);
+	if (ts != Settings::Passive && (p->bLocalMute || p->volumeMute)) {
+		ts = Settings::MutedTalking;
+	}
+
+	p->setTalking(ts);
+}
+
+void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audioData) {
 	if (audioData.payload.empty()) {
 		return;
 	}
+
+	QMutexLocker lock(&qmJitter);
 
 	int samples = 0;
 
@@ -295,6 +325,9 @@ void AudioOutputSpeech::addFrameToBuffer(const Mumble::Protocol::AudioData &audi
 	jbp.timestamp = static_cast< unsigned int >(iFrameSize * audioData.frameNumber);
 
 	jitter_buffer_put(jbJitter, &jbp);
+
+	lock.unlock();
+	updateTalkingStateFromAudioContext(static_cast< Mumble::Protocol::audio_context_t >(audioData.targetOrContext));
 }
 
 bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
@@ -534,37 +567,11 @@ bool AudioOutputSpeech::prepareSampleBuffer(unsigned int frameCount) {
 	}
 
 	if (p) {
-		Settings::TalkState ts;
 		if (!nextalive) {
 			m_audioContext = Mumble::Protocol::AudioContext::INVALID;
 		}
 
-		switch (m_audioContext) {
-			case Mumble::Protocol::AudioContext::LISTEN:
-				// Fallthrough
-			case Mumble::Protocol::AudioContext::NORMAL:
-				ts = Settings::Talking;
-				break;
-			case Mumble::Protocol::AudioContext::SHOUT:
-				ts = Settings::Shouting;
-				break;
-			case Mumble::Protocol::AudioContext::INVALID:
-				ts = Settings::Passive;
-				break;
-			case Mumble::Protocol::AudioContext::WHISPER:
-				ts = Settings::Whispering;
-				break;
-			default:
-				// Default to normal talking, if we don't know the used context
-				ts = Settings::Talking;
-				break;
-		}
-
-		if (ts != Settings::Passive && (p->bLocalMute || p->volumeMute)) {
-			ts = Settings::MutedTalking;
-		}
-
-		p->setTalking(ts);
+		updateTalkingStateFromAudioContext(m_audioContext);
 	}
 
 	bool tmp   = bLastAlive;

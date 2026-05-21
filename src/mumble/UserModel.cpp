@@ -1181,7 +1181,7 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 
 	ModelItem *item = new ModelItem(p);
 
-	connect(p, SIGNAL(talkingStateChanged()), this, SLOT(userStateChanged()));
+	connect(p, &ClientUser::talkingStateChanged, this, &UserModel::userTalkingStateChanged);
 	connect(p, SIGNAL(muteDeafStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(p, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
@@ -1844,6 +1844,18 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 		}
 	}
 	return nullptr;
+}
+
+void UserModel::userTalkingStateChanged() {
+	ClientUser *user = qobject_cast< ClientUser * >(sender());
+
+	if (!user)
+		return;
+
+	const QModelIndex idx = index(user);
+	emit dataChanged(idx, idx, QVector< int > { Qt::DecorationRole, UserModel::NavigatorTalkStateRole });
+
+	updateOverlay();
 }
 
 void UserModel::userStateChanged() {

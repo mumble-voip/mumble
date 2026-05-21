@@ -87,7 +87,6 @@ void PersistentChatController::setActiveScope(const PersistentChatScopeKey &key,
 	PersistentChatStore::ScopeState &state = m_store.ensureScope(key);
 	startInitialLoad(state, forceReload);
 	emit activeSnapshotChanged();
-	emit unreadStateChanged();
 }
 
 void PersistentChatController::clearActiveScope() {

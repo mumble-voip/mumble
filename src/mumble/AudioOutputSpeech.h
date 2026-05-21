@@ -69,6 +69,8 @@ protected:
 
 	bool isEffectivelyDualMono(const float *samples, unsigned int sampleCount) const;
 	void applyRemoteSpeechCleanup(float *samples, unsigned int sampleCount);
+	Settings::TalkState talkStateForAudioContext(Mumble::Protocol::audio_context_t context) const;
+	void updateTalkingStateFromAudioContext(Mumble::Protocol::audio_context_t context);
 
 public:
 	Mumble::Protocol::audio_context_t m_audioContext;

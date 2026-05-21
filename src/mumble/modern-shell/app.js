@@ -38,6 +38,7 @@
 	let footerAlignmentResizeObserver = null;
 	let cachedServerLogElement = null;
 	let cachedServerLogRevision = "";
+	let liveSnapshot = {};
 
 	const imageViewerStorageKey = "mumble-modern-image-viewer";
 	const imageViewerMinWidth = 280;
@@ -442,6 +443,14 @@
 							if (modernBridge.snapshotChanged && typeof modernBridge.snapshotChanged.connect === "function") {
 								modernBridge.snapshotChanged.connect(syncSnapshot);
 							}
+							if (modernBridge.modernPatchChanged
+									&& typeof modernBridge.modernPatchChanged.connect === "function") {
+								modernBridge.modernPatchChanged.connect(syncSnapshotPatch);
+							}
+							if (modernBridge.participantTalkStateChanged
+									&& typeof modernBridge.participantTalkStateChanged.connect === "function") {
+								modernBridge.participantTalkStateChanged.connect(syncParticipantTalkState);
+							}
 							notifyBridge("ready");
 							syncSnapshot();
 						}
@@ -479,7 +488,25 @@
 	}
 
 	function getSnapshot() {
-		return modernBridge ? (modernBridge.snapshot || {}) : {};
+		if (modernBridge && (!liveSnapshot || !Object.keys(liveSnapshot).length)) {
+			liveSnapshot = modernBridge.snapshot || {};
+		}
+		return liveSnapshot || {};
+	}
+
+	function replaceChildrenWith(element, fragment) {
+		if (!element) {
+			return;
+		}
+		if (typeof element.replaceChildren === "function") {
+			element.replaceChildren(fragment);
+			return;
+		}
+
+		element.innerHTML = "";
+		if (fragment) {
+			element.appendChild(fragment);
+		}
 	}
 
 	function scheduleSnapshotRender() {
@@ -492,6 +519,72 @@
 			syncCompactRailState(false);
 			render(getSnapshot());
 		});
+	}
+
+	function participantSessionMatches(person, session) {
+		if (!person || !session) {
+			return false;
+		}
+
+		return String(person.session || person.ownerSession || "") === session;
+	}
+
+	function applyParticipantTalkState(person, state, session) {
+		if (!participantSessionMatches(person, session)) {
+			return false;
+		}
+
+		let changed = false;
+		const nextTalkState = String(state.talkState || "passive");
+		const nextTalkLabel = String(state.talkLabel || "");
+		const nextTalkTone = String(state.talkTone || "");
+		const nextTalking = !!state.talking;
+		changed = person.talkState !== nextTalkState || changed;
+		changed = person.talkLabel !== nextTalkLabel || changed;
+		changed = person.talkTone !== nextTalkTone || changed;
+		changed = !!person.talking !== nextTalking || changed;
+		person.talkState = String(state.talkState || "passive");
+		person.talkLabel = String(state.talkLabel || "");
+		person.talkTone = String(state.talkTone || "");
+		person.talking = !!state.talking;
+		if (person.entryKind === "listener") {
+			return changed;
+		}
+		if (Array.isArray(state.badges)) {
+			changed = JSON.stringify(person.badges || []) !== JSON.stringify(state.badges) || changed;
+			person.badges = state.badges;
+		}
+		if (Array.isArray(state.statuses)) {
+			changed = JSON.stringify(person.statuses || []) !== JSON.stringify(state.statuses) || changed;
+			person.statuses = state.statuses;
+		}
+		return changed;
+	}
+
+	function applyParticipantTalkStateList(people, state, session) {
+		let changed = false;
+		(people || []).forEach(function(person) {
+			changed = applyParticipantTalkState(person, state, session) || changed;
+		});
+		return changed;
+	}
+
+	function syncParticipantTalkState(state) {
+		const session = String(state && state.session || "");
+		if (!session) {
+			return;
+		}
+
+		const snapshot = getSnapshot();
+		let changed = applyParticipantTalkStateList(snapshot.voicePresence, state, session);
+		changed = applyParticipantTalkStateList(snapshot.participants, state, session) || changed;
+		(snapshot.voiceRooms || []).forEach(function(room) {
+			changed = applyParticipantTalkStateList(room && room.participants, state, session) || changed;
+		});
+
+		if (changed) {
+			renderPresencePatch(snapshot);
+		}
 	}
 
 	function plainTextFromHtml(html) {
@@ -1723,9 +1816,12 @@
 		const wrapper = document.createElement("div");
 		wrapper.className = "rail-row-wrapper" + (joinable ? " is-voice-room" : "");
 		wrapper.style.setProperty("--room-depth", String(depth));
+		wrapper.dataset.scopeToken = room.token || "";
+		wrapper.dataset.roomType = joinable ? "voice" : "text";
 
-		const button = document.createElement("button");
-		button.type = "button";
+		const button = document.createElement("div");
+		button.setAttribute("role", "button");
+		button.tabIndex = 0;
 		button.className = "rail-row"
 			+ (room.selected ? " is-selected" : "")
 			+ (room.joined ? " is-joined" : "");
@@ -1846,6 +1942,14 @@
 			notifyBridge("selectScope", room.token);
 			dismissCompactRailAfterAction();
 		});
+		button.addEventListener("keydown", function(event) {
+			if (event.target !== button || (event.key !== "Enter" && event.key !== " ")) {
+				return;
+			}
+			event.preventDefault();
+			notifyBridge("selectScope", room.token);
+			dismissCompactRailAfterAction();
+		});
 		button.addEventListener("dblclick", function(event) {
 			if (!joinable) {
 				return;
@@ -1917,17 +2021,19 @@
 			roomSection.classList.toggle("hidden", !!options.hideWhenEmpty && !hasRooms);
 		}
 
-		container.innerHTML = "";
+		const fragment = document.createDocumentFragment();
 
 		if (!hasRooms) {
 			if (options.hideWhenEmpty) {
+				replaceChildrenWith(container, fragment);
 				return;
 			}
 
 			const empty = document.createElement("div");
 			empty.className = "rail-empty";
 			empty.textContent = options.emptyText || "Waiting for room state.";
-			container.appendChild(empty);
+			fragment.appendChild(empty);
+			replaceChildrenWith(container, fragment);
 			return;
 		}
 
@@ -1951,12 +2057,168 @@
 					notifyBridge("moveChannelToChannel", dragState.scopeToken, options.rootToken, "inside");
 				});
 			}
-			container.appendChild(rootLabel);
+			fragment.appendChild(rootLabel);
 		}
 
 		roomList.forEach(function(room) {
-			container.appendChild(buildRoomRow(room, options.joinable, options.voicePresence));
+			fragment.appendChild(buildRoomRow(room, options.joinable, options.voicePresence));
 		});
+		replaceChildrenWith(container, fragment);
+	}
+
+	function mergeParticipantPatchList(previousList, nextList) {
+		if (!Array.isArray(nextList)) {
+			return previousList || [];
+		}
+
+		const previousByKey = new Map();
+		(previousList || []).forEach(function(person) {
+			const key = participantStateKey(person);
+			if (key) {
+				previousByKey.set(key, person);
+			}
+		});
+
+		return nextList.map(function(person) {
+			const key = participantStateKey(person);
+			const previous = key ? previousByKey.get(key) : null;
+			const merged = Object.assign({}, previous || {}, person || {});
+			if (previous && !Object.prototype.hasOwnProperty.call(person || {}, "actions")) {
+				merged.actions = previous.actions || [];
+			}
+			if (previous && !Object.prototype.hasOwnProperty.call(person || {}, "avatarUrl")) {
+				merged.avatarUrl = previous.avatarUrl || "";
+			}
+			return merged;
+		});
+	}
+
+	function mergeRoomPatchList(previousList, nextList) {
+		if (!Array.isArray(nextList)) {
+			return previousList || [];
+		}
+
+		const previousByToken = new Map();
+		(previousList || []).forEach(function(room) {
+			const token = String(room && room.token || "");
+			if (token) {
+				previousByToken.set(token, room);
+			}
+		});
+
+		return nextList.map(function(room) {
+			const token = String(room && room.token || "");
+			const previous = token ? previousByToken.get(token) : null;
+			const merged = Object.assign({}, previous || {}, room || {});
+			if (previous && !Object.prototype.hasOwnProperty.call(room || {}, "actions")) {
+				merged.actions = previous.actions || [];
+			}
+			if (previous && !Object.prototype.hasOwnProperty.call(room || {}, "participantActions")) {
+				merged.participantActions = previous.participantActions || [];
+			}
+			if (Object.prototype.hasOwnProperty.call(room || {}, "participants")) {
+				merged.participants = mergeParticipantPatchList(previous ? previous.participants : [], room.participants);
+			}
+			return merged;
+		});
+	}
+
+	function renderRoomsPatch(snapshot) {
+		const app = snapshot.app || {};
+		const textRooms = snapshot.textRooms || [];
+		const voiceRooms = snapshot.voiceRooms || [];
+		const voicePresence = snapshot.voicePresence || [];
+
+		refs.textRoomCount.textContent = String(textRooms.length);
+		refs.voiceRoomCount.textContent = String(voiceRooms.length);
+		renderRoomList(refs.voiceRoomList, voiceRooms, {
+			joinable: true,
+			voicePresence: voicePresence,
+			rootLabel: app.voiceRootLabel || "",
+			rootToken: app.voiceRootScopeToken || ""
+		});
+		renderRoomList(refs.textRoomList, textRooms, {
+			joinable: false,
+			voicePresence: null,
+			hideWhenEmpty: true
+		});
+		const renderedActiveRailToken = activeRailToken();
+		if (!renderedActiveRailToken) {
+			lastActiveRailToken = "";
+		} else if (renderedActiveRailToken !== lastActiveRailToken) {
+			lastActiveRailToken = renderedActiveRailToken;
+			pendingActiveRailReveal = true;
+		}
+		scheduleRailLayoutSync();
+	}
+
+	function renderPresencePatch(snapshot) {
+		const voicePresence = snapshot.voicePresence || [];
+		const headerPresence = voicePresence.length ? voicePresence : (snapshot.participants || []);
+		renderVoicePresenceStack(headerPresence);
+		renderRoomList(refs.voiceRoomList, snapshot.voiceRooms || [], {
+			joinable: true,
+			voicePresence: voicePresence,
+			rootLabel: (snapshot.app || {}).voiceRootLabel || "",
+			rootToken: (snapshot.app || {}).voiceRootScopeToken || ""
+		});
+		scheduleRailLayoutSync();
+	}
+
+	function syncRoomSelectionState(rooms, scopeToken) {
+		(rooms || []).forEach(function(room) {
+			if (room) {
+				room.selected = String(room.token || "") === scopeToken;
+			}
+		});
+	}
+
+	function renderRailSelectionPatch(snapshot) {
+		const scopeToken = String(snapshot && snapshot.activeScope && snapshot.activeScope.scopeToken || "");
+		syncRoomSelectionState(snapshot.textRooms, scopeToken);
+		syncRoomSelectionState(snapshot.voiceRooms, scopeToken);
+		refs.utilityScroll.querySelectorAll(".rail-row").forEach(function(row) {
+			row.classList.toggle("is-selected", !!scopeToken && String(row.dataset.scopeToken || "") === scopeToken);
+		});
+		const renderedActiveRailToken = activeRailToken();
+		if (!renderedActiveRailToken) {
+			lastActiveRailToken = "";
+		} else if (renderedActiveRailToken !== lastActiveRailToken) {
+			lastActiveRailToken = renderedActiveRailToken;
+			pendingActiveRailReveal = true;
+		}
+		scheduleRailLayoutSync();
+	}
+
+	function renderActiveScopePatch(snapshot) {
+		const app = snapshot.app || {};
+		const scope = snapshot.activeScope || {};
+
+		renderRailSelectionPatch(snapshot);
+		refs.serverEyebrow.textContent = app.serverEyebrow || scope.kindLabel || "Mumble";
+		refs.scopeTitle.textContent = scope.label || "Modern Layout";
+		refs.scopeDescription.textContent = scope.description || "Select a room to see shared history.";
+		renderMeta(scope.meta || []);
+		renderScreenShareHeader(scope, scope.screenShare || null);
+		renderScreenShareCard(scope, scope.screenShare || null);
+		refs.scopeBanner.textContent = scope.banner || "";
+		refs.scopeBanner.classList.toggle("hidden", !scope.banner);
+		refs.loadOlderButton.disabled = !scope.canLoadOlder;
+		refs.markReadButton.disabled = !scope.canMarkRead;
+		refs.composerInput.disabled = !scope.canSend;
+		refs.attachButton.disabled = !scope.canAttachImages;
+		refs.sendButton.disabled = !scope.canSend;
+		refs.composerInput.placeholder = scope.composerPlaceholder || "Write a message";
+		refs.composerHint.textContent = scope.composerHint || "Persistent room history stays with the selected room.";
+		renderComposerReplyState(scope);
+		syncAmbientState(snapshot);
+		syncComposerHeight();
+		if (scope.serverLogRevision || Object.prototype.hasOwnProperty.call(scope, "serverLogHtml")) {
+			renderMessages(snapshot);
+		}
+		if (scope.autoMarkRead) {
+			notifyBridge("markRead");
+		}
 	}
 
 	function composerCanAttachImages() {
@@ -2209,6 +2471,9 @@
 	function renderSystemMessage(message) {
 		const article = document.createElement("article");
 		article.className = "system-message";
+		article.dataset.messageKey = messageKey(message);
+		article.dataset.messageId = String(message.messageId || "");
+		article.dataset.threadId = String(message.threadId || "");
 		article.innerHTML =
 			"<span class=\"system-label\"></span><span class=\"system-time\"></span><div class=\"system-body\"></div>";
 		article.querySelector(".system-label").textContent = message.actor || "System";
@@ -2554,6 +2819,8 @@
 		bubble.className = "message-bubble" + (message.own ? " is-own" : "");
 		bubble.dataset.bodyText = message.bodyText || "";
 		bubble.dataset.messageId = String(message.messageId || "");
+		bubble.dataset.threadId = String(message.threadId || "");
+		bubble.dataset.messageKey = messageKey(message);
 		appendReplyBlock(bubble, message);
 
 		const body = document.createElement("div");
@@ -2657,12 +2924,62 @@
 		return groups;
 	}
 
+	function renderDayDivider(label) {
+		const divider = document.createElement("div");
+		divider.className = "day-divider";
+		divider.dataset.dayLabel = label || "";
+		divider.innerHTML = "<span></span><strong></strong><span></span>";
+		divider.querySelector("strong").textContent = label || "";
+		return divider;
+	}
+
+	function renderMessageCluster(group, freshStartIndex) {
+		const firstMessage = group.messages[0];
+		const cluster = document.createElement("section");
+		cluster.className = "message-cluster" + (group.own ? " is-own" : "");
+		cluster.dataset.actor = group.actor || "";
+		cluster.dataset.own = group.own ? "true" : "false";
+		cluster.dataset.dayLabel = dayLabelFromMs(firstMessage && firstMessage.createdAtMs);
+		cluster.style.setProperty("--avatar-hue", String(hueForLabel(group.actor, group.own)));
+		cluster.classList.toggle("is-fresh", Number.isFinite(freshStartIndex) && group.messages.some(function(message) {
+			return message.renderIndex >= freshStartIndex;
+		}));
+
+		if (!group.own) {
+			const avatar = document.createElement("div");
+			avatar.className = "message-avatar";
+			styleAvatar(avatar, group.actor, false, firstMessage.avatarUrl || "");
+			cluster.appendChild(avatar);
+		}
+
+		const stack = document.createElement("div");
+		stack.className = "message-stack";
+
+		const meta = document.createElement("div");
+		meta.className = "message-meta";
+		meta.innerHTML =
+			"<span class=\"message-author\"></span><span class=\"message-time\"></span>";
+		meta.querySelector(".message-author").textContent = group.own ? "" : group.actor;
+		meta.querySelector(".message-time").textContent =
+			group.own
+				? group.messages[group.messages.length - 1].timeLabel || ""
+				: firstMessage.timeLabel || "";
+		stack.appendChild(meta);
+
+		group.messages.forEach(function(message) {
+			stack.appendChild(renderMessageBubble(message));
+		});
+
+		cluster.appendChild(stack);
+		return cluster;
+	}
+
 	function renderTimeline(messages, emptyCopy, freshTailCount) {
 		const indexedMessages = (messages || []).map(function(message, index) {
 			return Object.assign({ renderIndex: index }, message);
 		});
 		const groups = renderMessageGroups(indexedMessages);
-		refs.messageList.innerHTML = "";
+		const fragment = document.createDocumentFragment();
 
 		if (!groups.length) {
 			const empty = document.createElement("div");
@@ -2670,7 +2987,8 @@
 			empty.innerHTML = "<h2>No history yet</h2><p></p>";
 			empty.querySelector("p").textContent =
 				emptyCopy || "Messages will appear here once the selected room has activity.";
-			refs.messageList.appendChild(empty);
+			fragment.appendChild(empty);
+			replaceChildrenWith(refs.messageList, fragment);
 			return;
 		}
 
@@ -2678,55 +2996,119 @@
 
 		groups.forEach(function(group) {
 			if (group.type === "day") {
-				const divider = document.createElement("div");
-				divider.className = "day-divider";
-				divider.innerHTML = "<span></span><strong></strong><span></span>";
-				divider.querySelector("strong").textContent = group.label;
-				refs.messageList.appendChild(divider);
+				fragment.appendChild(renderDayDivider(group.label));
 				return;
 			}
 
 			if (group.type === "system") {
-				refs.messageList.appendChild(renderSystemMessage(group.message));
+				fragment.appendChild(renderSystemMessage(group.message));
 				return;
 			}
 
-			const firstMessage = group.messages[0];
-			const cluster = document.createElement("section");
-			cluster.className = "message-cluster" + (group.own ? " is-own" : "");
-			cluster.style.setProperty("--avatar-hue", String(hueForLabel(group.actor, group.own)));
-			cluster.classList.toggle("is-fresh", !!freshTailCount && group.messages.some(function(message) {
-				return message.renderIndex >= freshStartIndex;
-			}));
+			fragment.appendChild(renderMessageCluster(group, freshStartIndex));
+		});
+		replaceChildrenWith(refs.messageList, fragment);
+	}
 
-			if (!group.own) {
-				const avatar = document.createElement("div");
-				avatar.className = "message-avatar";
-				styleAvatar(avatar, group.actor, false, firstMessage.avatarUrl || "");
-				cluster.appendChild(avatar);
+	function lastTimelineCluster() {
+		for (let index = refs.messageList.children.length - 1; index >= 0; index -= 1) {
+			const child = refs.messageList.children[index];
+			if (child && child.classList && child.classList.contains("message-cluster")) {
+				return child;
+			}
+			if (child && child.classList && child.classList.contains("system-message")) {
+				return null;
+			}
+		}
+		return null;
+	}
+
+	function appendTimelineMessages(appendedMessages, previousMessages) {
+		const incoming = appendedMessages || [];
+		if (!incoming.length) {
+			return true;
+		}
+		if (refs.messageList.querySelector(".message-log")) {
+			return false;
+		}
+
+		const emptyState = refs.messageList.querySelector(".empty-state");
+		if (emptyState && refs.messageList.children.length === 1) {
+			refs.messageList.innerHTML = "";
+		}
+
+		let previousMessage = (previousMessages || [])[(previousMessages || []).length - 1] || null;
+		incoming.forEach(function(rawMessage, offset) {
+			const message = Object.assign({ renderIndex: (previousMessages || []).length + offset }, rawMessage);
+			const dayLabel = dayLabelFromMs(message.createdAtMs);
+			const needsDayDivider = !previousMessage || dayLabelFromMs(previousMessage.createdAtMs) !== dayLabel;
+
+			if (needsDayDivider && dayLabel) {
+				refs.messageList.appendChild(renderDayDivider(dayLabel));
 			}
 
-			const stack = document.createElement("div");
-			stack.className = "message-stack";
+			if (message.system) {
+				refs.messageList.appendChild(renderSystemMessage(message));
+				previousMessage = message;
+				return;
+			}
 
-			const meta = document.createElement("div");
-			meta.className = "message-meta";
-			meta.innerHTML =
-				"<span class=\"message-author\"></span><span class=\"message-time\"></span>";
-			meta.querySelector(".message-author").textContent = group.own ? "" : group.actor;
-			meta.querySelector(".message-time").textContent =
-				group.own
-					? group.messages[group.messages.length - 1].timeLabel || ""
-					: firstMessage.timeLabel || "";
-			stack.appendChild(meta);
+			const lastCluster = !needsDayDivider ? lastTimelineCluster() : null;
+			if (lastCluster && previousMessage && shouldGroupWith(previousMessage, message)
+					&& lastCluster.dataset.actor === (message.actor || "Unknown")
+					&& lastCluster.dataset.own === (message.own ? "true" : "false")) {
+				const stack = lastCluster.querySelector(".message-stack");
+				if (stack) {
+					const metaTime = lastCluster.querySelector(".message-time");
+					stack.appendChild(renderMessageBubble(message));
+					lastCluster.classList.add("is-fresh");
+					if (message.own && metaTime) {
+						metaTime.textContent = message.timeLabel || "";
+					}
+					previousMessage = message;
+					return;
+				}
+			}
 
-			group.messages.forEach(function(message) {
-				stack.appendChild(renderMessageBubble(message));
-			});
-
-			cluster.appendChild(stack);
-			refs.messageList.appendChild(cluster);
+			refs.messageList.appendChild(renderMessageCluster({
+				type: "cluster",
+				own: !!message.own,
+				actor: message.actor || "Unknown",
+				messages: [message]
+			}, message.renderIndex));
+			previousMessage = message;
 		});
+		return true;
+	}
+
+	function renderedMessageElement(message) {
+		const id = String(message && message.messageId || "");
+		const threadId = String(message && message.threadId || "");
+		const key = messageKey(message);
+		const elements = refs.messageList.querySelectorAll("[data-message-key]");
+		for (let index = 0; index < elements.length; index += 1) {
+			const element = elements[index];
+			if (id && element.dataset.messageId === id
+					&& (!threadId || !element.dataset.threadId || element.dataset.threadId === threadId)) {
+				return element;
+			}
+			if (!id && key && element.dataset.messageKey === key) {
+				return element;
+			}
+		}
+		return null;
+	}
+
+	function replaceRenderedMessage(message) {
+		const element = renderedMessageElement(message);
+		if (!element) {
+			return false;
+		}
+
+		const replacement = message.system ? renderSystemMessage(message) : renderMessageBubble(message);
+		element.replaceWith(replacement);
+		requestAnimationFrame(syncScrollState);
+		return true;
 	}
 
 	function messageListMetrics() {
@@ -2839,6 +3221,23 @@
 			: Date.now();
 	}
 
+	function modernUiTraceEnabled() {
+		try {
+			return window.localStorage
+				&& window.localStorage.getItem("mumbleModernTrace") === "1";
+		} catch (error) {
+			return false;
+		}
+	}
+
+	function traceModernUi(label, startedAt) {
+		if (!modernUiTraceEnabled() || !window.console || typeof window.console.debug !== "function") {
+			return;
+		}
+
+		window.console.debug("[modern-ui] " + label + " " + Math.round((monotonicNow() - startedAt) * 10) / 10 + "ms");
+	}
+
 	function pauseReactionPickerScrollClose() {
 		reactionPickerScrollClosePausedUntil = monotonicNow() + reactionPickerScrollCloseGraceMs;
 	}
@@ -2888,15 +3287,16 @@
 				cachedServerLogRevision = serverLogRevision;
 			}
 
-			refs.messageList.innerHTML = "";
+			const fragment = document.createDocumentFragment();
 			if (cachedServerLogElement && (!serverLogRevision || cachedServerLogRevision === serverLogRevision)) {
-				refs.messageList.appendChild(cachedServerLogElement);
+				fragment.appendChild(cachedServerLogElement);
 			} else {
 				const empty = document.createElement("div");
 				empty.className = "empty-state";
 				empty.innerHTML = "<h2>Activity is loading</h2><p>The latest activity will appear shortly.</p>";
-				refs.messageList.appendChild(empty);
+				fragment.appendChild(empty);
 			}
+			replaceChildrenWith(refs.messageList, fragment);
 			requestAnimationFrame(function() {
 				if (!detachedBeforeRender) {
 					keepMessageListPinnedToBottom = true;
@@ -3657,7 +4057,226 @@
 	}
 
 	function syncSnapshot() {
+		liveSnapshot = modernBridge ? (modernBridge.snapshot || {}) : {};
 		scheduleSnapshotRender();
+	}
+
+	function messageIdentityEquals(left, right) {
+		if (!left || !right) {
+			return false;
+		}
+		const leftId = String(left.messageId || "");
+		const rightId = String(right.messageId || "");
+		if (leftId && rightId && leftId === rightId) {
+			const leftThreadId = String(left.threadId || "");
+			const rightThreadId = String(right.threadId || "");
+			return !leftThreadId || !rightThreadId || leftThreadId === rightThreadId;
+		}
+		return messageKey(left) === messageKey(right);
+	}
+
+	function messageIndexByIdentity(messages, message) {
+		for (let index = 0; index < (messages || []).length; index += 1) {
+			if (messageIdentityEquals(messages[index], message)) {
+				return index;
+			}
+		}
+		return -1;
+	}
+
+	function patchScopeMatches(snapshot, patch) {
+		const patchScope = String(patch && patch.scopeToken || "");
+		const activeScope = String(snapshot && snapshot.activeScope && snapshot.activeScope.scopeToken || "");
+		return !patchScope || !activeScope || patchScope === activeScope;
+	}
+
+	function replaceActiveScopeFromPatch(snapshot, patch) {
+		if (!patch || !patch.activeScope || typeof patch.activeScope !== "object") {
+			return false;
+		}
+
+		snapshot.activeScope = Object.assign({}, patch.activeScope);
+		return true;
+	}
+
+	function applyMessagesAppendPatch(snapshot, patch) {
+		if (!patchScopeMatches(snapshot, patch)) {
+			return true;
+		}
+
+		const incoming = Array.isArray(patch.messages) ? patch.messages : [];
+		if (!incoming.length) {
+			return true;
+		}
+
+		const previousMessages = Array.isArray(snapshot.messages) ? snapshot.messages.slice() : [];
+		const nextMessages = previousMessages.slice();
+		const appended = [];
+		incoming.forEach(function(message) {
+			const existingIndex = messageIndexByIdentity(nextMessages, message);
+			if (existingIndex >= 0) {
+				nextMessages[existingIndex] = Object.assign({}, nextMessages[existingIndex], message);
+				return;
+			}
+			nextMessages.push(message);
+			appended.push(message);
+		});
+
+		if (!appended.length) {
+			snapshot.messages = nextMessages;
+			return true;
+		}
+
+		const willTrimHead = nextMessages.length > 200;
+		snapshot.messages = willTrimHead ? nextMessages.slice(nextMessages.length - 200) : nextMessages;
+		if (willTrimHead || String((snapshot.activeScope || {}).scopeToken || "") !== lastScopeToken) {
+			renderMessages(snapshot);
+			return true;
+		}
+
+		const metricsBefore = messageListMetrics();
+		const detachedBeforeRender = !metricsBefore.nearBottom;
+		const distanceFromBottom = metricsBefore.distanceFromBottom;
+		const freshTailCount = appended.filter(function(message) {
+			return !message.system;
+		}).length;
+		if (detachedBeforeRender) {
+			unreadDetachedMessages += freshTailCount;
+		}
+		if (!appendTimelineMessages(appended, previousMessages)) {
+			renderMessages(snapshot);
+			return true;
+		}
+
+		const shouldStickToBottom = (patch.scrollToBottom !== false)
+			&& (!detachedBeforeRender || keepMessageListPinnedToBottom);
+		requestAnimationFrame(function() {
+			if (shouldStickToBottom) {
+				keepMessageListPinnedToBottom = true;
+				scheduleMessageListBottomPin(3);
+				return;
+			}
+
+			refs.messageList.scrollTop = Math.max(0,
+				refs.messageList.scrollHeight - refs.messageList.clientHeight - distanceFromBottom);
+			syncScrollState();
+		});
+
+		lastRenderedMessageCount = snapshot.messages.length;
+		lastRenderedTailKey = latestTailMessageKey(snapshot.messages);
+		lastScopeToken = String((snapshot.activeScope || {}).scopeToken || lastScopeToken);
+		return true;
+	}
+
+	function applyMessagesUpdatePatch(snapshot, patch) {
+		if (!patchScopeMatches(snapshot, patch)) {
+			return true;
+		}
+
+		const message = patch.message || (Array.isArray(patch.messages) ? patch.messages[0] : null);
+		if (!message) {
+			return true;
+		}
+
+		const messages = Array.isArray(snapshot.messages) ? snapshot.messages.slice() : [];
+		const existingIndex = messageIndexByIdentity(messages, message);
+		if (existingIndex < 0) {
+			return false;
+		}
+
+		const updated = Object.assign({}, messages[existingIndex], message);
+		messages[existingIndex] = updated;
+		snapshot.messages = messages;
+		if (!replaceRenderedMessage(Object.assign({ renderIndex: existingIndex }, updated))) {
+			renderMessages(snapshot);
+		}
+		lastRenderedTailKey = latestTailMessageKey(snapshot.messages);
+		return true;
+	}
+
+	function applyMessagesResetPatch(snapshot, patch) {
+		replaceActiveScopeFromPatch(snapshot, patch);
+		if (!patchScopeMatches(snapshot, patch)) {
+			return true;
+		}
+		snapshot.messages = Array.isArray(patch.messages) ? patch.messages : [];
+		renderMessages(snapshot);
+		renderActiveScopePatch(snapshot);
+		return true;
+	}
+
+	function syncSnapshotPatch(patch) {
+		const startedAt = monotonicNow();
+		const kind = patch && typeof patch === "object" ? String(patch.kind || "") : "";
+		try {
+			if (!patch || typeof patch !== "object") {
+				return;
+			}
+
+			const snapshot = getSnapshot();
+			if (kind !== "messages.append" && kind !== "messages.update") {
+				replaceActiveScopeFromPatch(snapshot, patch);
+			}
+
+			if (kind === "messages.append") {
+				applyMessagesAppendPatch(snapshot, patch);
+				return;
+			}
+			if (kind === "messages.update") {
+				if (!applyMessagesUpdatePatch(snapshot, patch)) {
+					scheduleSnapshotRender();
+				}
+				return;
+			}
+			if (kind === "messages.reset") {
+				applyMessagesResetPatch(snapshot, patch);
+				return;
+			}
+			if (kind === "rooms.update") {
+				if (patch.app && typeof patch.app === "object") {
+					snapshot.app = Object.assign({}, snapshot.app || {}, patch.app);
+				}
+				if (Array.isArray(patch.textRooms)) {
+					snapshot.textRooms = mergeRoomPatchList(snapshot.textRooms, patch.textRooms);
+				}
+				if (Array.isArray(patch.voiceRooms)) {
+					snapshot.voiceRooms = mergeRoomPatchList(snapshot.voiceRooms, patch.voiceRooms);
+				}
+				if (Array.isArray(patch.participants)) {
+					snapshot.participants = mergeParticipantPatchList(snapshot.participants, patch.participants);
+				}
+				if (Array.isArray(patch.voicePresence)) {
+					snapshot.voicePresence = mergeParticipantPatchList(snapshot.voicePresence, patch.voicePresence);
+				}
+				if (Object.prototype.hasOwnProperty.call(patch, "voicePresenceChannelId")) {
+					snapshot.voicePresenceChannelId = patch.voicePresenceChannelId;
+				}
+				renderRoomsPatch(snapshot);
+				renderVoicePresenceStack((snapshot.voicePresence || []).length
+					? (snapshot.voicePresence || [])
+					: (snapshot.participants || []));
+				return;
+			}
+			if (kind === "presence.update") {
+				if (patch.state) {
+					syncParticipantTalkState(patch.state);
+				} else {
+					renderPresencePatch(snapshot);
+				}
+				return;
+			}
+			if (kind === "activeScope.update" || kind === "serverLog.update") {
+				renderActiveScopePatch(snapshot);
+				if (kind === "serverLog.update") {
+					renderMessages(snapshot);
+				}
+				return;
+			}
+
+			scheduleSnapshotRender();
+		} finally {
+			traceModernUi("patch " + (kind || "unknown"), startedAt);
+		}
 	}
 
 	function hideContextMenu() {

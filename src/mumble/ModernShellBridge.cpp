@@ -94,6 +94,22 @@ void ModernShellBridge::setSnapshot(const QVariantMap &snapshot) {
 	appendModernShellConnectTrace(QStringLiteral("ModernShellBridge::setSnapshot after-emit"));
 }
 
+void ModernShellBridge::publishModernShellPatch(const QVariantMap &patch) {
+	if (patch.isEmpty()) {
+		return;
+	}
+
+	emit modernPatchChanged(patch);
+}
+
+void ModernShellBridge::publishParticipantTalkState(const QVariantMap &state) {
+	if (state.isEmpty()) {
+		return;
+	}
+
+	emit participantTalkStateChanged(state);
+}
+
 void ModernShellBridge::ready() {
 	appendModernShellConnectTrace(QStringLiteral("ModernShellBridge::ready"));
 	emit bootReady();

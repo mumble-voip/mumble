@@ -230,6 +230,8 @@ public:
 	/// @return The created display string
 	static QString createDisplayString(const ClientUser &user, bool isChannelListener, const Channel *parentChannel);
 public slots:
+	/// Invalidates the talk-state-specific model data of the ClientUser triggering this slot.
+	void userTalkingStateChanged();
 	/// Invalidates the model data of the ClientUser triggering this slot.
 	void userStateChanged();
 	void on_channelListenerLocalVolumeAdjustmentChanged(unsigned int channelID, float oldValue, float newValue);
