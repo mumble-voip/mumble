@@ -4855,10 +4855,10 @@
 	}
 
 	function applyMessagesResetPatch(snapshot, patch) {
-		replaceActiveScopeFromPatch(snapshot, patch);
 		if (!patchScopeMatches(snapshot, patch)) {
 			return true;
 		}
+		replaceActiveScopeFromPatch(snapshot, patch);
 		snapshot.messages = Array.isArray(patch.messages) ? patch.messages : [];
 		renderMessages(snapshot);
 		renderActiveScopePatch(snapshot);
@@ -4874,7 +4874,9 @@
 			}
 
 			const snapshot = getSnapshot();
-			if (kind !== "messages.append" && kind !== "messages.update") {
+			if (kind !== "messages.append" && kind !== "messages.update"
+					&& kind !== "messages.reset" && kind !== "serverLog.append"
+					&& kind !== "serverLog.reset") {
 				replaceActiveScopeFromPatch(snapshot, patch);
 			}
 
