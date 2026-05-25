@@ -17,8 +17,8 @@ set_target_properties(overlay_gl
 )
 
 if(NOT APPLE)
-	find_pkg(gl REQUIRED)
-	target_include_directories(overlay_gl PRIVATE ${gl_INCLUDE_DIRS})
+	find_package(OpenGL REQUIRED)
+	target_link_libraries(overlay_gl PRIVATE OpenGL::GL)
 
 	target_link_options(overlay_gl BEFORE
 		PRIVATE
