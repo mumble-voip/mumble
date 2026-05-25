@@ -5,7 +5,7 @@
 
 include(project-utils)
 
-find_pkg(Qt6 COMPONENTS Test REQUIRED)
+find_package(Qt6 COMPONENTS Test REQUIRED)
 
 option(online-tests "Whether or not tests that need a working internet connection should be included" OFF)
 option(test-lto "Whether to use LTO when building test cases" ${lto})
@@ -16,7 +16,7 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${test-lto})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests")
 
 if (static)
-	find_pkg(Qt6 VERSION 6 COMPONENTS Widgets REQUIRED)
+	find_package(Qt6 VERSION 6 COMPONENTS Widgets REQUIRED)
 	if (NOT TARGET Qt6::QOffscreenIntegrationPlugin)
 		message(FATAL_ERROR "Unable to locate offscreen plugin (needed for tests)")
 	endif()

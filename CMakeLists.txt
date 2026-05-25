@@ -4,7 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 
-cmake_minimum_required(VERSION 3.23...4.2)
+cmake_minimum_required(VERSION 3.28...4.2)
 
 set(BUILD_NUMBER CACHE STRING "The build number of the current build. Will be used in Mumble's version to make sure newer builds upgrade older installations properly.")
 set(BUILD_RELEASE_DATE CACHE STRING "The release date to be used in the generated appstream metadata.")
@@ -44,6 +44,7 @@ include(pkg-utils)
 include(project-utils)
 include(TargetArch)
 include(CheckIPOSupported)
+include(dependencies)
 
 find_package(Python 3 COMPONENTS Interpreter REQUIRED)
 
@@ -177,7 +178,7 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 if(bundled-utfcpp)
 	add_subdirectory(${3RDPARTY_DIR}/utfcpp)
 else()
-	find_pkg("utf8cpp" REQUIRED)
+	find_package("utf8cpp" REQUIRED)
 	add_library(utfcpp ALIAS utf8cpp::utf8cpp)
 endif()
 
