@@ -86,7 +86,7 @@ if (NOT TARGET nlohmann_json)
 		set(JSON_ImplicitConversions OFF CACHE INTERNAL "")
 		add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/" EXCLUDE_FROM_ALL)
 	else()
-		find_pkg("nlohmann_json" REQUIRED)
+		find_package("nlohmann_json" REQUIRED)
 	endif()
 endif()
 

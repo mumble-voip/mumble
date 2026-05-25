@@ -18,8 +18,7 @@ option(bundled-json "Build the included version of nlohmann_json instead of look
 option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
 option(bundled-cli11 "Use the bundled CLI11 version instead of looking for one on the system" ON)
 
-find_pkg(Qt6
-	VERSION 6.2
+find_package(Qt6 6.2
 	COMPONENTS
 		Core
 		Network
@@ -27,14 +26,14 @@ find_pkg(Qt6
 	REQUIRED
 )
 
-find_pkg(OpenSSL
+find_package(OpenSSL
 	COMPONENTS
 		Crypto
 		SSL
 	REQUIRED
 )
 
-find_pkg(Protobuf REQUIRED)
+find_package(Protobuf REQUIRED)
 
 add_compile_options(${MUMBLE_COMPILER_FLAGS})
 
@@ -220,15 +219,11 @@ if(bundled-spdlog)
 	set(SPDLOG_SYSTEM_INCLUDES ON)
 	add_subdirectory("${3RDPARTY_DIR}/spdlog" "${CMAKE_CURRENT_BINARY_DIR}/spdlog" EXCLUDE_FROM_ALL)
 else()
-	find_pkg("spdlog" REQUIRED)
+	find_package("spdlog" REQUIRED)
 endif()
 target_link_libraries(shared PUBLIC spdlog::spdlog)
 
-if (bundled-cli11)
-	add_subdirectory("${3RDPARTY_DIR}/CLI11" "${CMAKE_CURRENT_BINARY_DIR}/CLI11" EXCLUDE_FROM_ALL)
-else()
-	find_pkg("CLI11" 2 REQUIRED)
-endif()
+find_package("CLI11" 2 REQUIRED)
 
 if(client)
 	add_subdirectory(mumble)
