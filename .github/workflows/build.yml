@@ -120,7 +120,7 @@ jobs:
 
     - if: ${{ !inputs.SIGN_WINDOWS_INSTALLER && matrix.type == 'static' }}
       name: Publish
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: 'Mumble-${{ matrix.os }}'
         compression-level: 9
