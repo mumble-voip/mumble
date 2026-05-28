@@ -126,7 +126,9 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
+	{
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
+	}
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -464,6 +466,16 @@ void MainWindow::createActions() {
 	gsAdaptivePush->qsToolTip = tr("When using the push-to-talk transmission mode, this will act as the push-to-talk "
 								   "action. Otherwise, it will act as a push-to-mute action.",
 								   "Global Shortcut");
+
+	gsWhisperHold = new GlobalShortcut(this, GlobalShortcutType::WhisperHold, tr("Whisper Hold", "Global Shortcut"),
+									   QVariant::fromValue(ShortcutTarget()));
+	gsWhisperHold->setObjectName("gsWhisperHold");
+	gsWhisperHold->qsToolTip = tr(
+		"Hold voice activation or continuous transmission on the configured Whisper/Shout target.", "Global Shortcut");
+	gsWhisperHold->qsWhatsThis =
+		tr("This latches or unlatches the configured Whisper/Shout target while using voice activation or continuous "
+		   "transmission. Pressing a different Whisper Hold shortcut switches transmission to that target.",
+		   "Global Shortcut");
 }
 
 void MainWindow::setupGui() {
@@ -717,6 +729,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	}
 
 	sh.reset();
+
+	resetWhisperHoldState();
 
 	storeState(Global::get().s.bMinimalView);
 
@@ -1127,6 +1141,10 @@ void MainWindow::updateImagePath(QString filepath) const {
 
 void MainWindow::setTransmissionMode(Settings::AudioTransmit mode) {
 	if (Global::get().s.atTransmit != mode) {
+		if (mode == Settings::PushToTalk) {
+			resetWhisperHoldState(tr("Whisper hold cleared: Push-to-Talk enabled."));
+		}
+
 		Global::get().s.atTransmit = mode;
 
 		switch (mode) {
@@ -1266,6 +1284,11 @@ static void recreateServerHandler() {
 	// In order for that to work it is ESSENTIAL to use a DIRECT CONNECTION!
 	Global::get().pluginManager->connect(sh.get(), &ServerHandler::aboutToDisconnect, Global::get().pluginManager,
 										 &PluginManager::on_serverDisconnected, Qt::DirectConnection);
+}
+
+static QList< Shortcut > normalizedShortcutList(QList< Shortcut > shortcuts) {
+	std::stable_sort(shortcuts.begin(), shortcuts.end());
+	return shortcuts;
 }
 
 void MainWindow::openUrl(const QUrl &url) {
@@ -3154,7 +3177,9 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			}
 		}
 
+		removeWhisperHoldTarget(false);
 		addTarget(&st);
+		++iWhisperShoutTargetsActive;
 		updateTarget();
 
 		Global::get().iPushToTalk++;
@@ -3184,6 +3209,83 @@ void MainWindow::removeTarget(ShortcutTarget *st) {
 		qmCurrentTargets.remove(*st);
 	else
 		qmCurrentTargets[*st] -= 1;
+}
+
+/* Whisper Hold acts as a lower-priority target layer below regular
+ * Whisper/Shout PTS. The hold can be logically active while not currently
+ * applied to qmCurrentTargets, for example while a regular Whisper/Shout
+ * target is overriding it, including during the configured PTT hold delay.
+ */
+void MainWindow::applyWhisperHoldTarget() {
+	if (!bWhisperHoldActive || bWhisperHoldTargetApplied || iWhisperShoutTargetsActive > 0) {
+		return;
+	}
+
+	addTarget(&stWhisperHoldTarget);
+	bWhisperHoldTargetApplied = true;
+	updateTarget();
+}
+
+void MainWindow::refreshWhisperHoldTarget() {
+	if (bWhisperHoldActive && iWhisperShoutTargetsActive == 0) {
+		applyWhisperHoldTarget();
+	} else {
+		removeWhisperHoldTarget();
+	}
+}
+
+void MainWindow::removeWhisperHoldTarget(bool update) {
+	if (!bWhisperHoldTargetApplied) {
+		return;
+	}
+
+	removeTarget(&stWhisperHoldTarget);
+	bWhisperHoldTargetApplied = false;
+	if (update) {
+		updateTarget();
+	}
+}
+
+void MainWindow::resetWhisperHoldState(const QString &message) {
+	const bool wasActive = bWhisperHoldActive;
+
+	removeWhisperHoldTarget();
+	bWhisperHoldActive         = false;
+	iWhisperShoutTargetsActive = 0;
+
+	if (wasActive && !message.isEmpty()) {
+		Global::get().l->log(Log::WhisperHold, message);
+	}
+}
+
+void MainWindow::on_gsWhisperHold_triggered(bool down, QVariant scdata) {
+	if (!down) {
+		return;
+	}
+
+	if (Global::get().s.atTransmit == Settings::PushToTalk) {
+		return;
+	}
+
+	ShortcutTarget st = scdata.value< ShortcutTarget >();
+
+	if (bWhisperHoldActive && stWhisperHoldTarget == st) {
+		removeWhisperHoldTarget();
+		bWhisperHoldActive = false;
+		Global::get().l->log(Log::WhisperHold, tr("Whisper hold cleared."));
+		return;
+	}
+
+	if (bWhisperHoldActive) {
+		removeWhisperHoldTarget(false);
+	}
+
+	stWhisperHoldTarget = st;
+	bWhisperHoldActive  = true;
+	refreshWhisperHoldTarget();
+
+	Global::get().l->log(Log::WhisperHold,
+						 tr("Whisper held to: %1.").arg(ShortcutTargetWidget::targetString(stWhisperHoldTarget)));
 }
 
 void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant) {
@@ -3498,7 +3600,15 @@ void MainWindow::whisperReleased(QVariant scdata) {
 	Global::get().iPushToTalk--;
 
 	removeTarget(&st);
-	updateTarget();
+	if (iWhisperShoutTargetsActive > 0) {
+		--iWhisperShoutTargetsActive;
+	}
+
+	if (bWhisperHoldActive && iWhisperShoutTargetsActive == 0) {
+		applyWhisperHoldTarget();
+	} else {
+		updateTarget();
+	}
 }
 
 void MainWindow::onResetAudio() {
@@ -3573,6 +3683,8 @@ void MainWindow::serverConnected() {
 }
 
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
+	resetWhisperHoldState();
+
 	// clear ChannelListener
 	Global::get().channelListenerManager->clear();
 
@@ -4061,6 +4173,7 @@ void MainWindow::disconnectFromServer() {
 	}
 
 	m_reconnectSoundBlocker.reset();
+	resetWhisperHoldState();
 
 	if (Global::get().sh && Global::get().sh->isRunning()) {
 		Global::get().sh->disconnect();
@@ -4220,9 +4333,19 @@ void MainWindow::openAudioStatsDialog() {
 void MainWindow::openConfigDialog() {
 	ConfigDialog *dlg = new ConfigDialog(this);
 
-	Global::get().inConfigUI = true;
+	Global::get().inConfigUI            = true;
+	QList< Shortcut > previousShortcuts = normalizedShortcutList(Global::get().s.qlShortcuts);
 
 	QObject::connect(dlg, &ConfigDialog::settingsAccepted, Global::get().talkingUI, &TalkingUI::on_settingsChanged);
+	QObject::connect(dlg, &ConfigDialog::settingsAccepted, this, [this, previousShortcuts]() mutable {
+		if (Global::get().s.atTransmit == Settings::PushToTalk) {
+			resetWhisperHoldState(tr("Whisper hold cleared: Push-to-Talk enabled."));
+		} else if (previousShortcuts != normalizedShortcutList(Global::get().s.qlShortcuts)) {
+			resetWhisperHoldState(tr("Whisper hold cleared: Shortcuts changed."));
+		}
+
+		previousShortcuts = normalizedShortcutList(Global::get().s.qlShortcuts);
+	});
 	QObject::connect(dlg, &ConfigDialog::settingsAccepted, []() {
 		if (Global::get().s.requireThemeApplication) {
 			Themes::apply();
@@ -4257,9 +4380,16 @@ void MainWindow::openConfigDialog() {
 }
 
 void MainWindow::openAudioWizardDialog() {
-	AudioWizard *aw = new AudioWizard(this);
+	const QList< Shortcut > previousShortcuts = normalizedShortcutList(Global::get().s.qlShortcuts);
+	AudioWizard *aw                           = new AudioWizard(this);
 	aw->exec();
 	delete aw;
+
+	if (Global::get().s.atTransmit == Settings::PushToTalk) {
+		resetWhisperHoldState(tr("Whisper hold cleared: Push-to-Talk enabled."));
+	} else if (previousShortcuts != normalizedShortcutList(Global::get().s.qlShortcuts)) {
+		resetWhisperHoldState(tr("Whisper hold cleared: Shortcuts changed."));
+	}
 }
 
 void MainWindow::openCertWizardDialog() {

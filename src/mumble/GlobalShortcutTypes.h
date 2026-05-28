@@ -63,6 +63,7 @@ enum Type {
 	ListenerAttenuationUp,
 	ListenerAttenuationDown,
 	AdaptivePush,
+	WhisperHold,
 };
 
 // A few assertions meant to catch, if anyone inserts a new value in-between instead of appending

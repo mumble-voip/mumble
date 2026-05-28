@@ -115,6 +115,7 @@ public:
 	GlobalShortcut *gsMoveBack;
 	GlobalShortcut *gsCycleListenerAttenuationMode, *gsListenerAttenuationUp, *gsListenerAttenuationDown;
 	GlobalShortcut *gsAdaptivePush;
+	GlobalShortcut *gsWhisperHold;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -172,6 +173,10 @@ protected:
 	QList< QAction * > qlUserActions;
 
 	QHash< ShortcutTarget, int > qmCurrentTargets;
+	bool bWhisperHoldActive        = false;
+	bool bWhisperHoldTargetApplied = false;
+	int iWhisperShoutTargetsActive = 0;
+	ShortcutTarget stWhisperHoldTarget;
 	/// A map that contains information about the currently active
 	/// shout/whisper targets. The mapping is between a List of
 	/// ShortcutTargets that are all triggered together and the
@@ -183,6 +188,10 @@ protected:
 	/// and a helper-number (see iTargetCounter).
 	QMap< int, int > qmTargetUse;
 	Channel *mapChannel(int idx) const;
+	void applyWhisperHoldTarget();
+	void refreshWhisperHoldTarget();
+	void removeWhisperHoldTarget(bool update = true);
+	void resetWhisperHoldState(const QString &message = QString());
 	/// This is a pure helper number whose job is to always be increased
 	/// if a new VoiceTarget is needed. It will be used as the helper
 	/// number in qmTargetUse.
@@ -359,6 +368,7 @@ public slots:
 	void on_gsListenerAttenuationUp_triggered(bool, QVariant);
 	void on_gsListenerAttenuationDown_triggered(bool, QVariant);
 	void on_gsAdaptivePush_triggered(bool, QVariant);
+	void on_gsWhisperHold_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_qaTalkingUIToggle_triggered();
