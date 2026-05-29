@@ -4173,6 +4173,10 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Përdoruesi reshti së dëgjuari kanalin</translation>
     </message>
     <message>
+        <source>Whisper hold changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Plugin message</source>
         <translation>Mesazh shtojce</translation>
     </message>
@@ -5992,6 +5996,21 @@ the channel&apos;s context menu.</source>
         <translation>Dukshmëri</translation>
     </message>
     <message>
+        <source>Whisper Hold</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hold voice activation or continuous transmission on the configured Whisper/Shout target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This latches or unlatches the configured Whisper/Shout target while using voice activation or continuous transmission. Pressing a different Whisper Hold shortcut switches transmission to that target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;Window</source>
         <translation>&amp;Dritare</translation>
     </message>
@@ -6048,6 +6067,10 @@ the channel&apos;s context menu.</source>
         <translation>S’u ruajt dot figura: %1</translation>
     </message>
     <message>
+        <source>Whisper hold cleared: Push-to-Talk enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Transmit Mode set to Continuous</source>
         <translation>Filtri jetpack_offline_mode është caktuar si &lt;em&gt;true&lt;/em&gt;.</translation>
     </message>
@@ -6090,6 +6113,14 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Reconnecting.</source>
         <translation>Rilidhje e Jetpack-ut</translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper held to: %1.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Change your comment</source>
@@ -6949,6 +6980,10 @@ the channel&apos;s context menu.</source>
     <message>
         <source>This will check if mumble is up to date</source>
         <translation>Kjo do të kontrollojë nëse Mumble-i shtë i përditësuar</translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared: Shortcuts changed.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>

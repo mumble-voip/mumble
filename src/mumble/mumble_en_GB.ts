@@ -4011,22 +4011,22 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mouse</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keyboard</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keyboard</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mouse</translation>
     </message>
 </context>
 <context>
@@ -4195,6 +4195,10 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Private text message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4618,11 +4622,11 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">unchecked</translation>
     </message>
     <message>
         <source>decibels</source>
@@ -6936,6 +6940,37 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Whisper Hold</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hold voice activation or continuous transmission on the configured Whisper/Shout target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This latches or unlatches the configured Whisper/Shout target while using voice activation or continuous transmission. Pressing a different Whisper Hold shortcut switches transmission to that target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared: Push-to-Talk enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper held to: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared: Shortcuts changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8221,11 +8256,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">unchecked</translation>
     </message>
     <message>
         <source>Not available</source>
@@ -9115,7 +9150,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ShortcutActionWidget</name>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unassigned</translation>
     </message>
 </context>
 <context>
@@ -9134,7 +9169,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unassigned</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
