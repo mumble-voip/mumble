@@ -1,0 +1,23 @@
+{
+	"dependencies": [
+		{
+			"name": "CLI11",
+			"license": "BSD-3-Clause",
+			"source_code": "https://github.com/CLIUtils/CLI11.git",
+			"tracked_version": "v2.6.2",
+			"cmake_target": "CLI11::CLI11"
+		},
+		{
+			"name": "Sndfile",
+			"license": "LGPL-2.1",
+			"source_code": "https://github.com/libsndfile/libsndfile.git",
+			"cmake_target": "Sndfile::sndfile"
+		},
+		{
+			"name": "Opus",
+			"license": "BSD-3-Clause",
+			"source_code": "https://github.com/xiph/opus.git",
+			"cmake_target": "Opus::opus"
+		}
+	]
+}

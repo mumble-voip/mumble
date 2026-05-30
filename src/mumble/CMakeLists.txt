@@ -552,9 +552,7 @@ else()
 endif()
 
 # Look for various targets as they are named differently on different platforms
-if(TARGET sndfile::sndfile)
-	target_link_libraries(mumble_client_object_lib PUBLIC sndfile::sndfile)
-elseif(static AND TARGET sndfile-static)
+if(static AND TARGET sndfile-static)
 	target_link_libraries(mumble_client_object_lib PUBLIC sndfile-static)
 elseif(TARGET SndFile::sndfile)
 	target_link_libraries(mumble_client_object_lib PUBLIC SndFile::sndfile)
