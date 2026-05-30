@@ -26,23 +26,41 @@ function(mumble_register_dependency NAME)
 	endif()
 endfunction()
 
-FetchContent_Declare(CLI11
-	GIT_TAG                 "v2.6.2"
-	GIT_REPOSITORY          "https://github.com/CLIUtils/CLI11.git"
-	GIT_SHALLOW
-	SYSTEM
-	EXCLUDE_FROM_ALL
-)
 
-mumble_register_dependency(CLI11
-	MAIN_TARGET     "CLI11::CLI11"
-	FETCHCONTENT_ID "CLI11"
-)
+# Read JSON file containing the dependency specification
+file(READ "${PROJECT_SOURCE_DIR}/dependencies.json" MUMBLE_DEPENDENCIES)
 
-mumble_register_dependency(sndfile
-	MAIN_TARGET "sndfile::sndfile"
-)
+string(JSON MUMBLE_DEPENDENCIES GET "${MUMBLE_DEPENDENCIES}" "dependencies")
+string(JSON NUM_DEPS LENGTH "${MUMBLE_DEPENDENCIES}")
+math(EXPR LAST_IDX "${NUM_DEPS} - 1")
 
-mumble_register_dependency(Opus
-	MAIN_TARGET "Opus::opus"
-)
+foreach(CURRENT_DEP_IDX RANGE ${LAST_IDX})
+	string(JSON DEP_NAME GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "name")
+	string(JSON DEP_LICENSE GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "license")
+	string(JSON DEP_SOURCE ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "source_code")
+	string(JSON DEP_VERSION ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "tracked_version")
+	string(JSON DEP_TARGET ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "cmake_target")
+
+	if (DEP_SOURCE AND DEP_VERSION)
+		if (NOT "${DEP_SOURCE}" MATCHES ".*\\.git")
+			message(FATAL_ERROR "Non-git source codes not (yet) supported: ${DEP_SOURCE}")
+		endif()
+
+		FetchContent_Declare("${DEP_NAME}"
+			GIT_TAG        "${DEP_VERSION}"
+			GIT_REPOSITORY "${DEP_SOURCE}"
+			GIT_SHALLOW
+			SYSTEM
+			EXCLUDE_FROM_ALL
+		)
+
+		set(FETCHCONTENT_ARG "FETCHCONTENT_ID;${DEP_NAME}")
+	endif()
+
+	if (DEP_TARGET)
+		set(TARGET_ARG "MAIN_TARGET;${DEP_TARGET}")
+	endif()
+
+	mumble_register_dependency("${DEP_NAME}" ${FETCHCONTENT_ARG} ${TARGET_ARG})
+endforeach()
+
