@@ -524,16 +524,7 @@ else()
 endif()
 
 
-if (NOT TARGET nlohmann_json)
-	if(bundled-json)
-		set(JSON_BuildTests OFF CACHE INTERNAL "")
-		set(JSON_ImplicitConversions ON CACHE INTERNAL "")
-		set(JSON_SystemInclude ON CACHE INTERNAL "")
-		add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/" EXCLUDE_FROM_ALL)
-	else()
-		find_package("nlohmann_json" REQUIRED)
-	endif()
-endif()
+find_package("nlohmann_json" REQUIRED)
 
 target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)
 
@@ -627,7 +618,7 @@ if(WIN32)
 		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
-	add_subdirectory("${3RDPARTY_DIR}/SPSCQueue" "${CMAKE_CURRENT_BINARY_DIR}/SPSCQueue" EXCLUDE_FROM_ALL)
+	find_package(SPSCQueue REQUIRED)
 	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the xinputcheck code may emit

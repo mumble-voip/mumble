@@ -146,6 +146,13 @@
 			"cmake_target": "SOCI::SOCI"
 		},
 		{
+			"name": "spdlog",
+			"license": "MIT",
+			"source_code": "https://github.com/gabime/spdlog.git",
+			"tracked_version": "v1.17.0",
+			"cmake_target": "spdlog::spdlog"
+		},
+		{
 			"name": "speech-dispatcher",
 			"components": [
 				"speechd"
