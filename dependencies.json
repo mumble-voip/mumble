@@ -1,6 +1,25 @@
 {
 	"dependencies": [
 		{
+			"name": "ALSA",
+			"license": "LGPL-2.1-only"
+		},
+		{
+			"name": "AVAHI",
+			"components": [
+				"avahi-compat-libdns_sd"
+			],
+			"license": "LGPL-2.1-only"
+		},
+		{
+			"name": "Boost",
+			"components": [
+				"boost_headers",
+				"boost_date_time"
+			],
+			"license": "BSL-1.0"
+		},
+		{
 			"name": "CLI11",
 			"license": "BSD-3-Clause",
 			"source_code": "https://github.com/CLIUtils/CLI11.git",
@@ -8,16 +27,153 @@
 			"cmake_target": "CLI11::CLI11"
 		},
 		{
-			"name": "Sndfile",
-			"license": "LGPL-2.1",
-			"source_code": "https://github.com/libsndfile/libsndfile.git",
-			"cmake_target": "Sndfile::sndfile"
+			"name": "Expat",
+			"license": "MIT"
+		},
+		{
+			"name": "fmt",
+			"license": "MIT"
+		},
+		{
+			"name": "Fontconfig",
+			"license": "MIT"
+		},
+		{
+			"name": "Freetype",
+			"license": "FTL"
+		},
+		{
+			"name": "Git",
+			"license": "GPL-2.0-only"
+		},
+		{
+			"name": "Ice",
+			"license": "GPL-2.0-only"
+		},
+		{
+			"name": "MariaDB",
+			"license": "LGPL-2.1-or-later"
+		},
+		{
+			"name": "MySQL",
+			"license": "GPL-1.0+"
+		},
+		{
+			"name": "nlohmann_json",
+			"license": "MIT",
+			"source_code": "https://github.com/nlohmann/json",
+			"tracked_version": "v3.12.0",
+			"file_name": "json.tar.xz",
+			"file_hash": "42f6e95cad6ec532fd372391373363b62a14af6d771056dbfc86160e6dfff7aa",
+			"cmake_target": "nlohmann_json::nlohmann_json"
+		},
+		{
+			"name": "OpenGL",
+			"license": "SGI-OpenGL"
+		},
+		{
+			"name": "OpenSSL",
+			"license": "Apache-2.0"
 		},
 		{
 			"name": "Opus",
 			"license": "BSD-3-Clause",
 			"source_code": "https://github.com/xiph/opus.git",
 			"cmake_target": "Opus::opus"
+		},
+		{
+			"name": "PCRE",
+			"license": "BSD-3-Clause"
+		},
+		{
+			"name": "Poco",
+			"components": [
+				"PocoFoundation",
+				"PocoJSON",
+				"PocoUtil",
+				"PocoXML",
+				"PocoZip"
+			],
+			"license": "BSL-1.0"
+		},
+		{
+			"name": "PostgreSQL",
+			"license": "PostgreSQL"
+		},
+		{
+			"name": "Protobuf",
+			"license": "BSD-3-Clause"
+		},
+		{
+			"name": "Python",
+			"license": "PSF-2.0"
+		},
+		{
+			"name": "Qt6",
+			"components": [
+				"Qt6Concurrent",
+				"Qt6Core",
+				"Qt6CoreTools",
+				"Qt6DBus",
+				"Qt6DBusTools",
+				"Qt6Gui",
+				"Qt6GuiTools",
+				"Qt6LinguistTools",
+				"Qt6Network",
+				"Qt6Sql",
+				"Qt6Svg",
+				"Qt6Test",
+				"Qt6Widgets",
+				"Qt6WidgetsTools",
+				"Qt6Xml",
+				"WrapAtomic",
+				"WrapOpenGL",
+				"WrapVulkanHeaders"
+			],
+			"license": "LGPL-3.0-only"
+		},
+		{
+			"name": "Sndfile",
+			"license": "LGPL-2.1-or-later",
+			"source_code": "https://github.com/libsndfile/libsndfile.git",
+			"cmake_target": "Sndfile::sndfile"
+		},
+		{
+			"name": "Soci",
+			"license": "BSL-1.0",
+			"source_code": "https://github.com/SOCI/soci.git",
+			"tracked_version": "897dac8f9cb327eb24827731e569fadd32ae53d4",
+			"cmake_target": "SOCI::SOCI"
+		},
+		{
+			"name": "speech-dispatcher",
+			"components": [
+				"speechd"
+			],
+			"license": "LGPL-2.1-or-later"
+		},
+		{
+			"name": "SPSCQueue",
+			"license": "MIT",
+			"source_code": "https://github.com/mumble-voip/SPSCQueue.git",
+			"tracked_version": "e0defee95d54785f767fd99a58fce391c2d04b81",
+			"cmake_target": "SPSCQueue"
+		},
+		{
+			"name": "SQLite3",
+			"license": "blessing"
+		},
+		{
+			"name": "Vulkan",
+			"license": "Apache-2.0"
+		},
+		{
+			"name": "X11",
+			"license": "X11"
+		},
+		{
+			"name": "ZLib",
+			"license": "Zlib"
 		}
 	]
 }
