@@ -14,10 +14,6 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 
 option(tracy "Enable the tracy profiler." OFF)
 
-option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
-option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
-option(bundled-cli11 "Use the bundled CLI11 version instead of looking for one on the system" ON)
-
 find_package(Qt6 6.2
 	COMPONENTS
 		Core
@@ -214,12 +210,9 @@ set(BUILD_SHARED_LIBS ${PREV_BUILD_SHARED_LIBS} CACHE BOOL "" FORCE)
 
 target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
-if(bundled-spdlog)
-	set(SPDLOG_SYSTEM_INCLUDES ON)
-	add_subdirectory("${3RDPARTY_DIR}/spdlog" "${CMAKE_CURRENT_BINARY_DIR}/spdlog" EXCLUDE_FROM_ALL)
-else()
-	find_package("spdlog" REQUIRED)
-endif()
+set(SPDLOG_SYSTEM_INCLUDES ON)
+find_package(spdlog REQUIRED)
+
 target_link_libraries(shared PUBLIC spdlog::spdlog)
 
 find_package("CLI11" 2 REQUIRED)

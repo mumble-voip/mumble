@@ -13,12 +13,6 @@
 [submodule "3rdparty/tracy"]
 	path = 3rdparty/tracy
 	url = https://github.com/wolfpld/tracy.git
-[submodule "3rdparty/nlohmann_json"]
-	path = 3rdparty/nlohmann_json
-	url = https://github.com/nlohmann/json.git
-[submodule "3rdparty/SPSCQueue"]
-	path = 3rdparty/SPSCQueue
-	url = https://github.com/mumble-voip/SPSCQueue.git
 [submodule "3rdparty/cmake-compiler-flags"]
 	path = 3rdparty/cmake-compiler-flags
 	url = https://github.com/Krzmbrzl/cmake-compiler-flags.git
@@ -28,12 +22,3 @@
 [submodule "3rdparty/utfcpp"]
 	path = 3rdparty/utfcpp
 	url = https://github.com/mumble-voip/utfcpp.git
-[submodule "3rdparty/soci"]
-	path = 3rdparty/soci
-	url = https://github.com/SOCI/soci.git
-[submodule "3rdparty/spdlog"]
-	path = 3rdparty/spdlog
-	url = https://github.com/gabime/spdlog.git
-[submodule "3rdparty/CLI11"]
-	path = 3rdparty/CLI11
-	url = https://github.com/CLIUtils/CLI11.git
