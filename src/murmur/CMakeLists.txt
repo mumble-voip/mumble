@@ -51,12 +51,14 @@ add_library(mumble_server_object_lib OBJECT
 	"${SHARED_SOURCE_DIR}/User.cpp"
 	"${SHARED_SOURCE_DIR}/User.h"
 )
+target_set_mumble_compiler_flags(mumble_server_object_lib)
 
 if(WIN32)
 	add_executable(mumble-server WIN32 "main.cpp")
 else()
 	add_executable(mumble-server "main.cpp")
 endif()
+target_set_mumble_compiler_flags(mumble-server)
 
 target_link_libraries(mumble-server mumble_server_object_lib CLI11::CLI11)
 
