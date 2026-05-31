@@ -7222,7 +7222,7 @@ des Kanals auswählen.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&lt;p&gt;This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate &amp;mdash; Mumble will remember it for future connections. If you are the server administrator, consider obtaining a free trusted certificate from Let&apos;s Encrypt (https://letsencrypt.org).&lt;/p&gt;</source>
+        <source>This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate — Mumble will remember it for future connections.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

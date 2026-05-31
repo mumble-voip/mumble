@@ -3698,13 +3698,11 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			}
 			QString selfSignedNote;
 			if (bSelfSigned) {
-				selfSignedNote =
-					tr("<p>This server is using a self-signed certificate. Self-signed certificates "
+				selfSignedNote = QString("<p>%1</p>").arg(
+					tr("This server is using a self-signed certificate. Self-signed certificates "
 					   "are not issued by a trusted authority, which is why this warning appears. "
-					   "If you trust this server, you can safely accept the certificate &mdash; "
-					   "Mumble will remember it for future connections. If you are the server "
-					   "administrator, consider obtaining a free trusted certificate from "
-					   "Let's Encrypt (https://letsencrypt.org).</p>");
+					   "If you trust this server, you can safely accept the certificate — "
+					   "Mumble will remember it for future connections."));
 			}
 
 			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
