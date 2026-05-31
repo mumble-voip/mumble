@@ -10,13 +10,19 @@ function(mumble_register_dependency NAME)
 	string(TOUPPER "${NAME}" NAME_UPPER)
 
 	set(options "")
-	set(one_val_keywords "MAIN_TARGET;FETCHCONTENT_ID")
+	set(one_val_keywords "MAIN_TARGET;FETCHCONTENT_ID;LICENSE")
 	set(multi_val_keywords "")
 	cmake_parse_arguments(PARSE_ARGV 1 "DEP" "${options}" "${one_val_keywords}" "${multi_val_keywords}")
 
 	if (DEP_UNPARSED_ARGUMENTS OR DEP_KEYWORDS_MISSING_VALUES)
 		message(FATAL_ERROR "Invalid use of mumble_register_dependency: ${DEP_UNPARSED_ARGUMENTS} ${DEP_KEYWORDS_MISSING_VALUES}")
 	endif()
+
+	if (NOT DEP_LICENSE)
+		message(FATAL_ERROR "Attempting to declare dependency '${NAME}' without license information")
+	endif()
+
+	set(MUMBLE_DEP_${NAME_UPPER}_LICENSE "${DEP_LICENSE}" PARENT_SCOPE)
 
 	if (DEP_MAIN_TARGET)
 		set(MUMBLE_DEP_${NAME_UPPER}_EXPECTED_MAIN_TARGET "${DEP_MAIN_TARGET}" PARENT_SCOPE)
@@ -42,6 +48,7 @@ foreach(CURRENT_DEP_IDX RANGE ${LAST_IDX})
 	string(JSON DEP_FILE ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "file_name")
 	string(JSON DEP_HASH ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "file_hash")
 	string(JSON DEP_TARGET ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "cmake_target")
+	string(JSON DEP_COMPONENTS ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "components")
 
 	set(FETCHCONTENT_ARG "")
 	if (DEP_SOURCE AND DEP_VERSION)
@@ -75,6 +82,23 @@ foreach(CURRENT_DEP_IDX RANGE ${LAST_IDX})
 		set(TARGET_ARG "MAIN_TARGET;${DEP_TARGET}")
 	endif()
 
-	mumble_register_dependency("${DEP_NAME}" ${FETCHCONTENT_ARG} ${TARGET_ARG})
+	mumble_register_dependency("${DEP_NAME}"
+		LICENSE "${DEP_LICENSE}"
+		${FETCHCONTENT_ARG}
+		${TARGET_ARG}
+	)
+
+	if (DEP_COMPONENTS)
+		# Ensure we recognize the license of components as well
+		string(JSON NUM_COMPS LENGTH "${DEP_COMPONENTS}")
+		math(EXPR COMP_MAX "${NUM_COMPS} - 1")
+		foreach(COMP_IDX RANGE ${COMP_MAX})
+			string(JSON COMP_NAME GET "${DEP_COMPONENTS}" ${COMP_IDX})
+
+			mumble_register_dependency("${COMP_NAME}"
+				LICENSE "${DEP_LICENSE}"
+			)
+		endforeach()
+	endif()
 endforeach()
 
