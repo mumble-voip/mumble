@@ -100,6 +100,10 @@ macro(mumble_provide_dependency METHOD DEP_NAME)
 		endif()
 	endif()
 
+	if (${DEP_NAME}_FOUND AND NOT DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_LICENSE AND NOT DEP_NAME_UPPER STREQUAL "THREADS" AND NOT DEP_NAME_UPPER STREQUAL "PKGCONFIG")
+		message(WARNING "Using dependency '${DEP_NAME}' with unknown license")
+	endif()
+
 	# TODO: find_package_handle_standard_args for printing status of find_package call
 	
 	# TODO: Handle creation of alias targets (cmp. what we do for utfcpp)
