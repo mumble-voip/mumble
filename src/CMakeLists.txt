@@ -35,9 +35,8 @@ find_package(OpenSSL
 
 find_package(Protobuf REQUIRED)
 
-add_compile_options(${MUMBLE_COMPILER_FLAGS})
-
 add_library(shared STATIC)
+target_set_mumble_compiler_flags(shared)
 
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${UDP_PROTO_FILE} OUT_VAR BUILT_UDP_PROTO_FILES)

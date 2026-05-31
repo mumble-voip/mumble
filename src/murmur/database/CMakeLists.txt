@@ -31,6 +31,7 @@ add_library(mumble_server_database STATIC
 	"BanTable.cpp"
 	"ChannelListenerTable.cpp"
 )
+target_set_mumble_compiler_flags(mumble_server_database)
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 

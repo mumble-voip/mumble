@@ -36,7 +36,9 @@ get_compiler_flags(
 	OUTPUT_VARIABLE MUMBLE_COMPILER_FLAGS
 )
 
-message(STATUS "Using (among others) the following compiler flags: ${MUMBLE_COMPILER_FLAGS}")
+function(target_set_mumble_compiler_flags TARGET)
+	target_compile_options(${TARGET} PRIVATE ${MUMBLE_COMPILER_FLAGS})
+endfunction()
 
 if(MSVC)
 	if(32_BIT)
