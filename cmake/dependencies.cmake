@@ -39,20 +39,32 @@ foreach(CURRENT_DEP_IDX RANGE ${LAST_IDX})
 	string(JSON DEP_LICENSE GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "license")
 	string(JSON DEP_SOURCE ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "source_code")
 	string(JSON DEP_VERSION ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "tracked_version")
+	string(JSON DEP_FILE ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "file_name")
+	string(JSON DEP_HASH ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "file_hash")
 	string(JSON DEP_TARGET ERROR_VARIABLE DUMMY GET "${MUMBLE_DEPENDENCIES}" ${CURRENT_DEP_IDX} "cmake_target")
 
 	if (DEP_SOURCE AND DEP_VERSION)
-		if (NOT "${DEP_SOURCE}" MATCHES ".*\\.git")
-			message(FATAL_ERROR "Non-git source codes not (yet) supported: ${DEP_SOURCE}")
+		if ("${DEP_SOURCE}" MATCHES ".*\\.git")
+			FetchContent_Declare("${DEP_NAME}"
+				GIT_TAG        "${DEP_VERSION}"
+				GIT_REPOSITORY "${DEP_SOURCE}"
+				GIT_SHALLOW TRUE
+				SYSTEM
+				EXCLUDE_FROM_ALL
+			)
+		else()
+			if (NOT DEP_FILE OR NOT DEP_HASH)
+				message(FATAL_ERROR "Missing 'file_name' and 'file_hash' propeerties for dependency '${DEP_NAME}'")
+			endif()
+			FetchContent_Declare("${DEP_NAME}"
+				# This URL scheme assumes we're using GitHub repo URLs as DEP_SOURCE
+				URL        "${DEP_SOURCE}/releases/download/${DEP_VERSION}/${DEP_FILE}"
+				URL_HASH   "SHA256=${DEP_HASH}"
+				DOWNLOAD_NO_PROGRESS TRUE
+				SYSTEM
+				EXCLUDE_FROM_ALL
+			)
 		endif()
-
-		FetchContent_Declare("${DEP_NAME}"
-			GIT_TAG        "${DEP_VERSION}"
-			GIT_REPOSITORY "${DEP_SOURCE}"
-			GIT_SHALLOW
-			SYSTEM
-			EXCLUDE_FROM_ALL
-		)
 
 		set(FETCHCONTENT_ARG "FETCHCONTENT_ID;${DEP_NAME}")
 	endif()
