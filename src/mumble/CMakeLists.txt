@@ -356,6 +356,7 @@ add_custom_command(
 list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
 add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
+target_set_mumble_compiler_flags(mumble_client_object_lib)
 target_link_libraries(mumble_client_object_lib PUBLIC smallft)
 
 if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -364,6 +365,7 @@ if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
 else()
 	add_executable(mumble "main.cpp")
 endif()
+target_set_mumble_compiler_flags(mumble)
 
 if(WIN32)
 	target_sources(mumble_client_object_lib

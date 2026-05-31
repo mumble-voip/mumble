@@ -30,6 +30,7 @@ add_library(mumble_database STATIC
 	"Utils.cpp"
 	"Version.cpp"
 )
+target_set_mumble_compiler_flags(mumble_database)
 
 target_include_directories(mumble_database PUBLIC "${CMAKE_SOURCE_DIR}/src")
 
