@@ -1,0 +1,56 @@
+
+name: Build and Test
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: FreeBSD
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 1
+        submodules: 'recursive'
+    - uses: vmactions/freebsd-vm@v1
+      with:
+        release: "15.0"
+        usesh: true
+        prepare: |
+          freebsd-version
+          pkg update && pkg upgrade -y
+          pkg install -y \
+            avahi-libdns \
+            boost-libs \
+            cmake \
+            git \
+            libsndfile \
+            ninja \
+            opus \
+            pkgconf \
+            poco \
+            protobuf \
+            qt6-base \
+            qt6-svg \
+            qt6-tools
+          
+
+        run: |
+          mkdir build
+          cd build
+          cmake -G Ninja .. -DCMAKE_BUILD_TYPE=Release \
+            -Dtests=ON \
+            -Dsymbols=ON \
+            -Ddisplay-install-paths=ON \
+            -Dtest-lto=OFF \
+            -Dice=OFF \
+            -DCMAKE_UNITY_BUILD=ON
+          cmake --build .
+          ctest --output-on-failure
+          cmake --install .
+
+
