@@ -156,6 +156,7 @@ public:
 	void storeState(bool minimalView);
 
 	void updateChatBar();
+	void resetWhisperHoldState(const QString &message = QString());
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
 
@@ -191,7 +192,6 @@ protected:
 	void applyWhisperHoldTarget();
 	void refreshWhisperHoldTarget();
 	void removeWhisperHoldTarget(bool update = true);
-	void resetWhisperHoldState(const QString &message = QString());
 	/// This is a pure helper number whose job is to always be increased
 	/// if a new VoiceTarget is needed. It will be used as the helper
 	/// number in qmTargetUse.

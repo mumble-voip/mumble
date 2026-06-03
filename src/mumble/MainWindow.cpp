@@ -126,9 +126,7 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{
-		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
-	}
+	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -3149,6 +3147,10 @@ void MainWindow::updateTarget() {
 }
 
 void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
+	if (!scdata.canConvert< ShortcutTarget >()) {
+		return;
+	}
+
 	ShortcutTarget st = scdata.value< ShortcutTarget >();
 
 	if (down) {
@@ -3264,6 +3266,10 @@ void MainWindow::on_gsWhisperHold_triggered(bool down, QVariant scdata) {
 	}
 
 	if (Global::get().s.atTransmit == Settings::PushToTalk) {
+		return;
+	}
+
+	if (!scdata.canConvert< ShortcutTarget >()) {
 		return;
 	}
 
@@ -3594,6 +3600,10 @@ void MainWindow::on_gsAdaptivePush_triggered(bool down, QVariant variant) {
 void MainWindow::whisperReleased(QVariant scdata) {
 	if (Global::get().iPushToTalk <= 0)
 		return;
+
+	if (!scdata.canConvert< ShortcutTarget >()) {
+		return;
+	}
 
 	ShortcutTarget st = scdata.value< ShortcutTarget >();
 
@@ -4333,19 +4343,9 @@ void MainWindow::openAudioStatsDialog() {
 void MainWindow::openConfigDialog() {
 	ConfigDialog *dlg = new ConfigDialog(this);
 
-	Global::get().inConfigUI            = true;
-	QList< Shortcut > previousShortcuts = normalizedShortcutList(Global::get().s.qlShortcuts);
+	Global::get().inConfigUI = true;
 
 	QObject::connect(dlg, &ConfigDialog::settingsAccepted, Global::get().talkingUI, &TalkingUI::on_settingsChanged);
-	QObject::connect(dlg, &ConfigDialog::settingsAccepted, this, [this, previousShortcuts]() mutable {
-		if (Global::get().s.atTransmit == Settings::PushToTalk) {
-			resetWhisperHoldState(tr("Whisper hold cleared: Push-to-Talk enabled."));
-		} else if (previousShortcuts != normalizedShortcutList(Global::get().s.qlShortcuts)) {
-			resetWhisperHoldState(tr("Whisper hold cleared: Shortcuts changed."));
-		}
-
-		previousShortcuts = normalizedShortcutList(Global::get().s.qlShortcuts);
-	});
 	QObject::connect(dlg, &ConfigDialog::settingsAccepted, []() {
 		if (Global::get().s.requireThemeApplication) {
 			Themes::apply();

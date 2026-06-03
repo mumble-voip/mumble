@@ -247,9 +247,7 @@ PROCESS_ALL_ENUMS
 
 #define BEFORE_CODE(enumType) void stringToEnum(const std::string &str, enumType &e) {
 #define AFTER_CODE                                           \
-	{                                                        \
-		throw "Unable to convert given string to enum type"; \
-	}                                                        \
+	{ throw "Unable to convert given string to enum type"; } \
 	}
 #define PROCESS(enumType, enumValue, stringValue) \
 	if (str == stringValue) {                     \
