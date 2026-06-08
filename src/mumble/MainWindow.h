@@ -424,6 +424,7 @@ public slots:
 	void highlightWindow();
 	void on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
 					   unsigned int newChannelID);
+	void on_localUserChannelChanged(unsigned int prevChannelID, unsigned int newChannelID);
 	void on_qaMoveBack_triggered();
 signals:
 	/// Signal emitted when the server and the client have finished

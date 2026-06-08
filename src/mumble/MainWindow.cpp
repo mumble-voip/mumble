@@ -514,6 +514,7 @@ void MainWindow::setupGui() {
 	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged,
 					 pmModel, &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 	QObject::connect(pmModel, &UserModel::userMoved, this, &MainWindow::on_user_moved);
+	QObject::connect(pmModel, &UserModel::localUserChannelChanged, this, &MainWindow::on_localUserChannelChanged);
 
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
@@ -1208,6 +1209,13 @@ void MainWindow::on_user_moved(unsigned int sessionID, const std::optional< unsi
 	}
 
 	(void) newChannelID;
+}
+
+void MainWindow::on_localUserChannelChanged(unsigned int prevChannelID, unsigned int newChannelID) {
+	if (bWhisperHoldTargetApplied && !stWhisperHoldTarget.bUsers
+		&& stWhisperHoldTarget.iChannel == SHORTCUT_TARGET_CURRENT && prevChannelID != newChannelID) {
+		updateTarget();
+	}
 }
 
 void MainWindow::on_qaMoveBack_triggered() {

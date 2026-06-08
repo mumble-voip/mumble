@@ -226,6 +226,11 @@ signals:
 	/// @param prevChannelID The ID of the channel the user is moving from (if any)
 	/// @param newChannelID The ID of the channel the user has moved into
 	void userMoved(unsigned int userSessionID, std::optional< unsigned int > prevChannelID, unsigned int newChannelID);
+	/// A signal emitted after the local user has changed channels.
+	///
+	/// @param prevChannelID The ID of the channel the local user moved from
+	/// @param newChannelID The ID of the channel the local user moved into
+	void localUserChannelChanged(unsigned int prevChannelID, unsigned int newChannelID);
 	/// A signal emitted whenever a user is removed from the model.
 	///
 	/// @param userSessionID The ID of that user's session
