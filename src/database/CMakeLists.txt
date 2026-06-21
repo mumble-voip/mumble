@@ -64,7 +64,7 @@ set(SOCI_ORACLE OFF)
 set(SOCI_POSTGRESQL ${enable-postgresql})
 set(SOCI_SQLITE3 ${enable-sqlite})
 
-find_package("Soci" 4.2.0 COMPONENTS ${components} CONFIG REQUIRED)
+find_package("SOCI" 4.1.4 COMPONENTS ${components} CONFIG REQUIRED)
 
 target_link_libraries(mumble_database PUBLIC SOCI::SOCI)
 
