@@ -59,6 +59,8 @@ protected:
 
 		constexpr Type type() { return m_type; };
 
+		virtual ~MsgRaw() = default;
+
 	protected:
 		MsgRaw(const Type type) : m_type(type) {}
 
