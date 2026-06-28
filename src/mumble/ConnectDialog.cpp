@@ -1102,11 +1102,6 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qmPingCache = Global::get().db->getPingCache();
 
-	if (!Global::get().s.qbaConnectDialogGeometry.isEmpty())
-		restoreGeometry(Global::get().s.qbaConnectDialogGeometry);
-	if (!Global::get().s.qbaConnectDialogHeader.isEmpty())
-		qtwServers->header()->restoreState(Global::get().s.qbaConnectDialogHeader);
-
 	setTabOrder(qtwServers, qleSearchServername);
 	setTabOrder(qleSearchServername, qcbSearchLocation);
 	setTabOrder(qcbSearchLocation, qcbFilter);
@@ -1138,9 +1133,6 @@ ConnectDialog::~ConnectDialog() {
 	}
 	Global::get().db->setFavorites(ql);
 	Global::get().db->setPingCache(qmPingCache);
-
-	Global::get().s.qbaConnectDialogHeader   = qtwServers->header()->saveState();
-	Global::get().s.qbaConnectDialogGeometry = saveGeometry();
 }
 
 void ConnectDialog::accept() {
