@@ -78,13 +78,6 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 	restoreAllButton->setWhatsThis(tr("This button will restore the defaults for all settings."));
 	restoreAllButton->installEventFilter(new OverrideTabOrderFilter(restoreAllButton, applyButton));
 
-	if (!Global::get().s.qbaConfigGeometry.isEmpty()) {
-#ifdef USE_OVERLAY
-		if (!Global::get().ocIntercept)
-#endif
-			restoreGeometry(Global::get().s.qbaConfigGeometry);
-	}
-
 	updateTabOrder();
 	qlwIcons->setFocus();
 }
@@ -305,11 +298,6 @@ void ConfigDialog::apply() {
 
 void ConfigDialog::accept() {
 	apply();
-
-#ifdef USE_OVERLAY
-	if (!Global::get().ocIntercept)
-#endif
-		Global::get().s.qbaConfigGeometry = saveGeometry();
 
 	// Save settings to disk
 	Global::get().s.save();
