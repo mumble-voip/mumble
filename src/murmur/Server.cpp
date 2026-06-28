@@ -706,6 +706,11 @@ void Server::udpActivated(int socket) {
                      reinterpret_cast< struct sockaddr * >(&from), &fromlen);
 #endif
 
+	if (len < 0) {
+		// Socket error
+		return;
+	}
+
 	gsl::span< Mumble::Protocol::byte > inputData(&m_udpDecoder.getBuffer()[0], static_cast< std::size_t >(len));
 
 	if (bAllowPing && m_udpDecoder.decodePing(inputData)
