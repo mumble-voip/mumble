@@ -161,7 +161,6 @@
 	PROCESS(ui, WINDOW_GEOMETRY_MINIMAL_VIEW_KEY, qbaMinimalViewGeometry)        \
 	PROCESS(ui, WINDOW_STATE_KEY, qbaMainWindowState)                            \
 	PROCESS(ui, WINDOW_STATE_MINIMAL_VIEW_KEY, qbaMinimalViewState)              \
-	PROCESS(ui, CONFIG_GEOMETRY_KEY, qbaConfigGeometry)                          \
 	PROCESS(ui, WINDOW_LAYOUT_KEY, wlWindowLayout)                               \
 	PROCESS(ui, SERVER_FILTER_MODE_KEY, ssFilter)                                \
 	PROCESS(ui, HIDE_IN_TRAY_KEY, bHideInTray)                                   \
