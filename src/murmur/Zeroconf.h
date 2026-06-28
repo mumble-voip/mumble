@@ -44,6 +44,8 @@ protected:
 	protected:
 		struct CallbackCtx {
 			std::weak_ptr< Reg > regWeak;
+
+			explicit CallbackCtx(std::weak_ptr< Reg > reg) : regWeak(std::move(reg)) {}
 		};
 
 		struct InstanceDeleter {
