@@ -722,12 +722,12 @@ void Server::udpActivated(int socket) {
 	msg.msg_controllen = sizeof(controldata);
 
 	int &sock = socket;
-	len       = static_cast< qint32 >(::recvmsg(sock, &msg, MSG_TRUNC));
+	len       = static_cast< qint32 >(::recvmsg(sock, &msg, 0));
 #	else
 	socklen_t fromlen = sizeof(from);
 	int &sock         = socket;
-	len = static_cast< qint32 >(::recvfrom(sock, m_udpDecoder.getBuffer().data(), m_udpDecoder.getBuffer().size(),
-										   MSG_TRUNC, reinterpret_cast< struct sockaddr * >(&from), &fromlen));
+	len = static_cast< qint32 >(::recvfrom(sock, m_udpDecoder.getBuffer().data(), m_udpDecoder.getBuffer().size(), 0,
+										   reinterpret_cast< struct sockaddr * >(&from), &fromlen));
 #	endif
 #else
 	int fromlen = static_cast< int >(sizeof(from));
@@ -736,6 +736,11 @@ void Server::udpActivated(int socket) {
                      static_cast< int >(m_udpDecoder.getBuffer().size()), 0,
                      reinterpret_cast< struct sockaddr * >(&from), &fromlen);
 #endif
+
+	if (len < 0) {
+		// Socket error
+		return;
+	}
 
 	std::span< Mumble::Protocol::byte > inputData(&m_udpDecoder.getBuffer()[0], static_cast< std::size_t >(len));
 
@@ -876,10 +881,10 @@ void Server::run() {
 				msg.msg_control    = controldata;
 				msg.msg_controllen = sizeof(controldata);
 
-				len = static_cast< qint32 >(::recvmsg(sock, &msg, MSG_TRUNC));
+				len = static_cast< qint32 >(::recvmsg(sock, &msg, 0));
 				Q_UNUSED(fromlen);
 #	else
-				len = static_cast< qint32 >(::recvfrom(sock, encrypt, Mumble::Protocol::MAX_UDP_PACKET_SIZE, MSG_TRUNC,
+				len = static_cast< qint32 >(::recvfrom(sock, encrypt, Mumble::Protocol::MAX_UDP_PACKET_SIZE, 0,
 													   reinterpret_cast< struct sockaddr * >(&from), &fromlen));
 #	endif
 #endif
