@@ -439,8 +439,6 @@ struct Settings {
 	bool bChatBarUseSelection            = false;
 	bool bFilterHidesEmptyChannels       = true;
 	bool bFilterActive                   = false;
-	QByteArray qbaConnectDialogHeader    = {};
-	QByteArray qbaConnectDialogGeometry  = {};
 	bool bShowContextMenuInMenuBar       = false;
 
 	// Search settings

@@ -974,8 +974,6 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(bFilterActive, "ui/filteractive");
 	LOAD(qsImagePath, "ui/imagepath");
 	LOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
-	LOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
-	LOAD(qbaConnectDialogHeader, "ui/connect/header");
 	LOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	LOAD(bHighContrast, "ui/HighContrast");
 	LOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
