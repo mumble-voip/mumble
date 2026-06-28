@@ -1430,21 +1430,47 @@ void MainWindow::setOnTop(bool top) {
 }
 
 void MainWindow::loadState(const bool minimalView) {
+	// The Qt restoreGeometry and restoreState methods are very fragile and can crash the
+	// application. Even providing stateVersion() does not prevent all situations where a
+	// stored geometry or state will result in a crash loop.
+	// Hence, before trying to restore the state or geometry, we overwrite the current saved
+	// ones on disk. This prevents a crash loop as the second execution will have the variables
+	// unset. In case restoreGeometry and restoreState does not crash the application, we can
+	// save the geometry and state again to disk.
+	// See: https://github.com/mumble-voip/mumble/issues/7193
+
 	if (minimalView) {
-		if (!Global::get().s.qbaMinimalViewGeometry.isNull()) {
-			restoreGeometry(Global::get().s.qbaMinimalViewGeometry);
+		QByteArray geometry                    = Global::get().s.qbaMinimalViewGeometry;
+		QByteArray state                       = Global::get().s.qbaMinimalViewState;
+		Global::get().s.qbaMinimalViewGeometry = QByteArray();
+		Global::get().s.qbaMinimalViewState    = QByteArray();
+
+		Global::get().s.save();
+
+		if (!geometry.isEmpty()) {
+			restoreGeometry(geometry);
 		}
-		if (!Global::get().s.qbaMinimalViewState.isNull()) {
-			restoreState(Global::get().s.qbaMinimalViewState, stateVersion());
+		if (!state.isEmpty()) {
+			restoreState(state, stateVersion());
 		}
 	} else {
-		if (!Global::get().s.qbaMainWindowGeometry.isNull()) {
-			restoreGeometry(Global::get().s.qbaMainWindowGeometry);
+		QByteArray geometry                   = Global::get().s.qbaMainWindowGeometry;
+		QByteArray state                      = Global::get().s.qbaMainWindowState;
+		Global::get().s.qbaMainWindowGeometry = QByteArray();
+		Global::get().s.qbaMainWindowState    = QByteArray();
+
+		Global::get().s.save();
+
+		if (!geometry.isEmpty()) {
+			restoreGeometry(geometry);
 		}
-		if (!Global::get().s.qbaMainWindowState.isNull()) {
-			restoreState(Global::get().s.qbaMainWindowState, stateVersion());
+		if (!state.isEmpty()) {
+			restoreState(state, stateVersion());
 		}
 	}
+
+	storeState(minimalView);
+	Global::get().s.save();
 }
 
 void MainWindow::storeState(const bool minimalView) {
