@@ -11,7 +11,7 @@
 #include <memory>
 
 #ifdef Q_OS_WIN
-#	include <optional>
+#	include <boost/optional.hpp>
 
 #	include <windns.h>
 #endif
@@ -60,7 +60,7 @@ protected:
 			}
 		};
 
-		std::optional< DNS_SERVICE_CANCEL > m_cancel;
+		boost::optional< DNS_SERVICE_CANCEL > m_cancel;
 		std::unique_ptr< DNS_SERVICE_INSTANCE, InstanceDeleter > m_instance;
 
 		static void WINAPI callback(const DWORD status, void *context, DNS_SERVICE_INSTANCE *instance);

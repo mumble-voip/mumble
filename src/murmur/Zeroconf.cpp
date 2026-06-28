@@ -104,11 +104,11 @@ bool Zeroconf::Reg::cancel() {
 	}
 
 	if (m_cancel) {
-		const auto ret = DnsServiceRegisterCancel(&m_cancel.value());
+		const auto ret = DnsServiceRegisterCancel(&m_cancel.get());
 		if (ret != ERROR_SUCCESS && ret != ERROR_CANCELLED) {
 			qWarning("Zeroconf: DnsServiceRegisterCancel() failed with error %u!", ret);
 
-			m_cancel.reset();
+			m_cancel = boost::none;
 			m_instance.reset();
 
 			return false;
@@ -173,7 +173,7 @@ bool Zeroconf::Reg::request(const BonjourRecord &record, const uint16_t port) {
 		qWarning("Zeroconf: DnsServiceRegister() failed with error %u!", ret);
 
 		m_instance.reset();
-		m_cancel.reset();
+		m_cancel = boost::none;
 
 		return false;
 	}
@@ -191,7 +191,7 @@ void WINAPI Zeroconf::Reg::callback(const DWORD status, void *userdata, DNS_SERV
 			return;
 		}
 
-		self->m_cancel.reset();
+		self->m_cancel = boost::none;
 
 		switch (status) {
 			case ERROR_SUCCESS:
