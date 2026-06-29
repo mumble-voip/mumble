@@ -432,6 +432,7 @@ struct Settings {
 	bool bLockLayout                     = false;
 	bool bHideInTray                     = false;
 	bool bStateInTray                    = true;
+	bool bInhibitSleep                   = false;
 	bool bUsage                          = true;
 	bool bShowUserCount                  = false;
 	bool bShowVolumeAdjustments          = true;

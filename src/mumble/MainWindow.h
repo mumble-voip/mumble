@@ -42,6 +42,7 @@ class UserInformation;
 class VoiceRecorderDialog;
 class PositionalAudioViewer;
 class PTTButtonWidget;
+class SleepInhibitor;
 
 namespace Search {
 class SearchDialog;
@@ -205,6 +206,8 @@ protected:
 
 	std::stack< unsigned int > m_previousChannels;
 	std::optional< unsigned int > m_movedBackFromChannel;
+
+	SleepInhibitor *m_sleepInhibitor;
 
 	static constexpr int stateVersion();
 
