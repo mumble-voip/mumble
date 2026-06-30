@@ -403,6 +403,7 @@ struct Settings {
 	QByteArray qbaMainWindowState        = {};
 	QByteArray qbaMinimalViewGeometry    = {};
 	QByteArray qbaMinimalViewState       = {};
+	bool preventWindowStates             = false;
 	WindowLayout wlWindowLayout          = LayoutClassic;
 	ChannelExpand ceExpand               = ChannelsWithUsers;
 	ChannelDrag ceChannelDrag            = Ask;
