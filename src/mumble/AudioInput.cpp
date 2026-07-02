@@ -19,7 +19,7 @@
 #include "Global.h"
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
-#include "WebRTC_Priv.h"
+#	include "WebRTC_Priv.h"
 #endif
 
 #include <opus.h>
@@ -955,9 +955,10 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	Settings::VADSource currentVad = m_vad.load();
 
 	switch (currentVad) {
+		case Settings::WebRTC:
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
-		case Settings::WebRTC: {
-			auto webrtcVad = std::atomic_load(&m_vadWebrtc);
+		{
+			auto webrtcVad = m_vadWebrtc.load();
 
 			if (!webrtcVad) {
 				break;
@@ -966,6 +967,9 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			fSpeechProb = !!webrtcVad->VoiceActivity(psSource, iFrameSize, iSampleRate);
 			break;
 		}
+#else
+			fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
+			break;
 #endif
 		default:
 			fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
@@ -1279,10 +1283,9 @@ void AudioInput::updateVad(Settings::VADSource src) {
 		if (!u) {
 			qWarning() << "AudioInput: Failed to initialize WebRTC VAD, disabled";
 		}
-		std::shared_ptr< webrtc::Vad > s = std::move(u);
-		std::atomic_store(&m_vadWebrtc, std::move(s));
+		m_vadWebrtc.store(std::move(u));
 	} else {
-		std::atomic_store(&m_vadWebrtc, std::shared_ptr< webrtc::Vad >(nullptr));
+		m_vadWebrtc.store(nullptr);
 	}
 #endif
 	m_vad.store(src);
@@ -1291,13 +1294,12 @@ void AudioInput::updateVad(Settings::VADSource src) {
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
 void AudioInput::updateWebrtcAggressiveness(webrtc::Vad::Aggressiveness aggressiveness) {
 	m_vadWebrtcAggressiveness = aggressiveness;
-	if (m_vad.load() == Settings::WebRTC && m_vadWebrtc) {
+	if (m_vad.load() == Settings::WebRTC && m_vadWebrtc.load()) {
 		auto u = webrtc::CreateVad(m_vadWebrtcAggressiveness);
 		if (!u) {
 			qWarning() << "AudioInput: Failed to initialize WebRTC VAD, disabled";
 		}
-		std::shared_ptr< webrtc::Vad > s = std::move(u);
-		std::atomic_store(&m_vadWebrtc, std::move(s));
+		m_vadWebrtc.store(std::move(u));
 	}
 }
 #endif

@@ -31,7 +31,7 @@
 #include "Timer.h"
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
-#include "WebRTC_Priv.h"
+#	include "WebRTC_Priv.h"
 #endif
 
 class AudioInput;
@@ -234,7 +234,7 @@ protected:
 	std::atomic< Settings::VADSource > m_vad;
 
 #ifdef USE_WEBRTC_AUDIO_PROCESSING
-	std::shared_ptr< webrtc::Vad > m_vadWebrtc;
+	std::atomic< std::shared_ptr< webrtc::Vad > > m_vadWebrtc;
 	webrtc::Vad::Aggressiveness m_vadWebrtcAggressiveness;
 #endif
 
