@@ -818,22 +818,51 @@ else()
 endif()
 
 if(webrtc-audio-processing)
-	find_pkg(webrtc-audio-processing REQUIRED)
+	find_pkg(webrtc-audio-processing QUIET)
 
-	target_compile_definitions(mumble_client_object_lib
+	if(webrtc-audio-processing_FOUND)
+		set(webrtc_target webrtc-audio-processing)
+	else()
+		find_pkg(webrtc-audio-processing-1 QUIET)
+
+		if(webrtc-audio-processing-1_FOUND)
+			set(webrtc_target webrtc-audio-processing-1)
+		else()
+			find_pkg(webrtc QUIET)
+
+			if(webrtc_FOUND)
+				set(webrtc_target webrtc)
+			else()
+				find_pkg(unofficial-webrtc REQUIRED)
+				set(webrtc_target unofficial-webrtc)
+			endif()
+		endif()
+	endif()
+
+	target_compile_definitions(
+		mumble_client_object_lib
 		PUBLIC
-			"USE_WEBRTC_AUDIO_PROCESSING"
+			USE_WEBRTC_AUDIO_PROCESSING
 	)
 
-	target_include_directories(mumble_client_object_lib
-		PUBLIC
-			${webrtc-audio-processing_INCLUDE_DIRS}
-	)
-
-	target_link_libraries(mumble_client_object_lib
-		PUBLIC
-			${webrtc-audio-processing_LIBRARIES}
-	)
+	if(webrtc_target STREQUAL "unofficial-webrtc")
+		target_link_libraries(
+			mumble_client_object_lib
+			PUBLIC
+				unofficial::webrtc::webrtc
+		)
+	else()
+		target_include_directories(
+			mumble_client_object_lib
+			PUBLIC
+				${${webrtc_target}_INCLUDE_DIRS}
+		)
+		target_link_libraries(
+			mumble_client_object_lib
+			PUBLIC
+				${${webrtc_target}_LIBRARIES}
+		)
+	endif()
 endif()
 
 if(crash-report)
