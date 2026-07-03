@@ -1086,6 +1086,10 @@ GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, QVariant d
 	GlobalShortcutEngine::add(this);
 }
 
+void GlobalShortcut::reset() {
+	qlActive.clear();
+}
+
 GlobalShortcut::~GlobalShortcut() {
 	GlobalShortcutEngine::remove(this);
 }

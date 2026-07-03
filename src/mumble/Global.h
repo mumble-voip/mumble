@@ -51,6 +51,7 @@ public:
 	MainWindow *mw;
 	TrayIcon *trayIcon;
 	Settings s;
+	Profiles profiles;
 	std::shared_ptr< ServerHandler > sh;
 	std::shared_ptr< AudioInput > ai;
 	std::shared_ptr< AudioOutput > ao;

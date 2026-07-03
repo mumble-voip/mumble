@@ -1085,4 +1085,13 @@ TalkingUI > QFrame {
   border-radius: 2px;
 }
 
+QToolButton.hamburger {
+  qproperty-icon: url(skin:hamburger.svg);
+  padding-right: 0px;
+}
+
+QToolButton.hamburger::menu-indicator {
+  image: none;
+}
+
 /*# sourceMappingURL=Lite.qss.map */

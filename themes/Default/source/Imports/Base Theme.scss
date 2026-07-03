@@ -1249,3 +1249,12 @@ TalkingUI > QFrame {
 	border-color: $base-border;
 	border-radius: $base-border-radius;
 }
+
+QToolButton.hamburger {
+	qproperty-icon: url(skin:hamburger.svg);
+	padding-right: 0px;
+}
+
+QToolButton.hamburger::menu-indicator {
+	image: none;
+}

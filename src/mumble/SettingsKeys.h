@@ -34,6 +34,10 @@ namespace SettingsKeys {
  * loading settings.
  */
 
+// Meta
+const SettingsKey ACTIVE_PROFILE = { "active_profile" };
+const SettingsKey PROFILES       = { "profiles" };
+
 // Audio settings
 const SettingsKey UNMUTE_ON_UNDEAF_KEY                        = { "unmute_on_undeaf" };
 const SettingsKey MUTE_KEY                                    = { "mute" };

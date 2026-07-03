@@ -11,6 +11,10 @@
 
 // Mappings between SettingsKey objects and the corresponding fields in the Settings struct
 
+#define PROFILE_SETTINGS                                 \
+	PROCESS(profiles, ACTIVE_PROFILE, activeProfileName) \
+	PROCESS(profiles, PROFILES, allProfiles)
+
 #define MISC_SETTINGS                                                               \
 	PROCESS(misc, DATABASE_LOCATION_KEY, qsDatabaseLocation)                        \
 	PROCESS(misc, IMAGE_DIRECTORY_KEY, qsImagePath)                                 \
@@ -348,6 +352,7 @@
 
 #define PROCESS_ALL_OVERLAY_SETTINGS OVERLAY_SETTINGS
 
+#define PROCESS_ALL_PROFILE_SETTINGS PROFILE_SETTINGS
 
 #define PROCESS_ALL_SETTINGS_WITH_INTERMEDIATE_OPERATION \
 	MISC_SETTINGS                                        \
@@ -395,6 +400,10 @@
 
 #define PROCESS_ALL_OVERLAY_SETTINGS_WITH_INTERMEDIATE_OPERATION \
 	OVERLAY_SETTINGS                                             \
+	INTERMEDIATE_OPERATION
+
+#define PROCESS_ALL_PROFILE_SETTINGS_WITH_INTERMEDIATE_OPERATION \
+	PROFILE_SETTINGS                                             \
 	INTERMEDIATE_OPERATION
 
 

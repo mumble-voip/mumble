@@ -27,6 +27,7 @@
     <file alias="filter.svg">Default/filter.svg</file>
     <file alias="filter_off.svg">Default/filter_off.svg</file>
     <file alias="filter_on.svg">Default/filter_on.svg</file>
+    <file alias="hamburger.svg">Default/hamburger.svg</file>
     <file alias="Information_icon.svg">Default/Information_icon.svg</file>
     <file alias="layout_classic.svg">Default/layout_classic.svg</file>
     <file alias="layout_custom.svg">Default/layout_custom.svg</file>
