@@ -403,7 +403,7 @@ struct Settings {
 	QByteArray qbaMainWindowState        = {};
 	QByteArray qbaMinimalViewGeometry    = {};
 	QByteArray qbaMinimalViewState       = {};
-	QByteArray qbaConfigGeometry         = {};
+	bool preventWindowStates             = false;
 	WindowLayout wlWindowLayout          = LayoutClassic;
 	ChannelExpand ceExpand               = ChannelsWithUsers;
 	ChannelDrag ceChannelDrag            = Ask;
@@ -423,8 +423,6 @@ struct Settings {
 	bool bChatBarUseSelection            = false;
 	bool bFilterHidesEmptyChannels       = true;
 	bool bFilterActive                   = false;
-	QByteArray qbaConnectDialogHeader    = {};
-	QByteArray qbaConnectDialogGeometry  = {};
 	bool bShowContextMenuInMenuBar       = false;
 
 	// Search settings

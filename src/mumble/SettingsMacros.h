@@ -156,7 +156,7 @@
 	PROCESS(ui, WINDOW_GEOMETRY_MINIMAL_VIEW_KEY, qbaMinimalViewGeometry)        \
 	PROCESS(ui, WINDOW_STATE_KEY, qbaMainWindowState)                            \
 	PROCESS(ui, WINDOW_STATE_MINIMAL_VIEW_KEY, qbaMinimalViewState)              \
-	PROCESS(ui, CONFIG_GEOMETRY_KEY, qbaConfigGeometry)                          \
+	PROCESS(ui, PREVENT_WINDOW_STATES_KEY, preventWindowStates)                  \
 	PROCESS(ui, WINDOW_LAYOUT_KEY, wlWindowLayout)                               \
 	PROCESS(ui, SERVER_FILTER_MODE_KEY, ssFilter)                                \
 	PROCESS(ui, HIDE_IN_TRAY_KEY, bHideInTray)                                   \
@@ -169,8 +169,6 @@
 	PROCESS(ui, FILTER_HIDES_EMPTY_CHANNEL_KEY, bFilterHidesEmptyChannels)       \
 	PROCESS(ui, FILTER_ACTIVE_KEY, bFilterActive)                                \
 	PROCESS(ui, CONTEXT_MENU_ENTRIES_IN_MENU_BAR_KEY, bShowContextMenuInMenuBar) \
-	PROCESS(ui, CONNECT_DIALOG_GEOMETRY_KEY, qbaConnectDialogGeometry)           \
-	PROCESS(ui, CONNECT_DIALOG_HEADER_STATE_KEY, qbaConnectDialogHeader)         \
 	PROCESS(ui, DISPLAY_TRANSMIT_MODE_COMBOBOX_KEY, bShowTransmitModeComboBox)   \
 	PROCESS(ui, HIGH_CONTRAST_MODE_KEY, bHighContrast)                           \
 	PROCESS(ui, MAX_LOG_LENGTH_KEY, iMaxLogBlocks)                               \
