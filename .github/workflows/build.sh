@@ -17,12 +17,15 @@ arch="${arch,,}"
 
 OS_SPECIFIC_CMAKE_OPTIONS=""
 
+if ! [[ "$build_type" = "static" ]]; then
+	OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES='cmake/mumble_dependency_provider.cmake'"
+fi
+
 case "$os" in
 	"ubuntu")
 		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Ddatabase-sqlite-tests=ON"
 		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Ddatabase-mysql-tests=ON"
 		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Ddatabase-postgresql-tests=ON"
-		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES='cmake/mumble_dependency_provider.cmake'"
 		;;
 	"windows")
 		if ! [[ "$arch" = "x86_64" ]]; then
