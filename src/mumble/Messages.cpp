@@ -1244,6 +1244,18 @@ void MainWindow::msgUserStats(const MumbleProto::UserStats &msg) {
 	}
 }
 
+/// ChatHistoryRequest is sent by the client to request persisted chat history from the server.
+/// Thus the client should not normally receive this message.
+void MainWindow::msgChatHistoryRequest(const MumbleProto::ChatHistoryRequest &msg) {
+	Q_UNUSED(msg);
+}
+
+/// ChatHistoryChunk is sent by the server in response to a ChatHistoryRequest and contains
+/// a page of persisted chat messages. The client-side UI handling is not implemented yet.
+void MainWindow::msgChatHistoryChunk(const MumbleProto::ChatHistoryChunk &msg) {
+	Q_UNUSED(msg);
+}
+
 /// This message is only ever sent by the client in order to request binary data that otherwise
 /// wouldn't be included in the normal messages (e.Global::get(). big images). Thus this implementation does
 /// nothing.
