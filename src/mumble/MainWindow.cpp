@@ -1439,7 +1439,7 @@ void MainWindow::loadState(const bool minimalView) {
 	// save the geometry and state again to disk.
 	// See: https://github.com/mumble-voip/mumble/issues/7193
 
-	if (Global::get().s.preventWindowStates) {
+	if (Global::get().s.preventWindowStates || Global::get().preventWindowStatesCLI) {
 		qWarning() << "Restoring window state and geometry is blocked by settings latch";
 		return;
 	}
@@ -1482,7 +1482,7 @@ void MainWindow::loadState(const bool minimalView) {
 }
 
 void MainWindow::storeState(const bool minimalView) {
-	if (Global::get().s.preventWindowStates) {
+	if (Global::get().s.preventWindowStates || Global::get().preventWindowStatesCLI) {
 		return;
 	}
 
