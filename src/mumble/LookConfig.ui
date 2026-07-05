@@ -20,13 +20,13 @@
       <string>Application</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qliAlwaysOnTop">
-        <property name="text">
-         <string>Always On Top</string>
+      <item row="4" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbLockLayout">
+        <property name="whatsThis">
+         <string>When in custom layout mode, checking this disables rearranging.</string>
         </property>
-        <property name="buddy">
-         <cstring>qcbAlwaysOnTop</cstring>
+        <property name="text">
+         <string>Lock layout</string>
         </property>
        </widget>
       </item>
@@ -63,16 +63,6 @@
         </item>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
-        <property name="toolTip">
-         <string>Adds user and channel context menus into the menu bar</string>
-        </property>
-        <property name="text">
-         <string>Show context menu in menu bar</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="qliQuitBehavior">
         <property name="text">
@@ -80,6 +70,16 @@
         </property>
         <property name="buddy">
          <cstring>qcbQuitBehavior</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbShowContextMenuInMenuBar">
+        <property name="toolTip">
+         <string>Adds user and channel context menus into the menu bar</string>
+        </property>
+        <property name="text">
+         <string>Show context menu in menu bar</string>
         </property>
        </widget>
       </item>
@@ -131,13 +131,23 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QCheckBox" name="qcbLockLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qliAlwaysOnTop">
+        <property name="text">
+         <string>Always On Top</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbAlwaysOnTop</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbRestoreWindowState">
         <property name="whatsThis">
-         <string>When in custom layout mode, checking this disables rearranging.</string>
+         <string>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</string>
         </property>
         <property name="text">
-         <string>Lock layout</string>
+         <string>Restore window geometry on startup</string>
         </property>
        </widget>
       </item>
@@ -1288,6 +1298,7 @@
   <tabstop>qcbQuitBehavior</tabstop>
   <tabstop>qcbEnableDeveloperMenu</tabstop>
   <tabstop>qcbLockLayout</tabstop>
+  <tabstop>qcbRestoreWindowState</tabstop>
   <tabstop>qcbHideTray</tabstop>
   <tabstop>qcbStateInTray</tabstop>
   <tabstop>qcbSearchUserAction</tabstop>
