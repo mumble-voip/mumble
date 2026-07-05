@@ -11,13 +11,14 @@ PTTButtonWidget::PTTButtonWidget(QWidget *p) : QWidget(p) {
 
 	setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint);
 
-	if (!Global::get().s.preventWindowStates && !Global::get().s.qbaPTTButtonWindowGeometry.isEmpty()) {
+	if (!Global::get().s.preventWindowStates && !Global::get().preventWindowStatesCLI
+		&& !Global::get().s.qbaPTTButtonWindowGeometry.isEmpty()) {
 		restoreGeometry(Global::get().s.qbaPTTButtonWindowGeometry);
 	}
 }
 
 void PTTButtonWidget::closeEvent(QCloseEvent *e) {
-	if (!Global::get().s.preventWindowStates) {
+	if (!Global::get().s.preventWindowStates && !Global::get().preventWindowStatesCLI) {
 		Global::get().s.qbaPTTButtonWindowGeometry = saveGeometry();
 	}
 

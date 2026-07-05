@@ -139,6 +139,8 @@ Global::Global(const QString &qsConfigPath) {
 
 	channelListenerManager = std::make_unique< ChannelListenerManager >();
 
+	preventWindowStatesCLI = false;
+
 	if (qsConfigPath.isEmpty()) {
 		qdBasePath.setPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 
