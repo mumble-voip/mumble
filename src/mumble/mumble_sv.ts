@@ -5206,6 +5206,14 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <source>Open Themes Directory</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore window geometry on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
