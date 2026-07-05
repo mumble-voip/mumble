@@ -142,7 +142,7 @@
 			"name": "Soci",
 			"license": "BSL-1.0",
 			"source_code": "https://github.com/SOCI/soci.git",
-			"tracked_version": "897dac8f9cb327eb24827731e569fadd32ae53d4",
+			"tracked_version": "v4.1.4",
 			"cmake_target": "SOCI::SOCI"
 		},
 		{
