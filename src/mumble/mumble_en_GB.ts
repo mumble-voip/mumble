@@ -4009,22 +4009,22 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mouse</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keyboard</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Keyboard</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mouse</translation>
     </message>
 </context>
 <context>
@@ -4616,11 +4616,11 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">unchecked</translation>
     </message>
     <message>
         <source>decibels</source>
@@ -5196,6 +5196,14 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Open Themes Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore window geometry on startup</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8219,11 +8227,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">unchecked</translation>
     </message>
     <message>
         <source>Not available</source>
@@ -9113,7 +9121,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ShortcutActionWidget</name>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unassigned</translation>
     </message>
 </context>
 <context>
@@ -9132,7 +9140,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unassigned</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
