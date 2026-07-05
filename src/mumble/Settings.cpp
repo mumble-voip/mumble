@@ -953,7 +953,6 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(qbaMainWindowState, "ui/state");
 	LOAD(qbaMinimalViewGeometry, "ui/minimalviewgeometry");
 	LOAD(qbaMinimalViewState, "ui/minimalviewstate");
-	LOAD(qbaConfigGeometry, "ui/ConfigGeometry");
 	LOADENUM(wlWindowLayout, "ui/WindowLayout");
 	LOAD(qsUsername, "ui/username");
 	LOAD(qsLastServer, "ui/server");
@@ -974,8 +973,6 @@ void Settings::legacyLoad(const QString &path) {
 	LOAD(bFilterActive, "ui/filteractive");
 	LOAD(qsImagePath, "ui/imagepath");
 	LOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
-	LOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
-	LOAD(qbaConnectDialogHeader, "ui/connect/header");
 	LOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	LOAD(bHighContrast, "ui/HighContrast");
 	LOAD(iMaxLogBlocks, "ui/MaxLogBlocks");

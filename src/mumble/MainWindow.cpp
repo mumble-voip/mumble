@@ -1430,24 +1430,62 @@ void MainWindow::setOnTop(bool top) {
 }
 
 void MainWindow::loadState(const bool minimalView) {
-	if (minimalView) {
-		if (!Global::get().s.qbaMinimalViewGeometry.isNull()) {
-			restoreGeometry(Global::get().s.qbaMinimalViewGeometry);
-		}
-		if (!Global::get().s.qbaMinimalViewState.isNull()) {
-			restoreState(Global::get().s.qbaMinimalViewState, stateVersion());
-		}
-	} else {
-		if (!Global::get().s.qbaMainWindowGeometry.isNull()) {
-			restoreGeometry(Global::get().s.qbaMainWindowGeometry);
-		}
-		if (!Global::get().s.qbaMainWindowState.isNull()) {
-			restoreState(Global::get().s.qbaMainWindowState, stateVersion());
-		}
+	// The Qt restoreGeometry and restoreState methods are very fragile and can crash the
+	// application. Even providing stateVersion() does not prevent all situations where a
+	// stored geometry or state will result in a crash loop.
+	// Hence, before trying to restore the state or geometry, we overwrite the current saved
+	// ones on disk. This prevents a crash loop as the second execution will have the variables
+	// unset. In case restoreGeometry and restoreState does not crash the application, we can
+	// save the geometry and state again to disk.
+	// See: https://github.com/mumble-voip/mumble/issues/7193
+
+	if (Global::get().s.preventWindowStates) {
+		qWarning() << "Restoring window state and geometry is blocked by settings latch";
+		return;
 	}
+
+	QByteArray geometry;
+	QByteArray state;
+
+	if (minimalView) {
+		geometry                               = Global::get().s.qbaMinimalViewGeometry;
+		state                                  = Global::get().s.qbaMinimalViewState;
+		Global::get().s.qbaMinimalViewGeometry = QByteArray();
+		Global::get().s.qbaMinimalViewState    = QByteArray();
+	} else {
+		geometry                              = Global::get().s.qbaMainWindowGeometry;
+		state                                 = Global::get().s.qbaMainWindowState;
+		Global::get().s.qbaMainWindowGeometry = QByteArray();
+		Global::get().s.qbaMainWindowState    = QByteArray();
+	}
+
+	// This will remain true permanently, if we crash during restore
+	Global::get().s.preventWindowStates = true;
+	Global::get().s.save();
+
+	qInfo() << "Trying to restore window state and geometry";
+
+	if (!geometry.isEmpty()) {
+		restoreGeometry(geometry);
+	}
+
+	if (!state.isEmpty()) {
+		restoreState(state, stateVersion());
+	}
+
+	qInfo() << "Successfully restored window state and geometry";
+
+	// Write everything back as we did not crash during the restore
+	Global::get().s.preventWindowStates = false;
+	storeState(minimalView);
+	Global::get().s.save();
 }
 
 void MainWindow::storeState(const bool minimalView) {
+	if (Global::get().s.preventWindowStates) {
+		return;
+	}
+
 	if (minimalView) {
 		Global::get().s.qbaMinimalViewGeometry = saveGeometry();
 		Global::get().s.qbaMinimalViewState    = saveState(stateVersion());

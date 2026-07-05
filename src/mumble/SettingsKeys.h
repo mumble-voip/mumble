@@ -187,6 +187,7 @@ const SettingsKey WINDOW_GEOMETRY_KEY                  = { "window_geometry" };
 const SettingsKey WINDOW_GEOMETRY_MINIMAL_VIEW_KEY     = { "minimal_view_window_geometry" };
 const SettingsKey WINDOW_STATE_KEY                     = { "window_state" };
 const SettingsKey WINDOW_STATE_MINIMAL_VIEW_KEY        = { "minimal_view_window_state" };
+const SettingsKey PREVENT_WINDOW_STATES_KEY            = { "prevent_window_states" };
 const SettingsKey CONFIG_GEOMETRY_KEY                  = { "config_geometry" };
 const SettingsKey WINDOW_LAYOUT_KEY                    = { "window_layout" };
 const SettingsKey OVERLAY_HEADER_STATE                 = { "overlay_header_state" };
