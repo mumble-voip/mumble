@@ -13,6 +13,13 @@ The first step in building Mumble is to clone this repository and all the submod
 _Tip:_ You can also [build a specific version or commit](faq.md#build-a-specific-version-or-commit) of Mumble.
 
 
+## The Mumble Dependency Provider
+
+Mumble provides its own CMake [dependency provider](https://cmake.org/cmake/help/latest/guide/using-dependencies/index.html#dependency-providers) that
+can be used in case automatically downloading and building certain dependencies (instead of requiring them to be installed on your system) is
+desirable. For more information, please read the [associated documentation](dependency_provider.md).
+
+
 ## Using the BUILD_NUMBER variable
 
 We are currently using a [versioning scheme](https://www.mumble.info/blog/new-versioning-scheme/) that monotonically increases
