@@ -226,6 +226,7 @@ struct CLIOptions {
 	bool dumpInputStreams         = false;
 	bool printEchoCancelQueue     = false;
 	bool skipSettingsBackupPrompt = false;
+	bool noWindowStates           = false;
 
 	std::optional< std::string > configFile;
 	std::optional< std::string > jackClientName;
@@ -293,6 +294,10 @@ CLIOptions parseCLI(int argc, char **argv) {
 
 	app.add_flag("--skip-settings-backup-prompt", options.skipSettingsBackupPrompt,
 				 "Don't show the settings recovery dialog on startup after a crash.")
+		->group(CLIOptions::CLI_GENERAL_SECTION);
+
+	app.add_flag("--no-window-states", options.noWindowStates,
+				 "Disable restoring and saving window state and geometry.")
 		->group(CLIOptions::CLI_GENERAL_SECTION);
 
 
@@ -470,6 +475,9 @@ int main(int argc, char **argv) {
 	}
 	if (options.printEchoCancelQueue) {
 		Global::get().bDebugPrintQueue = true;
+	}
+	if (options.noWindowStates) {
+		Global::get().preventWindowStatesCLI = true;
 	}
 	if (options.defaultCertDir) {
 		qdCert = QDir(QString::fromStdString(*options.defaultCertDir));

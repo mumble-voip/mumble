@@ -5207,6 +5207,14 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <source>Open Themes Directory</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restore window geometry on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>

@@ -109,6 +109,7 @@ public:
 	bool bDebugDumpInput;
 	bool bDebugPrintQueue;
 	std::unique_ptr< ChannelListenerManager > channelListenerManager;
+	bool preventWindowStatesCLI;
 
 	bool bHappyEaster;
 	static const char ccHappyEaster[];
