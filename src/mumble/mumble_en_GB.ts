@@ -885,7 +885,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation but at a higher CPU cost.</translation>
+        <translation>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -909,7 +909,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
-        <translation>Use amplitude-based speech detection</translation>
+        <translation>Use Amplitude based speech detection</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>

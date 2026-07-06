@@ -633,23 +633,23 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover da lista de não utilizados para a de microfones</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover da lista de microfones para a de não utilizados</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivos não utilizados</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover da lista de não utilizados para a de alto-falantes</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover da lista de alto-falantes para a de não utilizados</translation>
     </message>
 </context>
 <context>
@@ -707,14 +707,14 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Um programa código aberto, de baixa latência e alta qualidade para bate-papo por voz</translation>
     </message>
 </context>
 <context>
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>vazio</translation>
     </message>
 </context>
 <context>
@@ -1085,11 +1085,11 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinal sonoro ao iniciar ou parar de transmitir usando Pressione para Falar</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ativa a transmissão de sinais sonoros ao usar Pressione para Falar.&lt;/b&gt;&lt;br /&gt;Ativar esta opção reproduzirá um curto bipe de áudio quando iniciar ou parar de transmitir.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
@@ -1097,11 +1097,11 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinal sonoro ao iniciar ou parar de transmitir usando Atividade de Voz</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ativa a transmissão de sinais sonoros ao usar Atividade de Voz.&lt;/b&gt;&lt;br /&gt;Ativar esta opção reproduzirá um curto bipe de áudio quando iniciar ou parar de transmitir.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
@@ -1109,71 +1109,71 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Input backend for audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Back-end de entrada para áudio</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de entrada de áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de entrada de áudio</translation>
     </message>
     <message>
         <source>Transmission mode</source>
-        <translation type="unfinished">Modo de transmissão</translation>
+        <translation>Modo de transmissão</translation>
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de bloqueio do Pressione para Falar</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterna entre os modos Contínuo e Pressione para Falar ao tocar duas vezes nesse período de tempo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tempo de espera de voz&lt;/b&gt;&lt;br /&gt;Após soltar a tecla de Pressione para Falar, o Mumble continuará a transmitir pela quantidade de tempo definida.</translation>
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de espera do Pressione para Falar</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
-        <translation type="unfinished"></translation>
+        <translation>Estende o tempo de envio do Pressione para Falar após esta tecla ser liberada por este período de tempo</translation>
     </message>
     <message>
         <source>Voice hold time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo de espera de voz</translation>
     </message>
     <message>
         <source>Silence below threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Silêncio abaixo do limite</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal silence</source>
-        <translation type="unfinished"></translation>
+        <translation>Define o limite de quando o Mumble vai considerar definitivamente um sinal de silêncio</translation>
     </message>
     <message>
         <source>Speech above threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Fala acima do limite</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Define o limite de quando o Mumble vai considerar definitivamente um sinal de fala</translation>
     </message>
     <message>
         <source>This sets how much speech is packed into a single network package</source>
-        <translation type="unfinished"></translation>
+        <translation>Define a quantidade de fala empacotada num único pacote de rede</translation>
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualidade de compressão de áudio</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Define a taxa de compressão de bits desejada</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1181,63 +1181,63 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>A fala é dinamicamente amplificada até, no máximo, nesta quantidade</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Nível de supressão de ruído</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation type="unfinished">Modo de atenuação de eco</translation>
+        <translation>Modo de cancelamento de eco</translation>
     </message>
     <message>
         <source>Path to audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminho do ficheiro de áudio</translation>
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminho para o ficheiro de sinal sonoro ao parar de falar. Use o botão &quot;Navegar&quot; para abrir a janela de seleção de ficheiro.</translation>
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite de tempo de inatividade (em minutos)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o que fazer quando estiver ausente por um período de tempo configurável. Padrão: nada</translation>
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>É reproduzido quando tentar falar enquanto estiver silenciado</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminho para o ficheiro de sinal de silêncio. Use o botão &quot;Navegar&quot; para abrir a janela de seleção de ficheiro.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Navegar por ficheiro de sinal de silêncio</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminho para o ficheiro de sinal sonoro ao começar a falar. Use o botão &quot;Navegar&quot; para abrir a janela de seleção de ficheiro.</translation>
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizar o sinal de silêncio</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation type="unfinished"></translation>
+        <translation>O sinal de silêncio é uma amostra sonora que é reproduzida quando tenta falar a estar silenciado</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualizar ambos os sinais sonoros</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Isto mostra a largura de banda máxima de saída utilizada.&lt;/b&gt;&lt;br /&gt;Isto mostra a quantidade máxima de largura de banda enviada a partir da sua máquina. A taxa de bits de áudio é a taxa máxima de bits apenas para os dados de áudio. Posição é a taxa de bits usada para informações posicionais. Sobrecarga é a nossa estruturação e os cabeçalhos de pacotes (IP e UDP representam 75% dessa sobrecarga).</translation>
     </message>
 </context>
 <context>
@@ -1300,19 +1300,19 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>milissegundos</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>segundos</translation>
     </message>
     <message>
         <source>kilobits per second</source>
-        <translation type="unfinished"></translation>
+        <translation>quilobits por segundo</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibéis</translation>
     </message>
 </context>
 <context>
@@ -1585,75 +1585,75 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation type="unfinished"></translation>
+        <translation>Áudio posicional não funciona com dispositivos de saída mono!</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de saída de áudio</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de saída de áudio</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Atraso na saída do áudio recebido</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo de oscilação de buffer</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Percentagem de atenuação</translation>
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Durante a reprodução de áudio, o volume de outros programas será reduzido por esta quantidade</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished">Volume mínimo</translation>
+        <translation>Volume Mínimo</translation>
     </message>
     <message>
         <source>Minimum distance</source>
-        <translation type="unfinished">Distância mínima</translation>
+        <translation>Distância mínima</translation>
     </message>
     <message>
         <source>Maximum distance</source>
-        <translation type="unfinished">Distância máxima</translation>
+        <translation>Distância máxima</translation>
     </message>
     <message>
         <source>Loopback artificial delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Atraso artificial do retorno</translation>
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation type="unfinished"></translation>
+        <translation>Perda de pacote artificial do retorno</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de teste de retorno</translation>
     </message>
     <message>
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
-        <translation type="unfinished"></translation>
+        <translation>O teste de retorno pode ser usado para testar a sua configuração de áudio. Enquanto o teste de retorno estiver ativo, outros utilizadores não poderão ouvi-lo.</translation>
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>no</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>enquanto alguém fala no seu canal</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>sempre</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenuar ouvintes em...</translation>
     </message>
 </context>
 <context>
@@ -1700,11 +1700,11 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>milissegundos</translation>
     </message>
     <message>
         <source>meters</source>
-        <translation type="unfinished"></translation>
+        <translation>metros</translation>
     </message>
 </context>
 <context>
@@ -1864,7 +1864,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Taxa de bits de áudio do último quadro comprimido (20 ms). O valor máximo da taxa de bits pode ser ajustado nas Configurações.</translation>
     </message>
 </context>
 <context>
@@ -2243,31 +2243,31 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     </message>
     <message>
         <source>Audio input system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de entrada de áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de entrada de áudio</translation>
     </message>
     <message>
         <source>Select audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o dispositivo de saída de áudio</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de saída de áudio</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de saída de áudio</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation type="unfinished"></translation>
+        <translation>O sistema de áudio posicional do Mumble permite que os utilizadores partilhem a posição relativa das suas vozes com programas de terceiros, como jogos.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Atraso de saída do áudio recebido</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
@@ -2275,15 +2275,15 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation type="unfinished"></translation>
+        <translation>O áudio é amplificado dinamicamente até, no máximo, esta quantidade</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nível de detecção de atividade de voz</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>Define o intervalo no qual o Mumble considera como sinal de fala. Aumente o valor para fazer a ativação de voz mais sensível.</translation>
     </message>
     <message>
         <source>Push to talk</source>
@@ -2291,54 +2291,54 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
-        <translation type="unfinished"></translation>
+        <translation>Use o botão de atalho do &quot;Pressione para Falar&quot; para definir uma tecla</translation>
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir atalho do Pressione para Falar</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Isto abrirá uma janela de edição de atalhos</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualização gráfica da simulação de áudio posicional</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation type="unfinished"></translation>
+        <translation>Representa visualmente o áudio posicional que está a ser reproduzido no momento</translation>
     </message>
 </context>
 <context>
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>A banir o utilizador</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Especifique a razão</translation>
+        <translation>Informe o motivo</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Banir certificado de utilizador</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Banir endereço IP</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Banir</translation>
+        <translation>Banir</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">A banir utilizador %1</translation>
+        <translation>A banir utilizador %1</translation>
     </message>
 </context>
 <context>
@@ -2484,35 +2484,35 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar por utilizador banido</translation>
     </message>
     <message>
         <source>Username to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome de utilizador a banir</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço IP a banir</translation>
     </message>
     <message>
         <source>Ban reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Motivo do banimento</translation>
     </message>
     <message>
         <source>Ban start date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Data e hora do início do banimento</translation>
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation type="unfinished"></translation>
+        <translation>Data e hora do fim do banimento</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Hash do certificado para banir</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de utilizadores banidos</translation>
     </message>
 </context>
 <context>
@@ -2836,47 +2836,47 @@ Tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Displays current certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibe o certificado atual</translation>
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished">Ficheiro de certificado a importar</translation>
+        <translation>Ficheiro de certificado para importar</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use o botão &quot;abrir&quot; para selecionar um ficheiro usando uma caixa de diálogo.</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished">Palavra-passe de certificado</translation>
+        <translation>Palavra-passe do certificado</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibe certificado importado</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir novo certificado</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished">Ficheiro ao qual exportar certificado</translation>
+        <translation>Exportar o certificado para a pasta</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use o botão &quot;gravar como&quot; para selecionar um ficheiro usando uma caixa de diálogo.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>O seu nome. Por exemplo: João Silva</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>Your email address. For example: joaosilva@mumble.info</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;O Mumble pode usar certificados para autenticar com servidores. Usar certificados evita palavras-passe, o que significa que não precisa divulgar nenhuma palavra-passe ao site remoto. Isso também permite um registo de utilizador muito fácil e uma lista de amigos no lado do cliente independente dos servidores.&lt;/p&gt;&lt;p&gt;Embora o Mumble possa funcionar sem certificados, a maioria dos servidores esperará que tenha um.&lt;/p&gt;&lt;p&gt;Criar um novo certificado automaticamente é suficiente para a maioria dos casos de uso. Mas o Mumble também suporta certificados que representam confiança na posse de um endereço de e-mail pelo utilizador. Estes certificados são emitidos por terceiros. Para mais informações, veja a nossa &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;documentação de certificados de utilizador&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3360,27 +3360,27 @@ Tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este é o diálogo de conexão. Existem duas maneiras diferentes de conectar a um servidor Mumble. Se o servidor estiver listado publicamente, pode usar a lista de servidores para encontrá-lo. Se souber o endereço IP do servidor, pode adicionar manualmente uma nova entrada permanente aos seus favoritos.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>A lista de servidores contém os seus favoritos e todos os servidores listados publicamente.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Com esta interface de pesquisa, pode filtrar os servidores Mumble exibidos na lista de servidores.</translation>
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar por nome do servidor</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar localização</translation>
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir modo de filtro</translation>
     </message>
     <message>
         <source>Server</source>
@@ -3520,11 +3520,11 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço IP do servidor</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Porta do servidor</translation>
     </message>
     <message>
         <source>Username</source>
@@ -3532,7 +3532,7 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta para servidor</translation>
     </message>
 </context>
 <context>
@@ -3608,19 +3608,19 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Também pode optar por redefinir o caminho configurado para o seu valor padrão.</translation>
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Criar ficheiro</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Redefinir Caminho Configurado</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sair Sem Gravar as Alterações</translation>
     </message>
 </context>
 <context>
@@ -3641,59 +3641,59 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha na conexão</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">Ligou-se com um nome de utilizador inválido, por favor tente outro.</translation>
+        <translation>Conectou com um nome de utilizador inválido, por favor tente outro.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>O nome de utilizador escolhido já está em uso, por favor tente outro.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome de utilizador</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>O nome de utilizador escolhido pertence a um utilizador registado neste servidor.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>A palavra-passe fornecida não é válida para este utilizador. Por favor, tente uma diferente ou use autenticação baseada num certificado e sem especificar uma palavra-passe.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>O certificado utilizado não é válido para este utilizador. Por favor, use um certificado diferente ou especifique uma palavra-passe para usar a autenticação baseada em palavra-passe.</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Palavra-passe</translation>
+        <translation>Palavra-passe</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome de utilizador:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Palavra-passe:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar certificado</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>A palavra-passe fornecida para este servidor é inválida. Por favor, escolha outra.</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconectar</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
 </context>
 <context>
@@ -3800,23 +3800,23 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O sistema de Atalhos Globais do Mumble atualmente não funciona corretamente em combinação com o protocolo Wayland. Para mais informações, visite &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Configured shortcuts</source>
-        <translation type="unfinished">Atalhos configurados</translation>
+        <translation>Atalhos configurados</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use as teclas para cima e para baixo para navegar pelos atalhos adicionados. Use as teclas para a esquerda e para a direita para navegar entre ações e opções de um único atalho. Elementos podem ser adicionados e apagados com os botões abaixo.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Adicionar atalho não atribuído</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Isto adiciona uma nova entrada vazia à árvore &quot;Atalho Configurado&quot; acima. A árvore será automaticamente focada. Atribua uma tecla ou uma ação a selecionar a entrada na árvore acima.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
@@ -4536,7 +4536,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"> dB</translation>
+        <translation> .dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
@@ -4592,7 +4592,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de Mensagem</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
@@ -4632,7 +4632,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished"></translation>
+        <translation>decibéis</translation>
     </message>
 </context>
 <context>
@@ -5056,7 +5056,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source> seconds</source>
-        <translation type="unfinished"></translation>
+        <translation> segundos</translation>
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
@@ -5128,7 +5128,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Limpar</translation>
+        <translation>Limpar</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
@@ -5136,7 +5136,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolher</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
@@ -5148,7 +5148,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolha uma Cor</translation>
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
@@ -5164,7 +5164,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema escuro</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
@@ -5176,7 +5176,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Automático</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
@@ -5184,7 +5184,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Escuro</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
@@ -5196,7 +5196,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Claro</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
@@ -6677,7 +6677,7 @@ do menu de contexto do canal.</translation>
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alternar TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -6739,7 +6739,7 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1</source>
-        <translation type="unfinished">Esta versão do Mumble não consegue lidar com URLs para o Mumble versão %1</translation>
+        <translation>Esta versão do Mumble não pode lidar com URLs para o Mumble versão %1</translation>
     </message>
     <message>
         <source>Listen to Channel</source>
@@ -6765,12 +6765,12 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro &amp;de Canais</translation>
     </message>
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conectar ao servidor</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
@@ -6867,7 +6867,7 @@ do menu de contexto do canal.</translation>
     <message>
         <source>Remove avatar</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Remover Avatar</translation>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
@@ -6885,7 +6885,7 @@ do menu de contexto do canal.</translation>
     <message>
         <source>Audio statistics</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Estatísticas de áudio</translation>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
@@ -6960,11 +6960,11 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sim</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Não</translation>
     </message>
     <message>
         <source>Enter chat message</source>
@@ -6972,11 +6972,11 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lista de Banimentos</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Informações</translation>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
@@ -6992,7 +6992,7 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;igação</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
@@ -7008,11 +7008,11 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Estatísticas &amp;de Áudio</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Configurações</translation>
     </message>
     <message>
         <source>Developer &amp;Console</source>
@@ -7028,7 +7028,7 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobre &amp;o Qt</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
@@ -7036,11 +7036,11 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizadores &amp;Registados</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Códigos de Acesso</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
@@ -7076,11 +7076,11 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Falante Prioritário</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gravar...</translation>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
@@ -7088,7 +7088,7 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation type="unfinished"></translation>
+        <translation>IU de &amp;Falantes</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
@@ -7108,7 +7108,7 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pesquisar...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
@@ -7199,7 +7199,7 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
@@ -7322,7 +7322,7 @@ do menu de contexto do canal.</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished"></translation>
+        <translation>Visualização de simulação de áudio posicional gráfica</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
@@ -8284,11 +8284,11 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Não</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sim</translation>
     </message>
     <message>
         <source>The file &quot;%1&quot; is not a valid plugin file!</source>
@@ -8370,7 +8370,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecionar tudo</translation>
     </message>
     <message>
         <source>Plugin</source>
@@ -8378,7 +8378,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     </message>
     <message>
         <source>Download-URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL de descarga</translation>
     </message>
     <message>
         <source>Do you want to update the selected plugins?</source>
@@ -8676,11 +8676,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Próximo</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltar</translation>
     </message>
     <message>
         <source>This is you</source>
@@ -8688,15 +8688,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>friend</source>
-        <translation type="unfinished"></translation>
+        <translation>amigo</translation>
     </message>
     <message>
         <source>user</source>
-        <translation type="unfinished"></translation>
+        <translation>utilizador</translation>
     </message>
     <message>
         <source>status</source>
-        <translation type="unfinished"></translation>
+        <translation>estado</translation>
     </message>
     <message>
         <source>muted and deafened</source>
@@ -8736,7 +8736,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>channel</source>
-        <translation type="unfinished"></translation>
+        <translation>canal</translation>
     </message>
     <message>
         <source>your channel</source>
@@ -8752,7 +8752,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>public</source>
-        <translation type="unfinished"></translation>
+        <translation>público</translation>
     </message>
     <message>
         <source>filtered</source>
@@ -9082,7 +9082,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;adiantar sigilo&gt;</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -9090,7 +9090,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Se a conexão suporta sigilo perfeito direto (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
@@ -9572,11 +9572,11 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>segundos</translation>
     </message>
     <message>
         <source>minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>minutos</translation>
     </message>
 </context>
 <context>
