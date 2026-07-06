@@ -644,9 +644,9 @@ int main(int argc, char **argv) {
 
 	// Load preferences
 	if (settingsFile.isEmpty()) {
-		Global::get().s.load();
+		Global::get().s.load(options.skipSettingsBackupPrompt);
 	} else {
-		Global::get().s.load(settingsFile);
+		Global::get().s.load(settingsFile, options.skipSettingsBackupPrompt);
 	}
 	if (!Global::get().migratedDBPath.isEmpty()) {
 		// We have migrated the DB to a new location. Make sure that the settings hold the correct (new) path and that
