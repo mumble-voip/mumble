@@ -36,6 +36,10 @@
 #include "PTTButtonWidget.h"
 #include "PluginManager.h"
 #include "PositionalAudioViewer.h"
+
+#ifdef USE_TFAR
+#	include "tfar/TFARBridge.h"
+#endif
 #include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
 #include "Screen.h"
@@ -207,6 +211,13 @@ MainWindow::MainWindow(QWidget *p)
 
 	QObject::connect(this, &MainWindow::serverSynchronized, Global::get().pluginManager,
 					 &PluginManager::on_serverSynchronized);
+
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: replay of TS3's onConnectStatusChangeEvent(STATUS_CONNECTION_ESTABLISHED)
+	if (TFARBridge *tfar = TFARBridge::instance()) {
+		QObject::connect(this, &MainWindow::serverSynchronized, tfar, &TFARBridge::onServerSynchronized);
+	}
+#endif
 
 	// Set up initial client side talking state without the need for the user to do anything.
 	// This will, for example, make sure the correct status tray icon is used on connect.
@@ -508,6 +519,15 @@ void MainWindow::setupGui() {
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
 	QObject::connect(pmModel, &UserModel::userRemoved, Global::get().pluginManager, &PluginManager::on_userRemoved);
+
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: replay of TS3's client join/leave/move events
+	if (TFARBridge *tfar = TFARBridge::instance()) {
+		QObject::connect(pmModel, &UserModel::userAdded, tfar, &TFARBridge::onUserAdded);
+		QObject::connect(pmModel, &UserModel::userRemoved, tfar, &TFARBridge::onUserRemoved);
+		QObject::connect(pmModel, &UserModel::userMoved, tfar, &TFARBridge::onUserMoved);
+	}
+#endif
 	QObject::connect(pmModel, &UserModel::channelAdded, Global::get().pluginManager, &PluginManager::on_channelAdded);
 	QObject::connect(pmModel, &UserModel::channelRemoved, Global::get().pluginManager,
 					 &PluginManager::on_channelRemoved);
@@ -1266,6 +1286,15 @@ static void recreateServerHandler() {
 	// In order for that to work it is ESSENTIAL to use a DIRECT CONNECTION!
 	Global::get().pluginManager->connect(sh.get(), &ServerHandler::aboutToDisconnect, Global::get().pluginManager,
 										 &PluginManager::on_serverDisconnected, Qt::DirectConnection);
+
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: replay of TS3's onConnectStatusChangeEvent(STATUS_DISCONNECTED).
+	// Direct connection so TFAR can unmute/cleanup before the disconnect proceeds.
+	if (TFARBridge *tfar = TFARBridge::instance()) {
+		QObject::connect(sh.get(), &ServerHandler::aboutToDisconnect, tfar, &TFARBridge::onServerDisconnected,
+						 Qt::DirectConnection);
+	}
+#endif
 }
 
 void MainWindow::openUrl(const QUrl &url) {
@@ -2229,6 +2258,15 @@ void MainWindow::on_qaQuit_triggered() {
 }
 
 void MainWindow::sendChatbarText(QString qsText, bool plainText) {
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: "/tfar <cmd>" chat commands (diag, pos, rstflt, debug, ...)
+	if (TFARBridge *tfar = TFARBridge::instance()) {
+		if (tfar->handleChatCommand(qsText)) {
+			qteChat->clear();
+			return;
+		}
+	}
+#endif
 	if (plainText) {
 		// Escape HTML, unify line endings, then convert spaces to non-breaking ones to prevent multiple
 		// simultaneous ones from being collapsed into one (as a normal HTML renderer does).

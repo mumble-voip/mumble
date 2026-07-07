@@ -1,0 +1,119 @@
+# MUMBLE-TFAR
+# Builds the Windows client with the integrated TFAR compatibility layer and
+# publishes the MSI installer + a portable ZIP as a GitHub release.
+#
+# Trigger:
+#   * pushing a tag "v*" (e.g. v1.0.0)  -> builds and creates/updates the release
+#   * manual dispatch                    -> builds and uploads workflow artifacts only
+
+name: Release (TFAR)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  BUILD_TYPE: Release
+  # Same option set as build.yml, but without tests (release build).
+  CMAKE_OPTIONS: -Dtests=OFF -Dsymbols=ON -Ddisplay-install-paths=ON -Dtest-lto=OFF -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache
+
+jobs:
+  build-windows-tfar:
+    runs-on: windows-2025-vs2026
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'recursive'
+          fetch-depth: 1
+
+      - name: Set environment variables
+        run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "windows-2025-vs2026" "static" "x86_64" "${{ github.workspace }}"
+        shell: bash
+
+      - uses: actions/cache/restore@v5
+        with:
+          path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
+
+      - uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: release-tfar.windows-2025-vs2026.static
+          append-timestamp: false
+
+      - uses: ./.github/actions/install-dependencies
+        with:
+          type: static
+          os: windows-2025-vs2026
+          arch: x86_64
+
+      - name: Build
+        run: ./.github/workflows/build.sh "windows-2025-vs2026" "static" "x86_64"
+        shell: bash
+        env:
+          # No access to the upstream build number server on this fork.
+          MUMBLE_BUILD_NUMBER: 0
+
+      - name: Package portable ZIP
+        shell: pwsh
+        run: |
+          $ref = "${{ github.ref_name }}"
+          $stage = "mumble-tfar-portable"
+          New-Item -ItemType Directory -Path $stage | Out-Null
+
+          Copy-Item build/mumble.exe $stage/
+          # DLLs that ship alongside the static client build (if present)
+          foreach ($f in @("speexdsp.dll", "rnnoise.dll")) {
+            if (Test-Path "build/$f") { Copy-Item "build/$f" $stage/ }
+          }
+          # TFAR radio sounds (copied next to mumble.exe by the build)
+          Copy-Item -Recurse build/tfar $stage/tfar
+          Copy-Item README-TFAR.md $stage/
+
+          Compress-Archive -Path "$stage/*" -DestinationPath "mumble-tfar-$ref-win64-portable.zip"
+
+      - name: Collect release artifacts
+        shell: bash
+        run: |
+          mkdir -p release-artifacts
+          cp mumble-tfar-*-win64-portable.zip release-artifacts/
+          # MSI installer + bootstrapper EXE produced by the WixSharp packaging step
+          find build -name 'mumble_client-*.msi' -exec cp {} release-artifacts/ \;
+          find build -name 'mumble_client-*.exe' -exec cp {} release-artifacts/ \;
+          ls -la release-artifacts
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: mumble-tfar-windows
+          compression-level: 9
+          path: release-artifacts/*
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: 'mumble-tfar ${{ github.ref_name }}'
+          files: release-artifacts/*
+          generate_release_notes: true
+          body: |
+            Mumble со встроенной поддержкой TFAR (Task Force Arrowhead Radio) —
+            drop-in замена связки TeamSpeak 3 + TFAR-плагин для Arma 3.
+
+            **Установка:**
+            - `mumble_client-*.msi` / `mumble_client-*.exe` — установщик (радио-звуки включены);
+            - `mumble-tfar-*-win64-portable.zip` — портативная версия: распаковать и запустить `mumble.exe`.
+
+            Мод TFAR в Arma 3 используется без изменений, TS3-плагин устанавливать не нужно.
+            Требуется сервер Mumble ≥ 1.4.0. Подробности — в `README-TFAR.md`.
+
+      - name: Save environment cache
+        uses: actions/cache/save@v5
+        with:
+          path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
+          key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}

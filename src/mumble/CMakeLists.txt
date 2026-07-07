@@ -35,6 +35,13 @@ option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
 option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
 
 if(WIN32)
+	# MUMBLE-TFAR: integrated Task Force Arrowhead Radio compatibility layer.
+	# Windows-only: the Arma 3 extension talks over Windows shared memory / named
+	# pipes and the audio effects use X3DAudio.
+	option(tfar "Build the integrated Task Force Arrowhead Radio (TFAR) support." ON)
+endif()
+
+if(WIN32)
 	option(asio "Build support for ASIO audio input." OFF)
 	option(wasapi "Build support for WASAPI." ON)
 	option(xboxinput "Build support for global shortcuts from Xbox controllers via the XInput DLL." ON)
@@ -400,6 +407,13 @@ target_include_directories(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
 target_link_libraries(mumble PRIVATE mumble_client_object_lib shared spdlog::spdlog)
 target_link_libraries(mumble PRIVATE CLI11::CLI11)
+
+# MUMBLE-TFAR: Task Force Arrowhead Radio compatibility layer
+# (included after the "mumble" target exists — tfar.cmake attaches a
+# POST_BUILD step copying the radio sounds next to the executable)
+if(WIN32 AND tfar)
+	include("${CMAKE_CURRENT_SOURCE_DIR}/tfar/tfar.cmake")
+endif()
 
 target_compile_definitions(mumble_client_object_lib
 	PUBLIC
@@ -1217,6 +1231,13 @@ if(packaging AND WIN32)
 	if(rnnoise)
 		list(APPEND installer_vars
 			"--rnnoise"
+		)
+	endif()
+
+	# MUMBLE-TFAR: ship the radio sounds inside the MSI (client/tfar/radio-sounds)
+	if(tfar)
+		list(APPEND installer_vars
+			"--tfar"
 		)
 	endif()
 

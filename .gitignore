@@ -52,3 +52,4 @@ __pycache__/
 CMakeSettings.json
 CLAUDE.md
 .idea
+build-mac/

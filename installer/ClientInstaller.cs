@@ -22,6 +22,7 @@ public struct Features {
 	public bool overlay;
 	public bool g15;
 	public bool rnnoise;
+	public bool tfar;
 }
 
 public class ClientInstaller : MumbleInstall {
@@ -186,7 +187,14 @@ public class ClientInstaller : MumbleInstall {
 		pluginDir.Files = pluginFiles;
 
 		menuDir.Dirs = new Dir[] { shortcutDir };
-		installDir.Dirs = new Dir[] { licenseDir, pluginDir };
+		if (features.tfar) {
+			// MUMBLE-TFAR: radio sounds looked up at runtime in "<dir of mumble.exe>/tfar"
+			var tfarDir = new Dir("tfar",
+				new Dir("radio-sounds", new Files(@"..\..\tfar\radio-sounds\*.*")));
+			installDir.Dirs = new Dir[] { licenseDir, pluginDir, tfarDir };
+		} else {
+			installDir.Dirs = new Dir[] { licenseDir, pluginDir };
+		}
 		productDir.Dirs = new Dir[] { installDir };
 		progsDir.Dirs = new Dir[] { productDir};
 
@@ -241,6 +249,10 @@ class BuildInstaller
 
 			if (args[i] == "--rnnoise") {
 				features.rnnoise = true;
+			}
+
+			if (args[i] == "--tfar") {
+				features.tfar = true;
 			}
 
 			if (args[i] == "--skip-msi-rebuild") {

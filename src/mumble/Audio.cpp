@@ -12,6 +12,10 @@
 #include "PluginManager.h"
 #include "Global.h"
 
+#ifdef USE_TFAR
+#	include "tfar/TFARBridge.h"
+#endif
+
 #include <QtCore/QObject>
 
 #include <cstring>
@@ -200,6 +204,18 @@ void Audio::start(const QString &input, const QString &output) {
 					 &PluginManager::on_audioSourceFetched, Qt::DirectConnection);
 	QObject::connect(Global::get().ao.get(), &AudioOutput::audioOutputAboutToPlay, Global::get().pluginManager,
 					 &PluginManager::on_audioOutputAboutToPlay, Qt::DirectConnection);
+
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: feed the audio pipeline into the TFAR radio processing.
+	if (TFARBridge *tfar = TFARBridge::instance()) {
+		QObject::connect(Global::get().ai.get(), &AudioInput::audioInputEncountered, tfar,
+						 &TFARBridge::onAudioInput, Qt::DirectConnection);
+		QObject::connect(Global::get().ao.get(), &AudioOutput::audioSourceFetched, tfar,
+						 &TFARBridge::onAudioSourceFetched, Qt::DirectConnection);
+		QObject::connect(Global::get().ao.get(), &AudioOutput::audioOutputAboutToPlay, tfar,
+						 &TFARBridge::onAudioOutputAboutToPlay, Qt::DirectConnection);
+	}
+#endif
 }
 
 void Audio::stop() {

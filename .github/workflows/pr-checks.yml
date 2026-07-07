@@ -31,7 +31,7 @@ jobs:
     - name: Check line endings
       uses: erclu/check-crlf@master
       with:
-          exclude: '3rdparty/'
+          exclude: '3rdparty/ src/mumble/tfar/'
 
     - uses: ./.github/actions/install-dependencies
       with:
@@ -48,4 +48,5 @@ jobs:
       with:
           clang-format-version: '10'
           check-path: '.'
-          exclude-regex: '(\\.git/.*|3rdparty/.*|build/.*|.*proto$)'
+          # src/mumble/tfar is ported third party code (TFAR) and keeps its original style
+          exclude-regex: '(\\.git/.*|3rdparty/.*|build/.*|src/mumble/tfar/.*|.*proto$)'

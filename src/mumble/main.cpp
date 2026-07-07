@@ -20,6 +20,9 @@
 #include "Logger.h"
 #include "MainWindow.h"
 #include "ServerHandler.h"
+#ifdef USE_TFAR
+#	include "tfar/TFARBridge.h"
+#endif
 #ifdef USE_ZEROCONF
 #	include "Zeroconf.h"
 #endif
@@ -767,6 +770,12 @@ int main(int argc, char **argv) {
 	// so we need to loop a little before we begin.
 	a.processEvents();
 
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: create the bridge before the MainWindow, whose constructor
+	// wires the TFAR event connections, and start the TFAR core (game pipe).
+	TFARBridge::initialize();
+#endif
+
 	// Main Window
 	Global::get().mw = new MainWindow(nullptr);
 	if (!options.startHiddenInTray) {
@@ -929,6 +938,12 @@ int main(int argc, char **argv) {
 	prepareLogForShutdown();
 
 	QCoreApplication::processEvents();
+
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: stop the TFAR core (joins the game pipe / service threads)
+	// while the MainWindow and the audio system are still alive.
+	TFARBridge::shutdown();
+#endif
 
 	// Only start deleting items once all pending events have been processed (Audio::stop deletes the audio
 	// input and output)

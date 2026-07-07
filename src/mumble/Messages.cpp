@@ -40,6 +40,10 @@
 #include "crypto/CryptStateOCB2.h"
 #include "Global.h"
 
+#ifdef USE_TFAR
+#	include "tfar/TFARBridge.h"
+#endif
+
 #include <QTextDocumentFragment>
 
 #define ACTOR_INIT                           \
@@ -1295,6 +1299,14 @@ void MainWindow::msgPluginDataTransmission(const MumbleProto::PluginDataTransmis
 		// As long as above assertion is true, we are only casting away the sign, which is fine
 		Global::get().pluginManager->on_receiveData(sender, reinterpret_cast< const uint8_t * >(msgData.c_str()),
 													msgData.size(), msg.dataid().c_str());
+
+#ifdef USE_TFAR
+		// MUMBLE-TFAR: TFAR plugin commands and state broadcasts arrive as plugin data
+		if (TFARBridge *tfar = TFARBridge::instance()) {
+			tfar->handleReceivedPluginData(msg.sendersession(), QString::fromStdString(msg.dataid()),
+										   QByteArray(msgData.data(), static_cast< int >(msgData.size())));
+		}
+#endif
 	}
 }
 
