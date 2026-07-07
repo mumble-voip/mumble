@@ -72,8 +72,8 @@ public:
     static std::string getMetaData(TSServerID serverConnectionHandlerID, TSClientID clientId);
     static void setMyMetaData(const std::string & metaData);
     static std::string getClientNickname(TSServerID serverConnectionHandlerID, TSClientID clientId);
-    static void setMyClient3DPosition(TSServerID serverConnectionHandlerID, Position3D pos);
-    static void setClient3DPosition(TSServerID serverConnectionHandlerID, TSClientID clientId, Position3D pos);
+    static void setMyClient3DPosition(TSServerID serverConnectionHandlerID, dataType::Position3D pos);
+    static void setClient3DPosition(TSServerID serverConnectionHandlerID, TSClientID clientId, dataType::Position3D pos);
 
     static void sendPluginCommand(TSServerID serverConnectionHandlerID, std::string_view pluginID, std::string_view command, PluginTargetMode targetMode, std::vector<TSClientID> targets = {});
     static void playWavFile(const std::string& filePath);

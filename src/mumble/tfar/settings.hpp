@@ -72,7 +72,9 @@ public:
         t_float,
         t_string
     };
-    explicit settingValue() : type(settingType::t_invalid), boolValue(false) {}
+    // not explicit: the trailing std::array element is copy-list-initialized
+    // from {} which is ill-formed with an explicit default ctor (C++20)
+    settingValue() : type(settingType::t_invalid), boolValue(false) {}
     constexpr settingValue(bool value) : type(settingType::t_bool), boolValue(value) {}
     settingValue(const float& value) : type(settingType::t_float), floatValue(value) {}
     settingValue(const std::string& value) : type(settingType::t_string), stringValue(new std::string(value)) {}
@@ -154,7 +156,9 @@ public:
         configValueSet(key);
     }
 
-    template<>
+    // MUMBLE-TFAR: was an in-class template<> specialization — ill-formed C++
+    // (MSVC extension), rejected under /permissive-. A plain overload has the
+    // same overload-resolution result for std::string arguments.
     void set(Setting key, const std::string& value) {
         LockGuard_exclusive lock(m_lock);
         values[key].setString(value);

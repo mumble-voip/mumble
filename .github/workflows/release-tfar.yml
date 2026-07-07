@@ -79,11 +79,53 @@ jobs:
 
           Compress-Archive -Path "$stage/*" -DestinationPath "mumble-tfar-$ref-win64-portable.zip"
 
+      - name: Package MSIX (Microsoft Store)
+        shell: pwsh
+        env:
+          # Must match the app identity from Microsoft Partner Center
+          # ("Product identity" page). Override via repository variables.
+          MSIX_IDENTITY_NAME: ${{ vars.MSIX_IDENTITY_NAME || 'StormOfTheGalaxy.MumbleTFAR' }}
+          MSIX_PUBLISHER: ${{ vars.MSIX_PUBLISHER || 'CN=StormOfTheGalaxy' }}
+        run: |
+          $ref = "${{ github.ref_name }}"
+          # MSIX version: strip leading "v", pad to 4 components (revision must be 0 for Store)
+          $ver = $ref -replace '^v', ''
+          if ($ver -notmatch '^\d+(\.\d+){0,3}$') { $ver = '1.0.0' }
+          while (($ver.Split('.')).Count -lt 4) { $ver = "$ver.0" }
+
+          $stage = "msix-layout"
+          New-Item -ItemType Directory -Path $stage | Out-Null
+          Copy-Item build/mumble.exe $stage/
+          foreach ($f in @("speexdsp.dll", "rnnoise.dll")) {
+            if (Test-Path "build/$f") { Copy-Item "build/$f" $stage/ }
+          }
+          Copy-Item -Recurse build/tfar $stage/tfar
+          Copy-Item -Recurse installer/msix/Assets $stage/Assets
+          # License texts — required for compliant distribution (BSD, LGPL, APL-SA, ...)
+          New-Item -ItemType Directory -Path $stage/licenses | Out-Null
+          Copy-Item LICENSE $stage/licenses/Mumble-LICENSE.txt
+          Copy-Item installer/gpl.txt, installer/lgpl.txt, installer/speex.txt, installer/qt.txt $stage/licenses/
+          if (Test-Path THIRD-PARTY-TFAR.md) { Copy-Item THIRD-PARTY-TFAR.md $stage/licenses/ }
+
+          (Get-Content installer/msix/AppxManifest.xml.in) `
+            -replace '@VERSION@', $ver `
+            -replace '@IDENTITY_NAME@', $env:MSIX_IDENTITY_NAME `
+            -replace '@PUBLISHER@', $env:MSIX_PUBLISHER `
+            | Set-Content "$stage/AppxManifest.xml" -Encoding utf8
+
+          # Locate makeappx.exe in the installed Windows SDK
+          $makeappx = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\makeappx.exe" |
+            Sort-Object FullName -Descending | Select-Object -First 1
+          & $makeappx.FullName pack /d $stage /p "mumble-tfar-$ref-win64.msix" /o
+          # Unsigned on purpose: the Microsoft Store signs the package during
+          # submission. For local sideloading sign with signtool + your cert.
+
       - name: Collect artifacts
         shell: bash
         run: |
           mkdir -p release-artifacts
           cp mumble-tfar-*-win64-portable.zip release-artifacts/
+          cp mumble-tfar-*-win64.msix release-artifacts/ || true
           # MSI installer + bootstrapper EXE produced by the WixSharp packaging step
           find build -name 'mumble_client-*.msi' -exec cp {} release-artifacts/ \;
           find build -name 'mumble_client-*.exe' -exec cp {} release-artifacts/ \;
@@ -186,7 +228,9 @@ jobs:
 
             **Клиент (Windows):**
             - `mumble_client-*.msi` / `mumble_client-*.exe` — установщик (радио-звуки включены);
-            - `mumble-tfar-*-win64-portable.zip` — портативная версия: распаковать и запустить `mumble.exe`.
+            - `mumble-tfar-*-win64-portable.zip` — портативная версия: распаковать и запустить `mumble.exe`;
+            - `mumble-tfar-*-win64.msix` — пакет для Microsoft Store (неподписанный,
+              Store подписывает при публикации; распространение только бесплатное — APL-SA).
 
             **Сервер (Linux):**
             - `mumble-tfar-server-*-linux-x86_64.tar.gz` — murmur с TFAR-расширениями

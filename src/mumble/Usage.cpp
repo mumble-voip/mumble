@@ -29,7 +29,15 @@ Usage::Usage(QObject *p) : QObject(p) {
 }
 
 void Usage::registerUsage() {
-	if (!Global::get().s.bUsage
+	// MUMBLE-TFAR: no telemetry to upstream mumble.info from this fork.
+	constexpr bool tfarBuild =
+#ifdef USE_TFAR
+		true;
+#else
+		false;
+#endif
+
+	if (tfarBuild || !Global::get().s.bUsage
 		|| Version::get() < Version::fromComponents(
 			   1, 2, 3)) // Only register usage if allowed by the user and first wizard run has finished
 		return;

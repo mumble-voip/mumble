@@ -887,9 +887,13 @@ int main(int argc, char **argv) {
 #	endif
 	}
 
+#ifndef USE_TFAR
+	// MUMBLE-TFAR: positional-audio plugin updates are fetched from upstream
+	// mumble.info — not applicable to this fork (TFAR does its own positioning).
 	if (Global::get().s.bPluginCheck) {
 		Global::get().pluginManager->checkForPluginUpdates();
 	}
+#endif
 #else  // QT_NO_DEBUG
 	Global::get().mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif // QT_NO_DEBUG

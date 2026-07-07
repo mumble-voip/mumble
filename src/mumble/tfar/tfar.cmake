@@ -43,8 +43,9 @@ set(TFAR_SOURCES
 	"${TFAR_DIR}/SampleBuffer.hpp"
 	"${TFAR_DIR}/serverData.cpp"
 	"${TFAR_DIR}/serverData.hpp"
-	"${TFAR_DIR}/server_radio_data.cpp"
-	"${TFAR_DIR}/server_radio_data.hpp"
+	# NOTE: server_radio_data.{cpp,hpp} are dead legacy files in the TFAR repo
+	# (they reference non-existent headers) and were not part of the original
+	# vcxproj either — do not add them to the build.
 	"${TFAR_DIR}/SharedMemoryHandler.cpp"
 	"${TFAR_DIR}/SharedMemoryHandler.hpp"
 	"${TFAR_DIR}/task_force_radio.cpp"
@@ -113,9 +114,21 @@ set_source_files_properties(${TFAR_SOURCES}
 		COMPILE_DEFINITIONS "NOMINMAX;_CRT_SECURE_NO_WARNINGS;CLUNKAPI=;CLUNK_USES_SSE;X64BUILD;WINDOWS"
 )
 
-# WinInet: TFAR update check / usage tracking, X3DAudio: ILD spatialization
-# (x3daudio is also pulled in via #pragma comment(lib) in helpers.cpp).
-target_link_libraries(mumble_client_object_lib PUBLIC wininet.lib x3daudio.lib)
+# The original TFAR/bundled-library sources predate MSVC's conformance mode
+# (/std:c++20 implies /permissive-). Compile just them with /permissive.
+# The Qt-facing integration sources (TFARBridge, TFARConfig, TeamspeakMumble,
+# StormUpdateCheck, DebugUI) are new code and stay conformant.
+if(MSVC)
+	set(TFAR_LEGACY_SOURCES ${TFAR_SOURCES})
+	list(FILTER TFAR_LEGACY_SOURCES EXCLUDE REGEX
+		"(TFARBridge|TFARConfig|TeamspeakMumble|StormUpdateCheck|DebugUI|TS3Compat|StormBranding)")
+	set_property(SOURCE ${TFAR_LEGACY_SOURCES} APPEND PROPERTY COMPILE_OPTIONS "/permissive")
+endif()
+
+# WinInet: legacy TFAR networking helpers. XAudio2: the X3DAudio* functions
+# (ILD spatialization) are exported from XAudio2_9.dll in current Windows SDKs
+# (the standalone x3daudio.lib only existed in the legacy DirectX SDK).
+target_link_libraries(mumble_client_object_lib PUBLIC wininet.lib xaudio2.lib)
 
 # Radio sounds are looked up at runtime in "<dir of mumble.exe>/tfar/radio-sounds"
 # (configurable on the TFAR settings page). Copy them next to the built binary

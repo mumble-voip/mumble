@@ -99,6 +99,21 @@ src/mumble/tfar/
   `TestSettingsJSONSerialization` не затронут); дальше выбор пользователя сохраняется.
 - Все константы проекта — в одном файле `src/mumble/tfar/StormBranding.h`
   (там же `STORM_TFAR_VERSION`, его нужно бампать при каждом релизе).
+- Интеграции с апстримом отключены: проверка версий mumble.info, обновления
+  позиционных плагинов, usage-телеметрия; winget/docker-dispatch workflows
+  выполняются только в апстримном репозитории.
+
+### Microsoft Store (MSIX)
+
+Релизный workflow собирает `mumble-tfar-*-win64.msix` (шаблон манифеста —
+`installer/msix/AppxManifest.xml.in`). Перед загрузкой в Partner Center задайте
+repository variables `MSIX_IDENTITY_NAME` и `MSIX_PUBLISHER` точно как на
+странице «Product identity». Пакет намеренно не подписан — Store подписывает сам.
+
+**Лицензионное ограничение:** TFAR распространяется под Arma Public License
+Share Alike — приложение в Store может быть **только бесплатным**, без рекламы
+и встроенных покупок, с атрибуцией. Полный перечень лицензий —
+[THIRD-PARTY-TFAR.md](THIRD-PARTY-TFAR.md).
 
 ## Сборка (Windows)
 

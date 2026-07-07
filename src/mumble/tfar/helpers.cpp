@@ -22,8 +22,20 @@ void helpers::applyILD(SampleBuffer& samples, Direction3D direction, AngleRadian
     }
 }
 #define _SPEAKER_POSITIONS_
+// MUMBLE-TFAR: the Windows SDK version of x3daudio.h hard-errors when
+// _WIN32_WINNT is below Windows 8, but Mumble targets Windows 7 project-wide.
+// Temporarily raise it just for this include. The X3DAudio* functions are
+// exported from XAudio2_9.dll (linked via xaudio2.lib, see tfar.cmake) which
+// is available on Windows 10+.
+#pragma push_macro("_WIN32_WINNT")
+#include <sdkddkver.h>
+#ifndef _WIN32_WINNT_WIN8
+#	define _WIN32_WINNT_WIN8 0x0602
+#endif
+#undef _WIN32_WINNT
+#define _WIN32_WINNT _WIN32_WINNT_WIN8
 #include <X3daudio.h>
-#pragma comment(lib, "x3daudio.lib")
+#pragma pop_macro("_WIN32_WINNT")
 X3DAUDIO_HANDLE x3d_handle;
 bool x3d_initialized = false;
 
