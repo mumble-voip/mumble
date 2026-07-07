@@ -12,26 +12,26 @@ private:
 
 public:
     void connect(Slot slot) {
-        slots.push_back(slot);
+        m_slots.push_back(slot);
     }
 
     std::vector<ReturnType> operator() (Args... args) const {
-        return emit(args...);
+        return emitSignal(args...);
     }
-    std::vector<ReturnType> emit(Args... args) const {
+    std::vector<ReturnType> emitSignal(Args... args) const {
         std::vector<ReturnType> returnData;
-        if (slots.empty())
-            return;
-        for (auto &slot : slots) {
+        if (m_slots.empty())
+            return returnData;
+        for (auto &slot : m_slots) {
             returnData.push_back(slot(args...));
         }
         return returnData;
     }
     void removeAllSlots() {
-        slots.clear();
+        m_slots.clear();
     }
 private:
-    std::vector<Slot> slots{};
+    std::vector<Slot> m_slots{};
 };
 
 
@@ -42,22 +42,22 @@ private:
 
 public:
     void connect(Slot slot) {
-        slots.push_back(slot);
+        m_slots.push_back(slot);
     }
 
     void operator() (Args... args) const {
-        return emit(args...);
+        return emitSignal(args...);
     }
-    void emit(Args... args) const {
-        if (slots.empty())
+    void emitSignal(Args... args) const {
+        if (m_slots.empty())
             return;
-        for (auto &slot : slots) {
+        for (auto &slot : m_slots) {
             slot(args...);
         }
     }
     void removeAllSlots() {
-        slots.clear();
+        m_slots.clear();
     }
 private:
-    std::vector<Slot> slots{};
+    std::vector<Slot> m_slots{};
 };

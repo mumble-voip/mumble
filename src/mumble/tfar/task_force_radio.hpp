@@ -20,7 +20,7 @@ struct FREQ_SETTINGS {
 struct SPEAKER_DATA {
     std::string radio_id;
     std::weak_ptr<clientData> client;
-    Position3D getPos() const {
+    dataType::Position3D getPos() const {
         if (pos.isNull()) {
             if (const auto owner = client.lock(); owner)
                 return owner->getClientPosition();
@@ -28,13 +28,13 @@ struct SPEAKER_DATA {
         return pos;
     }
     //Prefer this if you already know the owner
-    Position3D getPos(const std::shared_ptr<clientData>& owner) const {
+    dataType::Position3D getPos(const std::shared_ptr<clientData>& owner) const {
         if (pos.isNull() && owner) {
                 return owner->getClientPosition();
         }
         return pos;
     }
-    Position3D pos;
+    dataType::Position3D pos;
     int volume;
     vehicleDescriptor vehicle;
     float waveZ;

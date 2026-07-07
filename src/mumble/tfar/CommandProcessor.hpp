@@ -4,6 +4,7 @@
 #include <mutex>
 #include "common.hpp"
 #include <atomic>
+#include <condition_variable>
 
 struct unitPositionPacket;
 

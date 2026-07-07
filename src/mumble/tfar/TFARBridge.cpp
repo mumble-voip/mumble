@@ -21,6 +21,7 @@
 #include "TS3Compat.h"
 #include "Teamspeak.hpp"
 #include "task_force_radio.hpp"
+#include "PlaybackHandler.hpp"
 
 #include <algorithm>
 #include <cstring>

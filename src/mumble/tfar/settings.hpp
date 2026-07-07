@@ -72,7 +72,7 @@ public:
         t_float,
         t_string
     };
-    explicit settingValue() : type(settingType::t_invalid), boolValue(false) {}
+    settingValue() : type(settingType::t_invalid), boolValue(false) {}
     constexpr settingValue(bool value) : type(settingType::t_bool), boolValue(value) {}
     settingValue(const float& value) : type(settingType::t_float), floatValue(value) {}
     settingValue(const std::string& value) : type(settingType::t_string), stringValue(new std::string(value)) {}

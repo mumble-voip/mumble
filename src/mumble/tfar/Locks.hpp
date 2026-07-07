@@ -14,34 +14,87 @@ But i already created this new one so.... nah
 
 template<class LOCK>
 class LockGuard_exclusive {
-    LOCK* m_lock;
-    bool isLocked;
+    LOCK* m_lock = nullptr;
+    CRITICAL_SECTION* m_criticalSection = nullptr;
+    bool isLocked = false;
+
 public:
-    explicit LockGuard_exclusive(LOCK& _cs) : m_lock(&_cs) { m_lock->lockExclusive(); isLocked = true; }
-    ~LockGuard_exclusive() { if (isLocked)  m_lock->unlockExclusive(); }
-    void unlock() {
-        if (isLocked) {
-            m_lock->unlockExclusive();
-            isLocked = false;
+    explicit LockGuard_exclusive(LOCK& _cs) : m_lock(&_cs), isLocked(true) {
+        m_lock->lockExclusive();
+    }
+
+    // Compatibility with old TFAR code that still passes raw CRITICAL_SECTION.
+    explicit LockGuard_exclusive(CRITICAL_SECTION& _cs) : m_criticalSection(&_cs), isLocked(true) {
+        EnterCriticalSection(m_criticalSection);
+    }
+
+    explicit LockGuard_exclusive(CRITICAL_SECTION* _cs) : m_criticalSection(_cs), isLocked(_cs != nullptr) {
+        if (m_criticalSection) {
+            EnterCriticalSection(m_criticalSection);
         }
     }
+
+    ~LockGuard_exclusive() {
+        unlock();
+    }
+
+    void unlock() {
+        if (!isLocked) {
+            return;
+        }
+
+        if (m_lock) {
+            m_lock->unlockExclusive();
+        } else if (m_criticalSection) {
+            LeaveCriticalSection(m_criticalSection);
+        }
+
+        isLocked = false;
+    }
 };
+
 
 template<class LOCK>
 class LockGuard_shared {
-    LOCK* m_lock;
-    bool isLocked;
+    LOCK* m_lock = nullptr;
+    CRITICAL_SECTION* m_criticalSection = nullptr;
+    bool isLocked = false;
+
 public:
-    explicit LockGuard_shared(LOCK& _cs) : m_lock(&_cs) { m_lock->lockShared(); isLocked = true; }
-    ~LockGuard_shared() { if (isLocked) m_lock->unlockShared(); }
-    void unlock() {
-        if (isLocked) {
-            m_lock->unlockShared();
-            isLocked = false;
+    explicit LockGuard_shared(LOCK& _cs) : m_lock(&_cs), isLocked(true) {
+        m_lock->lockShared();
+    }
+
+    // Compatibility with old TFAR code that still passes raw CRITICAL_SECTION.
+    explicit LockGuard_shared(CRITICAL_SECTION& _cs) : m_criticalSection(&_cs), isLocked(true) {
+        EnterCriticalSection(m_criticalSection);
+    }
+
+    explicit LockGuard_shared(CRITICAL_SECTION* _cs) : m_criticalSection(_cs), isLocked(_cs != nullptr) {
+        if (m_criticalSection) {
+            EnterCriticalSection(m_criticalSection);
         }
     }
 
+    ~LockGuard_shared() {
+        unlock();
+    }
+
+    void unlock() {
+        if (!isLocked) {
+            return;
+        }
+
+        if (m_lock) {
+            m_lock->unlockShared();
+        } else if (m_criticalSection) {
+            LeaveCriticalSection(m_criticalSection);
+        }
+
+        isLocked = false;
+    }
 };
+
 
 class ReadWriteLock_impl {  //Consider SRW locks if you are reading at least 4:1 vs writing
     SRWLOCK m_lock{ SRWLOCK_INIT };
