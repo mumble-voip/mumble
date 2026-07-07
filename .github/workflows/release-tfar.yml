@@ -56,6 +56,18 @@ jobs:
         run: echo "::add-matcher::.github/msvc-problem-matcher.json"
         shell: bash
 
+      - name: Set STORM_TFAR_VERSION from the release tag
+        shell: bash
+        run: |
+          ver="${GITHUB_REF_NAME#v}"
+          if [[ "$ver" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+            sed -i "s/#define STORM_TFAR_VERSION \".*\"/#define STORM_TFAR_VERSION \"$ver\"/" \
+              src/mumble/tfar/StormBranding.h
+            grep STORM_TFAR_VERSION src/mumble/tfar/StormBranding.h
+          else
+            echo "Not a version tag ($GITHUB_REF_NAME) — keeping the default version"
+          fi
+
       - name: Build
         run: ./.github/workflows/build.sh "windows-2025-vs2026" "static" "x86_64"
         shell: bash
