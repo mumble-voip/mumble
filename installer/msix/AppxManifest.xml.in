@@ -16,10 +16,10 @@
 		ProcessorArchitecture="x64" />
 
 	<Properties>
-		<DisplayName>Mumble TFAR — Storm of The Galaxy</DisplayName>
+		<DisplayName>Storm Voice (TFAR)</DisplayName>
 		<PublisherDisplayName>Storm of The Galaxy</PublisherDisplayName>
 		<Logo>Assets\StoreLogo.png</Logo>
-		<Description>Mumble voice client with integrated Task Force Arrowhead Radio (TFAR) support for Arma 3. Free and open source, no ads. Drop-in replacement for TeamSpeak 3 + TFAR.</Description>
+		<Description>Voice client with integrated Task Force Arrowhead Radio (TFAR) support for Arma 3. Based on the open-source Mumble project and compatible with Mumble servers. Free and open source, no ads.</Description>
 	</Properties>
 
 	<Dependencies>
@@ -36,10 +36,10 @@
 	</Capabilities>
 
 	<Applications>
-		<Application Id="MumbleTFAR" Executable="mumble.exe" EntryPoint="Windows.FullTrustApplication">
+		<Application Id="StormVoice" Executable="mumble.exe" EntryPoint="Windows.FullTrustApplication">
 			<uap:VisualElements
-				DisplayName="Mumble TFAR"
-				Description="Mumble voice client with integrated TFAR (Arma 3 radio) support"
+				DisplayName="Storm Voice"
+				Description="Voice client with integrated TFAR (Arma 3 radio) support"
 				BackgroundColor="transparent"
 				Square150x150Logo="Assets\Square150x150Logo.png"
 				Square44x44Logo="Assets\Square44x44Logo.png">

@@ -27,7 +27,9 @@ public struct Features {
 
 public class ClientInstaller : MumbleInstall {
 
-	public const string s_Name = "Mumble (client)";
+	// MUMBLE-TFAR: the product is branded "Storm Voice". The upgrade GUID is
+	// kept, so updates replace previous installations.
+	public const string s_Name = "Storm Voice (TFAR)";
 	public const string s_UpgradeGuid = "D269FC55-4F2C-4285-9AA9-4D034AF305C4";
 
 	public static string GetMSIPath(string version, string arch) {
@@ -146,15 +148,15 @@ public class ClientInstaller : MumbleInstall {
 		this.Media.First().Cabinet = "Mumble.cab";
 
 		var progsDir = new Dir(@"%ProgramFiles%");
-		var productDir = new Dir("Mumble");
+		var productDir = new Dir("Storm of The Galaxy");
 		var installDir = new Dir("client");
 		var pluginDir = new Dir("plugins");
 		var licenseDir = new Dir("licenses");
 		var menuDir = new Dir(@"%ProgramMenu%");
 		var desktopDir = new Dir(@"%Desktop%");
-		var shortcutDir = new Dir("Mumble");
-		var menuShortcut = new ExeFileShortcut("Mumble", "[INSTALLDIR]mumble.exe", arguments: "");
-		var deskShortcut = new ExeFileShortcut("Mumble", "[INSTALLDIR]mumble.exe", arguments: "");
+		var shortcutDir = new Dir("Storm of The Galaxy");
+		var menuShortcut = new ExeFileShortcut("Storm Voice", "[INSTALLDIR]mumble.exe", arguments: "");
+		var deskShortcut = new ExeFileShortcut("Storm Voice", "[INSTALLDIR]mumble.exe", arguments: "");
 
 		deskShortcut.IconFile = @"..\icons\mumble.ico";
 		menuShortcut.IconFile = @"..\icons\mumble.ico";

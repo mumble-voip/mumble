@@ -43,10 +43,9 @@ void TFARBridge::initialize() {
         return;
     s_tfarBridge = new TFARBridge();
 
-    // Storm of The Galaxy branding: window title postfix + community server in
-    // the favorites (seeded once, the user can remove/edit it afterwards).
-    Global::get().windowTitlePostfix = QLatin1String(STORM_TITLE_POSTFIX);
-
+    // Storm of The Galaxy branding: the community server in the favorites
+    // (seeded once, the user can remove/edit it afterwards). The window title
+    // itself is set by MainWindow::updateWindowTitle (Storm Voice — TFAR).
     QSettings stormSettings(QLatin1String("mumble-tfar"), QLatin1String("TFAR"));
     if (!stormSettings.value(QLatin1String("stormServerAdded"), false).toBool() && Global::get().db) {
         FavoriteServer stormServer;

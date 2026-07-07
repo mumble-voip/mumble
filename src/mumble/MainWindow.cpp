@@ -39,6 +39,7 @@
 
 #ifdef USE_TFAR
 #	include "tfar/TFARBridge.h"
+#	include "tfar/StormBranding.h"
 #	include "tfar/StormUpdateCheck.h"
 #endif
 #include "QtWidgetUtils.h"
@@ -621,11 +622,20 @@ void MainWindow::setupGui() {
 
 void MainWindow::updateWindowTitle() {
 	QString title;
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: the product is branded Storm Voice
+	if (Global::get().s.bMinimalView) {
+		title = tr("%1 - Minimal View").arg(QLatin1String(STORM_APP_NAME_FULL));
+	} else {
+		title = QLatin1String(STORM_APP_NAME_FULL);
+	}
+#else
 	if (Global::get().s.bMinimalView) {
 		title = tr("Mumble - Minimal View");
 	} else {
 		title = tr("Mumble");
 	}
+#endif
 
 	if (!Global::get().windowTitlePostfix.isEmpty()) {
 		title += QString::fromLatin1(" | %1").arg(Global::get().windowTitlePostfix);

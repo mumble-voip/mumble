@@ -139,8 +139,8 @@ def banner(width, height, big):
     if big:
         font = find_font(int(height * 0.085))
         small = find_font(int(height * 0.05))
-        draw.text((int(width * 0.05), int(height * 0.62)), "MUMBLE TFAR", font=font, fill=WHITE)
-        draw.text((int(width * 0.05), int(height * 0.74)), "STORM OF THE GALAXY", font=small, fill=BLUE)
+        draw.text((int(width * 0.05), int(height * 0.62)), "STORM VOICE", font=font, fill=WHITE)
+        draw.text((int(width * 0.05), int(height * 0.74)), "TFAR • STORM OF THE GALAXY", font=small, fill=BLUE)
     return img
 
 

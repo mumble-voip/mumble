@@ -12,10 +12,18 @@
 
 #include <QApplication>
 
+#ifdef USE_TFAR
+#	include "../tfar/StormBranding.h"
+#endif
+
 TrayIcon::TrayIcon() : QSystemTrayIcon(Global::get().mw), m_statusIcon(Global::get().mw->qiIcon) {
 	setIcon(m_statusIcon);
 
+#ifdef USE_TFAR
+	setToolTip(QLatin1String(STORM_APP_NAME));
+#else
 	setToolTip("Mumble");
+#endif
 
 	assert(Global::get().mw);
 	assert(Global::get().l);

@@ -9,8 +9,13 @@
 // latest GitHub release (leading 'v' is stripped). Bump on every release tag.
 #define STORM_TFAR_VERSION "1.0.0"
 
+// Product name. "Mumble" is only used for nominative references ("based on
+// Mumble", protocol compatibility) — the product itself is branded Storm Voice.
+#define STORM_APP_NAME "Storm Voice"
+#define STORM_APP_NAME_FULL "Storm Voice — TFAR"
+
 #define STORM_PROJECT_NAME "Arma 3: Storm of The Galaxy"
-#define STORM_TITLE_POSTFIX "Storm of The Galaxy (TFAR)"
+#define STORM_TITLE_POSTFIX "Storm of The Galaxy"
 
 // Default community server (seeded into the favorites on first launch).
 #define STORM_SERVER_NAME "Storm of The Galaxy"

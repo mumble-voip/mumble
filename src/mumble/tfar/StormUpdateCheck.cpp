@@ -128,8 +128,8 @@ void StormUpdateCheck::onMetadataReceived() {
     }
 
     const QString releaseLink =
-        tr("TFAR: a new version of the %1 client is available: <b>%2</b> (installed: %3). <a href=\"%4\">Download</a>")
-            .arg(QLatin1String(STORM_PROJECT_NAME), m_newVersion.toHtmlEscaped(), QLatin1String(STORM_TFAR_VERSION),
+        tr("TFAR: a new version of %1 is available: <b>%2</b> (installed: %3). <a href=\"%4\">Download</a>")
+            .arg(QLatin1String(STORM_APP_NAME), m_newVersion.toHtmlEscaped(), QLatin1String(STORM_TFAR_VERSION),
                  QLatin1String(STORM_RELEASES_URL));
 
     if (m_assetUrl.isEmpty() || (!autoUpdateEnabled() && !m_verbose)) {
@@ -140,10 +140,10 @@ void StormUpdateCheck::onMetadataReceived() {
     }
 
     const QMessageBox::StandardButton answer = QMessageBox::question(
-        Global::get().mw, tr("TFAR — update available"),
-        tr("A new version of the %1 client is available: %2 (installed: %3).\n\n"
-           "Download and install it now? Mumble will close to run the installer.")
-            .arg(QLatin1String(STORM_PROJECT_NAME), m_newVersion, QLatin1String(STORM_TFAR_VERSION)),
+        Global::get().mw, tr("%1 — update available").arg(QLatin1String(STORM_APP_NAME)),
+        tr("A new version of %1 is available: %2 (installed: %3).\n\n"
+           "Download and install it now? %1 will close to run the installer.")
+            .arg(QLatin1String(STORM_APP_NAME), m_newVersion, QLatin1String(STORM_TFAR_VERSION)),
         QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
     if (answer != QMessageBox::Yes) {
