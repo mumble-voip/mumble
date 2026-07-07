@@ -52,6 +52,10 @@ jobs:
           os: windows-2025-vs2026
           arch: x86_64
 
+      - name: Register MSVC problem matcher
+        run: echo "::add-matcher::.github/msvc-problem-matcher.json"
+        shell: bash
+
       - name: Build
         run: ./.github/workflows/build.sh "windows-2025-vs2026" "static" "x86_64"
         shell: bash

@@ -114,15 +114,18 @@ set_source_files_properties(${TFAR_SOURCES}
 		COMPILE_DEFINITIONS "NOMINMAX;_CRT_SECURE_NO_WARNINGS;CLUNKAPI=;CLUNK_USES_SSE;X64BUILD;WINDOWS"
 )
 
-# The original TFAR/bundled-library sources predate MSVC's conformance mode
-# (/std:c++20 implies /permissive-). Compile just them with /permissive.
+# The original TFAR/bundled-library sources were written for MSVC /std:c++17
+# without conformance mode. Compile just them exactly like the original
+# project: /std:c++17 (the last /std on the command line wins) + /permissive.
+# Note: /permissive is NOT valid together with /std:c++20 (cl error D8016),
+# which is why the standard must be lowered for these files as well.
 # The Qt-facing integration sources (TFARBridge, TFARConfig, TeamspeakMumble,
-# StormUpdateCheck, DebugUI) are new code and stay conformant.
+# StormUpdateCheck, DebugUI) are new code and stay conformant C++20.
 if(MSVC)
 	set(TFAR_LEGACY_SOURCES ${TFAR_SOURCES})
 	list(FILTER TFAR_LEGACY_SOURCES EXCLUDE REGEX
 		"(TFARBridge|TFARConfig|TeamspeakMumble|StormUpdateCheck|DebugUI|TS3Compat|StormBranding)")
-	set_property(SOURCE ${TFAR_LEGACY_SOURCES} APPEND PROPERTY COMPILE_OPTIONS "/permissive")
+	set_property(SOURCE ${TFAR_LEGACY_SOURCES} APPEND PROPERTY COMPILE_OPTIONS "/std:c++17;/permissive")
 endif()
 
 # WinInet: legacy TFAR networking helpers. XAudio2: the X3DAudio* functions

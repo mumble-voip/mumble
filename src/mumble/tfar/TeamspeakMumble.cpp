@@ -833,10 +833,13 @@ std::string Teamspeak::getServerName(TSServerID serverConnectionHandlerID) {
     if (!sh)
         return "ERROR_GETTING_SERVER_NAME";
     // qsHostName/usPort are protected — use the public accessor.
+    // Note: Mumble builds with QT_USE_FAST_CONCATENATION, so operator+ yields a
+    // QStringBuilder — materialize a QString before calling toStdString().
     QString host, username, pw;
     unsigned short port = 0;
     sh->getConnectionInfo(host, port, username, pw);
-    return (host + QLatin1Char(':') + QString::number(port)).toStdString();
+    const QString serverName = host + QLatin1Char(':') + QString::number(port);
+    return serverName.toStdString();
 }
 
 std::string Teamspeak::getServerUID(TSServerID serverConnectionHandlerID) {

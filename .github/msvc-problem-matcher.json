@@ -1,0 +1,42 @@
+{
+	"problemMatcher": [
+		{
+			"owner": "msvc",
+			"pattern": [
+				{
+					"regexp": "^(?:\\s*\\d+>)?\\s*([^\\s].*?)\\((\\d+)(?:,(\\d+))?\\)\\s*:\\s+(?:fatal\\s+)?(error)\\s+(\\w{1,3}\\d+)\\s*:\\s*(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"code": 5,
+					"message": 6
+				}
+			]
+		},
+		{
+			"owner": "msvc-cmdline",
+			"pattern": [
+				{
+					"regexp": "^(cl|LINK|lib)\\s*:\\s+(?:fatal\\s+)?(error)\\s+(\\w{1,3}\\d+)\\s*:\\s*(.*)$",
+					"file": 1,
+					"severity": 2,
+					"code": 3,
+					"message": 4
+				}
+			]
+		},
+		{
+			"owner": "linker",
+			"pattern": [
+				{
+					"regexp": "^\\s*([^\\s].*?)\\s*:\\s+(error)\\s+(LNK\\d+)\\s*:\\s*(.*)$",
+					"file": 1,
+					"severity": 2,
+					"code": 3,
+					"message": 4
+				}
+			]
+		}
+	]
+}

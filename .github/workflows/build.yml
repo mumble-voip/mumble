@@ -92,6 +92,13 @@ jobs:
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
 
+      # MUMBLE-TFAR: surface compiler errors as annotations (readable via the
+      # public API without downloading full logs)
+    - name: Register MSVC problem matcher
+      if: startsWith(matrix.os, 'windows')
+      run: echo "::add-matcher::.github/msvc-problem-matcher.json"
+      shell: bash
+
     - name: Build
       run: ./.github/workflows/build.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}"
       shell: bash
