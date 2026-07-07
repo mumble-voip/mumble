@@ -73,9 +73,10 @@ static inline unsigned int toMumbleChannel(TSChannelID channelId) {
     return static_cast< unsigned int >(channelId.baseType() - 1);
 }
 
-extern void processPluginCommand(std::string_view command); // plugin.cpp
-void ts3plugin_onPluginCommandEventOld(uint64 serverConnectionHandlerID, const char *pluginName,
-                                       const char *pluginCommand); // plugin.cpp
+// Defined in plugin.cpp inside the extern "C" block of plugin.h — the linkage
+// specification here has to match, otherwise the symbol doesn't resolve.
+extern "C" void ts3plugin_onPluginCommandEventOld(uint64 serverConnectionHandlerID, const char *pluginName,
+                                                  const char *pluginCommand);
 
 namespace ts3compat {
 
