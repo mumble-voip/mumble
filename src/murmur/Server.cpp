@@ -368,7 +368,8 @@ void Server::readParams() {
 	iMessageBurst                      = Meta::mp->iMessageBurst;
 	iPluginMessageLimit                = Meta::mp->iPluginMessageLimit;
 	iPluginMessageBurst                = Meta::mp->iPluginMessageBurst;
-	bTFARSupport                       = Meta::mp->bTFARSupport; // MUMBLE-TFAR
+	bTFARSupport                       = Meta::mp->bTFARSupport;             // MUMBLE-TFAR
+	qsTFARRestrictedChannels           = Meta::mp->qsTFARRestrictedChannels; // MUMBLE-TFAR
 	broadcastListenerVolumeAdjustments = Meta::mp->broadcastListenerVolumeAdjustments;
 	m_suggestVersion                   = Meta::mp->m_suggestVersion;
 	m_suggestPositional                = Meta::mp->suggestPositional;
@@ -494,6 +495,34 @@ void Server::readParams() {
 								   broadcastListenerVolumeAdjustments);
 	// MUMBLE-TFAR
 	m_dbWrapper.getConfigurationTo(iServerNum, "tfarsupport", bTFARSupport);
+	m_dbWrapper.getConfigurationTo(iServerNum, "tfarrestrictedchannels", qsTFARRestrictedChannels);
+}
+
+// MUMBLE-TFAR ---------------------------------------------------------------
+
+bool Server::tfarChannelRestricted(const Channel *c) const {
+	if (!bTFARSupport || !c || qsTFARRestrictedChannels.isEmpty())
+		return false;
+	const QStringList entries = qsTFARRestrictedChannels.split(QLatin1Char(';'), Qt::SkipEmptyParts);
+	for (const QString &entry : entries) {
+		const QString trimmed = entry.trimmed();
+		if (trimmed.isEmpty())
+			continue;
+		if (trimmed.startsWith(QLatin1String("ID:"), Qt::CaseInsensitive)) {
+			bool ok = false;
+			if (trimmed.mid(3).toUInt(&ok) == c->iId && ok)
+				return true;
+		} else if (trimmed.compare(c->qsName, Qt::CaseInsensitive) == 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Server::tfarClientAllowed(const ServerUser *u) const {
+	// Storm Voice clients announce themselves with a "TFARST" state message
+	// right after synchronization; vanilla Mumble clients never send one.
+	return !u->qbaTFARState.isEmpty();
 }
 
 void Server::setLiveConf(const QString &key, const QString &value) {

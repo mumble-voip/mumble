@@ -117,7 +117,8 @@ MetaParams::MetaParams() {
 	iPluginMessageBurst = 15;
 
 	// MUMBLE-TFAR
-	bTFARSupport = true;
+	bTFARSupport             = true;
+	qsTFARRestrictedChannels = QString();
 
 	broadcastListenerVolumeAdjustments = false;
 
@@ -386,7 +387,8 @@ void MetaParams::read(QString fname) {
 	iPluginMessageBurst = typeCheckedFromSettings< unsigned int >("pluginmessageburst", 15);
 
 	// MUMBLE-TFAR
-	bTFARSupport = typeCheckedFromSettings("tfarsupport", true);
+	bTFARSupport             = typeCheckedFromSettings("tfarsupport", true);
+	qsTFARRestrictedChannels = typeCheckedFromSettings("tfarrestrictedchannels", QString());
 
 	broadcastListenerVolumeAdjustments = typeCheckedFromSettings("broadcastlistenervolumeadjustments", false);
 

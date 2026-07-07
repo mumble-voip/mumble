@@ -113,6 +113,9 @@ public:
 	// MUMBLE-TFAR: server-side TFAR extensions (channel broadcast of plugin
 	// messages, TFAR state caching, rate limit exemption).
 	bool bTFARSupport;
+	// Semicolon-separated channel names (or "ID:<id>") that only Storm Voice
+	// (TFAR) clients may enter. Empty = no restriction.
+	QString qsTFARRestrictedChannels;
 
 	bool broadcastListenerVolumeAdjustments;
 

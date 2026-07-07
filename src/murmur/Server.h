@@ -155,6 +155,9 @@ public:
 
 	// MUMBLE-TFAR: server-side TFAR extensions ("tfarsupport" in the ini).
 	bool bTFARSupport;
+	// "tfarrestrictedchannels": semicolon-separated channel names / "ID:<id>"
+	// that only Storm Voice (TFAR) clients may enter.
+	QString qsTFARRestrictedChannels;
 
 	bool broadcastListenerVolumeAdjustments;
 
@@ -395,6 +398,10 @@ public:
 	/// Exchanges cached TFAR states between the given user and his channel:
 	/// the user receives every channel-mate's state, the channel receives his.
 	void tfarPushChannelStates(ServerUser *user);
+	/// True when the channel is listed in "tfarrestrictedchannels".
+	bool tfarChannelRestricted(const Channel *c) const;
+	/// True when the client announced TFAR support (sent a "TFARST" state).
+	bool tfarClientAllowed(const ServerUser *u) const;
 
 	Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *parent = nullptr);
 	~Server();

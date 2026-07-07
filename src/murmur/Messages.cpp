@@ -823,6 +823,18 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			PERM_DENIED_FALLBACK(ChannelFull, Version::fromComponents(1, 2, 1), QLatin1String("Channel is full"));
 			return;
 		}
+
+		// MUMBLE-TFAR: channels listed in "tfarrestrictedchannels" only admit
+		// clients that announced TFAR support (the Storm Voice client).
+		if (tfarChannelRestricted(c) && !tfarClientAllowed(pDstServerUser)) {
+			MumbleProto::PermissionDenied mppd;
+			mppd.set_type(MumbleProto::PermissionDenied_DenyType_Text);
+			mppd.set_reason(u8(QLatin1String(
+				"This channel requires the Storm Voice (TFAR) client — see the server rules for the download link")));
+			sendMessage(uSource, mppd);
+			log(uSource, QString("Denied entering TFAR-restricted channel \"%1\" (no TFAR client)").arg(c->qsName));
+			return;
+		}
 	}
 
 	QList< Channel * > listeningChannelsAdd;
