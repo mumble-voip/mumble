@@ -16,6 +16,14 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
+#include <QtGui/QDesktopServices>
+
+#include "../Global.h"
+#include "../MainWindow.h"
+
+#include "StormBranding.h"
+#include "StormUpdateCheck.h"
+
 #include "TFARBridge.h"
 #include "TS3Compat.h"
 #include "Teamspeak.hpp"
@@ -33,6 +41,45 @@ static ConfigRegistrar registrarTFAR(7000, TFARConfigNew);
 TFARConfig::TFARConfig(Settings &st) : ConfigWidget(st) {
     auto *mainLayout = new QVBoxLayout(this);
 
+    // ---- Storm of The Galaxy --------------------------------------------
+    auto *projectGroup  = new QGroupBox(QLatin1String(STORM_PROJECT_NAME), this);
+    auto *projectLayout = new QVBoxLayout(projectGroup);
+
+    auto *projectLabel = new QLabel(
+        tr("Клиент связи проекта <b>%1</b> со встроенной поддержкой TFAR.<br/>"
+           "Сервер проекта: <b>%2</b> (добавлен в избранное автоматически).")
+            .arg(QLatin1String(STORM_PROJECT_NAME), QLatin1String(STORM_SERVER_HOST)),
+        projectGroup);
+    projectLabel->setWordWrap(true);
+    projectLayout->addWidget(projectLabel);
+
+    auto *projectButtons = new QHBoxLayout();
+    auto *connectButton  = new QPushButton(tr("Подключиться к серверу"), projectGroup);
+    connectButton->setToolTip(QLatin1String(STORM_SERVER_URL));
+    auto *guideButton = new QPushButton(tr("Гайд по настройке"), projectGroup);
+    guideButton->setToolTip(QLatin1String(STORM_DOCS_URL));
+    auto *updateButton = new QPushButton(tr("Проверить обновления"), projectGroup);
+    projectButtons->addWidget(connectButton);
+    projectButtons->addWidget(guideButton);
+    projectButtons->addWidget(updateButton);
+    projectButtons->addStretch(1);
+    projectLayout->addLayout(projectButtons);
+
+    m_autoUpdateCheck = new QCheckBox(tr("Автоматически скачивать и устанавливать обновления"), projectGroup);
+    m_autoUpdateCheck->setToolTip(tr("При запуске клиент проверяет GitHub-релизы %1. Если найдена новая версия, "
+                                     "предложит скачать и установить её. Без галочки — только сообщение в чате.")
+                                      .arg(QLatin1String(STORM_GITHUB_REPO)));
+    projectLayout->addWidget(m_autoUpdateCheck);
+    mainLayout->addWidget(projectGroup);
+
+    connect(connectButton, &QPushButton::clicked, this, []() {
+        if (Global::get().mw)
+            Global::get().mw->openUrl(QUrl(QLatin1String(STORM_SERVER_URL)));
+    });
+    connect(guideButton, &QPushButton::clicked, this,
+            []() { QDesktopServices::openUrl(QUrl(QLatin1String(STORM_DOCS_URL))); });
+    connect(updateButton, &QPushButton::clicked, this, []() { StormUpdateCheck::checkForUpdates(true); });
+
     // ---- status --------------------------------------------------------
     auto *statusGroup  = new QGroupBox(tr("Status"), this);
     auto *statusLayout = new QFormLayout(statusGroup);
@@ -46,6 +93,10 @@ TFARConfig::TFARConfig(Settings &st) : ConfigWidget(st) {
 
     statusLayout->addRow(tr("Connected to Arma 3:"), m_gameConnectedLabel);
     statusLayout->addRow(tr("Playing (in game):"), m_inGameLabel);
+    m_serverSupportLabel = new QLabel(statusGroup);
+    m_serverSupportLabel->setToolTip(tr("Серверные TFAR-расширения (mumble-tfar сервер): канальная рассылка "
+                                        "команд и серверный кэш состояния. Работает и без них (режим совместимости)."));
+    statusLayout->addRow(tr("Server TFAR extensions:"), m_serverSupportLabel);
     statusLayout->addRow(tr("Plugin version:"), m_pluginVersionLabel);
     statusLayout->addRow(tr("Addon version:"), m_addonVersionLabel);
     statusLayout->addRow(tr("Effective nickname:"), m_nicknameLabel);
@@ -116,6 +167,7 @@ void TFARConfig::load(const Settings &r) {
     Q_UNUSED(r)
     QSettings settings(QLatin1String("mumble-tfar"), QLatin1String("TFAR"));
     m_resourcePathEdit->setText(settings.value(QLatin1String("resourcePath")).toString());
+    m_autoUpdateCheck->setChecked(StormUpdateCheck::autoUpdateEnabled());
 }
 
 void TFARConfig::save() const {
@@ -125,6 +177,7 @@ void TFARConfig::save() const {
         settings.remove(QLatin1String("resourcePath"));
     else
         settings.setValue(QLatin1String("resourcePath"), path);
+    StormUpdateCheck::setAutoUpdateEnabled(m_autoUpdateCheck->isChecked());
 }
 
 void TFARConfig::updateStatus() {
@@ -133,6 +186,10 @@ void TFARConfig::updateStatus() {
 
     m_gameConnectedLabel->setText(gameConnected ? tr("<b>Yes</b>") : tr("No"));
     m_inGameLabel->setText(inGame ? tr("<b>Yes</b>") : tr("No"));
+    if (!ts3compat::isConnectedAndSynchronized())
+        m_serverSupportLabel->setText(tr("(not connected)"));
+    else
+        m_serverSupportLabel->setText(ts3compat::serverHasTFARSupport() ? tr("<b>Yes</b>") : tr("No (compat mode)"));
     m_addonVersionLabel->setText(
         QString::fromStdString(TFAR::config.get< std::string >(Setting::addon_version)));
 

@@ -153,6 +153,9 @@ public:
 	unsigned int iPluginMessageLimit;
 	unsigned int iPluginMessageBurst;
 
+	// MUMBLE-TFAR: server-side TFAR extensions ("tfarsupport" in the ini).
+	bool bTFARSupport;
+
 	bool broadcastListenerVolumeAdjustments;
 
 	Version::full_t m_suggestVersion;
@@ -382,6 +385,16 @@ public:
 	void removeChannel(Channel *c, Channel *dest = nullptr);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 	bool unregisterUser(int id);
+
+	// MUMBLE-TFAR: server-side TFAR extensions (gated by bTFARSupport).
+	/// Sends a plugin data message originating from senderSession to receiver.
+	void tfarSendPluginData(ServerUser *receiver, unsigned int senderSession, const std::string &dataID,
+							const std::string &data);
+	/// Announces the server's TFAR extensions to a freshly synchronized client.
+	void tfarAnnounceSupport(ServerUser *user);
+	/// Exchanges cached TFAR states between the given user and his channel:
+	/// the user receives every channel-mate's state, the channel receives his.
+	void tfarPushChannelStates(ServerUser *user);
 
 	Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *parent = nullptr);
 	~Server();

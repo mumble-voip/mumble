@@ -37,7 +37,9 @@ private slots:
     void onResetFiltersClicked();
 
 private:
+    QCheckBox *m_autoUpdateCheck   = nullptr;
     QLabel *m_gameConnectedLabel   = nullptr;
+    QLabel *m_serverSupportLabel   = nullptr;
     QLabel *m_inGameLabel          = nullptr;
     QLabel *m_pluginVersionLabel   = nullptr;
     QLabel *m_addonVersionLabel    = nullptr;

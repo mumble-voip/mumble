@@ -8,6 +8,8 @@
 #include "datatypes.hpp"
 #include "teamlog/logtypes.h"
 
+#include <QtCore/QVariant>
+
 #include <chrono>
 #include <string>
 
@@ -17,6 +19,9 @@ namespace ts3compat {
 bool isConnectedAndSynchronized();
 /// Set by the bridge on serverSynchronized / disconnect.
 void setConnectedState(bool connectedAndSynchronized);
+/// True when the connected server runs the mumble-tfar extensions
+/// (channel broadcast for TFAR messages, server-side state caching).
+bool serverHasTFARSupport();
 
 /// Dispatches a received PluginDataTransmission ("TFAR" commands, "TFARST" state).
 void handleIncomingPluginData(unsigned int senderSession, const char *dataID, const std::string &data);
@@ -37,6 +42,10 @@ dataType::TSChannelID channelFromMumble(unsigned int mumbleChannelId);
 
 /// Executes a "/tfar <command>" chat command (diag, pos, rstflt, debug, ...).
 void processChatCommand(const std::string &command);
+
+/// Default Push-to-Talk button ("`" / "ё" key) — defined in GlobalShortcut_win.cpp,
+/// where the platform keyboard input type lives.
+QVariant defaultPTTButton();
 
 } // namespace ts3compat
 

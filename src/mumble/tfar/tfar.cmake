@@ -12,6 +12,9 @@ set(TFAR_SOURCES
 	"${TFAR_DIR}/TeamspeakMumble.cpp"
 	"${TFAR_DIR}/TFARConfig.cpp"
 	"${TFAR_DIR}/TFARConfig.h"
+	"${TFAR_DIR}/StormBranding.h"
+	"${TFAR_DIR}/StormUpdateCheck.cpp"
+	"${TFAR_DIR}/StormUpdateCheck.h"
 	"${TFAR_DIR}/DebugUI.cpp"
 	"${TFAR_DIR}/DebugUI.h"
 

@@ -654,6 +654,14 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			break;
 	}
 
+	// MUMBLE-TFAR: announce the server-side TFAR extensions and deliver the
+	// cached TFAR states of the user's channel. Sent after ServerSync, so the
+	// client is fully synchronized when these arrive.
+	if (bTFARSupport) {
+		tfarAnnounceSupport(uSource);
+		tfarPushChannelStates(uSource);
+	}
+
 	log(uSource, "Authenticated");
 
 	emit userConnected(uSource);
@@ -2503,7 +2511,12 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 
 	// A client's plugin has sent us a message that we shall delegate to its receivers
 
-	if (sender->m_pluginMessageBucket.ratelimit(1)) {
+	// MUMBLE-TFAR: TFAR radio traffic (dataID "TFAR*") is exempt from the plugin
+	// message rate limit — dropped tangent press/release events would cause
+	// stuck radio transmissions. Size limits below still apply.
+	const bool isTFAR = bTFARSupport && msg.has_dataid() && msg.dataid().rfind("TFAR", 0) == 0;
+
+	if (!isTFAR && sender->m_pluginMessageBucket.ratelimit(1)) {
 		qWarning("Dropping plugin message sent from \"%s\" (%d)", qUtf8Printable(sender->qsName), sender->uiSession);
 		return;
 	}
@@ -2528,6 +2541,27 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 	// Always set the sender's session and don't rely on it being set correctly (would
 	// allow spoofing the sender's session)
 	msg.set_sendersession(sender->uiSession);
+
+	// MUMBLE-TFAR: cache the client's TFAR state so it can be pushed to clients
+	// entering the channel (replaces the client-side periodic re-broadcast).
+	if (isTFAR && msg.dataid() == "TFARST") {
+		sender->qbaTFARState = QByteArray(msg.data().data(), static_cast< int >(msg.data().size()));
+	}
+
+	// MUMBLE-TFAR: an empty receiver list on a TFAR message means "everyone in
+	// the sender's current channel". This avoids races with the client's local
+	// channel roster and keeps the messages small.
+	if (isTFAR && msg.receiversessions_size() == 0) {
+		if (!sender->cChannel)
+			return;
+		for (User *channelUser : std::as_const(sender->cChannel->qlUsers)) {
+			ServerUser *receiver = static_cast< ServerUser * >(channelUser);
+			if (receiver != sender && receiver->sState == ServerUser::Authenticated) {
+				sendMessage(receiver, msg);
+			}
+		}
+		return;
+	}
 
 	// Copy needed data from message in order to be able to remove info about receivers from the message as this doesn't
 	// matter for the client
@@ -2555,6 +2589,49 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 			// We can simply redirect the message we have received to the clients
 			sendMessage(receiver, msg);
 		}
+	}
+}
+
+// MUMBLE-TFAR ---------------------------------------------------------------
+
+void Server::tfarSendPluginData(ServerUser *receiver, unsigned int senderSession, const std::string &dataID,
+								const std::string &data) {
+	MumbleProto::PluginDataTransmission mpdt;
+	mpdt.set_sendersession(senderSession);
+	mpdt.set_dataid(dataID);
+	mpdt.set_data(data);
+	sendMessage(receiver, mpdt);
+}
+
+void Server::tfarAnnounceSupport(ServerUser *user) {
+	if (!bTFARSupport)
+		return;
+	// The sender session must reference an existing user, otherwise the client
+	// discards the message — use the receiver's own session for this
+	// server-originated announcement.
+	tfarSendPluginData(user, user->uiSession, "TFARSRV", "1");
+}
+
+void Server::tfarPushChannelStates(ServerUser *user) {
+	if (!bTFARSupport || !user->cChannel)
+		return;
+
+	const std::string ownState(user->qbaTFARState.constData(), static_cast< size_t >(user->qbaTFARState.size()));
+
+	for (User *channelUser : std::as_const(user->cChannel->qlUsers)) {
+		ServerUser *other = static_cast< ServerUser * >(channelUser);
+		if (other == user || other->sState != ServerUser::Authenticated)
+			continue;
+
+		// The channel receives the entering user's cached state...
+		if (!user->qbaTFARState.isEmpty())
+			tfarSendPluginData(other, user->uiSession, "TFARST", ownState);
+
+		// ...and the entering user receives every channel-mate's state.
+		if (!other->qbaTFARState.isEmpty())
+			tfarSendPluginData(user, other->uiSession, "TFARST",
+							   std::string(other->qbaTFARState.constData(),
+										   static_cast< size_t >(other->qbaTFARState.size())));
 	}
 }
 

@@ -110,6 +110,10 @@ public:
 	unsigned int iPluginMessageLimit;
 	unsigned int iPluginMessageBurst;
 
+	// MUMBLE-TFAR: server-side TFAR extensions (channel broadcast of plugin
+	// messages, TFAR state caching, rate limit exemption).
+	bool bTFARSupport;
+
 	bool broadcastListenerVolumeAdjustments;
 
 	QSslCertificate qscCert;

@@ -39,6 +39,7 @@
 
 #ifdef USE_TFAR
 #	include "tfar/TFARBridge.h"
+#	include "tfar/StormUpdateCheck.h"
 #endif
 #include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
@@ -4358,7 +4359,12 @@ void MainWindow::openAboutQtDialog() {
 }
 
 void MainWindow::versionCheck() {
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: manual update check goes against our GitHub releases.
+	StormUpdateCheck::checkForUpdates(true);
+#else
 	new VersionCheck(false, this);
+#endif
 }
 
 void MainWindow::enablePositionalAudio(bool enable) {

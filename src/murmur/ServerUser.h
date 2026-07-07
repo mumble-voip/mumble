@@ -143,6 +143,12 @@ public:
 	LeakyBucket leakyBucket;
 	LeakyBucket m_pluginMessageBucket;
 
+	// MUMBLE-TFAR: last "TFARST" state payload (in-game nickname + TFAR
+	// metadata) sent by this client. Cached so the server can push it to
+	// clients entering the channel instead of relying on periodic client
+	// broadcasts.
+	QByteArray qbaTFARState;
+
 	int iLastPermissionCheck;
 	QMap< int, unsigned int > qmPermissionSent;
 #ifdef Q_OS_UNIX

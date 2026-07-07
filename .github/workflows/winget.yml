@@ -10,6 +10,8 @@ on:
 
 jobs:
   publish:
+    # MUMBLE-TFAR: upstream-only — our fork publishes releases via release-tfar.yml
+    if: github.repository == 'mumble-voip/mumble'
     runs-on: windows-latest
     steps:
       - name: Publish Mumble client

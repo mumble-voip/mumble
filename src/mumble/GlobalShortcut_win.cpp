@@ -188,6 +188,22 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
 
+#ifdef USE_TFAR
+// MUMBLE-TFAR: default Push-to-Talk button for the Storm of The Galaxy build —
+// the "`" / "ё" key (keyboard scancode 0x29). Seeded into the shortcut list on
+// first launch by TFARBridge. Defined here because InputKeyboard and its
+// metatype are private to this file.
+namespace ts3compat {
+QVariant defaultPTTButton() {
+	GlobalShortcutWin::registerMetaTypes();
+	InputKeyboard input;
+	input.e0   = false;
+	input.code = 0x29;
+	return QVariant::fromValue(input);
+}
+} // namespace ts3compat
+#endif
+
 void GlobalShortcutWin::registerMetaTypes() {
 	static bool registered = false;
 

@@ -22,6 +22,7 @@
 #include "ServerHandler.h"
 #ifdef USE_TFAR
 #	include "tfar/TFARBridge.h"
+#	include "tfar/StormUpdateCheck.h"
 #endif
 #ifdef USE_ZEROCONF
 #	include "Zeroconf.h"
@@ -869,14 +870,20 @@ int main(int argc, char **argv) {
 #ifdef QT_NO_DEBUG
 	// Only perform the version-check for non-debug builds
 	if (Global::get().s.bUpdateCheck) {
+#	ifdef USE_TFAR
+		// MUMBLE-TFAR: check our own GitHub releases instead of mumble.info —
+		// the upstream check would advertise vanilla Mumble builds without TFAR.
+		StormUpdateCheck::checkForUpdates(false);
+#	else
 		// Use different settings for the version checks depending on whether this is a snapshot build
 		// or a normal release build
-#	ifndef SNAPSHOT_BUILD
+#		ifndef SNAPSHOT_BUILD
 		// release build
 		new VersionCheck(true, Global::get().mw);
-#	else
+#		else
 		// snapshot build
 		new VersionCheck(false, Global::get().mw, true);
+#		endif
 #	endif
 	}
 

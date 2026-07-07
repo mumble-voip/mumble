@@ -116,6 +116,9 @@ MetaParams::MetaParams() {
 	iPluginMessageLimit = 4;
 	iPluginMessageBurst = 15;
 
+	// MUMBLE-TFAR
+	bTFARSupport = true;
+
 	broadcastListenerVolumeAdjustments = false;
 
 	qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
@@ -381,6 +384,9 @@ void MetaParams::read(QString fname) {
 
 	iPluginMessageLimit = typeCheckedFromSettings< unsigned int >("pluginmessagelimit", 4);
 	iPluginMessageBurst = typeCheckedFromSettings< unsigned int >("pluginmessageburst", 15);
+
+	// MUMBLE-TFAR
+	bTFARSupport = typeCheckedFromSettings("tfarsupport", true);
 
 	broadcastListenerVolumeAdjustments = typeCheckedFromSettings("broadcastlistenervolumeadjustments", false);
 

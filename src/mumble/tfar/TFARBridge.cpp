@@ -4,12 +4,18 @@
 #include "TFARBridge.h"
 
 #include "../ClientUser.h"
+#include "../Database.h"
 #include "../Global.h"
+#include "../GlobalShortcutTypes.h"
 #include "../Log.h"
 #include "../MainWindow.h"
 
+#include <QtCore/QSettings>
+
 #include "include/ts3_functions.h"
 #include "plugin.h"
+
+#include "StormBranding.h"
 
 #include "Logger.hpp"
 #include "TS3Compat.h"
@@ -35,6 +41,49 @@ void TFARBridge::initialize() {
     if (s_tfarBridge)
         return;
     s_tfarBridge = new TFARBridge();
+
+    // Storm of The Galaxy branding: window title postfix + community server in
+    // the favorites (seeded once, the user can remove/edit it afterwards).
+    Global::get().windowTitlePostfix = QLatin1String(STORM_TITLE_POSTFIX);
+
+    QSettings stormSettings(QLatin1String("mumble-tfar"), QLatin1String("TFAR"));
+    if (!stormSettings.value(QLatin1String("stormServerAdded"), false).toBool() && Global::get().db) {
+        FavoriteServer stormServer;
+        stormServer.qsName     = QLatin1String(STORM_SERVER_NAME);
+        stormServer.qsHostname = QLatin1String(STORM_SERVER_HOST);
+        stormServer.usPort     = STORM_SERVER_PORT;
+        Global::get().db->addFavorite(stormServer);
+        stormSettings.setValue(QLatin1String("stormServerAdded"), true);
+    }
+
+    // Project defaults, applied once on the first launch (the user can change
+    // everything afterwards and their choice persists):
+    //  * voice activation (VAD) as transmit mode,
+    //  * no microphone on/off cue sounds,
+    //  * Push-to-Talk bound to the "`" / "ё" key (works on top of VAD).
+    if (!stormSettings.value(QLatin1String("stormDefaultsApplied"), false).toBool()) {
+        Settings &s          = Global::get().s;
+        s.atTransmit         = Settings::VAD;
+        s.audioCueEnabledPTT = false;
+        s.audioCueEnabledVAD = false;
+
+        bool hasPTTShortcut = false;
+        for (const Shortcut &shortcut : s.qlShortcuts) {
+            if (shortcut.iIndex == GlobalShortcutType::PushToTalk) {
+                hasPTTShortcut = true;
+                break;
+            }
+        }
+        if (!hasPTTShortcut) {
+            Shortcut ptt;
+            ptt.iIndex = GlobalShortcutType::PushToTalk;
+            ptt.qlButtons << ts3compat::defaultPTTButton();
+            ptt.bSuppress = false; // let the key still reach the game / other apps
+            s.qlShortcuts << ptt;
+        }
+
+        stormSettings.setValue(QLatin1String("stormDefaultsApplied"), true);
+    }
 
     // Route TFAR's internal client log into the Mumble log.
     Logger::registerLogger(LoggerTypes::teamspeakClientlog,

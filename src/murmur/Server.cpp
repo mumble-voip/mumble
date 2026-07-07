@@ -368,6 +368,7 @@ void Server::readParams() {
 	iMessageBurst                      = Meta::mp->iMessageBurst;
 	iPluginMessageLimit                = Meta::mp->iPluginMessageLimit;
 	iPluginMessageBurst                = Meta::mp->iPluginMessageBurst;
+	bTFARSupport                       = Meta::mp->bTFARSupport; // MUMBLE-TFAR
 	broadcastListenerVolumeAdjustments = Meta::mp->broadcastListenerVolumeAdjustments;
 	m_suggestVersion                   = Meta::mp->m_suggestVersion;
 	m_suggestPositional                = Meta::mp->suggestPositional;
@@ -491,6 +492,8 @@ void Server::readParams() {
 	}
 	m_dbWrapper.getConfigurationTo(iServerNum, "broadcastlistenervolumeadjustments",
 								   broadcastListenerVolumeAdjustments);
+	// MUMBLE-TFAR
+	m_dbWrapper.getConfigurationTo(iServerNum, "tfarsupport", bTFARSupport);
 }
 
 void Server::setLiveConf(const QString &key, const QString &value) {
@@ -2085,6 +2088,14 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	sendClientPermission(static_cast< ServerUser * >(p), c);
 	if (c->cParent)
 		sendClientPermission(static_cast< ServerUser * >(p), c->cParent);
+
+	// MUMBLE-TFAR: on channel changes exchange the cached TFAR states between
+	// the moving user and his new channel. During the initial connect the user
+	// is not authenticated yet — that case is handled at the end of
+	// msgAuthenticate instead (after ServerSync).
+	if (bTFARSupport && static_cast< ServerUser * >(p)->sState == ServerUser::Authenticated) {
+		tfarPushChannelStates(static_cast< ServerUser * >(p));
+	}
 }
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm) {

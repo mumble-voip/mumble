@@ -82,12 +82,18 @@ namespace ts3compat {
 
 static std::atomic< bool > g_connectedAndSynchronized{ false };
 
+// True when the server announced the mumble-tfar server extensions ("TFARSRV"):
+// channel broadcast for TFAR messages, server-side state caching and push.
+static std::atomic< bool > g_serverTFARSupport{ false };
+
 static std::mutex g_stateLock;
 // session -> in-game ("virtual") nickname, empty string = no override
 static std::unordered_map< unsigned int, std::string > g_virtualNicknames;
 // session -> TFAR metadata (the part between <TFAR></TFAR> in TeamSpeak)
 static std::unordered_map< unsigned int, std::string > g_metadataCache;
 static std::string g_myMetadata;
+// last "TFARST" payload sent to the server (deduplication in enhanced mode)
+static std::string g_lastSentState;
 
 // emulation of TS voice input handling (see setVoiceDisabled / hlp_*Vad)
 static std::atomic< bool > g_tfarInputActive{ false };
@@ -95,6 +101,10 @@ static std::atomic< bool > g_tfarVadSuppressed{ false };
 
 bool isConnectedAndSynchronized() {
     return g_connectedAndSynchronized.load(std::memory_order_relaxed);
+}
+
+bool serverHasTFARSupport() {
+    return g_serverTFARSupport.load(std::memory_order_relaxed);
 }
 
 static void updateForcedTransmission() {
@@ -151,7 +161,7 @@ std::string getPluginResourcePath() {
 // --------------------------------------------------- plugin data channel ---
 
 static void sendPluginData(const char *dataID, const std::string &payload,
-                           std::vector< unsigned int > receiverSessions) {
+                           std::vector< unsigned int > receiverSessions, bool channelBroadcast = false) {
     if (!isConnectedAndSynchronized())
         return;
 
@@ -164,19 +174,23 @@ static void sendPluginData(const char *dataID, const std::string &payload,
     // may not exist yet while the game pipe is already up).
     QMetaObject::invokeMethod(
         QCoreApplication::instance(),
-        [data, id, receiverSessions = std::move(receiverSessions)]() {
+        [data, id, receiverSessions = std::move(receiverSessions), channelBroadcast]() {
             ServerHandlerPtr sh = Global::get().sh;
             if (!sh || Global::get().uiSession == 0)
                 return;
 
             MumbleProto::PluginDataTransmission mpdt;
             mpdt.set_sendersession(Global::get().uiSession);
-            for (const unsigned int session : receiverSessions) {
-                if (session != Global::get().uiSession && ClientUser::get(session))
-                    mpdt.add_receiversessions(session);
+            if (!channelBroadcast) {
+                for (const unsigned int session : receiverSessions) {
+                    if (session != Global::get().uiSession && ClientUser::get(session))
+                        mpdt.add_receiversessions(session);
+                }
+                if (mpdt.receiversessions_size() == 0)
+                    return;
             }
-            if (mpdt.receiversessions_size() == 0)
-                return;
+            // channelBroadcast: an empty receiver list tells the mumble-tfar
+            // server to fan the message out to the sender's current channel.
             mpdt.set_data(data.constData(), static_cast< std::size_t >(data.size()));
             mpdt.set_dataid(id.constData());
             sh->sendMessage(mpdt);
@@ -206,6 +220,15 @@ static std::vector< unsigned int > allSessions() {
     return result;
 }
 
+// Sends a TFAR message to every client in the given channel: through the
+// server extension when available, otherwise by enumerating the sessions.
+static void sendPluginDataToChannel(const char *dataID, const std::string &payload, TSChannelID channel) {
+    if (serverHasTFARSupport())
+        sendPluginData(dataID, payload, {}, true);
+    else
+        sendPluginData(dataID, payload, sessionsInChannel(channel));
+}
+
 // "TFARST" state broadcast: virtual nickname '\x01' metadata
 static std::string buildStatePayload() {
     std::lock_guard< std::mutex > lock(g_stateLock);
@@ -221,7 +244,16 @@ static std::string buildStatePayload() {
 static void broadcastStateToChannelID(TSChannelID channel) {
     if (!channel)
         return;
-    sendPluginData("TFARST", buildStatePayload(), sessionsInChannel(channel));
+    const std::string payload = buildStatePayload();
+    if (serverHasTFARSupport()) {
+        // The server caches our state and re-pushes it to channel joiners —
+        // only actual changes have to be transmitted.
+        std::lock_guard< std::mutex > lock(g_stateLock);
+        if (payload == g_lastSentState)
+            return;
+        g_lastSentState = payload;
+    }
+    sendPluginDataToChannel("TFARST", payload, channel);
 }
 
 static void broadcastStateToChannel() {
@@ -229,11 +261,23 @@ static void broadcastStateToChannel() {
 }
 
 void sendStateToClient(unsigned int session) {
+    // With the server extension the server pushes cached states on channel
+    // joins itself — no client-side unicast needed.
+    if (serverHasTFARSupport())
+        return;
     sendPluginData("TFARST", buildStatePayload(), { session });
 }
 
 // Called by the bridge (main thread) for every received PluginDataTransmission.
 void handleIncomingPluginData(unsigned int senderSession, const char *dataID, const std::string &data) {
+    if (strcmp(dataID, "TFARSRV") == 0) {
+        // The mumble-tfar server announced its TFAR extensions.
+        if (!g_serverTFARSupport.exchange(true)) {
+            Logger::log(LoggerTypes::teamspeakClientlog,
+                        "Server-side TFAR extensions active (channel broadcast, state caching)", LogLevel_INFO);
+        }
+        return;
+    }
     if (strcmp(dataID, "TFAR") == 0) {
         ts3plugin_onPluginCommandEventOld(SERVER_CONN.baseType(), "TFAR", data.c_str());
     } else if (strcmp(dataID, "TFARST") == 0) {
@@ -273,9 +317,11 @@ void forgetSession(unsigned int session) {
 void setConnectedState(bool connectedAndSynchronized) {
     g_connectedAndSynchronized.store(connectedAndSynchronized);
     if (!connectedAndSynchronized) {
+        g_serverTFARSupport.store(false);
         std::lock_guard< std::mutex > lock(g_stateLock);
         g_virtualNicknames.clear();
         g_metadataCache.clear();
+        g_lastSentState.clear();
     }
 }
 
@@ -460,6 +506,7 @@ void TeamspeakServerData::clearChannelCache() {
 Teamspeak::Teamspeak() {
     TFAR::getInstance().doDiagReport.connect([](std::stringstream &diag) {
         diag << "TS (Mumble):\n";
+        diag << TS_INDENT << "serverTFARSupport: " << ts3compat::serverHasTFARSupport() << "\n";
         for (auto &it : getInstance().serverData) {
             diag << TS_INDENT << it.first.baseType() << ":\n";
             diag << TS_INDENT << TS_INDENT << "myCID: " << getMyId(it.first).baseType() << "\n";
@@ -812,9 +859,17 @@ void Teamspeak::sendPluginCommand(TSServerID serverConnectionHandlerID, std::str
     switch (targetMode) {
         case PluginCommandTarget_CURRENT_CHANNEL:
         case PluginCommandTarget_CURRENT_CHANNEL_SUBSCRIBED_CLIENTS: {
+            // TeamSpeak delivers channel commands back to the sender as well
+            loopbackToSelf = true;
+            if (ts3compat::serverHasTFARSupport()) {
+                // Server extension: the server fans the message out to our channel.
+                ts3compat::sendPluginData("TFAR", std::string(command), {}, true);
+                ts3plugin_onPluginCommandEventOld(serverConnectionHandlerID.baseType(), "TFAR",
+                                                  std::string(command).c_str());
+                return;
+            }
             const auto myChannel = getChannelOfClient(serverConnectionHandlerID, getMyId(serverConnectionHandlerID));
             receivers            = ts3compat::sessionsInChannel(myChannel);
-            loopbackToSelf       = true; // TeamSpeak delivers channel commands back to the sender
             break;
         }
         case PluginCommandTarget_SERVER:
