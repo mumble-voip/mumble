@@ -93,7 +93,7 @@ class helpers {
 public:
     static void applyILD(SampleBuffer& samples, Direction3D direction, AngleRadians viewAngle); //interaural level difference
 
-    static void applyILD(SampleBuffer& samples, dataType::Position3D myPosition, Direction3D myViewDirection, dataType::Position3D emitterPosition, Direction3D emitterViewDirection, bool shouldPlayerHear, int emitterVoiceVolume); //interaural level difference
+    static void applyILD(SampleBuffer& samples, Position3D myPosition, Direction3D myViewDirection, Position3D emitterPosition, Direction3D emitterViewDirection, bool shouldPlayerHear, int emitterVoiceVolume); //interaural level difference
 
     static void shortFloatMultEx(short* data, size_t elementCount, __m128 multPack);
 

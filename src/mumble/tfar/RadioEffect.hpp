@@ -285,7 +285,7 @@ void processRadioEffect(SampleBuffer& samples, float gain, T* effect, stereoMode
 
 inline void processCompressor(chunkware_simple::SimpleComp* compressor, SampleBuffer& samples) {
     if (samples.getChannels() >= 2) {
-        for (auto&& [Sleft,Sright] : samples.iterateStereo()) {
+        for (auto& [Sleft,Sright] : samples.iterateStereo()) {
             auto Fleft = static_cast<double>(Sleft);
             auto Fright = static_cast<double>(Sright);
             compressor->process(Fleft, Fright);

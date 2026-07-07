@@ -24,7 +24,6 @@
 // Mumble / Qt headers first — TFAR's common.hpp defines macros (snprintf, ...)
 // that must not leak into them.
 #include "../AudioOutput.h"
-#include "../AudioOutputToken.h"
 #include "../Channel.h"
 #include "../ClientUser.h"
 #include "../Global.h"
@@ -832,10 +831,7 @@ std::string Teamspeak::getServerName(TSServerID serverConnectionHandlerID) {
     ServerHandlerPtr sh = Global::get().sh;
     if (!sh)
         return "ERROR_GETTING_SERVER_NAME";
-    QString host, username, pw;
-    unsigned short port = 0;
-    sh->getConnectionInfo(host, port, username, pw);
-    return QString(host + QLatin1Char(':') + QString::number(port)).toStdString();
+    return (sh->qsHostName + QLatin1Char(':') + QString::number(sh->usPort)).toStdString();
 }
 
 std::string Teamspeak::getServerUID(TSServerID serverConnectionHandlerID) {

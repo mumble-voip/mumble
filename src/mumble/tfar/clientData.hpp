@@ -10,7 +10,6 @@
 #include "Locks.hpp"
 #include "antennaManager.h"
 #include <set>
-#include <string_view>
 
 enum class sendingRadioType {   //Receiving FROM senders Radio.
     LISTEN_TO_SW,
@@ -29,7 +28,7 @@ enum class receivingRadioType { //Receiving TO our Radio
 
 struct LISTED_INFO {
     LISTED_INFO(sendingRadioType _over, receivingRadioType _on, int _volume, stereoMode _stereoMode, std::string _radio_id,
-        dataType::Position3D _pos, float _waveZ, vehicleDescriptor _vehicle, AntennaConnection _antCon = AntennaConnection())
+        Position3D _pos, float _waveZ, vehicleDescriptor _vehicle, AntennaConnection _antCon = AntennaConnection())
         :over(_over), on(_on), volume(_volume), stereoMode(_stereoMode), radio_id(std::move(_radio_id)),
         pos(std::move(_pos)), waveZ(_waveZ), vehicle(std::move(_vehicle)), antennaConnection(std::move(_antCon)) {}
     LISTED_INFO() = default;
@@ -38,7 +37,7 @@ struct LISTED_INFO {
     int volume = 0;
     stereoMode stereoMode = stereoMode::stereo;
     std::string radio_id;
-    dataType::Position3D pos;
+    Position3D pos;
     float waveZ = 0.f;
     vehicleDescriptor vehicle;//Only set for local_radio and is always the players vehicle
     AntennaConnection antennaConnection;
@@ -52,7 +51,7 @@ inline std::ostream& operator<<(std::ostream &os, const LISTED_INFO& w) {
 
 struct unitPositionPacket {
     std::string nickname;
-    dataType::Position3D position;
+    Position3D position;
     Direction3D viewDirection;
     bool canSpeak;
     bool canUseSWRadio;
@@ -250,8 +249,6 @@ private:
 class clientData { //enable_shared_from_this doesn't work.. don't ask me
 public:
 
-    static std::string convertNickname(std::string_view nickname);
-
 
     explicit clientData(TSClientID _clientID) : clientId(_clientID) {
 
@@ -264,9 +261,9 @@ public:
 
     auto getNickname() const { LockGuard_shared lock(m_lock); return nickname; }
     void setNickname(std::string val) { LockGuard_exclusive lock(m_lock); nickname = std::move(val); }
-    dataType::Position3D getClientPosition() const;       
-    dataType::Position3D getClientPositionRaw() const { LockGuard_shared lock(m_lock); return clientPosition; }
-    void setClientPosition(const dataType::Position3D& val) { LockGuard_exclusive lock(m_lock); clientPosition = val; }
+    Position3D getClientPosition() const;       
+    Position3D getClientPositionRaw() const { LockGuard_shared lock(m_lock); return clientPosition; }
+    void setClientPosition(const Position3D& val) { LockGuard_exclusive lock(m_lock); clientPosition = val; }
     auto getViewDirection() const { LockGuard_shared lock(m_lock); return viewDirection; }
     void setViewDirection(const Direction3D& val) { LockGuard_exclusive lock(m_lock); viewDirection = val; }
     auto getLastPositionUpdateTime() const { LockGuard_shared lock(m_lock); return lastPositionUpdateTime; }
@@ -280,7 +277,7 @@ public:
     float effectiveDistanceTo(clientData* other) const;
     bool isAlive();
 
-    operator dataType::Position3D() const { return getClientPosition(); } //convenience
+    operator Position3D() const { return getClientPosition(); } //convenience
 
 
 
@@ -339,7 +336,7 @@ private:
 
     std::string nickname;
 
-    dataType::Position3D clientPosition;
+    Position3D clientPosition;
     Direction3D viewDirection;
     std::chrono::system_clock::time_point lastPositionUpdateTime;
 
@@ -347,7 +344,7 @@ private:
     std::string currentTransmittingSubtype;//subtype client is currently transmitting on
 
     vehicleDescriptor vehicleId;
-    dataType::Vector3D velocity;
+    Vector3D velocity;
 
     void setVehicleId(std::string_view val) {
         //"2:390\x100.6\x10gunner"
@@ -368,10 +365,9 @@ private:
             vehicleId.vehicleIsolation = helpers::parseArmaNumber(split[1]); // hear
         vehicleId.intercomSlot = helpers::parseArmaNumberToInt(split[2]);//vehicleDescriptor::stringToVehiclePosition(split[2]);
         if (split.size() > 3)
-            velocity = dataType::Vector3D(split[3]);
+            velocity = Vector3D(split[3]);
         else
             velocity = { 0,0,0 };
     }
 };
 
-using CLIENT_DATA = clientData;

@@ -6,7 +6,6 @@
 #include <chrono>
 #include <string_view>
 #include <stdexcept>
-#include <cstring>
 
 #define M_PI_FLOAT 3.14159265358979323846f
 namespace dataType {

@@ -1,7 +1,6 @@
 #include "CommandProcessor.hpp"
 #include "helpers.hpp"
 #include "serverData.hpp"
-#include "clientData.hpp"
 #include "task_force_radio.hpp"
 #include "Logger.hpp"
 #include "PlaybackHandler.hpp"

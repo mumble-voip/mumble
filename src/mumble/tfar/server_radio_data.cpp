@@ -1,11 +1,9 @@
 #include "server_radio_data.hpp"
-#include "Locks.hpp"
-#include "helpers.hpp"
-#include <memory>
+#include "helpers.h"
 
 
 void SERVER_RADIO_DATA::setFreqInfos(const std::vector<std::string>& tokens) {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	mySwFrequencies = helpers::parseFrequencies(tokens[1]);
 	myLrFrequencies = helpers::parseFrequencies(tokens[2]);
 	myDdFrequency = tokens[3];
@@ -28,7 +26,7 @@ std::map<uint64_t, SERVER_RADIO_DATA>::iterator SERVER_ID_TO_SERVER_DATA::end() 
 }
 
 size_t SERVER_ID_TO_SERVER_DATA::count(uint64_t const& serverConnectionHandlerID) const {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	return data.count(serverConnectionHandlerID);
 }
 
@@ -37,33 +35,33 @@ SERVER_RADIO_DATA& SERVER_ID_TO_SERVER_DATA::operator[](uint64_t const& serverCo
 }
 
 void SERVER_ID_TO_SERVER_DATA::setMyNickname(uint64_t const& serverConnectionHandlerID, const std::string& nickname) {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	data[serverConnectionHandlerID].setMyNicknamex(nickname);
 }
 
 std::string SERVER_ID_TO_SERVER_DATA::getMyNickname(uint64_t const& serverConnectionHandlerID) {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	return data[serverConnectionHandlerID].getMyNickname();
 }
 
 void SERVER_ID_TO_SERVER_DATA::resetAndSetMyNickname(uint64_t const& serverConnectionHandlerID, const std::string& nickname) {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	data[serverConnectionHandlerID] = SERVER_RADIO_DATA();
 	data[serverConnectionHandlerID].setMyNicknamex(nickname);
 }
 
 std::vector<std::shared_ptr<CLIENT_DATA>> SERVER_ID_TO_SERVER_DATA::getClientDataByClientID(uint64_t const& serverConnectionHandlerID, anyID clientID) {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	return data[serverConnectionHandlerID].nicknameToClientData.getClientDataByClientID(clientID);
 }
 
 float SERVER_ID_TO_SERVER_DATA::getWavesLevel(uint64_t const& serverConnectionHandlerID) {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	return data[serverConnectionHandlerID].wavesLevel;
 }
 
 size_t SERVER_ID_TO_SERVER_DATA::clientDataCount(uint64_t const& serverConnectionHandlerID, const std::string & nickname) {
-	LockGuard_exclusive<CriticalSectionLock> lock(serverDataCriticalSection);
+	CriticalSectionLock lock(&serverDataCriticalSection);
 	return data[serverConnectionHandlerID].nicknameToClientData.count(nickname);
 }
 

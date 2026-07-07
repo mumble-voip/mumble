@@ -1,15 +1,6 @@
 #pragma once
-#include <vector>
-#include <unordered_map>
-#include <functional>
-#include "Locks.hpp"
-#include "helpers.hpp"
-#include <map>
-#include <memory>
-#include <string>
-#include "clientData.hpp"
+#include "client_data.hpp"
 #include <Windows.h>
-
 extern CRITICAL_SECTION serverDataCriticalSection;
 struct FREQ_SETTINGS {
 	int volume;
@@ -24,31 +15,6 @@ struct SPEAKER_DATA {
 	int volume;
 	std::pair<std::string, float> vehicle;
 	float waveZ;
-};
-
-
-class ClientDataMap : public std::unordered_map<std::string, std::shared_ptr<CLIENT_DATA>> {
-    using Base = std::unordered_map<std::string, std::shared_ptr<CLIENT_DATA>>;
-
-public:
-    using Base::Base;
-
-    std::vector<std::shared_ptr<CLIENT_DATA>> getClientDataByClientID(TSClientID clientID) const {
-        std::vector<std::shared_ptr<CLIENT_DATA>> result;
-
-        for (const auto& entry : *this) {
-            const auto& client = entry.second;
-            if (client && client->clientId == clientID) {
-                result.push_back(client);
-            }
-        }
-
-        return result;
-    }
-        }
-
-        return nullptr;
-    }
 };
 
 struct SERVER_RADIO_DATA {
@@ -74,7 +40,7 @@ struct SERVER_RADIO_DATA {
 	}
 	bool tangentPressed;
 	TS3_VECTOR myPosition;
-    ClientDataMap nicknameToClientData;
+	STRING_TO_CLIENT_DATA_MAP nicknameToClientData;
 #ifndef unmuteAllClients
 	std::vector<anyID> mutedClients; //Access is guarded by serverDataCriticalSection 
 	void sortMutedClients() {
@@ -83,8 +49,8 @@ struct SERVER_RADIO_DATA {
 	}
 #endif
 
-	std::map<std::string, FREQ_SETTINGS, std::less<>> mySwFrequencies;
-	std::map<std::string, FREQ_SETTINGS, std::less<>> myLrFrequencies;
+	std::map<std::string, FREQ_SETTINGS> mySwFrequencies;
+	std::map<std::string, FREQ_SETTINGS> myLrFrequencies;
 
 	std::string myDdFrequency;
 	std::multimap<std::string, SPEAKER_DATA> speakers;

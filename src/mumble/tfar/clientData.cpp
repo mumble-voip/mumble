@@ -431,25 +431,3 @@ void clientData::verboseDataLog(std::ostream& str) {
 
     logParamN(velocity,velocity.toString());
 }
-
-std::string clientData::convertNickname(std::string_view nickname) {
-    if (!nickname.empty() && (nickname.front() == ' ' || nickname.back() == ' ')) {
-        std::string newName(nickname);
-
-        if (nickname.front() == ' ') {
-            const auto count = nickname.find_first_not_of(' ');
-            newName.replace(0, count, count, '_');
-        }
-
-        if (nickname.back() == ' ') {
-            const auto last = nickname.find_last_not_of(' ');
-            const auto count = newName.length() - last - 1;
-            newName.replace(last + 1, count, count, '_');
-        }
-
-        return newName;
-    }
-
-    return std::string(nickname);
-}
-

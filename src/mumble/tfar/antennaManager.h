@@ -8,29 +8,29 @@
 using namespace dataType;
 class Antenna {
 public:
-    Antenna(NetID _id, dataType::Position3D _pos, float _range) : id(_id), pos(std::move(_pos)), range(_range), rangeSquared(_range*_range) {}
+    Antenna(NetID _id, Position3D _pos, float _range) : id(_id), pos(std::move(_pos)), range(_range), rangeSquared(_range*_range) {}
     Antenna(Antenna&& other) noexcept : id(other.id), pos(std::move(other.pos)), range(other.range), rangeSquared(other.rangeSquared) { }
 
-    float distanceTo(const dataType::Position3D& other) const { return pos.distanceTo(other); }
-    float lossTo(const dataType::Position3D& other) const {
+    float distanceTo(const Position3D& other) const { return pos.distanceTo(other); }
+    float lossTo(const Position3D& other) const {
         if (!range) return 1.f;
         const auto dist = pos.distanceTo(other);
         if (dist > range) return 1.f;
         return dist / range;
     }
-    float lossFrom(const dataType::Position3D& from, float maxDistance) const {
+    float lossFrom(const Position3D& from, float maxDistance) const {
         if (!maxDistance) return 1.f;
         const auto dist = pos.distanceTo(from);
         if (dist > maxDistance) return 1.f;
         return dist / maxDistance;
     }
-    bool canBeReachedBy(const dataType::Position3D& from, float maxDistanceSquared) const {
+    bool canBeReachedBy(const Position3D& from, float maxDistanceSquared) const {
         return pos.distanceToSqr(from) < maxDistanceSquared;
     }
-    bool canReach(const dataType::Position3D& to) const {
+    bool canReach(const Position3D& to) const {
         return pos.distanceToSqr(to) < rangeSquared;
     }
-    float connectionLoss(const dataType::Position3D& from, float maxDistanceToAnt, const dataType::Position3D& to) const {
+    float connectionLoss(const Position3D& from, float maxDistanceToAnt, const Position3D& to) const {
         return lossTo(to) + lossFrom(from, maxDistanceToAnt);
     }
     //Operators
@@ -57,23 +57,23 @@ public:
 
 
     //Conversions
-    operator dataType::Position3D&() { return pos; }
+    operator Position3D&() { return pos; }
     operator NetID&() { return id; }
 
     //Setters
     void setID(NetID _id) { id = _id; }
-    void setPos(dataType::Position3D _pos) { pos = std::move(_pos); }
+    void setPos(Position3D _pos) { pos = std::move(_pos); }
     void setRange(float _range) { range = _range; }
     void setSatelliteUplink(bool hasUplink) { satUplink = hasUplink; }
     //Getters
     NetID getID() const { return id; }
-    dataType::Position3D getPos() const { return pos; }
+    Position3D getPos() const { return pos; }
     float getRange() const { return range; }
     bool hasSatelliteUplink() const { return satUplink; }
 
 private:
     NetID id;
-    dataType::Position3D pos;
+    Position3D pos;
     float range{ 0 };
     float rangeSquared{ 0 };
     bool satUplink{ false }; //future functionality
@@ -86,7 +86,7 @@ inline std::ostream& operator<<(std::ostream &os, const Antenna& w) {
 class AntennaConnection {
 public:
     AntennaConnection() = default;
-    AntennaConnection(dataType::Position3D _from, std::shared_ptr<Antenna> _overAntenna,dataType::Position3D _to,float _loss) : 
+    AntennaConnection(Position3D _from, std::shared_ptr<Antenna> _overAntenna,Position3D _to,float _loss) : 
         from(std::move(_from)), overAntenna(std::move(_overAntenna)), to(std::move(_to)), loss(_loss) {}
     float getLoss() const { return loss; }
     bool isNull() const { return loss == 7.f; }//Magic number. Loss will never be >1
@@ -104,9 +104,9 @@ public:
     }
 
 private:
-    dataType::Position3D from;
+    Position3D from;
     std::shared_ptr<Antenna> overAntenna;
-    dataType::Position3D to;
+    Position3D to;
     float loss {7.f};
 };
 
@@ -119,7 +119,7 @@ public:
     AntennaManager();
     ~AntennaManager() = default;
 
-    AntennaConnection findConnection(const dataType::Position3D& from, float maxDistanceToAnt, const dataType::Position3D& to);
+    AntennaConnection findConnection(const Position3D& from, float maxDistanceToAnt, const Position3D& to);
     void addAntenna(Antenna ant);
     void removeAntenna(const NetID& antennaID);
 private:

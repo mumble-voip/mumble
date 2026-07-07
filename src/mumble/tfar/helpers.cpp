@@ -22,21 +22,7 @@ void helpers::applyILD(SampleBuffer& samples, Direction3D direction, AngleRadian
     }
 }
 #define _SPEAKER_POSITIONS_
-// X3DAudio.h (the Windows 8+ XAudio2 redist version) hard-errors if
-// _WIN32_WINNT is below Windows 8, but Mumble targets Win7 as its minimum
-// supported OS project-wide. Temporarily raise it just for this include;
-// TFAR's use of X3DAudio itself still only requires APIs available since
-// Windows 8, which is fine since Mumble's real minimum runtime requirement
-// for XAudio2/X3DAudio consumers is not affected by this compile-time check.
-#pragma push_macro("_WIN32_WINNT")
-#include <sdkddkver.h>
-#if !defined(_WIN32_WINNT_WIN8)
-#define _WIN32_WINNT_WIN8 0x0602
-#endif
-#undef _WIN32_WINNT
-#define _WIN32_WINNT _WIN32_WINNT_WIN8
 #include <X3daudio.h>
-#pragma pop_macro("_WIN32_WINNT")
 #pragma comment(lib, "x3daudio.lib")
 X3DAUDIO_HANDLE x3d_handle;
 bool x3d_initialized = false;
