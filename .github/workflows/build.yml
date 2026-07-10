@@ -124,6 +124,12 @@ jobs:
           build/mumble-server
           build/**/mumble*.msi
           build/**/mumble*.exe
+          build/**/plugins/*.pdb
+          build/**/mumble.pdb
+          build/**/mumble_ol*.pdb
+          build/**/mumble-server.pdb
+          build/**/rnnoise.pdb
+          build/**/speexdsp.pdb
 
       # We don't want to save the build env in a cache on a PR as caches are scoped
       # to branches and while PRs can access caches from the default branch, they
