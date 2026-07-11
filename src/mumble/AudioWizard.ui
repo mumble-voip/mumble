@@ -21,13 +21,13 @@
     <string>Introduction</string>
    </property>
    <property name="subTitle">
-    <string>Welcome to the Mumble Audio Wizard</string>
+    <string>Welcome to the Storm Voice Audio Wizard</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only applied once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Storm Voice. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Storm Voice. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only applied once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -57,7 +57,7 @@
     <string>Device selection</string>
    </property>
    <property name="subTitle">
-    <string>Selecting the input and output device to use with Mumble.</string>
+    <string>Selecting the input and output device to use with Storm Voice.</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
@@ -209,10 +209,10 @@
           <string>Allows positioning of sound</string>
          </property>
          <property name="whatsThis">
-          <string>This allows Mumble to use positional audio to place voices.</string>
+          <string>This allows Storm Voice to use positional audio to place voices.</string>
          </property>
          <property name="accessibleDescription">
-          <string>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</string>
+          <string>The Storm Voice positional audio system enables users to link the relative position of their voice to third party applications such as games.</string>
          </property>
          <property name="text">
           <string>Enable positional audio</string>
@@ -225,7 +225,7 @@
           <string>Enables attenuation of other applications while users talk to you</string>
          </property>
          <property name="whatsThis">
-          <string>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</string>
+          <string>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Storm Voice, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</string>
          </property>
          <property name="text">
           <string>Attenuate applications while other users talk</string>
@@ -496,13 +496,13 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <string>Voice Activity Detection</string>
    </property>
    <property name="subTitle">
-    <string>Letting Mumble figure out when you're talking and when you're silent.</string>
+    <string>Letting Storm Voice figure out when you're talking and when you're silent.</string>
    </property>
    <layout class="QGridLayout" name="gridLayout_4">
     <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="qliVADText">
       <property name="text">
-       <string>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</string>
+       <string>This will help Storm Voice figure out when you are talking. The first step is selecting which data value to use.</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -582,7 +582,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
           <string>Voice activity detection level</string>
          </property>
          <property name="accessibleDescription">
-          <string>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</string>
+          <string>This will set the range in which Storm Voice will consider a signal speech. Increase value to make voice activation more sensitive.</string>
          </property>
          <property name="minimum">
           <number>1</number>
@@ -727,7 +727,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
        <item row="0" column="1">
         <widget class="QLabel" name="qlQualityLow">
          <property name="text">
-          <string>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</string>
+          <string>In this configuration Storm Voice will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -782,7 +782,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
        <item row="2" column="1">
         <widget class="QLabel" name="qlQualityUltra">
          <property name="text">
-          <string>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</string>
+          <string>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Storm Voice and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -802,7 +802,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
        <item row="3" column="1">
         <widget class="QLabel" name="qlQualityCustom">
          <property name="text">
-          <string>You already set a customized quality configuration in Mumble. Select this setting to keep it.</string>
+          <string>You already set a customized quality configuration in Storm Voice. Select this setting to keep it.</string>
          </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -871,7 +871,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <item>
      <widget class="QLabel" name="qliPositionalText">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Storm Voice supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -924,17 +924,14 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <string>Finished</string>
    </property>
    <property name="subTitle">
-    <string>Enjoy using Mumble</string>
+    <string>Enjoy using Storm Voice</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <widget class="QLabel" name="qlDone">
       <property name="text">
        <string>&lt;p&gt;
-Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.
-&lt;/p&gt;
-&lt;p&gt;
-Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren't deprecated.
+Congratulations. You should now be ready to enjoy a richer sound experience with your voice client.
 &lt;/p&gt;
 </string>
       </property>
@@ -949,7 +946,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <item>
      <widget class="QCheckBox" name="qcbUsage">
       <property name="text">
-       <string>Submit anonymous statistics to the Mumble project</string>
+       <string>Submit anonymous statistics</string>
       </property>
      </widget>
     </item>

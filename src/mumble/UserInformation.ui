@@ -65,7 +65,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>Warning: The server seems to report a truncated protocol version for this client. (See: &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5827/&quot;&gt;Issue #5827&lt;/a&gt;)</string>
+         <string>Warning: The server seems to report a truncated protocol version for this client.</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

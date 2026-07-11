@@ -42,6 +42,11 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 
 	// Done
 	qcbUsage->setChecked(Global::get().s.bUsage);
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: usage statistics are never submitted in this build
+	// (see Usage.cpp), so don't offer the checkbox.
+	qcbUsage->setVisible(false);
+#endif
 
 	// Device
 	if (AudioOutputRegistrar::qmNew) {

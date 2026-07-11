@@ -35,7 +35,7 @@
          <string>Use TCP compatibility mode</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
+         <string>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Storm Voice use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</string>
         </property>
         <property name="text">
          <string>Force TCP mode</string>
@@ -61,7 +61,7 @@
          <string>Reconnect when disconnected</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</string>
+         <string>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Storm Voice try to automatically reconnect after 10 seconds if your server connection fails.</string>
         </property>
         <property name="text">
          <string>Reconnect automatically</string>
@@ -71,7 +71,7 @@
       <item>
        <widget class="QCheckBox" name="qcbAutoConnect">
         <property name="toolTip">
-         <string>Reconnect to last used server when starting Mumble</string>
+         <string>Reconnect to last used server when starting Storm Voice</string>
         </property>
         <property name="text">
          <string>Reconnect to last server on startup</string>
@@ -128,7 +128,7 @@
          <string>Type of proxy to connect through</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</string>
+         <string>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Storm Voice connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Storm Voice into TCP compatibility mode, causing all voice data to be sent via the control channel.</string>
         </property>
         <property name="accessibleName">
          <string>Proxy type</string>
@@ -314,14 +314,14 @@
       <item>
        <widget class="QCheckBox" name="qcbHideOS">
         <property name="toolTip">
-         <string>Prevent OS information being sent to Mumble servers and web servers</string>
+         <string>Prevent OS information being sent to voice servers and web servers</string>
         </property>
         <property name="whatsThis">
          <string>&lt;b&gt;Don't send OS information to servers&lt;/b&gt;&lt;br/&gt;
-Prevents the client from sending potentially identifying information about the operating system to the Mumble server and web servers.</string>
+Prevents the client from sending potentially identifying information about the operating system to the voice server and web servers.</string>
         </property>
         <property name="text">
-         <string>Do not send OS information to Mumble servers and web servers</string>
+         <string>Do not send OS information to voice servers and web servers</string>
         </property>
        </widget>
       </item>
@@ -331,16 +331,16 @@ Prevents the client from sending potentially identifying information about the o
    <item>
     <widget class="QGroupBox" name="qgbServices">
      <property name="title">
-      <string>Mumble services</string>
+      <string>Online services</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QCheckBox" name="qcbAutoUpdate">
         <property name="toolTip">
-         <string>Check for new releases of Mumble automatically.</string>
+         <string>Check for new releases automatically.</string>
         </property>
         <property name="whatsThis">
-         <string>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</string>
+         <string>This will check for new releases every time you start the program, and notify you if one is available.</string>
         </property>
         <property name="text">
          <string>Check for application updates on startup</string>
@@ -370,10 +370,10 @@ Prevents the client from sending potentially identifying information about the o
       <item>
        <widget class="QCheckBox" name="qcbUsage">
         <property name="toolTip">
-         <string>Submit anonymous statistics to the Mumble project</string>
+         <string>Submit anonymous statistics</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</string>
+         <string>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;By submitting a bit of statistics you help the project determine where to focus development.</string>
         </property>
         <property name="text">
          <string>Submit anonymous statistics</string>

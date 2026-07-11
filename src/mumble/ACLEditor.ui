@@ -49,7 +49,7 @@
           <string>Enter the channel password here.</string>
          </property>
          <property name="whatsThis">
-          <string>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble's access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</string>
+          <string>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Storm Voice's access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</string>
          </property>
          <property name="accessibleName">
           <string>Channel password</string>
@@ -79,7 +79,7 @@
          </property>
          <property name="whatsThis">
           <string>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
-This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
+This value enables you to change the way Storm Voice arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</string>
          </property>
          <property name="accessibleName">
           <string>Channel position</string>

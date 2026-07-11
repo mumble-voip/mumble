@@ -63,7 +63,7 @@
                 <string>Enable overlay.</string>
                </property>
                <property name="whatsThis">
-                <string>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</string>
+                <string>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Storm Voice is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Storm Voice after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</string>
                </property>
                <property name="text">
                 <string>Enable Overlay</string>
@@ -537,7 +537,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Mumble has detected that you do not have the Mumble Overlay installed.
+               <string>Storm Voice has detected that you do not have the Storm Voice Overlay installed.
 
 Click the button below to install the overlay.</string>
               </property>
@@ -569,7 +569,7 @@ Click the button below to install the overlay.</string>
             <item>
              <widget class="QPushButton" name="qpbInstall">
               <property name="text">
-               <string>Install Mumble Overlay</string>
+               <string>Install Storm Voice Overlay</string>
               </property>
              </widget>
             </item>
@@ -632,7 +632,7 @@ Click the button below to install the overlay.</string>
             <item row="0" column="1">
              <widget class="QLabel" name="qlUpgradeText">
               <property name="text">
-               <string>Mumble has detected an old version of the overlay support files installed on your computer.
+               <string>Storm Voice has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</string>
               </property>
@@ -661,7 +661,7 @@ To upgrade these files to their latest versions, click the button below.</string
             <item>
              <widget class="QPushButton" name="qpbUpgrade">
               <property name="text">
-               <string>Upgrade Mumble Overlay</string>
+               <string>Upgrade Storm Voice Overlay</string>
               </property>
              </widget>
             </item>

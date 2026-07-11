@@ -34,7 +34,7 @@ ACLEditor::ACLEditor(unsigned int channelparentid, QWidget *p) : QDialog(p) {
 
 	qsbChannelPosition->setRange(INT_MIN, INT_MAX);
 
-	setWindowTitle(tr("Mumble - Add channel"));
+	setWindowTitle(tr("Storm Voice - Add channel"));
 	qtwTab->removeTab(2);
 	qtwTab->removeTab(1);
 
@@ -79,7 +79,7 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 	qcbChannelTemporary->hide();
 
 	iId = static_cast< int >(mea.channel_id());
-	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(static_cast< unsigned int >(iId))->qsName));
+	setWindowTitle(tr("Storm Voice - Edit %1").arg(Channel::get(static_cast< unsigned int >(iId))->qsName));
 
 	qlChannelID->setText(tr("ID: %1").arg(iId));
 
@@ -280,7 +280,7 @@ void ACLEditor::accept() {
 
 	if (qleChannelName->text().isEmpty()) {
 		// Empty channel name
-		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Channel must have a name"), QMessageBox::Ok);
+		QMessageBox::warning(this, QLatin1String("Storm Voice"), tr("Channel must have a name"), QMessageBox::Ok);
 		qleChannelName->setFocus();
 		return;
 	}

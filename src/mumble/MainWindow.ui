@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Mumble</string>
+   <string>Storm Voice</string>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AnimatedDocks</set>
@@ -248,7 +248,7 @@
   </widget>
   <action name="qaQuit">
    <property name="text">
-    <string>&amp;Quit Mumble</string>
+    <string>&amp;Quit Storm Voice</string>
    </property>
    <property name="toolTip">
     <string>Closes the program</string>
@@ -614,10 +614,10 @@
     <string>&amp;Settings</string>
    </property>
    <property name="toolTip">
-    <string>Configure Mumble</string>
+    <string>Configure Storm Voice</string>
    </property>
    <property name="whatsThis">
-    <string>Allows you to change most settings for Mumble.</string>
+    <string>Allows you to change most settings for Storm Voice.</string>
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
@@ -674,7 +674,7 @@ the channel's context menu.</string>
     <string>Show the Developer Console</string>
    </property>
    <property name="whatsThis">
-    <string>Shows the Mumble Developer Console, where Mumble's log output can be inspected.</string>
+    <string>Shows the Storm Voice Developer Console, where Storm Voice's log output can be inspected.</string>
    </property>
   </action>
   <action name="qaPositionalAudioViewer">
@@ -704,10 +704,10 @@ the channel's context menu.</string>
     <string>&amp;About</string>
    </property>
    <property name="toolTip">
-    <string>Information about Mumble</string>
+    <string>Information about Storm Voice</string>
    </property>
    <property name="whatsThis">
-    <string>Shows a small dialog with information and license for Mumble.</string>
+    <string>Shows a small dialog with information and license for Storm Voice.</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutRole</enum>
@@ -746,10 +746,10 @@ the channel's context menu.</string>
     <string>Check for &amp;Updates</string>
    </property>
    <property name="toolTip">
-    <string>Check for new version of Mumble</string>
+    <string>Check for a new version</string>
    </property>
    <property name="whatsThis">
-    <string>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</string>
+    <string>Checks if a new version is available, and notifies you with an appropriate download URL if this is the case.</string>
    </property>
   </action>
   <action name="qaChannelSendMessage">

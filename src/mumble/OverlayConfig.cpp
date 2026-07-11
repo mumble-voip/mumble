@@ -821,7 +821,7 @@ void OverlayConfig::on_qpbFpsColor_clicked() {
 
 void OverlayConfig::on_qpbLoadPreset_clicked() {
 	QString fn = QFileDialog::getOpenFileName(this, tr("Load Overlay Presets"), QDir::homePath(),
-											  tr("Mumble overlay presets (*.mumblelay)"));
+											  tr("Overlay presets (*.mumblelay)"));
 
 	if (fn.isEmpty()) {
 		return;
@@ -861,7 +861,7 @@ void OverlayConfig::on_qpbLoadPreset_clicked() {
 
 void OverlayConfig::on_qpbSavePreset_clicked() {
 	QString fn = QFileDialog::getSaveFileName(this, tr("Save Overlay Presets"), QDir::homePath(),
-											  tr("Mumble overlay presets (*.mumblelay)"));
+											  tr("Overlay presets (*.mumblelay)"));
 
 	if (fn.isEmpty()) {
 		return;

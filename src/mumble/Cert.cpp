@@ -545,7 +545,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 					sk_X509_push(certs, c);
 			}
 
-			pkcs = PKCS12_create(SSL_STRING(""), SSL_STRING("Mumble Identity"), pkey, x509, certs, -1, -1, 0, 0, 0);
+			pkcs = PKCS12_create(SSL_STRING(""), SSL_STRING("Storm Voice Identity"), pkey, x509, certs, -1, -1, 0, 0, 0);
 			if (pkcs) {
 				long size;
 				mem = BIO_new(BIO_s_mem());

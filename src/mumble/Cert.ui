@@ -30,7 +30,7 @@
     <item>
      <widget class="QLabel" name="qlIntroText">
       <property name="text">
-       <string>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</string>
+       <string>&lt;p&gt;Storm Voice can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Storm Voice can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Storm Voice also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -43,7 +43,7 @@
        <string>Current certificate</string>
       </property>
       <property name="whatsThis">
-       <string>This is the certificate Mumble currently uses.</string>
+       <string>This is the certificate Storm Voice currently uses.</string>
       </property>
       <property name="accessibleName">
        <string>Displays current certificate</string>
@@ -161,7 +161,7 @@
     <item row="0" column="0" colspan="3">
      <widget class="QLabel" name="qlImportText">
       <property name="text">
-       <string>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</string>
+       <string>&lt;p&gt;Storm Voice can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Storm Voice, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -287,7 +287,7 @@
        <bool>true</bool>
       </property>
       <property name="text">
-       <string>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
+       <string>&lt;p&gt;You already have a certificate stored in Storm Voice, and you are about to replace it.&lt;/p&gt;
 &lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the email addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognize the strong certificate for your email address.
 &lt;/p&gt;
 &lt;p&gt;If this is not the case, you will no longer be recognized by any server you previously have authenticated with. If you haven't been registered on any server yet, this is nothing to worry about.
@@ -314,7 +314,7 @@ Are you sure you wish to replace your certificate?
        <string>Current certificate</string>
       </property>
       <property name="whatsThis">
-       <string>This is the certificate Mumble currently uses. It will be replaced.</string>
+       <string>This is the certificate Storm Voice currently uses. It will be replaced.</string>
       </property>
       <property name="accessibleName">
        <string>Displays current certificate</string>
@@ -413,7 +413,7 @@ Are you sure you wish to replace your certificate?
        <string>Current certificate</string>
       </property>
       <property name="whatsThis">
-       <string>This is the certificate Mumble currently uses. It will be exported.</string>
+       <string>This is the certificate Storm Voice currently uses. It will be exported.</string>
       </property>
       <property name="accessibleName">
        <string>Displays current certificate</string>
@@ -439,7 +439,7 @@ Are you sure you wish to replace your certificate?
     <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="qlNewText">
       <property name="text">
-       <string>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</string>
+       <string>&lt;p&gt;Storm Voice will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>
@@ -482,13 +482,13 @@ Are you sure you wish to replace your certificate?
     <item row="2" column="1">
      <widget class="QLineEdit" name="qleEmail">
       <property name="toolTip">
-       <string>Your email address (e.g. johndoe@mumble.info)</string>
+       <string>Your email address (e.g. johndoe@example.com)</string>
       </property>
       <property name="whatsThis">
        <string>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</string>
       </property>
       <property name="accessibleDescription">
-       <string>Your email address. For example: johndoe@mumble.info</string>
+       <string>Your email address. For example: johndoe@example.com</string>
       </property>
      </widget>
     </item>
@@ -515,7 +515,7 @@ Are you sure you wish to replace your certificate?
     <item>
      <widget class="QLabel" name="qlFinishText">
       <property name="text">
-       <string>Enjoy using Mumble with strong authentication.</string>
+       <string>Enjoy using Storm Voice with strong authentication.</string>
       </property>
       <property name="wordWrap">
        <bool>true</bool>

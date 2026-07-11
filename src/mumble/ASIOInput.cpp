@@ -271,13 +271,13 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			char err[255];
 			iasio->getErrorMessage(err);
 			SleepEx(10, false);
-			QMessageBox::critical(this, QLatin1String("Mumble"),
+			QMessageBox::critical(this, QLatin1String("Storm Voice"),
 								  tr("ASIO Initialization failed: %1").arg(QString::fromLatin1(err).toHtmlEscaped()),
 								  QMessageBox::Ok, QMessageBox::NoButton);
 		}
 		iasio->Release();
 	} else {
-		QMessageBox::critical(this, QLatin1String("Mumble"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok,
+		QMessageBox::critical(this, QLatin1String("Storm Voice"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok,
 							  QMessageBox::NoButton);
 	}
 }
@@ -299,13 +299,13 @@ void ASIOConfig::on_qpbConfig_clicked() {
 			char err[255];
 			iasio->getErrorMessage(err);
 			SleepEx(10, false);
-			QMessageBox::critical(this, QLatin1String("Mumble"),
+			QMessageBox::critical(this, QLatin1String("Storm Voice"),
 								  tr("ASIO Initialization failed: %1").arg(QString::fromLatin1(err).toHtmlEscaped()),
 								  QMessageBox::Ok, QMessageBox::NoButton);
 		}
 		iasio->Release();
 	} else {
-		QMessageBox::critical(this, QLatin1String("Mumble"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok,
+		QMessageBox::critical(this, QLatin1String("Storm Voice"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok,
 							  QMessageBox::NoButton);
 	}
 }
@@ -420,7 +420,7 @@ ASIOInput::ASIOInput() {
 	iNumSpeaker = Global::get().s.qlASIOspeaker.count();
 
 	if ((iNumMic == 0) || (iNumSpeaker == 0)) {
-		QMessageBox::warning(nullptr, QLatin1String("Mumble"),
+		QMessageBox::warning(nullptr, QLatin1String("Storm Voice"),
 							 tr("You need to select at least one microphone and one speaker source to use ASIO."),
 							 QMessageBox::Ok, QMessageBox::NoButton);
 		return;
@@ -525,7 +525,7 @@ ASIOInput::ASIOInput() {
 		iasio = nullptr;
 	}
 
-	QMessageBox::critical(nullptr, QLatin1String("Mumble"),
+	QMessageBox::critical(nullptr, QLatin1String("Storm Voice"),
 						  tr("Opening selected ASIO device failed. No input will be done."), QMessageBox::Ok,
 						  QMessageBox::NoButton);
 }

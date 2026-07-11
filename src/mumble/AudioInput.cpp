@@ -7,10 +7,12 @@
 
 #include "API.h"
 #include "AudioOutput.h"
+#include "Log.h"
 #include "MainWindow.h"
 #include "MumbleProtocol.h"
 #include "NetworkConfig.h"
 #include "PacketDataStream.h"
+#include "PlatformCheck.h"
 #include "PluginManager.h"
 #include "ServerHandler.h"
 #include "User.h"
@@ -879,6 +881,29 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	}
 	dPeakMic = qMax(20.0f * log10f(sqrtf(sum / static_cast< float >(iFrameSize)) / 32768.0f), -96.0f);
 	dMaxMic  = max;
+
+	// MUMBLE-TFAR: under Wine on a macOS host, capture without the macOS
+	// microphone permission (TCC) "works" but delivers bit-exact digital
+	// silence. A real microphone always has a noise floor, so ten seconds of
+	// all-zero samples means nothing is actually being captured — tell the
+	// user how to fix it instead of failing silently.
+	static const bool bWineOnMacOS = PlatformCheck::IsWineOnMacOS();
+	if (bWineOnMacOS && !bDeadAudioWarned) {
+		if (max <= 1) {
+			// One frame is 10 ms, so 1000 dead frames ~ 10 seconds of silence.
+			if (++uiDeadAudioFrames >= 1000 && Global::get().l) {
+				bDeadAudioWarned = true;
+				const QString msg =
+					tr("Your microphone is only delivering silence. You seem to be running through Wine on "
+					   "macOS: grant Microphone permission to the application that launches Wine "
+					   "(System Settings > Privacy & Security > Microphone on your Mac), then restart.");
+				QMetaObject::invokeMethod(Global::get().l, "log", Qt::QueuedConnection,
+										  Q_ARG(Log::MsgType, Log::CriticalError), Q_ARG(QString, msg));
+			}
+		} else {
+			uiDeadAudioFrames = 0;
+		}
+	}
 
 	if (chunk.speaker && (iEchoChannels > 0)) {
 		sum = 1.0f;

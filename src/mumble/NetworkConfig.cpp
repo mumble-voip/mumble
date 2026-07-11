@@ -28,6 +28,14 @@ static ConfigRegistrar registrarNetworkConfig(1300, NetworkConfigNew);
 
 NetworkConfig::NetworkConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
+
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: the public server list is removed in this build, so its
+	// opt-out checkbox is meaningless. Usage statistics are never submitted
+	// in this build (see Usage.cpp), so that checkbox is hidden as well.
+	qcbDisablePublicList->setVisible(false);
+	qcbUsage->setVisible(false);
+#endif
 }
 
 QString NetworkConfig::title() const {

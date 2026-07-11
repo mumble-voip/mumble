@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Mumble Configuration</string>
+   <string>Storm Voice Configuration</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>

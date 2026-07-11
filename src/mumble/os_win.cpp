@@ -193,7 +193,7 @@ void os_init() {
 
 #define MMXSSE 0x02800000
 	if ((cpuinfo[3] & MMXSSE) != MMXSSE) {
-		::MessageBoxA(nullptr, "Mumble requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Mumble",
+		::MessageBoxA(nullptr, "Storm Voice requires a SSE capable processor (Pentium 3 / Ahtlon-XP)", "Storm Voice",
 					  MB_OK | MB_ICONERROR);
 		exit(0);
 	}

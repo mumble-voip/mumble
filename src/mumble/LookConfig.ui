@@ -89,7 +89,7 @@
          <string>This setting controls the behavior of clicking on the X in the top right corner.</string>
         </property>
         <property name="whatsThis">
-         <string>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</string>
+         <string>This setting controls the behavior when closing Storm Voice. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Storm Voice will quit without asking, when not connected to any server).</string>
         </property>
         <property name="accessibleName">
          <string>Quit behavior mode</string>
@@ -124,7 +124,7 @@
       <item row="3" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbEnableDeveloperMenu">
         <property name="whatsThis">
-         <string>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</string>
+         <string>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Storm Voice. This menu is used for developer-specific features, such as the Developer Console.</string>
         </property>
         <property name="text">
          <string>Enable Developer menu</string>
@@ -144,7 +144,7 @@
       <item row="5" column="0" colspan="2">
        <widget class="QCheckBox" name="qcbRestoreWindowState">
         <property name="whatsThis">
-         <string>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</string>
+         <string>This controls whether Storm Voice will try to restore the window geometry and state from previous sessions on startup.</string>
         </property>
         <property name="text">
          <string>Restore window geometry on startup</string>
@@ -214,10 +214,10 @@
       <item>
        <widget class="QCheckBox" name="qcbHideTray">
         <property name="toolTip">
-         <string>Hide the main Mumble window in the tray when it is minimized.</string>
+         <string>Hide the main Storm Voice window in the tray when it is minimized.</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</string>
+         <string>&lt;b&gt;If set, minimizing the Storm Voice main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</string>
         </property>
         <property name="text">
          <string>Hide in tray when minimized</string>
@@ -1011,7 +1011,7 @@
          <string>List users above subchannels (requires restart).</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</string>
+         <string>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Storm Voice is required to see the change.</string>
         </property>
         <property name="text">
          <string>Users above Channels</string>
@@ -1072,10 +1072,10 @@
          <string>Dark theme to use to style the user interface</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</string>
+         <string>&lt;b&gt;Configures which theme the Storm Voice user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Storm Voice will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Storm Voice. This includes colors, icons and more.</string>
         </property>
         <property name="accessibleName">
-         <string>Mumble theme</string>
+         <string>Storm Voice theme</string>
         </property>
        </widget>
       </item>
@@ -1101,10 +1101,10 @@
          <string>Light theme to use to style the user interface</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</string>
+         <string>&lt;b&gt;Configures which theme the Storm Voice user interface should be styled with&lt;/b&gt;&lt;br /&gt;Storm Voice will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Storm Voice. This includes colors, icons and more.</string>
         </property>
         <property name="accessibleName">
-         <string>Mumble theme</string>
+         <string>Storm Voice theme</string>
         </property>
        </widget>
       </item>
@@ -1114,7 +1114,7 @@
          <string>Language to use (requires restart)</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
+         <string>&lt;b&gt;This sets which language Storm Voice should use.&lt;/b&gt;&lt;br /&gt;You have to restart Storm Voice to use the new language.</string>
         </property>
         <property name="accessibleName">
          <string>Language</string>

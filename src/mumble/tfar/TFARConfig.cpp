@@ -108,7 +108,7 @@ TFARConfig::TFARConfig(Settings &st) : ConfigWidget(st) {
     auto *pathLayout = new QHBoxLayout(pathGroup);
     m_resourcePathEdit = new QLineEdit(pathGroup);
     m_resourcePathEdit->setToolTip(tr("Directory containing the TFAR resources (radio-sounds folder). "
-                                      "Leave empty to use the \"tfar\" folder next to the Mumble executable."));
+                                      "Leave empty to use the \"tfar\" folder next to the Storm Voice executable."));
     auto *browseButton = new QPushButton(tr("&Browse..."), pathGroup);
     pathLayout->addWidget(new QLabel(tr("Resource path:"), pathGroup));
     pathLayout->addWidget(m_resourcePathEdit, 1);
@@ -119,9 +119,9 @@ TFARConfig::TFARConfig(Settings &st) : ConfigWidget(st) {
     auto *debugGroup  = new QGroupBox(tr("Debug"), this);
     auto *debugLayout = new QHBoxLayout(debugGroup);
     auto *diagButton  = new QPushButton(tr("Diagnostic report"), debugGroup);
-    diagButton->setToolTip(tr("Prints the TFAR diagnostic report into the Mumble log (same as \"/tfar diag\")."));
+    diagButton->setToolTip(tr("Prints the TFAR diagnostic report into the client log (same as \"/tfar diag\")."));
     auto *posButton = new QPushButton(tr("Position report"), debugGroup);
-    posButton->setToolTip(tr("Prints the position report into the Mumble log (same as \"/tfar pos\")."));
+    posButton->setToolTip(tr("Prints the position report into the client log (same as \"/tfar pos\")."));
     auto *resetButton = new QPushButton(tr("Reset radio filters"), debugGroup);
     resetButton->setToolTip(tr("Resets all radio DSP filters (same as \"/tfar rstflt\")."));
     debugLayout->addWidget(diagButton);

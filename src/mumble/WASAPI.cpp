@@ -504,7 +504,7 @@ void WASAPIInput::run() {
 				WASAPIInputRegistrar::hasOSPermissionDenied = true;
 				Global::get().mw->msgBox(
 					tr("Access to the microphone was denied. Please check that your operating system's "
-					   "microphone settings allow Mumble to use the microphone."));
+					   "microphone settings allow Storm Voice to use the microphone."));
 			}
 			goto cleanup;
 		}

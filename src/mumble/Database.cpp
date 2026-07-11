@@ -96,7 +96,7 @@ Database::Database(const QString &dbname) {
 			db.setDatabaseName(Global::get().s.qsDatabaseLocation);
 			db.open();
 		} else {
-			QMessageBox messageBox(QMessageBox::Critical, QLatin1String("Mumble"),
+			QMessageBox messageBox(QMessageBox::Critical, QLatin1String("Storm Voice"),
 								   tr("The database file '%1' set in the configuration file does not "
 									  "exist. Do you want to create a new database file at this location?")
 										   .arg(Global::get().s.qsDatabaseLocation)
@@ -129,8 +129,8 @@ Database::Database(const QString &dbname) {
 		if (findOrCreateDatabase()) {
 			Global::get().s.qsDatabaseLocation = db.databaseName();
 		} else {
-			QMessageBox::critical(nullptr, QLatin1String("Mumble"),
-								  tr("Mumble failed to initialize a database in any of the possible locations."),
+			QMessageBox::critical(nullptr, QLatin1String("Storm Voice"),
+								  tr("Storm Voice failed to initialize a database in any of the possible locations."),
 								  QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
 			qFatal("Database: Failed initialization");
 		}
@@ -139,8 +139,8 @@ Database::Database(const QString &dbname) {
 	QFileInfo fi(db.databaseName());
 
 	if (!fi.isWritable()) {
-		QMessageBox::critical(nullptr, QLatin1String("Mumble"),
-							  tr("The database '%1' is read-only. Mumble cannot store server settings (i.e. SSL "
+		QMessageBox::critical(nullptr, QLatin1String("Storm Voice"),
+							  tr("The database '%1' is read-only. Storm Voice cannot store server settings (i.e. SSL "
 								 "certificates) until you fix this problem.")
 								  .arg(fi.filePath().toHtmlEscaped()),
 							  QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);

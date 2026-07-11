@@ -78,11 +78,11 @@ void PluginConfig::on_qpbInstallPlugin_clicked() {
 			// Reload plugins so the new one actually shows up
 			on_qpbReload_clicked();
 
-			QMessageBox::information(this, "Mumble", tr("The plugin was installed successfully"), QMessageBox::Ok,
+			QMessageBox::information(this, "Storm Voice", tr("The plugin was installed successfully"), QMessageBox::Ok,
 									 QMessageBox::NoButton);
 		}
 	} catch (const PluginInstallException &e) {
-		QMessageBox::critical(this, "Mumble", e.getMessage(), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::critical(this, "Storm Voice", e.getMessage(), QMessageBox::Ok, QMessageBox::NoButton);
 	}
 }
 
@@ -166,7 +166,7 @@ void PluginConfig::on_qpbConfig_clicked() {
 	if (plugin) {
 		if (!plugin->showConfigDialog(this)) {
 			// if the plugin doesn't support showing such a dialog, we'll show a default one
-			QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no configure function."),
+			QMessageBox::information(this, QLatin1String("Storm Voice"), tr("Plugin has no configure function."),
 									 QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
@@ -178,7 +178,7 @@ void PluginConfig::on_qpbAbout_clicked() {
 	if (plugin) {
 		if (!plugin->showAboutDialog(this)) {
 			// if the plugin doesn't support showing such a dialog, we'll show a default one
-			QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no about function."),
+			QMessageBox::information(this, QLatin1String("Storm Voice"), tr("Plugin has no about function."),
 									 QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
