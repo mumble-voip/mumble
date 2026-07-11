@@ -235,6 +235,9 @@ struct Settings {
 
 	bool bTxMuteCue     = true;
 	bool muteCueShown   = false;
+	// MUMBLE-TFAR: one-time hint about macOS microphone permission when the
+	// client runs under Wine on a macOS host.
+	bool macWineMicHintShown = false;
 	QString qsTxMuteCue = cqsDefaultMuteCue;
 
 	bool bTransmitPosition         = false;
@@ -537,7 +540,7 @@ struct Settings {
 
 	// Recording
 	QString qsRecordingPath       = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-	QString qsRecordingFile       = QStringLiteral("Mumble-%date-%time-%host-%user");
+	QString qsRecordingFile       = QStringLiteral("StormVoice-%date-%time-%host-%user");
 	RecordingMode rmRecordingMode = RecordingMixdown;
 	int iRecordingFormat          = 0;
 

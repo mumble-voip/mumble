@@ -17,3 +17,19 @@ bool PlatformCheck::IsWine() {
 #endif
 	return false;
 }
+
+bool PlatformCheck::IsWineOnMacOS() {
+#ifdef Q_OS_WIN
+	typedef void (*wine_get_host_version_t)(const char **sysname, const char **release);
+	wine_get_host_version_t getHostVersion = reinterpret_cast< wine_get_host_version_t >(
+		QLibrary::resolve(QLatin1String("ntdll.dll"), "wine_get_host_version"));
+	if (getHostVersion) {
+		const char *sysname = nullptr;
+		getHostVersion(&sysname, nullptr);
+		if (sysname && qstrncmp(sysname, "Darwin", 6) == 0) {
+			return true;
+		}
+	}
+#endif
+	return false;
+}

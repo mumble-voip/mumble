@@ -114,6 +114,11 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN         = nullptr;
 #endif
 
+#ifdef USE_TFAR
+	// MUMBLE-TFAR: the public server list (fetched from the upstream Mumble
+	// registry) is removed in this build — only favorites (and LAN) remain.
+	siPublic = nullptr;
+#else
 	if (!Global::get().s.bDisablePublicList) {
 		siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
 		siPublic->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
@@ -125,6 +130,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 
 		siPublic = nullptr;
 	}
+#endif
 }
 
 ServerView::~ServerView() {
@@ -1006,6 +1012,9 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 	qtwServers->setItemDelegate(new ServerViewDelegate());
 
+#ifndef USE_TFAR
+	// MUMBLE-TFAR: the search-location filter only applies to the removed
+	// public server list.
 	if (!Global::get().s.bDisablePublicList) {
 		const QIcon qiFlag = ServerItem::loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 		// Add continents and 'Unknown' to the location combobox
@@ -1019,6 +1028,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 		qcbSearchLocation->addItem(qiFlag, tr("Unknown"), QLatin1String(""));
 		addCountriesToSearchLocation();
 	}
+#endif
 	qgbSearch->setVisible(false);
 
 	// Hide ping and user count if we are not allowed to ping.
@@ -1602,7 +1612,8 @@ void ConnectDialog::timeTick() {
 }
 
 void ConnectDialog::filterPublicServerList() const {
-	if (!Global::get().s.bDisablePublicList) {
+	// MUMBLE-TFAR: siPublic is nullptr in builds without the public list.
+	if (!Global::get().s.bDisablePublicList && qtwServers->siPublic) {
 		for (ServerItem *const si : qtwServers->siPublic->qlChildren) {
 			filterServer(si);
 		}
@@ -1879,7 +1890,7 @@ void ConnectDialog::udpReply() {
 
 void ConnectDialog::fetched(QByteArray xmlData, QUrl, QMap< QString, QString > headers) {
 	if (xmlData.isNull()) {
-		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
+		QMessageBox::warning(this, QLatin1String("Storm Voice"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
 

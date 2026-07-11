@@ -22,6 +22,7 @@
 #include "ServerHandler.h"
 #ifdef USE_TFAR
 #	include "tfar/TFARBridge.h"
+#	include "tfar/StormBranding.h"
 #	include "tfar/StormUpdateCheck.h"
 #endif
 #ifdef USE_ZEROCONF
@@ -42,6 +43,7 @@
 #include "License.h"
 #include "MumbleApplication.h"
 #include "NetworkConfig.h"
+#include "PlatformCheck.h"
 #include "PluginInstaller.h"
 #include "PluginManager.h"
 #include "QtWidgetUtils.h"
@@ -528,7 +530,7 @@ int main(int argc, char **argv) {
 	}
 
 	if (options.printTranslationDirs) {
-		QString infoString = QObject::tr("The directories in which Mumble searches for extra translation files are:\n");
+		QString infoString = QObject::tr("The directories in which the application searches for extra translation files are:\n");
 
 		int counter = 1;
 		for (const QString &currentTranslationDir :
@@ -740,7 +742,9 @@ int main(int argc, char **argv) {
 
 	Global::get().nam = new QNetworkAccessManager();
 
-#ifndef NO_CRASH_REPORT
+#if !defined(NO_CRASH_REPORT) && !defined(USE_TFAR)
+	// MUMBLE-TFAR: the crash reporter uploads dumps to the upstream Mumble
+	// crash server, which must not receive reports from this modified build.
 	CrashReporter *cr = new CrashReporter();
 	cr->run();
 	delete cr;
@@ -825,9 +829,48 @@ int main(int argc, char **argv) {
 
 	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
 
+#ifdef USE_TFAR
+	Global::get().l->log(Log::Information,
+						 MainWindow::tr("Welcome to %1.").arg(QLatin1String(STORM_APP_NAME)));
+#else
 	Global::get().l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
+#endif
 
 	Audio::start();
+
+	// MUMBLE-TFAR: when running through Wine on a macOS host, microphone
+	// capture silently yields digital silence until the user grants microphone
+	// permission (macOS TCC) to the application that launches Wine. Wine cannot
+	// forward that permission request from inside the Windows environment, so
+	// the device list looks fine while no audio is ever captured. Detect the
+	// situation once and explain the fix.
+	if (PlatformCheck::IsWineOnMacOS() && !Global::get().s.macWineMicHintShown) {
+		Global::get().s.macWineMicHintShown = true;
+
+		QString hint;
+		hint += QLatin1String("<p>")
+				+ MainWindow::tr("You appear to be running this application through Wine on macOS.") + " "
+				+ MainWindow::tr("macOS only lets an application record from the microphone after you grant it "
+								 "permission. Wine does not forward that request, so input devices are listed "
+								 "normally but only silence is captured.")
+				+ QLatin1String("</p>");
+		hint += QLatin1String("<p>")
+				+ MainWindow::tr("To fix this, open <b>System Settings &gt; Privacy &amp; Security &gt; "
+								 "Microphone</b> on your Mac and enable the application you use to start Wine "
+								 "(Terminal, CrossOver, Whisky, PlayOnMac, ...), then restart this application.")
+				+ QLatin1String("</p>");
+#ifdef USE_TFAR
+		hint += QLatin1String("<p>")
+				+ MainWindow::tr("If the application is not in that list, follow the guide: <a href=\"%1\">%1</a>")
+					  .arg(QLatin1String(STORM_MACOS_AUDIO_URL))
+				+ QLatin1String("</p>");
+#endif
+
+		QMessageBox mb(QMessageBox::Information, MainWindow::tr("Microphone access on macOS"), hint, QMessageBox::Ok,
+					   Global::get().mw);
+		mb.setTextFormat(Qt::RichText);
+		mb.exec();
+	}
 
 	a.setQuitOnLastWindowClosed(false);
 
@@ -1060,8 +1103,8 @@ int main(int argc, char **argv) {
 		bool ok = QProcess::startDetached(qApp->applicationFilePath(), arguments);
 #endif
 		if (!ok) {
-			QMessageBox::warning(nullptr, QApplication::tr("Failed to restart mumble"),
-								 QApplication::tr("Mumble failed to restart itself. Please restart it manually."));
+			QMessageBox::warning(nullptr, QApplication::tr("Failed to restart"),
+								 QApplication::tr("The application failed to restart itself. Please restart it manually."));
 			return 1;
 		}
 		return 0;

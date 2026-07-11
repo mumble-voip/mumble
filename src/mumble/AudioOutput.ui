@@ -278,10 +278,10 @@
       <item row="8" column="0" colspan="3">
        <widget class="QCheckBox" name="qcbOnlyAttenuateSameOutput">
         <property name="toolTip">
-         <string>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</string>
+         <string>If checked, Storm Voice will only attenuate applications that are using the same output source as Storm Voice</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</string>
+         <string>&lt;b&gt;Attenuate only applications using the same output as Storm Voice&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Storm Voice will not be attenuated.</string>
         </property>
         <property name="text">
          <string>Only attenuate applications using the same output device</string>
@@ -294,7 +294,7 @@
          <string>Attenuation of other applications during speech</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</string>
+         <string>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Storm Voice supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</string>
         </property>
         <property name="accessibleName">
          <string>Attenuation percentage</string>
@@ -337,10 +337,10 @@
         <item>
          <widget class="QCheckBox" name="qcbAttenuateOthers">
           <property name="toolTip">
-           <string>If checked Mumble lowers the volume of other applications while other users talk</string>
+           <string>If checked Storm Voice lowers the volume of other applications while other users talk</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</string>
+           <string>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Storm Voice supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes Storm Voice activate the feature while other users talk to you.</string>
           </property>
           <property name="text">
            <string>while other users talk</string>
@@ -366,10 +366,10 @@
         <item>
          <widget class="QCheckBox" name="qcbAttenuateOthersOnTalk">
           <property name="toolTip">
-           <string>If checked Mumble lowers the volume of other applications while you talk</string>
+           <string>If checked Storm Voice lowers the volume of other applications while you talk</string>
           </property>
           <property name="whatsThis">
-           <string>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</string>
+           <string>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Storm Voice supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes Storm Voice activate the feature while you talk.</string>
           </property>
           <property name="text">
            <string>while you talk</string>
@@ -410,10 +410,10 @@
       <item row="7" column="0" colspan="3">
        <widget class="QCheckBox" name="qcbAttenuateUsersOnPrioritySpeak">
         <property name="toolTip">
-         <string>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</string>
+         <string>If checked Storm Voice lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</string>
+         <string>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Storm Voice supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</string>
         </property>
         <property name="text">
          <string>Attenuate other users while talking as Priority Speaker</string>
@@ -433,7 +433,7 @@
          <string>If checked, PulseAudio loopback modules will be attenuated</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble's output device/sink, they will also be attenuated.</string>
+         <string>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Storm Voice's output device/sink, they will also be attenuated.</string>
         </property>
         <property name="text">
          <string>Attenuate PulseAudio loopback modules</string>

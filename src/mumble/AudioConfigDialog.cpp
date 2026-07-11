@@ -211,13 +211,13 @@ void AudioInputDialog::verifyMicrophonePermission() {
 		if (air->name == QLatin1String("CoreAudio")) {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText(
-				tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
+				tr("Access to the microphone was denied. Please allow Storm Voice to use the microphone "
 				   "by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
 				   "Microphone."));
 		} else if (air->name == QLatin1String("WASAPI")) {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText(tr("Access to the microphone was denied. Please check that your operating system's "
-									"microphone settings allow Mumble to use the microphone."));
+									"microphone settings allow Storm Voice to use the microphone."));
 		}
 	} else {
 		qcbDevice->setEnabled(true);

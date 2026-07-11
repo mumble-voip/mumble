@@ -443,7 +443,7 @@ void MainWindow::createActions() {
 	gsHelpVersionCheck =
 		new GlobalShortcut(this, GlobalShortcutType::HelpVersionCheck, tr("Check for update", "Global Shortcut"));
 	gsHelpVersionCheck->setObjectName(QLatin1String("gsHelpVersionCheck"));
-	gsHelpVersionCheck->qsWhatsThis = tr("This will check if mumble is up to date");
+	gsHelpVersionCheck->qsWhatsThis = tr("This will check if the client is up to date");
 
 	gsTogglePositionalAudio = new GlobalShortcut(this, GlobalShortcutType::TogglePositionalAudio,
 												 tr("Toggle positional audio", "Global Shortcut"));
@@ -708,8 +708,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	const bool minimizeDueToConnected = sh && sh->isRunning() && quitBehavior == QuitBehavior::MINIMIZE_WHEN_CONNECTED;
 
 	if (!forceQuit && (alwaysAsk || askDueToConnected)) {
-		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"),
-					   tr("Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?"),
+		QMessageBox mb(QMessageBox::Warning, QLatin1String("Storm Voice"),
+					   tr("Are you sure you want to close Storm Voice? Perhaps you prefer to minimize it instead?"),
 					   QMessageBox::NoButton, this);
 		QCheckBox *qcbRemember   = new QCheckBox(tr("Remember this setting"));
 		QPushButton *qpbClose    = mb.addButton(tr("Close"), QMessageBox::YesRole);
@@ -1116,7 +1116,7 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 void MainWindow::saveImageAs() {
 	QDateTime now = QDateTime::currentDateTime();
 	QString defaultFname =
-		QString::fromLatin1("Mumble-%1.jpg").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")));
+		QString::fromLatin1("StormVoice-%1.jpg").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")));
 
 	QString fname = QFileDialog::getSaveFileName(this, tr("Save Image File"), getImagePath(defaultFname),
 												 tr("Images (*.png *.jpg *.jpeg)"));
@@ -1334,7 +1334,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	}
 
 	if (url.scheme() != QLatin1String("mumble")) {
-		Global::get().l->log(Log::Warning, tr("URL scheme is not 'mumble'"));
+		Global::get().l->log(Log::Warning, tr("Unsupported URL scheme"));
 		return;
 	}
 
@@ -1366,7 +1366,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	if (isPre_120 || isFuture) {
 		Global::get().l->log(
 			Log::Warning,
-			tr("This version of Mumble can't handle URLs for Mumble version %1").arg(Version::toString(targetVersion)));
+			tr("This version of Storm Voice can't handle URLs for version %1").arg(Version::toString(targetVersion)));
 		return;
 	}
 
@@ -2229,7 +2229,7 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 	unsigned int session = p->uiSession;
 
 	int ret = QMessageBox::question(
-		this, QLatin1String("Mumble"),
+		this, QLatin1String("Storm Voice"),
 		tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName.toHtmlEscaped()), QMessageBox::Yes,
 		QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
@@ -2246,7 +2246,7 @@ void MainWindow::on_qaUserTextureReset_triggered() {
 	unsigned int session = p->uiSession;
 
 	int ret = QMessageBox::question(
-		this, QLatin1String("Mumble"),
+		this, QLatin1String("Storm Voice"),
 		tr("Are you sure you want to reset the avatar of user %1?").arg(p->qsName.toHtmlEscaped()), QMessageBox::Yes,
 		QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
@@ -2575,7 +2575,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 	unsigned int id = c->iId;
 
 	ret = QMessageBox::question(
-		this, QLatin1String("Mumble"),
+		this, QLatin1String("Storm Voice"),
 		tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName.toHtmlEscaped()),
 		QMessageBox::Yes, QMessageBox::No);
 
@@ -3779,7 +3779,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString().toHtmlEscaped());
 			}
 
-			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
+			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Storm Voice"),
 							tr("<p>%1</p><ul>%2</ul><p>The specific errors with this certificate are:</p><ol>%3</ol>"
 							   "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you "
 							   "won't be asked this again.)</p>")
@@ -3814,7 +3814,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		msgBox.setIcon(QMessageBox::Warning);
 		msgBox.setTextFormat(Qt::RichText);
 		msgBox.setWindowTitle(tr("SSL error"));
-		msgBox.setText(tr("Mumble is unable to establish a secure connection to the server. (\"%1\")").arg(reason));
+		msgBox.setText(tr("Storm Voice is unable to establish a secure connection to the server. (\"%1\")").arg(reason));
 		// clang-format off
 		msgBox.setInformativeText(
 			tr("This could be caused by one of the following scenarios:"
@@ -3826,9 +3826,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				   "<li>Either your client or the server is using an old operating system that doesn't provide up-to-date "
 				   "encryption methods. In this case you should consider updating your OS or contacting the server admin "
 				   "so that they can update theirs.</li>"
-				   "<li>The server you are connecting to isn't actually a Mumble server. Please ensure that the used server "
-				   "address really belongs to a Mumble server and not e.g. to a game server.</li>"
-				   "<li>The port you are connecting to does not belong to a Mumble server but instead is bound to a "
+				   "<li>The server you are connecting to isn't actually a compatible voice server. Please ensure that the "
+				   "used server address really belongs to a voice server and not e.g. to a game server.</li>"
+				   "<li>The port you are connecting to does not belong to a voice server but instead is bound to a "
 				   "completely unrelated process on the server-side. Please double-check you have used the correct port.</li>"
 				"</ul>"));
 		// clang-format on
@@ -4326,8 +4326,8 @@ void MainWindow::openConfigDialog() {
 		if (Global::get().s.requireRestartToApply) {
 			if (Global::get().s.requireRestartToApply
 				&& QMessageBox::question(
-					   this, tr("Restart Mumble?"),
-					   tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
+					   this, tr("Restart Storm Voice?"),
+					   tr("Some settings will only apply after a restart of Storm Voice. Restart Storm Voice now?"),
 					   QMessageBox::Yes | QMessageBox::No)
 					   == QMessageBox::Yes) {
 				forceQuit     = true;
@@ -4388,7 +4388,7 @@ void MainWindow::on_muteCuePopup_triggered() {
 
 	Global::get().s.muteCueShown = true;
 	QMessageBox mb(
-		QMessageBox::Warning, QLatin1String("Mumble"),
+		QMessageBox::Warning, QLatin1String("Storm Voice"),
 		tr("That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?"),
 		QMessageBox::NoButton, this);
 	QPushButton *accept = mb.addButton(tr("Yes"), QMessageBox::YesRole);

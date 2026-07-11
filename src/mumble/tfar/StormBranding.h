@@ -29,5 +29,6 @@
 #define STORM_RELEASES_URL "https://github.com/StormofTheGalaxy/mumble-tfar/releases/latest"
 #define STORM_RELEASES_API "https://api.github.com/repos/StormofTheGalaxy/mumble-tfar/releases/latest"
 #define STORM_DOCS_URL "https://github.com/StormofTheGalaxy/mumble-tfar/blob/master/docs/TFAR-SETUP.md"
+#define STORM_MACOS_AUDIO_URL "https://github.com/StormofTheGalaxy/mumble-tfar/blob/master/docs/MACOS-WINE-AUDIO.md"
 
 #endif // MUMBLE_MUMBLE_TFAR_STORMBRANDING_H_

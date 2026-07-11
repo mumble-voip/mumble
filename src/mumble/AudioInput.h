@@ -259,6 +259,12 @@ protected:
 	int iHoldFrames;
 	int iBufferedFrames;
 
+	// MUMBLE-TFAR: watchdog for the Wine-on-macOS microphone-permission trap
+	// (capture "works" but delivers pure digital silence). Counts consecutive
+	// all-zero frames; warns the user once per session.
+	unsigned int uiDeadAudioFrames = 0;
+	bool bDeadAudioWarned          = false;
+
 	QList< QByteArray > qlFrames;
 	void flushCheck(const QByteArray &, bool terminator, std::int32_t voiceTargetID);
 

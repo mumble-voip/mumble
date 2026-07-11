@@ -241,7 +241,7 @@
              <string>If you press the PTT key twice in this time it will get locked.</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</string>
+             <string>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Storm Voice will keep transmitting until you hit the key once more to unlock PTT again.</string>
             </property>
             <property name="accessibleName">
              <string>Push to talk lock threshold</string>
@@ -286,7 +286,7 @@
              <string>Time the microphone stays open after the PTT key is released</string>
             </property>
             <property name="whatsThis">
-             <string>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</string>
+             <string>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Storm Voice will keep transmitting for the selected amount of time.</string>
             </property>
             <property name="accessibleName">
              <string>Push to talk hold threshold</string>
@@ -435,7 +435,7 @@
              <string>Silence below threshold</string>
             </property>
             <property name="accessibleDescription">
-             <string>This sets the threshold when Mumble will definitively consider a signal silence</string>
+             <string>This sets the threshold when Storm Voice will definitively consider a signal silence</string>
             </property>
             <property name="minimum">
              <number>1</number>
@@ -466,7 +466,7 @@
              <string>Speech above threshold</string>
             </property>
             <property name="accessibleDescription">
-             <string>This sets the threshold when Mumble will definitively consider a signal speech</string>
+             <string>This sets the threshold when Storm Voice will definitively consider a signal speech</string>
             </property>
             <property name="minimum">
              <number>1</number>
@@ -569,7 +569,7 @@
          <string>Quality of compression (peak bandwidth)</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</string>
+         <string>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Storm Voice is allowed to use for outgoing audio.</string>
         </property>
         <property name="accessibleName">
          <string>Audio compression quality</string>
@@ -634,7 +634,7 @@
          <string>Enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </string>
         </property>
         <property name="whatsThis">
-         <string>If checked, Mumble will enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</string>
+         <string>If checked, Storm Voice will enable Opus' low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</string>
         </property>
         <property name="text">
          <string>Allow low delay mode</string>
@@ -656,7 +656,7 @@
          <string>Maximum amplification of input sound</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it's allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you're speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</string>
+         <string>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Storm Voice normalizes the input volume before compressing, and this sets how much it's allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you're speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Storm Voice will start picking up other conversations if you leave it to auto-tune to that level.</string>
         </property>
         <property name="accessibleName">
          <string>Maximum amplification</string>

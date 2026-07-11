@@ -147,7 +147,7 @@ int os_early_init() {
 	CleanupEnvironmentVariables();
 
 	if (!RelaunchWithoutUIAccessIfNecessary()) {
-		Alert(L"Mumble Early Init Error 50", L"Unable to complete RelaunchWithoutUIAccessIfNecessary");
+		Alert(L"Storm Voice Early Init Error 50", L"Unable to complete RelaunchWithoutUIAccessIfNecessary");
 		return 50;
 	}
 

@@ -11,6 +11,10 @@ class PlatformCheck {
 public:
 	/// IsWine returns true when running under Wine.
 	static bool IsWine();
+	/// IsWineOnMacOS returns true when running under Wine and the Wine host
+	/// system is macOS (Darwin). Used to detect the macOS microphone-permission
+	/// (TCC) situation, where audio capture silently yields digital silence.
+	static bool IsWineOnMacOS();
 };
 
 #endif

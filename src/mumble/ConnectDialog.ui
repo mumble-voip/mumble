@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Mumble Server Connect</string>
+   <string>Connect to Server</string>
   </property>
   <property name="accessibleDescription">
-   <string>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</string>
+   <string>This is the connection dialog. If you know the server IP address, you can manually add a new permanent entry to your favorites.</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0" colspan="3">
@@ -33,7 +33,7 @@
       <string>Server list</string>
      </property>
      <property name="accessibleDescription">
-      <string>The server list contains your favorites and all publicly listed servers.</string>
+      <string>The server list contains your favorite servers.</string>
      </property>
      <property name="dragEnabled">
       <bool>true</bool>
@@ -82,7 +82,7 @@
       <bool>true</bool>
      </property>
      <property name="accessibleDescription">
-      <string>With this search interface you can filter the Mumble servers displayed in the server list.</string>
+      <string>With this search interface you can filter the servers displayed in the server list.</string>
      </property>
      <property name="title">
       <string>Search</string>

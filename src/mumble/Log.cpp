@@ -115,14 +115,14 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 												.arg(messageName));
 
 		twi->setWhatsThis(ColConsole, tr("Click here to toggle console output for %1 events.<br />If checked, this "
-										 "option makes Mumble output all %1 events in its message log.")
+										 "option makes Storm Voice output all %1 events in its message log.")
 										  .arg(messageName));
 		twi->setWhatsThis(ColNotification,
 						  tr("Click here to toggle pop-up notifications for %1 events.<br />If checked, a notification "
-							 "pop-up will be created by Mumble for every %1 event.")
+							 "pop-up will be created by Storm Voice for every %1 event.")
 							  .arg(messageName));
 		twi->setWhatsThis(ColHighlight, tr("Click here to toggle window highlight for %1 events.<br />If checked, "
-										   "Mumble's window will be highlighted for every %1 event, if not active.")
+										   "Storm Voice's window will be highlighted for every %1 event, if not active.")
 											.arg(messageName));
 		twi->setWhatsThis(
 			ColMessageLimit,
@@ -130,7 +130,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 			   "will not be played when the user count on the server exceeds the set threshold.")
 				.arg(messageName));
 		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, "
-											 "Mumble uses a sound file predefined by you to indicate %1 events. Sound "
+											 "Storm Voice uses a sound file predefined by you to indicate %1 events. Sound "
 											 "files and Text-To-Speech cannot be used at the same time.")
 											  .arg(messageName));
 		twi->setWhatsThis(ColStaticSoundPath,
@@ -143,7 +143,7 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setToolTip(ColTTS, tr("Toggle Text-To-Speech for %1 events").arg(messageName));
 		twi->setWhatsThis(
 			ColTTS,
-			tr("Click here to toggle Text-To-Speech for %1 events.<br />If checked, Mumble uses Text-To-Speech to read "
+			tr("Click here to toggle Text-To-Speech for %1 events.<br />If checked, Storm Voice uses Text-To-Speech to read "
 			   "%1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not "
 			   "true for sound files. Text-To-Speech and sound files cannot be used at the same time.")
 				.arg(messageName));
