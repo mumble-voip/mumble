@@ -56,14 +56,17 @@ void TFARBridge::initialize() {
         stormSettings.setValue(QLatin1String("stormServerAdded"), true);
     }
 
-    // Project defaults, applied once on the first launch (the user can change
-    // everything afterwards and their choice persists):
-    //  * voice activation (VAD) as transmit mode,
-    //  * no microphone on/off cue sounds,
-    //  * Push-to-Talk bound to the "`" / "ё" key (works on top of VAD).
-    if (!stormSettings.value(QLatin1String("stormDefaultsApplied"), false).toBool()) {
+    // Project defaults (versioned: bumping kStormDefaultsVersion re-applies
+    // them on machines where an older build already ran; afterwards the user
+    // can change everything and their choice persists):
+    //  * Push-to-Talk as transmit mode,
+    //  * no transmit on/off cue sounds,
+    //  * Push-to-Talk bound to the "`" / "ё" key.
+    // Version 1 was the legacy boolean "stormDefaultsApplied" (VAD + cues off).
+    constexpr int kStormDefaultsVersion = 2;
+    if (stormSettings.value(QLatin1String("stormDefaultsVersion"), 0).toInt() < kStormDefaultsVersion) {
         Settings &s          = Global::get().s;
-        s.atTransmit         = Settings::VAD;
+        s.atTransmit         = Settings::PushToTalk;
         s.audioCueEnabledPTT = false;
         s.audioCueEnabledVAD = false;
 
@@ -82,7 +85,8 @@ void TFARBridge::initialize() {
             s.qlShortcuts << ptt;
         }
 
-        stormSettings.setValue(QLatin1String("stormDefaultsApplied"), true);
+        stormSettings.remove(QLatin1String("stormDefaultsApplied"));
+        stormSettings.setValue(QLatin1String("stormDefaultsVersion"), kStormDefaultsVersion);
     }
 
     // Route TFAR's internal client log into the Mumble log.

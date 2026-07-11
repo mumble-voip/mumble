@@ -244,10 +244,11 @@ void Settings::load(const QString &path, bool skipSettingsBackupPrompt) {
 					QMessageBox msgBox;
 					msgBox.setWindowTitle(QObject::tr("Potentially broken settings"));
 					msgBox.setText(QObject::tr("Load backup settings?"));
-					msgBox.setInformativeText(QObject::tr(
-						"It seems that the application did not perform a normal shutdown. If you did not intentionally kill the "
-						"application, this could mean that the used settings caused a crash. "
-						"Do you want to load the setting's backup instead?"));
+					msgBox.setInformativeText(
+						QObject::tr("It seems that the application did not perform a normal shutdown. If you did not "
+									"intentionally kill the "
+									"application, this could mean that the used settings caused a crash. "
+									"Do you want to load the setting's backup instead?"));
 					msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 					msgBox.setDefaultButton(QMessageBox::No);
 					msgBox.setIcon(QMessageBox::Question);
@@ -262,8 +263,9 @@ void Settings::load(const QString &path, bool skipSettingsBackupPrompt) {
 				// This is already the backup we are loading
 				QMessageBox msgBox;
 				msgBox.setWindowTitle(QObject::tr("Potentially broken settings"));
-				msgBox.setText(QObject::tr("The backed-up settings also seem to have been saved without the application exiting "
-										   "normally (potentially indicating a crash)."));
+				msgBox.setText(
+					QObject::tr("The backed-up settings also seem to have been saved without the application exiting "
+								"normally (potentially indicating a crash)."));
 				msgBox.setInformativeText(
 					QObject::tr(
 						"If you experience repeated crashes with these settings, you might have to manually delete the "

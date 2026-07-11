@@ -530,7 +530,8 @@ int main(int argc, char **argv) {
 	}
 
 	if (options.printTranslationDirs) {
-		QString infoString = QObject::tr("The directories in which the application searches for extra translation files are:\n");
+		QString infoString =
+			QObject::tr("The directories in which the application searches for extra translation files are:\n");
 
 		int counter = 1;
 		for (const QString &currentTranslationDir :
@@ -830,8 +831,7 @@ int main(int argc, char **argv) {
 	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
 
 #ifdef USE_TFAR
-	Global::get().l->log(Log::Information,
-						 MainWindow::tr("Welcome to %1.").arg(QLatin1String(STORM_APP_NAME)));
+	Global::get().l->log(Log::Information, MainWindow::tr("Welcome to %1.").arg(QLatin1String(STORM_APP_NAME)));
 #else
 	Global::get().l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 #endif
@@ -930,13 +930,13 @@ int main(int argc, char **argv) {
 #	endif
 	}
 
-#ifndef USE_TFAR
+#	ifndef USE_TFAR
 	// MUMBLE-TFAR: positional-audio plugin updates are fetched from upstream
 	// mumble.info — not applicable to this fork (TFAR does its own positioning).
 	if (Global::get().s.bPluginCheck) {
 		Global::get().pluginManager->checkForPluginUpdates();
 	}
-#endif
+#	endif
 #else  // QT_NO_DEBUG
 	Global::get().mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif // QT_NO_DEBUG
@@ -1103,8 +1103,9 @@ int main(int argc, char **argv) {
 		bool ok = QProcess::startDetached(qApp->applicationFilePath(), arguments);
 #endif
 		if (!ok) {
-			QMessageBox::warning(nullptr, QApplication::tr("Failed to restart"),
-								 QApplication::tr("The application failed to restart itself. Please restart it manually."));
+			QMessageBox::warning(
+				nullptr, QApplication::tr("Failed to restart"),
+				QApplication::tr("The application failed to restart itself. Please restart it manually."));
 			return 1;
 		}
 		return 0;

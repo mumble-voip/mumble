@@ -645,21 +645,22 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
 	if (current >= QOperatingSystemVersion::OSXMavericks) {
 		qpbOpenAccessibilityPrefs->setHidden(true);
-		label->setText(tr("<html><head/><body>"
-						  "<p>"
-						  "Storm Voice can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, "
-						  "etc.) for global shortcuts."
-						  "</p>"
-						  "<p>"
-						  "If you want more flexibility, you can add Storm Voice as a trusted accessibility program in the "
-						  "Security & Privacy section "
-						  "of your Mac's System Preferences."
-						  "</p>"
-						  "<p>"
-						  "In the Security & Privacy preference pane, change to the Privacy tab. Then choose "
-						  "Accessibility (near the bottom) in "
-						  "the list to the left. Finally, add Storm Voice to the list of trusted accessibility programs."
-						  "</body></html>"));
+		label->setText(
+			tr("<html><head/><body>"
+			   "<p>"
+			   "Storm Voice can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, "
+			   "etc.) for global shortcuts."
+			   "</p>"
+			   "<p>"
+			   "If you want more flexibility, you can add Storm Voice as a trusted accessibility program in the "
+			   "Security & Privacy section "
+			   "of your Mac's System Preferences."
+			   "</p>"
+			   "<p>"
+			   "In the Security & Privacy preference pane, change to the Privacy tab. Then choose "
+			   "Accessibility (near the bottom) in "
+			   "the list to the left. Finally, add Storm Voice to the list of trusted accessibility programs."
+			   "</body></html>"));
 	}
 #endif
 }

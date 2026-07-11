@@ -111,7 +111,7 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN->setExpanded(true);
 	siLAN->setHidden(true);
 #else
-	siLAN         = nullptr;
+	siLAN = nullptr;
 #endif
 
 #ifdef USE_TFAR

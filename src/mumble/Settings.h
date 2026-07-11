@@ -224,21 +224,24 @@ struct Settings {
 	static const QString cqsDefaultMuteCue;
 	static const QPoint UNSPECIFIED_POSITION;
 
-	AudioTransmit atTransmit = VAD;
+	// MUMBLE-TFAR: Push-to-Talk out of the box (upstream defaults to VAD).
+	AudioTransmit atTransmit = PushToTalk;
 	quint64 uiDoublePush     = 0;
 	quint64 pttHold          = 0;
 
-	bool audioCueEnabledPTT = true;
+	// MUMBLE-TFAR: no transmit on/off cue sounds by default (upstream enables
+	// the PTT click).
+	bool audioCueEnabledPTT = false;
 	bool audioCueEnabledVAD = false;
 	QString qsTxAudioCueOn  = cqsDefaultPushClickOn;
 	QString qsTxAudioCueOff = cqsDefaultPushClickOff;
 
-	bool bTxMuteCue     = true;
-	bool muteCueShown   = false;
+	bool bTxMuteCue   = true;
+	bool muteCueShown = false;
 	// MUMBLE-TFAR: one-time hint about macOS microphone permission when the
 	// client runs under Wine on a macOS host.
 	bool macWineMicHintShown = false;
-	QString qsTxMuteCue = cqsDefaultMuteCue;
+	QString qsTxMuteCue      = cqsDefaultMuteCue;
 
 	bool bTransmitPosition         = false;
 	bool unmuteOnUndeaf            = false;
