@@ -8,22 +8,25 @@
 
 #include <QtGui/QPixmap>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QScrollArea>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QVBoxLayout>
 
 class ResponsiveImageDialog : public QDialog {
 	Q_OBJECT
 
 private:
-	QLabel *m_label;
+	QGraphicsView *m_view;
+	QGraphicsScene *m_scene;
 	QPixmap m_pixmap;
 
 public:
 	explicit ResponsiveImageDialog(const QPixmap &pixmap, QWidget *parent = nullptr);
 
 protected:
-	void resizeEvent(QResizeEvent *event) override;
+	void showEvent(QShowEvent *event) override;
+	void changeEvent(QEvent *event) override;
+	bool eventFilter(QObject *obj, QEvent *event) override;
 };
 
 #endif // MUMBLE_MUMBLE_WIDGETS_RESPONSIVEIMAGEDIALOG_H_
