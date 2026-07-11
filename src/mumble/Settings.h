@@ -236,12 +236,12 @@ struct Settings {
 	QString qsTxAudioCueOn  = cqsDefaultPushClickOn;
 	QString qsTxAudioCueOff = cqsDefaultPushClickOff;
 
-	bool bTxMuteCue     = true;
-	bool muteCueShown   = false;
+	bool bTxMuteCue   = true;
+	bool muteCueShown = false;
 	// MUMBLE-TFAR: one-time hint about macOS microphone permission when the
 	// client runs under Wine on a macOS host.
 	bool macWineMicHintShown = false;
-	QString qsTxMuteCue = cqsDefaultMuteCue;
+	QString qsTxMuteCue      = cqsDefaultMuteCue;
 
 	bool bTransmitPosition         = false;
 	bool unmuteOnUndeaf            = false;

@@ -3814,7 +3814,8 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 		msgBox.setIcon(QMessageBox::Warning);
 		msgBox.setTextFormat(Qt::RichText);
 		msgBox.setWindowTitle(tr("SSL error"));
-		msgBox.setText(tr("Storm Voice is unable to establish a secure connection to the server. (\"%1\")").arg(reason));
+		msgBox.setText(
+			tr("Storm Voice is unable to establish a secure connection to the server. (\"%1\")").arg(reason));
 		// clang-format off
 		msgBox.setInformativeText(
 			tr("This could be caused by one of the following scenarios:"

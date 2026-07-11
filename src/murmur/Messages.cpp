@@ -2641,9 +2641,9 @@ void Server::tfarPushChannelStates(ServerUser *user) {
 
 		// ...and the entering user receives every channel-mate's state.
 		if (!other->qbaTFARState.isEmpty())
-			tfarSendPluginData(user, other->uiSession, "TFARST",
-							   std::string(other->qbaTFARState.constData(),
-										   static_cast< size_t >(other->qbaTFARState.size())));
+			tfarSendPluginData(
+				user, other->uiSession, "TFARST",
+				std::string(other->qbaTFARState.constData(), static_cast< size_t >(other->qbaTFARState.size())));
 	}
 }
 

@@ -277,8 +277,8 @@ void ASIOConfig::on_qpbQuery_clicked() {
 		}
 		iasio->Release();
 	} else {
-		QMessageBox::critical(this, QLatin1String("Storm Voice"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok,
-							  QMessageBox::NoButton);
+		QMessageBox::critical(this, QLatin1String("Storm Voice"), tr("Failed to instantiate ASIO driver"),
+							  QMessageBox::Ok, QMessageBox::NoButton);
 	}
 }
 
@@ -305,8 +305,8 @@ void ASIOConfig::on_qpbConfig_clicked() {
 		}
 		iasio->Release();
 	} else {
-		QMessageBox::critical(this, QLatin1String("Storm Voice"), tr("Failed to instantiate ASIO driver"), QMessageBox::Ok,
-							  QMessageBox::NoButton);
+		QMessageBox::critical(this, QLatin1String("Storm Voice"), tr("Failed to instantiate ASIO driver"),
+							  QMessageBox::Ok, QMessageBox::NoButton);
 	}
 }
 

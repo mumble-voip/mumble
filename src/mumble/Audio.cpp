@@ -208,8 +208,8 @@ void Audio::start(const QString &input, const QString &output) {
 #ifdef USE_TFAR
 	// MUMBLE-TFAR: feed the audio pipeline into the TFAR radio processing.
 	if (TFARBridge *tfar = TFARBridge::instance()) {
-		QObject::connect(Global::get().ai.get(), &AudioInput::audioInputEncountered, tfar,
-						 &TFARBridge::onAudioInput, Qt::DirectConnection);
+		QObject::connect(Global::get().ai.get(), &AudioInput::audioInputEncountered, tfar, &TFARBridge::onAudioInput,
+						 Qt::DirectConnection);
 		QObject::connect(Global::get().ao.get(), &AudioOutput::audioSourceFetched, tfar,
 						 &TFARBridge::onAudioSourceFetched, Qt::DirectConnection);
 		QObject::connect(Global::get().ao.get(), &AudioOutput::audioOutputAboutToPlay, tfar,
