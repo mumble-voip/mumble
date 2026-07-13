@@ -17,7 +17,7 @@
 
 	<Properties>
 		<DisplayName>Storm Voice (TFAR)</DisplayName>
-		<PublisherDisplayName>Storm of The Galaxy</PublisherDisplayName>
+		<PublisherDisplayName>SoG Development</PublisherDisplayName>
 		<Logo>Assets\StoreLogo.png</Logo>
 		<Description>Voice client with integrated Task Force Arrowhead Radio (TFAR) support for Arma 3. Based on the open-source Mumble project and compatible with Mumble servers. Free and open source, no ads.</Description>
 	</Properties>
