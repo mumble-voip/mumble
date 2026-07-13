@@ -40,8 +40,8 @@ static QList< int > parseVersion(QString tag) {
 }
 
 static bool isNewer(const QList< int > &remote, const QList< int > &local) {
-	const int count = qMax(remote.size(), local.size());
-	for (int i = 0; i < count; ++i) {
+	const qsizetype count = qMax(remote.size(), local.size());
+	for (qsizetype i = 0; i < count; ++i) {
 		const int r = i < remote.size() ? remote[i] : 0;
 		const int l = i < local.size() ? local[i] : 0;
 		if (r != l) {

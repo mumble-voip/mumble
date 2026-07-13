@@ -100,8 +100,8 @@ jobs:
         env:
           # Must match the app identity from Microsoft Partner Center
           # ("Product identity" page). Override via repository variables.
-          MSIX_IDENTITY_NAME: ${{ vars.MSIX_IDENTITY_NAME || 'StormOfTheGalaxy.MumbleTFAR' }}
-          MSIX_PUBLISHER: ${{ vars.MSIX_PUBLISHER || 'CN=StormOfTheGalaxy' }}
+          MSIX_IDENTITY_NAME: ${{ vars.MSIX_IDENTITY_NAME || '54156SoGDevelopment.StormVoice' }}
+          MSIX_PUBLISHER: ${{ vars.MSIX_PUBLISHER || 'CN=CE68934C-441E-49A8-BD9F-1EC40FAEA645' }}
         run: |
           $ref = "${{ github.ref_name }}"
           # MSIX version: strip leading "v", pad to 4 components (revision must be 0 for Store)
