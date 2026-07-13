@@ -148,6 +148,10 @@ public:
 	// clients entering the channel instead of relying on periodic client
 	// broadcasts.
 	QByteArray qbaTFARState;
+	// MUMBLE-TFAR: consecutive enforcement ticks this client spent inside a
+	// TFAR-restricted channel without announcing TFAR support (see
+	// Server::tfarEnforceRestrictedChannels).
+	int iTFARStrikes = 0;
 
 	int iLastPermissionCheck;
 	QMap< int, unsigned int > qmPermissionSent;

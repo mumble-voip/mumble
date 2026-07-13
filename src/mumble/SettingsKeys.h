@@ -194,6 +194,8 @@ const SettingsKey WINDOW_LAYOUT_KEY                    = { "window_layout" };
 const SettingsKey OVERLAY_HEADER_STATE                 = { "overlay_header_state" };
 const SettingsKey SERVER_FILTER_MODE_KEY               = { "server_filter_mode" };
 const SettingsKey HIDE_IN_TRAY_KEY                     = { "hide_in_tray" };
+// MUMBLE-TFAR
+const SettingsKey POPUP_NOTIFICATIONS_KEY              = { "popup_notifications" };
 const SettingsKey DISPLAY_TALKING_STATE_IN_TRAY_KEY    = { "display_talking_state_in_tray" };
 const SettingsKey SEND_USAGE_STATISTICS_KEY            = { "send_usage_statistics" };
 const SettingsKey DISPLAY_USER_COUNT_KEY               = { "display_user_count" };

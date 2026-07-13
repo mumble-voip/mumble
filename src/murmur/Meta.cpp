@@ -15,6 +15,9 @@
 #include "Server.h"
 #include "Version.h"
 
+// MUMBLE-TFAR: STORM_TFAR_VERSION (default for "tfarrequiredversion")
+#include "mumble/tfar/StormBranding.h"
+
 #include "database/MySQLConnectionParameter.h"
 #include "database/PostgreSQLConnectionParameter.h"
 #include "database/SQLiteConnectionParameter.h"
@@ -119,6 +122,7 @@ MetaParams::MetaParams() {
 	// MUMBLE-TFAR
 	bTFARSupport             = true;
 	qsTFARRestrictedChannels = QString();
+	qsTFARRequiredVersion    = QLatin1String(STORM_TFAR_VERSION);
 
 	broadcastListenerVolumeAdjustments = false;
 
@@ -389,6 +393,8 @@ void MetaParams::read(QString fname) {
 	// MUMBLE-TFAR
 	bTFARSupport             = typeCheckedFromSettings("tfarsupport", true);
 	qsTFARRestrictedChannels = typeCheckedFromSettings("tfarrestrictedchannels", QString());
+	qsTFARRequiredVersion =
+		typeCheckedFromSettings("tfarrequiredversion", QString::fromLatin1(STORM_TFAR_VERSION)).trimmed();
 
 	broadcastListenerVolumeAdjustments = typeCheckedFromSettings("broadcastlistenervolumeadjustments", false);
 

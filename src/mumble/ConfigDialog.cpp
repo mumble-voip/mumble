@@ -96,6 +96,10 @@ void ConfigDialog::addPage(ConfigWidget *cw, unsigned int idx) {
 	cw->resize(ms);
 	cw->setMinimumSize(ms);
 
+	// MUMBLE-TFAR: scrolling a settings page must not change values of combo
+	// boxes / spin boxes / sliders the cursor happens to pass over.
+	WheelGuardFilter::protectChildren(cw);
+
 	ms.rwidth() += 128;
 	ms.rheight() += 192;
 	if ((ms.width() > w) || (ms.height() > h)) {

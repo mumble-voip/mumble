@@ -7,7 +7,10 @@
 
 // Version of this mumble-tfar build. Compared against the "tag_name" of the
 // latest GitHub release (leading 'v' is stripped). Bump on every release tag.
-#define STORM_TFAR_VERSION "1.0.0"
+// The client also announces it to the server in the Version message as
+// " storm-voice/<version>" appended to the release string; mumble-tfar servers
+// reject clients whose version does not match "tfarrequiredversion".
+#define STORM_TFAR_VERSION "1.2.0"
 
 // Product name. "Mumble" is only used for nominative references ("based on
 // Mumble", protocol compatibility) — the product itself is branded Storm Voice.
@@ -29,6 +32,9 @@
 #define STORM_RELEASES_URL "https://github.com/StormofTheGalaxy/mumble-tfar/releases/latest"
 #define STORM_RELEASES_API "https://api.github.com/repos/StormofTheGalaxy/mumble-tfar/releases/latest"
 #define STORM_DOCS_URL "https://github.com/StormofTheGalaxy/mumble-tfar/blob/master/docs/TFAR-SETUP.md"
+// Community favorites list ("favorites.json" in the repository root); synced
+// into the favorites database on every start (see StormFavorites).
+#define STORM_FAVORITES_URL "https://raw.githubusercontent.com/StormofTheGalaxy/mumble-tfar/master/favorites.json"
 #define STORM_MACOS_AUDIO_URL "https://github.com/StormofTheGalaxy/mumble-tfar/blob/master/docs/MACOS-WINE-AUDIO.md"
 
 #endif // MUMBLE_MUMBLE_TFAR_STORMBRANDING_H_

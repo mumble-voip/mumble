@@ -49,6 +49,8 @@
     <file alias="muted_server.svg">Default/muted_server.svg</file>
     <file alias="muted_suppressed.svg">Default/muted_suppressed.svg</file>
     <file alias="muted_pushtomute.svg">Default/muted_pushtomute.svg</file>
+    <file alias="notifications_on.svg">Default/notifications_on.svg</file>
+    <file alias="notifications_off.svg">Default/notifications_off.svg</file>
     <file alias="overlay.mumblelay">Default/overlay.mumblelay</file>
     <file alias="pin.svg">Default/pin.svg</file>
     <file alias="priority_speaker.svg">Default/priority_speaker.svg</file>

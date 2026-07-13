@@ -116,6 +116,10 @@ public:
 	// Semicolon-separated channel names (or "ID:<id>") that only Storm Voice
 	// (TFAR) clients may enter. Empty = no restriction.
 	QString qsTFARRestrictedChannels;
+	// Exact Storm Voice client version required to connect
+	// ("tfarrequiredversion"). Defaults to the version this server was built
+	// from; set to an empty value to allow any client. SuperUser is exempt.
+	QString qsTFARRequiredVersion;
 
 	bool broadcastListenerVolumeAdjustments;
 

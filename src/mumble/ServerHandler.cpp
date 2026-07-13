@@ -32,6 +32,8 @@
 #include "Utils.h"
 #include "Global.h"
 
+#include "tfar/StormBranding.h"
+
 #include <QPainter>
 #include <QtCore/QtEndian>
 #include <QtGui/QImageReader>
@@ -826,7 +828,11 @@ void ServerHandler::serverConnectionConnected() {
 	changeState(ServerHandlerState::ConnectionEstablished);
 
 	MumbleProto::Version mpv;
-	mpv.set_release(u8(Version::getRelease()));
+	// MUMBLE-TFAR: announce the Storm Voice build in the release string so
+	// mumble-tfar servers can enforce a required client version
+	// ("tfarrequiredversion"). Format: "<mumble release> storm-voice/<ver>".
+	mpv.set_release(
+		u8(QString::fromLatin1("%1 storm-voice/%2").arg(Version::getRelease(), QLatin1String(STORM_TFAR_VERSION))));
 	MumbleProto::setVersion(mpv, Version::get());
 
 	if (!Global::get().s.bHideOS) {

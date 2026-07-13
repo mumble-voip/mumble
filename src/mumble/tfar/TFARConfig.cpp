@@ -20,9 +20,9 @@
 
 #include "../Global.h"
 #include "../MainWindow.h"
+#include "../VersionCheck.h"
 
 #include "StormBranding.h"
-#include "StormUpdateCheck.h"
 
 #include "TFARBridge.h"
 #include "TS3Compat.h"
@@ -78,7 +78,8 @@ TFARConfig::TFARConfig(Settings &st) : ConfigWidget(st) {
     });
     connect(guideButton, &QPushButton::clicked, this,
             []() { QDesktopServices::openUrl(QUrl(QLatin1String(STORM_DOCS_URL))); });
-    connect(updateButton, &QPushButton::clicked, this, []() { StormUpdateCheck::checkForUpdates(true); });
+    connect(updateButton, &QPushButton::clicked, this,
+            []() { new VersionCheck(true, Global::get().mw); });
 
     // ---- status --------------------------------------------------------
     auto *statusGroup  = new QGroupBox(tr("Status"), this);
@@ -114,6 +115,27 @@ TFARConfig::TFARConfig(Settings &st) : ConfigWidget(st) {
     pathLayout->addWidget(m_resourcePathEdit, 1);
     pathLayout->addWidget(browseButton);
     mainLayout->addWidget(pathGroup);
+
+    // ---- positional audio ------------------------------------------------
+    auto *positionalGroup  = new QGroupBox(tr("Позиционирование звука"), this);
+    auto *positionalLayout = new QVBoxLayout(positionalGroup);
+    auto *positionalLabel  = new QLabel(
+        tr("В игре TFAR передаёт клиенту позиции всех игроков, и живая речь размещается вокруг вас в 3D: "
+            "направление и громкость соответствуют положению в Arma 3. Радио это не затрагивает — громкость "
+            "радио регулируется на самой рации в игре.<br/><br/>"
+            "Какие настройки на это влияют (Настройки → Вывод звука → «Позиционный звук»):<br/>"
+            "• <b>Включить</b> и <b>Наушники</b> — включены по умолчанию; «Наушники» обязательно, если вы "
+            "играете в наушниках, иначе панорама считается для колонок перед вами;<br/>"
+            "• <b>Минимальная дистанция</b> — до неё голос звучит в полную громкость;<br/>"
+            "• <b>Максимальная дистанция</b> — после неё громкость больше не падает;<br/>"
+            "• <b>Минимальная громкость</b> — громкость на максимальной дистанции;<br/>"
+            "• <b>Прирост (Bloom)</b> — усиление для очень близких источников.<br/>"
+            "Вне игры (Arma 3 не запущена) голоса слышны обычным образом, без 3D."),
+        positionalGroup);
+    positionalLabel->setWordWrap(true);
+    positionalLabel->setTextFormat(Qt::RichText);
+    positionalLayout->addWidget(positionalLabel);
+    mainLayout->addWidget(positionalGroup);
 
     // ---- debug ----------------------------------------------------------
     auto *debugGroup  = new QGroupBox(tr("Debug"), this);
@@ -167,7 +189,7 @@ void TFARConfig::load(const Settings &r) {
     Q_UNUSED(r)
     QSettings settings(QLatin1String("mumble-tfar"), QLatin1String("TFAR"));
     m_resourcePathEdit->setText(settings.value(QLatin1String("resourcePath")).toString());
-    m_autoUpdateCheck->setChecked(StormUpdateCheck::autoUpdateEnabled());
+    m_autoUpdateCheck->setChecked(VersionCheck::autoInstallEnabled());
 }
 
 void TFARConfig::save() const {
@@ -177,7 +199,7 @@ void TFARConfig::save() const {
         settings.remove(QLatin1String("resourcePath"));
     else
         settings.setValue(QLatin1String("resourcePath"), path);
-    StormUpdateCheck::setAutoUpdateEnabled(m_autoUpdateCheck->isChecked());
+    VersionCheck::setAutoInstallEnabled(m_autoUpdateCheck->isChecked());
 }
 
 void TFARConfig::updateStatus() {

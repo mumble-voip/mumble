@@ -79,6 +79,7 @@
     </property>
     <addaction name="qaAudioMute"/>
     <addaction name="qaAudioDeaf"/>
+    <addaction name="qaNotifications"/>
     <addaction name="qaSelfPrioritySpeaker"/>
     <addaction name="separator"/>
     <addaction name="qaRecording"/>
@@ -187,6 +188,7 @@
    <addaction name="separator"/>
    <addaction name="qaAudioMute"/>
    <addaction name="qaAudioDeaf"/>
+   <addaction name="qaNotifications"/>
    <addaction name="qaRecording"/>
    <addaction name="separator"/>
    <addaction name="qaSelfComment"/>
@@ -564,6 +566,29 @@
    </property>
    <property name="whatsThis">
     <string>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="qaNotifications">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:notifications_off.svg</normaloff>
+     <normalon>skin:notifications_on.svg</normalon>
+     <activeon>skin:notifications_on.svg</activeon>skin:notifications_off.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Notifications</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle system notifications</string>
+   </property>
+   <property name="whatsThis">
+    <string>Enable or disable system (tray) notification pop-ups. When disabled, no desktop notifications are shown. Which events produce a notification is configured in Settings &gt; Messages.</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>

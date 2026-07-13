@@ -40,7 +40,6 @@
 #ifdef USE_TFAR
 #	include "tfar/TFARBridge.h"
 #	include "tfar/StormBranding.h"
-#	include "tfar/StormUpdateCheck.h"
 #endif
 #include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
@@ -538,6 +537,8 @@ void MainWindow::setupGui() {
 
 	qaAudioMute->setChecked(Global::get().s.bMute);
 	qaAudioDeaf->setChecked(Global::get().s.bDeaf);
+	// MUMBLE-TFAR: system notification pop-ups toggle (off by default)
+	qaNotifications->setChecked(Global::get().s.bPopupNotifications);
 
 	updateAudioToolTips();
 
@@ -2914,6 +2915,11 @@ void MainWindow::on_qaAudioTTS_triggered() {
 	enableAudioTTS(qaAudioTTS->isChecked());
 }
 
+// MUMBLE-TFAR: global toggle for system (tray/toast) notification pop-ups.
+void MainWindow::on_qaNotifications_triggered() {
+	Global::get().s.bPopupNotifications = qaNotifications->isChecked();
+}
+
 void MainWindow::on_qaAudioStats_triggered() {
 	openAudioStatsDialog();
 }
@@ -4370,12 +4376,8 @@ void MainWindow::openAboutQtDialog() {
 }
 
 void MainWindow::versionCheck() {
-#ifdef USE_TFAR
-	// MUMBLE-TFAR: manual update check goes against our GitHub releases.
-	StormUpdateCheck::checkForUpdates(true);
-#else
-	new VersionCheck(false, this);
-#endif
+	// MUMBLE-TFAR: manual update check against our GitHub releases (verbose).
+	new VersionCheck(true, this);
 }
 
 void MainWindow::enablePositionalAudio(bool enable) {

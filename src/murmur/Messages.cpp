@@ -17,6 +17,9 @@
 #include "ServerUser.h"
 #include "User.h"
 #include "Version.h"
+
+// MUMBLE-TFAR: STORM_RELEASES_URL for the wrong-version reject message
+#include "mumble/tfar/StormBranding.h"
 #include "crypto/CryptState.h"
 
 #include "murmur/database/UserProperty.h"
@@ -272,6 +275,20 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	if ((id != 0) && (uSource->qsHash.isEmpty() && bCertRequired)) {
 		reason = QString::fromLatin1("A certificate is required to connect to this server");
 		rtType = MumbleProto::Reject_RejectType_NoCertificate;
+		ok     = false;
+	}
+
+	// MUMBLE-TFAR: only Storm Voice clients of the exact required version may
+	// connect ("tfarrequiredversion", empty = disabled). The client announces
+	// its build in the Version message release string as
+	// "<mumble release> storm-voice/<version>"; vanilla Mumble clients and
+	// older Storm Voice builds carry no (or another) tag and are rejected.
+	// SuperUser (id 0) is exempt so the server stays administrable.
+	if (ok && (id != 0) && bTFARSupport && !qsTFARRequiredVersion.isEmpty()
+		&& !uSource->qsRelease.endsWith(QLatin1String(" storm-voice/") + qsTFARRequiredVersion)) {
+		reason = QString::fromLatin1("This server requires Storm Voice %1 — download it from %2")
+					 .arg(qsTFARRequiredVersion, QLatin1String(STORM_RELEASES_URL));
+		rtType = MumbleProto::Reject_RejectType_WrongVersion;
 		ok     = false;
 	}
 
@@ -849,6 +866,18 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 		if (!hasPermission(pDstServerUser, c, ChanACL::Listen)) {
 			PERM_DENIED(pDstServerUser, c, ChanACL::Listen);
+			continue;
+		}
+
+		// MUMBLE-TFAR: no listener proxies on TFAR-restricted channels — a
+		// listener hears the channel from outside without TFAR's positional
+		// processing, which is exactly the "hear everyone at full volume,
+		// regardless of distance" hole the restriction exists to close.
+		if (tfarChannelRestricted(c)) {
+			MumbleProto::PermissionDenied mppd;
+			mppd.set_type(MumbleProto::PermissionDenied_DenyType_Text);
+			mppd.set_reason(u8(QLatin1String("Listening to a TFAR-restricted channel is not allowed")));
+			sendMessage(uSource, mppd);
 			continue;
 		}
 

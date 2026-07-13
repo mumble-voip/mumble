@@ -242,6 +242,12 @@ Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &conne
 
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
 
+	// MUMBLE-TFAR: periodic enforcement of "tfarrestrictedchannels" — clients
+	// that never announced TFAR support are moved out of restricted channels.
+	qtTFAREnforce = new QTimer(this);
+	connect(qtTFAREnforce, SIGNAL(timeout()), this, SLOT(tfarEnforceRestrictedChannels()));
+	qtTFAREnforce->start(10000);
+
 	m_bans = m_dbWrapper.getBans(iServerNum);
 	m_dbWrapper.initializeChannels(*this);
 	m_dbWrapper.initializeChannelLinks(*this);
@@ -370,6 +376,7 @@ void Server::readParams() {
 	iPluginMessageBurst                = Meta::mp->iPluginMessageBurst;
 	bTFARSupport                       = Meta::mp->bTFARSupport;             // MUMBLE-TFAR
 	qsTFARRestrictedChannels           = Meta::mp->qsTFARRestrictedChannels; // MUMBLE-TFAR
+	qsTFARRequiredVersion              = Meta::mp->qsTFARRequiredVersion;    // MUMBLE-TFAR
 	broadcastListenerVolumeAdjustments = Meta::mp->broadcastListenerVolumeAdjustments;
 	m_suggestVersion                   = Meta::mp->m_suggestVersion;
 	m_suggestPositional                = Meta::mp->suggestPositional;
@@ -496,6 +503,7 @@ void Server::readParams() {
 	// MUMBLE-TFAR
 	m_dbWrapper.getConfigurationTo(iServerNum, "tfarsupport", bTFARSupport);
 	m_dbWrapper.getConfigurationTo(iServerNum, "tfarrestrictedchannels", qsTFARRestrictedChannels);
+	m_dbWrapper.getConfigurationTo(iServerNum, "tfarrequiredversion", qsTFARRequiredVersion);
 }
 
 // MUMBLE-TFAR ---------------------------------------------------------------
@@ -523,6 +531,75 @@ bool Server::tfarClientAllowed(const ServerUser *u) const {
 	// Storm Voice clients announce themselves with a "TFARST" state message
 	// right after synchronization; vanilla Mumble clients never send one.
 	return !u->qbaTFARState.isEmpty();
+}
+
+void Server::tfarEnforceRestrictedChannels() {
+	// The entry check in msgUserState blocks channel *moves* by clients
+	// without TFAR, but not clients that connect straight into their saved
+	// channel. This periodic pass moves such clients out again. Two
+	// consecutive strikes (10-20 s) give a freshly connected Storm Voice
+	// client time to announce itself with its first "TFARST" message.
+	if (!bTFARSupport || qsTFARRestrictedChannels.isEmpty())
+		return;
+
+	// Drop listener proxies that still point at restricted channels (created
+	// by older builds or persisted from before the restriction was set up) —
+	// listeners hear the channel without TFAR's positional processing.
+	for (Channel *c : std::as_const(qhChannels)) {
+		if (!tfarChannelRestricted(c))
+			continue;
+		for (unsigned int session : m_channelListenerManager.getListenersForChannel(c->iId)) {
+			ServerUser *listener = qhUsers.value(session);
+			if (!listener)
+				continue;
+			deleteChannelListener(*listener, *c);
+			log(listener, QString("Removed listener on TFAR-restricted channel \"%1\"").arg(c->qsName));
+
+			MumbleProto::UserState mpus;
+			mpus.set_session(session);
+			mpus.add_listening_channel_remove(c->iId);
+			sendAll(mpus);
+		}
+	}
+
+	QList< ServerUser * > toMove;
+	for (ServerUser *u : std::as_const(qhUsers)) {
+		if (u->sState != ServerUser::Authenticated || !u->cChannel)
+			continue;
+		if (!tfarChannelRestricted(u->cChannel) || tfarClientAllowed(u)) {
+			u->iTFARStrikes = 0;
+			continue;
+		}
+		if (++u->iTFARStrikes >= 2)
+			toMove << u;
+	}
+
+	for (ServerUser *u : toMove) {
+		u->iTFARStrikes = 0;
+
+		// Preferred destination: the server's default channel; fall back to
+		// the root channel if it is restricted or not enterable itself.
+		Channel *target = qhChannels.value(iDefaultChan);
+		if (!target || tfarChannelRestricted(target) || !hasPermission(u, target, ChanACL::Enter)
+			|| isChannelFull(target, u)) {
+			target = qhChannels.value(0);
+		}
+		if (!target || target == u->cChannel || tfarChannelRestricted(target))
+			continue;
+
+		log(u, QString("Moved out of TFAR-restricted channel \"%1\" (no TFAR client)").arg(u->cChannel->qsName));
+
+		sendTextMessage(nullptr, u, false,
+						QLatin1String("This channel requires the Storm Voice (TFAR) client — see the server "
+									  "rules for the download link"));
+
+		MumbleProto::UserState mpus;
+		mpus.set_session(u->uiSession);
+		mpus.set_channel_id(target->iId);
+		userEnterChannel(u, target, mpus);
+		sendAll(mpus);
+		emit userStateChanged(u);
+	}
 }
 
 void Server::setLiveConf(const QString &key, const QString &value) {

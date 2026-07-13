@@ -14,6 +14,10 @@
 #include <QTimer>
 #include <QWheelEvent>
 #include <QWidget>
+#include <QtWidgets/QAbstractSlider>
+#include <QtWidgets/QAbstractSpinBox>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QScrollBar>
 
 KeyEventObserver::KeyEventObserver(QObject *parent, QEvent::Type eventType, bool consume, std::vector< Qt::Key > keys)
 	: QObject(parent), m_eventType(eventType), m_consume(consume), m_keys(std::move(keys)) {
@@ -188,4 +192,54 @@ bool ExposeEventFilter::eventFilter(QObject *obj, QEvent *event) {
 		deleteLater();
 	}
 	return false;
+}
+
+// MUMBLE-TFAR ---------------------------------------------------------------
+
+WheelGuardFilter::WheelGuardFilter(QObject *parent) : QObject(parent) {
+}
+
+void WheelGuardFilter::protectChildren(QWidget *root) {
+	WheelGuardFilter *filter = new WheelGuardFilter(root);
+
+	const QList< QWidget * > children = root->findChildren< QWidget * >();
+	for (QWidget *widget : children) {
+		const bool isValueWidget = qobject_cast< QComboBox * >(widget) || qobject_cast< QAbstractSpinBox * >(widget)
+								   || (qobject_cast< QAbstractSlider * >(widget)
+									   && !qobject_cast< QScrollBar * >(widget));
+		if (!isValueWidget) {
+			continue;
+		}
+
+		// The wheel must not give focus to the widget either (Qt::WheelFocus
+		// is the default for combo boxes on some platforms).
+		if (widget->focusPolicy() == Qt::WheelFocus) {
+			widget->setFocusPolicy(Qt::StrongFocus);
+		}
+		widget->installEventFilter(filter);
+	}
+}
+
+bool WheelGuardFilter::eventFilter(QObject *obj, QEvent *event) {
+	if (event->type() != QEvent::Wheel) {
+		return false;
+	}
+
+	QWidget *widget = qobject_cast< QWidget * >(obj);
+	if (!widget || widget->hasFocus()) {
+		// Focused widgets keep their normal wheel behavior.
+		return false;
+	}
+
+	// Hand the event to the parent instead, so an enclosing scroll area still
+	// scrolls the page while the cursor is over the widget.
+	if (QWidget *parent = widget->parentWidget()) {
+		QWheelEvent *wheel = static_cast< QWheelEvent * >(event);
+		QWheelEvent forwarded(parent->mapFromGlobal(wheel->globalPosition()), wheel->globalPosition(),
+							  wheel->pixelDelta(), wheel->angleDelta(), wheel->buttons(), wheel->modifiers(),
+							  wheel->phase(), wheel->inverted(), wheel->source());
+		QApplication::sendEvent(parent, &forwarded);
+	}
+
+	return true;
 }

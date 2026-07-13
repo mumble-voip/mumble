@@ -1,0 +1,17 @@
+{
+  "_comment": "Community favorites synced into every Storm Voice client on start (see src/mumble/tfar/StormFavorites.cpp). Entries are matched by 'name': renaming an entry here creates a new favorite on the clients and removes the old one. 'port' defaults to 64738; 'username' is only applied when the user has not set one.",
+  "favorites": [
+    {
+      "name": "Storm of The Galaxy",
+      "host": "stormofgalaxy.com",
+      "port": 64738,
+      "url": "https://stormofgalaxy.com"
+    },
+    {
+      "name": "SoG - Global Proxy",
+      "host": "proxy.stormofgalaxy.com",
+      "port": 1773,
+      "url": "https://stormofgalaxy.com"
+    }
+  ]
+}

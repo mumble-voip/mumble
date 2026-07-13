@@ -166,6 +166,7 @@
 	PROCESS(ui, WINDOW_LAYOUT_KEY, wlWindowLayout)                               \
 	PROCESS(ui, SERVER_FILTER_MODE_KEY, ssFilter)                                \
 	PROCESS(ui, HIDE_IN_TRAY_KEY, bHideInTray)                                   \
+	PROCESS(ui, POPUP_NOTIFICATIONS_KEY, bPopupNotifications)                    \
 	PROCESS(ui, DISPLAY_TALKING_STATE_IN_TRAY_KEY, bStateInTray)                 \
 	PROCESS(ui, SEND_USAGE_STATISTICS_KEY, bUsage)                               \
 	PROCESS(ui, DISPLAY_USER_COUNT_KEY, bShowUserCount)                          \

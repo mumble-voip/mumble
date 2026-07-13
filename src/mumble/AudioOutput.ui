@@ -564,7 +564,7 @@
       <item row="7" column="2">
        <widget class="SemanticSlider" name="qsMinimumVolume">
         <property name="toolTip">
-         <string/>
+         <string>Volume of a voice at (and beyond) the maximum distance</string>
         </property>
         <property name="whatsThis">
          <string>What should the volume be at the maximum distance?</string>
@@ -580,7 +580,7 @@
       <item row="3" column="2">
        <widget class="SemanticSlider" name="qsMinDistance">
         <property name="toolTip">
-         <string/>
+         <string>Up to this distance (in meters) voices play at full volume</string>
         </property>
         <property name="statusTip">
          <string/>
@@ -599,7 +599,7 @@
       <item row="6" column="2">
        <widget class="SemanticSlider" name="qsMaxDistance">
         <property name="toolTip">
-         <string/>
+         <string>Beyond this distance (in meters) the volume stops decreasing</string>
         </property>
         <property name="whatsThis">
          <string>This sets the maximum distance for sound calculations. When farther away than this, other users' speech volume will not decrease any further.</string>
@@ -614,8 +614,24 @@
       </item>
       <item row="0" column="1">
        <widget class="QCheckBox" name="qcbPositional">
+        <property name="toolTip">
+         <string>Place other players' voices in 3D space around you</string>
+        </property>
+        <property name="whatsThis">
+         <string>When enabled, direct speech of other players is placed in 3D space around you, based on the in-game positions that TFAR reads from Arma 3. Radio transmissions are not affected by these settings — their volume is set on the radio in the game.</string>
+        </property>
         <property name="text">
          <string>Enable</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="3">
+       <widget class="QLabel" name="qlPositionalInfo">
+        <property name="text">
+         <string>&lt;i&gt;How it works: while you are in Arma 3, TFAR passes every player's in-game position to the client, and other players' direct speech is placed around you — direction and distance follow the game. &quot;Headphones&quot; must match your actual audio device: with it, sounds are panned for ears to your left/right; without it, for speakers in front of you. The sliders below shape the volume-over-distance curve: full volume up to the minimum distance, then it falls off until the maximum distance, where it stays at the minimum volume. Bloom adds an extra boost for very close sources. Radio transmissions ignore this curve — radio volume is set on the radio in the game. Outside of the game, voices are heard normally (without 3D).&lt;/i&gt;</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

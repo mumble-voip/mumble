@@ -292,6 +292,8 @@ public slots:
 	void on_qaAudioDeaf_triggered();
 	void on_qaRecording_triggered();
 	void on_qaAudioTTS_triggered();
+	// MUMBLE-TFAR: toggle for system notification pop-ups
+	void on_qaNotifications_triggered();
 	void on_qaAudioUnlink_triggered();
 	void on_qaAudioStats_triggered();
 	void on_qaConfigDialog_triggered();

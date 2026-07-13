@@ -112,6 +112,22 @@ private:
 	bool m_consume;
 };
 
+/// MUMBLE-TFAR: prevents accidental value changes while scrolling a settings
+/// page: wheel events over combo boxes, spin boxes and sliders are ignored
+/// unless the widget has keyboard focus, and are forwarded to the parent so an
+/// enclosing scroll area keeps scrolling.
+class WheelGuardFilter : public QObject {
+	Q_OBJECT
+
+public:
+	WheelGuardFilter(QObject *parent);
+	/// Installs a WheelGuardFilter on every wheel-editable child of root.
+	static void protectChildren(QWidget *root);
+
+protected:
+	bool eventFilter(QObject *obj, QEvent *event) override;
+};
+
 class ExposeEventFilter : public QObject {
 public:
 	ExposeEventFilter(QObject *parent, std::function< void() > callback);

@@ -94,7 +94,9 @@ void load(const nlohmann::json &json, const char *category, const SettingsKey &k
 
 
 void to_json(nlohmann::json &j, const Settings &settings) {
-	j[SettingsKeys::SETTINGS_VERSION_KEY] = 1;
+	// MUMBLE-TFAR: version 2 marks the one-time migration to the fork's
+	// defaults (all sounds off, positional audio in headphone mode on) as done.
+	j[SettingsKeys::SETTINGS_VERSION_KEY] = 2;
 
 	const Settings defaultValues;
 
@@ -168,7 +170,33 @@ void migrateSettings(nlohmann::json &json, int settingsVersion) {
 		json[SettingsKeys::TRANSMIT_CUE_WHEN_PTT_KEY] = json.at("play_transmit_cue").get< bool >();
 	}
 
-	(void) settingsVersion;
+	// MUMBLE-TFAR: one-time migration to the fork's defaults for settings that
+	// were saved by older builds. Forces all sounds off (notification sounds,
+	// transmit/mute cues, TTS) and enables positional audio in headphone mode.
+	// Applied once: settings saved by this build carry version >= 2, so the
+	// user's later choices persist.
+	if (settingsVersion < 2) {
+		auto &audio                                                        = json["audio"];
+		audio[static_cast< const char * >(SettingsKeys::TRANSMIT_CUE_WHEN_PTT_KEY)] = false;
+		audio[static_cast< const char * >(SettingsKeys::TRANSMIT_CUE_WHEN_VAD_KEY)] = false;
+		audio[static_cast< const char * >(SettingsKeys::PLAY_MUTE_CUE_KEY)]         = false;
+
+		json["tts"][static_cast< const char * >(SettingsKeys::TTS_ENABLE_KEY)] = false;
+
+		auto &positional = json["positional_audio"];
+		positional[static_cast< const char * >(SettingsKeys::ENABLE_POSITIONAL_AUDIO_KEY)]   = true;
+		positional[static_cast< const char * >(SettingsKeys::POSITIONAL_HEADPHONE_MODE_KEY)] = true;
+
+		// Strip the "play sound file" bit from every per-event notification
+		// configuration the user may have saved.
+		if (json.contains("messages") && json.at("messages").contains("traits")) {
+			for (auto &trait : json.at("messages").at("traits").items()) {
+				if (trait.value().is_number_unsigned()) {
+					trait.value() = trait.value().get< quint32 >() & ~static_cast< quint32 >(Settings::LogSoundfile);
+				}
+			}
+		}
+	}
 }
 
 void from_json(const nlohmann::json &j, Settings &settings) {

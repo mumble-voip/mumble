@@ -13,8 +13,8 @@ set(TFAR_SOURCES
 	"${TFAR_DIR}/TFARConfig.cpp"
 	"${TFAR_DIR}/TFARConfig.h"
 	"${TFAR_DIR}/StormBranding.h"
-	"${TFAR_DIR}/StormUpdateCheck.cpp"
-	"${TFAR_DIR}/StormUpdateCheck.h"
+	"${TFAR_DIR}/StormFavorites.cpp"
+	"${TFAR_DIR}/StormFavorites.h"
 	"${TFAR_DIR}/DebugUI.cpp"
 	"${TFAR_DIR}/DebugUI.h"
 
@@ -120,11 +120,11 @@ set_source_files_properties(${TFAR_SOURCES}
 # Note: /permissive is NOT valid together with /std:c++20 (cl error D8016),
 # which is why the standard must be lowered for these files as well.
 # The Qt-facing integration sources (TFARBridge, TFARConfig, TeamspeakMumble,
-# StormUpdateCheck, DebugUI) are new code and stay conformant C++20.
+# DebugUI) are new code and stay conformant C++20.
 if(MSVC)
 	set(TFAR_LEGACY_SOURCES ${TFAR_SOURCES})
 	list(FILTER TFAR_LEGACY_SOURCES EXCLUDE REGEX
-		"(TFARBridge|TFARConfig|TeamspeakMumble|StormUpdateCheck|DebugUI|TS3Compat|StormBranding)")
+		"(TFARBridge|TFARConfig|TeamspeakMumble|DebugUI|TS3Compat|StormBranding|StormFavorites)")
 	set_property(SOURCE ${TFAR_LEGACY_SOURCES} APPEND PROPERTY COMPILE_OPTIONS "/std:c++17;/permissive")
 endif()
 

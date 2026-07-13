@@ -16,6 +16,7 @@
 #include "plugin.h"
 
 #include "StormBranding.h"
+#include "StormFavorites.h"
 
 #include "Logger.hpp"
 #include "TS3Compat.h"
@@ -55,6 +56,10 @@ void TFARBridge::initialize() {
         Global::get().db->addFavorite(stormServer);
         stormSettings.setValue(QLatin1String("stormServerAdded"), true);
     }
+
+    // Community favorites list from the project repository (favorites.json in
+    // the repository root). Async; silently does nothing when offline.
+    StormFavorites::sync();
 
     // Project defaults (versioned: bumping kStormDefaultsVersion re-applies
     // them on machines where an older build already ran; afterwards the user

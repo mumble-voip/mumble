@@ -828,7 +828,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			}
 
 			// Message notification with balloon tooltips
-			if (flags & Settings::LogBalloon) {
+			// MUMBLE-TFAR: system notifications are additionally gated by the
+			// global toggle (bell button next to mute/deafen), off by default.
+			if ((flags & Settings::LogBalloon) && Global::get().s.bPopupNotifications) {
 				// Replace any instances of a "Object Replacement Character" from QTextDocumentFragment::toPlainText
 				plain = plain.replace("\xEF\xBF\xBC", tr("[embedded content]"));
 

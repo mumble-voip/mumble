@@ -6,25 +6,46 @@
 #ifndef MUMBLE_MUMBLE_VERSIONCHECK_H_
 #define MUMBLE_MUMBLE_VERSIONCHECK_H_
 
-#include <QFutureWatcher>
-#include <QtCore/QByteArray>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QUrl>
 
+class QNetworkReply;
+
+/// MUMBLE-TFAR: the update check queries the fork's GitHub releases instead of
+/// the upstream mumble.info update server — upstream would advertise vanilla
+/// Mumble builds without TFAR. When a newer release is found it offers to
+/// download the Windows installer asset and run it.
 class VersionCheck : public QObject {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(VersionCheck)
 
-	QFutureWatcher< void > m_preparationWatcher;
-	QUrl m_requestURL;
-protected slots:
-	void performRequest();
-public slots:
-	void fetched(QByteArray data, QUrl url);
-
 public:
-	VersionCheck(bool autocheck, QObject *parent = nullptr, bool focus = false);
+	/// verbose: report "already up to date" and errors to the chat log
+	/// (manual check). The startup check passes false and only speaks up
+	/// when a new version is found.
+	VersionCheck(bool verbose, QObject *parent = nullptr);
+
+	/// Whether a found update may be downloaded and installed right away
+	/// (after user confirmation). When disabled, only a chat log message
+	/// with a download link is shown.
+	static bool autoInstallEnabled();
+	static void setAutoInstallEnabled(bool enabled);
+
+private slots:
+	void onMetadataReceived();
+	void onInstallerDownloaded();
+
+private:
+	void logInfo(const QString &message);
+	void logWarning(const QString &message);
+
+	bool m_verbose;
+	QNetworkReply *m_reply = nullptr;
+	QString m_newVersion;
+	QString m_assetName;
+	QUrl m_assetUrl;
 };
 
 #endif

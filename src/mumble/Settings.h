@@ -236,7 +236,9 @@ struct Settings {
 	QString qsTxAudioCueOn  = cqsDefaultPushClickOn;
 	QString qsTxAudioCueOff = cqsDefaultPushClickOff;
 
-	bool bTxMuteCue   = true;
+	// MUMBLE-TFAR: no cue sound when talking while muted — the client ships
+	// with every notification sound disabled by default.
+	bool bTxMuteCue   = false;
 	bool muteCueShown = false;
 	// MUMBLE-TFAR: one-time hint about macOS microphone permission when the
 	// client runs under Wine on a macOS host.
@@ -350,8 +352,10 @@ struct Settings {
 	bool bExclusiveInput          = false;
 	bool bExclusiveOutput         = false;
 	EchoCancelOptionID echoOption = EchoCancelOptionID::SPEEX_MIXED;
-	bool bPositionalAudio         = false;
-	bool bPositionalHeadphone     = false;
+	// MUMBLE-TFAR: positional audio in headphone mode out of the box — TFAR
+	// relies on it for full 3D positioning of voices and radios.
+	bool bPositionalAudio         = true;
+	bool bPositionalHeadphone     = true;
 	float fAudioMinDistance       = 1.0f;
 	float fAudioMaxDistance       = 15.0f;
 	float fAudioMaxDistVolume     = 0.0f;
@@ -438,6 +442,9 @@ struct Settings {
 	bool bLockLayout                     = false;
 	bool bHideInTray                     = false;
 	bool bStateInTray                    = true;
+	// MUMBLE-TFAR: global gate for system (tray/toast) notifications. Off by
+	// default; toggled with the bell button next to the mute/deafen buttons.
+	bool bPopupNotifications             = false;
 	bool bUsage                          = true;
 	bool bShowUserCount                  = false;
 	bool bShowVolumeAdjustments          = true;

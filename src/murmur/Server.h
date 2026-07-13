@@ -158,6 +158,9 @@ public:
 	// "tfarrestrictedchannels": semicolon-separated channel names / "ID:<id>"
 	// that only Storm Voice (TFAR) clients may enter.
 	QString qsTFARRestrictedChannels;
+	// "tfarrequiredversion": exact Storm Voice client version required to
+	// connect. Empty = any client may connect. SuperUser is exempt.
+	QString qsTFARRequiredVersion;
 
 	bool broadcastListenerVolumeAdjustments;
 
@@ -247,6 +250,8 @@ public slots:
 	void sslError(const QList< QSslError > &);
 	void message(Mumble::Protocol::TCPMessageType, const QByteArray &, ServerUser *cCon = nullptr);
 	void checkTimeout();
+	// MUMBLE-TFAR: moves clients without TFAR out of restricted channels.
+	void tfarEnforceRestrictedChannels();
 	void tcpTransmitData(QByteArray, unsigned int);
 	void doSync(unsigned int);
 	void encrypted();
@@ -260,6 +265,8 @@ public:
 	QQueue< unsigned int > qqIds;
 	QList< SslServer * > qlServer;
 	QTimer *qtTimeout;
+	// MUMBLE-TFAR: drives tfarEnforceRestrictedChannels().
+	QTimer *qtTFAREnforce;
 
 #ifdef Q_OS_UNIX
 	int aiNotify[2];
