@@ -437,6 +437,8 @@ int main(int argc, char **argv) {
 	initLog(logBox);
 	Global::get().c = new DeveloperConsole(logBox);
 
+	qInfo("This is Mumble v%s", qUtf8Printable(Version::getRelease()));
+
 	os_init();
 
 	QUrl url;
