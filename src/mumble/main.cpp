@@ -203,6 +203,8 @@ int main(int argc, char **argv) {
 	Global::get().le = QSharedPointer< LogEmitter >(new LogEmitter());
 	Global::get().c  = new DeveloperConsole();
 
+	qInfo("This is Mumble v%s", qUtf8Printable(Version::getRelease()));
+
 	os_init();
 
 	bool bAllowMultiple       = false;
