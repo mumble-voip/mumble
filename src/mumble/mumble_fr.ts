@@ -5208,11 +5208,11 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cette option contrôle si Mumble essaie de restaurer la géométrie de la fenêtre et l’état provenant des sessions précédentes au démarrage.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Rétablir la géométrie de la fenêtre au démarrage</translation>
     </message>
 </context>
 <context>
