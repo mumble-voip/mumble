@@ -87,6 +87,8 @@
     <addaction name="qaServerTexture"/>
     <addaction name="qaServerTextureRemove"/>
     <addaction name="separator"/>
+    <addaction name="qaMultiGroupListening"/>
+    <addaction name="separator"/>
     <addaction name="qaSelfRegister"/>
     <addaction name="qaAudioStats"/>
    </widget>
@@ -1027,7 +1029,18 @@ the channel's context menu.</string>
     <string>&amp;Listen To Channel</string>
    </property>
    <property name="toolTip">
-    <string>Listen to this channel without joining it</string>
+    <string>Join this group for listening (Channel Listener). Your PTT still goes only to your current channel.</string>
+   </property>
+  </action>
+  <action name="qaMultiGroupListening">
+   <property name="text">
+    <string>Multi-&amp;Group Listening...</string>
+   </property>
+   <property name="toolTip">
+    <string>Manage listening to multiple groups/channels. PTT still targets only your current channel.</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open a dialog to join or leave multiple channel listeners. You hear PTT from every joined group, but your own transmission stays on the channel you have entered.</string>
    </property>
   </action>
   <action name="qaTalkingUIToggle">

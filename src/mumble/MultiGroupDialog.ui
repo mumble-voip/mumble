@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+版本号: 1.0.1
+修订日期: 2026-07-17
+作者/生成者: Auto (Composer)
+最后修订人: Auto (Composer)
+变更说明:
+  - 1.0.0 (2026-07-17): 初版。多群组收听管理对话框 UI。
+  - 1.0.1 (2026-07-17): 合入 yqwer/mumble 最新 master（约 1.7.x）时同步保留。
+-->
+<ui version="4.0">
+ <class>MultiGroupDialog</class>
+ <widget class="QDialog" name="MultiGroupDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Mumble - Multi-Group Listening</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="qlExplain">
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>&lt;b&gt;Multi-group listening&lt;/b&gt; lets you hear PTT from several channels without joining them. Your own PTT still goes only to your &lt;b&gt;current channel&lt;/b&gt;.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="qlCurrentChannel">
+     <property name="text">
+      <string>Current speak channel: (not connected)</string>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayoutAvailable">
+       <item>
+        <widget class="QLabel" name="qlAvailable">
+         <property name="text">
+          <string>Available groups (channels)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="qlwAvailable">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="accessibleName">
+          <string>Available groups</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayoutButtons">
+       <item>
+        <spacer name="verticalSpacerTop">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="qpbJoin">
+         <property name="text">
+          <string>Join / Listen &gt;&gt;</string>
+         </property>
+         <property name="toolTip">
+          <string>Start listening to the selected groups. PTT still targets your current channel only.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="qpbLeave">
+         <property name="text">
+          <string>&lt;&lt; Leave listen</string>
+         </property>
+         <property name="toolTip">
+          <string>Stop listening to the selected groups.</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="qpbRefresh">
+         <property name="text">
+          <string>Refresh</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacerBottom">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayoutListening">
+       <item>
+        <widget class="QLabel" name="qlListening">
+         <property name="text">
+          <string>Joined groups (listening)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="qlwListening">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::ExtendedSelection</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="accessibleName">
+          <string>Listening groups</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="qbbButtons">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>qbbButtons</sender>
+   <signal>rejected()</signal>
+   <receiver>MultiGroupDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>320</x>
+     <y>460</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>320</x>
+     <y>240</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

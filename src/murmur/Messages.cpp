@@ -848,7 +848,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 				   < 0) {
 			// A limit for the amount of listener proxies per user is set and it has been reached already
 			PERM_DENIED_FALLBACK(UserListenerLimit, Version::fromComponents(1, 4, 0),
-								 QLatin1String("No more listeners allowed in this channel"));
+								 QLatin1String("No more channel listeners allowed for this user"));
 			continue;
 		}
 

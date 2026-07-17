@@ -42,6 +42,7 @@ class UserInformation;
 class VoiceRecorderDialog;
 class PositionalAudioViewer;
 class PTTButtonWidget;
+class MultiGroupDialog;
 
 namespace Search {
 class SearchDialog;
@@ -124,6 +125,7 @@ public:
 	Tokens *tokenEdit;
 
 	VoiceRecorderDialog *voiceRecorderDialog;
+	MultiGroupDialog *multiGroupDialog;
 
 	MumbleProto::Reject_RejectType rtLast;
 	bool bRetryServer;
@@ -147,6 +149,7 @@ public:
 	void setOnTop(bool top);
 	void setShowDockTitleBars(bool doShow);
 	void updateAudioToolTips();
+	void updateVoiceScopeStatus();
 	void updateUserModel();
 	void focusNextMainWidget();
 	QPair< QByteArray, QImage > openImageFile();
@@ -249,6 +252,7 @@ public slots:
 	void on_qmSelf_aboutToShow();
 	void on_qaSelfComment_triggered();
 	void on_qaSelfRegister_triggered();
+	void on_qaMultiGroupListening_triggered();
 	void qcbTransmitMode_activated(int index);
 	void updateTransmitModeComboBox(Settings::AudioTransmit newMode);
 	void qmUser_aboutToShow();

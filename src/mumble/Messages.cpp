@@ -321,7 +321,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 		} break;
 		case MumbleProto::PermissionDenied_DenyType_UserListenerLimit: {
 			Global::get().l->log(Log::PermissionDenied,
-								 tr("You are not allowed to listen to more channels than you currently are."));
+								 tr("You cannot listen to more groups/channels (per-user listener limit reached)."));
 		} break;
 		default: {
 			if (msg.has_reason())

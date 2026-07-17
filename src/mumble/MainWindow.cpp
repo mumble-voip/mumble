@@ -33,6 +33,7 @@
 #include "ListenerVolumeSlider.h"
 #include "Markdown.h"
 #include "MenuLabel.h"
+#include "MultiGroupDialog.h"
 #include "PTTButtonWidget.h"
 #include "PluginManager.h"
 #include "PositionalAudioViewer.h"
@@ -153,6 +154,7 @@ MainWindow::MainWindow(QWidget *p)
 	tokenEdit = nullptr;
 
 	voiceRecorderDialog = nullptr;
+	multiGroupDialog    = nullptr;
 
 	qwPTTButtonWidget = nullptr;
 
@@ -504,6 +506,15 @@ void MainWindow::setupGui() {
 	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged,
 					 pmModel, &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 	QObject::connect(pmModel, &UserModel::userMoved, this, &MainWindow::on_user_moved);
+	QObject::connect(this, &MainWindow::userAddedChannelListener, this, [this](ClientUser *, Channel *) {
+		updateVoiceScopeStatus();
+	});
+	QObject::connect(this, &MainWindow::userRemovedChannelListener, this, [this](ClientUser *, Channel *) {
+		updateVoiceScopeStatus();
+	});
+	QObject::connect(this, &MainWindow::serverSynchronized, this, &MainWindow::updateVoiceScopeStatus);
+
+	statusBar()->showMessage(tr("Speak → current channel only · Listen → multi-group (Channel Listeners)"));
 
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
@@ -848,6 +859,46 @@ void MainWindow::updateAudioToolTips() {
 		qaAudioDeaf->setToolTip(tr("Deafen yourself"));
 }
 
+void MainWindow::updateVoiceScopeStatus() {
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
+	if (!self || !self->cChannel || !Global::get().sh || !Global::get().sh->isConnected()) {
+		statusBar()->showMessage(tr("Not connected"));
+		return;
+	}
+
+	const QString speakChannel =
+		self->cChannel->getPath().isEmpty() ? self->cChannel->qsName : self->cChannel->getPath();
+	const QSet< unsigned int > listeningIds =
+		Global::get().channelListenerManager->getListenedChannelsForUser(Global::get().uiSession);
+
+	QStringList listenNames;
+	for (unsigned int channelID : listeningIds) {
+		const Channel *channel = Channel::get(channelID);
+		if (!channel) {
+			continue;
+		}
+		listenNames << (channel->getPath().isEmpty() ? channel->qsName : channel->getPath());
+	}
+	listenNames.sort(Qt::CaseInsensitive);
+
+	QString listenPart;
+	if (listenNames.isEmpty()) {
+		listenPart = tr("(none — only current channel)");
+	} else if (listenNames.size() <= 4) {
+		listenPart = listenNames.join(QLatin1String(", "));
+	} else {
+		listenPart =
+			tr("%1 (+%2 more)").arg(listenNames.mid(0, 3).join(QLatin1String(", "))).arg(listenNames.size() - 3);
+	}
+
+	statusBar()->showMessage(tr("Speak → %1 · Listen → %2").arg(speakChannel, listenPart));
+
+	if (multiGroupDialog && multiGroupDialog->isVisible()) {
+		// Keep dialog lists in sync after listener add/remove ACKs.
+		multiGroupDialog->on_qpbRefresh_clicked();
+	}
+}
+
 void MainWindow::updateUserModel() {
 	UserModel *um = static_cast< UserModel * >(qtvUsers->model());
 	um->forceVisualUpdate();
@@ -1189,6 +1240,7 @@ void MainWindow::on_user_moved(unsigned int sessionID, const std::optional< unsi
 		} else {
 			m_movedBackFromChannel.reset();
 		}
+		updateVoiceScopeStatus();
 	}
 
 	(void) newChannelID;
@@ -1673,6 +1725,19 @@ void MainWindow::on_qmSelf_aboutToShow() {
 		qaSelfPrioritySpeaker->setEnabled(false);
 		qaSelfPrioritySpeaker->setChecked(false);
 	}
+
+	const bool multiGroupOk = user && Global::get().sh && Global::get().sh->isConnected()
+							  && Global::get().sh->m_version >= Version::fromComponents(1, 4, 0);
+	qaMultiGroupListening->setEnabled(multiGroupOk);
+}
+
+void MainWindow::on_qaMultiGroupListening_triggered() {
+	if (!multiGroupDialog) {
+		multiGroupDialog = new MultiGroupDialog(this);
+	}
+	multiGroupDialog->show();
+	multiGroupDialog->raise();
+	multiGroupDialog->activateWindow();
 }
 
 void MainWindow::on_qaSelfComment_triggered() {
@@ -3628,6 +3693,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qaServerBanList->setEnabled(false);
 	qtvUsers->setCurrentIndex(QModelIndex());
 	qteChat->setEnabled(false);
+	updateVoiceScopeStatus();
 
 #ifdef Q_OS_MAC
 	// Remove App Nap suppression now that we're disconnected.
