@@ -519,7 +519,7 @@ module MumbleServer
 		 *  After this call, authentications are handled by the server's built-in authentication again.
 		 *  It is not an error to call this when no authenticator is set.
 		 */
-		void removeAuthenticator() throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
+		idempotent void removeAuthenticator() throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
 
 		/** Retrieve configuration item.
 		 * @param key Configuration key.
