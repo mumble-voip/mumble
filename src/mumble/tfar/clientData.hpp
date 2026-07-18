@@ -277,6 +277,12 @@ public:
     float effectiveDistanceTo(std::shared_ptr<clientData>& other) const;
     float effectiveDistanceTo(clientData* other) const;
     bool isAlive();
+    //True only after an explicit KILLED game event (or game disconnect), not
+    //when position data merely stopped arriving. Stale data must never be
+    //treated as death: under heavy load (large events) position updates can
+    //lag or get dropped, and muting a living player over that silences him
+    //for everyone until he rejoins the channel.
+    bool isConfirmedDead() const { return dataFrame == INVALID_DATA_FRAME; }
 
     operator dataType::Position3D() const { return getClientPosition(); } //convenience
 

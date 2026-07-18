@@ -96,6 +96,10 @@ static std::unordered_map< unsigned int, std::string > g_metadataCache;
 static std::string g_myMetadata;
 // last "TFARST" payload sent to the server (deduplication in enhanced mode)
 static std::string g_lastSentState;
+// when g_lastSentState was actually handed to the send queue; the dedup is
+// bypassed once a minute so a lost/never-delivered state message cannot leave
+// the channel with stale data (nickname mapping, in-game status) forever
+static std::chrono::steady_clock::time_point g_lastSentStateTime;
 
 // emulation of TS voice input handling (see setVoiceDisabled / hlp_*Vad)
 static std::atomic< bool > g_tfarInputActive{ false };
@@ -249,11 +253,16 @@ static void broadcastStateToChannelID(TSChannelID channel) {
     const std::string payload = buildStatePayload();
     if (serverHasTFARSupport()) {
         // The server caches our state and re-pushes it to channel joiners —
-        // only actual changes have to be transmitted.
+        // only actual changes have to be transmitted. Still resend once a
+        // minute: a state message that got lost on the way (or was skipped by
+        // a send-side race) would otherwise never be repeated, leaving the
+        // channel with a stale nickname mapping / in-game status for us.
         std::lock_guard< std::mutex > lock(g_stateLock);
-        if (payload == g_lastSentState)
+        const auto now = std::chrono::steady_clock::now();
+        if (payload == g_lastSentState && now - g_lastSentStateTime < std::chrono::seconds(60))
             return;
-        g_lastSentState = payload;
+        g_lastSentState     = payload;
+        g_lastSentStateTime = now;
     }
     sendPluginDataToChannel("TFARST", payload, channel);
 }
@@ -558,6 +567,10 @@ void Teamspeak::unmuteAll(TSServerID serverConnectionHandlerID) {
     if (mutedClients.empty())
         return;
     setClientMute(serverConnectionHandlerID, std::move(mutedClients), false);
+}
+
+std::vector<TSClientID> Teamspeak::getLocallyMutedClients(TSServerID serverConnectionHandlerID) {
+    return getInstance().serverData[serverConnectionHandlerID].getMutedClients();
 }
 
 void Teamspeak::setClientMute(TSServerID serverConnectionHandlerID, TSClientID clientID, bool mute) {

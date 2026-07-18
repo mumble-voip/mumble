@@ -564,9 +564,13 @@ void CommandProcessor::processUnitKilled(std::string &&name, TSServerID serverCo
         auto clientData = clientDataDir->getClientData(id);
         if (clientData && clientData->isAlive()) {
             aliveClients.push_back(id);
-        } else {
+        } else if (clientData && clientData->isConfirmedDead()) {
             deadClients.push_back(id);
         }
+        //Clients we know nothing about (no clientData) or whose position data
+        //is merely stale are classified as neither: muting them as "dead"
+        //silenced living players whose data stream lagged on large events,
+        //and the mute stuck until they rejoined the channel.
     }
     /*
     serious mode:
