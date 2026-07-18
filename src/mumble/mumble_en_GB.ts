@@ -3980,23 +3980,23 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>The whisper will also be transmitted to linked channels.</translation>
     </message>
     <message>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation>The whisper will also be sent to the subchannels of the channel target.</translation>
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Shout/Whisper to:</translation>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Current selection</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>When shouting to channel:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>

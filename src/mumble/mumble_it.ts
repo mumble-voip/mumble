@@ -5208,11 +5208,11 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo controlla se Mumble tenterà di ripristinare la geometria e lo stato della finestra dalla sessione precedente all&apos;avvio.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Ripristina geometria della finestra all&apos;avvio</translation>
     </message>
 </context>
 <context>

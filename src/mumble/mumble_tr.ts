@@ -5207,11 +5207,11 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ayar, Mumble&apos;ın başlatıldığında önceki oturumlardaki pencere boyutlarını ve durumunu geri yüklemeye çalışıp çalışmayacağını belirler.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlangıçta pencere boyutlarını geri yükle</translation>
     </message>
 </context>
 <context>
