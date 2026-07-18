@@ -978,7 +978,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Max. Amplification</source>
-        <translation>Amplificação Máx.</translation>
+        <translation>Amplificação Máxima</translation>
     </message>
     <message>
         <source>Idle action</source>
@@ -1026,7 +1026,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation>Habilitar Opus de baixa latência quando a qualidade estiver configurada para &lt;b&gt;64kb/s &lt;/b&gt; ou mais alta. </translation>
+        <translation>Ative o modo de baixa latência do Opus quando a qualidade estiver definida para &lt;b&gt;64 kb/s&lt;/b&gt; ou superior. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
@@ -1425,7 +1425,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Minimum Volume</source>
-        <translation>Volume mínimo</translation>
+        <translation>Mínimo volume</translation>
     </message>
     <message>
         <source>What should the volume be at the maximum distance?</source>
@@ -1510,7 +1510,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Abre o dispositivo em modo exclusivo&lt;/b&gt;&lt;br /&gt;Nenhum outro aplicativo poderá usar o dispositivo.</translation>
+        <translation>&lt;b&gt;Isso abre o dispositivo em modo exclusivo.&lt;/b&gt;&lt;br /&gt;Nenhum outro aplicativo poderá usar o dispositivo.</translation>
     </message>
     <message>
         <source>Exclusive</source>
@@ -1526,7 +1526,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation>&lt;b&gt;Atenuar apenas aplicações usando a mesma saída do Mumble.&lt;/b&gt;&lt;br /&gt;Se marcado, aplicações que usam saídas diferentes da usada pelo Mumble não serão atenuadas.</translation>
+        <translation>&lt;b&gt;Atenuar apenas aplicativos que usam a mesma saída que o Mumble&lt;/b&gt;&lt;br /&gt;Se marcado, aplicativos que usam uma saída diferente da do Mumble não serão atenuados.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
@@ -1606,7 +1606,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation type="unfinished">Volume mínimo</translation>
+        <translation>Volume Mínimo</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1813,7 +1813,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Mostra as configurações atuais de detecção de fala&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações do diálogo d Configurações ou do Assistente de áudio.</translation>
+        <translation>&lt;b&gt;Isso mostra as configurações atuais de detecção de fala.&lt;/b&gt;&lt;br /&gt;Você pode alterar as configurações na caixa de diálogo Configurações ou no Assistente de Áudio.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
@@ -2786,43 +2786,43 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Certificate file to import</source>
-        <translation type="unfinished">Arquivo de certificado a importar</translation>
+        <translation>Arquivo de certificado para importar</translation>
     </message>
     <message>
         <source>Use the &quot;open&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use o botão &quot;abrir&quot; para selecionar um arquivo usando uma caixa de diálogo.</translation>
     </message>
     <message>
         <source>Certificate password</source>
-        <translation type="unfinished">Senha de certificado</translation>
+        <translation>Senha do certificado</translation>
     </message>
     <message>
         <source>Displays imported certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibe certificado importado</translation>
     </message>
     <message>
         <source>Displays new certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Exibir novo certificado</translation>
     </message>
     <message>
         <source>File to export certificate to</source>
-        <translation type="unfinished">Arquivo para o qual exportar certificado</translation>
+        <translation>Exportar o certificado para a pasta</translation>
     </message>
     <message>
         <source>Use the &quot;save as&quot; button to select a file using a dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use o botão &quot;salvar como&quot; para selecionar um arquivo usando uma caixa de diálogo.</translation>
     </message>
     <message>
         <source>Your name. For example: John Doe</source>
-        <translation type="unfinished"></translation>
+        <translation>Seu nome. Por exemplo: João Silva</translation>
     </message>
     <message>
         <source>Your email address. For example: johndoe@mumble.info</source>
-        <translation type="unfinished"></translation>
+        <translation>Your email address. For example: joaosilva@mumble.info</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration and a client side friends list independent of servers.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;&lt;p&gt;Creating a new certificate automatically is sufficient for most use cases. But Mumble also supports certificates representing trust in the users ownership of an email address. These certificates are issued by third parties. For more information see our &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;user certificate documentation&lt;/a&gt;. &lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;O Mumble pode usar certificados para autenticar com servidores. Usar certificados evita senhas, o que significa que você não precisa divulgar nenhuma senha ao site remoto. Isso também permite um registro de usuário muito fácil e uma lista de amigos no lado do cliente independente dos servidores.&lt;/p&gt;&lt;p&gt;Embora o Mumble possa funcionar sem certificados, a maioria dos servidores esperará que você tenha um.&lt;/p&gt;&lt;p&gt;Criar um novo certificado automaticamente é suficiente para a maioria dos casos de uso. Mas o Mumble também suporta certificados que representam confiança na posse de um endereço de e-mail pelo usuário. Esses certificados são emitidos por terceiros. Para mais informações, veja nossa &lt;a href=&quot;https://www.mumble.info/documentation/user/certificates/&quot;&gt;documentação de certificados de usuário&lt;/a&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3306,27 +3306,27 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This is the connection dialog. There are two different ways to connect to a Mumble server. If the server is listed publicly, you can use the server list to find it. If you know the server IP address, you can manually add a new permanent entry to your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este é o diálogo de conexão. Existem duas maneiras diferentes de se conectar a um servidor Mumble. Se o servidor estiver listado publicamente, você pode usar a lista de servidores para encontrá-lo. Se você souber o endereço IP do servidor, pode adicionar manualmente uma nova entrada permanente aos seus favoritos.</translation>
     </message>
     <message>
         <source>The server list contains your favorites and all publicly listed servers.</source>
-        <translation type="unfinished"></translation>
+        <translation>A lista de servidores contém seus favoritos e todos os servidores listados publicamente.</translation>
     </message>
     <message>
         <source>With this search interface you can filter the Mumble servers displayed in the server list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Com esta interface de busca, você pode filtrar os servidores Mumble exibidos na lista de servidores.</translation>
     </message>
     <message>
         <source>Search for servername</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar por nome do servidor</translation>
     </message>
     <message>
         <source>Search for location</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesquisar localização</translation>
     </message>
     <message>
         <source>Set filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Definir modo de filtro</translation>
     </message>
     <message>
         <source>Server</source>
@@ -3466,19 +3466,19 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Server IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço IP do servidor</translation>
     </message>
     <message>
         <source>Server port</source>
-        <translation type="unfinished"></translation>
+        <translation>Porta do servidor</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome de usuário</translation>
     </message>
     <message>
         <source>Label for server</source>
-        <translation type="unfinished"></translation>
+        <translation>Etiqueta para servidor</translation>
     </message>
 </context>
 <context>
@@ -3671,7 +3671,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble&apos;s Global Shortcuts system does currently not work properly in combination with the Wayland protocol. For more information, visit &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O sistema de Atalhos Globais do Mumble atualmente não funciona corretamente em combinação com o protocolo Wayland. Para mais informações, visite &lt;a href=&quot;https://github.com/mumble-voip/mumble/issues/5257&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;https://github.com/mumble-voip/mumble/issues/5257&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Configured shortcuts</source>
@@ -3679,15 +3679,15 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>Use up and down keys to navigate through your added shortcuts. Use left and right keys to navigate between actions and options for a single shortcut. Entries can be added and deleted with the buttons below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use as teclas para cima e para baixo para navegar pelos atalhos adicionados. Use as teclas para a esquerda e para a direita para navegar entre ações e opções de um único atalho. Itens podem ser adicionados e excluídos com os botões abaixo.</translation>
     </message>
     <message>
         <source>Add unassigned shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Adicionar atalho não atribuído</translation>
     </message>
     <message>
         <source>This adds a new empty entry to the &quot;Configured Shortcut&quot; tree above. The tree will be automatically focused. Assign a key or an action by selecting the entry in the tree above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Isso adiciona uma nova entrada vazia à árvore &quot;Atalho Configurado&quot; acima. A árvore será automaticamente focada. Atribua uma tecla ou uma ação selecionando a entrada na árvore acima.</translation>
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
@@ -3770,7 +3770,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">Não designado</translation>
+        <translation>Não atribuído</translation>
     </message>
     <message>
         <source>checked</source>
@@ -4192,7 +4192,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation>Caminho para o arquivo de som usado nas notificações de som para o caso de eventos %1&lt;br /&gt;Clique uma vez para tocar&lt;br /&gt;Clique duas vezes para alterar</translation>
+        <translation>Caminho para o arquivo de som usado para notificações sonoras no caso de eventos %1&lt;br /&gt;Clique único para tocar&lt;br /&gt;Clique duplo para alterar</translation>
     </message>
     <message>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
@@ -4407,7 +4407,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"> dB</translation>
+        <translation> .dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
@@ -4431,7 +4431,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> .%</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
@@ -6516,7 +6516,7 @@ no menu contextual do canal.</translation>
     <message>
         <source>Configuration file %1 does not exist or is not writable.
 </source>
-        <translation>Arquivo de configuração %1 não existe ou não é escrevível,
+        <translation>O arquivo de configuração %1 não existe ou não pode ser escrito.
 </translation>
     </message>
     <message>
@@ -6591,7 +6591,7 @@ Ações válidas são:
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alternar TalkingUI</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
@@ -6621,7 +6621,7 @@ Ações válidas são:
     </message>
     <message>
         <source>Unmute yourself</source>
-        <translation>Desmutar-se</translation>
+        <translation>Desmute a si mesmo</translation>
     </message>
     <message>
         <source>Undeafen yourself</source>
@@ -7181,7 +7181,7 @@ Valid options are:
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation>Visualização gráfica da simulação de áudio posicional</translation>
+        <translation>Visualização de simulação de áudio posicional gráfica</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
@@ -7329,7 +7329,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;Tipo de proxy pelo qual se conectar&lt;/b&gt;&lt;br /&gt;Isso faz o Mumble se conectar através de um proxy para todas as conexões externas. Nota: o uso de túneis por proxies força o Mumble ao modo de compatibilidade TCP, que causa o envio de todos os dados de voz usando o canal de controle.</translation>
+        <translation>&lt;b&gt;Tipo de proxy para se conectar.&lt;/b&gt;&lt;br /&gt;Isso faz com que o Mumble se conecte através de um proxy para todas as conexões de saída. Observação: o tunelamento de proxy força o Mumble ao modo de compatibilidade TCP, fazendo com que todos os dados de voz sejam enviados através do canal de controle.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
@@ -7357,7 +7357,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Usuário para autenticação no proxy&lt;/b&gt;&lt;br /&gt;Especifica o nome de usuário para autenticar você com o proxy. Caso o proxy não exija autenticação, ou você queira conectar anonimamente, simplesmente deixe este campo em branco.</translation>
+        <translation>&lt;b&gt;Nome de usuário para autenticação no proxy.&lt;/b&gt;&lt;br /&gt;Isto especifica o nome de usuário que você usa para se autenticar no proxy. Caso o proxy não utilize autenticação, ou se você desejar se conectar anonimamente, simplesmente deixe este campo em branco.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -7369,7 +7369,7 @@ Valid options are:
     </message>
     <message>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Senha para autenticação no proxy&lt;/b&gt;&lt;br /&gt;Especifica a senha para você usar para se autenticar com o proxy. No caso do proxy não exigir autenticação, ou você quiser se conectar anonimamente, simplesmente deixe esse campo em branco.</translation>
+        <translation>&lt;b&gt;Senha para autenticação de proxy.&lt;/b&gt;&lt;br /&gt;Especifica a senha que você usa para se autenticar com o proxy. Caso o proxy não use autenticação ou você queira se conectar de forma anônima, basta deixar este campo em branco.</translation>
     </message>
     <message>
         <source>Mumble services</source>
@@ -7447,7 +7447,7 @@ Evita que o cliente envie informações potencialmente capazes de identificaçã
     </message>
     <message>
         <source>Automatically download and install plugin updates</source>
-        <translation>Baixe e instale automaticamente as atualizações de plugin</translation>
+        <translation>Baixe e instale automaticamente atualizações de plugin</translation>
     </message>
     <message>
         <source>Proxy type</source>
@@ -8040,7 +8040,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Install plugin...</source>
-        <translation>Instalar plugin...</translation>
+        <translation>Instalar plugin…</translation>
     </message>
     <message>
         <source>Unload the currently selected plugin. This will remove it from the plugin list for the current session.</source>
@@ -8838,7 +8838,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;Host:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Endereço de host:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Anfitrião:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Port:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -8894,15 +8894,15 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Good</source>
-        <translation type="unfinished">Bons</translation>
+        <translation>Bom</translation>
     </message>
     <message>
         <source>Late</source>
-        <translation type="unfinished">Atrasados</translation>
+        <translation>Atrasado</translation>
     </message>
     <message>
         <source>Lost</source>
-        <translation type="unfinished">Perdidos</translation>
+        <translation>Perdido</translation>
     </message>
     <message>
         <source>Resync</source>
@@ -8930,11 +8930,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>&lt;b&gt;Cipher suite:&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Suíte de cifras:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Conjunto de cifras:&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;forward secrecy&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;adiantar sigilo&gt;</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -8942,7 +8942,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
-        <translation type="unfinished"></translation>
+        <translation>Se a conexão suporta sigilo perfeito direto (PFS).</translation>
     </message>
     <message>
         <source>&lt;b&gt;PFS:&lt;/b&gt;</source>
@@ -9826,7 +9826,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
         <translation>O servidor ao qual você está conectado é versão 1.2.2 ou anterior. Por motivos de privacidade, gravar em servidores anteriores à versão 1.2.3 não é possível.
-Favor contatar seu administrador de servidor para mais informações.</translation>
+Por favor, contate seu administrador de servidor para mais informações.</translation>
     </message>
     <message>
         <source>There is already a recorder active for this server.</source>

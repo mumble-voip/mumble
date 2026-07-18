@@ -7262,7 +7262,7 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Время отображения без звука для пользователя (в секундах)</translation>
     </message>
     <message>
         <source>Listener azimuth (in degrees)</source>

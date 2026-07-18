@@ -432,27 +432,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Channel position</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozicio de la kanalo</translation>
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimuma nombro da uzantoj</translation>
     </message>
     <message>
         <source>Channel description</source>
-        <translation type="unfinished"></translation>
+        <translation>Priskribo de kanalo</translation>
     </message>
     <message>
         <source>Select member to add</source>
-        <translation type="unfinished"></translation>
+        <translation>Selektu la aldonotan membron</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekskluditaj grupanoj</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Selektu la forigotan membron</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
@@ -460,7 +460,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Select group</source>
-        <translation type="unfinished"></translation>
+        <translation>Selektu grupon</translation>
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -468,7 +468,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Select user</source>
-        <translation type="unfinished"></translation>
+        <translation>Selektu uzanton</translation>
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
@@ -476,7 +476,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Listo de disponeblaj permesoj</translation>
     </message>
 </context>
 <context>
@@ -629,7 +629,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Listo de disponaĵoj</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
@@ -641,7 +641,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Listo de neuzitaj disponaĵoj</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
@@ -707,7 +707,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Por listo de aŭtoroj, bonvolu vidi &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
 </context>
 <context>

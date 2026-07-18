@@ -882,7 +882,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation but at a higher CPU cost.</translation>
+        <translation>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -906,7 +906,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
-        <translation>Use amplitude-based speech detection</translation>
+        <translation>Use Amplitude based speech detection</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
@@ -3851,23 +3851,23 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"></translation>
+        <translation>The whisper will also be transmitted to linked channels.</translation>
     </message>
     <message>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"></translation>
+        <translation>The whisper will also be sent to the subchannels of the channel target.</translation>
     </message>
     <message>
         <source>Shout/Whisper to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Shout/Whisper to:</translation>
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Current selection</translation>
     </message>
     <message>
         <source>When shouting to channel:</source>
-        <translation type="unfinished"></translation>
+        <translation>When shouting to channel:</translation>
     </message>
     <message>
         <source>Shout to linked channels</source>
@@ -3882,22 +3882,22 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mouse</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyboard</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Keyboard</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Mouse</translation>
     </message>
 </context>
 <context>
@@ -4489,11 +4489,11 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>unchecked</translation>
     </message>
     <message>
         <source>decibels</source>
@@ -8061,11 +8061,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished"></translation>
+        <translation>checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished"></translation>
+        <translation>unchecked</translation>
     </message>
     <message>
         <source>Not available</source>
@@ -8948,7 +8948,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ShortcutActionWidget</name>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Unassigned</translation>
     </message>
 </context>
 <context>
@@ -8967,7 +8967,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished"></translation>
+        <translation>Unassigned</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
