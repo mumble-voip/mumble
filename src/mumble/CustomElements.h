@@ -32,6 +32,18 @@ private:
 	/// images from their previously prescaled resources.
 	void fitVisibleImageGeometry();
 
+	/// The reading position to keep stable while a resize or an image refit
+	/// reflows the log: either pinned to the bottom, or the piece of content
+	/// at the top of the viewport together with its on-screen y position.
+	struct ScrollAnchor {
+		bool atBottom;
+		int position;
+		int offset;
+	};
+
+	ScrollAnchor captureScrollAnchor();
+	void restoreScrollAnchor(const ScrollAnchor &anchor);
+
 public:
 	LogTextBrowser(QWidget *p = nullptr);
 
@@ -43,6 +55,10 @@ public:
 	/// viewport, starting at the given document position. Images smaller than
 	/// the viewport are never scaled up.
 	void fitImagesToViewport(int fromPosition = 0);
+
+	/// Refits all images in the document (see fitImagesToViewport()) while
+	/// keeping the reading position stable.
+	void refitImagesKeepingScrollPosition();
 
 protected:
 	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;

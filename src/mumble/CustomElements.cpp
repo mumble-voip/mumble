@@ -69,25 +69,41 @@ LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p), m_imageFitTimer(ne
 	// document continuously while the user drags a splitter, so debounce.
 	m_imageFitTimer->setSingleShot(true);
 	m_imageFitTimer->setInterval(100);
-	connect(m_imageFitTimer, &QTimer::timeout, this, [this]() {
-		const bool wasAtBottom = isScrolledToBottom();
-		fitImagesToViewport();
-		if (wasAtBottom) {
-			setLogScroll(verticalScrollBar()->maximum());
-		}
-	});
+	connect(m_imageFitTimer, &QTimer::timeout, this, &LogTextBrowser::refitImagesKeepingScrollPosition);
+}
+
+void LogTextBrowser::refitImagesKeepingScrollPosition() {
+	const ScrollAnchor anchor = captureScrollAnchor();
+	fitImagesToViewport();
+	restoreScrollAnchor(anchor);
+}
+
+LogTextBrowser::ScrollAnchor LogTextBrowser::captureScrollAnchor() {
+	if (isScrolledToBottom()) {
+		return { true, 0, 0 };
+	}
+	const QTextCursor top = cursorForPosition(QPoint(0, 0));
+	return { false, top.position(), cursorRect(top).top() };
+}
+
+void LogTextBrowser::restoreScrollAnchor(const ScrollAnchor &anchor) {
+	if (anchor.atBottom) {
+		setLogScroll(verticalScrollBar()->maximum());
+		return;
+	}
+	QTextCursor cursor(document());
+	cursor.setPosition(qBound(0, anchor.position, qMax(0, document()->characterCount() - 1)));
+	setLogScroll(getLogScroll() + cursorRect(cursor).top() - anchor.offset);
 }
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
-	const bool wasAtBottom = isScrolledToBottom();
+	const ScrollAnchor anchor = captureScrollAnchor();
 	QTextBrowser::resizeEvent(e);
 	// Cheap geometry-only pass so that the visible images track the pane
 	// live while it is being resized; the debounced full pass regenerates
 	// the smoothly prescaled image resources once resizing settles.
 	fitVisibleImageGeometry();
-	if (wasAtBottom) {
-		setLogScroll(verticalScrollBar()->maximum());
-	}
+	restoreScrollAnchor(anchor);
 	m_imageFitTimer->start();
 }
 
