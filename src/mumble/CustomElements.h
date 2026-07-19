@@ -19,6 +19,7 @@ private:
 	Q_DISABLE_COPY(LogTextBrowser)
 
 	QTimer *m_imageFitTimer;
+	qreal m_lastImageFitPixelRatio = 0;
 
 public:
 	LogTextBrowser(QWidget *p = nullptr);
@@ -34,6 +35,7 @@ public:
 
 protected:
 	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
+	bool event(QEvent *e) Q_DECL_OVERRIDE;
 };
 
 class ChatbarTextEdit : public QTextEdit {

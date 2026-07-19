@@ -28,6 +28,8 @@
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QRegularExpression>
+#include <QtCore/QSet>
+#include <QtCore/QTimer>
 #include <QtGui/QImageWriter>
 #include <QtGui/QScreen>
 #include <QtGui/QTextBlock>
@@ -981,7 +983,73 @@ LogMessage::LogMessage(Log::MsgType mt, const QString &console, const QString &t
 	: mt(mt), console(console), terse(terse), ownMessage(ownMessage), overrideTTS(overrideTTS), ignoreTTS(ignoreTTS) {
 }
 
-LogDocument::LogDocument(QObject *p) : QTextDocument(p) {
+LogDocument::LogDocument(QObject *p) : QTextDocument(p), m_pruneTimer(new QTimer(this)) {
+	// When maximumBlockCount is set, appending to the document can silently
+	// trim the oldest blocks away. Prune stored original images whose
+	// messages are gone, so that the memory use for originals stays bounded
+	// by the messages that are actually in the log. Debounced, as trims can
+	// happen on every insertion.
+	m_pruneTimer->setSingleShot(true);
+	m_pruneTimer->setInterval(1000);
+	connect(m_pruneTimer, &QTimer::timeout, this, &LogDocument::pruneOriginalImages);
+
+	connect(this, &QTextDocument::contentsChange, this, [this](int position, int charsRemoved, int) {
+		if (m_originalImages.isEmpty()) {
+			return;
+		}
+		if (isEmpty()) {
+			// The log was cleared.
+			m_originalImages.clear();
+			m_pruneTimer->stop();
+		} else if (position == 0 && charsRemoved > 0) {
+			// Blocks were trimmed at the front of the document.
+			m_pruneTimer->start();
+		}
+	});
+}
+
+void LogDocument::pruneOriginalImages() {
+	if (m_originalImages.isEmpty()) {
+		return;
+	}
+
+	QSet< QString > referenced;
+	for (QTextBlock block = begin(); block != end(); block = block.next()) {
+		for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
+			const QTextCharFormat charFormat = it.fragment().charFormat();
+			if (charFormat.isImageFormat()) {
+				referenced.insert(charFormat.toImageFormat().name());
+			}
+		}
+	}
+
+	for (auto it = m_originalImages.begin(); it != m_originalImages.end();) {
+		if (referenced.contains(it.key())) {
+			++it;
+		} else {
+			it = m_originalImages.erase(it);
+		}
+	}
+}
+
+QImage LogDocument::originalImage(const QString &name) {
+	auto it = m_originalImages.constFind(name);
+	if (it != m_originalImages.constEnd()) {
+		return *it;
+	}
+
+	const QVariant res = resource(QTextDocument::ImageResource, QUrl(name));
+	// The cached resource may be a QImage, a QPixmap (QVariant converts it
+	// to an image) or the still-encoded image data.
+	QImage image = res.value< QImage >();
+	if (image.isNull() && res.userType() == QMetaType::QByteArray) {
+		image.loadFromData(res.toByteArray());
+	}
+
+	if (!image.isNull()) {
+		m_originalImages.insert(name, image);
+	}
+	return image;
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {

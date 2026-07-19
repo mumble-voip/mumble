@@ -38,7 +38,7 @@ static constexpr qreal MaxImageHeightFraction = 0.6;
 /// scaled to fit the viewport: the size from the message's explicit
 /// width/height attributes if present, otherwise the image's own size.
 /// Returns an empty size if it cannot be determined.
-static QSizeF naturalImageSize(QTextDocument *doc, const QTextImageFormat &format) {
+static QSizeF naturalImageSize(const QTextImageFormat &format, const QImage &image) {
 	if (format.hasProperty(ImageNaturalWidthProperty) && format.hasProperty(ImageNaturalHeightProperty)) {
 		return QSizeF(format.doubleProperty(ImageNaturalWidthProperty),
 					  format.doubleProperty(ImageNaturalHeightProperty));
@@ -50,13 +50,6 @@ static QSizeF naturalImageSize(QTextDocument *doc, const QTextImageFormat &forma
 		return QSizeF(format.width(), format.height());
 	}
 
-	const QVariant resource = doc->resource(QTextDocument::ImageResource, QUrl(format.name()));
-	// The cached resource may be a QImage, a QPixmap (QVariant converts it
-	// to an image) or the still-encoded image data.
-	QImage image = resource.value< QImage >();
-	if (image.isNull() && resource.userType() == QMetaType::QByteArray) {
-		image.loadFromData(resource.toByteArray());
-	}
 	if (image.isNull() || image.width() < 1 || image.height() < 1) {
 		return QSizeF();
 	}
@@ -90,8 +83,21 @@ void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	m_imageFitTimer->start();
 }
 
+bool LogTextBrowser::event(QEvent *e) {
+	// Moving the window to a screen with a different scale factor changes the
+	// pixel size the displayed image resources should be rendered at, without
+	// necessarily changing the logical viewport size.
+	if (e->type() == QEvent::DevicePixelRatioChange) {
+		m_imageFitTimer->start();
+	}
+	return QTextBrowser::event(e);
+}
+
 void LogTextBrowser::fitImagesToViewport(int fromPosition) {
-	QTextDocument *doc = document();
+	LogDocument *doc = qobject_cast< LogDocument * >(document());
+	if (!doc) {
+		return;
+	}
 
 	// Leave some room for the document margin and possible frame decorations
 	// around messages so that a fitted image never triggers the horizontal
@@ -103,12 +109,28 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 	}
 	const int availableHeight = qMax(1, static_cast< int >(viewport()->height() * MaxImageHeightFraction));
 
+	const qreal pixelRatio = viewport()->devicePixelRatio();
+	// After a change of the device pixel ratio, the display resources of all
+	// images have to be regenerated, even if their displayed size is
+	// unchanged. Only a refit of the whole document gets to reset the flag:
+	// a partial (insert-time) refit only covers the images of one message.
+	const bool pixelRatioChanged = !qFuzzyCompare(pixelRatio, m_lastImageFitPixelRatio);
+	if (fromPosition == 0) {
+		m_lastImageFitPixelRatio = pixelRatio;
+	}
+
 	struct PendingFit {
 		int position;
 		int length;
 		QTextImageFormat format;
 	};
 	std::vector< PendingFit > pending;
+
+	// The pixel size wanted for each image resource. Identical images share a
+	// single resource entry (the resource name is the data URL), so if
+	// occurrences need different display sizes, the largest one wins and the
+	// smaller occurrences are scaled down from it at paint time.
+	QHash< QString, QSize > displaySizes;
 
 	for (QTextBlock block = doc->findBlock(fromPosition); block.isValid(); block = block.next()) {
 		for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
@@ -118,7 +140,8 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 			}
 
 			QTextImageFormat format = fragment.charFormat().toImageFormat();
-			const QSizeF natural    = naturalImageSize(doc, format);
+			const QImage original   = doc->originalImage(format.name());
+			const QSizeF natural    = naturalImageSize(format, original);
 			if (natural.isEmpty()) {
 				continue;
 			}
@@ -131,7 +154,22 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 			const qreal currentWidth = format.hasProperty(QTextFormat::ImageWidth) ? format.width() : natural.width();
 			const qreal currentHeight =
 				format.hasProperty(QTextFormat::ImageHeight) ? format.height() : natural.height();
-			if (qAbs(currentWidth - target.width()) < 0.5 && qAbs(currentHeight - target.height()) < 0.5) {
+			const bool sizeUpToDate =
+				qAbs(currentWidth - target.width()) < 0.5 && qAbs(currentHeight - target.height()) < 0.5;
+			if (sizeUpToDate && !pixelRatioChanged) {
+				continue;
+			}
+
+			if (!original.isNull()) {
+				const QSize pixelSize = (target * pixelRatio).toSize();
+				QSize &wanted         = displaySizes[format.name()];
+				if (!wanted.isValid() || pixelSize.width() * pixelSize.height() > wanted.width() * wanted.height()) {
+					wanted = pixelSize;
+				}
+			}
+
+			if (sizeUpToDate) {
+				// Only the display resource needs to be regenerated.
 				continue;
 			}
 
@@ -143,18 +181,38 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 		}
 	}
 
-	if (pending.empty()) {
-		return;
+	// Qt paints images that are displayed at a size other than their pixel
+	// size without any smoothing filter, which makes downscaled images look
+	// noticeably pixelated. Replace the displayed resources with smoothly
+	// prescaled variants instead (the originals stay available through
+	// LogDocument::originalImage()).
+	for (auto it = displaySizes.cbegin(); it != displaySizes.cend(); ++it) {
+		const QImage original = doc->originalImage(it.key());
+		if (original.isNull() || it.value().isEmpty()) {
+			continue;
+		}
+		QImage display = original;
+		if (it.value() != original.size()) {
+			display = original.scaled(it.value(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		}
+		display.setDevicePixelRatio(pixelRatio);
+		doc->addResource(QTextDocument::ImageResource, QUrl(it.key()), display);
 	}
 
-	QTextCursor cursor(doc);
-	cursor.beginEditBlock();
-	for (const PendingFit &fit : pending) {
-		cursor.setPosition(fit.position);
-		cursor.setPosition(fit.position + fit.length, QTextCursor::KeepAnchor);
-		cursor.setCharFormat(fit.format);
+	if (!pending.empty()) {
+		QTextCursor cursor(doc);
+		cursor.beginEditBlock();
+		for (const PendingFit &fit : pending) {
+			cursor.setPosition(fit.position);
+			cursor.setPosition(fit.position + fit.length, QTextCursor::KeepAnchor);
+			cursor.setCharFormat(fit.format);
+		}
+		cursor.endEditBlock();
+	} else if (!displaySizes.isEmpty()) {
+		// Resources were regenerated without any format change, so nothing
+		// triggered a repaint yet.
+		viewport()->update();
 	}
-	cursor.endEditBlock();
 }
 
 int LogTextBrowser::getLogScroll() {
