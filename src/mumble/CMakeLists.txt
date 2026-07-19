@@ -1210,8 +1210,26 @@ if(packaging AND WIN32)
 	endif()
 
 
+	# MUMBLE-TFAR: the installer version follows the fork's release version
+	# (STORM_TFAR_VERSION in StormBranding.h), not PROJECT_VERSION. Earlier
+	# releases stamped every MSI with PROJECT_VERSION and build number 0
+	# ("1.7.0"), so Windows Installer never saw an upgrade: each release
+	# registered as an additional product copy and the already installed
+	# binaries were left in place. The major component is offset by one so
+	# that every new installer compares greater than those legacy "1.7.x"
+	# products and the major upgrade (MSI) and related-bundle upgrade (EXE)
+	# replace them and all their duplicates.
+	file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/tfar/StormBranding.h" STORM_TFAR_VERSION_LINE
+		REGEX "^#define STORM_TFAR_VERSION ")
+	if(NOT STORM_TFAR_VERSION_LINE MATCHES "\"([0-9]+)\\.([0-9]+)\\.([0-9]+)\"")
+		message(FATAL_ERROR "Could not parse STORM_TFAR_VERSION from src/mumble/tfar/StormBranding.h")
+	endif()
+	math(EXPR STORM_INSTALLER_MAJOR "${CMAKE_MATCH_1} + 1")
+	set(STORM_INSTALLER_VERSION "${STORM_INSTALLER_MAJOR}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
+	message(STATUS "Windows installer version:   ${STORM_INSTALLER_VERSION} (from STORM_TFAR_VERSION ${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3})")
+
 	list(APPEND installer_vars
-		"--version" ${PROJECT_VERSION}
+		"--version" ${STORM_INSTALLER_VERSION}
 		"--arch" "${MUMBLE_TARGET_ARCH}"
 		"--vc-redist-required" "${VC_REDIST_VERSION}"
 	)

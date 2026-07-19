@@ -10,6 +10,10 @@
 // The client also announces it to the server in the Version message as
 // " storm-voice/<version>" appended to the release string; mumble-tfar servers
 // reject clients whose version does not match "tfarrequiredversion".
+// The Windows installer (MSI/EXE) version is derived from this value with the
+// major component offset by one (see the packaging section of
+// src/mumble/CMakeLists.txt), so releases upgrade each other and the legacy
+// "1.7.x" product registrations cleanly.
 #define STORM_TFAR_VERSION "1.2.0"
 
 // Product name. "Mumble" is only used for nominative references ("based on
