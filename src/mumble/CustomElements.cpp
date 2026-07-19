@@ -29,6 +29,11 @@
 static constexpr int ImageNaturalWidthProperty  = QTextFormat::UserProperty + 1;
 static constexpr int ImageNaturalHeightProperty = QTextFormat::UserProperty + 2;
 
+/// The fraction of the chat log viewport height that a single image may
+/// occupy. Keeps a tall image from taking over the entire log; the full-size
+/// image is still available via "Open Image".
+static constexpr qreal MaxImageHeightFraction = 0.6;
+
 /// Returns the size at which the image would be displayed if it were not
 /// scaled to fit the viewport: the size from the message's explicit
 /// width/height attributes if present, otherwise the image's own size.
@@ -96,6 +101,7 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 	if (availableWidth < 1) {
 		return;
 	}
+	const int availableHeight = qMax(1, static_cast< int >(viewport()->height() * MaxImageHeightFraction));
 
 	struct PendingFit {
 		int position;
@@ -118,8 +124,8 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 			}
 
 			QSizeF target = natural;
-			if (natural.width() > availableWidth) {
-				target = QSizeF(availableWidth, availableWidth * natural.height() / natural.width());
+			if (natural.width() > availableWidth || natural.height() > availableHeight) {
+				target = natural.scaled(QSizeF(availableWidth, availableHeight), Qt::KeepAspectRatio);
 			}
 
 			const qreal currentWidth = format.hasProperty(QTextFormat::ImageWidth) ? format.width() : natural.width();
