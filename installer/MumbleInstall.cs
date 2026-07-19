@@ -19,6 +19,16 @@ public class MumbleInstall : Project {
 		var allUsersProp = new Property("ALLUSERS", "1");
 		this.Language = "en-US,cs-CZ,da-DK,de-DE,el-GR,es-ES,fi-FI,fr-FR,it-IT,ja-JP,nb-NO,nl-NL,pl-PL,pt-PT,ru-RU,sv-SE,tr-TR,zh-CN,zh-TW";
 		this.MajorUpgradeStrategy = MajorUpgradeStrategy.Default;
+		// MUMBLE-TFAR: also treat installed products with the *same* version as
+		// upgradeable (the default only covers strictly older ones). Together
+		// with the release-based installer versioning (see the packaging
+		// section of src/mumble/CMakeLists.txt) every installer run replaces
+		// whatever product copies share our upgrade GUID — including the
+		// duplicated same-version entries left behind by earlier releases.
+		this.MajorUpgradeStrategy.UpgradeVersions = VersionRange.ThisAndOlder;
+		// Remove the old product(s) before the new files are laid down, so
+		// same-version files are installed fresh instead of being skipped by
+		// the file versioning rules.
 		this.MajorUpgradeStrategy.RemoveExistingProductAfter = Step.InstallInitialize;
 		this.PreserveTempFiles = true;
 		this.BackgroundImage = @"..\dlgbmp.bmp";

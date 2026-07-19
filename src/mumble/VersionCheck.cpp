@@ -14,6 +14,7 @@
 
 #include "tfar/StormBranding.h"
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QJsonArray>
@@ -162,7 +163,7 @@ void VersionCheck::onMetadataReceived() {
 	const QMessageBox::StandardButton answer = QMessageBox::question(
 		Global::get().mw, tr("%1 — update available").arg(QLatin1String(STORM_APP_NAME)),
 		tr("A new version of %1 is available: %2 (installed: %3).\n\n"
-		   "Download and install it now? %1 will close to run the installer.")
+		   "Download and install it now? %1 will close, update itself and restart automatically.")
 			.arg(QLatin1String(STORM_APP_NAME), m_newVersion, QLatin1String(STORM_TFAR_VERSION)),
 		QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
@@ -203,15 +204,36 @@ void VersionCheck::onInstallerDownloaded() {
 	}
 	file.close();
 
-	bool started = false;
-	if (m_assetName.endsWith(QLatin1String(".msi"))) {
-		started =
-			QProcess::startDetached(QLatin1String("msiexec"), { QLatin1String("/i"), QDir::toNativeSeparators(filePath) });
-	} else {
-		started = QProcess::startDetached(filePath, {});
-	}
+	// Run the installer unattended (progress bar only, no wizard) through a
+	// helper script: the script waits for the client to exit, runs the
+	// installer and restarts the client from its old path — the installer
+	// puts the new binary in the same place.
+	const QString installerPath = QDir::toNativeSeparators(filePath);
+	const QString clientPath    = QDir::toNativeSeparators(QCoreApplication::applicationFilePath());
 
-	if (!started) {
+	QString script;
+	script += QLatin1String("@echo off\r\n");
+	script += QString::fromLatin1("title %1 update\r\n").arg(QLatin1String(STORM_APP_NAME));
+	// Give the client a moment to shut down and release its files. ping is
+	// used as the delay because timeout refuses to run without console input.
+	script += QLatin1String("ping -n 4 127.0.0.1 >nul\r\n");
+	if (m_assetName.endsWith(QLatin1String(".msi"))) {
+		script += QString::fromLatin1("msiexec /i \"%1\" /passive /norestart\r\n").arg(installerPath);
+	} else {
+		script += QString::fromLatin1("\"%1\" /passive /norestart\r\n").arg(installerPath);
+	}
+	script += QString::fromLatin1("if exist \"%1\" start \"\" \"%1\"\r\n").arg(clientPath);
+
+	const QString scriptPath = QDir::temp().absoluteFilePath(QLatin1String("storm-voice-update.cmd"));
+	QFile scriptFile(scriptPath);
+	const QByteArray scriptData = script.toLocal8Bit();
+	if (!scriptFile.open(QIODevice::WriteOnly) || scriptFile.write(scriptData) != scriptData.size()) {
+		logWarning(tr("Could not save the update helper to %1.").arg(scriptPath.toHtmlEscaped()));
+		return;
+	}
+	scriptFile.close();
+
+	if (!QProcess::startDetached(QLatin1String("cmd.exe"), { QLatin1String("/c"), scriptPath })) {
 		logWarning(tr("Could not start the installer %1.").arg(filePath.toHtmlEscaped()));
 		return;
 	}

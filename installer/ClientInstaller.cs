@@ -28,7 +28,13 @@ public struct Features {
 public class ClientInstaller : MumbleInstall {
 
 	// MUMBLE-TFAR: the product is branded "Storm Voice". The upgrade GUID is
-	// kept, so updates replace previous installations.
+	// kept, so updates replace previous installations — including the broken
+	// duplicate registrations produced by earlier releases (see the
+	// MajorUpgradeStrategy setup in MumbleInstall.cs). The "version" passed to
+	// this installer is the release version with the major component offset by
+	// one (computed in src/mumble/CMakeLists.txt), so it always sorts above
+	// the legacy "1.7.x" product versions; do not feed raw PROJECT_VERSION or
+	// raw STORM_TFAR_VERSION here, or upgrades stop firing.
 	public const string s_Name = "Storm Voice (TFAR)";
 	public const string s_UpgradeGuid = "D269FC55-4F2C-4285-9AA9-4D034AF305C4";
 
