@@ -588,11 +588,19 @@ int main(int argc, char **argv) {
 #endif
 			bool sent = false;
 #ifdef USE_DBUS
-			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"),
-								QLatin1String("net.sourceforge.mumble.Mumble"));
+			QDBusInterface qdbi(QLatin1String("info.mumble.mumble"), QLatin1String("/"),
+								QLatin1String("info.mumble.Mumble"));
 
 			QDBusMessage reply = qdbi.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
 			sent               = (reply.type() == QDBusMessage::ReplyMessage);
+
+			if (!sent) {
+				QDBusInterface qdbiLegacy(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"),
+										  QLatin1String("net.sourceforge.mumble.Mumble"));
+
+				reply = qdbiLegacy.call(QLatin1String("openUrl"), QLatin1String(url.toEncoded()));
+				sent  = (reply.type() == QDBusMessage::ReplyMessage);
+			}
 #else
 			sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("url"), param);
 #endif
@@ -601,11 +609,19 @@ int main(int argc, char **argv) {
 		} else {
 			bool sent = false;
 #ifdef USE_DBUS
-			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"),
-								QLatin1String("net.sourceforge.mumble.Mumble"));
+			QDBusInterface qdbi(QLatin1String("info.mumble.mumble"), QLatin1String("/"),
+								QLatin1String("info.mumble.Mumble"));
 
 			QDBusMessage reply = qdbi.call(QLatin1String("focus"));
 			sent               = (reply.type() == QDBusMessage::ReplyMessage);
+
+			if (!sent) {
+				QDBusInterface qdbiLegacy(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"),
+										  QLatin1String("net.sourceforge.mumble.Mumble"));
+
+				reply = qdbiLegacy.call(QLatin1String("focus"));
+				sent  = (reply.type() == QDBusMessage::ReplyMessage);
+			}
 #else
 			sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("focus"));
 #endif
@@ -801,7 +817,9 @@ int main(int argc, char **argv) {
 
 #ifdef USE_DBUS
 	new MumbleDBus(Global::get().mw);
+	new MumbleDBusLegacy(Global::get().mw);
 	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), Global::get().mw);
+	QDBusConnection::sessionBus().registerService(QLatin1String("info.mumble.mumble"));
 	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble"));
 #endif
 
