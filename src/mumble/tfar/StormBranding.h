@@ -14,7 +14,7 @@
 // major component offset by one (see the packaging section of
 // src/mumble/CMakeLists.txt), so releases upgrade each other and the legacy
 // "1.7.x" product registrations cleanly.
-#define STORM_TFAR_VERSION "1.2.0"
+#define STORM_TFAR_VERSION "1.5.0"
 
 // Product name. "Mumble" is only used for nominative references ("based on
 // Mumble", protocol compatibility) — the product itself is branded Storm Voice.
