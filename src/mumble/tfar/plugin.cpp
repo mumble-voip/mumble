@@ -54,6 +54,8 @@ bool isSeriousModeEnabled(TSServerID serverConnectionHandlerID, TSClientID clien
     return !serious_mod_channel_name.empty() && Teamspeak::isInChannel(serverConnectionHandlerID, clientId, serious_mod_channel_name);
 }
 
+bool isPluginEnabledForUser(TSServerID serverConnectionHandlerID, TSClientID clientID);//defined below
+
 float effectErrorFromDistance(sendingRadioType radioType, float distance, std::shared_ptr<clientData>& data) {
     auto maxD = 1.0f;//We don't want division by 0 do we?
     switch (radioType) {
@@ -78,11 +80,23 @@ void setGameClientMuteStatus(TSServerID serverConnectionHandlerID, TSClientID cl
         if (clientData && myData && (TFAR::getInstance().m_gameData.alive && clientData->isAlive() || myData->isSpectating)) {
             auto distance = myData->getClientPosition().distanceTo(clientData->getClientPosition());
             mute = distance > (clientData->voiceVolume + 15);
-            
+
             if (mute) {//If he is in range we don't need to check if we can hear him over radio as we can hear anyway.
                 const bool isOnRadio = isOverRadio.first ? isOverRadio.second : !clientData->isOverRadio(myData, false, false).empty();
                 mute = !isOnRadio;
             }
+        } else if (clientData && myData && !clientData->isConfirmedDead()
+                   && (TFAR::getInstance().m_gameData.alive || myData->isSpectating)
+                   && isPluginEnabledForUser(serverConnectionHandlerID, clientID)) {
+            //We know the client, he reports his plugin as connected and in
+            //game, but his position data is stale (no update for a while /
+            //data frames lagging). That happens under heavy load on large
+            //events, when the position stream from the game can't keep up.
+            //Fail open: keeping a living player muted because we lack data
+            //silences him for the whole channel until he rejoins. Only an
+            //explicit KILLED event (or him actually leaving the game — his
+            //metadata then no longer reports "in game") may mute him.
+            mute = false;
         } else {
             mute = true;
         }
@@ -149,8 +163,19 @@ void ServiceThread() {
                 }
                 if (allowedToMove)
                     Teamspeak::moveToSeriousChannel();//#TODO people may want to leave SeriousChannel on purpose and not be moved back
+
+                //Self-healing for stuck local mutes: mutes are normally only
+                //re-evaluated by events (position updates, VOLUME/TANGENT
+                //commands). If those events stop arriving for a client — which
+                //happens on large events when the data stream is overloaded —
+                //the mute would stick until he rejoins the channel, leaving a
+                //living, talking player inaudible. Re-evaluate every muted
+                //client periodically so such mutes resolve on their own.
+                const auto serverConnection = Teamspeak::getCurrentServerConnection();
+                for (const auto& mutedClient : Teamspeak::getLocallyMutedClients(serverConnection))
+                    setGameClientMuteStatus(serverConnection, mutedClient);
             }
-                
+
             lastCheckForExpire = std::chrono::system_clock::now();
             TFAR::getServerDataDirectory()->verify();
         }
@@ -468,12 +493,17 @@ void processVoiceData(TSServerID serverConnectionHandlerID, TSClientID clientID,
     const bool isHearableInPureSpectator = clientDataDir->myClientData->isSpectating && clientData->isSpectating;
     const bool isHearableInSpectator = isHearableInPureSpectator || !isNotHearableInNonPureSpectator;
 
-    if (!isHearableInSpectator && isSeriousModeEnabled(serverConnectionHandlerID, clientID) && (!alive || !clientData->isAlive())) {
+    //Only silence the speaker when we are dead ourselves or he is confirmed
+    //dead (explicit KILLED event). Merely stale position data must not mute
+    //him: on large events the position stream lags behind and treating that
+    //as death made living players inaudible for the whole channel.
+    if (!isHearableInSpectator && isSeriousModeEnabled(serverConnectionHandlerID, clientID) && (!alive || clientData->isConfirmedDead())) {
         sampleBuffer.setToNull();
         std::string message = "TFAR Mute L470";
         message += " isHearableInSpectator=" + std::to_string(isHearableInSpectator);
         message += " alive=" + std::to_string(alive);
         message += " cdalive=" + std::to_string(clientData->isAlive());
+        message += " cddead=" + std::to_string(clientData->isConfirmedDead());
 
         LOG3DMUTE(message);
         return;

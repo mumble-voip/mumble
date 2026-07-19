@@ -48,6 +48,9 @@ public:
     ~Teamspeak() = default;
     static TSServerID getCurrentServerConnection();
     static void unmuteAll(TSServerID serverConnectionHandlerID = Teamspeak::getCurrentServerConnection());
+    //Clients we have locally muted via setClientMute. Used by the service
+    //thread to periodically re-evaluate stuck mutes (self-healing).
+    static std::vector<TSClientID> getLocallyMutedClients(TSServerID serverConnectionHandlerID = getCurrentServerConnection());
     static void setClientMute(TSServerID serverConnectionHandlerID, TSClientID clientID, bool mute);
     static void setClientMute(TSServerID serverConnectionHandlerID, std::vector<TSClientID> clientIds, bool mute);
     static void moveToSeriousChannel(TSServerID serverConnectionHandlerID = getCurrentServerConnection());

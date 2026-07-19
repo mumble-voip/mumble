@@ -136,8 +136,14 @@ float clientData::effectiveDistanceTo(clientData* other) const {
 bool clientData::isAlive() {
     if (dataFrame == INVALID_DATA_FRAME) return false;
     const bool timeout = (std::chrono::system_clock::now() - getLastPositionUpdateTime() > (MILLIS_TO_EXPIRE * 5)) || (abs(TFAR::getInstance().m_gameData.currentDataFrame - dataFrame) > 1);
-    if (timeout)
-        dataFrame = INVALID_DATA_FRAME;
+    //Do NOT latch dataFrame to INVALID_DATA_FRAME here. INVALID_DATA_FRAME is
+    //reserved for explicit KILLED events (see isConfirmedDead()). Latching it
+    //on a mere timeout made a single missed data frame permanent: once the
+    //marker was set, a later catch-up of currentDataFrame could no longer
+    //revive the client, only a fresh position update could — and on large
+    //events (many units, position stream overload) that update was exactly
+    //what kept missing. Result: a living, talking player stayed muted for
+    //everyone until he rejoined the channel.
     return !timeout;
 }
 
