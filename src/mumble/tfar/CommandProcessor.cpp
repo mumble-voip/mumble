@@ -88,18 +88,23 @@ std::string CommandProcessor::processCommand(const std::string& command) {
             queueCommand(command);//do processing async
             [[fallthrough]];
         case gameCommand::IS_SPEAKING: {
+            // MUMBLE-TFAR: the released Arma mod (Steam Workshop, 1.0-PreRelease SQF) sends POS
+            // synchronously and only understands OK/SPEAKING/NOT_SPEAKING. Its fnc_sendPlayerInfo
+            // renders any other reply as an error hint in the bottom right corner of the screen,
+            // and its lip sync + OnSpeak event handlers only trigger on "SPEAKING". The two-char
+            // "00"/"10" replies belong to the newer dev-branch SQF, which sends POS async ("~")
+            // and never sees this sync reply at all.
             const auto nickname = convertNickname(tokens[1]);
             const auto clientDataDir = TFAR::getServerDataDirectory()->getClientDataDirectory(Teamspeak::getCurrentServerConnection());
-            if (!clientDataDir) return "00";
+            if (!clientDataDir) return "NOT_SPEAKING";
             const auto clientData = clientDataDir->getClientData(nickname);
             if (!clientData)
-                return "00";
-            const bool receivingTransmission = clientData->receivingTransmission > 0;
+                return "NOT_SPEAKING";
 
             const bool clientTalkingOnRadio = clientData->currentTransmittingTangentOverType != sendingRadioType::LISTEN_TO_NONE;
             if (clientData->clientTalkingNow || clientTalkingOnRadio)
-                return receivingTransmission ? "11" : "10";
-            return receivingTransmission ? "01" : "00";
+                return "SPEAKING";
+            return "NOT_SPEAKING";
         }
         case gameCommand::IS_SPEAKING_BULK:
         {
