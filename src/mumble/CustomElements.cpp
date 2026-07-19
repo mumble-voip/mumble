@@ -79,7 +79,15 @@ LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p), m_imageFitTimer(ne
 }
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
+	const bool wasAtBottom = isScrolledToBottom();
 	QTextBrowser::resizeEvent(e);
+	// Cheap geometry-only pass so that the visible images track the pane
+	// live while it is being resized; the debounced full pass regenerates
+	// the smoothly prescaled image resources once resizing settles.
+	fitVisibleImageGeometry();
+	if (wasAtBottom) {
+		setLogScroll(verticalScrollBar()->maximum());
+	}
 	m_imageFitTimer->start();
 }
 
@@ -94,6 +102,16 @@ bool LogTextBrowser::event(QEvent *e) {
 }
 
 void LogTextBrowser::fitImagesToViewport(int fromPosition) {
+	refitImages(fromPosition, -1, true);
+}
+
+void LogTextBrowser::fitVisibleImageGeometry() {
+	const QTextCursor top    = cursorForPosition(QPoint(0, 0));
+	const QTextCursor bottom = cursorForPosition(QPoint(viewport()->width() - 1, viewport()->height() - 1));
+	refitImages(top.position(), bottom.position(), false);
+}
+
+void LogTextBrowser::refitImages(int fromPosition, int toPosition, bool updateResources) {
 	LogDocument *doc = qobject_cast< LogDocument * >(document());
 	if (!doc) {
 		return;
@@ -110,14 +128,6 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 	const int availableHeight = qMax(1, static_cast< int >(viewport()->height() * MaxImageHeightFraction));
 
 	const qreal pixelRatio = viewport()->devicePixelRatio();
-	// After a change of the device pixel ratio, the display resources of all
-	// images have to be regenerated, even if their displayed size is
-	// unchanged. Only a refit of the whole document gets to reset the flag:
-	// a partial (insert-time) refit only covers the images of one message.
-	const bool pixelRatioChanged = !qFuzzyCompare(pixelRatio, m_lastImageFitPixelRatio);
-	if (fromPosition == 0) {
-		m_lastImageFitPixelRatio = pixelRatio;
-	}
 
 	struct PendingFit {
 		int position;
@@ -133,6 +143,9 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 	QHash< QString, QSize > displaySizes;
 
 	for (QTextBlock block = doc->findBlock(fromPosition); block.isValid(); block = block.next()) {
+		if (toPosition >= 0 && block.position() > toPosition) {
+			break;
+		}
 		for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
 			const QTextFragment fragment = it.fragment();
 			if (!fragment.isValid() || !fragment.charFormat().isImageFormat()) {
@@ -151,25 +164,27 @@ void LogTextBrowser::fitImagesToViewport(int fromPosition) {
 				target = natural.scaled(QSizeF(availableWidth, availableHeight), Qt::KeepAspectRatio);
 			}
 
-			const qreal currentWidth = format.hasProperty(QTextFormat::ImageWidth) ? format.width() : natural.width();
-			const qreal currentHeight =
-				format.hasProperty(QTextFormat::ImageHeight) ? format.height() : natural.height();
-			const bool sizeUpToDate =
-				qAbs(currentWidth - target.width()) < 0.5 && qAbs(currentHeight - target.height()) < 0.5;
-			if (sizeUpToDate && !pixelRatioChanged) {
-				continue;
-			}
-
-			if (!original.isNull()) {
+			if (updateResources && !original.isNull()) {
+				// Regenerate the display resource whenever its pixel size does
+				// not match the wanted one (this includes a change of the
+				// device pixel ratio, e.g. because the window moved to a
+				// screen with a different scale factor).
 				const QSize pixelSize = (target * pixelRatio).toSize();
-				QSize &wanted         = displaySizes[format.name()];
-				if (!wanted.isValid() || pixelSize.width() * pixelSize.height() > wanted.width() * wanted.height()) {
-					wanted = pixelSize;
+				const QSize resourceSize =
+					doc->resource(QTextDocument::ImageResource, QUrl(format.name())).value< QImage >().size();
+				if (pixelSize != resourceSize) {
+					QSize &wanted = displaySizes[format.name()];
+					if (!wanted.isValid()
+						|| pixelSize.width() * pixelSize.height() > wanted.width() * wanted.height()) {
+						wanted = pixelSize;
+					}
 				}
 			}
 
-			if (sizeUpToDate) {
-				// Only the display resource needs to be regenerated.
+			const qreal currentWidth = format.hasProperty(QTextFormat::ImageWidth) ? format.width() : natural.width();
+			const qreal currentHeight =
+				format.hasProperty(QTextFormat::ImageHeight) ? format.height() : natural.height();
+			if (qAbs(currentWidth - target.width()) < 0.5 && qAbs(currentHeight - target.height()) < 0.5) {
 				continue;
 			}
 

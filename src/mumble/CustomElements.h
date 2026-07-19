@@ -19,7 +19,18 @@ private:
 	Q_DISABLE_COPY(LogTextBrowser)
 
 	QTimer *m_imageFitTimer;
-	qreal m_lastImageFitPixelRatio = 0;
+
+	/// Refits the images between the given document positions (toPosition < 0
+	/// meaning "to the end of the document"). If updateResources is true, the
+	/// displayed image resources are regenerated as smoothly prescaled
+	/// variants of the original wherever their pixel size no longer matches
+	/// the displayed size.
+	void refitImages(int fromPosition, int toPosition, bool updateResources);
+
+	/// Cheap geometry-only refit of the images visible in the viewport. Fast
+	/// enough to run on every resize event, at the cost of painting the
+	/// images from their previously prescaled resources.
+	void fitVisibleImageGeometry();
 
 public:
 	LogTextBrowser(QWidget *p = nullptr);
