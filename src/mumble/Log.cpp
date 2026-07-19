@@ -805,7 +805,15 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			dt.time().toString(QLatin1String(Global::get().s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timeString.toHtmlEscaped()), Log::Time));
 
+		// Track the start of the inserted message with a cursor instead of a
+		// plain position: if the insertion pushes the document over its
+		// maximumBlockCount, the oldest blocks are trimmed away as part of
+		// the same operation, shifting all positions. A cursor is adjusted
+		// for that automatically.
+		QTextCursor insertedStart = tc;
+		insertedStart.setKeepPositionOnInsert(true);
 		validHtml(console, &tc);
+		tlog->fitImagesToViewport(insertedStart.position());
 		tc.movePosition(QTextCursor::End);
 		Global::get().mw->qteLog->setTextCursor(tc);
 

@@ -18,9 +18,137 @@
 #include <QtGui/QClipboard>
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QKeyEvent>
+#include <QtGui/QTextBlock>
+#include <QtGui/QTextImageFormat>
 #include <QtWidgets/QScrollBar>
 
-LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
+#include <vector>
+
+/// Custom QTextFormat properties used to remember the natural (unscaled)
+/// display size of an image across refits of the chat log.
+static constexpr int ImageNaturalWidthProperty  = QTextFormat::UserProperty + 1;
+static constexpr int ImageNaturalHeightProperty = QTextFormat::UserProperty + 2;
+
+/// Returns the size at which the image would be displayed if it were not
+/// scaled to fit the viewport: the size from the message's explicit
+/// width/height attributes if present, otherwise the image's own size.
+/// Returns an empty size if it cannot be determined.
+static QSizeF naturalImageSize(QTextDocument *doc, const QTextImageFormat &format) {
+	if (format.hasProperty(ImageNaturalWidthProperty) && format.hasProperty(ImageNaturalHeightProperty)) {
+		return QSizeF(format.doubleProperty(ImageNaturalWidthProperty),
+					  format.doubleProperty(ImageNaturalHeightProperty));
+	}
+
+	const bool hasWidth  = format.hasProperty(QTextFormat::ImageWidth);
+	const bool hasHeight = format.hasProperty(QTextFormat::ImageHeight);
+	if (hasWidth && hasHeight) {
+		return QSizeF(format.width(), format.height());
+	}
+
+	const QVariant resource = doc->resource(QTextDocument::ImageResource, QUrl(format.name()));
+	// The cached resource may be a QImage, a QPixmap (QVariant converts it
+	// to an image) or the still-encoded image data.
+	QImage image = resource.value< QImage >();
+	if (image.isNull() && resource.userType() == QMetaType::QByteArray) {
+		image.loadFromData(resource.toByteArray());
+	}
+	if (image.isNull() || image.width() < 1 || image.height() < 1) {
+		return QSizeF();
+	}
+
+	const QSizeF imageSize(image.width(), image.height());
+	if (hasWidth) {
+		return QSizeF(format.width(), format.width() * imageSize.height() / imageSize.width());
+	}
+	if (hasHeight) {
+		return QSizeF(format.height() * imageSize.width() / imageSize.height(), format.height());
+	}
+	return imageSize;
+}
+
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p), m_imageFitTimer(new QTimer(this)) {
+	// Refitting images on every single resize step would relayout the whole
+	// document continuously while the user drags a splitter, so debounce.
+	m_imageFitTimer->setSingleShot(true);
+	m_imageFitTimer->setInterval(100);
+	connect(m_imageFitTimer, &QTimer::timeout, this, [this]() {
+		const bool wasAtBottom = isScrolledToBottom();
+		fitImagesToViewport();
+		if (wasAtBottom) {
+			setLogScroll(verticalScrollBar()->maximum());
+		}
+	});
+}
+
+void LogTextBrowser::resizeEvent(QResizeEvent *e) {
+	QTextBrowser::resizeEvent(e);
+	m_imageFitTimer->start();
+}
+
+void LogTextBrowser::fitImagesToViewport(int fromPosition) {
+	QTextDocument *doc = document();
+
+	// Leave some room for the document margin and possible frame decorations
+	// around messages so that a fitted image never triggers the horizontal
+	// scrollbar.
+	const int slack          = static_cast< int >(2 * doc->documentMargin()) + 8;
+	const int availableWidth = viewport()->width() - slack;
+	if (availableWidth < 1) {
+		return;
+	}
+
+	struct PendingFit {
+		int position;
+		int length;
+		QTextImageFormat format;
+	};
+	std::vector< PendingFit > pending;
+
+	for (QTextBlock block = doc->findBlock(fromPosition); block.isValid(); block = block.next()) {
+		for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
+			const QTextFragment fragment = it.fragment();
+			if (!fragment.isValid() || !fragment.charFormat().isImageFormat()) {
+				continue;
+			}
+
+			QTextImageFormat format = fragment.charFormat().toImageFormat();
+			const QSizeF natural    = naturalImageSize(doc, format);
+			if (natural.isEmpty()) {
+				continue;
+			}
+
+			QSizeF target = natural;
+			if (natural.width() > availableWidth) {
+				target = QSizeF(availableWidth, availableWidth * natural.height() / natural.width());
+			}
+
+			const qreal currentWidth = format.hasProperty(QTextFormat::ImageWidth) ? format.width() : natural.width();
+			const qreal currentHeight =
+				format.hasProperty(QTextFormat::ImageHeight) ? format.height() : natural.height();
+			if (qAbs(currentWidth - target.width()) < 0.5 && qAbs(currentHeight - target.height()) < 0.5) {
+				continue;
+			}
+
+			format.setProperty(ImageNaturalWidthProperty, natural.width());
+			format.setProperty(ImageNaturalHeightProperty, natural.height());
+			format.setWidth(qMax< qreal >(1, target.width()));
+			format.setHeight(qMax< qreal >(1, target.height()));
+			pending.push_back({ fragment.position(), fragment.length(), format });
+		}
+	}
+
+	if (pending.empty()) {
+		return;
+	}
+
+	QTextCursor cursor(doc);
+	cursor.beginEditBlock();
+	for (const PendingFit &fit : pending) {
+		cursor.setPosition(fit.position);
+		cursor.setPosition(fit.position + fit.length, QTextCursor::KeepAnchor);
+		cursor.setCharFormat(fit.format);
+	}
+	cursor.endEditBlock();
 }
 
 int LogTextBrowser::getLogScroll() {

@@ -11,10 +11,14 @@
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
 
+class QTimer;
+
 class LogTextBrowser : public QTextBrowser {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(LogTextBrowser)
+
+	QTimer *m_imageFitTimer;
 
 public:
 	LogTextBrowser(QWidget *p = nullptr);
@@ -22,6 +26,14 @@ public:
 	int getLogScroll();
 	void setLogScroll(int scroll_pos);
 	bool isScrolledToBottom();
+
+	/// Scales down images in the document so that they fit the width of the
+	/// viewport, starting at the given document position. Images smaller than
+	/// the viewport are never scaled up.
+	void fitImagesToViewport(int fromPosition = 0);
+
+protected:
+	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 };
 
 class ChatbarTextEdit : public QTextEdit {
