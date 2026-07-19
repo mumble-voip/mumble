@@ -24,6 +24,7 @@
 
 #include <limits>
 #include <type_traits>
+#include <vector>
 
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
@@ -641,6 +642,82 @@ QString Log::imageToImg(QImage img, int maxSize) {
 	return QString();
 }
 
+/// Images at most this many font line heights in both dimensions are
+/// considered part of the text (e.g. emotes) and are kept in the flow of the
+/// message. Anything larger is moved onto its own line by
+/// breakOutLargeImages().
+static constexpr int INLINE_IMAGE_MAX_LINE_HEIGHTS = 3;
+
+/// Moves every image that is larger than a small inline image onto its own
+/// left-aligned line. Without this, an image starts at whatever indentation
+/// the preceding text (usually the "[time] Sender:" prefix) happens to end
+/// at, which wastes horizontal space and looks messy in the log.
+static void breakOutLargeImages(LogDocument &doc) {
+	const int inlineThreshold = INLINE_IMAGE_MAX_LINE_HEIGHTS * QFontMetrics(doc.defaultFont()).height();
+
+	struct ImageRange {
+		int position;
+		int length;
+	};
+	std::vector< ImageRange > images;
+
+	for (QTextBlock block = doc.begin(); block != doc.end(); block = block.next()) {
+		for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
+			const QTextFragment fragment = it.fragment();
+			if (!fragment.isValid() || !fragment.charFormat().isImageFormat()) {
+				continue;
+			}
+
+			const QTextImageFormat format = fragment.charFormat().toImageFormat();
+			QSizeF size(format.width(), format.height());
+			if (size.isEmpty()) {
+				size = QSizeF(doc.originalImage(format.name()).size());
+			}
+			if (!size.isEmpty() && size.width() <= inlineThreshold && size.height() <= inlineThreshold) {
+				continue;
+			}
+
+			// Qt can merge adjacent identical images into a single fragment,
+			// so treat every object replacement character as its own image.
+			for (int i = 0; i < fragment.length(); ++i) {
+				images.push_back({ fragment.position() + i, 1 });
+			}
+		}
+	}
+
+	// Process back to front, so that the edits do not shift the positions of
+	// the images that are still to be processed.
+	for (auto it = images.rbegin(); it != images.rend(); ++it) {
+		QTextCursor cursor(&doc);
+
+		// Split off any content that follows the image in its block. A line
+		// break directly after the image would turn into a blank line, so it
+		// is removed.
+		cursor.setPosition(it->position + it->length);
+		if (!cursor.atBlockEnd() && doc.characterAt(cursor.position()) == QChar::LineSeparator) {
+			cursor.deleteChar();
+		}
+		if (!cursor.atBlockEnd()) {
+			cursor.insertBlock();
+		}
+
+		// Split the image off from any content that precedes it in its block.
+		cursor.setPosition(it->position);
+		if (!cursor.atBlockStart() && doc.characterAt(cursor.position() - 1) == QChar::LineSeparator) {
+			cursor.deletePreviousChar();
+		}
+		if (!cursor.atBlockStart()) {
+			cursor.insertBlock();
+		}
+
+		// The image's block may have inherited a different alignment, e.g.
+		// from a <center> tag in the message.
+		QTextBlockFormat leftAligned;
+		leftAligned.setAlignment(Qt::AlignLeft);
+		cursor.mergeBlockFormat(leftAligned);
+	}
+}
+
 QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	LogDocument qtd;
 
@@ -675,6 +752,8 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 			}
 		}
 	}
+
+	breakOutLargeImages(qtd);
 
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
