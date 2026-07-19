@@ -469,6 +469,18 @@ The setting only applies for new messages, the already shown ones will retain th
         </property>
        </widget>
       </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbChatImageScaleToFit">
+        <property name="toolTip">
+         <string>If checked, images in the chat log are scaled down to fit the log's width and a part of its height, and are displayed on their own line. The full-size image stays available via the image's context menu.
+
+Whether an image is displayed on its own line only changes for new messages.</string>
+        </property>
+        <property name="text">
+         <string>Scale images to fit the chat log</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -564,6 +576,7 @@ The setting only applies for new messages, the already shown ones will retain th
   <tabstop>qsbMaxBlocks</tabstop>
   <tabstop>qcb24HourClock</tabstop>
   <tabstop>qsbChatMessageMargins</tabstop>
+  <tabstop>qcbChatImageScaleToFit</tabstop>
   <tabstop>qcbWhisperFriends</tabstop>
   <tabstop>qsbMessageLimitUsers</tabstop>
  </tabstops>

@@ -209,6 +209,7 @@ const SettingsKey HIGH_CONTRAST_MODE_KEY               = { "high_contrast_mode" 
 const SettingsKey MAX_LOG_LENGTH_KEY                   = { "max_log_length" };
 const SettingsKey USE_24H_CLOCK_KEY                    = { "use_24h_clock_format" };
 const SettingsKey LOG_MESSAGE_MARGINS_KEY              = { "log_message_margins" };
+const SettingsKey CHAT_IMAGE_SCALE_TO_FIT_KEY          = { "chat_image_scale_to_fit" };
 const SettingsKey DISABLE_PUBLIC_SERVER_LIST_KEY       = { "disable_public_server_list" };
 
 // Last connection

@@ -143,6 +143,10 @@ void LogTextBrowser::refitImages(int fromPosition, int toPosition, bool updateRe
 	}
 	const int availableHeight = qMax(1, static_cast< int >(viewport()->height() * MaxImageHeightFraction));
 
+	// With scaling disabled, the refit restores previously scaled images to
+	// their natural displayed size and their original display resource.
+	const bool scaleToFit = Global::get().s.bChatImageScaleToFit;
+
 	const qreal pixelRatio = viewport()->devicePixelRatio();
 
 	struct PendingFit {
@@ -176,7 +180,7 @@ void LogTextBrowser::refitImages(int fromPosition, int toPosition, bool updateRe
 			}
 
 			QSizeF target = natural;
-			if (natural.width() > availableWidth || natural.height() > availableHeight) {
+			if (scaleToFit && (natural.width() > availableWidth || natural.height() > availableHeight)) {
 				target = natural.scaled(QSizeF(availableWidth, availableHeight), Qt::KeepAspectRatio);
 			}
 
@@ -184,8 +188,11 @@ void LogTextBrowser::refitImages(int fromPosition, int toPosition, bool updateRe
 				// Regenerate the display resource whenever its pixel size does
 				// not match the wanted one (this includes a change of the
 				// device pixel ratio, e.g. because the window moved to a
-				// screen with a different scale factor).
-				const QSize pixelSize = (target * pixelRatio).toSize();
+				// screen with a different scale factor). With scaling
+				// disabled, the wanted resource is the original image itself:
+				// in particular, a huge width/height attribute in a message
+				// must not lead to generating a huge upscaled resource.
+				const QSize pixelSize = scaleToFit ? (target * pixelRatio).toSize() : original.size();
 				const QSize resourceSize =
 					doc->resource(QTextDocument::ImageResource, QUrl(format.name())).value< QImage >().size();
 				if (pixelSize != resourceSize) {

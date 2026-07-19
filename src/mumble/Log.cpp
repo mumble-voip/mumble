@@ -248,6 +248,7 @@ void LogConfig::load(const Settings &r) {
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
 	qcb24HourClock->setChecked(r.bLog24HourClock);
 	qsbChatMessageMargins->setValue(r.iChatMessageMargins);
+	qcbChatImageScaleToFit->setChecked(r.bChatImageScaleToFit);
 
 #ifdef USE_NO_TTS
 	qtwMessages->hideColumn(ColTTS);
@@ -295,9 +296,10 @@ void LogConfig::save() const {
 		s.qmMessages[mt]      = static_cast< unsigned int >(v);
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
-	s.iMaxLogBlocks       = qsbMaxBlocks->value();
-	s.bLog24HourClock     = qcb24HourClock->isChecked();
-	s.iChatMessageMargins = qsbChatMessageMargins->value();
+	s.iMaxLogBlocks        = qsbMaxBlocks->value();
+	s.bLog24HourClock      = qcb24HourClock->isChecked();
+	s.iChatMessageMargins  = qsbChatMessageMargins->value();
+	s.bChatImageScaleToFit = qcbChatImageScaleToFit->isChecked();
 
 #ifndef USE_NO_TTS
 	s.iTTSVolume          = qsTTSVolume->value();
@@ -318,6 +320,9 @@ void LogConfig::accept() const {
 	Global::get().l->tts->setVolume(s.iTTSVolume);
 #endif
 	Global::get().mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
+	// Apply a change of bChatImageScaleToFit to the already displayed images:
+	// with the setting disabled, the refit restores their natural size.
+	Global::get().mw->qteLog->refitImagesKeepingScrollPosition();
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
@@ -653,6 +658,10 @@ static constexpr int INLINE_IMAGE_MAX_LINE_HEIGHTS = 3;
 /// the preceding text (usually the "[time] Sender:" prefix) happens to end
 /// at, which wastes horizontal space and looks messy in the log.
 static void breakOutLargeImages(LogDocument &doc) {
+	if (!Global::get().s.bChatImageScaleToFit) {
+		return;
+	}
+
 	const int inlineThreshold = INLINE_IMAGE_MAX_LINE_HEIGHTS * QFontMetrics(doc.defaultFont()).height();
 
 	struct ImageRange {
