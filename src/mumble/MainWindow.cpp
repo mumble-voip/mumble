@@ -487,6 +487,11 @@ void MainWindow::setupGui() {
 #endif
 
 	LogDocument *ld = new LogDocument(qteLog);
+	// The chat log is read-only for the user, so there is no way to trigger
+	// an undo. Without this, every insertion into the log would grow the undo
+	// history indefinitely. This cannot be done in the LogDocument
+	// constructor, as LogDocument is also used for editable widgets.
+	ld->setUndoRedoEnabled(false);
 	qteLog->setDocument(ld);
 
 	qteLog->document()->setMaximumBlockCount(Global::get().s.iMaxLogBlocks);
