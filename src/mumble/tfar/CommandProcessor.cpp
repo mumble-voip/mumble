@@ -86,25 +86,24 @@ std::string CommandProcessor::processCommand(const std::string& command) {
         case gameCommand::POS:
             //POS nickname [x,y,z] [viewdirUnitvector(x,y,z)] canSpeak canUseSWRadio canUseLRRadio canUseDDRadio vehicleID terrainInterception voiceVolume objectInterception
             queueCommand(command);//do processing async
-            [[fallthrough]];
+            // MUMBLE-TFAR: fnc_sendPlayerInfo in the Arma mod (dev.341 SQF) treats any POS reply
+            // other than the literal "OK" as a plugin error and renders it as a permanent hint in
+            // the bottom right corner of the screen. Speaking states are fetched separately via
+            // IS_SPEAKING/IS_SPEAKING_BULK, so nothing is lost by acknowledging here.
+            return "OK";
         case gameCommand::IS_SPEAKING: {
-            // MUMBLE-TFAR: the released Arma mod (Steam Workshop, 1.0-PreRelease SQF) sends POS
-            // synchronously and only understands OK/SPEAKING/NOT_SPEAKING. Its fnc_sendPlayerInfo
-            // renders any other reply as an error hint in the bottom right corner of the screen,
-            // and its lip sync + OnSpeak event handlers only trigger on "SPEAKING". The two-char
-            // "00"/"10" replies belong to the newer dev-branch SQF, which sends POS async ("~")
-            // and never sees this sync reply at all.
             const auto nickname = convertNickname(tokens[1]);
             const auto clientDataDir = TFAR::getServerDataDirectory()->getClientDataDirectory(Teamspeak::getCurrentServerConnection());
-            if (!clientDataDir) return "NOT_SPEAKING";
+            if (!clientDataDir) return "00";
             const auto clientData = clientDataDir->getClientData(nickname);
             if (!clientData)
-                return "NOT_SPEAKING";
+                return "00";
+            const bool receivingTransmission = clientData->receivingTransmission > 0;
 
             const bool clientTalkingOnRadio = clientData->currentTransmittingTangentOverType != sendingRadioType::LISTEN_TO_NONE;
             if (clientData->clientTalkingNow || clientTalkingOnRadio)
-                return "SPEAKING";
-            return "NOT_SPEAKING";
+                return receivingTransmission ? "11" : "10";
+            return receivingTransmission ? "01" : "00";
         }
         case gameCommand::IS_SPEAKING_BULK:
         {
@@ -162,6 +161,32 @@ std::string CommandProcessor::processCommand(const std::string& command) {
             str.seekg(-1, std::stringstream::cur);
             str << "]";
         }
+        default: break;
+    }
+
+    // MUMBLE-TFAR: fire-and-forget commands normally arrive with a trailing '~' and are queued
+    // before ever reaching this function. Depending on the game extension build they can also
+    // arrive without the marker as a synchronous request. Dropping them here would silently break
+    // tangents/settings/etc., and any reply other than "OK" can end up rendered on screen by the
+    // SQF error path — so queue them for async processing and acknowledge.
+    switch (gameCommand) {
+        case gameCommand::DFRAME:
+            queueCommand(command);
+            return TFAR::config.needsRefresh() ? "NEEDCFG" : "OK";
+        case gameCommand::FREQ:
+        case gameCommand::KILLED:
+        case gameCommand::TRACK:
+        case gameCommand::SPEAKERS:
+        case gameCommand::TANGENT:
+        case gameCommand::RELEASE_ALL_TANGENTS:
+        case gameCommand::SETCFG:
+        case gameCommand::MISSIONEND:
+        case gameCommand::AddRadioTower:
+        case gameCommand::DeleteRadioTower:
+        case gameCommand::collectDebugInfo:
+            queueCommand(command);
+            return "OK";
+        default: break;
     }
 
     return "ASYNC COMMAND SENT IN SYNC CONTEXT";
