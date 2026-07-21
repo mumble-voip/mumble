@@ -112,6 +112,16 @@ jobs:
           os: ${{ matrix.os }}
           arch: ${{ matrix.arch }}
 
+      # actions/upload-artifact zips its inputs and does not preserve Unix file
+      # modes or symlinks, so an uploaded Mumble.app arrives with a non-executable
+      # main binary (and broken framework symlinks) and macOS refuses to launch it.
+      # Tar the bundle first so those attributes survive inside the archive; users
+      # extract the tarball after downloading.
+    - if: ${{ !inputs.SIGN_WINDOWS_INSTALLER && matrix.type == 'static' && startsWith(matrix.os, 'macos') }}
+      name: Package macOS app bundle
+      run: tar -C build -czf build/Mumble.app.tar.gz Mumble.app
+      shell: bash
+
     - if: ${{ !inputs.SIGN_WINDOWS_INSTALLER && matrix.type == 'static' }}
       name: Publish
       uses: actions/upload-artifact@v7
@@ -120,7 +130,7 @@ jobs:
         compression-level: 9
         path: |
           build/mumble
-          build/Mumble.app
+          build/Mumble.app.tar.gz
           build/mumble-server
           build/**/mumble*.msi
           build/**/mumble*.exe
