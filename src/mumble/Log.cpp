@@ -24,10 +24,13 @@
 
 #include <limits>
 #include <type_traits>
+#include <vector>
 
 #include <QSignalBlocker>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QRegularExpression>
+#include <QtCore/QSet>
+#include <QtCore/QTimer>
 #include <QtGui/QImageWriter>
 #include <QtGui/QScreen>
 #include <QtGui/QTextBlock>
@@ -245,6 +248,7 @@ void LogConfig::load(const Settings &r) {
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
 	qcb24HourClock->setChecked(r.bLog24HourClock);
 	qsbChatMessageMargins->setValue(r.iChatMessageMargins);
+	qcbChatImageScaleToFit->setChecked(r.bChatImageScaleToFit);
 
 #ifdef USE_NO_TTS
 	qtwMessages->hideColumn(ColTTS);
@@ -292,9 +296,10 @@ void LogConfig::save() const {
 		s.qmMessages[mt]      = static_cast< unsigned int >(v);
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
-	s.iMaxLogBlocks       = qsbMaxBlocks->value();
-	s.bLog24HourClock     = qcb24HourClock->isChecked();
-	s.iChatMessageMargins = qsbChatMessageMargins->value();
+	s.iMaxLogBlocks        = qsbMaxBlocks->value();
+	s.bLog24HourClock      = qcb24HourClock->isChecked();
+	s.iChatMessageMargins  = qsbChatMessageMargins->value();
+	s.bChatImageScaleToFit = qcbChatImageScaleToFit->isChecked();
 
 #ifndef USE_NO_TTS
 	s.iTTSVolume          = qsTTSVolume->value();
@@ -315,6 +320,9 @@ void LogConfig::accept() const {
 	Global::get().l->tts->setVolume(s.iTTSVolume);
 #endif
 	Global::get().mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
+	// Apply a change of bChatImageScaleToFit to the already displayed images:
+	// with the setting disabled, the refit restores their natural size.
+	Global::get().mw->qteLog->refitImagesKeepingScrollPosition();
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
@@ -639,6 +647,86 @@ QString Log::imageToImg(QImage img, int maxSize) {
 	return QString();
 }
 
+/// Images at most this many font line heights in both dimensions are
+/// considered part of the text (e.g. emotes) and are kept in the flow of the
+/// message. Anything larger is moved onto its own line by
+/// breakOutLargeImages().
+static constexpr int INLINE_IMAGE_MAX_LINE_HEIGHTS = 3;
+
+/// Moves every image that is larger than a small inline image onto its own
+/// left-aligned line. Without this, an image starts at whatever indentation
+/// the preceding text (usually the "[time] Sender:" prefix) happens to end
+/// at, which wastes horizontal space and looks messy in the log.
+static void breakOutLargeImages(LogDocument &doc) {
+	if (!Global::get().s.bChatImageScaleToFit) {
+		return;
+	}
+
+	const int inlineThreshold = INLINE_IMAGE_MAX_LINE_HEIGHTS * QFontMetrics(doc.defaultFont()).height();
+
+	struct ImageRange {
+		int position;
+		int length;
+	};
+	std::vector< ImageRange > images;
+
+	for (QTextBlock block = doc.begin(); block != doc.end(); block = block.next()) {
+		for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
+			const QTextFragment fragment = it.fragment();
+			if (!fragment.isValid() || !fragment.charFormat().isImageFormat()) {
+				continue;
+			}
+
+			const QTextImageFormat format = fragment.charFormat().toImageFormat();
+			QSizeF size(format.width(), format.height());
+			if (size.isEmpty()) {
+				size = QSizeF(doc.originalImage(format.name()).size());
+			}
+			if (!size.isEmpty() && size.width() <= inlineThreshold && size.height() <= inlineThreshold) {
+				continue;
+			}
+
+			// Qt can merge adjacent identical images into a single fragment,
+			// so treat every object replacement character as its own image.
+			for (int i = 0; i < fragment.length(); ++i) {
+				images.push_back({ fragment.position() + i, 1 });
+			}
+		}
+	}
+
+	// Process back to front, so that the edits do not shift the positions of
+	// the images that are still to be processed.
+	for (auto it = images.rbegin(); it != images.rend(); ++it) {
+		QTextCursor cursor(&doc);
+
+		// Split off any content that follows the image in its block. A line
+		// break directly after the image would turn into a blank line, so it
+		// is removed.
+		cursor.setPosition(it->position + it->length);
+		if (!cursor.atBlockEnd() && doc.characterAt(cursor.position()) == QChar::LineSeparator) {
+			cursor.deleteChar();
+		}
+		if (!cursor.atBlockEnd()) {
+			cursor.insertBlock();
+		}
+
+		// Split the image off from any content that precedes it in its block.
+		cursor.setPosition(it->position);
+		if (!cursor.atBlockStart() && doc.characterAt(cursor.position() - 1) == QChar::LineSeparator) {
+			cursor.deletePreviousChar();
+		}
+		if (!cursor.atBlockStart()) {
+			cursor.insertBlock();
+		}
+
+		// The image's block may have inherited a different alignment, e.g.
+		// from a <center> tag in the message.
+		QTextBlockFormat leftAligned;
+		leftAligned.setAlignment(Qt::AlignLeft);
+		cursor.mergeBlockFormat(leftAligned);
+	}
+}
+
 QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	LogDocument qtd;
 
@@ -673,6 +761,8 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 			}
 		}
 	}
+
+	breakOutLargeImages(qtd);
 
 	qtd.adjustSize();
 	QSizeF s = qtd.size();
@@ -805,7 +895,15 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			dt.time().toString(QLatin1String(Global::get().s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timeString.toHtmlEscaped()), Log::Time));
 
+		// Track the start of the inserted message with a cursor instead of a
+		// plain position: if the insertion pushes the document over its
+		// maximumBlockCount, the oldest blocks are trimmed away as part of
+		// the same operation, shifting all positions. A cursor is adjusted
+		// for that automatically.
+		QTextCursor insertedStart = tc;
+		insertedStart.setKeepPositionOnInsert(true);
 		validHtml(console, &tc);
+		tlog->fitImagesToViewport(insertedStart.position());
 		tc.movePosition(QTextCursor::End);
 		Global::get().mw->qteLog->setTextCursor(tc);
 
@@ -973,7 +1071,73 @@ LogMessage::LogMessage(Log::MsgType mt, const QString &console, const QString &t
 	: mt(mt), console(console), terse(terse), ownMessage(ownMessage), overrideTTS(overrideTTS), ignoreTTS(ignoreTTS) {
 }
 
-LogDocument::LogDocument(QObject *p) : QTextDocument(p) {
+LogDocument::LogDocument(QObject *p) : QTextDocument(p), m_pruneTimer(new QTimer(this)) {
+	// When maximumBlockCount is set, appending to the document can silently
+	// trim the oldest blocks away. Prune stored original images whose
+	// messages are gone, so that the memory use for originals stays bounded
+	// by the messages that are actually in the log. Debounced, as trims can
+	// happen on every insertion.
+	m_pruneTimer->setSingleShot(true);
+	m_pruneTimer->setInterval(1000);
+	connect(m_pruneTimer, &QTimer::timeout, this, &LogDocument::pruneOriginalImages);
+
+	connect(this, &QTextDocument::contentsChange, this, [this](int position, int charsRemoved, int) {
+		if (m_originalImages.isEmpty()) {
+			return;
+		}
+		if (isEmpty()) {
+			// The log was cleared.
+			m_originalImages.clear();
+			m_pruneTimer->stop();
+		} else if (position == 0 && charsRemoved > 0) {
+			// Blocks were trimmed at the front of the document.
+			m_pruneTimer->start();
+		}
+	});
+}
+
+void LogDocument::pruneOriginalImages() {
+	if (m_originalImages.isEmpty()) {
+		return;
+	}
+
+	QSet< QString > referenced;
+	for (QTextBlock block = begin(); block != end(); block = block.next()) {
+		for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
+			const QTextCharFormat charFormat = it.fragment().charFormat();
+			if (charFormat.isImageFormat()) {
+				referenced.insert(charFormat.toImageFormat().name());
+			}
+		}
+	}
+
+	for (auto it = m_originalImages.begin(); it != m_originalImages.end();) {
+		if (referenced.contains(it.key())) {
+			++it;
+		} else {
+			it = m_originalImages.erase(it);
+		}
+	}
+}
+
+QImage LogDocument::originalImage(const QString &name) {
+	auto it = m_originalImages.constFind(name);
+	if (it != m_originalImages.constEnd()) {
+		return *it;
+	}
+
+	const QVariant res = resource(QTextDocument::ImageResource, QUrl(name));
+	// The cached resource may be a QImage, a QPixmap (QVariant converts it
+	// to an image) or the still-encoded image data.
+	QImage image = res.value< QImage >();
+	if (image.isNull() && res.userType() == QMetaType::QByteArray) {
+		image.loadFromData(res.toByteArray());
+	}
+
+	if (!image.isNull()) {
+		m_originalImages.insert(name, image);
+	}
+	return image;
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {

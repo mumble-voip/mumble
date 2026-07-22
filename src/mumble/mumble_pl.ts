@@ -4635,6 +4635,16 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
         <source>decibels</source>
         <translation>decybele</translation>
     </message>
+    <message>
+        <source>If checked, images in the chat log are scaled down to fit the log&apos;s width and a part of its height, and are displayed on their own line. The full-size image stays available via the image&apos;s context menu.
+
+Whether an image is displayed on its own line only changes for new messages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale images to fit the chat log</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>

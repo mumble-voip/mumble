@@ -10,13 +10,17 @@
 
 #include <QSystemTrayIcon>
 #include <QtCore/QDate>
+#include <QtCore/QHash>
 #include <QtCore/QMutex>
 #include <QtCore/QVector>
+#include <QtGui/QImage>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextDocument>
 
 #include "ConfigDialog.h"
 #include "ui_Log.h"
+
+class QTimer;
 
 #ifndef USE_NO_TTS
 class TextToSpeech;
@@ -186,9 +190,22 @@ class LogDocument : public QTextDocument {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(LogDocument)
+
+	QHash< QString, QImage > m_originalImages;
+	QTimer *m_pruneTimer;
+
+	/// Drops entries from m_originalImages that are no longer referenced by
+	/// any image in the document.
+	void pruneOriginalImages();
+
 public:
 	LogDocument(QObject *p = nullptr);
 	QVariant loadResource(int, const QUrl &) Q_DECL_OVERRIDE;
+
+	/// Returns the image originally received under the given image resource
+	/// name, even after the displayed resource has been replaced by a scaled
+	/// variant. Returns a null image if the name resolves to no image.
+	QImage originalImage(const QString &name);
 };
 
 class NotificationSoundBlocker {
