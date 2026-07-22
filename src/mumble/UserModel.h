@@ -74,6 +74,7 @@ protected:
 	QIcon qiMutedPushToMute, qiMutedSelf, qiMutedServer, qiMutedLocal, qiIgnoredLocal, qiMutedSuppressed;
 	QIcon qiPrioritySpeaker;
 	QIcon qiRecording;
+	QIcon qiScreenSharing;
 	QIcon qiDeafenedSelf, qiDeafenedServer;
 	QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
 	QIcon qiFriend;

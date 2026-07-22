@@ -596,6 +596,34 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
+	if (msg.has_screen_sharing()) {
+		pDst->setScreenSharing(msg.screen_sharing());
+
+		// Do nothing during initial sync
+		if (pSelf) {
+			if (pDst == pSelf) {
+				// Reflect the toggle state back onto the toolbar button.
+				Global::get().mw->qaScreenShare->setChecked(pDst->bScreenSharing);
+				if (pDst->bScreenSharing) {
+					Global::get().l->log(Log::Information, tr("Screen sharing started."));
+				} else {
+					Global::get().l->log(Log::Information, tr("Screen sharing stopped."));
+				}
+			} else if (pDst->cChannel == pSelf->cChannel || pDst->cChannel->allLinks().contains(pSelf->cChannel)) {
+				if (pDst->bScreenSharing) {
+					Global::get().l->log(
+						Log::Information,
+						tr("%1 started sharing their screen.").arg(Log::formatClientUser(pDst, Log::Source)));
+				} else {
+					Global::get().l->log(
+						Log::Information,
+						tr("%1 stopped sharing their screen.").arg(Log::formatClientUser(pDst, Log::Source)));
+					Global::get().mw->onRemoteScreenShareStopped(pDst->uiSession);
+				}
+			}
+		}
+	}
+
 	if (msg.has_priority_speaker()) {
 		if (pSelf
 			&& ((pDst->cChannel == pSelf->cChannel) || (pDst->cChannel->allLinks().contains(pSelf->cChannel))

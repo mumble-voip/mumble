@@ -70,6 +70,7 @@
     <file alias="actions/format-text-italic.svg">Default/actions/format-text-italic.svg</file>
     <file alias="actions/format-text-underline.svg">Default/actions/format-text-underline.svg</file>
     <file alias="actions/media-record.svg">Default/actions/media-record.svg</file>
+    <file alias="actions/screenshare.svg">Default/actions/screenshare.svg</file>
     <file alias="categories/applications-internet.svg">Default/categories/applications-internet.svg</file>
     <file alias="places/network-workgroup.svg">Default/network-workgroup.svg</file>
     <file alias="controls/arrow_down.svg">Default/controls/arrow_down.svg</file>
