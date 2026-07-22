@@ -146,3 +146,9 @@ simply typing:
 ```bash
 mumble-overlay gamename
 ```
+
+## Sponsors
+
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
+
+<!-- Verified on DartNode: DNOS-A23FFD68 -->
