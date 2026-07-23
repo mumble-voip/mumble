@@ -27,15 +27,21 @@ public:
 	ULONG STDMETHODCALLTYPE Release();
 
 	/* Enlist/Unlist functionality */
-	void enlistDefaultDeviceAsUsed(LPCWSTR pwstrDefaultDevice);
+	void incrementWantDefault();
+	void decrementWantDefault();
 
-	void enlistDeviceAsUsed(LPCWSTR pwstrDevice);
+	void enlistDefaultDeviceAsUsed(const QString &device);
+	void unlistDefaultDeviceAsUsed(const QString &device);
+
 	void enlistDeviceAsUsed(const QString &device);
+	void unlistDeviceAsUsed(const QString &device);
 
-	void unlistDevice(LPCWSTR pwstrDevice);
+	void enlistDeviceAsWanted(const QString &device);
+	void unlistDeviceAsWanted(const QString &device);
 
 	void clearUsedDefaultDeviceList();
-	void clearUsedDeviceLists();
+	void clearUsedDeviceList();
+	void clearWantedDeviceList();
 
 	/**
 	 * @return Singleton instance reference.
@@ -55,15 +61,20 @@ private:
 	void restartAudio();
 
 	/* _fu = Non locking versions */
-	void _clearUsedDeviceLists();
+	void _clearWantDefaultDeviceCount();
+	void _clearUsedDefaultDeviceList();
+	void _clearUsedDeviceList();
+	void _clearWantedDeviceList();
 	void _enlistDeviceAsUsed(const QString &device);
+	void _enlistDeviceAsWanted(const QString &device);
 
 	QStringList usedDefaultDevices;
 	QStringList usedDevices;
+	QStringList wantedDevices;
 	IMMDeviceEnumerator *pEnumerator;
 	LONG _cRef;
 	QMutex listsMutex;
-
+	std::atomic_int32_t wantDefaultCount = 0;
 signals:
 	void doResetAudio();
 };
