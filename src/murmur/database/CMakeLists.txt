@@ -31,11 +31,12 @@ add_library(mumble_server_database STATIC
 	"BanTable.cpp"
 	"ChannelListenerTable.cpp"
 )
+target_set_mumble_compiler_flags(mumble_server_database)
 
 set_property(TARGET mumble_server_database PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 
 # We require boost::algorithm::lower_hex which was introduced in Boost v1.62.0
-find_pkg(Boost 1.62.0 REQUIRED)
+find_package(Boost 1.62.0 REQUIRED)
 
 target_link_libraries(mumble_server_database PUBLIC mumble_database Boost::headers)
 

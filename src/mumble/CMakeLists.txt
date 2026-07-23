@@ -74,7 +74,7 @@ if(MSVC)
 	option(elevation "Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate." OFF)
 endif()
 
-find_pkg(Qt6
+find_package(Qt6
 	COMPONENTS
 		Concurrent
 		Sql
@@ -356,6 +356,7 @@ add_custom_command(
 list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
 add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
+target_set_mumble_compiler_flags(mumble_client_object_lib)
 target_link_libraries(mumble_client_object_lib PUBLIC smallft)
 
 if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -364,6 +365,7 @@ if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
 else()
 	add_executable(mumble "main.cpp")
 endif()
+target_set_mumble_compiler_flags(mumble)
 
 if(WIN32)
 	target_sources(mumble_client_object_lib
@@ -453,7 +455,7 @@ target_include_directories(mumble_client_object_lib
 		"${PLUGINS_DIR}"
 )
 
-find_pkg(Poco
+find_package(Poco
 	COMPONENTS
 		XML
 		Zip
@@ -522,30 +524,21 @@ else()
 endif()
 
 
-if (NOT TARGET nlohmann_json)
-	if(bundled-json)
-		set(JSON_BuildTests OFF CACHE INTERNAL "")
-		set(JSON_ImplicitConversions ON CACHE INTERNAL "")
-		set(JSON_SystemInclude ON CACHE INTERNAL "")
-		add_subdirectory("${3RDPARTY_DIR}/nlohmann_json/" "${CMAKE_CURRENT_BINARY_DIR}/nlohmann_json/" EXCLUDE_FROM_ALL)
-	else()
-		find_pkg("nlohmann_json" REQUIRED)
-	endif()
-endif()
+find_package("nlohmann_json" REQUIRED)
 
 target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)
 
-find_pkg("SndFile;LibSndFile;sndfile" REQUIRED)
+find_package(SndFile NAMES "LibSndFile" "sndfile" REQUIRED)
 
 # Check if sndfile version supports opus
-if("${sndfile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
+if("${SndFile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
 	target_compile_definitions(mumble_client_object_lib PUBLIC USE_SNDFILE_OPUS)
 else()
 	message(WARNING "libsndfile is missing Opus-support -> No Opus-format recording")
 endif()
 
 # Check if sndfile version supports mp3
-if("${sndfile_VERSION}" VERSION_GREATER_EQUAL "1.1.0")
+if("${SndFile_VERSION}" VERSION_GREATER_EQUAL "1.1.0")
 	target_compile_definitions(mumble_client_object_lib PUBLIC USE_SNDFILE_MP3)
 else()
 	message(WARNING "libsndfile is missing Mp3-support -> No Mp3-format recording")
@@ -559,7 +552,7 @@ elseif(TARGET SndFile::sndfile)
 elseif(TARGET sndfile)
 	target_link_libraries(mumble_client_object_lib PUBLIC sndfile)
 else()
-	target_link_libraries(mumble_client_object_lib PUBLIC ${sndfile_LIBRARIES})
+	target_link_libraries(mumble_client_object_lib PUBLIC ${SndFile_LIBRARIES})
 endif()
 
 target_link_libraries(mumble_client_object_lib
@@ -613,7 +606,7 @@ if(WIN32)
 	# to include plain guiddef.h without having to worry about side-effects.
 	set_source_files_properties("WinGUIDs.cpp" PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE)
 
-	find_pkg(Boost
+	find_package(Boost
 		COMPONENTS
 			system
 			thread
@@ -625,7 +618,7 @@ if(WIN32)
 		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
-	add_subdirectory("${3RDPARTY_DIR}/SPSCQueue" "${CMAKE_CURRENT_BINARY_DIR}/SPSCQueue" EXCLUDE_FROM_ALL)
+	find_package(SPSCQueue REQUIRED)
 	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the xinputcheck code may emit
@@ -663,10 +656,10 @@ else()
 	target_sources(mumble_client_object_lib PRIVATE "SharedMemory_unix.cpp")
 
 	if(NOT APPLE)
-		find_pkg(X11 COMPONENTS Xext REQUIRED)
+		find_package(X11 COMPONENTS Xext REQUIRED)
 
 		if(xinput2)
-			find_pkg(X11 COMPONENTS Xi REQUIRED)
+			find_package(X11 COMPONENTS Xi REQUIRED)
 			target_link_libraries(mumble_client_object_lib PUBLIC X11::Xi)
 		else()
 			target_compile_definitions(mumble_client_object_lib PUBLIC "NO_XINPUT2")
@@ -725,16 +718,8 @@ else()
 	endif()
 endif()
 
-find_pkg("opus;Opus" REQUIRED)
-target_include_directories(mumble_client_object_lib PUBLIC ${opus_INCLUDE_DIRS})
-target_link_libraries(mumble_client_object_lib PUBLIC ${opus_LIBRARIES})
-if(TARGET opus)
-	target_link_libraries(mumble_client_object_lib PUBLIC opus)
-elseif(TARGET Opus)
-	target_link_libraries(mumble_client_object_lib PUBLIC Opus)
-elseif(TARGET Opus::opus)
-	target_link_libraries(mumble_client_object_lib PUBLIC Opus::opus)
-endif()
+find_package("Opus" REQUIRED NAMES "opus")
+target_link_libraries(mumble_client_object_lib PUBLIC Opus::opus)
 
 if(bundled-speex)
 	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp" EXCLUDE_FROM_ALL)
@@ -754,7 +739,7 @@ if(bundled-speex)
 
 	install_library(speexdsp mumble_client)
 else()
-	find_pkg(speexdsp REQUIRED)
+	find_package(speexdsp REQUIRED)
 
 	target_link_libraries(mumble_client_object_lib
 		PUBLIC
@@ -783,14 +768,14 @@ if(rnnoise)
 
 		install_library(rnnoise mumble_client)
 	else()
-		find_pkg(rnnoise REQUIRED)
+		find_package(rnnoise REQUIRED)
 
 		target_link_libraries(mumble_client_object_lib PRIVATE ${rnnoise_LIBRARIES})
 	endif()
 endif()
 
 if(qtspeech)
-	find_pkg(Qt6 COMPONENTS TextToSpeech REQUIRED)
+	find_package(Qt6 COMPONENTS TextToSpeech REQUIRED)
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech.cpp")
 	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::TextToSpeech)
 elseif(WIN32)
@@ -804,7 +789,7 @@ else()
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_unix.cpp")
 
 	if(speechd)
-		find_pkg("speech-dispatcher" REQUIRED)
+		find_package("speech-dispatcher" REQUIRED)
 
 		target_compile_definitions(mumble_client_object_lib
 			PUBLIC
@@ -843,7 +828,7 @@ if(NOT update)
 endif()
 
 if(dbus AND (NOT WIN32 AND NOT APPLE))
-	find_pkg(Qt6 COMPONENTS DBus REQUIRED)
+	find_package(Qt6 COMPONENTS DBus REQUIRED)
 
 	target_sources(mumble_client_object_lib
 		PRIVATE
@@ -971,7 +956,7 @@ endif()
 
 if(zeroconf)
 	if(NOT APPLE)
-		find_pkg(avahi-compat-libdns_sd QUIET)
+		find_package(avahi-compat-libdns_sd QUIET)
 		if(avahi-compat-libdns_sd_FOUND)
 			target_include_directories(mumble_client_object_lib PUBLIC ${avahi-compat-libdns_sd_INCLUDE_DIRS})
 			target_link_libraries(mumble_client_object_lib PUBLIC ${avahi-compat-libdns_sd_LIBRARIES})
@@ -1002,7 +987,7 @@ if(zeroconf)
 endif()
 
 if(alsa)
-	find_pkg(ALSA REQUIRED)
+	find_package(ALSA REQUIRED)
 	target_sources(mumble_client_object_lib
 		PRIVATE
 			"ALSAAudio.cpp"

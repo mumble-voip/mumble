@@ -16,7 +16,7 @@ include(qt-utils)
 
 option(ice "Build support for Ice RPC." ON)
 
-find_pkg(Qt6 COMPONENTS Sql REQUIRED)
+find_package(Qt6 COMPONENTS Sql REQUIRED)
 
 add_library(mumble_server_object_lib OBJECT
 	"AudioReceiverBuffer.cpp"
@@ -51,12 +51,14 @@ add_library(mumble_server_object_lib OBJECT
 	"${SHARED_SOURCE_DIR}/User.cpp"
 	"${SHARED_SOURCE_DIR}/User.h"
 )
+target_set_mumble_compiler_flags(mumble_server_object_lib)
 
 if(WIN32)
 	add_executable(mumble-server WIN32 "main.cpp")
 else()
 	add_executable(mumble-server "main.cpp")
 endif()
+target_set_mumble_compiler_flags(mumble-server)
 
 target_link_libraries(mumble-server mumble_server_object_lib CLI11::CLI11)
 
@@ -137,7 +139,7 @@ if(WIN32)
 			AUTORCC ON
 	)
 
-	find_pkg(Qt6 COMPONENTS Widgets REQUIRED)
+	find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 	target_link_libraries(mumble_server_object_lib
 		PUBLIC
@@ -166,7 +168,7 @@ endif()
 
 if(zeroconf)
 	if(NOT APPLE)
-		find_pkg(avahi-compat-libdns_sd QUIET)
+		find_package(avahi-compat-libdns_sd QUIET)
 		if(avahi-compat-libdns_sd_FOUND)
 			target_include_directories(mumble_server_object_lib PUBLIC ${avahi-compat-libdns_sd_INCLUDE_DIRS})
 			target_link_libraries(mumble_server_object_lib PUBLIC ${avahi-compat-libdns_sd_LIBRARIES})
@@ -196,7 +198,7 @@ if(zeroconf)
 endif()
 
 if(ice)
-	find_pkg(Ice
+	find_package(Ice
 		COMPONENTS
 			Ice
 			IceSSL
@@ -268,7 +270,7 @@ if(ice)
 		# BZip2 is used by Ice, specifically in ConnectionI.cpp.
 		# We link to the library explicitly because CMake is not aware of the dependency.
 		# TODO: Fix or rewrite the official FindIce.cmake.
-		find_pkg(BZip2 REQUIRED)
+		find_package(BZip2 REQUIRED)
 	endif()
 	target_link_libraries(mumble_server_object_lib
 		PUBLIC

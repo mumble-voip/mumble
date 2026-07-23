@@ -14,12 +14,7 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 
 option(tracy "Enable the tracy profiler." OFF)
 
-option(bundled-json "Build the included version of nlohmann_json instead of looking for one on the system" ON)
-option(bundled-spdlog "Use the bundled spdlog version instead of looking for one on the system" ON)
-option(bundled-cli11 "Use the bundled CLI11 version instead of looking for one on the system" ON)
-
-find_pkg(Qt6
-	VERSION 6.2
+find_package(Qt6 6.2
 	COMPONENTS
 		Core
 		Network
@@ -27,18 +22,17 @@ find_pkg(Qt6
 	REQUIRED
 )
 
-find_pkg(OpenSSL
+find_package(OpenSSL
 	COMPONENTS
 		Crypto
 		SSL
 	REQUIRED
 )
 
-find_pkg(Protobuf REQUIRED)
-
-add_compile_options(${MUMBLE_COMPILER_FLAGS})
+find_package(Protobuf REQUIRED)
 
 add_library(shared STATIC)
+target_set_mumble_compiler_flags(shared)
 
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${UDP_PROTO_FILE} OUT_VAR BUILT_UDP_PROTO_FILES)
@@ -216,19 +210,12 @@ set(BUILD_SHARED_LIBS ${PREV_BUILD_SHARED_LIBS} CACHE BOOL "" FORCE)
 
 target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
-if(bundled-spdlog)
-	set(SPDLOG_SYSTEM_INCLUDES ON)
-	add_subdirectory("${3RDPARTY_DIR}/spdlog" "${CMAKE_CURRENT_BINARY_DIR}/spdlog" EXCLUDE_FROM_ALL)
-else()
-	find_pkg("spdlog" REQUIRED)
-endif()
+set(SPDLOG_SYSTEM_INCLUDES ON)
+find_package(spdlog REQUIRED)
+
 target_link_libraries(shared PUBLIC spdlog::spdlog)
 
-if (bundled-cli11)
-	add_subdirectory("${3RDPARTY_DIR}/CLI11" "${CMAKE_CURRENT_BINARY_DIR}/CLI11" EXCLUDE_FROM_ALL)
-else()
-	find_pkg("CLI11" 2 REQUIRED)
-endif()
+find_package("CLI11" 2 REQUIRED)
 
 if(client)
 	add_subdirectory(mumble)
