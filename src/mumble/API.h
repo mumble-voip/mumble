@@ -119,6 +119,12 @@ public slots:
 	void getChannelDescription_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 									   mumble_channelid_t channelID, const char **description,
 									   std::shared_ptr< api_promise_t > promise);
+	void getPositionalData_v_1_3_x(mumble_plugin_id_t callerID, PositionalCoordinates *positionalCoordinates,
+										std::shared_ptr< api_promise_t > promise);
+	void getPositionalContext_v_1_3_x(mumble_plugin_id_t callerID, char **context,
+									std::shared_ptr< api_promise_t > promise);
+	void getPositionalIdentity_v_1_3_x(mumble_plugin_id_t callerID, char **identity,
+									std::shared_ptr< api_promise_t > promise);
 	void requestUserMove_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, mumble_userid_t userID,
 								 mumble_channelid_t channelID, const char *password,
 								 std::shared_ptr< api_promise_t > promise);
@@ -173,6 +179,9 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x();
 
 /// @returns The Mumble API struct (v1.2.x)
 MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x();
+
+/// @returns The Mumble API struct (v1.3.x)
+MumbleAPI_v_1_3_x getMumbleAPI_v_1_3_x();
 
 /// Converts from the Qt key-encoding to the API's key encoding.
 ///
