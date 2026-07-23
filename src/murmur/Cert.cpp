@@ -214,3 +214,135 @@ void Server::initializeCert() {
 const QString Server::getDigest() const {
 	return QString::fromLatin1(qscCert.digest(QCryptographicHash::Sha1).toHex());
 }
+
+void Server::initCertMonitoring() {
+	connect(&qtCertCheck, SIGNAL(timeout()), this, SLOT(checkCertExpiry()));
+	// Check certificate expiry every hour
+	qtCertCheck.start(60 * 60 * 1000);
+}
+
+void Server::checkCertExpiry() {
+	QDateTime now;
+	QDateTime expiryDate;
+	qint64 daysUntilExpiry;
+	bool shouldReload = false;
+
+	{
+		// Acquire read lock to check certificate expiry
+		QReadLocker locker(&qrwlVoiceThread);
+
+		if (qscCert.isNull()) {
+			return;
+		}
+
+		now             = QDateTime::currentDateTime();
+		expiryDate      = qscCert.expiryDate();
+		daysUntilExpiry = now.daysTo(expiryDate);
+
+		// Check if certificate expires within 7 days or has already expired
+		shouldReload = (daysUntilExpiry <= 7);
+	}
+
+	// Perform reload outside the lock (reloadCertFromDisk acquires write lock)
+	if (shouldReload) {
+		if (daysUntilExpiry >= 0) {
+			log(QString("Certificate expires in %1 days, attempting to reload from disk").arg(daysUntilExpiry));
+		} else {
+			log(QString("Certificate has expired %1 days ago, attempting to reload from disk").arg(-daysUntilExpiry));
+		}
+
+		if (reloadCertFromDisk()) {
+			log("Successfully reloaded certificate from disk");
+
+			// Read the new expiry date with read lock
+			QReadLocker locker(&qrwlVoiceThread);
+			expiryDate      = qscCert.expiryDate();
+			daysUntilExpiry = now.daysTo(expiryDate);
+			log(QString("New certificate expires in %1 days").arg(daysUntilExpiry));
+		} else {
+			log("Failed to reload certificate from disk, keeping current certificate");
+		}
+	}
+}
+
+bool Server::reloadCertFromDisk() {
+	// Only reload if we're using Meta certificate (which is loaded from file)
+	if (!bUsingMetaCert) {
+		// This server has a database-stored certificate, cannot reload from disk
+		return false;
+	}
+
+	// Check that Meta singleton exists
+	if (!Meta::mp) {
+		log("Cannot reload certificate: Meta singleton is null");
+		return false;
+	}
+
+	QSslCertificate oldCert;
+	QSslKey oldKey;
+	QList< QSslCertificate > oldInter;
+
+	{
+		// Acquire read lock to copy current certificate state
+		QReadLocker locker(&qrwlVoiceThread);
+		oldCert  = qscCert;
+		oldKey   = qskKey;
+		oldInter = qlIntermediates;
+	}
+
+	// Force Meta to reload its SSL settings from disk (outside any locks)
+	if (!Meta::mp->loadSSLSettings()) {
+		log("Failed to reload SSL settings from murmur.ini");
+		return false;
+	}
+
+	// Get potentially new certificate from Meta
+	QSslCertificate newCert           = Meta::mp->qscCert;
+	QSslKey newKey                    = Meta::mp->qskKey;
+	QList< QSslCertificate > newInter = Meta::mp->qlIntermediates;
+
+	// Validate the new certificate is not null
+	if (newCert.isNull() || newKey.isNull()) {
+		log("Reloaded certificate or key is null");
+		return false;
+	}
+
+	// Validate that the key matches the certificate
+	if (!isKeyForCert(newKey, newCert)) {
+		log("Reloaded certificate does not match private key");
+		return false;
+	}
+
+	// Check certificate is not expired and dates are valid
+	QDateTime now = QDateTime::currentDateTime();
+	if (!newCert.effectiveDate().isValid() || !newCert.expiryDate().isValid()) {
+		log("Reloaded certificate has invalid effective or expiry dates");
+		return false;
+	}
+
+	if (newCert.expiryDate() <= now) {
+		log("Reloaded certificate has already expired");
+		return false;
+	}
+
+	if (newCert.effectiveDate() > now) {
+		log("Reloaded certificate is not yet valid");
+		return false;
+	}
+
+	// Check if certificate actually changed
+	if (newCert == oldCert) {
+		// Certificate hasn't changed on disk
+		return false;
+	}
+
+	// All validation passed - acquire write lock and update certificate state
+	qrwlVoiceThread.lockForWrite();
+	qscCert         = newCert;
+	qskKey          = newKey;
+	qlIntermediates = newInter;
+	qrwlVoiceThread.unlock();
+
+	// Successfully reloaded new certificate
+	return true;
+}
