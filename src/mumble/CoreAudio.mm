@@ -14,7 +14,7 @@
 #include "CoreAudio.h"
 
 // Ignore deprecation warnings for the whole file, for now.
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 
 
 namespace {
@@ -55,8 +55,7 @@ public:
 
 
 CFStringRef QStringToCFString(const QString &str) {
-	return CFStringCreateWithCharacters(kCFAllocatorDefault, reinterpret_cast< const UniChar * >(str.unicode()),
-	                                    str.length());
+	return CFStringCreateWithCharacters(kCFAllocatorDefault, reinterpret_cast<const UniChar *>(str.unicode()), str.length());
 }
 
 QString GetDeviceStringProperty(AudioObjectID device_id, AudioObjectPropertySelector property_selector) {
@@ -717,7 +716,7 @@ bool CoreAudioInput::initializeInputAU(AudioUnit au, AudioStreamBasicDescription
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to set preferred buffer size on device. Querying for device default.");
 		len = sizeof(UInt32);
-		CHECK_RETURN_FALSE(AudioDeviceGetProperty(inputDevId, 0, true, kAudioDevicePropertyBufferFrameSize, &len, &val),
+		CHECK_RETURN_FALSE(AudioObjectGetPropertyData(inputDevId, &propertyAddress, 0, nullptr, &len, &val),
 		                   "CoreAudioInput: Unable to query for device's buffer size.");
 
 		actualBufferLength = (int) val;
