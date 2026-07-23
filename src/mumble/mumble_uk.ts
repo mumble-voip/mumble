@@ -5423,10 +5423,6 @@ The setting only applies for new messages, the already shown ones will retain th
         <translation>Сервер надав сертифікат, який не вдалося перевірити.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Конкретні помилки з цим сертифікатом:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Ви бажаєте прийняти це все одно сертифікат?&lt;br /&gt;(Він також буде збережено, щоб вас більше не запитували про це.)&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Помилка підключення до сервера.</translation>
     </message>
@@ -7233,6 +7229,14 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Added %1 to favorites.</source>
         <translation>Додано %1 до обраного.</translation>
+    </message>
+    <message>
+        <source>This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate — Mumble will remember it for future connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

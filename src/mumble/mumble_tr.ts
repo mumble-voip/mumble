@@ -5421,10 +5421,6 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
         <translation>Sunucu denetimi başarısız olan bir sertifika sundu.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Bu sertifikayla ilgili hatalar şunlardır:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Buna rağmen bu sertifikayı kabul etmek istiyor musunuz?&lt;br /&gt;(Sertifika saklanacaktır ve bu soru tekrar sorulmayacaktır.)&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Sunucuyla bağlantı başarısız oldu.</translation>
     </message>
@@ -7231,6 +7227,14 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <source>Added %1 to favorites.</source>
         <translation>%1 favorilere eklendi.</translation>
+    </message>
+    <message>
+        <source>This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate — Mumble will remember it for future connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
