@@ -52,6 +52,12 @@ add_library(mumble_server_object_lib OBJECT
 	"${SHARED_SOURCE_DIR}/User.h"
 )
 
+# Precompiled header (build-performance optimization based on vcperf analysis).
+# The server object library is console/QtCore-only, so it uses the shared STL + QtCore PCH.
+target_precompile_headers(mumble_server_object_lib PRIVATE
+	"${CMAKE_SOURCE_DIR}/src/mumble_common_pch.h"
+)
+
 if(WIN32)
 	add_executable(mumble-server WIN32 "main.cpp")
 else()

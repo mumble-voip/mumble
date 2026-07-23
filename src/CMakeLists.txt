@@ -157,6 +157,16 @@ target_sources(shared
 		${SHARED_SOURCES}
 )
 
+# Precompiled header (build-performance optimization based on vcperf analysis).
+# The shared static lib is QtCore/STL heavy; reuse the common PCH. The generated
+# protobuf sources are excluded (they carry their own -w flags and heavy includes).
+target_precompile_headers(shared PRIVATE
+	"${CMAKE_SOURCE_DIR}/src/mumble_common_pch.h"
+)
+set_source_files_properties(${BUILT_PROTO_FILES} ${BUILT_UDP_PROTO_FILES}
+	PROPERTIES SKIP_PRECOMPILE_HEADERS ON
+)
+
 target_compile_definitions(shared
 	PUBLIC
 		"MUMBLE_VERSION=${CMAKE_PROJECT_VERSION}"

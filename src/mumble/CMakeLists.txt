@@ -358,6 +358,13 @@ list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
 target_link_libraries(mumble_client_object_lib PUBLIC smallft)
 
+# Precompiled header (build-performance optimization based on vcperf analysis).
+# Common STL + QtCore live in the shared PCH; the client additionally pulls in the
+# widely-included QtWidgets/QtGui base headers.
+target_precompile_headers(mumble_client_object_lib PRIVATE
+	"${CMAKE_CURRENT_SOURCE_DIR}/mumble_client_pch.h"
+)
+
 if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
 	# We don't want the console to appear in release builds.
 	add_executable(mumble WIN32 "main.cpp")
