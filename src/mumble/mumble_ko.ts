@@ -6954,6 +6954,10 @@ the channel&apos;s context menu.</source>
         <translation>이 날짜까지 무상이 있는지 확인합니다</translation>
     </message>
     <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
         <translation>그 소리는 무서웠다. 그것은 당신이 말하는 동안 muted. 당신은 그것을 활성화 하시겠습니까?</translation>
     </message>

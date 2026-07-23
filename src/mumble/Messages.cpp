@@ -189,6 +189,11 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	Global::get().sh->setServerSynchronized(true);
 
+#ifdef USE_WIN_UNIVERSAL_MUTE
+	if (user->cChannel)
+		m_universalMuter->trySetCallName(user->cChannel->qsName.toStdWString());
+#endif
+
 	emit serverSynchronized();
 }
 

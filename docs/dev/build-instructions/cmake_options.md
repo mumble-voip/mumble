@@ -319,6 +319,11 @@ All warnings are treated as errors.
 Build support for WASAPI.
 (Default: ON)
 
+### win-universal-mute
+
+Build support for Windows Universal Mute (Win11 22H2+) with simple fallback for earlier versions.
+(Default: ON)
+
 ### xboxinput
 
 Build support for global shortcuts from Xbox controllers via the XInput DLL.

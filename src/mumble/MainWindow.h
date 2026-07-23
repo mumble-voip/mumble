@@ -24,6 +24,10 @@
 #include <optional>
 #include <stack>
 
+#ifdef USE_WIN_UNIVERSAL_MUTE
+#	include "UniversalMute.h"
+#endif
+
 #include "ui_MainWindow.h"
 
 #define MB_QEVENT (QEvent::User + 939)
@@ -205,6 +209,12 @@ protected:
 
 	std::stack< unsigned int > m_previousChannels;
 	std::optional< unsigned int > m_movedBackFromChannel;
+
+#ifdef USE_WIN_UNIVERSAL_MUTE
+	// A std::optional simply because we initialize this in setupGui(), not the
+	// constructor.
+	std::optional< UniversalMuter > m_universalMuter;
+#endif
 
 	static constexpr int stateVersion();
 
