@@ -83,3 +83,15 @@ message Ping {
 	// The maximum bandwidth each user is allowed to use for sending audio to the server
 	uint32 max_bandwidth_per_user = 6;
 }
+
+/**
+ * Authentication message for telling the server that the specified `session_id` wants to authenticate for UDP, the server
+ * will echo back the same packet if it managed to decrypt the packet, the client can then start sending UDP voice packets.
+ */
+message Authenticate {
+	// The session the client is trying to authenticate for.
+	uint32 session_id = 1;
+
+	// An encrypted audio buffer that the server will have to decrypt to verify that the specified session is who they say they are.
+	Audio buffer = 2;
+}
