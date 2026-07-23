@@ -63,6 +63,7 @@ enum Type {
 	ListenerAttenuationUp,
 	ListenerAttenuationDown,
 	AdaptivePush,
+	ToggleFullScreen,
 };
 
 // A few assertions meant to catch, if anyone inserts a new value in-between instead of appending
