@@ -12,6 +12,8 @@ set(MUMBLE_ICNS "${CMAKE_SOURCE_DIR}/icons/mumble.icns")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble.rc.in" "${MUMBLE_RC}")
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mumble.plist.in" "${MUMBLE_PLIST}")
 
+configure_file("${CMAKE_SOURCE_DIR}/themes/Default/overlay.mumblelay.in" "${CMAKE_SOURCE_DIR}/themes/Default/overlay.mumblelay")
+
 include(qt-utils)
 include(install-library)
 
