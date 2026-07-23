@@ -11,6 +11,7 @@
 #include "AudioOutputSample.h"
 #include "AudioOutputToken.h"
 #include "NetworkConfig.h"
+#include "Settings.h"
 #include "Utils.h"
 #include "Global.h"
 
@@ -127,10 +128,24 @@ void AudioInputDialog::load(const Settings &r) {
 	loadSlider(qsDoublePush, static_cast< int >(static_cast< float >(r.uiDoublePush) / 1000.f + 0.5f));
 	loadSlider(qsPTTHold, static_cast< int >(r.pttHold));
 
-	if (r.vsVAD == Settings::Amplitude)
-		qrbAmplitude->setChecked(true);
-	else
-		qrbSNR->setChecked(true);
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	loadSlider(qsWebRTCAggressiveness, r.fVADWebRTCAggressiveness);
+	qrbWebRTC->show();
+#endif
+
+	switch (r.vsVAD) {
+		case Settings::Amplitude:
+			qrbAmplitude->setChecked(true);
+			break;
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+		case Settings::WebRTC:
+			qrbWebRTC->setChecked(true);
+			break;
+#endif
+		default:
+			qrbSNR->setChecked(true);
+			break;
+	}
 
 	loadCheckBox(qcbPushWindow, r.bShowPTTButtonWindow);
 	loadCheckBox(qcbEnableCuePTT, r.audioCueEnabledPTT);
@@ -241,11 +256,22 @@ void AudioInputDialog::save() const {
 		s.noiseCancelMode = Settings::NoiseCancelSpeex;
 	}
 
-	s.iMinLoudness     = 18000 - qsAmp->value() + 2000;
-	s.iVoiceHold       = qsTransmitHold->value();
-	s.fVADmin          = static_cast< float >(qsTransmitMin->value()) / 32767.0f;
-	s.fVADmax          = static_cast< float >(qsTransmitMax->value()) / 32767.0f;
-	s.vsVAD            = qrbSNR->isChecked() ? Settings::SignalToNoise : Settings::Amplitude;
+	s.iMinLoudness = 18000 - qsAmp->value() + 2000;
+	s.iVoiceHold   = qsTransmitHold->value();
+	s.fVADmin      = static_cast< float >(qsTransmitMin->value()) / 32767.0f;
+	s.fVADmax      = static_cast< float >(qsTransmitMax->value()) / 32767.0f;
+
+	s.fVADWebRTCAggressiveness = qsWebRTCAggressiveness->value();
+
+	if (qrbAmplitude->isChecked())
+		s.vsVAD = Settings::Amplitude;
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	else if (qrbWebRTC->isChecked())
+		s.vsVAD = Settings::WebRTC;
+#endif
+	else
+		s.vsVAD = Settings::SignalToNoise;
+
 	s.iFramesPerPacket = qsFrames->value();
 	s.iFramesPerPacket = (s.iFramesPerPacket == 1) ? 1 : ((s.iFramesPerPacket - 1) * 2);
 	s.uiDoublePush     = static_cast< unsigned int >(qsDoublePush->value() * 1000);
@@ -352,6 +378,20 @@ void AudioInputDialog::on_qsTransmitMin_valueChanged() {
 
 void AudioInputDialog::on_qsTransmitMax_valueChanged() {
 	Mumble::Accessibility::setSliderSemanticValue(qsTransmitMax, Mumble::Accessibility::SliderMode::READ_PERCENT, "%");
+}
+
+void AudioInputDialog::updateVad() {
+	Settings::VADSource vad = Settings::SignalToNoise;
+
+	if (qrbAmplitude->isChecked())
+		vad = Settings::Amplitude;
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	else if (qrbWebRTC->isChecked())
+		vad = Settings::WebRTC;
+#endif
+
+	AudioInputPtr ai = Global::get().ai;
+	ai->updateVad(vad);
 }
 
 void AudioInputDialog::updateBitrate() {
@@ -621,6 +661,26 @@ void AudioInputDialog::on_qrbNoiseSupSpeex_toggled(bool checked) {
 void AudioInputDialog::on_qrbNoiseSupBoth_toggled(bool checked) {
 	showSpeexNoiseSuppressionSlider(checked);
 }
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+void AudioInputDialog::on_qrbWebRTC_toggled(bool checked) {
+	updateVad();
+
+	qliWebRTCAggressiveness->setVisible(checked);
+	qsWebRTCAggressiveness->setVisible(checked);
+
+	qliTransmitMax->setVisible(!checked);
+	qsTransmitMax->setVisible(!checked);
+	qliTransmitMin->setVisible(!checked);
+	qsTransmitMin->setVisible(!checked);
+}
+
+void AudioInputDialog::on_qsWebRTCAggressiveness_valueChanged(int aggressiveness) {
+	AudioInputPtr ai              = Global::get().ai;
+	ai->updateWebrtcAggressiveness(static_cast< webrtc::Vad::Aggressiveness >(aggressiveness));
+	updateVad();
+}
+#endif
 
 void AudioOutputDialog::enablePulseAudioAttenuationOptionsFor(const QString &outputName) {
 	if (outputName == QLatin1String("PulseAudio")) {

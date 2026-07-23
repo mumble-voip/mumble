@@ -190,7 +190,7 @@ struct OverlaySettings {
 
 struct Settings {
 	enum AudioTransmit { Continuous, VAD, PushToTalk };
-	enum VADSource { Amplitude, SignalToNoise };
+	enum VADSource { Amplitude, SignalToNoise, WebRTC };
 	enum LoopMode { None, Local, Server };
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };
 	enum ChannelDrag { Ask, DoNothing, Move };
@@ -280,6 +280,7 @@ struct Settings {
 	VADSource vsVAD                     = Amplitude;
 	float fVADmin                       = 0.80f;
 	float fVADmax                       = 0.98f;
+	int fVADWebRTCAggressiveness        = 0;
 	int iFramesPerPacket                = 2;
 	QString qsAudioInput                = {};
 	QString qsAudioOutput               = {};

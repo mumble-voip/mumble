@@ -21,6 +21,7 @@ private:
 	Q_DISABLE_COPY(AudioWizard)
 
 	void updateEchoCheckbox(AudioInputRegistrar *air);
+	void updateVad();
 
 	/// Which echo cancellation is usable depends on the audio backend and the device combination.
 	/// This function will iterate through the list of available echo cancellation in the audio backend and check with
@@ -67,6 +68,10 @@ public slots:
 	void on_qsVAD_valueChanged(int);
 	void on_qrAmplitude_clicked(bool);
 	void on_qrSNR_clicked(bool);
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	void on_qrWebRTC_toggled(bool);
+	void on_qsWebRTCAggressiveness_valueChanged(int);
+#endif
 	void on_qrPTT_clicked(bool);
 	void on_qpbPTT_clicked();
 	void on_qcbEcho_clicked(bool);
