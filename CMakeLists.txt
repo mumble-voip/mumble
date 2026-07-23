@@ -37,7 +37,26 @@ if(NOT DEFINED CMAKE_CXX_STANDARD OR CMAKE_CXX_STANDARD LESS 20)
 	set(CMAKE_CXX_STANDARD 20)
 endif()
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+if(APPLE)
+    # Determine target architecture for deployment target selection
+    # Priority: explicit CMAKE_OSX_ARCHITECTURES > CMAKE_SYSTEM_PROCESSOR > host processor
+    if(CMAKE_OSX_ARCHITECTURES)
+        set(_target_arch "${CMAKE_OSX_ARCHITECTURES}")
+    elseif(CMAKE_SYSTEM_PROCESSOR)
+        set(_target_arch "${CMAKE_SYSTEM_PROCESSOR}")
+    else()
+        set(_target_arch "${CMAKE_HOST_SYSTEM_PROCESSOR}")
+    endif()
+
+    # macOS 11.0 is the minimum for ARM64 (Apple Silicon was introduced with Big Sur)
+    # macOS 10.15 remains the target for Intel builds
+    if(_target_arch STREQUAL "arm64")
+        set(CMAKE_OSX_DEPLOYMENT_TARGET 11.0)
+    else()
+        set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+    endif()
+    unset(_target_arch)
+endif()
 
 
 include(pkg-utils)
