@@ -4204,6 +4204,10 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Prywatna wiadomość tekstowa</translation>
     </message>
     <message>
+        <source>Whisper hold changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>the server</source>
         <translation>serwer</translation>
     </message>
@@ -6954,6 +6958,37 @@ kanały mają być filtrowane.</translation>
     <message>
         <source>This will check if mumble is up to date</source>
         <translation>Sprawdza, czy program Mumble jest aktualny</translation>
+    </message>
+    <message>
+        <source>Whisper Hold</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hold voice activation or continuous transmission on the configured Whisper/Shout target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This latches or unlatches the configured Whisper/Shout target while using voice activation or continuous transmission. Pressing a different Whisper Hold shortcut switches transmission to that target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared: Push-to-Talk enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper held to: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared: Shortcuts changed.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
