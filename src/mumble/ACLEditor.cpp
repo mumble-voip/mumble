@@ -120,6 +120,10 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 				&& (perm == ChanACL::ResetUserContent || perm == ChanACL::Listen)) {
 				continue;
 			}
+			else if (Global::get().sh->m_version < Version::fromComponents(1, 7, 0)
+				&& (perm == ChanACL::PrivateMessage)) {
+				continue;
+			}
 
 			QCheckBox *qcb;
 			l = new QLabel(name, qgbACLpermissions);

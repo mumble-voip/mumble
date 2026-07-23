@@ -3025,6 +3025,14 @@ Weet je zeker dat je jouw certificaat wilt vervangen?
         <source>Reset User Content</source>
         <translation>Gebruikersinhoud wissen</translation>
     </message>
+    <message>
+        <source>This represents the permission to write direct text messages to other users on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatbarTextEdit</name>

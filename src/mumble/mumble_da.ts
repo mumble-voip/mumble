@@ -3025,6 +3025,14 @@ Er du sikker på du vil erstatte dit certifikat?
         <source>Reset User Content</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This represents the permission to write direct text messages to other users on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatbarTextEdit</name>
