@@ -2694,8 +2694,9 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		if (userID < 0 && certhash.isEmpty()) {
 			// The only alternative to password-based authentication is the one based on certificates.
 			// If none was provided and password authentication did not apply, then we report that
-			// we don't know this user.
-			return UNKNOWN_USER;
+			// we don't know this user - UNLESS the requested name belongs to a registered account.
+			// In that case we must fail as AUTHENTICATION_FAILED to prevent impersonating that user.
+			return usedReservedName ? AUTHENTICATION_FAILED : UNKNOWN_USER;
 		}
 
 		if (userID < 0) {
