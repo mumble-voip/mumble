@@ -46,6 +46,9 @@ public slots:
 	void on_qcbAbbreviateChannelNames_stateChanged(int state);
 	void on_qcbUsersAlwaysVisible_stateChanged(int state);
 	void qbBackgroundColor_clicked();
+	void on_qcbTalkingUITransparent_stateChanged(int state);
+	void on_qsbTransparencyLevel_valueChanged(int value);
+
 
 private:
 	/// Reload themes combobox and select given configuredStyle in it
