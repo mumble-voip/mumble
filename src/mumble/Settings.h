@@ -350,6 +350,8 @@ struct Settings {
 	float fAudioMaxDistance       = 15.0f;
 	float fAudioMaxDistVolume     = 0.0f;
 	float fAudioBloom             = 0.5f;
+	bool bHrtf                    = false;
+	QString qsHrtfFile;
 	/// Contains the settings for each individual plugin. The key in this map is the Hex-represented SHA-1
 	/// hash of the plugin's UTF-8 encoded absolute file-path on the hard-drive.
 	QHash< QString, PluginSetting > qhPluginSettings = {};
