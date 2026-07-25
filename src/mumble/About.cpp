@@ -39,15 +39,28 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QTextBrowser *qtb3rdPartyLicense = new QTextBrowser(qtwTab);
 	qtb3rdPartyLicense->setReadOnly(true);
 	qtb3rdPartyLicense->setOpenExternalLinks(true);
-	qtb3rdPartyLicense->setAccessibleName(tr("Third-party license agreements"));
+	qtb3rdPartyLicense->setAccessibleName(tr("Third-party Dependencies"));
 
-	QList< LicenseInfo > thirdPartyLicenses = License::thirdPartyLicenses();
-	for (const LicenseInfo &li : thirdPartyLicenses) {
-		qtb3rdPartyLicense->append(QString::fromLatin1("<h3>%1 (<a href=\"%2\">%2</a>)</h3><pre>%3</pre>")
-									   .arg(li.name.toHtmlEscaped())
-									   .arg(li.url.toHtmlEscaped())
-									   .arg(li.license.toHtmlEscaped()));
+	QString thirdParty;
+
+	thirdParty.append("<p><i>"
+					  + tr("Depending on the build configuration, your version of Mumble might not depend on all of "
+						   "the listed entries")
+					  + "</i></p>");
+
+	thirdParty.append("<ul>");
+
+	for (const LicenseInfo &li : License::thirdPartyLicenses()) {
+		thirdParty.append(
+			QString::fromLatin1(
+				"<li>%1 (<a href=\"https://spdx.org/licenses/%2.html\">%2</a>) - <a href=\"%3\">%3</a></li>")
+				.arg(li.name.toHtmlEscaped())
+				.arg(li.licenseId.toHtmlEscaped())
+				.arg(li.url.toHtmlEscaped()));
 	}
+	thirdParty.append("</ul>");
+
+	qtb3rdPartyLicense->setHtml(thirdParty);
 
 	qtb3rdPartyLicense->moveCursor(QTextCursor::Start);
 

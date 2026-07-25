@@ -2,10 +2,12 @@
 	"dependencies": [
 		{
 			"name": "ALSA",
+			"website": "https://alsa-project.org",
 			"license": "LGPL-2.1-only"
 		},
 		{
 			"name": "AVAHI",
+			"website": "https://avahi.org",
 			"components": [
 				"avahi-compat-libdns_sd"
 			],
@@ -13,6 +15,7 @@
 		},
 		{
 			"name": "Boost",
+			"website": "https://www.boost.org",
 			"components": [
 				"boost_headers",
 				"boost_date_time"
@@ -28,34 +31,42 @@
 		},
 		{
 			"name": "Expat",
-			"license": "MIT"
+			"license": "MIT",
+			"source_code": "https://github.com/libexpat/libexpat.git"
 		},
 		{
 			"name": "fmt",
+			"source_code": "https://github.com/fmtlib/fmt.git",
 			"license": "MIT"
 		},
 		{
 			"name": "Fontconfig",
+			"website": "https://www.freedesktop.org/wiki/Software/fontconfig",
 			"license": "MIT"
 		},
 		{
 			"name": "Freetype",
+			"website": "https://freetype.org",
 			"license": "FTL"
 		},
 		{
 			"name": "Git",
+			"website": "https://git-scm.com",
 			"license": "GPL-2.0-only"
 		},
 		{
 			"name": "Ice",
+			"website": "https://zeroc.com/ice",
 			"license": "GPL-2.0-only"
 		},
 		{
 			"name": "MariaDB",
+			"website": "https://mariadb.org",
 			"license": "LGPL-2.1-or-later"
 		},
 		{
 			"name": "MySQL",
+			"website": "https://www.mysql.com",
 			"license": "GPL-1.0+"
 		},
 		{
@@ -69,24 +80,29 @@
 		},
 		{
 			"name": "OpenGL",
+			"website": "https://www.opengl.org",
 			"license": "SGI-OpenGL"
 		},
 		{
 			"name": "OpenSSL",
+			"website": "https://www.openssl.org",
 			"license": "Apache-2.0"
 		},
 		{
 			"name": "Opus",
+			"website": "https://opus-codec.org",
 			"license": "BSD-3-Clause",
 			"source_code": "https://github.com/xiph/opus.git",
 			"cmake_target": "Opus::opus"
 		},
 		{
 			"name": "PCRE",
+			"website": "https://www.pcre.org",
 			"license": "BSD-3-Clause"
 		},
 		{
 			"name": "Poco",
+			"website": "https://pocoproject.org",
 			"components": [
 				"PocoFoundation",
 				"PocoJSON",
@@ -98,18 +114,22 @@
 		},
 		{
 			"name": "PostgreSQL",
+			"website": "https://www.postgresql.org",
 			"license": "PostgreSQL"
 		},
 		{
 			"name": "Protobuf",
+			"website": "https://protobuf.dev",
 			"license": "BSD-3-Clause"
 		},
 		{
 			"name": "Python",
+			"website": "https://www.python.org",
 			"license": "PSF-2.0"
 		},
 		{
 			"name": "Qt6",
+			"website": "https://www.qt.io",
 			"components": [
 				"Qt6Concurrent",
 				"Qt6Core",
@@ -157,7 +177,8 @@
 			"components": [
 				"speechd"
 			],
-			"license": "LGPL-2.1-or-later"
+			"license": "LGPL-2.1-or-later",
+			"source_code": "https://github.com/brailcom/speechd"
 		},
 		{
 			"name": "SPSCQueue",
@@ -168,19 +189,23 @@
 		},
 		{
 			"name": "SQLite3",
+			"website": "https://sqlite.org",
 			"license": "blessing"
 		},
 		{
 			"name": "Vulkan",
+			"website": "https://www.vulkan.org",
 			"license": "Apache-2.0"
 		},
 		{
 			"name": "X11",
+			"website": "https://www.x.org",
 			"license": "X11"
 		},
 		{
 			"name": "ZLib",
-			"license": "Zlib"
+			"license": "Zlib",
+			"source_code": "https://github.com/madler/zlib"
 		}
 	]
 }
