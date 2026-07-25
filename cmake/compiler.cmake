@@ -38,6 +38,10 @@ get_compiler_flags(
 
 function(target_set_mumble_compiler_flags TARGET)
 	target_compile_options(${TARGET} PRIVATE ${MUMBLE_COMPILER_FLAGS})
+	if (MSVC)
+		# Disable warning about padding having been added due to alignment specifier
+		target_compile_options(${TARGET} PRIVATE "/wd4324")
+	endif()
 endfunction()
 
 if(MSVC)

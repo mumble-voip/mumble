@@ -619,7 +619,7 @@ if(WIN32)
 		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
-	find_package(SPSCQueue REQUIRED)
+	find_package(readerwriterqueue REQUIRED)
 	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the xinputcheck code may emit
@@ -627,7 +627,7 @@ if(WIN32)
 
 	target_link_libraries(mumble_client_object_lib
 		PUBLIC
-			SPSCQueue
+			readerwriterqueue::readerwriterqueue
 			xinputcheck
 	)
 
