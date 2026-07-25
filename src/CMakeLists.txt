@@ -136,14 +136,18 @@ list(APPEND SHARED_HEADERS "FFDHETable.h")
 add_custom_command(
 	OUTPUT "licenses.h"
 	COMMAND Python::Interpreter
-	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_license_header.py" --output "licenses.h"
+	ARGS "${PROJECT_SOURCE_DIR}/scripts/generate_license_header.py"
+		--dep-file "${PROJECT_SOURCE_DIR}/dependencies.json"
+		--mumble-license-file "${PROJECT_SOURCE_DIR}/LICENSE"
+		--output "${CMAKE_CURRENT_BINARY_DIR}/licenses.h"
 	COMMENT "Generating licenses.h"
+	DEPENDS "${PROJECT_SOURCE_DIR}/scripts/generate_license_header.py"
+		"${PROJECT_SOURCE_DIR}/LICENSE" "${PROJECT_SOURCE_DIR}/dependencies.json"
 )
 add_custom_target(generate_license_header
 	DEPENDS "licenses.h"
 )
 add_dependencies(shared generate_license_header)
-target_include_directories(shared PRIVATE "${CMAKE_BINARY_DIR}")
 
 target_sources(shared
 	PRIVATE
