@@ -3820,7 +3820,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>This removes the selected entry from the &quot;Configured Shortcut&quot; tree above</source>
-        <translation type="unfinished"></translation>
+        <translation>Isso remove a entrada selecionada da árvore &quot;Atalho Configurado&quot; acima</translation>
     </message>
 </context>
 <context>
@@ -3851,7 +3851,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>List of shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de atalhos</translation>
     </message>
     <message>
         <source>Toggling this button will make the application listen for a shortcut. Once the shortcut is entered, the application stops listening for a shortcut. Multiple shortcuts can be assigned to the current action. Navigate to the shortcut list above to review the shortcuts currently assigned to the current action.</source>
@@ -3887,7 +3887,7 @@ Sem essa opção ativada, usar os atalhos globais do Mumble em aplicações priv
     </message>
     <message>
         <source>Shortcut action</source>
-        <translation type="unfinished"></translation>
+        <translation>Ação de atalho</translation>
     </message>
     <message>
         <source>Shortcut data</source>
