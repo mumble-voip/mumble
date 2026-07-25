@@ -4593,6 +4593,18 @@ Whether an image is displayed on its own line only changes for new messages.</so
         <source>Scale images to fit the chat log</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The maximum height an image may occupy in the chat log, as a percentage of the log&apos;s visible height. Images are always scaled to fit the log&apos;s width; this additionally keeps a tall image from filling the whole log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum image height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No limit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>
