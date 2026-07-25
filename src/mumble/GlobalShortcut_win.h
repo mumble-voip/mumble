@@ -18,7 +18,7 @@
 #include <string>
 #include <unordered_map>
 
-#include <rigtorp/SPSCQueue.h>
+#include <readerwriterqueue/readerwriterqueue.h>
 
 #ifdef USE_GKEY
 class GKeyLibrary;
@@ -118,7 +118,7 @@ protected:
 
 	std::condition_variable m_condVar;
 
-	rigtorp::SPSCQueue< std::unique_ptr< MsgRaw > > m_msgQueue;
+	moodycamel::ReaderWriterQueue< std::unique_ptr< MsgRaw > > m_msgQueue;
 
 	typedef std::unordered_map< HANDLE, Device > DeviceMap;
 	DeviceMap m_devices;

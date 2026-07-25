@@ -6,14 +6,6 @@
 // For detailed info about RAWKEYBOARD handling:
 // https://blog.molecular-matters.com/2011/09/05/properly-handling-keyboard-input
 
-#ifdef _MSVC_LANG
-#	pragma warning(push)
-// SPSCQueue does some funky alignment tricks which trigger the C4316
-// warning about potential misalignment on the heap.
-// We just have to trust the SPSCQueue implementation here.
-#	pragma warning(disable : 4316)
-#endif
-
 #include "GlobalShortcut_win.h"
 
 #include "Global.h"
@@ -403,7 +395,7 @@ void GlobalShortcutWin::run() {
 			remap();
 		}
 
-		while (const std::unique_ptr< MsgRaw > *item = m_msgQueue.front()) {
+		while (const std::unique_ptr< MsgRaw > *item = m_msgQueue.peek()) {
 			const std::unique_ptr< MsgRaw > &msg = *item;
 
 			switch (msg->type()) {
@@ -435,7 +427,7 @@ bool GlobalShortcutWin::isRateLimited(HANDLE device) {
 
 		m_throttleCounter[device] = 0;
 
-		if (m_msgQueue.size() < GlobalShortcutWin::QUEUE_CAPACITY / 2) {
+		if (m_msgQueue.size_approx() < GlobalShortcutWin::QUEUE_CAPACITY / 2) {
 			// Queue is half empty, relax threshold
 			m_throttleThreshold[device]--;
 			if (m_throttleThreshold[device] == 0) {
@@ -935,10 +927,6 @@ GlobalShortcutWin::ButtonInfo GlobalShortcutWin::buttonInfo(const QVariant &butt
 
 	return info;
 }
-
-#ifdef _MSVC_LANG
-#	pragma warning(pop)
-#endif
 
 std::string GlobalShortcutWin::utf16To8(const std::wstring &wstr) {
 	if (wstr.empty()) {

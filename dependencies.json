@@ -153,6 +153,13 @@
 			"license": "LGPL-3.0-only"
 		},
 		{
+			"name": "readerwriterqueue",
+			"license": "BSD-2-Clause",
+			"source_code": "https://github.com/cameron314/readerwriterqueue.git",
+			"tracked_version": "v1.0.7",
+			"cmake_target": "readerwriterqueue::readerwriterqueue"
+		},
+		{
 			"name": "Sndfile",
 			"license": "LGPL-2.1-or-later",
 			"source_code": "https://github.com/libsndfile/libsndfile.git",
@@ -179,13 +186,6 @@
 			],
 			"license": "LGPL-2.1-or-later",
 			"source_code": "https://github.com/brailcom/speechd"
-		},
-		{
-			"name": "SPSCQueue",
-			"license": "MIT",
-			"source_code": "https://github.com/mumble-voip/SPSCQueue.git",
-			"tracked_version": "e0defee95d54785f767fd99a58fce391c2d04b81",
-			"cmake_target": "SPSCQueue"
 		},
 		{
 			"name": "SQLite3",
