@@ -29,11 +29,6 @@
 static constexpr int ImageNaturalWidthProperty  = QTextFormat::UserProperty + 1;
 static constexpr int ImageNaturalHeightProperty = QTextFormat::UserProperty + 2;
 
-/// The fraction of the chat log viewport height that a single image may
-/// occupy. Keeps a tall image from taking over the entire log; the full-size
-/// image is still available via "Open Image".
-static constexpr qreal MaxImageHeightFraction = 0.6;
-
 /// Returns the size at which the image would be displayed if it were not
 /// scaled to fit the viewport: the size from the message's explicit
 /// width/height attributes if present, otherwise the image's own size.
@@ -141,11 +136,15 @@ void LogTextBrowser::refitImages(int fromPosition, int toPosition, bool updateRe
 	if (availableWidth < 1) {
 		return;
 	}
-	const int availableHeight = qMax(1, static_cast< int >(viewport()->height() * MaxImageHeightFraction));
-
 	// With scaling disabled, the refit restores previously scaled images to
 	// their natural displayed size and their original display resource.
 	const bool scaleToFit = Global::get().s.bChatImageScaleToFit;
+
+	// A limit of zero means that the height of an image is not limited, in
+	// which case it is only bounded by the width of the log.
+	const int maxHeightPercent = qBound(0, Global::get().s.iChatImageMaxHeightPercent, 100);
+	const bool limitHeight     = maxHeightPercent > 0;
+	const int availableHeight  = qMax(1, viewport()->height() * maxHeightPercent / 100);
 
 	const qreal pixelRatio = viewport()->devicePixelRatio();
 
@@ -179,10 +178,18 @@ void LogTextBrowser::refitImages(int fromPosition, int toPosition, bool updateRe
 				continue;
 			}
 
-			QSizeF target = natural;
-			if (scaleToFit && (natural.width() > availableWidth || natural.height() > availableHeight)) {
-				target = natural.scaled(QSizeF(availableWidth, availableHeight), Qt::KeepAspectRatio);
+			// Compute a factor that only ever shrinks the image, so that an
+			// unlimited height cannot produce an unbounded display size.
+			qreal scale = 1;
+			if (scaleToFit) {
+				if (natural.width() > availableWidth) {
+					scale = availableWidth / natural.width();
+				}
+				if (limitHeight && natural.height() * scale > availableHeight) {
+					scale = availableHeight / natural.height();
+				}
 			}
+			const QSizeF target = scale < 1 ? natural * scale : natural;
 
 			if (updateResources && !original.isNull()) {
 				// Regenerate the display resource whenever its pixel size does
@@ -192,7 +199,11 @@ void LogTextBrowser::refitImages(int fromPosition, int toPosition, bool updateRe
 				// disabled, the wanted resource is the original image itself:
 				// in particular, a huge width/height attribute in a message
 				// must not lead to generating a huge upscaled resource.
-				const QSize pixelSize = scaleToFit ? (target * pixelRatio).toSize() : original.size();
+				// Never generate a resource that is larger than the image
+				// itself: upscaling it here would gain no detail, but could
+				// allocate an arbitrary amount of memory for an image whose
+				// message requested a huge display size.
+				const QSize pixelSize = (target * pixelRatio).toSize().boundedTo(original.size());
 				const QSize resourceSize =
 					doc->resource(QTextDocument::ImageResource, QUrl(format.name())).value< QImage >().size();
 				if (pixelSize != resourceSize) {

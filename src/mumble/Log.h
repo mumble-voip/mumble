@@ -63,6 +63,8 @@ public slots:
 	void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem *, int);
 	void browseForAudioFile();
 
+	void on_qcbChatImageScaleToFit_toggled(bool checked);
+
 	void on_qsNotificationVolume_valueChanged(int value);
 	void on_qsCueVolume_valueChanged(int value);
 	void on_qsTTSVolume_valueChanged(int value);

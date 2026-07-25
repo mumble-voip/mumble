@@ -375,10 +375,11 @@ struct Settings {
 	bool bEnableUIAccess          = true;
 	QList< Shortcut > qlShortcuts = {};
 
-	int iMaxLogBlocks         = 0;
-	bool bLog24HourClock      = true;
-	int iChatMessageMargins   = 3;
-	bool bChatImageScaleToFit = true;
+	int iMaxLogBlocks              = 0;
+	bool bLog24HourClock           = true;
+	int iChatMessageMargins        = 3;
+	bool bChatImageScaleToFit      = true;
+	int iChatImageMaxHeightPercent = 60;
 
 	QPoint qpTalkingUI_Position              = UNSPECIFIED_POSITION;
 	bool bShowTalkingUI                      = false;

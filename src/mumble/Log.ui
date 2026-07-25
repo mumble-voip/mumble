@@ -481,6 +481,47 @@ Whether an image is displayed on its own line only changes for new messages.</st
         </property>
        </widget>
       </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="qlChatImageMaxHeight">
+        <property name="toolTip">
+         <string>The maximum height an image may occupy in the chat log, as a percentage of the log's visible height. Images are always scaled to fit the log's width; this additionally keeps a tall image from filling the whole log.</string>
+        </property>
+        <property name="text">
+         <string>Maximum image height</string>
+        </property>
+        <property name="buddy">
+         <cstring>qsbChatImageMaxHeight</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QSpinBox" name="qsbChatImageMaxHeight">
+        <property name="toolTip">
+         <string>The maximum height an image may occupy in the chat log, as a percentage of the log's visible height. Images are always scaled to fit the log's width; this additionally keeps a tall image from filling the whole log.</string>
+        </property>
+        <property name="accessibleName">
+         <string>Maximum image height</string>
+        </property>
+        <property name="specialValueText">
+         <string>No limit</string>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string> %</string>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="singleStep">
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -577,6 +618,7 @@ Whether an image is displayed on its own line only changes for new messages.</st
   <tabstop>qcb24HourClock</tabstop>
   <tabstop>qsbChatMessageMargins</tabstop>
   <tabstop>qcbChatImageScaleToFit</tabstop>
+  <tabstop>qsbChatImageMaxHeight</tabstop>
   <tabstop>qcbWhisperFriends</tabstop>
   <tabstop>qsbMessageLimitUsers</tabstop>
  </tabstops>

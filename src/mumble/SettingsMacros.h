@@ -180,6 +180,7 @@
 	PROCESS(ui, USE_24H_CLOCK_KEY, bLog24HourClock)                              \
 	PROCESS(ui, LOG_MESSAGE_MARGINS_KEY, iChatMessageMargins)                    \
 	PROCESS(ui, CHAT_IMAGE_SCALE_TO_FIT_KEY, bChatImageScaleToFit)               \
+	PROCESS(ui, CHAT_IMAGE_MAX_HEIGHT_KEY, iChatImageMaxHeightPercent)           \
 	PROCESS(ui, DISABLE_PUBLIC_SERVER_LIST_KEY, bDisablePublicList)
 
 

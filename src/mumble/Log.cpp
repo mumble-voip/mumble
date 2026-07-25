@@ -249,6 +249,8 @@ void LogConfig::load(const Settings &r) {
 	qcb24HourClock->setChecked(r.bLog24HourClock);
 	qsbChatMessageMargins->setValue(r.iChatMessageMargins);
 	qcbChatImageScaleToFit->setChecked(r.bChatImageScaleToFit);
+	qsbChatImageMaxHeight->setValue(r.iChatImageMaxHeightPercent);
+	on_qcbChatImageScaleToFit_toggled(r.bChatImageScaleToFit);
 
 #ifdef USE_NO_TTS
 	qtwMessages->hideColumn(ColTTS);
@@ -296,10 +298,11 @@ void LogConfig::save() const {
 		s.qmMessages[mt]      = static_cast< unsigned int >(v);
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
-	s.iMaxLogBlocks        = qsbMaxBlocks->value();
-	s.bLog24HourClock      = qcb24HourClock->isChecked();
-	s.iChatMessageMargins  = qsbChatMessageMargins->value();
-	s.bChatImageScaleToFit = qcbChatImageScaleToFit->isChecked();
+	s.iMaxLogBlocks              = qsbMaxBlocks->value();
+	s.bLog24HourClock            = qcb24HourClock->isChecked();
+	s.iChatMessageMargins        = qsbChatMessageMargins->value();
+	s.bChatImageScaleToFit       = qcbChatImageScaleToFit->isChecked();
+	s.iChatImageMaxHeightPercent = qsbChatImageMaxHeight->value();
 
 #ifndef USE_NO_TTS
 	s.iTTSVolume          = qsTTSVolume->value();
@@ -323,6 +326,12 @@ void LogConfig::accept() const {
 	// Apply a change of bChatImageScaleToFit to the already displayed images:
 	// with the setting disabled, the refit restores their natural size.
 	Global::get().mw->qteLog->refitImagesKeepingScrollPosition();
+}
+
+void LogConfig::on_qcbChatImageScaleToFit_toggled(bool checked) {
+	// The image height limit only has an effect while images are scaled.
+	qlChatImageMaxHeight->setEnabled(checked);
+	qsbChatImageMaxHeight->setEnabled(checked);
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem *i, int column) {
