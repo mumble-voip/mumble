@@ -43,18 +43,24 @@ target_include_directories(rnnoise
 		"${RNNOISE_SRC_DIR}/src"
 )
 
-file(READ "${RNNOISE_SRC_DIR}/model_version" rnnoise_model_hash)
-string(STRIP ${rnnoise_model_hash} rnnoise_model_hash)
-string(CONCAT rnnoise_model_url "${RNNOISE_MODEL_URL}" "${rnnoise_model_hash}" ".tar.gz")
+set(RNNOISE_MODEL_DIR "")
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/rnnoise-model")
+  file(READ "${RNNOISE_SRC_DIR}/model_version" rnnoise_model_hash)
+  string(STRIP ${rnnoise_model_hash} rnnoise_model_hash)
+  string(CONCAT rnnoise_model_url "${RNNOISE_MODEL_URL}" "${rnnoise_model_hash}" ".tar.gz")
 
-FetchContent_Declare(
-  rnnoise_model
-  URL      "${rnnoise_model_url}"
-  URL_HASH SHA256=${rnnoise_model_hash}
-  DOWNLOAD_EXTRACT_TIMESTAMP 1
-)
+  FetchContent_Declare(
+      rnnoise_model
+	  URL      "${rnnoise_model_url}"
+	  URL_HASH SHA256=${rnnoise_model_hash}
+	  DOWNLOAD_EXTRACT_TIMESTAMP 1
+  )
 
-FetchContent_MakeAvailable(rnnoise_model)
+  FetchContent_MakeAvailable(rnnoise_model)
+  set(RNNOISE_MODEL_DIR "${rnnoise_model_SOURCE_DIR}")
+else()
+  set(RNNOISE_MODEL_DIR "${PROJECT_SOURCE_DIR}/rnnoise-model")
+endif()
 
 set(RNNOISE_GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
 file(MAKE_DIRECTORY "${RNNOISE_GENERATED_DIR}")
@@ -68,10 +74,10 @@ add_custom_command(
 
     WORKING_DIRECTORY "${RNNOISE_SRC_DIR}"
     COMMAND "${CMAKE_COMMAND}" -E copy
-        "${rnnoise_model_SOURCE_DIR}/src/rnnoise_data.c"
-        "${rnnoise_model_SOURCE_DIR}/src/rnnoise_data.h"
-        "${rnnoise_model_SOURCE_DIR}/src/rnnoise_data_little.c"
-        "${rnnoise_model_SOURCE_DIR}/src/rnnoise_data_little.h"
+        "${RNNOISE_MODEL_DIR}/src/rnnoise_data.c"
+        "${RNNOISE_MODEL_DIR}/src/rnnoise_data.h"
+        "${RNNOISE_MODEL_DIR}/src/rnnoise_data_little.c"
+        "${RNNOISE_MODEL_DIR}/src/rnnoise_data_little.h"
         "${RNNOISE_GENERATED_DIR}"
     COMMENT "Downloading RNNoise model files"
 )
