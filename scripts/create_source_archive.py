@@ -15,6 +15,8 @@ import argparse
 import platform
 import subprocess
 import tempfile
+from urllib.request import urlretrieve
+import shutil
 
 
 def git(args: List[str]) -> str:
@@ -106,6 +108,26 @@ def create_tar_archive(
     return archive_name
 
 
+def download_rnnoise_model(base_dir: str) -> None:
+    """Download and unpack the rnnoise model for the repository."""
+    model_version_path = os.path.join(base_dir, "3rdparty/rnnoise-src/model_version")
+    with open(model_version_path, "r", encoding="utf-8") as file:
+        model_version = file.read().strip()
+
+    model_name = f"rnnoise_data-{model_version}.tar.gz"
+    download_dir = os.path.join(base_dir, "rnnoise-model")
+    model_path = os.path.join(download_dir, model_name)
+
+    os.mkdir(download_dir)
+
+    rnnoise_model_url = f"https://media.xiph.org/rnnoise/models/{model_name}"
+
+    urlretrieve(rnnoise_model_url, model_path)
+
+    shutil.unpack_archive(model_path, download_dir)
+    os.remove(model_path)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         "Creates a source archive of a git repository (including submodules)"
@@ -154,6 +176,8 @@ def main() -> None:
                 tmp_repo,
             ]
         )
+
+        download_rnnoise_model(tmp_repo)
 
         files: List[str] = get_file_paths(tmp_repo)
 
