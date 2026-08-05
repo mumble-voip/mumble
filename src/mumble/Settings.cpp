@@ -584,6 +584,7 @@ Settings::Settings() {
 	qmMessages[Log::OtherSelfMute]   = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 	qmMessages[Log::UserRenamed]     = Settings::LogConsole;
+	qmMessages[Log::WhisperHold]     = Settings::LogConsole;
 	qmMessages[Log::PluginMessage]   = Settings::LogConsole;
 }
 

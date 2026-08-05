@@ -46,6 +46,11 @@ static ConfigRegistrar registrarGlobalShortcut(1200, GlobalShortcutConfigDialogN
 
 static const QString UPARROW = QString::fromUtf8("\xE2\x86\x91 ");
 
+static QList< Shortcut > normalizedShortcutList(QList< Shortcut > shortcuts) {
+	std::stable_sort(shortcuts.begin(), shortcuts.end());
+	return shortcuts;
+}
+
 ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QWidget(p) {
 	int idx = 0;
 
@@ -601,7 +606,8 @@ bool ShortcutDelegate::helpEvent(QHelpEvent *event, QAbstractItemView *, const Q
 	return true;
 }
 
-GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
+GlobalShortcutConfig::GlobalShortcutConfig(Settings &st)
+	: ConfigWidget(st), qlPreviouslyAppliedShortcuts(normalizedShortcutList(Global::get().s.qlShortcuts)) {
 	setupUi(this);
 	installEventFilter(this);
 
@@ -895,6 +901,15 @@ void GlobalShortcutConfig::reload() {
 }
 
 void GlobalShortcutConfig::accept() const {
+	MainWindow *mw = Global::get().mw;
+	if (mw && Global::get().s.atTransmit == Settings::PushToTalk) {
+		mw->resetWhisperHoldState(MainWindow::tr("Whisper hold cleared: Push-to-Talk enabled."));
+	} else if (mw && qlPreviouslyAppliedShortcuts != normalizedShortcutList(Global::get().s.qlShortcuts)) {
+		mw->resetWhisperHoldState(MainWindow::tr("Whisper hold cleared: Shortcuts changed."));
+	}
+
+	qlPreviouslyAppliedShortcuts = normalizedShortcutList(Global::get().s.qlShortcuts);
+
 	GlobalShortcutEngine::engine->bNeedRemap = true;
 	GlobalShortcutEngine::engine->needRemap();
 	GlobalShortcutEngine::engine->setEnabled(Global::get().s.bShortcutEnable);
