@@ -1083,6 +1083,24 @@ static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAut
 	ICE_IMPL_END
 }
 
+static void impl_Server_removeAuthenticator(const ::MumbleServer::AMD_Server_removeAuthenticatorPtr &cb,
+											int server_id) {
+	ICE_IMPL_BEGIN
+
+	VERIFY_DB_NOT_IN_READONLY;
+	NEED_SERVER;
+
+	if (mi->getServerAuthenticator(server))
+		server->disconnectAuthenticator(mi);
+
+	mi->removeServerAuthenticator(server);
+	mi->removeServerUpdatingAuthenticator(server);
+
+	cb->ice_response();
+
+	ICE_IMPL_END
+}
+
 #define ACCESS_Server_id_READ
 static void impl_Server_id(const ::MumbleServer::AMD_Server_idPtr cb, int server_id) {
 	ICE_IMPL_BEGIN
