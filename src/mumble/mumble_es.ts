@@ -5423,10 +5423,6 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
         <translation>El servidor presento un certificado que no superó la verificación.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Los errores específicos de este certificado son:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;¿Desea aceptar este certificado de todos modos?&lt;br /&gt; (También se almacenará para que no se le vuelva a preguntar.)&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Conexión con el servidor fallida.</translation>
     </message>
@@ -7232,6 +7228,14 @@ en el menu contextual del canal.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate — Mumble will remember it for future connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

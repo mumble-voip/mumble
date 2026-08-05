@@ -5422,10 +5422,6 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
         <translation>Palvelimen esittämän varmenteen vahvistus epäonnistui.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Virheitä varmenteessa on:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Haluatko hyväksyä varmenteen tästä huolimatta?&lt;br /&gt;(Varmenne tullaan tallentamaan, jolloin sinulta ei kysytä tätä uudelleen.)&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Palvelinyhteys epäonnistui.</translation>
     </message>
@@ -7232,6 +7228,14 @@ kanavien alivalikosta.</translation>
     <message>
         <source>Added %1 to favorites.</source>
         <translation>Lisätty %1 suosikkeihin.</translation>
+    </message>
+    <message>
+        <source>This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate — Mumble will remember it for future connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

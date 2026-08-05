@@ -5422,10 +5422,6 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
         <translation>Le serveur a présenté un certificat qui n&apos;a pas pu être vérifié.</translation>
     </message>
     <message>
-        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;Les erreurs de ce certificat sont les suivantes : &lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et la question ne vous sera pas posée à nouveau.)&lt;/p&gt;</translation>
-    </message>
-    <message>
         <source>Server connection failed.</source>
         <translation>Échec de la connexion au serveur.</translation>
     </message>
@@ -7232,6 +7228,14 @@ pour filtrage depuis le menu du salon.</translation>
     <message>
         <source>Added %1 to favorites.</source>
         <translation>%1 ajouté aux favoris.</translation>
+    </message>
+    <message>
+        <source>This server is using a self-signed certificate. Self-signed certificates are not issued by a trusted authority, which is why this warning appears. If you trust this server, you can safely accept the certificate — Mumble will remember it for future connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;%1&lt;/p&gt;&lt;ul&gt;%2&lt;/ul&gt;&lt;p&gt;The specific errors with this certificate are:&lt;/p&gt;&lt;ol&gt;%3&lt;/ol&gt;%4&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
