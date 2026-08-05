@@ -1,1 +1,0 @@
-Not taken from here, see src/mumble/qttranslations/LICENSE

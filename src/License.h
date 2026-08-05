@@ -6,18 +6,19 @@
 #ifndef MUMBLE_LICENSE_H_
 #define MUMBLE_LICENSE_H_
 
-#include <QList>
 #include <QString>
+
+#include <vector>
 
 /// LicenseInfo represents license information
 /// for a third-party library used by Mumble.
 struct LicenseInfo {
 	/// The name of the third-party library.
 	QString name;
-	/// A URL for the website of the third-party library.
+	/// A URL for the website or source code of the third-party library.
 	QString url;
-	/// The license text for the third-party library.
-	QString license;
+	/// The SPDX license ID for the third-party library.
+	QString licenseId;
 };
 
 /// The License class contains static helpers for
@@ -28,7 +29,7 @@ public:
 	static QString license();
 	/// Get a list of license information for Mumble's
 	/// third-party libraries.
-	static QList< LicenseInfo > thirdPartyLicenses();
+	static std::vector< LicenseInfo > thirdPartyLicenses();
 	/// Get a human-readable, ready-to-print combination
 	/// of all of Mumble's third-party license information.
 	static QString printableThirdPartyLicenseInfo();
