@@ -67,7 +67,7 @@
 
 #include "GKey.h"
 
-#ifdef Q_CC_GNU
+#if !defined(_MSC_VER) || defined(__clang__)
 #	define RESOLVE(var)                                                            \
 		{                                                                           \
 			var    = reinterpret_cast< __typeof__(var) >(qlLogiGkey.resolve(#var)); \
