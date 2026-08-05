@@ -487,6 +487,11 @@ void MainWindow::setupGui() {
 #endif
 
 	LogDocument *ld = new LogDocument(qteLog);
+	// The chat log is read-only for the user, so there is no way to trigger
+	// an undo. Without this, every insertion into the log would grow the undo
+	// history indefinitely. This cannot be done in the LogDocument
+	// constructor, as LogDocument is also used for editable widgets.
+	ld->setUndoRedoEnabled(false);
 	qteLog->setDocument(ld);
 
 	qteLog->document()->setMaximumBlockCount(Global::get().s.iMaxLogBlocks);
@@ -1094,9 +1099,11 @@ void MainWindow::saveImageAs() {
 	}
 
 	QString resName = qtcSaveImageCursor.charFormat().toImageFormat().name();
-	QVariant res    = qteLog->document()->resource(QTextDocument::ImageResource, resName);
-	QImage img      = res.value< QImage >();
-	bool ok         = img.save(fname);
+	// Fetch the image via LogDocument::originalImage() so that we save the
+	// image as it was received, not the scaled variant displayed in the log.
+	LogDocument *logDoc = qobject_cast< LogDocument * >(qteLog->document());
+	QImage img          = logDoc ? logDoc->originalImage(resName) : QImage();
+	bool ok             = img.save(fname);
 	if (!ok) {
 		// In case fname did not contain a file extension, try saving with an
 		// explicit format.
@@ -4352,8 +4359,10 @@ void MainWindow::showImageDialog() {
 	if (!qtcSaveImageCursor.isNull() && qtcSaveImageCursor.charFormat().isImageFormat()) {
 		QTextImageFormat imgFmt = qtcSaveImageCursor.charFormat().toImageFormat();
 		QString resName         = imgFmt.name();
-		QVariant res            = qteLog->document()->resource(QTextDocument::ImageResource, resName);
-		QImage img              = res.value< QImage >();
+		// Show the image as it was received, not the scaled variant that is
+		// displayed in the log.
+		LogDocument *logDoc = qobject_cast< LogDocument * >(qteLog->document());
+		QImage img          = logDoc ? logDoc->originalImage(resName) : QImage();
 
 		if (!img.isNull()) {
 			QPixmap pixmap             = QPixmap::fromImage(img);
