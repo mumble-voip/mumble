@@ -24,6 +24,8 @@ option(bundled-speex "Build the included version of Speex instead of looking for
 option(rnnoise "Use RNNoise for machine learning noise reduction." ON)
 option(bundled-rnnoise "Build the included version of RNNoise instead of looking for one on the system." ${rnnoise})
 
+option(webrtc-audio-processing "Use WebRTC audio processing for various dsp features." OFF)
+
 option(manual-plugin "Include the built-in \"manual\" positional audio plugin." ON)
 
 option(qtspeech "Use Qt's text-to-speech system (part of the Qt Speech module) instead of Mumble's own OS-specific text-to-speech implementations." OFF)
@@ -814,6 +816,54 @@ else()
 		target_link_libraries(mumble_client_object_lib PUBLIC ${speech-dispatcher_LIBRARIES})
 	else()
 		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_NO_TTS")
+	endif()
+endif()
+
+if(webrtc-audio-processing)
+	find_pkg(webrtc-audio-processing QUIET)
+
+	if(webrtc-audio-processing_FOUND)
+		set(webrtc_target webrtc-audio-processing)
+	else()
+		find_pkg(webrtc-audio-processing-1 QUIET)
+
+		if(webrtc-audio-processing-1_FOUND)
+			set(webrtc_target webrtc-audio-processing-1)
+		else()
+			find_pkg(webrtc QUIET)
+
+			if(webrtc_FOUND)
+				set(webrtc_target webrtc)
+			else()
+				find_pkg(unofficial-webrtc REQUIRED)
+				set(webrtc_target unofficial-webrtc)
+			endif()
+		endif()
+	endif()
+
+	target_compile_definitions(
+		mumble_client_object_lib
+		PUBLIC
+			USE_WEBRTC_AUDIO_PROCESSING
+	)
+
+	if(webrtc_target STREQUAL "unofficial-webrtc")
+		target_link_libraries(
+			mumble_client_object_lib
+			PUBLIC
+				unofficial::webrtc::webrtc
+		)
+	else()
+		target_include_directories(
+			mumble_client_object_lib
+			PUBLIC
+				${${webrtc_target}_INCLUDE_DIRS}
+		)
+		target_link_libraries(
+			mumble_client_object_lib
+			PUBLIC
+				${${webrtc_target}_LIBRARIES}
+		)
 	endif()
 endif()
 
