@@ -13,6 +13,7 @@ User::User() {
 	bSelfMute = bSelfDeaf = false;
 	bPrioritySpeaker      = false;
 	bRecording            = false;
+	bScreenSharing        = false;
 	bSuppress             = false;
 	cChannel              = 0;
 }

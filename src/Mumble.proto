@@ -245,6 +245,8 @@ message UserState {
 	repeated uint32 listening_channel_remove = 22;
 	// A list of volume adjustments the user has applied to listeners
 	repeated VolumeAdjustment listening_volume_adjustment = 23;
+	// True if the user is currently sharing their screen.
+	optional bool screen_sharing = 24;
 }
 
 // Relays information on the bans. The client may send the BanList message to

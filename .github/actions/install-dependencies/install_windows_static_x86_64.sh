@@ -24,6 +24,9 @@ rm -rf "g15_sdk"
 aria2c "https://github.com/oleg-shilo/wixsharp/releases/download/v1.19.0.0/WixSharp.1.19.0.0.7z" --out "WixSharp.7z"
 extract_with_progress "WixSharp.7z" "C:/WixSharp"
 
+aria2c "https://github.com/GyanD/codexffmpeg/releases/download/8.1/ffmpeg-8.1-full_build-shared.zip" --out "ffmpeg.zip"
+extract_with_progress "ffmpeg.zip" "${GITHUB_WORKSPACE}/3rdparty/ffmpeg"
+
 git clone "https://github.com/nathan818fr/vcvars-bash.git" "C:/vcvars-bash"
 
 
