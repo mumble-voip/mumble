@@ -133,7 +133,9 @@
 	PROCESS(Log::MsgType, PrivateTextMessage, "PrivateTextMessage")         \
 	PROCESS(Log::MsgType, ChannelListeningAdd, "ChannelListeningAdd")       \
 	PROCESS(Log::MsgType, ChannelListeningRemove, "ChannelListeningRemove") \
-	PROCESS(Log::MsgType, PluginMessage, "PluginMessage")
+	PROCESS(Log::MsgType, PluginMessage, "PluginMessage")                   \
+	PROCESS(Log::MsgType, ImageMessage, "ImageMessage")                     \
+	PROCESS(Log::MsgType, PrivateImageMessage, "PrivateImageMessage")
 
 #define OVERLAY_PRESETS_VALUES                                               \
 	PROCESS(OverlaySettings::OverlayPresets, AvatarAndName, "AvatarAndName") \
