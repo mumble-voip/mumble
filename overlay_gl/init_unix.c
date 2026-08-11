@@ -42,6 +42,7 @@ __attribute__((visibility("default"))) void glXSwapBuffers(Display *dpy, GLXDraw
 	if (!oglXSwapBuffers) {
 		resolveOpenGL();
 	}
+	resolveGLFunctions();
 
 	GLXContext ctx = glXGetCurrentContext();
 
@@ -210,7 +211,7 @@ static int find_odlsym() {
 #else
 		const uintptr_t base      = (uintptr_t) lm->l_addr;
 #endif
-		for (const Elf_Dyn *dyn = lm->l_ld; dyn; ++dyn) {
+		for (const Elf_Dyn *dyn = lm->l_ld; dyn->d_tag != DT_NULL; ++dyn) {
 			switch (dyn->d_tag) {
 				case DT_GNU_HASH:
 					if (!hashTable) {
