@@ -908,7 +908,7 @@ if(overlay)
 	else()
 		target_sources(mumble_client_object_lib PRIVATE "Overlay_unix.cpp")
 
-                if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
+		if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
 			add_dependencies(mumble overlay_gl)
 		endif()
 	endif()
