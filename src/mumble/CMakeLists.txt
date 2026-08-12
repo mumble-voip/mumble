@@ -794,6 +794,9 @@ elseif(WIN32)
 	endif()
 elseif(APPLE)
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_macx.mm")
+	target_link_libraries(mumble_client_object_lib
+		PUBLIC "-framework AVFoundation"
+	)
 else()
 	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_unix.cpp")
 
