@@ -867,6 +867,10 @@ elseif(bundle-qt-translations)
 endif()
 
 if(overlay)
+	if (APPLE)
+		message(FATAL_ERROR "The overlay on macOS has been removed - you have to disable it via -Doverlay=OFF")
+	endif()
+
 	target_sources(mumble_client_object_lib
 		PRIVATE
 			"Overlay.cpp"
