@@ -305,6 +305,7 @@ public slots:
 	void on_qaHelpWhatsThis_triggered();
 	void on_qaHelpAbout_triggered();
 	void on_qaHelpAboutQt_triggered();
+	void on_qaHelpDocumentation_triggered();
 	void on_qaHelpVersionCheck_triggered();
 	void on_qaQuit_triggered();
 	void on_qteChat_tabPressed();
@@ -477,6 +478,7 @@ public:
 	void enableAudioTTS(bool enable);
 	void openAboutDialog();
 	void openAboutQtDialog();
+	void openDocumentationDialog();
 	void versionCheck();
 	void enablePositionalAudio(bool enable);
 };
