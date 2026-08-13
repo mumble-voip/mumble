@@ -3891,7 +3891,6 @@ Om alternativet inte är aktiverat fungerar inte Mumbles globala kortkommandon i
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan för närvarande endast använda musknappar och modifieringstangenter (Alt, Ctrl, Cmd med flera) för globala kortkommandon.&lt;/p&gt;&lt;p&gt;För större flexibilitet kan du lägga till Mumble som ett betrott hjälpmedelsprogram under Säkerhet och integritet i macOS systeminställningar.&lt;/p&gt;&lt;p&gt;Öppna fliken Integritet, välj Hjälpmedel i listan till vänster och lägg sedan till Mumble i listan över betrodda program.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
