@@ -212,7 +212,6 @@ public slots:
 	void on_qpbRemove_clicked(bool);
 	void on_qtwShortcuts_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 	void on_qtwShortcuts_itemChanged(QTreeWidgetItem *, int);
-	void on_qpbOpenAccessibilityPrefs_clicked();
 	void on_qpbSkipWarning_clicked();
 };
 
