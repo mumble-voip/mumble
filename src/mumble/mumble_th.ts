@@ -9985,7 +9985,7 @@ Please contact your server administrator for further information.</source>
     <name>VolumeSliderWidgetAction</name>
     <message>
         <source>Volume Adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>การปรับระดับเสียง</translation>
     </message>
     <message>
         <source>Local volume adjustment</source>
