@@ -91,6 +91,8 @@ const SettingsKey POSITIONAL_MAX_DISTANCE_KEY      = { "maximum_distance" };
 const SettingsKey POSITIONAL_MIN_VOLUME_KEY        = { "minimum_volume" };
 const SettingsKey POSITIONAL_BLOOM_KEY             = { "bloom" };
 const SettingsKey POSITIONAL_TRANSMIT_POSITION_KEY = { "transmit_position" };
+const SettingsKey HRTF_ENABLED_KEY                 = { "hrtf_enabled" };
+const SettingsKey HRTF_FILE_KEY                    = { "hrtf_file" };
 
 // Network
 const SettingsKey JITTER_BUFFER_SIZE_KEY            = { "jitter_buffer_size" };

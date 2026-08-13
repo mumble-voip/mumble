@@ -27,6 +27,10 @@ if (static)
 	link_libraries(mumble_test_qt_plugins)
 endif()
 
+if(client AND hrtf)
+	add_subdirectory("TestHrtfSpatializer")
+endif()
+
 if(client)
 	add_subdirectory("TestXMLTools")
 	if(NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD")
