@@ -238,9 +238,9 @@ if(ice)
 	add_custom_command(
 		OUTPUT "MumbleServerIceWrapper.cpp"
 		COMMAND Python::Interpreter
-		ARGS "${CMAKE_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
+		ARGS "${PROJECT_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
 			-g "${ICE_FILE_NAME}.h" -o "MumbleServerIceWrapper.cpp" -q
-		DEPENDS ${ICE_GENERATED_FILES}
+		DEPENDS ${ICE_GENERATED_FILES} "${PROJECT_SOURCE_DIR}/scripts/generateIceWrapper.py"
 		COMMENT "Generating MumbleServerIceWrapper"
 	)
 	# Even though the file is a .cpp, it is still being included in MumbleServerIce.cpp
