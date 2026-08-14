@@ -58,7 +58,7 @@ else()
 	add_executable(mumble-server "main.cpp")
 endif()
 
-target_link_libraries(mumble-server mumble_server_object_lib CLI11::CLI11)
+target_link_libraries(mumble-server PRIVATE mumble_server_object_lib CLI11::CLI11)
 
 set_property(TARGET mumble-server PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 set_property(TARGET mumble_server_object_lib PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
