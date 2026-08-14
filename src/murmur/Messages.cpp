@@ -2558,6 +2558,30 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 	}
 }
 
+void Server::msgChatHistoryRequest(ServerUser *uSource, MumbleProto::ChatHistoryRequest &msg) {
+	ZoneScoped;
+
+	MSG_SETUP(ServerUser::Authenticated);
+	Q_UNUSED(msg);
+
+	// Chat history storage and retrieval are not implemented yet.
+	MumbleProto::PermissionDenied mppd;
+	mppd.set_type(MumbleProto::PermissionDenied_DenyType_Text);
+	mppd.set_reason("Chat history is not implemented yet.");
+
+	sendMessage(uSource, mppd);
+}
+
+void Server::msgChatHistoryChunk(ServerUser *uSource, MumbleProto::ChatHistoryChunk &msg) {
+	ZoneScoped;
+
+	MSG_SETUP(ServerUser::Authenticated);
+	Q_UNUSED(msg);
+
+	// ChatHistoryChunk is sent by the server only.
+	log(uSource, "Received unexpected ChatHistoryChunk message from client");
+}
+
 #undef RATELIMIT
 #undef MSG_SETUP
 #undef MSG_SETUP_NO_UNIDLE
