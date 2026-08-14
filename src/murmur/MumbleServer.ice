@@ -11,10 +11,12 @@
  *
  **/
 
-#include <Ice/SliceChecksumDict.ice>
-
 module MumbleServer
 {
+
+	// We define it ourselves as newer Ice versions dropped it
+	dictionary<string, string> SliceChecksumDict;
+
 
 	/** A network address in IPv6 format.
 	 **/
@@ -945,7 +947,8 @@ module MumbleServer
 		/** Returns a checksum dict for the slice file.
 		 * @return Checksum dict
 		 */
-		idempotent Ice::SliceChecksumDict getSliceChecksums();
+		["deprecated:Will be removed in the future - rely on server/client version instead"]
+		idempotent SliceChecksumDict getSliceChecksums();
 
 		 /**
 		  * @returns The state the underlying database is currently assumed to be in
