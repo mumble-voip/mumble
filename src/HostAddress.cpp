@@ -7,8 +7,6 @@
 
 #include "ByteSwap.h"
 
-#include <QRegularExpression>
-
 #ifdef Q_OS_WIN
 #	include "win.h"
 #	include <winsock2.h>
@@ -191,22 +189,8 @@ std::size_t qHash(const HostAddress &ha) {
 QString HostAddress::toString(bool bracketEnclosed) const {
 	if (isV6()) {
 		if (isValid()) {
-			QString str;
-			const char *squareBracketOpen  = "";
-			const char *squareBracketClose = "";
-			if (bracketEnclosed) {
-				squareBracketOpen  = "[";
-				squareBracketClose = "]";
-			}
-
-			const std::uint16_t *shortArray = reinterpret_cast< const std::uint16_t * >(m_byteRepresentation.data());
-
-			str = QString::asprintf("%s%x:%x:%x:%x:%x:%x:%x:%x%s", squareBracketOpen, ntohs(shortArray[0]),
-									ntohs(shortArray[1]), ntohs(shortArray[2]), ntohs(shortArray[3]),
-									ntohs(shortArray[4]), ntohs(shortArray[5]), ntohs(shortArray[6]),
-									ntohs(shortArray[7]), squareBracketClose);
-
-			return str.replace(QRegularExpression(QLatin1String("(:0)+")), QLatin1String(":"));
+			const QString str = toAddress().toString();
+			return bracketEnclosed ? QLatin1Char('[') + str + QLatin1Char(']') : str;
 		} else {
 			return bracketEnclosed ? QLatin1String("[::]") : QLatin1String("::");
 		}
