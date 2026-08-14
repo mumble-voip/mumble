@@ -112,8 +112,7 @@ bool HostAddress::match(const HostAddress &netmask, unsigned int bits) const {
 			// Compare only the first bits bits (no this is not a typo)
 			using mask_t = std::uint8_t;
 			mask_t mask =
-				static_cast< mask_t >(std::numeric_limits< mask_t >::max() >> (sizeof(mask_t) * CHAR_BIT - bits));
-			mask = static_cast< mask_t >(htons(mask));
+				static_cast< mask_t >(std::numeric_limits< mask_t >::max() << (sizeof(mask_t) * CHAR_BIT - bits));
 
 			if ((m_byteRepresentation[i] & mask) != (netmask.m_byteRepresentation[i] & mask)) {
 				return false;
