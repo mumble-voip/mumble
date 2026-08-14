@@ -20,6 +20,7 @@ private slots:
 	void equals();
 	void lessThan();
 	void qhash();
+	void match();
 };
 
 void TestServerAddress::defaultCtor() {
@@ -95,6 +96,18 @@ void TestServerAddress::qhash() {
 	QVERIFY(qHash(a1) != qHash(b));
 	QVERIFY(qHash(a1) != qHash(c));
 	QVERIFY(qHash(b) != qHash(c));
+}
+
+void TestServerAddress::match() {
+	// A /20 IPv4 prefix is a 116-bit prefix (96 + 20) whose last compared byte is only partially masked.
+	HostAddress net(QHostAddress("10.16.0.0"));
+
+	QVERIFY(net.match(HostAddress(QHostAddress("10.16.15.255")), 116));
+	QVERIFY(!net.match(HostAddress(QHostAddress("10.16.16.0")), 116));
+
+	// Byte-aligned masks were already handled correctly; keep them covered.
+	QVERIFY(net.match(HostAddress(QHostAddress("10.16.99.99")), 112));
+	QVERIFY(!net.match(HostAddress(QHostAddress("10.17.0.0")), 112));
 }
 
 QTEST_MAIN(TestServerAddress)
