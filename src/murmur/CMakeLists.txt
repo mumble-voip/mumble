@@ -199,7 +199,6 @@ if(ice)
 	find_pkg(Ice
 		COMPONENTS
 			Ice
-			IceSSL
 		OPTIONAL_COMPONENTS
 			IceDiscovery
 			IceLocatorDiscovery
@@ -222,14 +221,35 @@ if(ice)
 		list(APPEND SLICE_INCLUDE_ARGS "-I${SLICE_DIR}")
 	endforeach()
 
+	if (Ice_VERSION_MAJOR EQUAL 3 AND Ice_VERSION_MINOR LESS_EQUAL 7)
+		# In Ice 3.7 and before IceSSL is still an independent component
+		find_pkg(Ice
+			COMPONENTS
+				IceSSL
+			REQUIRED
+		)
+
+		set(ICE_CHECKSUM_ARGS "--checksum" ${SLICE_INCLUDE_ARGS})
+	endif()
+
 	add_custom_command(
 		OUTPUT ${ICE_GENERATED_FILES}
 		COMMAND ${Ice_SLICE2CPP_EXECUTABLE}
-		ARGS "--checksum" ${SLICE_INCLUDE_ARGS} ${ICE_FILE}
+		ARGS ${ICE_CHECKSUM_ARGS} ${ICE_FILE}
 		MAIN_DEPENDENCY ${ICE_FILE}
 		COMMENT "Generating Ice files"
 		VERBATIM
 	)
+
+	add_library(mumble_server_generated_ice_files STATIC ${ICE_GENERATED_FILES})
+	target_include_directories(mumble_server_generated_ice_files PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+	target_disable_warnings(mumble_server_generated_ice_files)
+	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
+	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
+	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
+
+	target_link_libraries(mumble_server_object_lib PUBLIC mumble_server_generated_ice_files)
+
 
 	add_custom_target(generate_murmur_ice_wrapper
 		DEPENDS "MumbleServerIceWrapper.cpp" 
@@ -246,15 +266,10 @@ if(ice)
 	# Even though the file is a .cpp, it is still being included in MumbleServerIce.cpp
 	target_include_directories(mumble_server_object_lib PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
-	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
-	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
-	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
-
 	target_sources(mumble_server_object_lib
 		PRIVATE
 			"MumbleServerIce.cpp"
 			"MumbleServerIce.h"
-			${ICE_GENERATED_FILES}
 	)
 	target_compile_definitions(mumble_server_object_lib
 		PUBLIC
@@ -273,7 +288,16 @@ if(ice)
 	target_link_libraries(mumble_server_object_lib
 		PUBLIC
 			Ice::Ice
-			Ice::IceSSL
+			$<TARGET_NAME_IF_EXISTS:Ice::IceSSL>
+			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>
+			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery>
+			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
+			$<TARGET_NAME_IF_EXISTS:BZip2::BZip2>
+	)
+	target_link_libraries(mumble_server_generated_ice_files
+		PUBLIC
+			Ice::Ice
+			$<TARGET_NAME_IF_EXISTS:Ice::IceSSL>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery>
 			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
