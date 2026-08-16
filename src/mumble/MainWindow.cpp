@@ -1230,6 +1230,36 @@ void MainWindow::on_qaMoveBack_triggered() {
 	qaMoveBack->setEnabled(!m_previousChannels.empty());
 }
 
+short MainWindow::allocatePluginTarget() {
+	while (this->qlPluginTargets.contains(this->iPluginTargetsCounter) ) {
+		++this->iPluginTargetsCounter;
+	}
+	this->qlPluginTargets.insert(iPluginTargetsCounter, QList< ShortcutTarget >());
+	return iPluginTargetsCounter++;
+}
+
+short MainWindow::addPluginTarget(short allocID, const ShortcutTarget &st) {
+	if (!this->qlPluginTargets.contains(allocID)) {
+		allocID = allocatePluginTarget();
+	}
+	this->qlPluginTargets[allocID] << st;
+	return allocID;
+}
+
+void MainWindow::clearPluginTargets(const short allocID) {
+	if(this->qlPluginTargets.contains(allocID)){
+		this->qlPluginTargets.remove(allocID);
+	}
+}
+
+const QList< ShortcutTarget >* MainWindow::getPluginTargets(const short allocID) const {
+	auto it = this->qlPluginTargets.constFind(allocID);
+	if (it != this->qlPluginTargets.constEnd()) {
+		return &(it.value());
+	}
+	return nullptr;
+}
+
 static void recreateServerHandler() {
 	ServerHandlerPtr sh = Global::get().sh;
 	if (sh && sh->isRunning()) {
@@ -3051,13 +3081,24 @@ void MainWindow::updateTarget() {
 					}
 				}
 			} else if (st.bUsers) {
-				for (const QString &hash : st.qlUsers) {
-					ClientUser *p = pmModel->getUser(hash);
-					if (p)
-						nt.qlSessions.append(p->uiSession);
+				// If users' ids have provided, we needn't find user again
+				// by their hash.
+				if (st.qlSessions.isEmpty()) {
+					for (const QString &hash : st.qlUsers) {
+						ClientUser *p = pmModel->getUser(hash);
+						if (p)
+							nt.qlSessions.append(p->uiSession);
+					}
+				} else {
+					for (auto& session : st.qlSessions) {
+						if (ClientUser::get(session)) {
+							nt.qlSessions.append(session);
+						}
+					}
 				}
-				if (!nt.qlSessions.isEmpty())
+				if (!nt.qlSessions.isEmpty()) {
 					ql << nt;
+				}
 			} else {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
@@ -3207,14 +3248,14 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
  * the number of push-to-talk events for a given ShortcutTarget.  If this number
  * reaches 0, the ShortcutTarget is removed from qmCurrentTargets.
  */
-void MainWindow::addTarget(ShortcutTarget *st) {
+void MainWindow::addTarget(const ShortcutTarget *st) {
 	if (qmCurrentTargets.contains(*st))
 		qmCurrentTargets[*st] += 1;
 	else
 		qmCurrentTargets[*st] = 1;
 }
 
-void MainWindow::removeTarget(ShortcutTarget *st) {
+void MainWindow::removeTarget(const ShortcutTarget *st) {
 	if (!qmCurrentTargets.contains(*st))
 		return;
 
@@ -3944,6 +3985,15 @@ void MainWindow::customEvent(QEvent *evt) {
 
 void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
 	if (!handleSpecialContextMenu(url, QCursor::pos(), true)) {
+#if defined(Q_OS_MAC) && defined(USE_OVERLAY)
+		// Clicking a link can cause the user's default browser to pop up while
+		// we're intercepting all events. This can be very confusing (because
+		// the user can't click on anything before they dismiss the overlay
+		// by hitting their toggle hotkey), so let's disallow clicking links
+		// when embedded into the overlay for now.
+		if (Global::get().ocIntercept)
+			return;
+#endif
 		if (url.scheme() != QLatin1String("file") && url.scheme() != QLatin1String("qrc") && !url.isRelative())
 			QDesktopServices::openUrl(url);
 	}

@@ -171,6 +171,13 @@ protected:
 	QList< QAction * > qlChannelActions;
 	QList< QAction * > qlUserActions;
 
+	short iPluginTargetsCounter;
+	/// A list to store multiple shout/whisper targets, implemented for
+	/// plugin to invoke shout/whisper feature (similar to PTT).
+	/// key: the plugin ID
+	/// val: a list of ShortcutTargets to whisper.
+	QHash< short, QList< ShortcutTarget > > qlPluginTargets; 
+
 	QHash< ShortcutTarget, int > qmCurrentTargets;
 	/// A map that contains information about the currently active
 	/// shout/whisper targets. The mapping is between a List of
@@ -321,8 +328,8 @@ public slots:
 	void on_gsMuteSelf_down(QVariant);
 	void on_gsDeafSelf_down(QVariant);
 	void on_gsWhisper_triggered(bool, QVariant);
-	void addTarget(ShortcutTarget *);
-	void removeTarget(ShortcutTarget *);
+	void addTarget(const ShortcutTarget *);
+	void removeTarget(const ShortcutTarget *);
 	void on_gsListenChannel_triggered(bool, QVariant);
 	void on_gsCycleTransmitMode_triggered(bool, QVariant);
 	void on_gsToggleMainWindowVisibility_triggered(bool, QVariant);
@@ -415,6 +422,11 @@ public slots:
 	void on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
 					   unsigned int newChannelID);
 	void on_qaMoveBack_triggered();
+
+	short allocatePluginTarget();
+	short addPluginTarget(short allocID, const ShortcutTarget &st);
+	void  clearPluginTargets(const short allocID);
+	const QList< ShortcutTarget > *getPluginTargets(const short allocID) const;
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).

@@ -233,6 +233,7 @@ enum Mumble_ErrorCode {
 	MUMBLE_EC_DATA_ID_TOO_LONG,
 	MUMBLE_EC_API_REQUEST_TIMEOUT,
 	MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER,
+	MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED
 };
 
 /**
@@ -617,6 +618,8 @@ MUMBLE_PLUGIN_CONSTEXPR inline const char *mumble_errorMessage(int16_t errorCode
 		case MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER:
 			return "The requested API operation depends on server-side functionality, not supported by the server "
 				   "you're connected to";
+		case MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED:
+			return "The given allocID for the whisper/shout targets isn't existed.";
 	}
 
 	return "Unknown error code";
@@ -1515,6 +1518,34 @@ struct MUMBLE_API_STRUCT_NAME {
 																			mumble_channelid_t channelID,
 																			const char **description);
 
+	/**
+	 * Checks whether the local user is currently using a Push-To-Talk (PTT) transmission, i.e. whether a PTT-style
+	 * transmission is currently active. This includes shout/whisper targets triggered via the Plugin-API as well as
+	 * regular PTT shortcuts. It does **not** distinguish between those sources.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param[out] isUsingPTT A pointer to the memory the result shall be written to. It is set to true if the local
+	 * user is currently transmitting via a PTT-style mechanism (iPushToTalk >= 1)
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the passed pointer may
+	 * be accessed.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *isLocalUserUsingPTT)(
+		mumble_plugin_id_t callerID,
+		bool *isUsingPTT
+	);
+
+	/**
+	 * Gets the current talking state of the local user (e.g. passive, talking, whispering/shouting or muted).
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param[out] talkingState A pointer to the memory the state shall be written to
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the passed pointer may
+	 * be accessed.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getLocalUserTalkingState)(
+	  	mumble_plugin_id_t callerID,
+        mumble_talking_state_t *talkingState
+    );
 
 	// -------- Request functions --------
 
@@ -1609,6 +1640,20 @@ struct MUMBLE_API_STRUCT_NAME {
 																				 const char *comment);
 
 
+
+    mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStartLocalUserWhisperShout)(
+        mumble_plugin_id_t callerID,
+        mumble_userid_t *users,
+        size_t userCount,
+        mumble_channelid_t *channels,
+        size_t channelCount,
+		short* allocID
+    );
+
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStopLocalUserWhisperShout)(
+        mumble_plugin_id_t callerID,
+		short allocID
+    );
 
 	// -------- Find functions --------
 

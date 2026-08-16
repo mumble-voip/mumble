@@ -740,6 +740,69 @@ void MumbleAPI::getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connec
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
+void MumbleAPI::isLocalUserUsingPTT_v_1_2_x(
+	mumble_plugin_id_t callerID, 
+	bool *isUsingPTT, 
+	std::shared_ptr< api_promise_t > promise
+) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(
+			this, "isLocalUserUsingPTT_v_1_2_x", Qt::QueuedConnection,
+			Q_ARG(mumble_plugin_id_t, callerID), 
+			Q_ARG(bool*, isUsingPTT),
+			Q_ARG(std::shared_ptr< api_promise_t >, promise)
+		);
+
+		return;
+	}
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	*isUsingPTT = Global::get().iPushToTalk >= 1;
+	
+	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+
+void MumbleAPI::getLocalUserTalkingState_v_1_2_x(
+	mumble_plugin_id_t callerID, 
+	mumble_talking_state_t *talkingState,
+	std::shared_ptr< api_promise_t > promise
+) {
+	if (QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(
+			this, "getLocalUserTalkingState_v_1_2_x", Qt::QueuedConnection,
+			Q_ARG(mumble_plugin_id_t, callerID), 
+			Q_ARG(mumble_talking_state_t*, talkingState),
+			Q_ARG(std::shared_ptr< api_promise_t >, promise)
+		);
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if (promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	ClientUser* user = ClientUser::get(Global::get().uiSession);
+	if (!user) {
+		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
+	} else {
+		*talkingState = static_cast< mumble_talking_state_t >(user->tsState);
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	}
+	
+}
+
 void MumbleAPI::requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID,
 														 mumble_transmission_mode_t transmissionMode,
 														 std::shared_ptr< api_promise_t > promise) {
@@ -1091,6 +1154,127 @@ void MumbleAPI::requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, 
 	Global::get().mw->pmModel->setComment(localUser, QString::fromUtf8(comment));
 
 	EXIT_WITH(MUMBLE_STATUS_OK);
+}
+
+void MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x(
+	mumble_plugin_id_t callerID,
+	mumble_userid_t* users,
+	size_t userCount,
+	mumble_channelid_t* channels,
+	size_t channelCount,
+	short* allocID,
+	std::shared_ptr< api_promise_t > promise
+) {
+	if(QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(
+			this, "requestStartLocalUserWhisperShout_v_1_2_x", Qt::QueuedConnection, 
+			Q_ARG(mumble_plugin_id_t, callerID),
+			Q_ARG(mumble_userid_t*, users),
+			Q_ARG(size_t, userCount),
+			Q_ARG(mumble_channelid_t*, channels),
+			Q_ARG(size_t, channelCount),
+			Q_ARG(short*, allocID),
+			Q_ARG(std::shared_ptr< api_promise_t >, promise)
+		);
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if(promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	MainWindow* mw = Global::get().mw;
+
+	if (!mw) {
+		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
+	} else {
+		*allocID = mw->allocatePluginTarget();
+		// Add Users.
+		if(userCount > 0) {
+			ShortcutTarget stUser;
+			stUser.bUsers = true;
+			for(size_t u = 0; u < userCount; u++) {
+				uint32_t user = users[u];
+				if(ClientUser::get(user)) {
+					stUser.qlSessions << user;
+					stUser.qlUsers << ClientUser::get(user)->qsHash;
+				} else {
+					qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x]"
+						     "user %zu not found!", user);
+				}
+
+			}
+			mw->addTarget(&stUser);
+			mw->addPluginTarget(*allocID, stUser);
+		}
+
+		// Add Channels. One `st` for each channel.
+		for(size_t c = 0; c < channelCount; c++) {
+			uint32_t channel = channels[c];
+			if(Channel::get(channel)) {
+				ShortcutTarget stChan;
+				stChan.bUsers = false;
+				stChan.iChannel = static_cast<int> (channels[c]);
+				stChan.bLinks = false;
+				stChan.bChildren = false;
+				mw->addTarget(&stChan);
+				mw->addPluginTarget(*allocID, stChan);
+			} else {
+				qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x]"
+					     "channel %zu not found!", channel);
+			}
+		}
+		mw->updateTarget();
+		Global::get().iPushToTalk++;
+
+		EXIT_WITH(MUMBLE_STATUS_OK);
+	}// if (!mw) else ...
+}
+
+void MumbleAPI::requestStopLocalUserWhisperShout_v_1_2_x(
+	mumble_plugin_id_t callerID, short allocID, std::shared_ptr< api_promise_t > promise
+){
+	if(QThread::currentThread() != thread()) {
+		// Invoke in main thread
+		QMetaObject::invokeMethod(
+			this, "requestStopLocalUserWhisperShout_v_1_2_x", Qt::QueuedConnection, 
+			Q_ARG(mumble_plugin_id_t, callerID),
+			Q_ARG(short, allocID),
+			Q_ARG(std::shared_ptr< api_promise_t >, promise)
+		);
+
+		return;
+	}
+
+	api_promise_t::lock_guard_t guard = promise->lock();
+	if(promise->isCancelled()) {
+		return;
+	}
+
+	VERIFY_PLUGIN_ID(callerID);
+
+	auto* mw = Global::get().mw;
+	if(!mw) {
+		EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
+	} else {
+		const auto* pTargets = mw->getPluginTargets(allocID);
+		if (!pTargets) {
+			EXIT_WITH(MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED);
+		} else {
+			for(auto it = pTargets->begin(); it != pTargets->end(); it++) {
+				mw->removeTarget(&*it);
+			}
+			mw->clearPluginTargets(allocID);
+			mw->updateTarget();
+			Global::get().iPushToTalk--;
+			EXIT_WITH(MUMBLE_STATUS_OK);
+		}
+	}
 }
 
 void MumbleAPI::findUserByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
@@ -1926,6 +2110,30 @@ C_WRAPPER(playSample_v_1_2_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
+#define TYPED_ARGS mumble_plugin_id_t callerID, bool *isUsingPTT
+#define ARG_NAMES callerID, isUsingPTT
+C_WRAPPER(isLocalUserUsingPTT_v_1_2_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_talking_state_t *talkingState
+#define ARG_NAMES callerID, talkingState
+C_WRAPPER(getLocalUserTalkingState_v_1_2_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_userid_t* users, size_t userCount, \
+                   mumble_channelid_t* channels, size_t channelCount, short* allocID
+#define ARG_NAMES callerID, users, userCount, channels, channelCount, allocID
+C_WRAPPER(requestStartLocalUserWhisperShout_v_1_2_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
+
+#define TYPED_ARGS mumble_plugin_id_t callerID, short allocID
+#define ARG_NAMES callerID, allocID
+C_WRAPPER(requestStopLocalUserWhisperShout_v_1_2_x)
+#undef TYPED_ARGS
+#undef ARG_NAMES
 
 #undef C_WRAPPER
 
@@ -1953,6 +2161,8 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x() {
 			 getServerHash_v_1_0_x,
 			 getUserComment_v_1_0_x,
 			 getChannelDescription_v_1_0_x,
+			 isLocalUserUsingPTT_v_1_2_x,
+			 getLocalUserTalkingState_v_1_2_x,
 			 requestLocalUserTransmissionMode_v_1_0_x,
 			 requestUserMove_v_1_0_x,
 			 requestMicrophoneActivationOverwrite_v_1_0_x,
@@ -1960,6 +2170,8 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x() {
 			 requestLocalUserMute_v_1_0_x,
 			 requestLocalUserDeaf_v_1_0_x,
 			 requestSetLocalUserComment_v_1_0_x,
+			 requestStartLocalUserWhisperShout_v_1_2_x,
+			 requestStopLocalUserWhisperShout_v_1_2_x,
 			 findUserByName_v_1_0_x,
 			 findChannelByName_v_1_0_x,
 			 getMumbleSetting_bool_v_1_0_x,
@@ -1994,6 +2206,8 @@ MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
 			 getServerHash_v_1_0_x,
 			 getUserComment_v_1_0_x,
 			 getChannelDescription_v_1_0_x,
+			 isLocalUserUsingPTT_v_1_2_x,
+			 getLocalUserTalkingState_v_1_2_x,
 			 requestLocalUserTransmissionMode_v_1_0_x,
 			 requestUserMove_v_1_0_x,
 			 requestMicrophoneActivationOverwrite_v_1_0_x,
@@ -2001,6 +2215,8 @@ MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
 			 requestLocalUserMute_v_1_0_x,
 			 requestLocalUserDeaf_v_1_0_x,
 			 requestSetLocalUserComment_v_1_0_x,
+			 requestStartLocalUserWhisperShout_v_1_2_x,
+			 requestStopLocalUserWhisperShout_v_1_2_x,
 			 findUserByName_v_1_0_x,
 			 findChannelByName_v_1_0_x,
 			 getMumbleSetting_bool_v_1_0_x,
