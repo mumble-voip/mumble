@@ -1641,6 +1641,26 @@ struct MUMBLE_API_STRUCT_NAME {
 
 
 
+	/**
+	 * Starts a Whisper/Shout transmission for the local user targeting the given users and/or channels.
+	 *
+	 * This makes the local user whisper (or shout, when targeting many channels) to the specified targets as if
+	 * a corresponding whisper target had been activated. The affected targets are kept alive until a matching call
+	 * to @ref requestStopLocalUserWhisperShout is made. Each successful call allocates a new target group that is
+	 * identified by the returned @p allocID.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param users An array of user IDs the local user shall whisper to. May be NULL if no users are targeted.
+	 * @param userCount The number of entries in the @p users array
+	 * @param channels An array of channel IDs the local user shall whisper/shout to. May be NULL if no channels are
+	 * targeted.
+	 * @param channelCount The number of entries in the @p channels array
+	 * @param[out] allocID A pointer to the memory the allocated whisper-target ID shall be written to. This ID must
+	 * be passed to @ref requestStopLocalUserWhisperShout in order to stop the transmission. Only valid if STATUS_OK
+	 * is returned.
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the pointer passed via
+	 * @p allocID may be accessed.
+	 */
     mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStartLocalUserWhisperShout)(
         mumble_plugin_id_t callerID,
         mumble_userid_t *users,
@@ -1650,6 +1670,17 @@ struct MUMBLE_API_STRUCT_NAME {
 		short* allocID
     );
 
+	/**
+	 * Stops a previously started Whisper/Shout transmission for the local user.
+	 *
+	 * This removes the whisper targets that were allocated by the corresponding call to
+	 * @ref requestStartLocalUserWhisperShout identified by @p allocID and ends the transmission.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param allocID The whisper-target ID that was returned by @ref requestStartLocalUserWhisperShout
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. If no whisper target with the
+	 * given ID exists, MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED is returned.
+	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStopLocalUserWhisperShout)(
         mumble_plugin_id_t callerID,
 		short allocID

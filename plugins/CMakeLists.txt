@@ -18,7 +18,7 @@ list(APPEND AVAILABLE_PLUGINS
 	"link"
 )
 
-if(${CMAKE_BUILD_TYPE} MATCHES Debug or ${CMAKE_BUILD_TYPE} MATCHES RelWithDebInfo)
+if(${CMAKE_BUILD_TYPE} MATCHES Debug OR ${CMAKE_BUILD_TYPE} MATCHES RelWithDebInfo)
 	message("Including TestPlugin in debug mode")
 	list(APPEND AVAILABLE_PLUGINS
 		"testPlugin"
