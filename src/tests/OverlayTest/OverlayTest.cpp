@@ -12,6 +12,8 @@
 #include "SharedMemory.h"
 #include "Timer.h"
 
+#include "IPCUtils.h"
+
 #ifdef Q_OS_WIN
 #	include "win.h"
 #else
@@ -96,24 +98,11 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 		connect(qlsSocket, SIGNAL(connected()), this, SLOT(connected()));
 		connect(qlsSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 		connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-		connect(qlsSocket, SIGNAL(error(QLocalSocket::LocalSocketError)), this,
+		connect(qlsSocket, SIGNAL(errorOccurred(QLocalSocket::LocalSocketError)), this,
 				SLOT(error(QLocalSocket::LocalSocketError)));
-#ifdef Q_OS_WIN
-		qlsSocket->connectToServer(QLatin1String("MumbleOverlayPipe"));
-#else
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QString mumbleRuntimePath;
-		if (!xdgRuntimePath.isNull()) {
-		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
-		} else {
-			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
-		}
-		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
-		mumbleRuntimeDir.mkpath(".");
-		QString pipepath = mumbleRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
+		const QString pipepath = QString::fromStdString(Mumble::getOverlayPipePath().string());
 		qWarning() << "connectToServer(" << pipepath << ")";
 		qlsSocket->connectToServer(pipepath);
-#endif
 	}
 
 	QPainter painter(this);

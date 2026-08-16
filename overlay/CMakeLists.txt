@@ -14,8 +14,13 @@ if(BUILD_OVERLAY_XCOMPILE)
 		LANGUAGES CXX
 	)
 
+	# ipcutils uses std::filesystem
+	set(CMAKE_CXX_STANDARD 20)
+
 	list(APPEND CMAKE_MODULE_PATH "${3RDPARTY_DIR}/cmake-compiler-flags")
 	include("${MUMBLE_SOURCE_ROOT}/cmake/compiler.cmake")
+
+	add_subdirectory("${MUMBLE_SOURCE_ROOT}/ipcutils" "${CMAKE_CURRENT_BINARY_DIR}/ipcutils")
 endif()
 
 set(DX11_PIXEL_SHADERS "overlay11.ps")
@@ -110,6 +115,8 @@ target_sources(overlay
 )
 
 set_target_properties(overlay PROPERTIES OUTPUT_NAME ${OUTPUT_NAME})
+
+target_link_libraries(overlay PRIVATE ipcutils)
 
 find_package(Boost REQUIRED)
 

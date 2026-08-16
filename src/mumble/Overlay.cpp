@@ -19,7 +19,8 @@
 #include "Global.h"
 #include "GlobalShortcut.h"
 
-#include <QtCore/QProcessEnvironment>
+#include "IPCUtils.h"
+
 #include <QtCore/QtEndian>
 #include <QtGui/QFocusEvent>
 #include <QtGui/QImageReader>
@@ -238,23 +239,9 @@ void Overlay::createPipe() {
 	// Allow anyone to access the pipe in order to communicate with the overlay
 	qlsServer->setSocketOptions(QLocalServer::WorldAccessOption);
 
-	QString pipepath;
-#ifdef Q_OS_WIN
-	pipepath = QLatin1String("MumbleOverlayPipe");
-#else
-	{
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QString mumbleRuntimePath;
-		if (!xdgRuntimePath.isNull()) {
-		    mumbleRuntimePath = QDir(xdgRuntimePath).absolutePath() + QLatin1String("/mumble/");
-		} else {
-			mumbleRuntimePath = QLatin1String("/run/user/") + QString::number(getuid()) + QLatin1String("/mumble/");
-		}
-		QDir mumbleRuntimeDir = QDir(mumbleRuntimePath);
-		mumbleRuntimeDir.mkpath(".");
-		pipepath = mumbleRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
-	}
+	const QString pipepath = QString::fromStdString(Mumble::getOverlayPipePath().string());
 
+#ifndef Q_OS_WIN
 	{
 		QFile f(pipepath);
 		if (f.exists()) {

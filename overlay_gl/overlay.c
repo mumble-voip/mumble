@@ -11,7 +11,6 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <math.h>
-#include <pwd.h>
 #include <semaphore.h>
 #include <stdarg.h>
 #include <stdbool.h>
@@ -52,6 +51,7 @@
 #endif
 
 #include "../overlay/overlay.h"
+#include "IPCUtils_c.h"
 
 static bool bDebug       = false;
 static bool bCursorAvail = false;
@@ -145,47 +145,16 @@ static void newContext(Context *ctx) {
 	ctx->timeT             = clock();
 	ctx->frameCount        = 0;
 
-#ifdef __linux__
-	char *xdgRuntimeDir              = getenv("XDG_RUNTIME_DIR");
-	const char *overlayPipeXdgSubdir = "/mumble/MumbleOverlayPipe";
-	// ctx->saName.sun_path is a statically sized char array, therefore sizeof is correct here
-	size_t sunPathBufLen = sizeof(ctx->saName.sun_path) / sizeof(ctx->saName.sun_path[0]);
-
-	if (xdgRuntimeDir != NULL && strlen(xdgRuntimeDir) + strlen(overlayPipeXdgSubdir) < sunPathBufLen) {
-		ctx->saName.sun_family = PF_UNIX;
-		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
-		strcat(ctx->saName.sun_path, overlayPipeXdgSubdir);
-	} else {
-		char uid[10];
-		sprintf(uid, "%d", getuid());
-		const char *overlayPipeUidPrefix = "/run/user/";
-		const char *overlayPipeUidSuffix = "/mumble/MumbleOverlayPipe";
-		if (strlen(overlayPipeUidPrefix) + strlen(uid) + strlen(overlayPipeUidSuffix) < sunPathBufLen) {
+	char *pipePath = get_overlay_pipe_path();
+	if (pipePath != NULL) {
+		// ctx->saName.sun_path is a statically sized char array, therefore sizeof is correct here
+		size_t sunPathBufLen = sizeof(ctx->saName.sun_path) / sizeof(ctx->saName.sun_path[0]);
+		if (strlen(pipePath) < sunPathBufLen) {
 			ctx->saName.sun_family = PF_UNIX;
-			strcpy(ctx->saName.sun_path, overlayPipeUidPrefix);
-			strcat(ctx->saName.sun_path, uid);
-			strcat(ctx->saName.sun_path, overlayPipeUidSuffix);
+			strcpy(ctx->saName.sun_path, pipePath);
 		}
+		free(pipePath);
 	}
-#else
-	char *home = getenv("HOME");
-	if (home == NULL) {
-		struct passwd *pwent = getpwuid(getuid());
-		if (pwent && pwent->pw_dir && pwent->pw_dir[0]) {
-			home = pwent->pw_dir;
-		}
-	}
-
-	const char *overlayPipeHomeDir = "/MumbleOverlayPipe";
-	// ctx->saName.sun_path is a statically sized char array, therefore sizeof is correct here
-	size_t sunPathBufLen = sizeof(ctx->saName.sun_path) / sizeof(ctx->saName.sun_path[0]);
-
-	if (home && strlen(home) + strlen(overlayPipeHomeDir) < sunPathBufLen) {
-		ctx->saName.sun_family = PF_UNIX;
-		strcpy(ctx->saName.sun_path, home);
-		strcat(ctx->saName.sun_path, overlayPipeHomeDir);
-	}
-#endif
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR),
 		glGetString(GL_RENDERER), glGetString(GL_SHADING_LANGUAGE_VERSION));
