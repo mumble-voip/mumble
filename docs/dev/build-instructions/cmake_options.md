@@ -319,6 +319,11 @@ All warnings are treated as errors.
 Build support for WASAPI.
 (Default: ON)
 
+### webrtc-audio-processing
+
+Use WebRTC audio processing for various dsp features.
+(Default: OFF)
+
 ### xboxinput
 
 Build support for global shortcuts from Xbox controllers via the XInput DLL.
