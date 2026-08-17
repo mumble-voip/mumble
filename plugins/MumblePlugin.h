@@ -43,7 +43,7 @@
 #		define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_MINOR_MACRO
-#		define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#		define MUMBLE_PLUGIN_API_MINOR_MACRO 3
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_PATCH_MACRO
 #		define MUMBLE_PLUGIN_API_PATCH_MACRO 0
@@ -1518,6 +1518,7 @@ struct MUMBLE_API_STRUCT_NAME {
 																			mumble_channelid_t channelID,
 																			const char **description);
 
+#if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
 	/**
 	 * Checks whether the local user is currently using a Push-To-Talk (PTT) transmission, i.e. whether a PTT-style
 	 * transmission is currently active. This includes shout/whisper targets triggered via the Plugin-API as well as
@@ -1546,6 +1547,7 @@ struct MUMBLE_API_STRUCT_NAME {
 	  	mumble_plugin_id_t callerID,
         mumble_talking_state_t *talkingState
     );
+#endif
 
 	// -------- Request functions --------
 
@@ -1639,8 +1641,7 @@ struct MUMBLE_API_STRUCT_NAME {
 																				 mumble_connection_t connection,
 																				 const char *comment);
 
-
-
+#if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
 	/**
 	 * Starts a Whisper/Shout transmission for the local user targeting the given users and/or channels.
 	 *
@@ -1685,6 +1686,7 @@ struct MUMBLE_API_STRUCT_NAME {
         mumble_plugin_id_t callerID,
 		short allocID
     );
+#endif
 
 	// -------- Find functions --------
 

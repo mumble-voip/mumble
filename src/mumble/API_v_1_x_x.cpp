@@ -740,7 +740,7 @@ void MumbleAPI::getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connec
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
-void MumbleAPI::isLocalUserUsingPTT_v_1_2_x(
+void MumbleAPI::isLocalUserUsingPTT_v_1_3_x(
 	mumble_plugin_id_t callerID, 
 	bool *isUsingPTT, 
 	std::shared_ptr< api_promise_t > promise
@@ -748,7 +748,7 @@ void MumbleAPI::isLocalUserUsingPTT_v_1_2_x(
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(
-			this, "isLocalUserUsingPTT_v_1_2_x", Qt::QueuedConnection,
+			this, "isLocalUserUsingPTT_v_1_3_x", Qt::QueuedConnection,
 			Q_ARG(mumble_plugin_id_t, callerID), 
 			Q_ARG(bool*, isUsingPTT),
 			Q_ARG(std::shared_ptr< api_promise_t >, promise)
@@ -769,7 +769,7 @@ void MumbleAPI::isLocalUserUsingPTT_v_1_2_x(
 }
 
 
-void MumbleAPI::getLocalUserTalkingState_v_1_2_x(
+void MumbleAPI::getLocalUserTalkingState_v_1_3_x(
 	mumble_plugin_id_t callerID, 
 	mumble_talking_state_t *talkingState,
 	std::shared_ptr< api_promise_t > promise
@@ -777,7 +777,7 @@ void MumbleAPI::getLocalUserTalkingState_v_1_2_x(
 	if (QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(
-			this, "getLocalUserTalkingState_v_1_2_x", Qt::QueuedConnection,
+			this, "getLocalUserTalkingState_v_1_3_x", Qt::QueuedConnection,
 			Q_ARG(mumble_plugin_id_t, callerID), 
 			Q_ARG(mumble_talking_state_t*, talkingState),
 			Q_ARG(std::shared_ptr< api_promise_t >, promise)
@@ -1174,7 +1174,7 @@ void MumbleAPI::requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, 
 	EXIT_WITH(MUMBLE_STATUS_OK);
 }
 
-void MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x(
+void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 	mumble_plugin_id_t callerID,
 	mumble_userid_t* users,
 	size_t userCount,
@@ -1186,7 +1186,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x(
 	if(QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(
-			this, "requestStartLocalUserWhisperShout_v_1_2_x", Qt::QueuedConnection, 
+			this, "requestStartLocalUserWhisperShout_v_1_3_x", Qt::QueuedConnection, 
 			Q_ARG(mumble_plugin_id_t, callerID),
 			Q_ARG(mumble_userid_t*, users),
 			Q_ARG(size_t, userCount),
@@ -1222,7 +1222,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x(
 					stUser.qlSessions << user;
 					stUser.qlUsers << ClientUser::get(user)->qsHash;
 				} else {
-					qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x]"
+					qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x]"
 						     "user %zu not found!", user);
 				}
 
@@ -1243,7 +1243,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x(
 				mw->addTarget(&stChan);
 				mw->addPluginTarget(*allocID, stChan);
 			} else {
-				qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x]"
+				qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x]"
 					     "channel %zu not found!", channel);
 			}
 		}
@@ -1254,13 +1254,13 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_2_x(
 	}// if (!mw) else ...
 }
 
-void MumbleAPI::requestStopLocalUserWhisperShout_v_1_2_x(
+void MumbleAPI::requestStopLocalUserWhisperShout_v_1_3_x(
 	mumble_plugin_id_t callerID, short allocID, std::shared_ptr< api_promise_t > promise
 ){
 	if(QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(
-			this, "requestStopLocalUserWhisperShout_v_1_2_x", Qt::QueuedConnection, 
+			this, "requestStopLocalUserWhisperShout_v_1_3_x", Qt::QueuedConnection, 
 			Q_ARG(mumble_plugin_id_t, callerID),
 			Q_ARG(short, allocID),
 			Q_ARG(std::shared_ptr< api_promise_t >, promise)
@@ -1282,7 +1282,7 @@ void MumbleAPI::requestStopLocalUserWhisperShout_v_1_2_x(
 	} else {
 		const auto* pTargets = mw->getPluginTargets(allocID);
 		if (!pTargets) {
-			EXIT_WITH(MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED);
+			EXIT_WITH(MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_FOUND);
 		} else {
 			for(auto it = pTargets->begin(); it != pTargets->end(); it++) {
 				mw->removeTarget(&*it);
@@ -2130,26 +2130,26 @@ C_WRAPPER(playSample_v_1_2_x)
 
 #define TYPED_ARGS mumble_plugin_id_t callerID, bool *isUsingPTT
 #define ARG_NAMES callerID, isUsingPTT
-C_WRAPPER(isLocalUserUsingPTT_v_1_2_x)
+C_WRAPPER(isLocalUserUsingPTT_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
 #define TYPED_ARGS mumble_plugin_id_t callerID, mumble_talking_state_t *talkingState
 #define ARG_NAMES callerID, talkingState
-C_WRAPPER(getLocalUserTalkingState_v_1_2_x)
+C_WRAPPER(getLocalUserTalkingState_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
 #define TYPED_ARGS mumble_plugin_id_t callerID, mumble_userid_t* users, size_t userCount, \
                    mumble_channelid_t* channels, size_t channelCount, short* allocID
 #define ARG_NAMES callerID, users, userCount, channels, channelCount, allocID
-C_WRAPPER(requestStartLocalUserWhisperShout_v_1_2_x)
+C_WRAPPER(requestStartLocalUserWhisperShout_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
 #define TYPED_ARGS mumble_plugin_id_t callerID, short allocID
 #define ARG_NAMES callerID, allocID
-C_WRAPPER(requestStopLocalUserWhisperShout_v_1_2_x)
+C_WRAPPER(requestStopLocalUserWhisperShout_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
@@ -2179,8 +2179,6 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x() {
 			 getServerHash_v_1_0_x,
 			 getUserComment_v_1_0_x,
 			 getChannelDescription_v_1_0_x,
-			 isLocalUserUsingPTT_v_1_2_x,
-			 getLocalUserTalkingState_v_1_2_x,
 			 requestLocalUserTransmissionMode_v_1_0_x,
 			 requestUserMove_v_1_0_x,
 			 requestMicrophoneActivationOverwrite_v_1_0_x,
@@ -2188,8 +2186,6 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x() {
 			 requestLocalUserMute_v_1_0_x,
 			 requestLocalUserDeaf_v_1_0_x,
 			 requestSetLocalUserComment_v_1_0_x,
-			 requestStartLocalUserWhisperShout_v_1_2_x,
-			 requestStopLocalUserWhisperShout_v_1_2_x,
 			 findUserByName_v_1_0_x,
 			 findChannelByName_v_1_0_x,
 			 getMumbleSetting_bool_v_1_0_x,
@@ -2224,8 +2220,6 @@ MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
 			 getServerHash_v_1_0_x,
 			 getUserComment_v_1_0_x,
 			 getChannelDescription_v_1_0_x,
-			 isLocalUserUsingPTT_v_1_2_x,
-			 getLocalUserTalkingState_v_1_2_x,
 			 requestLocalUserTransmissionMode_v_1_0_x,
 			 requestUserMove_v_1_0_x,
 			 requestMicrophoneActivationOverwrite_v_1_0_x,
@@ -2233,8 +2227,51 @@ MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x() {
 			 requestLocalUserMute_v_1_0_x,
 			 requestLocalUserDeaf_v_1_0_x,
 			 requestSetLocalUserComment_v_1_0_x,
-			 requestStartLocalUserWhisperShout_v_1_2_x,
-			 requestStopLocalUserWhisperShout_v_1_2_x,
+			 findUserByName_v_1_0_x,
+			 findChannelByName_v_1_0_x,
+			 getMumbleSetting_bool_v_1_0_x,
+			 getMumbleSetting_int_v_1_0_x,
+			 getMumbleSetting_double_v_1_0_x,
+			 getMumbleSetting_string_v_1_0_x,
+			 setMumbleSetting_bool_v_1_0_x,
+			 setMumbleSetting_int_v_1_0_x,
+			 setMumbleSetting_double_v_1_0_x,
+			 setMumbleSetting_string_v_1_0_x,
+			 sendData_v_1_0_x,
+			 log_v_1_0_x,
+			 playSample_v_1_2_x };
+}
+
+MumbleAPI_v_1_3_x getMumbleAPI_v_1_3_x() {
+	return { freeMemory_v_1_0_x,
+			 getActiveServerConnection_v_1_0_x,
+			 isConnectionSynchronized_v_1_0_x,
+			 getLocalUserID_v_1_0_x,
+			 getUserName_v_1_0_x,
+			 getChannelName_v_1_0_x,
+			 getAllUsers_v_1_0_x,
+			 getAllChannels_v_1_0_x,
+			 getChannelOfUser_v_1_0_x,
+			 getUsersInChannel_v_1_0_x,
+			 getLocalUserTransmissionMode_v_1_0_x,
+			 isUserLocallyMuted_v_1_0_x,
+			 isLocalUserMuted_v_1_0_x,
+			 isLocalUserDeafened_v_1_0_x,
+			 getUserHash_v_1_0_x,
+			 getServerHash_v_1_0_x,
+			 getUserComment_v_1_0_x,
+			 getChannelDescription_v_1_0_x,
+			 isLocalUserUsingPTT_v_1_3_x,
+			 getLocalUserTalkingState_v_1_3_x,
+			 requestLocalUserTransmissionMode_v_1_0_x,
+			 requestUserMove_v_1_0_x,
+			 requestMicrophoneActivationOverwrite_v_1_0_x,
+			 requestLocalMute_v_1_0_x,
+			 requestLocalUserMute_v_1_0_x,
+			 requestLocalUserDeaf_v_1_0_x,
+			 requestSetLocalUserComment_v_1_0_x,
+			 requestStartLocalUserWhisperShout_v_1_3_x,
+			 requestStopLocalUserWhisperShout_v_1_3_x,
 			 findUserByName_v_1_0_x,
 			 findChannelByName_v_1_0_x,
 			 getMumbleSetting_bool_v_1_0_x,

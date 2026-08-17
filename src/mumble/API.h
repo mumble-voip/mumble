@@ -111,9 +111,9 @@ public slots:
 							 const char **hash, std::shared_ptr< api_promise_t > promise);
 	void getServerHash_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char **hash,
 							   std::shared_ptr< api_promise_t > promise);
-	void isLocalUserUsingPTT_v_1_2_x(mumble_plugin_id_t callerID, bool *isUsingPTT,
+	void isLocalUserUsingPTT_v_1_3_x(mumble_plugin_id_t callerID, bool *isUsingPTT,
 									 std::shared_ptr< api_promise_t > promise);
-	void getLocalUserTalkingState_v_1_2_x(mumble_plugin_id_t callerID, mumble_talking_state_t *talkingState,
+	void getLocalUserTalkingState_v_1_3_x(mumble_plugin_id_t callerID, mumble_talking_state_t *talkingState,
 										  std::shared_ptr< api_promise_t > promise);
 	void requestLocalUserTransmissionMode_v_1_0_x(mumble_plugin_id_t callerID,
 												  mumble_transmission_mode_t transmissionMode,
@@ -136,11 +136,11 @@ public slots:
 									  std::shared_ptr< api_promise_t > promise);
 	void requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 											const char *comment, std::shared_ptr< api_promise_t > promise);
-	void requestStartLocalUserWhisperShout_v_1_2_x(mumble_plugin_id_t callerID, mumble_userid_t *users, size_t userCount,
+	void requestStartLocalUserWhisperShout_v_1_3_x(mumble_plugin_id_t callerID, mumble_userid_t *users, size_t userCount,
 												   mumble_channelid_t *channels, size_t channelCount,
 												   short* allocID, 
 												   std::shared_ptr< api_promise_t > promise);
-	void requestStopLocalUserWhisperShout_v_1_2_x(mumble_plugin_id_t callerID, short allocID, 
+	void requestStopLocalUserWhisperShout_v_1_3_x(mumble_plugin_id_t callerID, short allocID, 
 												  std::shared_ptr< api_promise_t > promise);
 	void findUserByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char *userName,
 								mumble_userid_t *userID, std::shared_ptr< api_promise_t > promise);
@@ -183,6 +183,9 @@ MumbleAPI_v_1_0_x getMumbleAPI_v_1_0_x();
 
 /// @returns The Mumble API struct (v1.2.x)
 MumbleAPI_v_1_2_x getMumbleAPI_v_1_2_x();
+
+/// @returns The Mumble API struct (v1.3.x)
+MumbleAPI_v_1_3_x getMumbleAPI_v_1_3_x();
 
 /// Converts from the Qt key-encoding to the API's key encoding.
 ///
