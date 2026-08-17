@@ -798,22 +798,23 @@ void MumbleAPI::getLocalUserTalkingState_v_1_3_x(
 		EXIT_WITH(MUMBLE_EC_USER_NOT_FOUND);
 	} else {
 		switch(user->tsState) {
-			case MUMBLE_TS_PASSIVE: 
-				*talkingState = Settings::TalkState::Passive;
+			case Settings::TalkState::Passive:
+            	*talkingState = MUMBLE_TS_PASSIVE;
 				break;
-			case MUMBLE_TS_TALKING: 
-				*talkingState = Settings::TalkState::Talking;
+			case Settings::TalkState::Talking:
+				*talkingState = MUMBLE_TS_TALKING;
 				break;
-			case MUMBLE_TS_WHISPERING: 
-				*talkingState = Settings::TalkState::Whispering;
+			case Settings::TalkState::Whispering:
+				*talkingState = MUMBLE_TS_WHISPERING;
 				break;
-			case MUMBLE_TS_SHOUTING: 
-				*talkingState = Settings::TalkState::Shouting;
+			case Settings::TalkState::Shouting:
+				*talkingState = MUMBLE_TS_SHOUTING;
 				break;
-			case MUMBLE_TS_TALKING_MUTED: 
-				*talkingState = Settings::TalkState::MutedTalking;
+			case Settings::TalkState::MutedTalking:
+				*talkingState = MUMBLE_TS_TALKING_MUTED;
 				break;
 			default:
+				*talkingState = MUMBLE_TS_INVALID;
 				EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 		}
 		EXIT_WITH(MUMBLE_STATUS_OK);
