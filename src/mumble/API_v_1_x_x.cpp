@@ -799,22 +799,21 @@ void MumbleAPI::getLocalUserTalkingState_v_1_2_x(
 	} else {
 		switch(user->tsState) {
 			case MUMBLE_TS_PASSIVE: 
-				*talkingState = MUMBLE_TS_PASSIVE;
+				*talkingState = Settings::TalkState::Passive;
 				break;
 			case MUMBLE_TS_TALKING: 
-				*talkingState = MUMBLE_TS_TALKING;
+				*talkingState = Settings::TalkState::Talking;
 				break;
 			case MUMBLE_TS_WHISPERING: 
-				*talkingState = MUMBLE_TS_WHISPERING;
+				*talkingState = Settings::TalkState::Whispering;
 				break;
 			case MUMBLE_TS_SHOUTING: 
-				*talkingState = MUMBLE_TS_SHOUTING;
+				*talkingState = Settings::TalkState::Shouting;
 				break;
 			case MUMBLE_TS_TALKING_MUTED: 
-				*talkingState = MUMBLE_TS_TALKING_MUTED;
+				*talkingState = Settings::TalkState::MutedTalking;
 				break;
 			default:
-				*talkingState = MUMBLE_TS_INVALID;
 				EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 		}
 		EXIT_WITH(MUMBLE_STATUS_OK);
