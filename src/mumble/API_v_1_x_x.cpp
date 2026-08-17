@@ -814,11 +814,7 @@ void MumbleAPI::getLocalUserTalkingState_v_1_3_x(
 				*talkingState = MUMBLE_TS_TALKING_MUTED;
 				break;
 			default:
-<<<<<<< HEAD
 				*talkingState = MUMBLE_TS_INVALID;
-=======
-				*talkingState = MUMBLE_TS_INVALID; // 未知状态返回无效值
->>>>>>> 66bedc3 (Reimplement converter from TalkState to MUMBLE_TS_-)
 				EXIT_WITH(MUMBLE_EC_INTERNAL_ERROR);
 		}
 		EXIT_WITH(MUMBLE_STATUS_OK);
