@@ -233,7 +233,7 @@ enum Mumble_ErrorCode {
 	MUMBLE_EC_DATA_ID_TOO_LONG,
 	MUMBLE_EC_API_REQUEST_TIMEOUT,
 	MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER,
-	MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED
+	MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_FOUND
 };
 
 /**
@@ -618,8 +618,8 @@ MUMBLE_PLUGIN_CONSTEXPR inline const char *mumble_errorMessage(int16_t errorCode
 		case MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER:
 			return "The requested API operation depends on server-side functionality, not supported by the server "
 				   "you're connected to";
-		case MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED:
-			return "The given allocID for the whisper/shout targets isn't existed.";
+		case MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_FOUND:
+			return "The given allocID for the whisper/shout targets isn't found.";
 	}
 
 	return "Unknown error code";
@@ -1679,7 +1679,7 @@ struct MUMBLE_API_STRUCT_NAME {
 	 * @param callerID The ID of the plugin calling this function
 	 * @param allocID The whisper-target ID that was returned by @ref requestStartLocalUserWhisperShout
 	 * @returns The error code. If everything went well, STATUS_OK will be returned. If no whisper target with the
-	 * given ID exists, MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_EXISTED is returned.
+	 * given ID exists, MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_FOUND is returned.
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStopLocalUserWhisperShout)(
         mumble_plugin_id_t callerID,
