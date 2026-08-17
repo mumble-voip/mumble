@@ -1224,7 +1224,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 					stUser.qlUsers << ClientUser::get(user)->qsHash;
 				} else {
 					qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x]"
-						     "user %zu not found!", user);
+						     "user %u not found!", user);
 				}
 
 			}
@@ -1245,7 +1245,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 				mw->addPluginTarget(*allocID, stChan);
 			} else {
 				qWarning("[MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x]"
-					     "channel %zu not found!", channel);
+					     "channel %u not found!", channel);
 			}
 		}
 		mw->updateTarget();
