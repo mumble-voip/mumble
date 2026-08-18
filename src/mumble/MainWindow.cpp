@@ -1240,12 +1240,13 @@ short MainWindow::allocatePluginTarget() {
 	return iPluginTargetsCounter++;
 }
 
-short MainWindow::addPluginTarget(short allocID, const ShortcutTarget &st) {
-	if (!this->qlPluginTargets.contains(allocID)) {
-		allocID = allocatePluginTarget();
+bool MainWindow::addPluginTarget(short allocID, const ShortcutTarget &st) {
+	if(this->qlPluginTargets.contains(allocID) ) {
+		this->qlPluginTargets[allocID] << st;
+		return true;
+	} else {
+		return false;
 	}
-	this->qlPluginTargets[allocID] << st;
-	return allocID;
 }
 
 void MainWindow::clearPluginTargets(const short allocID) {

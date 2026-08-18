@@ -423,9 +423,25 @@ public slots:
 					   unsigned int newChannelID);
 	void on_qaMoveBack_triggered();
 
+	/// @brief  Allocates a new plugin target ID (`allocID in short`) for whisper/shout targets.
+	/// @return The ID of an allocated bunch of targets. It is useful for visiting and removing 
+	///         the list it represents.
 	short allocatePluginTarget();
-	short addPluginTarget(short allocID, const ShortcutTarget &st);
-	void  clearPluginTargets(const short allocID);
+
+	/// @brief         Adds a shortcut target to the specified plugin target.
+	/// @param allocID The ID of the plugin target. It should be returned from `allocatePluginTarget()`.
+	/// @param st      The ShortcutTarget to add.
+	/// @return        True if the `allocID` is valid target was added successfully, false otherwise. 
+	bool addPluginTarget(const short allocID, const ShortcutTarget &st);
+
+	/// @brief         Clears all shortcut targets for the specified plugin target. 
+	/// @param allocID The ID of the plugin target to clear. It should be returned from 
+	///                `allocatePluginTarget()`. If the `allocID` is invalid, this function does nothing.
+	void clearPluginTargets(const short allocID);
+
+	/// @brief         Returns the list of shortcut targets.
+	/// @param allocID The ID of the plugin target.
+	/// @return        A pointer to the QList of ShortcutTargets, or nullptr if not found.
 	const QList< ShortcutTarget > *getPluginTargets(const short allocID) const;
 signals:
 	/// Signal emitted when the server and the client have finished
