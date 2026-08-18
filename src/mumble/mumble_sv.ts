@@ -1260,7 +1260,7 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Åtkomst till mikrofonen nekades. Tillåt Mumble att använda mikrofonen genom att ändra inställningarna i Systeminställningar -&gt; Sekretess och säkerhet -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>%1 ms</source>
