@@ -277,7 +277,7 @@ static void cmdPrintAvailableUserAndChannels() {
 	size_t           userCount = 0;
 	
 	if (mumAPI.getAllUsers(ownID, activeConnection, &users, &userCount) != MUMBLE_STATUS_OK) {
-		printLine("Failed to fetch user list......");
+		printLine("Failed to fetch user list...");
 		return;
 	}
 
@@ -297,7 +297,8 @@ static void cmdPrintAvailableUserAndChannels() {
 	mumble_channelid_t *channels     = nullptr;
 	size_t              channelCount = 0;
 	if (mumAPI.getAllChannels(ownID, activeConnection, &channels, &channelCount) != MUMBLE_STATUS_OK) {
-		printLine("Failed to fetch channel list");
+		printLine("Failed to fetch channel list...");
+		return;
 	}
 
 	result = "Channels on this server (" + std::to_string(channelCount) + "):";
