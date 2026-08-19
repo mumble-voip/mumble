@@ -140,7 +140,7 @@ MumbleAPI::MumbleAPI() {
 	REGISTER_METATYPE(mumble_plugin_id_t);
 	REGISTER_METATYPE(mumble_settings_key_t);
 	REGISTER_METATYPE(mumble_transmission_mode_t);
-	REGISTER_METATYPE(mumble_userid_t);
+	REGISTER_METATYPE(mumble_talking_state_t);
 	REGISTER_METATYPE(mumble_userid_t);
 	REGISTER_METATYPE(std::size_t);
 	REGISTER_METATYPE(uint8_t);
