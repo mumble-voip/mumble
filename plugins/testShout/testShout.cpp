@@ -27,8 +27,8 @@
 ////////////////////////////////////////////////////////////
 
 mumble_api_t        mumAPI;
-mumble_connection_t activeConnection = -1;
-mumble_plugin_id_t  ownID            = 0;
+std::atomic< mumble_connection_t> activeConnection = -1;
+mumble_plugin_id_t  ownID                          = 0;
 
 // Set to false to stop the interactive console thread.
 std::atomic< bool > g_running{ false };
@@ -269,14 +269,14 @@ static std::string cmdDisableShouting() {
 
 
 static void cmdPrintAvailableUserAndChannels() {
-	if (activeConnection < 0) {
+	if (activeConnection.load() < 0) {
 		printLine("Not connected to a server (activeConnection == -1). Connect first.");
 		return;
 	}
 	mumble_userid_t *users     = nullptr;
 	size_t           userCount = 0;
 	
-	if (mumAPI.getAllUsers(ownID, activeConnection, &users, &userCount) != MUMBLE_STATUS_OK) {
+	if (mumAPI.getAllUsers(ownID, activeConnection.load(), &users, &userCount) != MUMBLE_STATUS_OK) {
 		printLine("Failed to fetch user list...");
 		return;
 	}
@@ -284,7 +284,7 @@ static void cmdPrintAvailableUserAndChannels() {
 	std::string result = "Users on this server (" + std::to_string(userCount) + "):";
 	for(size_t i = 0; i < userCount; i++){
 		const char *name = nullptr;
-		if (mumAPI.getUserName(ownID, activeConnection, users[i], &name) == MUMBLE_STATUS_OK) {
+		if (mumAPI.getUserName(ownID, activeConnection.load(), users[i], &name) == MUMBLE_STATUS_OK) {
 			result += "\n  User  id=" + std::to_string(users[i]) + "  name=\"" + std::string(name) + "\"";
 		} else {
 			result += "\n  User  id=" + std::to_string(users[i]) + "  name=(null)";
@@ -296,7 +296,7 @@ static void cmdPrintAvailableUserAndChannels() {
 
 	mumble_channelid_t *channels     = nullptr;
 	size_t              channelCount = 0;
-	if (mumAPI.getAllChannels(ownID, activeConnection, &channels, &channelCount) != MUMBLE_STATUS_OK) {
+	if (mumAPI.getAllChannels(ownID, activeConnection.load(), &channels, &channelCount) != MUMBLE_STATUS_OK) {
 		printLine("Failed to fetch channel list...");
 		return;
 	}
@@ -306,7 +306,7 @@ static void cmdPrintAvailableUserAndChannels() {
 		const char *name = nullptr;
 		std::ostringstream line;
 		line << "\n  Channel  id=" << std::left << std::setw(12) << channels[i];
-		if (mumAPI.getChannelName(ownID, activeConnection, channels[i], &name) == MUMBLE_STATUS_OK) {
+		if (mumAPI.getChannelName(ownID, activeConnection.load(), channels[i], &name) == MUMBLE_STATUS_OK) {
 			line << "  name=\"" << std::string(name) << "\"";
 			mumAPI.freeMemory(ownID, name);
 		} else {
@@ -326,7 +326,7 @@ static void cmdPrintAvailableUserAndChannels() {
 // console and applies them. Runs on the console thread, but each API call is
 // routed through dispatchCommand() so it is thread-safe.
 static void cmdSetTargetsInteractive() {
-	if (activeConnection < 0) {
+	if (activeConnection.load() < 0) {
 		printLine("Not connected to a server (activeConnection == -1). Connect first.");
 		return;
 	}
@@ -453,8 +453,10 @@ mumble_error_t mumble_init(uint32_t id) {
 	openConsole();
 
 	printLine("Initialized with plugin ID " + std::to_string(id));
-	mumAPI.getActiveServerConnection(ownID, &activeConnection);
-	if (activeConnection != -1) {
+	int ac = -1;
+	mumAPI.getActiveServerConnection(ownID, &ac);
+	if (ac != -1) {
+		activeConnection.store(ac);
 		printLine("Connected to server " + std::to_string(activeConnection));
 	}
 
@@ -576,12 +578,12 @@ uint32_t mumble_deactivateFeatures(uint32_t features) {
 ////////////////////////////////////////////////////////////
 
 void mumble_onServerConnected(mumble_connection_t connection) {
-	activeConnection = connection;
+	activeConnection.store(connection);
 	//logLine("Server connected (connection ID " + std::to_string(connection) + ")");
 }
 
 void mumble_onServerDisconnected(mumble_connection_t connection) {
-	activeConnection = -1;
+	activeConnection.store(-1);
 	//logLine("Server disconnected (connection ID " + std::to_string(connection) + ")");
 }
 
