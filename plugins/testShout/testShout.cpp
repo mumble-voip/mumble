@@ -5,9 +5,9 @@
 
 #include "../MumblePlugin.h"
 
-#ifdef _WIN32
+//#ifdef _WIN32
 #	include <windows.h>
-#endif
+//#endif
 
 #include <atomic>
 #include <condition_variable>
@@ -40,10 +40,8 @@ std::atomic< bool > g_apiReady{ false };
 std::thread g_consoleThread;
 
 // Cached raw console handles (set up by openConsole()).
-#ifdef _WIN32
 static HANDLE g_hConsoleOut = INVALID_HANDLE_VALUE;
 static HANDLE g_hConsoleIn  = INVALID_HANDLE_VALUE;
-#endif
 
 
 ////////////////////////////////////////////////////////////
@@ -53,24 +51,24 @@ static HANDLE g_hConsoleIn  = INVALID_HANDLE_VALUE;
 // Write raw text to our dedicated console. Falls back to OutputDebugStringA when
 // no console is available (visible in Visual Studio's "Output" window / DebugView).
 static void consoleWrite(const std::string &text) {
-#ifdef _WIN32
+//#ifdef _WIN32
 	if (g_hConsoleOut != INVALID_HANDLE_VALUE) {
 		DWORD written = 0;
 		WriteConsoleA(g_hConsoleOut, text.c_str(), static_cast< DWORD >(text.size()), &written, nullptr);
 		return;
 	}
 	OutputDebugStringA(text.c_str());
-#else
-	std::fputs(text.c_str(), stdout);
-	std::fflush(stdout);
-#endif
+//#else
+//	std::fputs(text.c_str(), stdout);
+//	std::fflush(stdout);
+//#endif
 }
 
 // Read a single line (without trailing newline) from the console. Returns false
 // on EOF / closed handle.
 static bool consoleReadLine(std::string &out) {
 	out.clear();
-#ifdef _WIN32
+//#ifdef _WIN32
 	if (g_hConsoleIn == INVALID_HANDLE_VALUE) {
 		return false;
 	}
@@ -112,29 +110,29 @@ static bool consoleReadLine(std::string &out) {
 
 	out = accumulated;
 	return true;
-#else
-	char  line[4096] = { 0 };
-	if (!std::fgets(line, sizeof(line), stdin)) {
-		return false;
-	}
-	out = line;
-	if (!out.empty() && out.back() == '\n') {
-		out.pop_back();
-	}
-	if (!out.empty() && out.back() == '\r') {
-		out.pop_back();
-	}
-	return true;
-#endif
+//#else
+//	char  line[4096] = { 0 };
+//	if (!std::fgets(line, sizeof(line), stdin)) {
+//		return false;
+//	}
+//	out = line;
+//	if (!out.empty() && out.back() == '\n') {
+//		out.pop_back();
+//	}
+//	if (!out.empty() && out.back() == '\r') {
+//		out.pop_back();
+//	}
+//	return true;
+//#endif
 }
 
 // Print a full line to the console + debugger output.
 static void printLine(const std::string &message) {
 	std::string line = "[TestShout] " + message + "\n";
 	consoleWrite(line);
-#ifdef _WIN32
+//#ifdef _WIN32
 	OutputDebugStringA(line.c_str());
-#endif
+//#endif
 }
 
 // Log to the console + debugger + Mumble's own plugin log (once API is ready).
@@ -417,7 +415,7 @@ static void loop_main() {
 // because those rely on C/C++ stdio stream state that is unreliable inside a GUI
 // process. Instead we keep the HANDLEs and use WriteConsoleA/ReadFile directly.
 static void openConsole() {
-#ifdef _WIN32
+//#ifdef _WIN32
 	bool consoleCreated = false;
 	if (AllocConsole()) {
 		consoleCreated = true;
@@ -438,7 +436,7 @@ static void openConsole() {
 					   ", hOut=" + std::to_string(reinterpret_cast< uintptr_t >(g_hConsoleOut)) + ")";
 	consoleWrite("[TestShout] " + diag + "\n");
 	OutputDebugStringA(("[TestShout] " + diag + "\n").c_str());
-#endif
+//#endif
 }
 
 
