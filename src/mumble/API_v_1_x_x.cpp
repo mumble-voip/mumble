@@ -1176,6 +1176,7 @@ void MumbleAPI::requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, 
 
 void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 	mumble_plugin_id_t callerID,
+	mumble_connection_t connection,
 	const mumble_userid_t* users,
 	const size_t userCount,
 	const mumble_channelid_t* channels,
@@ -1188,6 +1189,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 		QMetaObject::invokeMethod(
 			this, "requestStartLocalUserWhisperShout_v_1_3_x", Qt::QueuedConnection, 
 			Q_ARG(mumble_plugin_id_t, callerID),
+			Q_ARG(mumble_connection_t, connection),
 			Q_ARG(const mumble_userid_t*, users),
 			Q_ARG(const size_t, userCount),
 			Q_ARG(const mumble_channelid_t*, channels),
@@ -1205,6 +1207,8 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 	}
 
 	VERIFY_PLUGIN_ID(callerID);
+	VERIFY_CONNECTION(connection);
+	ENSURE_CONNECTION_SYNCHRONIZED(connection);
 
 	MainWindow* mw = Global::get().mw;
 
@@ -1255,13 +1259,17 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 }
 
 void MumbleAPI::requestStopLocalUserWhisperShout_v_1_3_x(
-	mumble_plugin_id_t callerID, const uint32_t allocID, std::shared_ptr< api_promise_t > promise
+	mumble_plugin_id_t callerID,
+	mumble_connection_t connection,
+	const uint32_t allocID,
+	std::shared_ptr< api_promise_t > promise
 ){
 	if(QThread::currentThread() != thread()) {
 		// Invoke in main thread
 		QMetaObject::invokeMethod(
 			this, "requestStopLocalUserWhisperShout_v_1_3_x", Qt::QueuedConnection, 
 			Q_ARG(mumble_plugin_id_t, callerID),
+			Q_ARG(mumble_connection_t, connection),
 			Q_ARG(const uint32_t, allocID),
 			Q_ARG(std::shared_ptr< api_promise_t >, promise)
 		);
@@ -1275,6 +1283,8 @@ void MumbleAPI::requestStopLocalUserWhisperShout_v_1_3_x(
 	}
 
 	VERIFY_PLUGIN_ID(callerID);
+	VERIFY_CONNECTION(connection);
+	ENSURE_CONNECTION_SYNCHRONIZED(connection);
 
 	auto* mw = Global::get().mw;
 	if(!mw) {
@@ -2142,15 +2152,16 @@ C_WRAPPER(getLocalUserTalkingState_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
-#define TYPED_ARGS mumble_plugin_id_t callerID, const mumble_userid_t* users, const size_t userCount, \
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, \
+ 				   const mumble_userid_t* users, const size_t userCount, \
                    const mumble_channelid_t* channels, const size_t channelCount, uint32_t* allocID
-#define ARG_NAMES callerID, users, userCount, channels, channelCount, allocID
+#define ARG_NAMES callerID, connection, users, userCount, channels, channelCount, allocID
 C_WRAPPER(requestStartLocalUserWhisperShout_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES
 
-#define TYPED_ARGS mumble_plugin_id_t callerID, const uint32_t allocID
-#define ARG_NAMES callerID, allocID
+#define TYPED_ARGS mumble_plugin_id_t callerID, mumble_connection_t connection, const uint32_t allocID
+#define ARG_NAMES callerID, connection, allocID
 C_WRAPPER(requestStopLocalUserWhisperShout_v_1_3_x)
 #undef TYPED_ARGS
 #undef ARG_NAMES

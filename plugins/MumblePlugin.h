@@ -1664,6 +1664,7 @@ struct MUMBLE_API_STRUCT_NAME {
 	 */
     mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStartLocalUserWhisperShout)(
         mumble_plugin_id_t callerID,
+		mumble_connection_t connection,
         const mumble_userid_t *users,
         const size_t userCount,
         const mumble_channelid_t *channels,
@@ -1684,6 +1685,7 @@ struct MUMBLE_API_STRUCT_NAME {
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStopLocalUserWhisperShout)(
         mumble_plugin_id_t callerID,
+		mumble_connection_t connection,
 		const uint32_t allocID
     );
 #endif

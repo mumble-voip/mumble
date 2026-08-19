@@ -234,7 +234,7 @@ static std::string cmdSetTargets(const std::vector< mumble_userid_t > &users,
 								 const std::vector< mumble_channelid_t > &channels) {
 	uint32_t allocID;
 	mumble_error_t error = mumAPI.requestStartLocalUserWhisperShout(
-		ownID, users.empty() ? nullptr : users.data(), users.size(),
+		ownID, activeConnection.load(), users.empty() ? nullptr : users.data(), users.size(),
 		channels.empty() ? nullptr : channels.data(), channels.size(),
 		&allocID);
 
@@ -259,7 +259,7 @@ static std::string cmdDisableShouting() {
 	}catch(...){
 		return "Invalid allocID.";
 	}
-	mumble_error_t error = mumAPI.requestStopLocalUserWhisperShout(ownID, allocID);
+	mumble_error_t error = mumAPI.requestStopLocalUserWhisperShout(ownID, activeConnection.load(), allocID);
 
 	if (error == MUMBLE_STATUS_OK) {
 		return "Shouting disabled (iPushToTalk decremented).";
