@@ -232,10 +232,10 @@ static std::string cmdReadTalkingState() {
 // the console loop rather than as a pure function. See cmdSetTargetsInteractive().
 static std::string cmdSetTargets(const std::vector< mumble_userid_t > &users,
 								 const std::vector< mumble_channelid_t > &channels) {
-	short allocID;
+	uint32_t allocID;
 	mumble_error_t error = mumAPI.requestStartLocalUserWhisperShout(
-		ownID, const_cast<uint32_t*>(users.empty() ? nullptr : users.data()), users.size(),
-		const_cast<int32_t*>(channels.empty() ? nullptr : channels.data()), channels.size(),
+		ownID, users.empty() ? nullptr : users.data(), users.size(),
+		channels.empty() ? nullptr : channels.data(), channels.size(),
 		&allocID);
 
 	if (error == MUMBLE_STATUS_OK) {
@@ -253,9 +253,9 @@ static std::string cmdDisableShouting() {
 	std::string strAllocID;
 	printLine("Input allocID: ");
 	consoleReadLine(strAllocID);
-	short allocID;
+	uint32_t allocID;
 	try{
-		allocID = std::stoi(strAllocID);
+		allocID = std::stoul(strAllocID);
 	}catch(...){
 		return "Invalid allocID.";
 	}

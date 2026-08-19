@@ -136,11 +136,14 @@ public slots:
 									  std::shared_ptr< api_promise_t > promise);
 	void requestSetLocalUserComment_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection,
 											const char *comment, std::shared_ptr< api_promise_t > promise);
-	void requestStartLocalUserWhisperShout_v_1_3_x(mumble_plugin_id_t callerID, mumble_userid_t *users, size_t userCount,
-												   mumble_channelid_t *channels, size_t channelCount,
-												   short* allocID, 
+	void requestStartLocalUserWhisperShout_v_1_3_x(mumble_plugin_id_t callerID, 
+		   										   const mumble_userid_t *users, 
+												   const size_t userCount,
+												   const mumble_channelid_t *channels, 
+												   const size_t channelCount,
+												   uint32_t* allocID, 
 												   std::shared_ptr< api_promise_t > promise);
-	void requestStopLocalUserWhisperShout_v_1_3_x(mumble_plugin_id_t callerID, short allocID, 
+	void requestStopLocalUserWhisperShout_v_1_3_x(mumble_plugin_id_t callerID, const uint32_t allocID, 
 												  std::shared_ptr< api_promise_t > promise);
 	void findUserByName_v_1_0_x(mumble_plugin_id_t callerID, mumble_connection_t connection, const char *userName,
 								mumble_userid_t *userID, std::shared_ptr< api_promise_t > promise);

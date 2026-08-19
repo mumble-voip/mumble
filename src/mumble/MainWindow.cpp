@@ -1232,7 +1232,7 @@ void MainWindow::on_qaMoveBack_triggered() {
 	qaMoveBack->setEnabled(!m_previousChannels.empty());
 }
 
-short MainWindow::allocatePluginTarget() {
+uint32_t MainWindow::allocatePluginTarget() {
 	while (this->qlPluginTargets.contains(this->iPluginTargetsCounter) ) {
 		++this->iPluginTargetsCounter;
 	}
@@ -1240,7 +1240,7 @@ short MainWindow::allocatePluginTarget() {
 	return iPluginTargetsCounter++;
 }
 
-bool MainWindow::addPluginTarget(short allocID, const ShortcutTarget &st) {
+bool MainWindow::addPluginTarget(const uint32_t allocID, const ShortcutTarget &st) {
 	if(this->qlPluginTargets.contains(allocID) ) {
 		this->qlPluginTargets[allocID] << st;
 		return true;
@@ -1249,13 +1249,13 @@ bool MainWindow::addPluginTarget(short allocID, const ShortcutTarget &st) {
 	}
 }
 
-void MainWindow::clearPluginTargets(const short allocID) {
+void MainWindow::clearPluginTargets(const uint32_t allocID) {
 	if(this->qlPluginTargets.contains(allocID)){
 		this->qlPluginTargets.remove(allocID);
 	}
 }
 
-const QList< ShortcutTarget >* MainWindow::getPluginTargets(const short allocID) const {
+const QList< ShortcutTarget >* MainWindow::getPluginTargets(const uint32_t allocID) const {
 	auto it = this->qlPluginTargets.constFind(allocID);
 	if (it != this->qlPluginTargets.constEnd()) {
 		return &(it.value());

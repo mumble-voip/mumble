@@ -171,12 +171,12 @@ protected:
 	QList< QAction * > qlChannelActions;
 	QList< QAction * > qlUserActions;
 
-	short iPluginTargetsCounter;
+	uint32_t iPluginTargetsCounter;
 	/// A list to store multiple shout/whisper targets, implemented for
 	/// plugin to invoke shout/whisper feature (similar to PTT).
 	/// key: the plugin ID
 	/// val: a list of ShortcutTargets to whisper.
-	QHash< short, QList< ShortcutTarget > > qlPluginTargets; 
+	QHash< uint32_t , QList< ShortcutTarget > > qlPluginTargets; 
 
 	QHash< ShortcutTarget, int > qmCurrentTargets;
 	/// A map that contains information about the currently active
@@ -426,23 +426,23 @@ public slots:
 	/// @brief  Allocates a new plugin target ID (`allocID in short`) for whisper/shout targets.
 	/// @return The ID of an allocated bunch of targets. It is useful for visiting and removing 
 	///         the list it represents.
-	short allocatePluginTarget();
+	uint32_t allocatePluginTarget();
 
 	/// @brief         Adds a shortcut target to the specified plugin target.
 	/// @param allocID The ID of the plugin target. It should be returned from `allocatePluginTarget()`.
 	/// @param st      The ShortcutTarget to add.
 	/// @return        True if the `allocID` is valid target was added successfully, false otherwise. 
-	bool addPluginTarget(const short allocID, const ShortcutTarget &st);
+	bool addPluginTarget(const uint32_t allocID, const ShortcutTarget &st);
 
 	/// @brief         Clears all shortcut targets for the specified plugin target. 
 	/// @param allocID The ID of the plugin target to clear. It should be returned from 
 	///                `allocatePluginTarget()`. If the `allocID` is invalid, this function does nothing.
-	void clearPluginTargets(const short allocID);
+	void clearPluginTargets(const uint32_t allocID);
 
 	/// @brief         Returns the list of shortcut targets.
 	/// @param allocID The ID of the plugin target.
 	/// @return        A pointer to the QList of ShortcutTargets, or nullptr if not found.
-	const QList< ShortcutTarget > *getPluginTargets(const short allocID) const;
+	const QList< ShortcutTarget > *getPluginTargets(const uint32_t allocID) const;
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).
