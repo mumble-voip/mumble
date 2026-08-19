@@ -111,7 +111,6 @@ void defaultDeleter(const void *ptr) {
 	free(const_cast< void * >(ptr));
 }
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// API IMPLEMENTATION //////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1290,7 +1289,9 @@ void MumbleAPI::requestStopLocalUserWhisperShout_v_1_3_x(
 			}
 			mw->clearPluginTargets(allocID);
 			mw->updateTarget();
-			Global::get().iPushToTalk--;
+			if (Global::get().iPushToTalk > 0) {
+				Global::get().iPushToTalk--;
+			}
 			EXIT_WITH(MUMBLE_STATUS_OK);
 		}
 	}
