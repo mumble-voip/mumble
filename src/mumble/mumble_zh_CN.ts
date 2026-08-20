@@ -1260,7 +1260,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>麦克风访问被拒绝。请在系统设置 -&gt; 隐私与安全性 -&gt;麦克风中更改设置，允许 Mumble 使用麦克风。</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -3890,7 +3890,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 的全局快捷键目前只能使用鼠标按钮和键盘修饰键（Alt、Ctrl、Cmd 等）。&lt;/p&gt;&lt;p&gt;如果您需要更灵活地配置，可以在 Mac 系统设置的“隐私与安全性”中把 Mumble 添加为受信任的辅助功能程序。&lt;/p&gt;&lt;p&gt;在系统设置中，打开隐私与安全性，在列表中滚动到辅助功能。最后，将 Mumble 添加到受信任的辅助功能程序列表中。&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8580,7 +8580,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>麦克风访问被拒绝。请在系统设置 -&gt; 隐私与安全性 -&gt;麦克风中更改设置，允许 Mumble 使用麦克风。</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

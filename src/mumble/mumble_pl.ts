@@ -1260,7 +1260,7 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostęp do mikrofonu został zablokowany. Zezwól aplikacji Mumble na korzystanie z mikrofonu, zmieniając ustawienia w Ustawienia systemowe -&gt; Prywatność i bezpieczeństwo -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -3892,7 +3892,7 @@ Bez tej opcji korzystanie z globalnych skrótów Mumble w aplikacjach uprzywilej
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble może obecnie używać tylko przycisków myszy i klawiszy modyfikujących klawiatury (Alt, Ctrl, Cmd itp.) do skrótów globalnych.&lt;/p&gt;&lt;p&gt;Jeśli potrzebujesz większej elastyczności, możesz dodać Mumble jako zaufany program do obsługi ułatwień dostępu w sekcji Prywatność i bezpieczeństwo w Ustawieniach systemowych na komputerze Mac.&lt;/p&gt;&lt;p&gt;W Ustawieniach systemowych otwórz Prywatność i bezpieczeństwo, a następnie przewiń listę, aby znaleźć sekcję Ułatwienia dostępu. Na koniec dodaj Mumble do listy zaufanych programów do obsługi ułatwień dostępu.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8582,7 +8582,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostęp do mikrofonu został zablokowany. Zezwól aplikacji Mumble na korzystanie z mikrofonu, zmieniając ustawienia w Ustawienia systemowe -&gt; Prywatność i bezpieczeństwo -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
