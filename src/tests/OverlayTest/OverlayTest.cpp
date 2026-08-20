@@ -12,15 +12,22 @@
 #include "SharedMemory.h"
 #include "Timer.h"
 
+#include "IPCUtils.h"
+
 #ifdef Q_OS_WIN
 #	include "win.h"
+#else
+#	include <unistd.h>
 #endif
 
 #include <QtCore>
 #include <QtGui>
 #include <QtNetwork>
 
-#include <ctime>
+#include <QApplication>
+#include <QMainWindow>
+#include <QWidget>
+
 
 class OverlayWidget : public QWidget {
 	Q_OBJECT
@@ -32,7 +39,7 @@ protected:
 	SharedMemory2 *smMem;
 	QTimer *qtTimer;
 	QRect qrActive;
-	QTime qtWall;
+	QElapsedTimer qtWall;
 
 	unsigned int iFrameCount;
 	int iLastFpsUpdate;
@@ -91,13 +98,11 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 		connect(qlsSocket, SIGNAL(connected()), this, SLOT(connected()));
 		connect(qlsSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 		connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-		connect(qlsSocket, SIGNAL(error(QLocalSocket::LocalSocketError)), this,
+		connect(qlsSocket, SIGNAL(errorOccurred(QLocalSocket::LocalSocketError)), this,
 				SLOT(error(QLocalSocket::LocalSocketError)));
-#ifdef Q_OS_WIN
-		qlsSocket->connectToServer(QLatin1String("MumbleOverlayPipe"));
-#else
-		qlsSocket->connectToServer(QDir::home().absoluteFilePath(QLatin1String(".MumbleOverlayPipe")));
-#endif
+		const QString pipepath = QString::fromStdString(Mumble::getOverlayPipePath().string());
+		qWarning() << "connectToServer(" << pipepath << ")";
+		qlsSocket->connectToServer(pipepath);
 	}
 
 	QPainter painter(this);
@@ -117,8 +122,8 @@ void OverlayWidget::init(const QSize &sz) {
 	m.omh.uiMagic  = OVERLAY_MAGIC_NUMBER;
 	m.omh.uiType   = OVERLAY_MSGTYPE_INIT;
 	m.omh.iLength  = sizeof(OverlayMsgInit);
-	m.omi.uiWidth  = sz.width();
-	m.omi.uiHeight = sz.height();
+	m.omi.uiWidth  = static_cast< unsigned int >(sz.width());
+	m.omi.uiHeight = static_cast< unsigned int >(sz.height());
 
 	if (qlsSocket && qlsSocket->state() == QLocalSocket::ConnectedState)
 		qlsSocket->write(m.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgInit));
@@ -147,7 +152,7 @@ void OverlayWidget::connected() {
 #ifdef Q_OS_WIN
 	m.omp.pid = GetCurrentProcessId();
 #else
-	m.omp.pid = getpid();
+	m.omp.pid = static_cast< unsigned int >(getpid());
 #endif
 	qlsSocket->write(m.headerbuffer, sizeof(OverlayMsgHeader) + sizeof(OverlayMsgPid));
 
@@ -166,25 +171,25 @@ void OverlayWidget::disconnected() {
 }
 
 void OverlayWidget::error(QLocalSocket::LocalSocketError) {
-	qWarning() << "error";
+	perror("error");
 	disconnected();
 }
 
 void OverlayWidget::update() {
 	++iFrameCount;
 
-	clock_t t     = clock();
 	float elapsed = static_cast< float >(qtWall.elapsed() - iLastFpsUpdate) / 1000.0f;
 
 	if (elapsed > OVERLAY_FPS_INTERVAL) {
-		struct OverlayMsg om;
-		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-		om.omh.uiType  = OVERLAY_MSGTYPE_FPS;
-		om.omh.iLength = sizeof(struct OverlayMsgFps);
-		om.omf.fps     = static_cast< int >(static_cast< float >(iFrameCount) / elapsed);
+		struct OverlayMsg omFps;
+		omFps.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+		omFps.omh.uiType  = OVERLAY_MSGTYPE_FPS;
+		omFps.omh.iLength = sizeof(struct OverlayMsgFps);
+		omFps.omf.fps     = static_cast< float >(iFrameCount) / elapsed;
 
 		if (qlsSocket && qlsSocket->state() == QLocalSocket::ConnectedState) {
-			qlsSocket->write(reinterpret_cast< char * >(&om), sizeof(OverlayMsgHeader) + om.omh.iLength);
+			qlsSocket->write(reinterpret_cast< char * >(&omFps),
+							 static_cast< int >(sizeof(OverlayMsgHeader)) + omFps.omh.iLength);
 		}
 
 		iFrameCount    = 0;
@@ -201,7 +206,7 @@ void OverlayWidget::readyRead() {
 		return;
 
 	while (true) {
-		int ready = qlsSocket->bytesAvailable();
+		quint64 ready = static_cast< quint64 >(qlsSocket->bytesAvailable());
 
 		if (om.omh.iLength == -1) {
 			if (ready < sizeof(OverlayMsgHeader))
@@ -209,7 +214,7 @@ void OverlayWidget::readyRead() {
 			else {
 				qlsSocket->read(reinterpret_cast< char * >(om.headerbuffer), sizeof(OverlayMsgHeader));
 				if ((om.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (om.omh.iLength < 0)
-					|| (om.omh.iLength > sizeof(OverlayMsgShmem))) {
+					|| ((size_t) om.omh.iLength > sizeof(OverlayMsgShmem))) {
 					detach();
 					return;
 				}
@@ -217,8 +222,8 @@ void OverlayWidget::readyRead() {
 			}
 		}
 
-		if (ready >= om.omh.iLength) {
-			int length = qlsSocket->read(om.msgbuffer, om.omh.iLength);
+		if (ready >= static_cast< unsigned int >(om.omh.iLength)) {
+			qint64 length = qlsSocket->read(om.msgbuffer, om.omh.iLength);
 
 			qWarning() << length << om.omh.uiType;
 
@@ -234,7 +239,7 @@ void OverlayWidget::readyRead() {
 					qWarning() << "SHMAT" << key;
 					if (smMem)
 						delete smMem;
-					smMem = new SharedMemory2(this, width() * height() * 4, key);
+					smMem = new SharedMemory2(this, static_cast< unsigned int >(width() * height() * 4), key);
 					if (!smMem->data()) {
 						qWarning() << "SHMEM FAIL";
 						delete smMem;
@@ -245,21 +250,21 @@ void OverlayWidget::readyRead() {
 				} break;
 				case OVERLAY_MSGTYPE_BLIT: {
 					OverlayMsgBlit *omb = &om.omb;
-					length -= sizeof(OverlayMsgBlit);
 
 					qWarning() << "BLIT" << omb->x << omb->y << omb->w << omb->h;
 
 					if (!smMem)
 						break;
 
-					if (((omb->x + omb->w) > img.width()) || ((omb->y + omb->h) > img.height()))
+					if (((omb->x + omb->w) > (unsigned int) img.width())
+						|| ((omb->y + omb->h) > (unsigned int) img.height()))
 						break;
 
 
-					for (int y = 0; y < omb->h; ++y) {
-						unsigned char *src =
-							reinterpret_cast< unsigned char * >(smMem->data()) + 4 * (width() * (y + omb->y) + omb->x);
-						unsigned char *dst = img.scanLine(y + omb->y) + omb->x * 4;
+					for (unsigned int y = 0; y < omb->h; ++y) {
+						unsigned char *src = reinterpret_cast< unsigned char * >(smMem->data())
+											 + 4 * (static_cast< unsigned int >(width()) * (y + omb->y) + omb->x);
+						unsigned char *dst = img.scanLine(static_cast< int >(y + omb->y)) + omb->x * 4;
 						memcpy(dst, src, omb->w * 4);
 					}
 
@@ -270,14 +275,14 @@ void OverlayWidget::readyRead() {
 
 					qWarning() << "ACTIVE" << oma->x << oma->y << oma->w << oma->h;
 
-					qrActive = QRect(oma->x, oma->y, oma->w, oma->h);
+					qrActive = QRect(static_cast< int >(oma->x), static_cast< int >(oma->y), static_cast< int >(oma->w),
+									 static_cast< int >(oma->h));
 					update();
 				}; break;
 				default:
 					break;
 			}
 			om.omh.iLength = -1;
-			ready -= length;
 		} else {
 			break;
 		}

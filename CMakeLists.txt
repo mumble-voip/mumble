@@ -185,6 +185,10 @@ if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
 endif()
 
+if(client OR overlay)
+	add_subdirectory(ipcutils)
+endif()
+
 if(overlay)
         if(WIN32)
                 add_subdirectory(overlay)

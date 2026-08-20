@@ -14,8 +14,19 @@ if(BUILD_OVERLAY_XCOMPILE)
 		LANGUAGES CXX
 	)
 
+	# ipcutils uses std::filesystem
+	set(CMAKE_CXX_STANDARD 20)
+
 	list(APPEND CMAKE_MODULE_PATH "${3RDPARTY_DIR}/cmake-compiler-flags")
 	include("${MUMBLE_SOURCE_ROOT}/cmake/compiler.cmake")
+
+	add_subdirectory("${MUMBLE_SOURCE_ROOT}/ipcutils" "${CMAKE_CURRENT_BINARY_DIR}/ipcutils")
+
+	if(MSVC)
+		# ipcutils has no other consumer in this cross-compiled build, so it's safe to force
+		# this directly on it.
+		set_target_properties(ipcutils PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	endif()
 endif()
 
 set(DX11_PIXEL_SHADERS "overlay11.ps")
@@ -110,6 +121,23 @@ target_sources(overlay
 )
 
 set_target_properties(overlay PROPERTIES OUTPUT_NAME ${OUTPUT_NAME})
+
+if(MSVC AND NOT BUILD_OVERLAY_XCOMPILE)
+	# main client needs the default dynamic CRT to match the rest of its dependencies.
+	# overlay needs a statically-CRT-linked copy of its own instead.
+	# thus, we use a dedicated target built from the same sources rather than forcing the shared one.
+	get_target_property(ipcutils_sources ipcutils SOURCES)
+	get_target_property(ipcutils_source_dir ipcutils SOURCE_DIR)
+	list(TRANSFORM ipcutils_sources PREPEND "${ipcutils_source_dir}/")
+
+	add_library(ipcutils_overlay STATIC ${ipcutils_sources})
+	target_include_directories(ipcutils_overlay PUBLIC "${ipcutils_source_dir}")
+	set_target_properties(ipcutils_overlay PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+	target_link_libraries(overlay PRIVATE ipcutils_overlay)
+else()
+	target_link_libraries(overlay PRIVATE ipcutils)
+endif()
 
 find_package(Boost REQUIRED)
 
