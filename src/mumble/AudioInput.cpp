@@ -672,6 +672,14 @@ void AudioInput::addEcho(const void *data, unsigned int nsamp) {
 	}
 }
 
+void AudioInput::micGone() {
+	ClientUser *p = ClientUser::get(Global::get().uiSession);
+	if (p) {
+		p->setTalking(Settings::Passive);
+	}
+}
+
+
 void AudioInput::adjustBandwidth(int bitspersec, int &bitrate, int &frames, bool &allowLowDelay) {
 	frames        = Global::get().s.iFramesPerPacket;
 	bitrate       = Global::get().s.iQuality;
