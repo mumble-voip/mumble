@@ -32,6 +32,7 @@ public:
 		TextMessage     = 0x200,
 		MakeTempChannel = 0x400,
 		Listen          = 0x800,
+		PrivateMessage  = 0x1000,
 
 		// Root channel only
 		Kick             = 0x10000,
@@ -42,7 +43,7 @@ public:
 
 		Cached = 0x8000000,
 		All = Write + Traverse + Enter + Speak + MuteDeafen + Move + MakeChannel + LinkChannel + Whisper + TextMessage
-			  + MakeTempChannel + Listen + Kick + Ban + Register + SelfRegister + ResetUserContent
+			  + MakeTempChannel + Listen + PrivateMessage + Kick + Ban + Register + SelfRegister + ResetUserContent
 	};
 
 	Q_DECLARE_FLAGS(Permissions, Perm)
