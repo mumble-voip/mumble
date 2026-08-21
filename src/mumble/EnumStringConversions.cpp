@@ -56,7 +56,8 @@
 	PROCESS(EchoCancelOptionID, DISABLED, "Disabled")                     \
 	PROCESS(EchoCancelOptionID, SPEEX_MIXED, "Speex_MixedChannel")        \
 	PROCESS(EchoCancelOptionID, SPEEX_MULTICHANNEL, "Speex_Multichannel") \
-	PROCESS(EchoCancelOptionID, APPLE_AEC, "Apple_AEC")
+	PROCESS(EchoCancelOptionID, APPLE_AEC, "Apple_AEC") \
+	PROCESS(EchoCancelOptionID, WEBRTC_AEC, "WebRTC_AEC3")
 
 #define PROXY_TYPE_VALUES                           \
 	PROCESS(Settings::ProxyType, NoProxy, "None")   \
