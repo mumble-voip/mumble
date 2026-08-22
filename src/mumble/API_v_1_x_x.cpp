@@ -1221,7 +1221,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 			ShortcutTarget stUser;
 			stUser.bUsers = true;
 			for(size_t u = 0; u < userCount; u++) {
-				uint32_t user = users[u];
+				mumble_userid_t user = users[u];
 				if(ClientUser::get(user)) {
 					stUser.qlSessions << user;
 					stUser.qlUsers << ClientUser::get(user)->qsHash;
@@ -1237,7 +1237,7 @@ void MumbleAPI::requestStartLocalUserWhisperShout_v_1_3_x(
 
 		// Add Channels. One `st` for each channel.
 		for(size_t c = 0; c < channelCount; c++) {
-			uint32_t channel = channels[c];
+			mumble_channelid_t channel = channels[c];
 			if(Channel::get(channel)) {
 				ShortcutTarget stChan;
 				stChan.bUsers = false;
