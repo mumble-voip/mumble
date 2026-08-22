@@ -105,7 +105,10 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast< QEvent::Type >(OU_QEVEN
 }
 
 MainWindow::MainWindow(QWidget *p)
-	: QMainWindow(p), m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
+	: QMainWindow(p),
+	  iPluginTargetsCounter(0),
+	  iTargetCounter(0),
+	  m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
 	  m_userLocalVolumeSlider(make_qt_unique< UserLocalVolumeSlider >(this)),
 	  m_listenerVolumeSlider(make_qt_unique< ListenerVolumeSlider >(this)) {
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSelf, QLatin1String("skin:muted_self.svg"));
@@ -1228,6 +1231,37 @@ void MainWindow::on_qaMoveBack_triggered() {
 	handler->joinChannel(Global::get().uiSession, prevChannel->iId);
 
 	qaMoveBack->setEnabled(!m_previousChannels.empty());
+}
+
+uint32_t MainWindow::allocatePluginTarget() {
+	while (this->qlPluginTargets.contains(this->iPluginTargetsCounter) ) {
+		++this->iPluginTargetsCounter;
+	}
+	this->qlPluginTargets.insert(iPluginTargetsCounter, QList< ShortcutTarget >());
+	return iPluginTargetsCounter++;
+}
+
+bool MainWindow::addPluginTarget(const uint32_t allocID, const ShortcutTarget &st) {
+	if(this->qlPluginTargets.contains(allocID) ) {
+		this->qlPluginTargets[allocID] << st;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+void MainWindow::clearPluginTargets(const uint32_t allocID) {
+	if(this->qlPluginTargets.contains(allocID)){
+		this->qlPluginTargets.remove(allocID);
+	}
+}
+
+const QList< ShortcutTarget >* MainWindow::getPluginTargets(const uint32_t allocID) const {
+	auto it = this->qlPluginTargets.constFind(allocID);
+	if (it != this->qlPluginTargets.constEnd()) {
+		return &(it.value());
+	}
+	return nullptr;
 }
 
 static void recreateServerHandler() {
@@ -3051,13 +3085,24 @@ void MainWindow::updateTarget() {
 					}
 				}
 			} else if (st.bUsers) {
-				for (const QString &hash : st.qlUsers) {
-					ClientUser *p = pmModel->getUser(hash);
-					if (p)
-						nt.qlSessions.append(p->uiSession);
+				// If users' ids have provided, we needn't find user again
+				// by their hash.
+				if (st.qlSessions.isEmpty()) {
+					for (const QString &hash : st.qlUsers) {
+						ClientUser *p = pmModel->getUser(hash);
+						if (p)
+							nt.qlSessions.append(p->uiSession);
+					}
+				} else {
+					for (auto& session : st.qlSessions) {
+						if (ClientUser::get(session)) {
+							nt.qlSessions.append(session);
+						}
+					}
 				}
-				if (!nt.qlSessions.isEmpty())
+				if (!nt.qlSessions.isEmpty()) {
 					ql << nt;
+				}
 			} else {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
@@ -3207,14 +3252,14 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
  * the number of push-to-talk events for a given ShortcutTarget.  If this number
  * reaches 0, the ShortcutTarget is removed from qmCurrentTargets.
  */
-void MainWindow::addTarget(ShortcutTarget *st) {
+void MainWindow::addTarget(const ShortcutTarget *st) {
 	if (qmCurrentTargets.contains(*st))
 		qmCurrentTargets[*st] += 1;
 	else
 		qmCurrentTargets[*st] = 1;
 }
 
-void MainWindow::removeTarget(ShortcutTarget *st) {
+void MainWindow::removeTarget(const ShortcutTarget *st) {
 	if (!qmCurrentTargets.contains(*st))
 		return;
 

@@ -171,6 +171,13 @@ protected:
 	QList< QAction * > qlChannelActions;
 	QList< QAction * > qlUserActions;
 
+	uint32_t iPluginTargetsCounter;
+	/// A list to store multiple shout/whisper targets, implemented for
+	/// plugin to invoke shout/whisper feature (similar to PTT).
+	/// key: the plugin ID
+	/// val: a list of ShortcutTargets to whisper.
+	QHash< uint32_t , QList< ShortcutTarget > > qlPluginTargets; 
+
 	QHash< ShortcutTarget, int > qmCurrentTargets;
 	/// A map that contains information about the currently active
 	/// shout/whisper targets. The mapping is between a List of
@@ -321,8 +328,8 @@ public slots:
 	void on_gsMuteSelf_down(QVariant);
 	void on_gsDeafSelf_down(QVariant);
 	void on_gsWhisper_triggered(bool, QVariant);
-	void addTarget(ShortcutTarget *);
-	void removeTarget(ShortcutTarget *);
+	void addTarget(const ShortcutTarget *);
+	void removeTarget(const ShortcutTarget *);
 	void on_gsListenChannel_triggered(bool, QVariant);
 	void on_gsCycleTransmitMode_triggered(bool, QVariant);
 	void on_gsToggleMainWindowVisibility_triggered(bool, QVariant);
@@ -415,6 +422,27 @@ public slots:
 	void on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
 					   unsigned int newChannelID);
 	void on_qaMoveBack_triggered();
+
+	/// @brief  Allocates a new plugin target ID (`allocID in short`) for whisper/shout targets.
+	/// @return The ID of an allocated bunch of targets. It is useful for visiting and removing 
+	///         the list it represents.
+	uint32_t allocatePluginTarget();
+
+	/// @brief         Adds a shortcut target to the specified plugin target.
+	/// @param allocID The ID of the plugin target. It should be returned from `allocatePluginTarget()`.
+	/// @param st      The ShortcutTarget to add.
+	/// @return        True if the `allocID` is valid target was added successfully, false otherwise. 
+	bool addPluginTarget(const uint32_t allocID, const ShortcutTarget &st);
+
+	/// @brief         Clears all shortcut targets for the specified plugin target. 
+	/// @param allocID The ID of the plugin target to clear. It should be returned from 
+	///                `allocatePluginTarget()`. If the `allocID` is invalid, this function does nothing.
+	void clearPluginTargets(const uint32_t allocID);
+
+	/// @brief         Returns the list of shortcut targets.
+	/// @param allocID The ID of the plugin target.
+	/// @return        A pointer to the QList of ShortcutTargets, or nullptr if not found.
+	const QList< ShortcutTarget > *getPluginTargets(const uint32_t allocID) const;
 signals:
 	/// Signal emitted when the server and the client have finished
 	/// synchronizing (after a new connection).
