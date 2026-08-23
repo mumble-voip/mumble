@@ -529,7 +529,7 @@ find_package("nlohmann_json" REQUIRED)
 
 target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)
 
-find_package(SndFile NAMES "LibSndFile" "sndfile" REQUIRED)
+find_package(SndFile NAMES "SndFile" "LibSndFile" "sndfile" REQUIRED)
 
 # Check if sndfile version supports opus
 if("${SndFile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
@@ -713,7 +713,7 @@ else()
 	endif()
 endif()
 
-find_package("Opus" REQUIRED NAMES "opus")
+find_package("Opus" REQUIRED NAMES "Opus" "opus")
 target_link_libraries(mumble_client_object_lib PUBLIC Opus::opus)
 
 if(bundled-speex)
