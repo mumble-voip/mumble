@@ -40,7 +40,12 @@ jobs:
           arch: x86_64
 
     - name: Generate compile-command DB
-      run: mkdir build; cd build; cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..; cd ..; ln -s build/compile_commands.json .
+      run: |
+        mkdir build
+        cmake -B build -S .\
+          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+          -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES='cmake/mumble_dependency_provider.cmake'
+        ln -s build/compile_commands.json .
       shell: bash
 
     - name: Check code formatting
