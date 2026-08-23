@@ -36,7 +36,9 @@
 #else
 #	include <fcntl.h>
 #	include <sys/syslog.h>
+#	include <unistd.h>
 #endif
+
 
 #include <optional>
 #include <tuple>
