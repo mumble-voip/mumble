@@ -21,6 +21,7 @@
 #endif
 
 #include <cassert>
+#include <climits>
 #include <cstdint>
 #include <utility>
 
