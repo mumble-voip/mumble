@@ -18,11 +18,21 @@
 
 // Re-include the API definition
 #undef EXTERNAL_MUMBLE_PLUGIN_MUMBLE_API_
-// But this time, overwrite the version
+// But this time, overwrite the version to 1.0
 #undef MUMBLE_PLUGIN_API_MAJOR_MACRO
 #define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #undef MUMBLE_PLUGIN_API_MINOR_MACRO
 #define MUMBLE_PLUGIN_API_MINOR_MACRO 0
+
+#include "MumblePlugin.h"
+
+// Re-include the API definition
+#undef EXTERNAL_MUMBLE_PLUGIN_MUMBLE_API_
+// But this time, overwrite the version to 1.2
+#undef MUMBLE_PLUGIN_API_MAJOR_MACRO
+#define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
+#undef MUMBLE_PLUGIN_API_MINOR_MACRO
+#define MUMBLE_PLUGIN_API_MINOR_MACRO 2
 
 #include "MumblePlugin.h"
 

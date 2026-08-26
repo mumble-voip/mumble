@@ -126,7 +126,9 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
+	{
+		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
+	}
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -1228,6 +1230,36 @@ void MainWindow::on_qaMoveBack_triggered() {
 	handler->joinChannel(Global::get().uiSession, prevChannel->iId);
 
 	qaMoveBack->setEnabled(!m_previousChannels.empty());
+}
+
+uint32_t MainWindow::allocatePluginTarget() {
+	while (this->qlPluginTargets.contains(this->iPluginTargetsCounter)) {
+		++this->iPluginTargetsCounter;
+	}
+	this->qlPluginTargets.insert(iPluginTargetsCounter, QList< ShortcutTarget >());
+	return iPluginTargetsCounter++;
+}
+
+bool MainWindow::addPluginTarget(const uint32_t allocID, const ShortcutTarget &st) {
+	if (!this->qlPluginTargets.contains(allocID)) {
+		return false;
+	}
+	this->qlPluginTargets[allocID] << st;
+	return true;
+}
+
+void MainWindow::clearPluginTargets(const uint32_t allocID) {
+	if (this->qlPluginTargets.contains(allocID)) {
+		this->qlPluginTargets.remove(allocID);
+	}
+}
+
+const QList< ShortcutTarget > *MainWindow::getPluginTargets(const uint32_t allocID) const {
+	auto it = this->qlPluginTargets.constFind(allocID);
+	if (it != this->qlPluginTargets.constEnd()) {
+		return &(it.value());
+	}
+	return nullptr;
 }
 
 static void recreateServerHandler() {
@@ -3207,14 +3239,14 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
  * the number of push-to-talk events for a given ShortcutTarget.  If this number
  * reaches 0, the ShortcutTarget is removed from qmCurrentTargets.
  */
-void MainWindow::addTarget(ShortcutTarget *st) {
+void MainWindow::addTarget(const ShortcutTarget *st) {
 	if (qmCurrentTargets.contains(*st))
 		qmCurrentTargets[*st] += 1;
 	else
 		qmCurrentTargets[*st] = 1;
 }
 
-void MainWindow::removeTarget(ShortcutTarget *st) {
+void MainWindow::removeTarget(const ShortcutTarget *st) {
 	if (!qmCurrentTargets.contains(*st))
 		return;
 
