@@ -200,20 +200,29 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	PulseAudioInput *pai  = dynamic_cast< PulseAudioInput * >(raw_ai);
 	PulseAudioOutput *pao = dynamic_cast< PulseAudioOutput * >(raw_ao);
 
-	if (raw_ao) {
+	// when shutting down AudioOutput: `pasOutput != nullptr` and `raw_ao == nullptr`
+	// when starting      AudioOutput: `pasOutput == nullptr` and `raw_ao != nullptr`
+	if (pasOutput || raw_ao) {
 		QString odev        = outputDevice();
 		pa_stream_state ost = pasOutput ? m_pulseAudio.stream_get_state(pasOutput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
+		// Unreferencing output to clean up the leftover output device.
+		// Can be called from `write_stream_callback()`.
+		if (pasOutput && ost == PA_STREAM_TERMINATED) {
+			qWarning("PulseAudio: Unreferencing output");
+			m_pulseAudio.stream_unref(pasOutput);
+			pasOutput = nullptr;
+		}
+
+		// PulseAudioOutput isn't working, but the server is still running.
+		// So we should turn it off.
 		if (!pao && (ost == PA_STREAM_READY)) {
 			do_stop = true;
 		} else if (pao) {
 			switch (ost) {
 				case PA_STREAM_TERMINATED: {
-					if (pasOutput)
-						m_pulseAudio.stream_unref(pasOutput);
-
 					pa_sample_spec pss = qhSpecMap.value(odev);
 					pa_channel_map pcm = qhChanMap.value(odev);
 					if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
@@ -484,8 +493,13 @@ void PulseAudioSystem::write_stream_callback(pa_stream *s, void *userdata) {
 			break;
 	}
 	const pa_buffer_attr *bufferAttr;
-	if ((bufferAttr = pa.stream_get_buffer_attr(s))) {
-		Global::get().ao->setBufferSize(bufferAttr->maxlength);
+
+	// Hold a copy of `Global::ao` to retain the pointer, because this function runs in
+	// PulseAudio's mainloop, but functions like `Audio::stop()`in main thread.
+	// Additional reference can make `Audio::stop()` pending, until it ends.
+	AudioOutputPtr ao = Global::get().ao;
+	if (ao && (bufferAttr = pa.stream_get_buffer_attr(s))) {
+		ao->setBufferSize(bufferAttr->maxlength);
 	}
 	pas->wakeup();
 }
