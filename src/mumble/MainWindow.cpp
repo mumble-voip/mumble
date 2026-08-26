@@ -3083,13 +3083,24 @@ void MainWindow::updateTarget() {
 					}
 				}
 			} else if (st.bUsers) {
-				for (const QString &hash : st.qlUsers) {
-					ClientUser *p = pmModel->getUser(hash);
-					if (p)
-						nt.qlSessions.append(p->uiSession);
+				// If users' ids have provided, we needn't find user again
+				// by their hash.
+				if (st.qlSessions.isEmpty()) {
+					for (const QString &hash : st.qlUsers) {
+						ClientUser *p = pmModel->getUser(hash);
+						if (p)
+							nt.qlSessions.append(p->uiSession);
+					}
+				} else {
+					for (auto& session : st.qlSessions) {
+						if (ClientUser::get(session)) {
+							nt.qlSessions.append(session);
+						}
+					}
 				}
-				if (!nt.qlSessions.isEmpty())
+				if (!nt.qlSessions.isEmpty()) {
 					ql << nt;
+				}
 			} else {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
