@@ -200,13 +200,20 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	PulseAudioInput *pai  = dynamic_cast< PulseAudioInput * >(raw_ai);
 	PulseAudioOutput *pao = dynamic_cast< PulseAudioOutput * >(raw_ao);
 
-	if (raw_ao) {
+	// when shutting down AudioOutput: `pasOutput != nullptr` and `raw_ao == nullptr`
+	// when starting      AudioOutput: `pasOutput == nullptr` and `raw_ao != nullptr`
+	if (pasOutput || raw_ao) {
 		QString odev        = outputDevice();
 		pa_stream_state ost = pasOutput ? m_pulseAudio.stream_get_state(pasOutput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
-		if (!pao && (ost == PA_STREAM_READY)) {
+		// When running `Audio::stop()`, `Global::ao == nullptr`, thus
+  		// `raw_ao == nullptr` and PulseAudio Output is to be shutdown 
+		// because no AudioOutput Device is to be running.
+  		if (!raw_ao) {
+  	    	do_stop = true;  
+		} else if (!pao && (ost == PA_STREAM_READY)) {
 			do_stop = true;
 		} else if (pao) {
 			switch (ost) {
