@@ -277,20 +277,23 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		}
 	}
 
-	if (raw_ai) {
+	// see `if(pasOutput || raw_ao) { ... }`
+	if (pasInput || raw_ai) {
 		QString idev        = inputDevice();
 		pa_stream_state ist = pasInput ? m_pulseAudio.stream_get_state(pasInput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
+		if (pasInput && ist == PA_STREAM_TERMINATED) {
+			qWarning("PulseAudio: Unreferencing input");
+			m_pulseAudio.stream_unref(pasInput);
+			pasInput = nullptr;
+		}
 		if (!pai && (ist == PA_STREAM_READY)) {
 			do_stop = true;
 		} else if (pai) {
 			switch (ist) {
 				case PA_STREAM_TERMINATED: {
-					if (pasInput)
-						m_pulseAudio.stream_unref(pasInput);
-
 					pa_sample_spec pss = qhSpecMap.value(idev);
 					if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 						pss.format = PA_SAMPLE_FLOAT32NE;
