@@ -105,7 +105,8 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast< QEvent::Type >(OU_QEVEN
 }
 
 MainWindow::MainWindow(QWidget *p)
-	: QMainWindow(p), m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
+	: QMainWindow(p), iPluginTargetsCounter(0), iTargetCounter(0),
+	  m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
 	  m_userLocalVolumeSlider(make_qt_unique< UserLocalVolumeSlider >(this)),
 	  m_listenerVolumeSlider(make_qt_unique< ListenerVolumeSlider >(this)) {
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSelf, QLatin1String("skin:muted_self.svg"));
@@ -126,9 +127,7 @@ MainWindow::MainWindow(QWidget *p)
 	else
 		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
 #else
-	{
-		SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg"));
-	}
+	{ SvgIcon::addSvgPixmapsToIcon(qiIcon, QLatin1String("skin:mumble.svg")); }
 
 	// Set application icon except on MacOSX, where the window-icon
 	// shown in the title-bar usually serves as a draggable version of the
@@ -3092,7 +3091,7 @@ void MainWindow::updateTarget() {
 							nt.qlSessions.append(p->uiSession);
 					}
 				} else {
-					for (auto& session : st.qlSessions) {
+					for (auto &session : st.qlSessions) {
 						if (ClientUser::get(session)) {
 							nt.qlSessions.append(session);
 						}
