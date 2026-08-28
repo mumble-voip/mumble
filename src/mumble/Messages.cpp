@@ -128,7 +128,8 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	}
 	Global::get().uiSession = msg.session();
 
-	Global::get().sh->sendPing(); // Send initial ping to establish UDP connection
+	// Send an initial ping and establish the UDP connection unless TCP mode is forced
+	Global::get().sh->sendPing();
 
 	Global::get().pPermissions = ChanACL::Permissions(static_cast< unsigned int >(msg.permissions()));
 	Global::get().l->clearIgnore();
