@@ -275,13 +275,16 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		}
 	}
 
-	if (raw_ai) {
+	// see `if(pasOutput || raw_ao) { ... }`
+	if (pasInput || raw_ai) {
 		QString idev        = inputDevice();
 		pa_stream_state ist = pasInput ? m_pulseAudio.stream_get_state(pasInput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
-		if (!pai && (ist == PA_STREAM_READY)) {
+		if (!raw_ai) {
+			do_stop = true;
+		} else if (!pai && (ist == PA_STREAM_READY)) {
 			do_stop = true;
 		} else if (pai) {
 			switch (ist) {
