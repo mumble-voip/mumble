@@ -8,6 +8,7 @@
 
 #	include "AudioInput.h"
 #	include "AudioOutput.h"
+#	include "AudioRestart.h"
 #	include <AudioToolbox/AudioToolbox.h>
 
 enum AUDirection { OUTPUT = 0, INPUT = 1 };
@@ -25,6 +26,7 @@ class CoreAudioInput : public AudioInput {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CoreAudioInput)
+	AudioRestart m_restart;
 	/// Open HAL AU as input and pass back the output stream description.
 	bool openAUHAL(AudioStreamBasicDescription &streamDescription);
 
@@ -43,6 +45,11 @@ protected:
 	AudioDeviceID inputDevId{};
 	AudioDeviceID echoOutputDevId{};
 	AudioBufferList buflist{};
+	/// The AudioUnit (auHAL or auVoip) that CoreAudioInput::propertyChange was registered on;
+	/// needed to remove that exact listener in stop().
+	AudioUnit auPropertyListener{};
+	/// Whether CoreAudioInput::deviceChange is currently registered as a system property listener.
+	bool bDeviceListenerRegistered = false;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
 	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
@@ -61,9 +68,15 @@ class CoreAudioOutput : public AudioOutput {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(CoreAudioOutput)
+	AudioRestart m_restart;
+
 protected:
 	/// Hardware Abstraction Layer's AudioOutputUnit, directly interacts with the hardware
 	AudioUnit auHAL{};
+	/// Whether CoreAudioOutput::propertyChange is currently registered as a listener on auHAL.
+	bool bPropertyListenerRegistered = false;
+	/// Whether CoreAudioOutput::deviceChange is currently registered as a system property listener.
+	bool bDeviceListenerRegistered = false;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
 	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
