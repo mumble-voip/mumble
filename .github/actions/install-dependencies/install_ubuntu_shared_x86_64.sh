@@ -39,6 +39,7 @@ sudo apt -y install \
 	libcli11-dev \
 	libspdlog-dev \
 	libsoci-dev \
+	libutfcpp-dev \
 	libsqlite3-dev
 
 # The package was initially called libqt6svg6-dev.

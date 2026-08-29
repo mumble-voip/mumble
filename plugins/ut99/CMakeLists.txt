@@ -5,4 +5,6 @@
 
 add_library(ut99 SHARED "ut99.cpp")
 
-target_link_libraries(ut99 PRIVATE utfcpp)
+find_package(utf8cpp REQUIRED)
+
+target_link_libraries(ut99 PRIVATE $<IF:$<TARGET_EXISTS:utf8cpp::utf8cpp>,utf8cpp::utf8cpp,utf8cpp>)
