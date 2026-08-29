@@ -24,4 +24,6 @@ target_include_directories(link_tester PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 
 set_target_properties(link_tester PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
-target_link_libraries(link PRIVATE utfcpp)
+find_package(utf8cpp REQUIRED)
+
+target_link_libraries(link PRIVATE $<IF:$<TARGET_EXISTS:utf8cpp::utf8cpp>,utf8cpp::utf8cpp,utf8cpp>)

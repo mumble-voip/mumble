@@ -559,10 +559,12 @@ else()
 	target_link_libraries(mumble_client_lib PUBLIC ${SndFile_LIBRARIES})
 endif()
 
+find_package(utf8cpp REQUIRED)
+
 target_link_libraries(mumble_client_lib
 	PUBLIC
 		shared
-		utfcpp
+		$<IF:$<TARGET_EXISTS:utf8cpp::utf8cpp>,utf8cpp::utf8cpp,utf8cpp>
 		Qt6::Concurrent
 		Qt6::Sql
 		Qt6::Svg

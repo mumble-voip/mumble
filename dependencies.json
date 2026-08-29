@@ -193,6 +193,12 @@
 			"license": "blessing"
 		},
 		{
+			"name": "utf8cpp",
+			"license": "BSL-1.0",
+			"source_code": "https://github.com/nemtrif/utfcpp.git",
+			"tracked_version": "v4.2.0"
+		},
+		{
 			"name": "Vulkan",
 			"website": "https://www.vulkan.org",
 			"license": "Apache-2.0"

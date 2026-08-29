@@ -40,6 +40,7 @@ sudo apt install \
   libcli11-dev \
   libspdlog-dev \
   libsoci-dev \
+  libutfcpp-dev \
   g++-multilib
 ```
 

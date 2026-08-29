@@ -66,6 +66,7 @@ sudo apt -y install \
 	libcli11-dev \
 	libspdlog-dev \
 	libsoci-dev \
+	libutfcpp-dev \
 	libsqlite3-dev
 
 # MySQL and PostgreSQL are pre-installed on GitHub-hosted runners.
