@@ -18,6 +18,9 @@ cmake -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="cmake/mumble_dependency_provider.cmake
 ```
 (assuming CMake is being run from this repository's root).
 
+Note: It seems to be impossible to use relative paths for this option that refer to a directory higher up, i.e. a path containing a `../` element.
+Instead, you will have to use an absolute path in such cases.
+
 
 ### Customization
 
