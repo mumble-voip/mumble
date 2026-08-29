@@ -532,7 +532,7 @@ find_package("nlohmann_json" REQUIRED)
 
 target_link_libraries(mumble_client_lib PUBLIC nlohmann_json::nlohmann_json)
 
-find_package(SndFile NAMES "SndFile" "LibSndFile" "sndfile" REQUIRED)
+find_package(SndFile REQUIRED)
 
 # Check if sndfile version supports opus
 if("${SndFile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
@@ -716,7 +716,7 @@ else()
 	endif()
 endif()
 
-find_package("Opus" REQUIRED NAMES "Opus" "opus")
+find_package("Opus" REQUIRED)
 target_link_libraries(mumble_client_lib PUBLIC Opus::opus)
 
 if(bundled-speex)
@@ -790,14 +790,14 @@ else()
 	target_sources(mumble_client_lib PRIVATE "TextToSpeech_unix.cpp")
 
 	if(speechd)
-		find_package("speech-dispatcher" REQUIRED)
+		find_package(SpeechDispatcher REQUIRED)
 
 		target_compile_definitions(mumble_client_lib
 			PUBLIC
 				"USE_SPEECHD"
 				"USE_SPEECHD_PKGCONFIG"
 		)
-		target_link_libraries(mumble_client_lib PUBLIC ${speech-dispatcher_LIBRARIES})
+		target_link_libraries(mumble_client_lib PUBLIC SpeechDispatcher::SpeechDispatcher)
 	else()
 		target_compile_definitions(mumble_client_lib PUBLIC "USE_NO_TTS")
 	endif()
@@ -957,10 +957,9 @@ endif()
 
 if(zeroconf)
 	if(NOT APPLE)
-		find_package(avahi-compat-libdns_sd QUIET)
-		if(avahi-compat-libdns_sd_FOUND)
-			target_include_directories(mumble_client_lib PUBLIC ${avahi-compat-libdns_sd_INCLUDE_DIRS})
-			target_link_libraries(mumble_client_lib PUBLIC ${avahi-compat-libdns_sd_LIBRARIES})
+		find_package(AvahiCompatLibDNSsd QUIET)
+		if(AvahiCompatLibDNSsd_FOUND)
+			target_link_libraries(mumble_client_lib PUBLIC AvahiCompatLibDNSsd::AvahiCompatLibDNSsd)
 		else()
 			find_library(LIB_DNSSD "dnssd")
 			if(${LIB_DNSSD} STREQUAL "LIB_DNSSD-NOTFOUND")

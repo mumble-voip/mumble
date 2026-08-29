@@ -1,3 +1,8 @@
+# Copyright The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 message(STATUS "Using Mumble's dependency provider")
 
 # Note: find_package (and FetchContent_MakeAvailable for that matter) have the package/dependency
@@ -60,35 +65,6 @@ macro(mumble_provide_dependency METHOD DEP_NAME)
 	endif()
 
 	
-	find_package(PkgConfig ${QUIET_KEYWORD} BYPASS_PROVIDER)
-	if (NOT ${DEP_NAME}_FOUND AND NOT MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_PKGCONFIG AND PkgConfig_FOUND)
-		set(POTENTIAL_NAMES "${DEP_NAME}")
-		cmake_parse_arguments(DUMMY "REQUIRED" "" "NAMES" ${ARGN})
-		if (DUMMY_NAMES)
-			list(APPEND POTENTIAL_NAMES ${DUMMY_NAMES})
-		endif()
-
-		foreach(CURRENT_NAME IN LISTS POTENTIAL_NAMES)
-			# We use a different name to avoid clashes with variables that pkg_search_module might set
-			set(PKG_BASENAME "MUMBLE_DEP_PROVIDER_PKGCONF_${CURRENT_NAME}")
-
-			pkg_search_module("${PKG_BASENAME}" "${CURRENT_NAME}" ${QUIET_KEYWORD} IMPORTED_TARGET)
-
-			if (TARGET PkgConfig::${PKG_BASENAME})
-				if (DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_EXPECTED_MAIN_TARGET)
-					add_library("${MUMBLE_DEP_${DEP_NAME_UPPER}_EXPECTED_MAIN_TARGET}" ALIAS PkgConfig::${PKG_BASENAME})
-				endif()
-
-				set(${DEP_NAME}_LIBRARIES "PkgConfig::${PKG_BASENAME}")
-				set(${DEP_NAME}_FOUND TRUE)
-				set(${DEP_NAME}_VERSION "${${PKG_BASENAME}_VERSION}")
-
-				break()
-			endif()
-		endforeach()
-	endif()
-
-
 	if (NOT ${DEP_NAME}_FOUND AND NOT MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FETCHCONTENT AND DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_FETCHCONTENT_ID)
 		include(FetchContent)
 		FetchContent_MakeAvailable(${MUMBLE_DEP_${DEP_NAME_UPPER}_FETCHCONTENT_ID})
