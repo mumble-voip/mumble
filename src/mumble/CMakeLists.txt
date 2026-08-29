@@ -338,6 +338,9 @@ set(MUMBLE_SOURCES
 	"${SHARED_SOURCE_DIR}/SignalCurry.h"
 	"${SHARED_SOURCE_DIR}/User.cpp"
 	"${SHARED_SOURCE_DIR}/User.h"
+)
+set(MUMBLE_EXE_SOURCES
+	"main.cpp"
 
 	"mumble.qrc"
 	"${CMAKE_SOURCE_DIR}/themes/DefaultTheme.qrc"
@@ -355,21 +358,21 @@ add_custom_command(
 )
 list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
-add_library(mumble_client_object_lib OBJECT ${MUMBLE_SOURCES})
-target_set_mumble_compiler_flags(mumble_client_object_lib)
-target_link_libraries(mumble_client_object_lib PUBLIC smallft)
-target_link_libraries(mumble_client_object_lib PUBLIC ipcutils)
+add_library(mumble_client_lib STATIC ${MUMBLE_SOURCES})
+target_set_mumble_compiler_flags(mumble_client_lib)
+target_link_libraries(mumble_client_lib PUBLIC smallft)
+target_link_libraries(mumble_client_lib PUBLIC ipcutils)
 
 if(WIN32 AND NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
 	# We don't want the console to appear in release builds.
-	add_executable(mumble WIN32 "main.cpp")
+	add_executable(mumble WIN32 ${MUMBLE_EXE_SOURCES})
 else()
-	add_executable(mumble "main.cpp")
+	add_executable(mumble ${MUMBLE_EXE_SOURCES})
 endif()
 target_set_mumble_compiler_flags(mumble)
 
 if(WIN32)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 			"${MUMBLE_RC}"
@@ -401,10 +404,10 @@ add_custom_command(
 target_sources(mumble PRIVATE "ApplicationPalette.h")
 target_include_directories(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
-target_link_libraries(mumble PRIVATE mumble_client_object_lib shared spdlog::spdlog)
+target_link_libraries(mumble PRIVATE mumble_client_lib shared spdlog::spdlog)
 target_link_libraries(mumble PRIVATE CLI11::CLI11)
 
-target_compile_definitions(mumble_client_object_lib
+target_compile_definitions(mumble_client_lib
 	PUBLIC
 	"MUMBLE_LIBRARY_PATH=${MUMBLE_INSTALL_ABS_LIBDIR}"
 	"MUMBLE_PLUGIN_PATH=${MUMBLE_INSTALL_ABS_PLUGINDIR}"
@@ -412,7 +415,7 @@ target_compile_definitions(mumble_client_object_lib
 
 set_target_properties(mumble PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-set_target_properties(mumble_client_object_lib
+set_target_properties(mumble_client_lib
 	PROPERTIES
 		AUTOMOC ON
 		AUTORCC ON
@@ -441,14 +444,14 @@ get_numerical_file_hash("${CMAKE_CURRENT_SOURCE_DIR}/MainWindow.ui" MAINWINDOW_U
 
 message(STATUS "MAINWINDOW_UI_HASH: ${MAINWINDOW_UI_HASH}")
 
-target_compile_definitions(mumble_client_object_lib
+target_compile_definitions(mumble_client_lib
 	PUBLIC
 		"MUMBLE"
 		"MUMBLE_MAINWINDOW_UI_HASH=${MAINWINDOW_UI_HASH}"
 		"QT_RESTRICTED_CAST_FROM_ASCII"
 )
 
-target_include_directories(mumble_client_object_lib
+target_include_directories(mumble_client_lib
 	PUBLIC
 		${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.
 		"widgets"
@@ -463,7 +466,7 @@ find_package(Poco
 )
 
 if(TARGET Poco::Zip)
-	target_link_libraries(mumble_client_object_lib
+	target_link_libraries(mumble_client_lib
 		PUBLIC
 			Poco::XML
 			Poco::Zip
@@ -503,12 +506,12 @@ else()
 
 
 	# Now use the found include dir and libraries by linking it to the target
-	target_include_directories(mumble_client_object_lib
+	target_include_directories(mumble_client_lib
 		PUBLIC
 			${POCO_INCLUDE_DIR}
 	)
 
-	target_link_libraries(mumble_client_object_lib
+	target_link_libraries(mumble_client_lib
 		PUBLIC
 			${POCO_LIB_ZIP}
 			${POCO_LIB_XML}
@@ -517,7 +520,7 @@ else()
 	)
 
 	if(static)
-		target_compile_definitions(mumble_client_object_lib
+		target_compile_definitions(mumble_client_lib
 			PUBLIC
 				POCO_STATIC
 		)
@@ -527,36 +530,36 @@ endif()
 
 find_package("nlohmann_json" REQUIRED)
 
-target_link_libraries(mumble_client_object_lib PUBLIC nlohmann_json::nlohmann_json)
+target_link_libraries(mumble_client_lib PUBLIC nlohmann_json::nlohmann_json)
 
 find_package(SndFile NAMES "SndFile" "LibSndFile" "sndfile" REQUIRED)
 
 # Check if sndfile version supports opus
 if("${SndFile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
-	target_compile_definitions(mumble_client_object_lib PUBLIC USE_SNDFILE_OPUS)
+	target_compile_definitions(mumble_client_lib PUBLIC USE_SNDFILE_OPUS)
 else()
 	message(WARNING "libsndfile is missing Opus-support -> No Opus-format recording")
 endif()
 
 # Check if sndfile version supports mp3
 if("${SndFile_VERSION}" VERSION_GREATER_EQUAL "1.1.0")
-	target_compile_definitions(mumble_client_object_lib PUBLIC USE_SNDFILE_MP3)
+	target_compile_definitions(mumble_client_lib PUBLIC USE_SNDFILE_MP3)
 else()
 	message(WARNING "libsndfile is missing Mp3-support -> No Mp3-format recording")
 endif()
 
 # Look for various targets as they are named differently on different platforms
 if(static AND TARGET sndfile-static)
-	target_link_libraries(mumble_client_object_lib PUBLIC sndfile-static)
+	target_link_libraries(mumble_client_lib PUBLIC sndfile-static)
 elseif(TARGET SndFile::sndfile)
-	target_link_libraries(mumble_client_object_lib PUBLIC SndFile::sndfile)
+	target_link_libraries(mumble_client_lib PUBLIC SndFile::sndfile)
 elseif(TARGET sndfile)
-	target_link_libraries(mumble_client_object_lib PUBLIC sndfile)
+	target_link_libraries(mumble_client_lib PUBLIC sndfile)
 else()
-	target_link_libraries(mumble_client_object_lib PUBLIC ${SndFile_LIBRARIES})
+	target_link_libraries(mumble_client_lib PUBLIC ${SndFile_LIBRARIES})
 endif()
 
-target_link_libraries(mumble_client_object_lib
+target_link_libraries(mumble_client_lib
 	PUBLIC
 		shared
 		utfcpp
@@ -568,27 +571,27 @@ target_link_libraries(mumble_client_object_lib
 
 if(static)
 	if(TARGET Qt6::QSQLiteDriverPlugin)
-		include_qt_plugin(mumble_client_object_lib PRIVATE "QSQLiteDriverPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSQLiteDriverPlugin)
+		include_qt_plugin(mumble_client_lib PRIVATE "QSQLiteDriverPlugin")
+		target_link_libraries(mumble_client_lib PUBLIC Qt6::QSQLiteDriverPlugin)
 	endif()
 	if(TARGET Qt6::QSvgIconPlugin)
-		include_qt_plugin(mumble_client_object_lib PRIVATE "QSvgIconPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSvgIconPlugin)
+		include_qt_plugin(mumble_client_lib PRIVATE "QSvgIconPlugin")
+		target_link_libraries(mumble_client_lib PUBLIC Qt6::QSvgIconPlugin)
 	endif()
 	if(TARGET Qt6::QSvgPlugin)
-		include_qt_plugin(mumble_client_object_lib PRIVATE "QSvgPlugin")
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QSvgPlugin)
+		include_qt_plugin(mumble_client_lib PRIVATE "QSvgPlugin")
+		target_link_libraries(mumble_client_lib PUBLIC Qt6::QSvgPlugin)
 	endif()
 endif()
 
 if(MSVC)
-	target_compile_definitions(mumble_client_object_lib PUBLIC "RESTRICT=")
+	target_compile_definitions(mumble_client_lib PUBLIC "RESTRICT=")
 else()
-	target_compile_definitions(mumble_client_object_lib PUBLIC "RESTRICT=__restrict__")
+	target_compile_definitions(mumble_client_lib PUBLIC "RESTRICT=__restrict__")
 endif()
 
 if(WIN32)
-	target_sources(mumble_client_object_lib PRIVATE
+	target_sources(mumble_client_lib PRIVATE
 		"GlobalShortcut_win.cpp"
 		"GlobalShortcut_win.h"
 		"SharedMemory_win.cpp"
@@ -615,8 +618,8 @@ if(WIN32)
 	)
 
 	if(static AND TARGET Qt6::QWindowsIntegrationPlugin)
-		include_qt_plugin(mumble_client_object_lib PRIVATE QWindowsIntegrationPlugin)
-		target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
+		include_qt_plugin(mumble_client_lib PRIVATE QWindowsIntegrationPlugin)
+		target_link_libraries(mumble_client_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
 	find_package(readerwriterqueue REQUIRED)
@@ -625,28 +628,28 @@ if(WIN32)
 	# Disable all warnings that the xinputcheck code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/xinputcheck-build")
 
-	target_link_libraries(mumble_client_object_lib
+	target_link_libraries(mumble_client_lib
 		PUBLIC
 			readerwriterqueue::readerwriterqueue
 			xinputcheck
 	)
 
 	if(MSVC)
-		target_link_libraries(mumble_client_object_lib
+		target_link_libraries(mumble_client_lib
 			PUBLIC
 				Boost::dynamic_linking
 				Delayimp.lib
 			)
-		set_property(TARGET mumble_client_object_lib APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:user32.dll /DELAYLOAD:qwave.dll")
+		set_property(TARGET mumble_client_lib APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:user32.dll /DELAYLOAD:qwave.dll")
 	endif()
 
-	target_link_libraries(mumble_client_object_lib
+	target_link_libraries(mumble_client_lib
 		PUBLIC
 			Boost::system
 			Boost::thread
 	)
 
-	target_link_libraries(mumble_client_object_lib
+	target_link_libraries(mumble_client_lib
 		PUBLIC
 			dbghelp.lib
 			dxguid.lib
@@ -654,24 +657,24 @@ if(WIN32)
 			wintrust.lib
 	)
 else()
-	target_sources(mumble_client_object_lib PRIVATE "SharedMemory_unix.cpp")
+	target_sources(mumble_client_lib PRIVATE "SharedMemory_unix.cpp")
 
 	if(NOT APPLE)
 		find_package(X11 COMPONENTS Xext REQUIRED)
 
 		if(xinput2)
 			find_package(X11 COMPONENTS Xi REQUIRED)
-			target_link_libraries(mumble_client_object_lib PUBLIC X11::Xi)
+			target_link_libraries(mumble_client_lib PUBLIC X11::Xi)
 		else()
-			target_compile_definitions(mumble_client_object_lib PUBLIC "NO_XINPUT2")
+			target_compile_definitions(mumble_client_lib PUBLIC "NO_XINPUT2")
 		endif()
 
 		if(static AND TARGET Qt6::QXcbIntegrationPlugin)
-			include_qt_plugin(mumble_client_object_lib PRIVATE QXcbIntegrationPlugin)
-			target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QXcbIntegrationPlugin)
+			include_qt_plugin(mumble_client_lib PRIVATE QXcbIntegrationPlugin)
+			target_link_libraries(mumble_client_lib PUBLIC Qt6::QXcbIntegrationPlugin)
 		endif()
 
-		target_sources(mumble_client_object_lib
+		target_sources(mumble_client_lib
 			PRIVATE
 				"GlobalShortcut_unix.cpp"
 				"GlobalShortcut_unix.h"
@@ -680,16 +683,16 @@ else()
 
 		if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 			find_library(LIB_RT rt)
-			target_link_libraries(mumble_client_object_lib PUBLIC ${LIB_RT})
+			target_link_libraries(mumble_client_lib PUBLIC ${LIB_RT})
 		endif()
 
-		target_link_libraries(mumble_client_object_lib PUBLIC X11::Xext)
+		target_link_libraries(mumble_client_lib PUBLIC X11::Xext)
 	else()
 		find_library(LIB_APPKIT "AppKit")
 		find_library(LIB_APPLICATIONSERVICES "ApplicationServices")
 		find_library(LIB_CARBON "Carbon")
 
-		target_sources(mumble_client_object_lib
+		target_sources(mumble_client_lib
 			PRIVATE
 				"AppNap.h"
 				"AppNap.mm"
@@ -700,11 +703,11 @@ else()
 		)
 
 		if(static AND TARGET Qt6::QCocoaIntegrationPlugin)
-			include_qt_plugin(mumble_client_object_lib PRIVATE QCocoaIntegrationPlugin)
-			target_link_libraries(mumble_client_object_lib PUBLIC Qt6::QCocoaIntegrationPlugin)
+			include_qt_plugin(mumble_client_lib PRIVATE QCocoaIntegrationPlugin)
+			target_link_libraries(mumble_client_lib PUBLIC Qt6::QCocoaIntegrationPlugin)
 		endif()
 
-		target_link_libraries(mumble_client_object_lib
+		target_link_libraries(mumble_client_lib
 			PUBLIC
 				${LIB_APPKIT}
 				${LIB_APPLICATIONSERVICES}
@@ -714,7 +717,7 @@ else()
 endif()
 
 find_package("Opus" REQUIRED NAMES "Opus" "opus")
-target_link_libraries(mumble_client_object_lib PUBLIC Opus::opus)
+target_link_libraries(mumble_client_lib PUBLIC Opus::opus)
 
 if(bundled-speex)
 	add_subdirectory("${3RDPARTY_DIR}/speexdsp-build" "${CMAKE_CURRENT_BINARY_DIR}/speexdsp" EXCLUDE_FROM_ALL)
@@ -722,7 +725,7 @@ if(bundled-speex)
 	# Disable all warnings that the speexdsp code may emit
 	disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/speexdsp-build")
 
-	target_link_libraries(mumble_client_object_lib PUBLIC speexdsp)
+	target_link_libraries(mumble_client_lib PUBLIC speexdsp)
 
 	if(WIN32)
 		# Shared library on Windows (e.g. ".dll")
@@ -736,14 +739,14 @@ if(bundled-speex)
 else()
 	find_package(speexdsp REQUIRED)
 
-	target_link_libraries(mumble_client_object_lib
+	target_link_libraries(mumble_client_lib
 		PUBLIC
 			${speexdsp_LIBRARIES}
 	)
 endif()
 
 if(rnnoise)
-	target_compile_definitions(mumble_client_object_lib PRIVATE "USE_RNNOISE")
+	target_compile_definitions(mumble_client_lib PRIVATE "USE_RNNOISE")
 
 	if(bundled-rnnoise)
 		add_subdirectory("${3RDPARTY_DIR}/rnnoise-build" "${CMAKE_CURRENT_BINARY_DIR}/rnnoise" EXCLUDE_FROM_ALL)
@@ -751,7 +754,7 @@ if(rnnoise)
 		# Disable all warnings that the RNNoise code may emit
 		disable_warnings_for_all_targets_in("${3RDPARTY_DIR}/rnnoise-build")
 
-		target_link_libraries(mumble_client_object_lib PRIVATE rnnoise)
+		target_link_libraries(mumble_client_lib PRIVATE rnnoise)
 
 		if(WIN32)
 			# Shared library on Windows (e.g. ".dll")
@@ -765,77 +768,77 @@ if(rnnoise)
 	else()
 		find_package(rnnoise REQUIRED)
 
-		target_link_libraries(mumble_client_object_lib PRIVATE ${rnnoise_LIBRARIES})
+		target_link_libraries(mumble_client_lib PRIVATE ${rnnoise_LIBRARIES})
 	endif()
 endif()
 
 if(qtspeech)
 	find_package(Qt6 COMPONENTS TextToSpeech REQUIRED)
-	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech.cpp")
-	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::TextToSpeech)
+	target_sources(mumble_client_lib PRIVATE "TextToSpeech.cpp")
+	target_link_libraries(mumble_client_lib PUBLIC Qt6::TextToSpeech)
 elseif(WIN32)
-	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_win.cpp")
+	target_sources(mumble_client_lib PRIVATE "TextToSpeech_win.cpp")
 	if(MINGW)
-		target_link_libraries(mumble_client_object_lib PUBLIC sapi.lib)
+		target_link_libraries(mumble_client_lib PUBLIC sapi.lib)
 	endif()
 elseif(APPLE)
-	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_macx.mm")
-	target_link_libraries(mumble_client_object_lib
+	target_sources(mumble_client_lib PRIVATE "TextToSpeech_macx.mm")
+	target_link_libraries(mumble_client_lib
 		PUBLIC "-framework AVFoundation"
 	)
 else()
-	target_sources(mumble_client_object_lib PRIVATE "TextToSpeech_unix.cpp")
+	target_sources(mumble_client_lib PRIVATE "TextToSpeech_unix.cpp")
 
 	if(speechd)
 		find_package("speech-dispatcher" REQUIRED)
 
-		target_compile_definitions(mumble_client_object_lib
+		target_compile_definitions(mumble_client_lib
 			PUBLIC
 				"USE_SPEECHD"
 				"USE_SPEECHD_PKGCONFIG"
 		)
-		target_link_libraries(mumble_client_object_lib PUBLIC ${speech-dispatcher_LIBRARIES})
+		target_link_libraries(mumble_client_lib PUBLIC ${speech-dispatcher_LIBRARIES})
 	else()
-		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_NO_TTS")
+		target_compile_definitions(mumble_client_lib PUBLIC "USE_NO_TTS")
 	endif()
 endif()
 
 if(crash-report)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"CrashReporter.cpp"
 			"CrashReporter.h"
 	)
 else()
-	target_compile_definitions(mumble_client_object_lib PUBLIC "NO_CRASH_REPORT")
+	target_compile_definitions(mumble_client_lib PUBLIC "NO_CRASH_REPORT")
 endif()
 
 if(manual-plugin)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"ManualPlugin.cpp"
 			"ManualPlugin.h"
 			"ManualPlugin.ui"
 	)
 
-target_compile_definitions(mumble_client_object_lib PUBLIC "USE_MANUAL_PLUGIN")
+target_compile_definitions(mumble_client_lib PUBLIC "USE_MANUAL_PLUGIN")
 endif()
 
 if(NOT update)
-	target_compile_definitions(mumble_client_object_lib PUBLIC "NO_UPDATE_CHECK")
+	target_compile_definitions(mumble_client_lib PUBLIC "NO_UPDATE_CHECK")
 endif()
 
 if(dbus AND (NOT WIN32 AND NOT APPLE))
 	find_package(Qt6 COMPONENTS DBus REQUIRED)
 
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"DBus.cpp"
 			"DBus.h"
 	)
 	
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_DBUS")
-	target_link_libraries(mumble_client_object_lib PUBLIC Qt6::DBus)
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_DBUS")
+	target_link_libraries(mumble_client_lib PUBLIC Qt6::DBus)
 endif()
 
 if(translations)
@@ -843,10 +846,10 @@ if(translations)
 	file(GLOB TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/*.ts")
 
 	include_translations(QRC_FILE ${CMAKE_CURRENT_BINARY_DIR} "${TS_FILES}")
-	target_sources(mumble_client_object_lib PRIVATE "${QRC_FILE}")
+	target_sources(mumble PRIVATE "${QRC_FILE}")
 
 	if(bundle-qt-translations)
-		bundle_qt_translations(mumble_client_object_lib)
+		bundle_qt_translations(mumble)
 	endif()
 elseif(bundle-qt-translations)
 	message(WARNING "Can't bundle Qt translations if translations are disabled!")
@@ -857,7 +860,7 @@ if(overlay)
 		message(FATAL_ERROR "The overlay on macOS has been removed - you have to disable it via -Doverlay=OFF")
 	endif()
 
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"Overlay.cpp"
 			"Overlay.h"
@@ -884,7 +887,7 @@ if(overlay)
 	)
 
 	if(WIN32)
-		target_sources(mumble_client_object_lib
+		target_sources(mumble_client_lib
 			PRIVATE
 				"Overlay_win.cpp"
 				"Overlay_win.h"
@@ -892,14 +895,14 @@ if(overlay)
 
 		add_dependencies(mumble overlay)
 	else()
-		target_sources(mumble_client_object_lib PRIVATE "Overlay_unix.cpp")
+		target_sources(mumble_client_lib PRIVATE "Overlay_unix.cpp")
 
 		if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
 			add_dependencies(mumble overlay_gl)
 		endif()
 	endif()
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_OVERLAY")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_OVERLAY")
 endif()
 
 if(plugins)
@@ -907,33 +910,33 @@ if(plugins)
 endif()
 
 if(xboxinput)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"XboxInput.cpp"
 			"XboxInput.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_XBOXINPUT")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_XBOXINPUT")
 endif()
 
 if(gkey)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"GKey.cpp"
 			"GKey.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_GKEY")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_GKEY")
 endif()
 
 if(g15)
 	if(WIN32 OR APPLE)
-		target_sources(mumble_client_object_lib
+		target_sources(mumble_client_lib
 			PRIVATE
 				"G15LCDEngine_helper.cpp"
 				"G15LCDEngine_helper.h"
 		)
-	target_include_directories(mumble_client_object_lib PUBLIC "${CMAKE_SOURCE_DIR}/helpers")
+	target_include_directories(mumble_client_lib PUBLIC "${CMAKE_SOURCE_DIR}/helpers")
 	add_dependencies(mumble g15-helper)
 	else()
 		find_library(LIB_G15DAEMON_CLIENT "g15daemon_client")
@@ -941,14 +944,14 @@ if(g15)
 			message(FATAL_ERROR "G15 library not found!")
 		endif()
 
-		target_sources(mumble_client_object_lib
+		target_sources(mumble_client_lib
 			PRIVATE
 				"G15LCDEngine_unix.cpp"
 				"G15LCDEngine_unix.h"
 		)
 
-		target_compile_definitions(mumble_client_object_lib PUBLIC "USE_G15")
-		target_link_libraries(mumble_client_object_lib PUBLIC ${LIB_G15DAEMON_CLIENT})
+		target_compile_definitions(mumble_client_lib PUBLIC "USE_G15")
+		target_link_libraries(mumble_client_lib PUBLIC ${LIB_G15DAEMON_CLIENT})
 	endif()
 endif()
 
@@ -956,18 +959,18 @@ if(zeroconf)
 	if(NOT APPLE)
 		find_package(avahi-compat-libdns_sd QUIET)
 		if(avahi-compat-libdns_sd_FOUND)
-			target_include_directories(mumble_client_object_lib PUBLIC ${avahi-compat-libdns_sd_INCLUDE_DIRS})
-			target_link_libraries(mumble_client_object_lib PUBLIC ${avahi-compat-libdns_sd_LIBRARIES})
+			target_include_directories(mumble_client_lib PUBLIC ${avahi-compat-libdns_sd_INCLUDE_DIRS})
+			target_link_libraries(mumble_client_lib PUBLIC ${avahi-compat-libdns_sd_LIBRARIES})
 		else()
 			find_library(LIB_DNSSD "dnssd")
 			if(${LIB_DNSSD} STREQUAL "LIB_DNSSD-NOTFOUND")
 				message(FATAL_ERROR "DNS-SD library not found!")
 			endif()
-			target_link_libraries(mumble_client_object_lib PUBLIC ${LIB_DNSSD})
+			target_link_libraries(mumble_client_lib PUBLIC ${LIB_DNSSD})
 		endif()
 	endif()
 
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"Zeroconf.cpp"
 			"Zeroconf.h"
@@ -980,20 +983,20 @@ if(zeroconf)
 			"${3RDPARTY_DIR}/qqbonjour/BonjourServiceResolver.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_ZEROCONF")
-	target_include_directories(mumble_client_object_lib PUBLIC "${3RDPARTY_DIR}/qqbonjour")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_ZEROCONF")
+	target_include_directories(mumble_client_lib PUBLIC "${3RDPARTY_DIR}/qqbonjour")
 endif()
 
 if(alsa)
 	find_package(ALSA REQUIRED)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"ALSAAudio.cpp"
 			"ALSAAudio.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_ALSA")
-	target_link_libraries(mumble_client_object_lib PUBLIC ALSA::ALSA)
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_ALSA")
+	target_link_libraries(mumble_client_lib PUBLIC ALSA::ALSA)
 endif()
 
 if(asio)
@@ -1001,15 +1004,15 @@ if(asio)
 		set(ASIO_DIR "${3RDPARTY_DIR}/asio")
 	endif()
 
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"ASIOInput.cpp"
 			"ASIOInput.h"
 			"ASIOInput.ui"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_ASIO")
-	target_include_directories(mumble_client_object_lib
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_ASIO")
+	target_include_directories(mumble_client_lib
 		SYSTEM PUBLIC
 			"${ASIO_DIR}/common"
 			"${ASIO_DIR}/host"
@@ -1021,13 +1024,13 @@ if(coreaudio)
 	find_library(LIB_AUDIOUNIT "AudioUnit")
 	find_library(LIB_COREAUDIO "CoreAudio")
 
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"CoreAudio.mm"
 			"CoreAudio.h"
 	)
 
-	target_link_libraries(mumble_client_object_lib
+	target_link_libraries(mumble_client_lib
 		PUBLIC
 			${LIB_AUDIOUNIT}
 			${LIB_COREAUDIO}
@@ -1036,62 +1039,62 @@ if(coreaudio)
 endif()
 
 if(jackaudio)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"JackAudio.cpp"
 			"JackAudio.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_JACKAUDIO")
-	target_include_directories(mumble_client_object_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/jack")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_JACKAUDIO")
+	target_include_directories(mumble_client_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/jack")
 endif()
 
 if(oss)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"OSS.cpp"
 			"OSS.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_OSS")
-	target_include_directories(mumble_client_object_lib SYSTEM PUBLIC "/usr/lib/oss/include")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_OSS")
+	target_include_directories(mumble_client_lib SYSTEM PUBLIC "/usr/lib/oss/include")
 endif()
 
 if(pipewire)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"PipeWire.cpp"
 			"PipeWire.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_PIPEWIRE")
-	target_include_directories(mumble_client_object_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/pipewire")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_PIPEWIRE")
+	target_include_directories(mumble_client_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/pipewire")
 endif()
 
 if(portaudio)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"PAAudio.cpp"
 			"PAAudio.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_PORTAUDIO")
-	target_include_directories(mumble_client_object_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/portaudio")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_PORTAUDIO")
+	target_include_directories(mumble_client_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/portaudio")
 endif()
 
 if(pulseaudio)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"PulseAudio.cpp"
 			"PulseAudio.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_PULSEAUDIO")
-	target_include_directories(mumble_client_object_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/pulseaudio")
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_PULSEAUDIO")
+	target_include_directories(mumble_client_lib SYSTEM PUBLIC "${3RDPARTY_DIR}/pulseaudio")
 endif()
 
 if(wasapi)
-	target_sources(mumble_client_object_lib
+	target_sources(mumble_client_lib
 		PRIVATE
 			"WASAPI.cpp"
 			"WASAPI.h"
@@ -1099,14 +1102,14 @@ if(wasapi)
 			"WASAPINotificationClient.h"
 	)
 
-	target_compile_definitions(mumble_client_object_lib PUBLIC "USE_WASAPI")
-	target_link_libraries(mumble_client_object_lib PUBLIC avrt.lib)
+	target_compile_definitions(mumble_client_lib PUBLIC "USE_WASAPI")
+	target_link_libraries(mumble_client_lib PUBLIC avrt.lib)
 	if(MINGW)
-		target_link_libraries(mumble_client_object_lib PUBLIC ksuser.lib)
+		target_link_libraries(mumble_client_lib PUBLIC ksuser.lib)
 	endif()
 
 	if(MSVC)
-		set_property(TARGET mumble_client_object_lib APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:avrt.dll")
+		set_property(TARGET mumble_client_lib APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:avrt.dll")
 	endif()
 endif()
 
@@ -1135,29 +1138,29 @@ if(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.16.0")
 endif()
 
 if(plugin-debug)
-	target_compile_definitions(mumble_client_object_lib PUBLIC "MUMBLE_PLUGIN_DEBUG")
+	target_compile_definitions(mumble_client_lib PUBLIC "MUMBLE_PLUGIN_DEBUG")
 endif()
 
 if(plugin-callback-debug)
-	target_compile_definitions(mumble_client_object_lib PUBLIC "MUMBLE_PLUGIN_CALLBACK_DEBUG")
+	target_compile_definitions(mumble_client_lib PUBLIC "MUMBLE_PLUGIN_CALLBACK_DEBUG")
 endif()
 
 if(UNIX)
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
 		# On FreeBSD we need the util library for src/ProcessResolver.cpp to work
-		target_link_libraries(mumble_client_object_lib PUBLIC util)
+		target_link_libraries(mumble_client_lib PUBLIC util)
 	elseif(${CMAKE_SYSTEM_NAME} MATCHES ".*BSD")
 		# On any other BSD we need the kvm library for src/ProcessResolver.cpp to work
-		target_link_libraries(mumble_client_object_lib PUBLIC kvm)
+		target_link_libraries(mumble_client_lib PUBLIC kvm)
 	endif()
 endif()
 
 
 # Workaround for a cmake bug that causes the auto-generated UI files (AutoUIC) to not be added
 # to the target's interface include directories. This can cause missing include errors in targets
-# linking to mumble_client_object_lib.
+# linking to mumble_client_lib.
 # cmake bug report: https://gitlab.kitware.com/cmake/cmake/-/issues/17456
-set(TARGET_NAME "mumble_client_object_lib")
+set(TARGET_NAME "mumble_client_lib")
 get_property(_isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(_isMultiConfig)
   set(AUTOGEN_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>)

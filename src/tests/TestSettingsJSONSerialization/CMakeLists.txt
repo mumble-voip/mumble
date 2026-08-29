@@ -28,7 +28,7 @@ add_custom_command(
 )
 
 add_executable(TestSettingsJSONSerialization "${TEST_CASE_SOURCE_FILE}")
-target_link_libraries(TestSettingsJSONSerialization PRIVATE mumble_client_object_lib)
+target_link_libraries(TestSettingsJSONSerialization PRIVATE mumble_client_lib)
 target_link_libraries(TestSettingsJSONSerialization PRIVATE Qt6::Test)
 
 set_target_properties(TestSettingsJSONSerialization PROPERTIES AUTOMOC ON)
