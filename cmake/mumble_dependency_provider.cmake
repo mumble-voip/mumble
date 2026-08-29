@@ -1,3 +1,5 @@
+message(STATUS "Using Mumble's dependency provider")
+
 # Note: find_package (and FetchContent_MakeAvailable for that matter) have the package/dependency
 # name as their first argument, which is why we can rely on that here as well.
 macro(mumble_provide_dependency METHOD DEP_NAME)
