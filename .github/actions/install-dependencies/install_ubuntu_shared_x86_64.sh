@@ -35,6 +35,10 @@ sudo apt -y install \
 	zsync \
 	appstream \
 	libpoco-dev \
+	nlohmann-json3-dev \
+	libcli11-dev \
+	libspdlog-dev \
+	libsoci-dev \
 	libsqlite3-dev
 
 # The package was initially called libqt6svg6-dev.
