@@ -13,7 +13,7 @@
 #include "MumblePlugin.h"
 #include "SharedMemory.h"
 
-#include <utf8/cpp11.h>
+#include <utf8/checked.h>
 
 #define UNUSED(x) (void) x
 

@@ -39,7 +39,7 @@
 
 #include "mumble_positional_audio_main.h"
 
-#include <utf8/cpp11.h>
+#include <utf8/checked.h>
 
 procptr_t posptr;
 procptr_t frtptr;
