@@ -215,7 +215,7 @@ set(BUILD_SHARED_LIBS ${PREV_BUILD_SHARED_LIBS} CACHE BOOL "" FORCE)
 target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
 set(SPDLOG_SYSTEM_INCLUDES ON)
-find_package(spdlog REQUIRED)
+find_package(spdlog 1.10 REQUIRED)
 
 target_link_libraries(shared PUBLIC spdlog::spdlog)
 
