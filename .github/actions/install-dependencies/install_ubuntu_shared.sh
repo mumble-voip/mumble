@@ -62,6 +62,10 @@ sudo apt -y install \
 	zsync \
 	appstream \
 	libpoco-dev \
+	nlohmann-json3-dev \
+	libcli11-dev \
+	libspdlog-dev \
+	libsoci-dev \
 	libsqlite3-dev
 
 # MySQL and PostgreSQL are pre-installed on GitHub-hosted runners.
