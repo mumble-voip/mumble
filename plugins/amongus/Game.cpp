@@ -7,7 +7,7 @@
 
 #include <sstream>
 
-#include <utf8/cpp11.h>
+#include <utf8/checked.h>
 
 Game::Game(const procid_t id, const std::string name) : m_proc(id, name) {
 }

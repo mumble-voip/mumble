@@ -30,7 +30,7 @@ extern "C" {
 // clang-format on
 }
 
-#include <utf8/cpp11.h>
+#include <utf8/checked.h>
 
 // From os_win.cpp
 extern HWND mumble_mw_hwnd;
