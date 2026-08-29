@@ -36,6 +36,10 @@ sudo apt install \
   libxcb-xinerama0 \
   libzeroc-ice-dev \
   libpoco-dev \
+  nlohmann-json3-dev \
+  libcli11-dev \
+  libspdlog-dev \
+  libsoci-dev \
   g++-multilib
 ```
 
