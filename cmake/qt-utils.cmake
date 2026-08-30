@@ -35,7 +35,7 @@ function(include_qt_plugin TARGET SCOPE PLUGIN)
 endfunction()
 
 function(compile_translations OUT_VAR OUT_DIR TS_FILES)
-	find_pkg(Qt6 COMPONENTS LinguistTools REQUIRED)
+	find_package(Qt6 COMPONENTS LinguistTools REQUIRED)
 
 	# Create output directory
 	file(MAKE_DIRECTORY "${OUT_DIR}")
