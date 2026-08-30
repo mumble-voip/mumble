@@ -577,6 +577,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="qliVadTuningTextWebRTC">
+         <property name="text">
+          <string>Next you need to choose the voice detection sensitivity. The aggressiveness level controls how strictly speech is detected. Lower levels are more permissive and will pick up quiet or distant speech, but may also trigger on background noise. Higher levels are more strict and will better filter out noise, but may cut off softer speech.</string>
+         </property>
+	 <property name="visible">
+	  <bool>false</bool>
+	 </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="SemanticSlider" name="qsVAD">
          <property name="accessibleName">
           <string>Voice activity detection level</string>
@@ -595,6 +611,31 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
          </property>
          <property name="pageStep">
           <number>1000</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="SemanticSlider" name="qsWebRTCAggressiveness">
+	 <property name="visible">
+	  <bool>false</bool>
+	 </property>
+         <property name="accessibleName">
+          <string>Voice activity detection aggressiveness level</string>
+         </property>
+         <property name="accessibleDescription">
+          <string>This will set the aggressiveness in which Mumble will consider a signal speech. Increase value to make voice activation less sensitive.</string>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+         <property name="maximum">
+          <number>3</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -678,6 +719,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         </property>
         <property name="text">
          <string>Signal-To-Noise ratio</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="qrWebRTC">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+	<property name="visible">
+	  <bool>false</bool>
+	</property>
+        <property name="text">
+         <string>WebRTC GMM</string>
         </property>
        </widget>
       </item>
