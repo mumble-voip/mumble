@@ -24,6 +24,7 @@
 
 #include <QByteArray>
 #include <QDataStream>
+#include <QFileDevice>
 #include <QFileInfo>
 #include <QImageReader>
 #include <QMessageBox>
@@ -140,7 +141,6 @@ bool operator!=(const OverlaySettings &lhs, const OverlaySettings &rhs) {
 	return !(lhs == rhs);
 }
 
-
 void Settings::save(const QString &path) const {
 	// Our saving procedure is a 4-step process:
 	// 1. Write the settings that are to be saved to a temporary file
@@ -184,6 +184,11 @@ void Settings::save(const QString &path) const {
 						 qUtf8Printable(targetFile.errorString()));
 			}
 
+			// Set permissions to 600 for the backup file
+			if (!backupFile.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner)) {
+				qWarning("Failed to set permissions for backup file: %s", qUtf8Printable(backupFile.errorString()));
+			}
+
 			createdSettingsBackup = true;
 		} else {
 			// The current instance of Mumble has already created a settings backup while it was running. Thus
@@ -207,7 +212,13 @@ void Settings::save(const QString &path) const {
 		qWarning("Failed at moving settings from %s to %s - reason: %s", qUtf8Printable(tmpFile.fileName()),
 				 qUtf8Printable(path), qUtf8Printable(tmpFile.errorString()));
 	}
+
+	// Set permissions to 600 for the main file
+	if (!targetFile.setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner)) {
+		qWarning("Failed to set permissions for main settings file: %s", qUtf8Printable(targetFile.errorString()));
+	}
 }
+
 
 void Settings::save() const {
 	if (settingsLocation.isEmpty()) {
