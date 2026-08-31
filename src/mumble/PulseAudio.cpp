@@ -340,21 +340,23 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		}
 	}
 
-	if (raw_ai) {
+	if (pasSpeaker || raw_ai) {
 		QString odev        = outputDevice();
 		QString edev        = qhEchoMap.value(odev);
 		pa_stream_state est = pasSpeaker ? m_pulseAudio.stream_get_state(pasSpeaker) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
 		bool do_start       = false;
 
+		if (pasSpeaker && est == PA_STREAM_TERMINATED) {
+			qWarning("PulseAudio: Unreferencing echo");
+			m_pulseAudio.stream_unref(pasSpeaker);
+			pasSpeaker = nullptr;
+		}
 		if ((!pai || Global::get().s.echoOption == EchoCancelOptionID::DISABLED) && (est == PA_STREAM_READY)) {
 			do_stop = true;
 		} else if (pai && Global::get().s.echoOption != EchoCancelOptionID::DISABLED) {
 			switch (est) {
 				case PA_STREAM_TERMINATED: {
-					if (pasSpeaker)
-						m_pulseAudio.stream_unref(pasSpeaker);
-
 					pa_sample_spec pss = qhSpecMap.value(edev);
 					pa_channel_map pcm = qhChanMap.value(edev);
 					if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
