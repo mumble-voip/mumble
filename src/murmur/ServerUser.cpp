@@ -13,6 +13,8 @@
 #	include "Utils.h"
 #endif
 
+#include "crypto/CryptStateOCB2.h"
+
 #include <chrono>
 
 ServerUser::ServerUser(Server *p, QSslSocket *socket)
@@ -35,8 +37,12 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket)
 	iLastPermissionCheck = -1;
 
 	bOpus = false;
+
+	csCrypt = std::make_unique< CryptStateOCB2 >();
 }
 
+ServerUser::~ServerUser() {
+}
 
 ServerUser::operator QString() const {
 	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);

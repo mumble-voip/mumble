@@ -39,6 +39,7 @@
 #include <memory>
 
 class Connection;
+class CryptState;
 class Database;
 class PacketDataStream;
 class QUdpSocket;
@@ -119,6 +120,7 @@ public:
 	QList< QSslError > qlErrors;
 	QList< QSslCertificate > qscCert;
 	QSslCipher qscCipher;
+	std::unique_ptr< CryptState > csCrypt;
 	ConnectionPtr cConnection;
 	QByteArray qbaDigest;
 	std::shared_ptr< VoiceRecorder > recorder;

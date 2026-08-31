@@ -10,8 +10,6 @@
 
 #include "ui_ServerInformation.h"
 
-class Connection;
-
 class ServerInformation : public QDialog, private Ui::ServerInformation {
 	Q_OBJECT
 	Q_DISABLE_COPY(ServerInformation)
@@ -31,7 +29,7 @@ private:
 	void updateServerInformation();
 	void updateAudioBandwidth();
 	void updateConnectionDetails();
-	void populateUDPStatistics(const Connection &connection);
+	void populateUDPStatistics();
 };
 
 #endif // MUMBLE_MUMBLE_SERVERINFORMATION_H_

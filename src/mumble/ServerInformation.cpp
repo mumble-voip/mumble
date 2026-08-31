@@ -14,6 +14,8 @@
 #include "ViewCert.h"
 #include "Global.h"
 
+#include "crypto/CryptState.h"
+
 #include <QTableWidgetItem>
 
 #include <boost/accumulators/accumulators.hpp>
@@ -136,7 +138,7 @@ void ServerInformation::updateConnectionDetails() {
 		connection_udp_encryption->setText("128 bit OCB-AES128");
 		connection_udp_latency->setText(latencyString.arg(latency, 0, 'f', 1).arg(deviation, 0, 'f', 1));
 
-		populateUDPStatistics(*connection);
+		populateUDPStatistics();
 	}
 
 
@@ -155,7 +157,7 @@ void ServerInformation::updateConnectionDetails() {
 	qgbTCPParameters->updateAccessibleText();
 }
 
-void ServerInformation::populateUDPStatistics(const Connection &connection) {
+void ServerInformation::populateUDPStatistics() {
 	// statistics
 	constexpr int TO_SERVER_COL   = 0;
 	constexpr int FROM_SERVER_COL = 1;
@@ -164,14 +166,19 @@ void ServerInformation::populateUDPStatistics(const Connection &connection) {
 	constexpr int LOST_ROW        = 2;
 	constexpr int RESYNC_ROW      = 3;
 
-	QTableWidgetItem *toGoodItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.good));
-	QTableWidgetItem *fromGoodItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.good));
-	QTableWidgetItem *toLateItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.late));
-	QTableWidgetItem *fromLateItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.late));
-	QTableWidgetItem *toLostItem     = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.lost));
-	QTableWidgetItem *fromLostItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.lost));
-	QTableWidgetItem *toResyncItem   = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsRemote.resync));
-	QTableWidgetItem *fromResyncItem = new QTableWidgetItem(QString::number(connection.csCrypt->m_statsLocal.resync));
+	QTableWidgetItem *toGoodItem = new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsRemote.good));
+	QTableWidgetItem *fromGoodItem =
+		new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsLocal.good));
+	QTableWidgetItem *toLateItem = new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsRemote.late));
+	QTableWidgetItem *fromLateItem =
+		new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsLocal.late));
+	QTableWidgetItem *toLostItem = new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsRemote.lost));
+	QTableWidgetItem *fromLostItem =
+		new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsLocal.lost));
+	QTableWidgetItem *toResyncItem =
+		new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsRemote.resync));
+	QTableWidgetItem *fromResyncItem =
+		new QTableWidgetItem(QString::number(Global::get().sh->csCrypt->m_statsLocal.resync));
 
 	connection_udp_statisticsTable->setItem(GOOD_ROW, TO_SERVER_COL, toGoodItem);
 	connection_udp_statisticsTable->setItem(GOOD_ROW, FROM_SERVER_COL, fromGoodItem);

@@ -32,6 +32,8 @@
 #include "Utils.h"
 #include "Global.h"
 
+#include "crypto/CryptStateOCB2.h"
+
 #include <QPainter>
 #include <QtCore/QtEndian>
 #include <QtGui/QImageReader>
@@ -255,7 +257,7 @@ void ServerHandler::udpReady() {
 		if (!connection)
 			continue;
 
-		if (!connection->csCrypt->isValid())
+		if (!csCrypt->isValid())
 			continue;
 
 		if (buflen < 5)
@@ -266,11 +268,10 @@ void ServerHandler::udpReady() {
 		// 4 bytes is the overhead of the encryption
 		assert(buffer.size() >= buflen - 4);
 
-		if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(),
-										  buflen)) {
-			if (connection->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
-				if (connection->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
-					connection->csCrypt->tLastRequest.restart();
+		if (!csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(), buflen)) {
+			if (csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+				if (csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
+					csCrypt->tLastRequest.restart();
 					MumbleProto::CryptSetup mpcs;
 					sendMessage(mpcs);
 				}
@@ -326,7 +327,7 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 		return;
 
 	ConnectionPtr connection(cConnection);
-	if (!connection || !connection->csCrypt->isValid())
+	if (!connection || !csCrypt->isValid())
 		return;
 
 	if (!force && (NetworkConfig::TcpModeEnabled() || !bUdp)) {
@@ -342,8 +343,8 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 		QApplication::postEvent(this,
 								new ServerHandlerMessageEvent(qba, Mumble::Protocol::TCPMessageType::UDPTunnel, true));
 	} else {
-		if (!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto.data(),
-										  static_cast< unsigned int >(len))) {
+		if (!csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto.data(),
+							  static_cast< unsigned int >(len))) {
 			return;
 		}
 		qusUdp->writeDatagram(reinterpret_cast< const char * >(crypto.data()), len + 4, qhaRemote, usResolvedPort);
@@ -512,6 +513,7 @@ void ServerHandler::run() {
 		if (qusUdp) {
 			QMutexLocker qml(&qmUdp);
 
+			csCrypt.reset();
 #ifdef Q_OS_WIN
 			if (hQoS) {
 				if (!QOSRemoveSocketFromFlow(hQoS, 0, dwFlowUDP, 0)) {
@@ -637,10 +639,10 @@ void ServerHandler::sendPingInternal() {
 	MumbleProto::Ping mpp;
 
 	mpp.set_timestamp(t);
-	mpp.set_good(connection->csCrypt->m_statsLocal.good);
-	mpp.set_late(connection->csCrypt->m_statsLocal.late);
-	mpp.set_lost(connection->csCrypt->m_statsLocal.lost);
-	mpp.set_resync(connection->csCrypt->m_statsLocal.resync);
+	mpp.set_good(csCrypt->m_statsLocal.good);
+	mpp.set_late(csCrypt->m_statsLocal.late);
+	mpp.set_lost(csCrypt->m_statsLocal.lost);
+	mpp.set_resync(csCrypt->m_statsLocal.resync);
 
 
 	if (boost::accumulators::count(accUDP)) {
@@ -685,21 +687,21 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 			// connection is still OK.
 			iInFlightTCPPings = 0;
 
-			connection->csCrypt->m_statsRemote.good   = msg.good();
-			connection->csCrypt->m_statsRemote.late   = msg.late();
-			connection->csCrypt->m_statsRemote.lost   = msg.lost();
-			connection->csCrypt->m_statsRemote.resync = msg.resync();
+			csCrypt->m_statsRemote.good   = msg.good();
+			csCrypt->m_statsRemote.late   = msg.late();
+			csCrypt->m_statsRemote.lost   = msg.lost();
+			csCrypt->m_statsRemote.resync = msg.resync();
 			accTCP(static_cast< double >(static_cast< std::uint64_t >(tTimestamp.elapsed().count()) - msg.timestamp())
 				   / 1000.0);
 
-			if (((connection->csCrypt->m_statsRemote.good == 0) || (connection->csCrypt->m_statsLocal.good == 0))
-				&& bUdp && (tTimestamp.elapsed() > std::chrono::seconds(20))) {
+			if (((csCrypt->m_statsRemote.good == 0) || (csCrypt->m_statsLocal.good == 0)) && bUdp
+				&& (tTimestamp.elapsed() > std::chrono::seconds(20))) {
 				bUdp = false;
 				if (!NetworkConfig::TcpModeEnabled()) {
-					if ((connection->csCrypt->m_statsRemote.good == 0) && (connection->csCrypt->m_statsLocal.good == 0))
+					if ((csCrypt->m_statsRemote.good == 0) && (csCrypt->m_statsLocal.good == 0))
 						Global::get().mw->msgBox(
 							tr("UDP packets cannot be sent to or received from the server. Switching to TCP mode."));
-					else if (connection->csCrypt->m_statsRemote.good == 0)
+					else if (csCrypt->m_statsRemote.good == 0)
 						Global::get().mw->msgBox(
 							tr("UDP packets cannot be sent to the server. Switching to TCP mode."));
 					else
@@ -708,8 +710,7 @@ void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteAr
 
 					database->setUdp(qbaDigest, false);
 				}
-			} else if (!bUdp && (connection->csCrypt->m_statsRemote.good > 3)
-					   && (connection->csCrypt->m_statsLocal.good > 3)) {
+			} else if (!bUdp && (csCrypt->m_statsRemote.good > 3) && (csCrypt->m_statsLocal.good > 3)) {
 				bUdp = true;
 				if (!NetworkConfig::TcpModeEnabled()) {
 					Global::get().mw->msgBox(
@@ -912,6 +913,7 @@ void ServerHandler::serverConnectionConnected() {
 					qWarning("ServerHandler: Failed to add UDP to QOS");
 			}
 #endif
+			csCrypt = std::make_unique< CryptStateOCB2 >();
 		}
 	}
 

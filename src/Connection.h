@@ -14,15 +14,10 @@
 #	include "win.h"
 #endif
 
-#include "crypto/CryptState.h"
-
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
-#include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
-
-#include <memory>
 
 #ifdef Q_OS_WIN
 #	include <ws2tcpip.h>
@@ -73,11 +68,6 @@ public:
 	qint64 activityTime() const;
 	void resetActivityTime();
 
-#ifdef MURMUR
-	/// qmCrypt locks access to csCrypt.
-	QMutex qmCrypt;
-#endif
-	std::unique_ptr< CryptState > csCrypt;
 	/// Returns the peer's chain of digital certificates, starting with the peer's immediate certificate
 	/// and ending with the CA's certificate.
 	QList< QSslCertificate > peerCertificateChain() const;

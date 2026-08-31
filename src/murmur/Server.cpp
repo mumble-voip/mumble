@@ -31,6 +31,8 @@
 
 #include "Utils.h"
 
+#include "crypto/CryptState.h"
+
 #include "murmur/database/DBUserData.h"
 #include "murmur/database/UserProperty.h"
 
