@@ -27,6 +27,8 @@
 #	include <sys/socket.h>
 #endif
 
+#include <memory>
+#include <mutex>
 #include <vector>
 
 // Unfortunately, this needs to be "large enough" to hold
@@ -42,7 +44,7 @@ struct BandwidthRecord {
 	Timer tIdleControl;
 	unsigned short a_iBW[N_BANDWIDTH_SLOTS];
 	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
-	mutable QMutex qmMutex;
+	mutable std::mutex qmMutex;
 
 	BandwidthRecord();
 	bool addFrame(int size, int maxpersec);
@@ -102,6 +104,8 @@ public:
 	LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens);
 };
 
+class CryptState;
+
 class ServerUser : public Connection, public ServerUserInfo {
 private:
 	Q_OBJECT
@@ -153,7 +157,13 @@ public:
 	BandwidthRecord bwr;
 	struct sockaddr_storage saiUdpAddress;
 	struct sockaddr_storage saiTcpLocalAddress;
+
+	/// qmCrypt locks access to csCrypt.
+	std::mutex qmCrypt;
+	std::unique_ptr< CryptState > csCrypt;
+
 	ServerUser(Server *parent, QSslSocket *socket);
+	~ServerUser();
 };
 
 #endif

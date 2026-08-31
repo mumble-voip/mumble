@@ -6,7 +6,6 @@
 #include "Connection.h"
 #include "Mumble.pb.h"
 #include "SSL.h"
-#include "crypto/CryptStateOCB2.h"
 
 #include <QtCore/QtEndian>
 #include <QtNetwork/QHostAddress>
@@ -29,7 +28,6 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket->setParent(this);
 	iPacketLength        = -1;
 	bDisconnectedEmitted = false;
-	csCrypt              = std::make_unique< CryptStateOCB2 >();
 
 	static bool bDeclared = false;
 	if (!bDeclared) {
