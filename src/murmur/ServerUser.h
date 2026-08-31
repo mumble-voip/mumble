@@ -92,6 +92,7 @@ private:
 	/// A timer that is used to measure time intervals. It is essential
 	/// that this timer uses a monotonic clock (which is why QElapsedTimer is
 	/// used instead of QTime or QDateTime).
+	/// TODO: Switch to Timer.
 	QElapsedTimer m_timer;
 
 public:
@@ -113,11 +114,16 @@ private:
 protected:
 	Server *s;
 
+	Timer m_lastActivityTimer;
+
 public:
 	enum State { Connected, Authenticated };
 	State sState;
 	ClientType m_clientType;
 	operator QString() const;
+
+	std::int64_t activityTime() const;
+	void resetActivityTime();
 
 	float dUDPPingAvg, dUDPPingVar;
 	float dTCPPingAvg, dTCPPingVar;
