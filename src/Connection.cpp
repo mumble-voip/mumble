@@ -46,7 +46,6 @@ Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	connect(qtsSocket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
 	connect(qtsSocket, SIGNAL(sslErrors(const QList< QSslError > &)), this,
 			SLOT(socketSslErrors(const QList< QSslError > &)));
-	qtLastPacket.restart();
 #ifdef Q_OS_WIN
 	dwFlow = 0;
 #endif
@@ -88,14 +87,6 @@ void Connection::setToS() {
 #	endif
 
 #endif
-}
-
-qint64 Connection::activityTime() const {
-	return qtLastPacket.elapsed();
-}
-
-void Connection::resetActivityTime() {
-	qtLastPacket.restart();
 }
 
 /**

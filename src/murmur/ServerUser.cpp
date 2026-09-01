@@ -47,6 +47,16 @@ ServerUser::~ServerUser() {
 ServerUser::operator QString() const {
 	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
 }
+
+std::int64_t ServerUser::activityTime() const {
+	const auto elapsed = m_lastActivityTimer.elapsed< std::chrono::milliseconds >();
+	return elapsed.count();
+}
+
+void ServerUser::resetActivityTime() {
+	m_lastActivityTimer.restart();
+}
+
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
 	iSum    = 0;

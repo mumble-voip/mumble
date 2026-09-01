@@ -14,7 +14,6 @@
 #	include "win.h"
 #endif
 
-#include <QtCore/QElapsedTimer>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtNetwork/QSslSocket>
@@ -35,7 +34,6 @@ private:
 	Q_DISABLE_COPY(Connection)
 protected:
 	QSslSocket *qtsSocket;
-	QElapsedTimer qtLastPacket;
 	Mumble::Protocol::TCPMessageType m_type;
 	int iPacketLength;
 #ifdef Q_OS_WIN
@@ -65,8 +63,6 @@ public:
 	void sendMessage(const QByteArray &qbaMsg);
 	void disconnectSocket(bool force = false);
 	void forceFlush();
-	qint64 activityTime() const;
-	void resetActivityTime();
 
 	/// Returns the peer's chain of digital certificates, starting with the peer's immediate certificate
 	/// and ending with the CA's certificate.
