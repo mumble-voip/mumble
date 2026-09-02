@@ -70,6 +70,7 @@ void log::init(spdlog::level::level_enum logLevel) {
 
 	auto logger = std::make_shared< spdlog::logger >(MainLoggerName, masterSink);
 
+	logger->flush_on(spdlog::level::info);
 	logger->set_level(logLevel);
 
 	set_default_logger(std::move(logger));
