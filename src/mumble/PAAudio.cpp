@@ -135,6 +135,7 @@ PortAudioSystem::PortAudioSystem() : bOk(false) {
 		if (qlPortAudio.load()) {
 			break;
 		}
+		qlPortAudio.unload();
 	}
 
 	if (!qlPortAudio.isLoaded()) {

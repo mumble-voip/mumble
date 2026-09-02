@@ -207,6 +207,7 @@ JackAudioSystem::JackAudioSystem() : bAvailable(false), users(0), client(nullptr
 		if (qlJack.load()) {
 			break;
 		}
+		qlJack.unload();
 	}
 
 	if (!qlJack.isLoaded()) {
