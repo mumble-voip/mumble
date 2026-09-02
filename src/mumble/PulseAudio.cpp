@@ -1033,6 +1033,7 @@ PulseAudio::PulseAudio() : m_ok(false) {
 		if (m_lib.load()) {
 			break;
 		}
+		m_lib.unload();
 	}
 
 	if (!m_lib.isLoaded()) {
