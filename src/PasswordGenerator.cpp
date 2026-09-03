@@ -44,7 +44,7 @@ QString PasswordGenerator::generatePassword(int length) {
 	uint32_t numAlphabetEntries = sizeof(password_alphabet);
 
 	for (int i = 0; i < length; i++) {
-		uint32_t index = CryptographicRandom::uniform(numAlphabetEntries - 1);
+		uint32_t index = CryptographicRandom::uniform(numAlphabetEntries);
 		buf[i]         = password_alphabet[index];
 	}
 
