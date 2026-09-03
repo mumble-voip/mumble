@@ -913,8 +913,8 @@ void ServerHandler::serverConnectionConnected() {
 					qWarning("ServerHandler: Failed to add UDP to QOS");
 			}
 #endif
-			csCrypt = std::make_unique< CryptStateOCB2 >();
 		}
+		csCrypt = std::make_unique< CryptStateOCB2 >();
 	}
 
 	emit connected();
