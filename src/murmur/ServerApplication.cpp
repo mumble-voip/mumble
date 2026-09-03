@@ -18,7 +18,11 @@ bool ServerApplication::notify(QObject *receiver, QEvent *event) {
 	bool handled = true;
 
 	try {
+#ifdef Q_OS_WIN
+		handled = QApplication::notify(receiver, event);
+#else
 		handled = QCoreApplication::notify(receiver, event);
+#endif
 	} catch (const std::exception &e) {
 		std::cerr << "Terminating due to exception with message \"" << e.what() << "\"" << std::endl;
 		exit(1);
