@@ -33,7 +33,7 @@ protected:
 #ifdef Q_OS_WIN
 	class Reg : public std::enable_shared_from_this< Reg > {
 	public:
-		constexpr auto isOk() const { return m_module != nullptr; }
+		constexpr auto isOk() const { return m_module && m_asyncDone; }
 
 		bool cancel();
 		bool request(const BonjourRecord &record, const uint16_t port);
@@ -42,10 +42,6 @@ protected:
 		~Reg();
 
 	protected:
-		struct CallbackCtx {
-			std::weak_ptr< Reg > regWeak;
-		};
-
 		struct InstanceDeleter {
 			using FreeFn = VOID(WINAPI *)(PDNS_SERVICE_INSTANCE);
 
@@ -75,9 +71,10 @@ protected:
 
 	private:
 		HMODULE m_module;
+		HANDLE m_asyncDone;
 	};
 
-	std::shared_ptr< Reg > m_reg;
+	std::unique_ptr< Reg > m_reg;
 #endif
 	std::unique_ptr< BonjourServiceRegister > m_helper;
 
