@@ -6,10 +6,13 @@
 #include "Tray.h"
 
 #include "About.h"
-#include "LogEmitter.h"
 #include "Meta.h"
 #include "Server.h"
 #include "Version.h"
+
+#include "Logger.h"
+
+#include <memory>
 
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
@@ -18,8 +21,22 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QTextBrowser>
 
-Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
-	le = logger;
+#include <spdlog/sinks/dist_sink.h>
+#include <spdlog/sinks/qt_sinks.h>
+
+using namespace mumble;
+
+using QtLogSink = spdlog::sinks::qt_color_sink_st;
+
+Tray::Tray(QObject *parent) : QObject(parent), m_window(std::make_unique< QMainWindow >()) {
+	static constexpr int maxLogLines = 1000;
+	auto logBox                      = new QTextBrowser;
+	m_logSink                        = std::make_shared< QtLogSink >(logBox, maxLogLines);
+	log::addSink(m_logSink);
+
+	m_window->resize(675, 300);
+	m_window->setCentralWidget(logBox);
+	m_window->setWindowTitle(QString::fromLatin1("Murmur -- %1").arg(Version::getRelease()));
 
 	qsti = new QSystemTrayIcon(qApp->windowIcon(), this);
 	qsti->setObjectName(QLatin1String("Tray"));
@@ -47,9 +64,11 @@ Tray::Tray(QObject *p, LogEmitter *logger) : QObject(p) {
 
 	qsti->show();
 
-	connect(le, SIGNAL(newLogEntry(const QString &)), this, SLOT(addLogMessage(const QString &)));
-
 	QMetaObject::connectSlotsByName(this);
+}
+
+Tray::~Tray() {
+	log::removeSink(std::move(m_logSink));
 }
 
 void Tray::on_Tray_activated(QSystemTrayIcon::ActivationReason r) {
@@ -73,25 +92,6 @@ void Tray::on_About_triggered() {
 }
 
 void Tray::on_ShowLog_triggered() {
-	QMainWindow *mw = new QMainWindow();
-	mw->setAttribute(Qt::WA_DeleteOnClose);
-	QTextBrowser *tb = new QTextBrowser();
-	mw->resize(675, 300);
-	mw->setCentralWidget(tb);
-	mw->setWindowTitle(QString::fromLatin1("Murmur -- %1").arg(Version::getRelease()));
-
-	connect(le, SIGNAL(newLogEntry(const QString &)), tb, SLOT(append(const QString &)));
-
-	for (const QString &m : qlLog) {
-		tb->append(m);
-	}
-
-	mw->show();
-}
-
-void Tray::addLogMessage(const QString &msg) {
-	if (qlLog.count() >= 1000)
-		qlLog.removeFirst();
-
-	qlLog.append(msg);
+	m_window->show();
+	m_window->activateWindow();
 }
