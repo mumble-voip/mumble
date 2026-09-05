@@ -112,6 +112,7 @@ protected:
 	QMutex qmUdp;
 
 	void handleVoicePacket(const Mumble::Protocol::AudioData &audioData);
+	void handleVideoPacket(const Mumble::Protocol::VideoData &videoData);
 
 public:
 	Timer tTimestamp;
