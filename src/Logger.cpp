@@ -71,6 +71,8 @@ void log::init(spdlog::level::level_enum logLevel) {
 	auto logger = std::make_shared< spdlog::logger >(MainLoggerName, masterSink);
 
 	logger->set_level(logLevel);
+	// Flush to log file immediately with info or higher severity messages.
+	logger->flush_on(spdlog::level::info);
 
 	set_default_logger(std::move(logger));
 
