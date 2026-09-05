@@ -113,6 +113,7 @@ GKeyLibrary::GKeyLibrary() {
 			bValid = true;
 			break;
 		}
+		qlLogiGkey.unload();
 	}
 
 	RESOLVE(LogiGkeyInit);
