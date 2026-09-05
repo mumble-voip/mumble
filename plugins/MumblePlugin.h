@@ -43,7 +43,7 @@
 #		define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_MINOR_MACRO
-#		define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#		define MUMBLE_PLUGIN_API_MINOR_MACRO 3
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_PATCH_MACRO
 #		define MUMBLE_PLUGIN_API_PATCH_MACRO 0
@@ -233,6 +233,7 @@ enum Mumble_ErrorCode {
 	MUMBLE_EC_DATA_ID_TOO_LONG,
 	MUMBLE_EC_API_REQUEST_TIMEOUT,
 	MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER,
+	MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_FOUND
 };
 
 /**
@@ -617,6 +618,8 @@ MUMBLE_PLUGIN_CONSTEXPR inline const char *mumble_errorMessage(int16_t errorCode
 		case MUMBLE_EC_OPERATION_UNSUPPORTED_BY_SERVER:
 			return "The requested API operation depends on server-side functionality, not supported by the server "
 				   "you're connected to";
+		case MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_FOUND:
+			return "The given allocID for the whisper/shout targets isn't found.";
 	}
 
 	return "Unknown error code";
@@ -1515,6 +1518,32 @@ struct MUMBLE_API_STRUCT_NAME {
 																			mumble_channelid_t channelID,
 																			const char **description);
 
+#	if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
+	/**
+	 * Checks whether the local user is currently using a Push-To-Talk (PTT) transmission, i.e. whether a PTT-style
+	 * transmission is currently active. This includes shout/whisper targets triggered via the Plugin-API as well as
+	 * regular PTT shortcuts. It does **not** distinguish between those sources.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param[out] isUsingPTT A pointer to the memory the result shall be written to. It is set to true if the local
+	 * user is currently transmitting via a PTT-style mechanism (iPushToTalk >= 1)
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the passed pointer may
+	 * be accessed.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *isLocalUserUsingPTT)(mumble_plugin_id_t callerID,
+																		  bool *isUsingPTT);
+
+	/**
+	 * Gets the current talking state of the local user (e.g. passive, talking, whispering/shouting or muted).
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param[out] talkingState A pointer to the memory the state shall be written to
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the passed pointer may
+	 * be accessed.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *getLocalUserTalkingState)(mumble_plugin_id_t callerID,
+																			   mumble_talking_state_t *talkingState);
+#	endif
 
 	// -------- Request functions --------
 
@@ -1608,7 +1637,46 @@ struct MUMBLE_API_STRUCT_NAME {
 																				 mumble_connection_t connection,
 																				 const char *comment);
 
+#	if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
+	/**
+	 * Starts a Whisper/Shout transmission for the local user targeting the given users and/or channels.
+	 *
+	 * This makes the local user whisper (or shout, when targeting many channels) to the specified targets as if
+	 * a corresponding whisper target had been activated. The affected targets are kept alive until a matching call
+	 * to @ref requestStopLocalUserWhisperShout is made. Each successful call allocates a new target group that is
+	 * identified by the returned @p allocID.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param users An array of user IDs the local user shall whisper to. May be NULL if no users are targeted.
+	 * @param userCount The number of entries in the @p users array
+	 * @param channels An array of channel IDs the local user shall whisper/shout to. May be NULL if no channels are
+	 * targeted.
+	 * @param channelCount The number of entries in the @p channels array
+	 * @param[out] allocID A pointer to the memory the allocated whisper-target ID shall be written to. This ID must
+	 * be passed to @ref requestStopLocalUserWhisperShout in order to stop the transmission. Only valid if STATUS_OK
+	 * is returned.
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the pointer passed via
+	 * @p allocID may be accessed.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStartLocalUserWhisperShout)(
+		mumble_plugin_id_t callerID, mumble_connection_t connection, const mumble_userid_t *users,
+		const size_t userCount, const mumble_channelid_t *channels, const size_t channelCount, uint32_t *allocID);
 
+	/**
+	 * Stops a previously started Whisper/Shout transmission for the local user.
+	 *
+	 * This removes the whisper targets that were allocated by the corresponding call to
+	 * @ref requestStartLocalUserWhisperShout identified by @p allocID and ends the transmission.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param allocID The whisper-target ID that was returned by @ref requestStartLocalUserWhisperShout
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. If no whisper target with the
+	 * given ID exists, MUMBLE_EC_PLUGIN_WHISPER_SHOUT_NOT_FOUND is returned.
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *requestStopLocalUserWhisperShout)(mumble_plugin_id_t callerID,
+																					   mumble_connection_t connection,
+																					   const uint32_t allocID);
+#	endif
 
 	// -------- Find functions --------
 
