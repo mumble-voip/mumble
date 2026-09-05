@@ -8,7 +8,7 @@
 #define GET_SYMBOL(symbol) (symbol = reinterpret_cast< decltype(symbol) >(GetProcAddress(m_module, #symbol)))
 
 #ifdef Q_OS_WIN
-Zeroconf::Zeroconf() : m_ok(false), m_reg(std::make_shared< Reg >()) {
+Zeroconf::Zeroconf() : m_ok(false), m_reg(std::make_unique< Reg >()) {
 	if (m_reg->isOk()) {
 		m_ok = true;
 		return;
@@ -70,8 +70,8 @@ void Zeroconf::helperError(const DNSServiceErrorType error) {
 }
 
 #ifdef Q_OS_WIN
-Zeroconf::Reg::Reg() : m_instance(nullptr, InstanceDeleter{ DnsServiceFreeInstance }) {
-	m_module = GetModuleHandle(L"dnsapi.dll");
+Zeroconf::Reg::Reg() : m_instance(nullptr, InstanceDeleter{ DnsServiceFreeInstance }), m_asyncDone(nullptr) {
+	m_module = LoadLibrary(L"dnsapi.dll");
 	if (!m_module) {
 		return;
 	}
@@ -82,11 +82,15 @@ Zeroconf::Reg::Reg() : m_instance(nullptr, InstanceDeleter{ DnsServiceFreeInstan
 	GET_SYMBOL(DnsServiceDeRegister);
 	GET_SYMBOL(DnsServiceRegisterCancel);
 
-	if (!DnsServiceConstructInstance || !DnsServiceFreeInstance || !DnsServiceRegister || !DnsServiceDeRegister
-		|| !DnsServiceRegisterCancel) {
-		FreeModule(m_module);
-		m_module = nullptr;
+	if (DnsServiceConstructInstance && DnsServiceFreeInstance && DnsServiceRegister && DnsServiceDeRegister
+		&& DnsServiceRegisterCancel) {
+		if (m_asyncDone = CreateEventW(nullptr, true, true, nullptr); m_asyncDone) {
+			return;
+		}
 	}
+
+	FreeLibrary(m_module);
+	m_module = nullptr;
 }
 
 Zeroconf::Reg::~Reg() {
@@ -95,6 +99,10 @@ Zeroconf::Reg::~Reg() {
 	}
 
 	cancel();
+
+	WaitForSingleObject(m_asyncDone, INFINITE);
+
+	CloseHandle(m_asyncDone);
 	FreeLibrary(m_module);
 }
 
@@ -118,7 +126,9 @@ bool Zeroconf::Reg::cancel() {
 		req.Version                     = DNS_QUERY_REQUEST_VERSION1;
 		req.pServiceInstance            = m_instance.get();
 		req.pRegisterCompletionCallback = callback;
-		req.pQueryContext               = new CallbackCtx(weak_from_this());
+		req.pQueryContext               = this;
+
+		ResetEvent(m_asyncDone);
 
 		const auto ret = DnsServiceDeRegister(&req, nullptr);
 		if (ret != DNS_REQUEST_PENDING) {
@@ -135,6 +145,8 @@ bool Zeroconf::Reg::request(const BonjourRecord &record, const uint16_t port) {
 	if (!isOk()) {
 		return false;
 	}
+
+	WaitForSingleObject(m_asyncDone, INFINITE);
 
 	DWORD size = 0;
 	GetComputerNameEx(ComputerNameDnsHostname, nullptr, &size);
@@ -163,10 +175,12 @@ bool Zeroconf::Reg::request(const BonjourRecord &record, const uint16_t port) {
 	req.Version                     = DNS_QUERY_REQUEST_VERSION1;
 	req.pServiceInstance            = instance;
 	req.pRegisterCompletionCallback = callback;
-	req.pQueryContext               = new CallbackCtx(weak_from_this());
+	req.pQueryContext               = this;
 
 	m_cancel = DNS_SERVICE_CANCEL{};
 	m_instance.reset(instance);
+
+	ResetEvent(m_asyncDone);
 
 	const auto ret = DnsServiceRegister(&req, &m_cancel.value());
 	if (ret != DNS_REQUEST_PENDING) {
@@ -182,16 +196,13 @@ bool Zeroconf::Reg::request(const BonjourRecord &record, const uint16_t port) {
 }
 
 void WINAPI Zeroconf::Reg::callback(const DWORD status, void *userdata, DNS_SERVICE_INSTANCE *instance) {
-	auto ctx = std::unique_ptr< CallbackCtx >(static_cast< CallbackCtx * >(userdata));
-	if (auto self = ctx->regWeak.lock()) {
-		self->m_instance.reset(instance);
+	auto &self = *static_cast< Reg * >(userdata);
 
-		if (!self->m_cancel) {
-			// No cancel handle, which means this is a de-registration.
-			return;
-		}
+	self.m_instance.reset(instance);
 
-		self->m_cancel.reset();
+	if (self.m_cancel) {
+		// Cancel handle present, this is a registration.
+		self.m_cancel.reset();
 
 		switch (status) {
 			case ERROR_SUCCESS:
@@ -203,6 +214,8 @@ void WINAPI Zeroconf::Reg::callback(const DWORD status, void *userdata, DNS_SERV
 						 status);
 		}
 	}
+
+	SetEvent(self.m_asyncDone);
 }
 #endif
 
