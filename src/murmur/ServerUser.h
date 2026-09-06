@@ -27,6 +27,7 @@
 #	include <sys/socket.h>
 #endif
 
+#include <atomic>
 #include <vector>
 
 // Unfortunately, this needs to be "large enough" to hold
@@ -110,8 +111,9 @@ protected:
 	Server *s;
 
 public:
-	enum State { Connected, Authenticated };
-	State sState;
+	enum State { Rejected, Connected, Authenticated };
+	std::atomic< State > sState;
+	std::atomic< bool > was_authenticated = false;
 	ClientType m_clientType;
 	operator QString() const;
 
@@ -154,6 +156,8 @@ public:
 	struct sockaddr_storage saiUdpAddress;
 	struct sockaddr_storage saiTcpLocalAddress;
 	ServerUser(Server *parent, QSslSocket *socket);
+
+	void rejectConnection(bool forceDisconnect = false);
 };
 
 #endif
