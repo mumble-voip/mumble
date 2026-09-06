@@ -28,6 +28,7 @@
 #	include <sys/socket.h>
 #endif
 
+#include <atomic>
 #include <memory>
 #include <mutex>
 #include <vector>
@@ -118,8 +119,9 @@ protected:
 	Timer m_lastActivityTimer;
 
 public:
-	enum State { Connected, Authenticated };
-	State sState;
+	enum State { Rejected, Connected, Authenticated };
+	std::atomic< State > sState;
+	std::atomic< bool > was_authenticated = false;
 	ClientType m_clientType;
 	operator QString() const;
 
@@ -175,6 +177,8 @@ public:
 
 	ServerUser(Server *parent, QSslSocket *socket);
 	~ServerUser();
+
+	void rejectConnection(bool forceDisconnect = false);
 };
 
 #endif
