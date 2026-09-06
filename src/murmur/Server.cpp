@@ -1558,7 +1558,7 @@ void Server::encrypted() {
 			if (ban.qsHash == uSource->qsHash) {
 				log(uSource, QString("Certificate hash is banned: %1, Username: %2, Reason: %3.")
 								 .arg(ban.qsHash, ban.qsUsername, ban.qsReason));
-				uSource->disconnectSocket();
+				uSource->rejectConnection();
 			}
 		}
 	}
@@ -1627,7 +1627,7 @@ void Server::sslError(const QList< QSslError > &errors) {
 		// https://bugreports.qt.io/browse/QTBUG-53906
 		// https://github.com/mumble-voip/mumble/issues/2334
 
-		u->disconnectSocket();
+		u->rejectConnection();
 	}
 }
 
@@ -1723,8 +1723,15 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 		u = static_cast< ServerUser * >(sender());
 	}
 
-	if (u->sState == ServerUser::Authenticated) {
-		u->resetActivityTime();
+	switch (u->sState) {
+		case ServerUser::Rejected:
+			// Discard message
+			return;
+		case ServerUser::Connected:
+			break;
+		case ServerUser::Authenticated:
+			u->resetActivityTime();
+			break;
 	}
 
 	if (type == Mumble::Protocol::TCPMessageType::UDPTunnel) {
@@ -1795,7 +1802,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 				mpr.set_reason("The server is currently in read-only mode and doesn't accept new connections");
 				mpr.set_type(MumbleProto::Reject_RejectType_NoNewConnections);
 				sendMessage(u, mpr);
-				u->disconnectSocket();
+				u->rejectConnection();
 			}
 				[[fallthrough]];
 			default:
@@ -1849,7 +1856,7 @@ void Server::checkTimeout() {
 	}
 	qrwlVoiceThread.unlock();
 	for (ServerUser *u : qlClose) {
-		u->disconnectSocket(true);
+		u->rejectConnection(true);
 	}
 }
 

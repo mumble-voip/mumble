@@ -324,7 +324,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
 		sendMessage(uSource, mpr);
-		uSource->disconnectSocket();
+		uSource->rejectConnection();
 		return;
 	}
 
@@ -338,7 +338,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpur.set_reason("You connected to the server from another device");
 		sendMessage(uOld, mpur);
 		uOld->forceFlush();
-		uOld->disconnectSocket(true);
+		uOld->rejectConnection(true);
 	}
 
 	// Setup UDP encryption
@@ -1061,7 +1061,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 				mpur.set_reason("Recording is not allowed on this server");
 				sendMessage(uSource, mpur);
 				uSource->forceFlush();
-				uSource->disconnectSocket(true);
+				uSource->rejectConnection(true);
 
 				// We just kicked this user, so there is no point in further processing his/her message
 				return;
@@ -1282,7 +1282,7 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 		log(uSource, QString("Kickbanned %1 (%2)").arg(QString(*pDstServerUser), u8(msg.reason())));
 	else
 		log(uSource, QString("Kicked %1 (%2)").arg(QString(*pDstServerUser), u8(msg.reason())));
-	pDstServerUser->disconnectSocket();
+	pDstServerUser->rejectConnection();
 }
 
 void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg) {

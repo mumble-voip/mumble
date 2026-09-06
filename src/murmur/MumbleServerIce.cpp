@@ -1349,7 +1349,7 @@ static void impl_Server_kickUser(const ::MumbleServer::AMD_Server_kickUserPtr cb
 	mpur.set_session(static_cast< unsigned int >(session));
 	mpur.set_reason(reason);
 	server->sendAll(mpur);
-	user->disconnectSocket();
+	user->rejectConnection();
 	cb->ice_response();
 
 	ICE_IMPL_END
