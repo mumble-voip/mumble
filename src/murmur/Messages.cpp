@@ -2568,7 +2568,7 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 
 		ServerUser *receiver = qhUsers.value(receiverSessions.Get(i));
 
-		if (receiver) {
+		if (receiver && receiver->sState == ServerUser::Authenticated) {
 			// We can simply redirect the message we have received to the clients
 			sendMessage(receiver, msg);
 		}
