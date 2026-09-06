@@ -203,6 +203,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	// in the following.
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
+		if (qqIds.empty()) {
+			log(uSource, "Rejecting connection during authentication due to depleted user ID queue");
+			uSource->rejectConnection();
+			return;
+		}
+
 		uSource->uiSession = qqIds.dequeue();
 		qhUsers.insert(uSource->uiSession, uSource);
 		qhHostUsers[uSource->haAddress].insert(uSource);
