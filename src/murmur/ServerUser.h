@@ -119,7 +119,7 @@ protected:
 	Timer m_lastActivityTimer;
 
 public:
-	enum State { Rejected, Connected, Authenticated };
+	enum State { Rejected, Connected, Authenticating, Authenticated };
 	std::atomic< State > sState;
 	std::atomic< bool > was_authenticated = false;
 	ClientType m_clientType;
