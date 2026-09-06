@@ -206,6 +206,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		}
 
 		uSource->uiSession = qqIds.dequeue();
+		uSource->sState    = ServerUser::Authenticating;
 		qhUsers.insert(uSource->uiSession, uSource);
 		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
