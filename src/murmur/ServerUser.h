@@ -117,7 +117,7 @@ protected:
 	Timer m_lastActivityTimer;
 
 public:
-	enum State { Rejected, Connected, Authenticated };
+	enum State { Rejected, Connected, Authenticating, Authenticated };
 	State sState;
 	ClientType m_clientType;
 	operator QString() const;

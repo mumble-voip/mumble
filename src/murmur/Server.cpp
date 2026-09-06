@@ -1728,6 +1728,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 			// Discard message
 			return;
 		case ServerUser::Connected:
+		case ServerUser::Authenticating:
 			break;
 		case ServerUser::Authenticated:
 			u->resetActivityTime();
