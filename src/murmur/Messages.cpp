@@ -2526,6 +2526,14 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 				 uSource->uiSession);
 		return;
 	}
+	if (msg.receiversessions_size() > qhUsers.size() && msg.receiversessions_size() - qhUsers.size() > 20) {
+		// We tolerate an error of up to 20 receivers to accommodate for cases in which some of the receivers happened
+		// to disconnect right after the plugin sent the message. If the difference is more than that, chances of
+		// bad luck are somewhat small and this seems more like a DDoS-ish attack.
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - Unreasonable amount of receivers",
+				 qUtf8Printable(uSource->qsName), uSource->uiSession);
+		return;
+	}
 
 	// Always set the sender's session and don't rely on it being set correctly (would
 	// allow spoofing the sender's session)
