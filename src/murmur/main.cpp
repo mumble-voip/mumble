@@ -64,9 +64,9 @@ void initLog(const bool verbose) {
 #else
 	log::init(verbose ? spdlog::level::trace : spdlog::level::debug);
 #endif
-	if (Meta::mp->qsLogfile == QLatin1String("syslog")) {
+	if (!Meta::mp->logSys.isEmpty()) {
 		// Set up system log
-		static constexpr const char *id = "mumble-server";
+		const auto id = Meta::mp->logSys.toStdString();
 #ifdef Q_OS_WIN
 		using SysSink = spdlog::sinks::win_eventlog_sink_st;
 		log::addSink(std::make_shared< SysSink >(id));
@@ -74,7 +74,9 @@ void initLog(const bool verbose) {
 		using SysSink = spdlog::sinks::syslog_sink_st;
 		log::addSink(std::make_shared< SysSink >(id, LOG_PID, LOG_DAEMON, true));
 #endif
-	} else if (!Meta::mp->qsLogfile.isEmpty()) {
+	}
+
+	if (!Meta::mp->qsLogfile.isEmpty()) {
 		// Set up file log
 		using FileSink = spdlog::sinks::rotating_file_sink_st;
 		// 5MB
