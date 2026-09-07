@@ -84,10 +84,10 @@
          <string>Don't send certificate to server and don't save passwords. (Not saved).</string>
         </property>
         <property name="whatsThis">
-         <string>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</string>
+         <string>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</string>
         </property>
         <property name="text">
-         <string>Suppress certificate and password storage</string>
+         <string>Suppress certificate information</string>
         </property>
        </widget>
       </item>
