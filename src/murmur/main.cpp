@@ -123,11 +123,7 @@ struct CLIOptions {
 	std::tuple< std::string, std::optional< unsigned int > > supwSrv;
 	std::optional< unsigned int > disableSuSrv;
 	bool verboseLogging = false;
-#ifdef QT_NO_DEBUG
-	bool detach = true;
-#else
-	bool detach = false;
-#endif
+	bool detach         = false;
 	bool wipeSsl        = false;
 	bool wipeLogs       = false;
 	bool logGroups      = false;
@@ -388,10 +384,6 @@ int main(int argc, char **argv) {
 #ifdef Q_OS_WIN
 		Tray tray;
 #else
-		if (Meta::mp->qsLogfile.isEmpty()) {
-			detach = false;
-		}
-
 		unixhandler.setuid();
 #endif
 
