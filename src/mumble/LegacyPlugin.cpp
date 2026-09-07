@@ -16,7 +16,7 @@
 
 #include <QRegularExpression>
 
-#include <utf8/cpp11.h>
+#include <utf8/checked.h>
 
 /// A regular expression used to extract the version from the legacy plugin's description
 static const QRegularExpression

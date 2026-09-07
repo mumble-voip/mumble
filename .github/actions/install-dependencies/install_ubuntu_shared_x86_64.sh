@@ -35,6 +35,11 @@ sudo apt -y install \
 	zsync \
 	appstream \
 	libpoco-dev \
+	nlohmann-json3-dev \
+	libcli11-dev \
+	libspdlog-dev \
+	libsoci-dev \
+	libutfcpp-dev \
 	libsqlite3-dev
 
 # The package was initially called libqt6svg6-dev.
@@ -68,6 +73,11 @@ if [[ $VERSION_ID = "22.04" ]]; then
 	# Cmp. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105651
 	# We want to prevent that from happening.
 	echo "CXXFLAGS=-Wno-error=restrict" >> "$GITHUB_ENV"
+
+
+	# fmt is so old that it causes compile errors in SOCI (until https://github.com/SOCI/soci/pull/1370)
+	# -> this will remove spdlog again
+	sudo apt remove libfmt-dev
 else
 	sudo apt -y install qt6-svg-dev
 fi

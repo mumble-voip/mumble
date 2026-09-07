@@ -23,8 +23,8 @@ arch="${arch,,}"
 
 
 MUMBLE_ENVIRONMENT_DIR="$workspace/build_env"
-MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2026-02"
-MUMBLE_ENVIRONMENT_COMMIT="b1fe4a4257"
+MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2026-08"
+MUMBLE_ENVIRONMENT_COMMIT="d639cdbb98"
 MUMBLE_ENVIRONMENT_VERSION=""
 ADDITIONAL_CMAKE_OPTIONS=""
 VCPKG_CMAKE_OPTIONS=""

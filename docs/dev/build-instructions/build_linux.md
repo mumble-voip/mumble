@@ -36,6 +36,11 @@ sudo apt install \
   libxcb-xinerama0 \
   libzeroc-ice-dev \
   libpoco-dev \
+  nlohmann-json3-dev \
+  libcli11-dev \
+  libspdlog-dev \
+  libsoci-dev \
+  libutfcpp-dev \
   g++-multilib
 ```
 
@@ -85,9 +90,7 @@ sudo apt install \
   qtchooser
 ```
 
-1. There is a problem with Opus, causing crashes on some systems. Disabling the bundled opus version when running cmake might be necessary for now:
-   `cmake -Dbundled-opus=OFF ..`
-2. _Also, see Ubuntu notes, which explain some things relevant to Debian builds._
+See also Ubuntu notes, which explain some things relevant to Debian builds._
 
 </details>
 

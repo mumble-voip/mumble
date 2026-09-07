@@ -26,7 +26,7 @@ set_target_properties(g15-helper
 target_compile_definitions(g15-helper PRIVATE $<$<CONFIG:Debug>:USE_LOGFILE>)
 
 if(g15-emulator)
-	find_pkg(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
+	find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
 	set_target_properties(g15-helper PROPERTIES AUTOMOC ON)
 	target_sources(g15-helper PRIVATE "g15helper_emu.cpp" "g15helper_emu.h")
 	target_link_libraries(g15-helper PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)

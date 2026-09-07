@@ -43,6 +43,7 @@ jobs:
           mkdir build
           cd build
           cmake -G Ninja .. -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES='cmake/mumble_dependency_provider.cmake' \
             -Dtests=ON \
             -Dsymbols=ON \
             -Ddisplay-install-paths=ON \

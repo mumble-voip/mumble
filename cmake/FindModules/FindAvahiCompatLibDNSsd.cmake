@@ -3,8 +3,6 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-add_library(ut99 SHARED "ut99.cpp")
+include("${CMAKE_CURRENT_LIST_DIR}/find_via_pkgconf.cmake")
 
-find_package(utf8cpp REQUIRED)
-
-target_link_libraries(ut99 PRIVATE $<IF:$<TARGET_EXISTS:utf8cpp::utf8cpp>,utf8cpp::utf8cpp,utf8cpp>)
+mumble_find_via_pkgconf("AvahiCompatLibDNSsd" "AvahiCompatLibDNSsd::AvahiCompatLibDNSsd" "avahi-compat-libdns_sd")
