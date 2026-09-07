@@ -49,7 +49,7 @@ static void qtMessageHandler(const QtMsgType type, const QMessageLogContext &, c
 	}
 }
 
-void log::addSink(std::shared_ptr< spdlog::sinks::sink > sink) {
+void log::addSink(SinkPtr sink) {
 	if (!masterSink) {
 		log::fatal("Attempted to addSink before master sink has been initialized");
 		return;
@@ -58,6 +58,15 @@ void log::addSink(std::shared_ptr< spdlog::sinks::sink > sink) {
 	sink->set_pattern("%^<%L>%$%Y-%m-%d %H:%M:%S.%e %v");
 
 	masterSink->add_sink(std::move(sink));
+}
+
+void log::removeSink(SinkPtr sink) {
+	if (!masterSink) {
+		log::fatal("Attempted to removeSink before master sink has been initialized");
+		return;
+	}
+
+	masterSink->remove_sink(std::move(sink));
 }
 
 void log::init(spdlog::level::level_enum logLevel) {
