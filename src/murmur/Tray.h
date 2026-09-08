@@ -6,12 +6,15 @@
 #ifndef MUMBLE_MURMUR_TRAY_H_
 #define MUMBLE_MURMUR_TRAY_H_
 
+#include "Logger.h"
+
+#include <memory>
+
 #include <QtCore/QObject>
-#include <QtCore/QStringList>
 #include <QtWidgets/QSystemTrayIcon>
 
-class LogEmitter;
 class QAction;
+class QMainWindow;
 
 class Tray : public QObject {
 private:
@@ -19,22 +22,22 @@ private:
 	Q_DISABLE_COPY(Tray)
 
 protected:
+	mumble::log::SinkPtr m_logSink;
+	std::unique_ptr< QMainWindow > m_window;
 	QSystemTrayIcon *qsti;
 	QMenu *qm;
 	QAction *qaQuit;
 	QAction *qaAbout;
 	QAction *qaShowLog;
-	QStringList qlLog;
-	LogEmitter *le;
 public slots:
 	void on_Tray_activated(QSystemTrayIcon::ActivationReason);
 	void on_About_triggered();
 	void on_Quit_triggered();
 	void on_ShowLog_triggered();
-	void addLogMessage(const QString &);
 
 public:
-	Tray(QObject *parent, LogEmitter *le);
+	Tray(QObject *parent = nullptr);
+	~Tray();
 };
 
 #endif

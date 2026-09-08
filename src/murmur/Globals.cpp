@@ -7,9 +7,5 @@
  * This file serves as a place to initialize global variables that are declared as extern in other places in the code
  */
 
-class QFile;
 class Meta;
-
-
-QFile *qfLog = nullptr;
-Meta *meta   = nullptr;
+Meta *meta = nullptr;

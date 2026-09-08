@@ -83,6 +83,7 @@ MetaParams::MetaParams() {
 	iDBPort                    = 0;
 	qsDBDriver                 = "SQLITE";
 	qsLogfile                  = "mumble-server.log";
+	logSys                     = "mumble-server";
 
 	iLogDays = 31;
 
@@ -316,6 +317,7 @@ void MetaParams::read(QString fname) {
 	iLogDays = typeCheckedFromSettings("logdays", iLogDays);
 
 	qsLogfile = typeCheckedFromSettings("logfile", qsLogfile);
+	logSys    = typeCheckedFromSettings("logsys", logSys);
 	qsPid     = typeCheckedFromSettings("pidfile", qsPid);
 
 	qsRegName     = typeCheckedFromSettings("registerName", qsRegName);
