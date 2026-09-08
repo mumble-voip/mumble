@@ -23,8 +23,11 @@ namespace Mumble {
 ///    owned by the current user with permissions restricted to exactly 0700; otherwise another
 ///    local user may have created it first, and it is discarded.
 ///  - The current directory, as an unconditional last resort.
+/// Whenever a candidate other than $XDG_RUNTIME_DIR ends up being used, a warning is printed to
+/// stderr.
 /// Since on Windows named pipes aren't part of the fs, it returns an empty path.
-/// Its result is computed once and cached, so repeated calls always return the same path.
+/// Its result is computed once and cached, so repeated calls always return the same path and the
+/// fallback warning is only ever printed once per process.
 /// @throws std::filesystem::filesystem_error if the directory doesn't exist and can't be created.
 std::filesystem::path getRuntimeDirectory();
 

@@ -6,6 +6,7 @@
 #include "IPCUtils.h"
 
 #ifndef _WIN32
+#	include <cstdio>
 #	include <cstdlib>
 #	include <string>
 #	include <system_error>
@@ -59,6 +60,14 @@ namespace {
 		return S_ISDIR(st.st_mode) && st.st_uid == getuid() && (st.st_mode & 07777) == S_IRWXU;
 	}
 
+	// Prints the warning message the XDG Base Directory Specification mandates for falling back
+	// away from $XDG_RUNTIME_DIR. ipcutils doesn't depend on Qt (it's a static library linked into
+	// overlay_gl, which gets injected into other processes), so qWarning() isn't available here.
+	void warnRuntimeDirFallback(const std::filesystem::path &dir) {
+		std::fprintf(stderr, "Mumble: $XDG_RUNTIME_DIR is not available, falling back to \"%s\" for IPC endpoints\n",
+					 dir.c_str());
+	}
+
 } // namespace
 #endif
 
@@ -84,6 +93,7 @@ std::filesystem::path getRuntimeDirectory() {
 		if (isUsableDirectory(runUserDir)) {
 			std::filesystem::path candidate = runUserDir / "info.mumble.Mumble";
 			ensureDirectoryCreated(candidate);
+			warnRuntimeDirFallback(candidate);
 			return candidate;
 		}
 
@@ -97,6 +107,7 @@ std::filesystem::path getRuntimeDirectory() {
 			std::filesystem::path candidate = tmpDir / ("info.mumble.Mumble-" + std::to_string(getuid()));
 			ensureDirectoryCreated(candidate);
 			if (isPrivateOwnedDirectory(candidate)) {
+				warnRuntimeDirFallback(candidate);
 				return candidate;
 			}
 		}
@@ -105,6 +116,7 @@ std::filesystem::path getRuntimeDirectory() {
 		// not be created, since there is nothing else left to try.
 		std::filesystem::path candidate = std::filesystem::path(".") / "info.mumble.Mumble";
 		ensureDirectoryCreated(candidate);
+		warnRuntimeDirFallback(candidate);
 		return candidate;
 	}();
 
