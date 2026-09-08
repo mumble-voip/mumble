@@ -28,7 +28,7 @@ namespace Mumble {
 /// Since on Windows named pipes aren't part of the fs, it returns an empty path.
 /// Its result is computed once and cached, so repeated calls always return the same path and the
 /// fallback warning is only ever printed once per process.
-/// @throws std::filesystem::filesystem_error if the directory doesn't exist and can't be created.
+/// This function never throws; the directory's path is returned even if it couldn't be created.
 std::filesystem::path getRuntimeDirectory();
 
 /// The path (on *nix) or the name (on win) on which Mumble's overlay listens for connections.
