@@ -7,6 +7,7 @@
 #define MUMBLE_CONNECTION_H_
 
 #include "HostAddress.h"
+#include "Logger.h"
 #include "MumbleProtocol.h"
 
 #include <QtCore/QtGlobal>
@@ -57,6 +58,12 @@ signals:
 public:
 	Connection(QObject *parent, QSslSocket *qtsSocket);
 	~Connection();
+
+	template< typename... Args > void warn(spdlog::format_string_t< Args... > fmt, Args &&... args) const {
+		mumble::log::warn("{}:{} -> {}", peerAddress().toStdString(), peerPort(),
+						  spdlog::fmt_lib::format(fmt, std::forward< Args >(args)...));
+	}
+
 	static bool messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 								 QByteArray &cache);
 	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
