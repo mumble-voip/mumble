@@ -80,7 +80,7 @@ jobs:
           path: '${{ env.MUMBLE_ENVIRONMENT_DIR }}'
           key: ${{ env.MUMBLE_ENVIRONMENT_VERSION }}
 
-    - uses: hendrikmuhs/ccache-action@v1.2
+    - uses: hendrikmuhs/ccache-action@v1.2.24
       with:
         key: ${{ github.base_ref || github.ref_name }}.${{ matrix.os }}.${{ matrix.type }}
         save: ${{ github.event_name != 'pull_request' }}
