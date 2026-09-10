@@ -31,6 +31,7 @@
 
 #define SERVERSEND_EVENT 3501
 
+#include "HostAddress.h"
 #include "Mumble.pb.h"
 #include "MumbleProtocol.h"
 #include "ServerAddress.h"
@@ -105,8 +106,8 @@ protected:
 	DWORD dwFlowUDP;
 #endif
 
-	QHostAddress qhaRemote;
-	QHostAddress qhaLocal;
+	HostAddress qhaRemote;
+	HostAddress qhaLocal;
 	QUdpSocket *qusUdp;
 	QMutex qmUdp;
 
