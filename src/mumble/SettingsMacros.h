@@ -76,7 +76,9 @@
 	PROCESS(positional_audio, POSITIONAL_MIN_VOLUME_KEY, fAudioMaxDistVolume)      \
 	PROCESS(positional_audio, POSITIONAL_BLOOM_KEY, fAudioBloom)                   \
 	PROCESS(positional_audio, POSITIONAL_HEADPHONE_MODE_KEY, bPositionalHeadphone) \
-	PROCESS(positional_audio, POSITIONAL_TRANSMIT_POSITION_KEY, bTransmitPosition)
+	PROCESS(positional_audio, POSITIONAL_TRANSMIT_POSITION_KEY, bTransmitPosition) \
+	PROCESS(positional_audio, HRTF_ENABLED_KEY, bHrtf)                             \
+	PROCESS(positional_audio, HRTF_FILE_KEY, qsHrtfFile)
 
 
 #define NETWORK_SETTINGS                                                     \
