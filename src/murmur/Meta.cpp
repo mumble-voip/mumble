@@ -29,6 +29,7 @@
 #endif
 
 #ifdef Q_OS_WIN
+#	include <delayimp.h>
 #	include <qos2.h>
 #else
 #	include <pwd.h>
@@ -43,6 +44,40 @@ MetaParams Meta::mp;
 
 #ifdef Q_OS_WIN
 HANDLE Meta::hQoS = nullptr;
+
+static HANDLE loadQoS() {
+	HRESULT res = E_FAIL;
+
+	// We don't support delay-loading QoS on MinGW. Only enable it for MSVC.
+#	ifdef _MSC_VER
+	__try {
+		res = __HrLoadAllImportsForDll("qwave.dll");
+	}
+
+	__except (EXCEPTION_EXECUTE_HANDLER) {
+		res = E_FAIL;
+	}
+#	endif
+
+	if (!SUCCEEDED(res)) {
+		qWarning("Meta: Failed to load qWave.dll, no QoS available");
+		return nullptr;
+	}
+
+	qInfo("Meta: QOS2 loaded");
+
+	QOS_VERSION ver;
+	ver.MajorVersion = 1;
+	ver.MinorVersion = 0;
+
+	HANDLE handle;
+	if (!QOSCreateHandle(&ver, &handle)) {
+		qWarning("Meta: Failed to create QOS2 handle");
+		return nullptr;
+	}
+
+	return handle;
+}
 #endif
 
 MetaParams::MetaParams() {
@@ -640,22 +675,8 @@ bool MetaParams::loadSSLSettings() {
 
 Meta::Meta() {
 #ifdef Q_OS_WIN
-	QOS_VERSION qvVer;
-	qvVer.MajorVersion = 1;
-	qvVer.MinorVersion = 0;
-
-	hQoS = nullptr;
-
-	HMODULE hLib = LoadLibrary(L"qWave.dll");
-	if (!hLib) {
-		qWarning("Meta: Failed to load qWave.dll, no QoS available");
-	} else {
-		FreeLibrary(hLib);
-		if (!QOSCreateHandle(&qvVer, &hQoS))
-			qWarning("Meta: Failed to create QOS2 handle");
-		else
-			Connection::setQoS(hQoS);
-	}
+	hQoS = loadQoS();
+	Connection::setQoS(hQoS);
 #endif
 }
 
