@@ -190,6 +190,11 @@ target_link_libraries(shared
 
 if(WIN32)
 	target_link_libraries(shared PUBLIC qwave.lib)
+
+	if(MSVC)
+		target_link_libraries(shared PUBLIC Delayimp.lib)
+		target_link_options(shared PUBLIC "/DELAYLOAD:qwave.dll")
+	endif()
 elseif(APPLE)
 	find_library(LIB_CORESERVICES "CoreServices")
 	target_link_libraries(shared PUBLIC ${LIB_CORESERVICES})
