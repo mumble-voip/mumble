@@ -165,6 +165,7 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 	hQoS = loadQoS();
 	if (hQoS)
 		Connection::setQoS(hQoS);
+	dwFlowUDP = 0;
 #endif
 
 	QObject::connect(this, &ServerHandler::pingRequested, this, &ServerHandler::sendPingInternal, Qt::QueuedConnection);
@@ -899,14 +900,13 @@ void ServerHandler::serverConnectionConnected() {
 			}
 #	endif
 #elif defined(Q_OS_WIN)
-			if (hQoS) {
+			if (!dwFlowUDP && !qhaRemote.isLoopback() && hQoS) {
 				struct sockaddr_in addr;
 				memset(&addr, 0, sizeof(addr));
 				addr.sin_family      = AF_INET;
 				addr.sin_port        = htons(usPort);
 				addr.sin_addr.s_addr = htonl(qhaRemote.toIPv4Address());
 
-				dwFlowUDP = 0;
 				if (!QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast< sockaddr * >(&addr),
 										QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW,
 										reinterpret_cast< PQOS_FLOWID >(&dwFlowUDP)))
