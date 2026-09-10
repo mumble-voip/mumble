@@ -105,7 +105,7 @@ static HANDLE loadQoS() {
 			qWarning("ServerHandler: Failed to create QOS2 handle");
 			hQoS = nullptr;
 		} else {
-			qWarning("ServerHandler: QOS2 loaded");
+			qInfo("ServerHandler: QOS2 loaded");
 		}
 	}
 	return hQoS;
