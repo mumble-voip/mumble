@@ -65,10 +65,10 @@ Connection::~Connection() {
 
 void Connection::setToS() {
 #if defined(Q_OS_WIN)
-	if (dwFlow || !hQoS)
+	if (dwFlow || peerAddress().isLoopback() || !hQoS) {
 		return;
+	}
 
-	dwFlow = 0;
 	if (!QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), nullptr, QOSTrafficTypeAudioVideo,
 							QOS_NON_ADAPTIVE_FLOW, reinterpret_cast< PQOS_FLOWID >(&dwFlow)))
 		qWarning("Connection: Failed to add flow to QOS");
