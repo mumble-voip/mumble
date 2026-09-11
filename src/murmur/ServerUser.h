@@ -117,7 +117,7 @@ protected:
 	Timer m_lastActivityTimer;
 
 public:
-	enum State { Connected, Authenticated };
+	enum State { Rejected, Connected, Authenticating, Authenticated };
 	State sState;
 	ClientType m_clientType;
 	operator QString() const;
@@ -170,6 +170,8 @@ public:
 
 	ServerUser(Server *parent, QSslSocket *socket);
 	~ServerUser();
+
+	void rejectConnection(bool forceDisconnect = false);
 };
 
 #endif
