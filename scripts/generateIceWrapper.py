@@ -118,6 +118,11 @@ def main():
     for currentLine in generatedIceHeader.split("\n"):
         currentLine = currentLine.strip()
 
+        match = re.match(r"^(ICE_[A-Z_]+\([^)]*\)).*", currentLine)
+        if match:
+            # Remove leading Ice macros such as ICE_DEPRECATED_API(...)
+            currentLine = currentLine[len(match.group(1)):].strip()
+
         if not currentLine:
             # Skip empty lines
             continue
