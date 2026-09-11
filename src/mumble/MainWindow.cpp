@@ -517,6 +517,23 @@ void MainWindow::setupGui() {
 	qaAudioMute->setChecked(Global::get().s.bMute);
 	qaAudioDeaf->setChecked(Global::get().s.bDeaf);
 
+#ifdef USE_WIN_UNIVERSAL_MUTE
+	m_universalMuter.emplace(
+		[this]() {
+			// Fired on a WinRT thread pool thread — marshal to Qt main thread.
+			QMetaObject::invokeMethod(this, [this]() {
+				qaAudioMute->setChecked(true);
+				on_qaAudioMute_triggered();
+			}, Qt::QueuedConnection);
+		},
+		[this]() {
+			QMetaObject::invokeMethod(this, [this]() {
+				qaAudioMute->setChecked(false);
+				on_qaAudioMute_triggered();
+			}, Qt::QueuedConnection);
+		});
+#endif
+
 	updateAudioToolTips();
 
 #ifdef USE_NO_TTS
@@ -2802,6 +2819,14 @@ void MainWindow::on_qaAudioMute_triggered() {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
 	}
 
+#ifdef USE_WIN_UNIVERSAL_MUTE
+	if (Global::get().s.bMute) {
+		m_universalMuter->setMuted();
+	} else {
+		m_universalMuter->setUnmuted();
+	}
+#endif
+
 	updateAudioToolTips();
 	emit talkingStatusChanged();
 }
@@ -2846,6 +2871,14 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 	if (Global::get().sh) {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
 	}
+
+#ifdef USE_WIN_UNIVERSAL_MUTE
+	if (Global::get().s.bMute) {
+		m_universalMuter->setMuted();
+	} else {
+		m_universalMuter->setUnmuted();
+	}
+#endif
 
 	updateAudioToolTips();
 	emit talkingStatusChanged();
@@ -3578,6 +3611,10 @@ void MainWindow::serverConnected() {
 	updateFavoriteButton();
 	qaServerBanList->setEnabled(true);
 
+#ifdef USE_WIN_UNIVERSAL_MUTE
+	m_universalMuter->startCall(tr("Connecting...").toStdWString(), tr("Mumble").toStdWString());
+#endif
+
 	Channel *root = Channel::get(Mumble::ROOT_CHANNEL_ID);
 	pmModel->renameChannel(root, tr("Root"));
 	pmModel->setCommentHash(root, QByteArray());
@@ -3611,6 +3648,10 @@ void MainWindow::serverConnected() {
 }
 
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
+#ifdef USE_WIN_UNIVERSAL_MUTE
+	m_universalMuter->tryEndCall();
+#endif
+
 	// clear ChannelListener
 	Global::get().channelListenerManager->clear();
 
