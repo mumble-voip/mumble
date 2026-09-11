@@ -2259,37 +2259,22 @@ void Server::clearWhisperTargetCache() {
 	}
 }
 
-QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
-	HostAddress ha(adr);
-
-	if ((Meta::mp->iObfuscate != 0)) {
-		QCryptographicHash h(QCryptographicHash::Sha1);
-		QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-		h.addData(byteView);
-#else
-		h.addData(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
-#endif
-		if (adr.protocol() == QAbstractSocket::IPv4Protocol) {
-			quint32 num = adr.toIPv4Address();
-			byteView    = { reinterpret_cast< const char * >(&num), sizeof(num) };
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-			h.addData(byteView);
-#else
-			h.addData(reinterpret_cast< const char * >(&num), sizeof(num));
-#endif
-		} else if (adr.protocol() == QAbstractSocket::IPv6Protocol) {
-			Q_IPV6ADDR num = adr.toIPv6Address();
-			byteView       = { reinterpret_cast< const char * >(num.c), sizeof(num.c) };
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-			h.addData(byteView);
-#else
-			h.addData(reinterpret_cast< const char * >(num.c), sizeof(num.c));
-#endif
-		}
-		return QString("<<%1:%2>>").arg(QString::fromLatin1(h.result().toHex()), QString::number(port));
+QString Server::addressToString(const HostAddress &adr, const unsigned short port) {
+	if (Meta::mp->iObfuscate == 0) {
+		return QString("%1:%2").arg(adr.toString(), QString::number(port));
 	}
-	return QString("%1:%2").arg(ha.toString(), QString::number(port));
+
+	QCryptographicHash h(QCryptographicHash::Sha1);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+	QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
+	h.addData(byteView);
+	h.addData(adr.getByteRepresentation());
+#else
+	h.addData(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
+	h.addData(adr.toByteArray());
+#endif
+
+	return QString("<<%1:%2>>").arg(QString::fromLatin1(h.result().toHex()), QString::number(port));
 }
 
 bool Server::validateUserName(const QString &name) {

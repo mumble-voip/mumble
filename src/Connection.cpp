@@ -4,6 +4,8 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "Connection.h"
+
+#include "Logger.h"
 #include "Mumble.pb.h"
 #include "SSL.h"
 
@@ -22,6 +24,8 @@
 #ifdef Q_OS_WIN
 HANDLE Connection::hQoS = nullptr;
 #endif
+
+using namespace mumble;
 
 Connection::Connection(QObject *p, QSslSocket *qtsSock) : QObject(p) {
 	qtsSocket = qtsSock;
@@ -55,20 +59,20 @@ Connection::~Connection() {
 #ifdef Q_OS_WIN
 	if (dwFlow && hQoS) {
 		if (!QOSRemoveSocketFromFlow(hQoS, 0, dwFlow, 0))
-			qWarning("Connection: Failed to remove flow from QoS");
+			warn("Connection: Failed to remove flow from QoS");
 	}
 #endif
 }
 
 void Connection::setToS() {
 #if defined(Q_OS_WIN)
-	if (dwFlow || peerAddress().isLoopback() || !hQoS) {
+	if (dwFlow || peerAddress().toAddress().isLoopback() || !hQoS) {
 		return;
 	}
 
 	if (!QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), nullptr, QOSTrafficTypeAudioVideo,
 							QOS_NON_ADAPTIVE_FLOW, reinterpret_cast< PQOS_FLOWID >(&dwFlow)))
-		qWarning("Connection: Failed to add flow to QOS");
+		warn("Connection: Failed to add flow to QOS");
 #elif defined(Q_OS_UNIX)
 	const int fd = static_cast< int >(qtsSocket->socketDescriptor());
 	int val      = 0xa0;
@@ -95,7 +99,7 @@ void Connection::setToS() {
 	}
 
 	if (!ok) {
-		qWarning("Connection: Failed to set TOS/TCLASS");
+		warn("Connection: Failed to set TOS/TCLASS");
 	}
 #	if defined(SO_PRIORITY)
 	socklen_t optlen = sizeof(val);
@@ -140,7 +144,7 @@ void Connection::socketRead() {
 			return;
 
 		if (iPacketLength > 0x7fffff) {
-			qWarning() << "Host tried to send huge packet";
+			warn("Host tried to send huge packet");
 			disconnectSocket(true);
 			return;
 		}
@@ -186,7 +190,7 @@ void Connection::socketDisconnected() {
 
 	bool success = msg.SerializeToArray(uc + 6, static_cast< int >(len));
 	if (!success) {
-		qWarning("Failed to serialize protobuf message");
+		log::warn("Failed to serialize protobuf message");
 		cache.clear();
 		return false;
 	}
@@ -197,7 +201,7 @@ void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Pro
 							 QByteArray &cache) {
 	if (cache.isEmpty()) {
 		if (!messageToNetwork(msg, msgType, cache)) {
-			qWarning("Sending message to network failed");
+			warn("Sending message to network failed");
 			return;
 		};
 	}
@@ -235,7 +239,7 @@ void Connection::disconnectSocket(bool force) {
 		qtsSocket->disconnectFromHost();
 }
 
-QHostAddress Connection::peerAddress() const {
+HostAddress Connection::peerAddress() const {
 	return qtsSocket->peerAddress();
 }
 
@@ -243,7 +247,7 @@ quint16 Connection::peerPort() const {
 	return qtsSocket->peerPort();
 }
 
-QHostAddress Connection::localAddress() const {
+HostAddress Connection::localAddress() const {
 	return qtsSocket->localAddress();
 }
 
