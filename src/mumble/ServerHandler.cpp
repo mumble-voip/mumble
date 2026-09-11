@@ -105,7 +105,7 @@ static HANDLE loadQoS() {
 			qWarning("ServerHandler: Failed to create QOS2 handle");
 			hQoS = nullptr;
 		} else {
-			qWarning("ServerHandler: QOS2 loaded");
+			qInfo("ServerHandler: QOS2 loaded");
 		}
 	}
 	return hQoS;
@@ -165,6 +165,7 @@ ServerHandler::ServerHandler() : database(new Database(QLatin1String("ServerHand
 	hQoS = loadQoS();
 	if (hQoS)
 		Connection::setQoS(hQoS);
+	dwFlowUDP = 0;
 #endif
 
 	QObject::connect(this, &ServerHandler::pingRequested, this, &ServerHandler::sendPingInternal, Qt::QueuedConnection);
@@ -347,7 +348,8 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 							  static_cast< unsigned int >(len))) {
 			return;
 		}
-		qusUdp->writeDatagram(reinterpret_cast< const char * >(crypto.data()), len + 4, qhaRemote, usResolvedPort);
+		qusUdp->writeDatagram(reinterpret_cast< const char * >(crypto.data()), len + 4, qhaRemote.toAddress(),
+							  usResolvedPort);
 	}
 }
 
@@ -859,7 +861,7 @@ void ServerHandler::serverConnectionConnected() {
 		qhaRemote      = connection->peerAddress();
 		qhaLocal       = connection->localAddress();
 		usResolvedPort = connection->peerPort();
-		if (qhaLocal.isNull()) {
+		if (!qhaLocal.isValid()) {
 			qFatal("ServerHandler: qhaLocal is unexpectedly a null addr");
 		}
 
@@ -868,9 +870,9 @@ void ServerHandler::serverConnectionConnected() {
 			qFatal("ServerHandler: qusUdp is unexpectedly a null addr");
 		}
 		if (Global::get().s.bUdpForceTcpAddr) {
-			qusUdp->bind(qhaLocal, 0);
+			qusUdp->bind(qhaLocal.toAddress(), 0);
 		} else {
-			if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol) {
+			if (qhaRemote.isV6()) {
 				qusUdp->bind(QHostAddress(QHostAddress::AnyIPv6), 0);
 			} else {
 				qusUdp->bind(QHostAddress(QHostAddress::Any), 0);
@@ -881,11 +883,36 @@ void ServerHandler::serverConnectionConnected() {
 
 		if (Global::get().s.bQoS) {
 #if defined(Q_OS_UNIX)
-			int val = 0xe0;
-			if (setsockopt(static_cast< int >(qusUdp->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+			int val     = 0xe0;
+			auto setTos = [&](const int level, const int optname) {
+				if (setsockopt(static_cast< int >(qusUdp->socketDescriptor()), level, optname, &val, sizeof(val))
+					== 0) {
+					return true;
+				}
+
 				val = 0x80;
-				if (setsockopt(static_cast< int >(qusUdp->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-					qWarning("ServerHandler: Failed to set TOS for UDP Socket");
+				return setsockopt(static_cast< int >(qusUdp->socketDescriptor()), level, optname, &val, sizeof(val))
+					   == 0;
+			};
+
+			bool ok = false;
+			if (qhaRemote.isV6()) {
+				ok = setTos(IPPROTO_IPV6, IPV6_TCLASS);
+				// Dual-stack: IPv4-mapped datagrams still use IP_TOS on Linux.
+				int v6only    = 1;
+				socklen_t len = sizeof(v6only);
+				if (getsockopt(static_cast< int >(qusUdp->socketDescriptor()), IPPROTO_IPV6, IPV6_V6ONLY, &v6only, &len)
+						== 0
+					&& v6only == 0) {
+					val = 0xe0;
+					setTos(IPPROTO_IP, IP_TOS);
+				}
+			} else {
+				ok = setTos(IPPROTO_IP, IP_TOS);
+			}
+
+			if (!ok) {
+				qWarning("ServerHandler: Failed to set TOS/TCLASS for UDP");
 			}
 #	if defined(SO_PRIORITY)
 			socklen_t optlen = sizeof(val);
@@ -899,14 +926,18 @@ void ServerHandler::serverConnectionConnected() {
 			}
 #	endif
 #elif defined(Q_OS_WIN)
-			if (hQoS) {
-				struct sockaddr_in addr;
-				memset(&addr, 0, sizeof(addr));
-				addr.sin_family      = AF_INET;
-				addr.sin_port        = htons(usPort);
-				addr.sin_addr.s_addr = htonl(qhaRemote.toIPv4Address());
+			if (!dwFlowUDP && !qhaRemote.toAddress().isLoopback() && hQoS) {
+				struct sockaddr_storage addr;
+				qhaRemote.toSockaddr(&addr);
 
-				dwFlowUDP = 0;
+				if (qhaRemote.isV6()) {
+					auto addrIn       = reinterpret_cast< sockaddr_in6 * >(&addr);
+					addrIn->sin6_port = htons(usResolvedPort);
+				} else {
+					auto addrIn      = reinterpret_cast< sockaddr_in * >(&addr);
+					addrIn->sin_port = htons(usResolvedPort);
+				}
+
 				if (!QOSAddSocketToFlow(hQoS, qusUdp->socketDescriptor(), reinterpret_cast< sockaddr * >(&addr),
 										QOSTrafficTypeVoice, QOS_NON_ADAPTIVE_FLOW,
 										reinterpret_cast< PQOS_FLOWID >(&dwFlowUDP)))
