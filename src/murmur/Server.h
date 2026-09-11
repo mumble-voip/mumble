@@ -328,6 +328,7 @@ public:
 	void addListener(QHash< ServerUser *, VolumeAdjustment > &listeners, ServerUser &user, const Channel &channel);
 	void processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, AudioReceiverBuffer &buffer,
 					Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > &encoder);
+	void processVideoMsg(ServerUser *u, const Mumble::Protocol::VideoData &videoData);
 	void sendMessage(ServerUser &u, const unsigned char *data, int len, QByteArray &cache, bool force = false);
 	void run();
 

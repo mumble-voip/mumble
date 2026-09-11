@@ -85,6 +85,7 @@ public slots:
 	void setSelfDeaf(bool deaf);
 	void setPrioritySpeaker(bool priority);
 	void setRecording(bool recording);
+	void setScreenSharing(bool sharing);
 	void setLocalVolumeAdjustment(float adjustment);
 	void setLocalNickname(const QString &nickname);
 signals:
@@ -92,6 +93,7 @@ signals:
 	void muteDeafStateChanged();
 	void prioritySpeakerStateChanged();
 	void recordingStateChanged();
+	void screenSharingStateChanged();
 	void localVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
 	void localNicknameChanged();
 };

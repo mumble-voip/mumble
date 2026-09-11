@@ -35,7 +35,10 @@ sudo apt -y install \
 	zsync \
 	appstream \
 	libpoco-dev \
-	libsqlite3-dev
+	libsqlite3-dev \
+	libavcodec-dev \
+	libswscale-dev \
+	libavutil-dev
 
 # The package was initially called libqt6svg6-dev.
 # Choose correct name based on the Ubuntu version along with some other version-specific setup

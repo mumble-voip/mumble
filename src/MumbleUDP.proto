@@ -54,6 +54,46 @@ message Audio {
 }
 
 /**
+ * Sent by a client to stream an encoded video frame fragment to other users in the same channel.
+ * The server relays each fragment to all other users in the sender's channel.
+ * Large frames are split into multiple fragments; receivers reassemble them using
+ * frame_number + fragment_index / fragment_count.
+ */
+message Video {
+	// The session of the client that sent this fragment.
+	// When the client sends this to the server the field is ignored; the server always
+	// overwrites it with the authenticated sender's session before forwarding.
+	uint32 sender_session = 1;
+
+	// Codec identifier. Currently only "H264" is defined.
+	enum Codec {
+		H264 = 0;
+	}
+	Codec codec = 2;
+
+	// Width of the complete video frame in pixels.
+	uint32 width = 3;
+
+	// Height of the complete video frame in pixels.
+	uint32 height = 4;
+
+	// Monotonically increasing frame counter.
+	uint64 frame_number = 5;
+
+	// Zero-based index of this fragment within the current frame.
+	uint32 fragment_index = 6;
+
+	// Total number of fragments that make up the current frame.
+	uint32 fragment_count = 7;
+
+	// Encoded video bytes for this fragment (H.264 Annex-B NAL unit stream).
+	bytes video_data = 8;
+
+	// True if this frame is a key frame (IDR). Only meaningful on fragment_index 0.
+	bool is_keyframe = 9;
+}
+
+/**
  * Ping message for checking UDP connectivity (and roundtrip ping) and potentially obtaining further server
  * details (e.g. version).
  */

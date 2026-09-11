@@ -242,6 +242,13 @@ void ClientUser::setRecording(bool recording) {
 	emit recordingStateChanged();
 }
 
+void ClientUser::setScreenSharing(bool sharing) {
+	if (bScreenSharing == sharing)
+		return;
+	bScreenSharing = sharing;
+	emit screenSharingStateChanged();
+}
+
 void ClientUser::setLocalVolumeAdjustment(float adjustment) {
 	float oldAdjustment = m_localVolume;
 	m_localVolume       = adjustment;
