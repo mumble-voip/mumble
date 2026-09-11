@@ -218,7 +218,12 @@ namespace db {
 
 			try {
 				size = std::stoull(strRepr.substr(i + 1, strRepr.size() - 1));
-			} catch (const std::invalid_argument &e) {
+			} catch (const std::logic_error &e) {
+				// std::stoull throws std::invalid_argument (no conversion) or
+				// std::out_of_range (value too large); both derive from
+				// std::logic_error. Funnel either into UnknownDataTypeException so
+				// callers such as Table::importFromJSON get the expected exception
+				// type instead of an uncaught std::out_of_range.
 				throw UnknownDataTypeException("Size of data type \"" + strRepr
 											   + "\" could not be parsed: " + e.what());
 			}
