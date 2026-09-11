@@ -200,7 +200,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	PulseAudioInput *pai  = dynamic_cast< PulseAudioInput * >(raw_ai);
 	PulseAudioOutput *pao = dynamic_cast< PulseAudioOutput * >(raw_ao);
 
-	if (raw_ao) {
+	if (pasOutput || raw_ao) {
 		QString odev        = outputDevice();
 		pa_stream_state ost = pasOutput ? m_pulseAudio.stream_get_state(pasOutput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
@@ -247,6 +247,11 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qWarning("PulseAudio: Stopping output");
 			m_pulseAudio.stream_disconnect(pasOutput);
 			iSinkId = -1;
+
+			if (!pao) {
+				m_pulseAudio.stream_unref(pasOutput);
+				pasOutput = nullptr;
+			}
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting output: %s", qPrintable(odev));
 			pa_buffer_attr buff;
