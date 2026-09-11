@@ -180,11 +180,30 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 				log(QString("Failed to bind UDP Socket to %1").arg(addressToString(ss->serverAddress(), usPort)));
 			} else {
 #ifdef Q_OS_UNIX
-				int val = 0xe0;
-				if (setsockopt(sock, IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+				int val     = 0xe0;
+				auto setTos = [&](const int level, const int optname) {
+					if (setsockopt(sock, level, optname, &val, sizeof(val)) == 0)
+						return true;
 					val = 0x80;
-					if (setsockopt(sock, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-						log("Server: Failed to set TOS for UDP Socket");
+					return setsockopt(sock, level, optname, &val, sizeof(val)) == 0;
+				};
+
+				bool ok = false;
+				if (addr.ss_family == AF_INET6) {
+					ok = setTos(IPPROTO_IPV6, IPV6_TCLASS);
+					// Dual-stack: IPv4-mapped datagrams still use IP_TOS on Linux.
+					int v6only    = 1;
+					socklen_t len = sizeof(v6only);
+					if (getsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &v6only, &len) == 0 && v6only == 0) {
+						val = 0xe0;
+						setTos(IPPROTO_IP, IP_TOS);
+					}
+				} else {
+					ok = setTos(IPPROTO_IP, IP_TOS);
+				}
+
+				if (!ok) {
+					log(QLatin1String("Failed to set TOS/TCLASS for UDP"));
 				}
 #	if defined(SO_PRIORITY)
 				socklen_t optlen = sizeof(val);
