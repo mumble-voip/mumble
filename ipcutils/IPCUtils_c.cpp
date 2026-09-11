@@ -8,17 +8,9 @@
 
 #include <cstdlib>
 #include <cstring>
-#include <filesystem>
 
 char *get_overlay_pipe_path(void) {
-	// getOverlayPipePath() may throw if the runtime directory can't be created. That exception must
-	// not unwind into the extern "C" caller, so it's turned into a NULL return instead.
-	std::string path;
-	try {
-		path = Mumble::getOverlayPipePath().string();
-	} catch (const std::filesystem::filesystem_error &) {
-		return nullptr;
-	}
+	std::string path = Mumble::getOverlayPipePath().string();
 
 	if (path.empty()) {
 		return nullptr;
