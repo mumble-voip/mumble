@@ -65,19 +65,40 @@ Connection::~Connection() {
 
 void Connection::setToS() {
 #if defined(Q_OS_WIN)
-	if (dwFlow || !hQoS)
+	if (dwFlow || peerAddress().isLoopback() || !hQoS) {
 		return;
+	}
 
-	dwFlow = 0;
 	if (!QOSAddSocketToFlow(hQoS, qtsSocket->socketDescriptor(), nullptr, QOSTrafficTypeAudioVideo,
 							QOS_NON_ADAPTIVE_FLOW, reinterpret_cast< PQOS_FLOWID >(&dwFlow)))
 		qWarning("Connection: Failed to add flow to QOS");
 #elif defined(Q_OS_UNIX)
-	int val = 0xa0;
-	if (setsockopt(static_cast< int >(qtsSocket->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+	const int fd = static_cast< int >(qtsSocket->socketDescriptor());
+	int val      = 0xa0;
+
+	auto setTos = [&](const int level, const int optname) {
+		if (setsockopt(fd, level, optname, &val, sizeof(val)) == 0) {
+			return true;
+		}
+
 		val = 0x60;
-		if (setsockopt(static_cast< int >(qtsSocket->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-			qWarning("Connection: Failed to set TOS for TCP Socket");
+		return setsockopt(fd, level, optname, &val, sizeof(val)) == 0;
+	};
+
+	bool ok = false;
+	if (qtsSocket->peerAddress().protocol() == QAbstractSocket::IPv6Protocol) {
+		ok = setTos(IPPROTO_IPV6, IPV6_TCLASS);
+		// Dual-stack listen: peer may be IPv4-mapped on an AF_INET6 fd.
+		if (qtsSocket->peerAddress().toIPv4Address()) {
+			val = 0xa0;
+			setTos(IPPROTO_IP, IP_TOS);
+		}
+	} else {
+		ok = setTos(IPPROTO_IP, IP_TOS);
+	}
+
+	if (!ok) {
+		qWarning("Connection: Failed to set TOS/TCLASS");
 	}
 #	if defined(SO_PRIORITY)
 	socklen_t optlen = sizeof(val);

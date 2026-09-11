@@ -639,9 +639,7 @@ if(WIN32)
 		target_link_libraries(mumble_client_object_lib
 			PUBLIC
 				Boost::dynamic_linking
-				Delayimp.lib
 			)
-		set_property(TARGET mumble_client_object_lib APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:user32.dll /DELAYLOAD:qwave.dll")
 	endif()
 
 	target_link_libraries(mumble_client_object_lib
