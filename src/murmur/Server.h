@@ -373,7 +373,7 @@ public:
 
 	void setLiveConf(const QString &key, const QString &value);
 
-	QString addressToString(const QHostAddress &, unsigned short port);
+	QString addressToString(const HostAddress &, unsigned short port);
 
 	void log(const QString &) const;
 	void log(ServerUser *u, const QString &) const;

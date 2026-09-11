@@ -62,7 +62,7 @@ Connection::~Connection() {
 
 void Connection::setToS() {
 #if defined(Q_OS_WIN)
-	if (dwFlow || peerAddress().isLoopback() || !hQoS) {
+	if (dwFlow || peerAddress().toAddress().isLoopback() || !hQoS) {
 		return;
 	}
 
@@ -235,7 +235,7 @@ void Connection::disconnectSocket(bool force) {
 		qtsSocket->disconnectFromHost();
 }
 
-QHostAddress Connection::peerAddress() const {
+HostAddress Connection::peerAddress() const {
 	return qtsSocket->peerAddress();
 }
 
@@ -243,7 +243,7 @@ quint16 Connection::peerPort() const {
 	return qtsSocket->peerPort();
 }
 
-QHostAddress Connection::localAddress() const {
+HostAddress Connection::localAddress() const {
 	return qtsSocket->localAddress();
 }
 
