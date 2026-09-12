@@ -1239,6 +1239,30 @@ This value allows you to set the maximum number of users allowed in the channel.
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
         <translation>&lt;b&gt;显示所用的最大传出带宽。&lt;/b&gt;&lt;br /&gt;显示从您机器发出的带宽的最大值。音频比特率是音频数据本身的最大比特率。位置是定位信息所用的比特率。开销是我们的帧结构和 IP 数据包头（IP 和 UDP 是开销的 75%）。</translation>
     </message>
+    <message>
+        <source>Use WebRTC GMM based speech detection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This sets speech detection to use the WebRTC VAD algorithm.&lt;/b&gt;&lt;br /&gt;In this mode, a configuration-free Gaussian Mixture Model is used to detect speech.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WebRTC GMM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aggressiveness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Controls aggressiveness of WebRTC VAD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher values make the VAD more aggressive in filtering noise.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -2308,6 +2332,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
         <translation>可视化展示当前播放的定位音频</translation>
+    </message>
+    <message>
+        <source>Next you need to choose the voice detection sensitivity. The aggressiveness level controls how strictly speech is detected. Lower levels are more permissive and will pick up quiet or distant speech, but may also trigger on background noise. Higher levels are more strict and will better filter out noise, but may cut off softer speech.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice activity detection aggressiveness level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will set the aggressiveness in which Mumble will consider a signal speech. Increase value to make voice activation less sensitive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WebRTC GMM</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

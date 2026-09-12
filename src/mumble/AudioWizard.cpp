@@ -15,6 +15,10 @@
 #include "GlobalShortcut.h"
 #include "GlobalShortcutButtons.h"
 
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+#include "WebRTC_Priv.h"
+#endif
+
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QGraphicsEllipseItem>
 
@@ -124,6 +128,10 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	abAmplify->qcInside = Qt::green;
 	abAmplify->qcAbove  = Qt::red;
 
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	qrWebRTC->setVisible(true);
+#endif
+
 	for (const auto &shortcut : Global::get().s.qlShortcuts) {
 		if (shortcut.iIndex == Global::get().mw->gsPushTalk->idx) {
 			pttButtons = shortcut.qlButtons;
@@ -135,6 +143,17 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		qrPTT->setChecked(true);
 	else if (Global::get().s.vsVAD == Settings::Amplitude)
 		qrAmplitude->setChecked(true);
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	else if (Global::get().s.vsVAD == Settings::WebRTC) {
+		qrWebRTC->setChecked(true);
+		qsWebRTCAggressiveness->setValue(Global::get().s.fVADWebRTCAggressiveness);
+		qliVadTuningText->hide();
+		qliVadTuningTextHC->hide();
+		qliVadTuningTextWebRTC->show();
+		qsWebRTCAggressiveness->show();
+		qsVAD->hide();
+	}
+#endif
 	else
 		qrSNR->setChecked(true);
 
@@ -607,6 +626,7 @@ void AudioWizard::on_qrSNR_clicked(bool on) {
 	if (on) {
 		Global::get().s.vsVAD      = Settings::SignalToNoise;
 		Global::get().s.atTransmit = Settings::VAD;
+		updateVad();
 		updateTriggerWidgets(false);
 		bTransmitChanged = true;
 	}
@@ -616,10 +636,43 @@ void AudioWizard::on_qrAmplitude_clicked(bool on) {
 	if (on) {
 		Global::get().s.vsVAD      = Settings::Amplitude;
 		Global::get().s.atTransmit = Settings::VAD;
+		updateVad();
 		updateTriggerWidgets(false);
 		bTransmitChanged = true;
 	}
 }
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+void AudioWizard::on_qrWebRTC_toggled(bool on) {
+	if (on) {
+		Global::get().s.vsVAD      = Settings::WebRTC;
+		Global::get().s.atTransmit = Settings::VAD;
+		updateVad();
+		updateTriggerWidgets(false);
+		bTransmitChanged = true;
+
+		qsWebRTCAggressiveness->setValue(Global::get().s.fVADWebRTCAggressiveness);
+
+		qliVadTuningText->hide();
+		qliVadTuningTextHC->hide();
+		qliVadTuningTextWebRTC->show();
+		qsWebRTCAggressiveness->show();
+		qsVAD->hide();
+	} else {
+		qliVadTuningText->setVisible(!Global::get().s.bHighContrast);
+		qliVadTuningTextHC->setVisible(Global::get().s.bHighContrast);
+		qliVadTuningTextWebRTC->hide();
+		qsWebRTCAggressiveness->hide();
+		qsVAD->show();
+	}
+}
+
+void AudioWizard::on_qsWebRTCAggressiveness_valueChanged(int aggressiveness) {
+	Global::get().s.fVADWebRTCAggressiveness    = aggressiveness;
+	Global::get().ai->updateWebrtcAggressiveness(static_cast< webrtc::Vad::Aggressiveness >(aggressiveness));
+	updateVad();
+}
+#endif
 
 void AudioWizard::on_qrPTT_clicked(bool on) {
 	if (on) {
@@ -735,6 +788,11 @@ void AudioWizard::on_qcbHighContrast_clicked(bool on) {
 	qliVolumeTuningText->setVisible(!Global::get().s.bHighContrast);
 	qliVolumeTuningTextHC->setVisible(Global::get().s.bHighContrast);
 
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	if (Global::get().s.vsVAD == Settings::WebRTC)
+		return;
+#endif
+
 	qliVadTuningText->setVisible(!Global::get().s.bHighContrast);
 	qliVadTuningTextHC->setVisible(Global::get().s.bHighContrast);
 }
@@ -761,6 +819,11 @@ void AudioWizard::on_qrbQualityCustom_clicked() {
 	Global::get().s.iQuality         = sOldSettings.iQuality;
 	Global::get().s.iFramesPerPacket = sOldSettings.iFramesPerPacket;
 	restartAudio(true);
+}
+
+void AudioWizard::updateVad() {
+	AudioInputPtr ai = Global::get().ai;
+	ai->updateVad(Global::get().s.vsVAD);
 }
 
 void AudioWizard::updateEchoCheckbox(AudioInputRegistrar *air) {
