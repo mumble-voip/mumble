@@ -15,6 +15,7 @@ public:
 	static void initialize();
 	static void destroy();
 	static QString defaultOpenSSLCipherString();
+	static bool isTLS13CipherSuiteName(const QString &name);
 	static QList< QSslCipher > ciphersFromOpenSSLCipherString(QString cipherString);
 	static void addSystemCA();
 	static QString protocolToString(QSsl::SslProtocol protocol);
