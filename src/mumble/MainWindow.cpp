@@ -3726,17 +3726,32 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				basereason = tr("Server presented a certificate which failed verification.");
 			}
 			QStringList qsl;
+			bool bSelfSigned = false;
 			for (const QSslError &e : Global::get().sh->qlErrors) {
 				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString().toHtmlEscaped());
+				if (e.error() == QSslError::SelfSignedCertificate
+					|| e.error() == QSslError::SelfSignedCertificateInChain) {
+					bSelfSigned = true;
+				}
+			}
+			QString selfSignedNote;
+			if (bSelfSigned) {
+				selfSignedNote = QString("<p>%1</p>").arg(
+					tr("This server is using a self-signed certificate. Self-signed certificates "
+					   "are not issued by a trusted authority, which is why this warning appears. "
+					   "If you trust this server, you can safely accept the certificate — "
+					   "Mumble will remember it for future connections."));
 			}
 
 			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
 							tr("<p>%1</p><ul>%2</ul><p>The specific errors with this certificate are:</p><ol>%3</ol>"
+							   "%4"
 							   "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you "
 							   "won't be asked this again.)</p>")
 								.arg(basereason)
 								.arg(digests_section)
-								.arg(qsl.join(QString())),
+								.arg(qsl.join(QString()))
+								.arg(selfSignedNote),
 							QMessageBox::Yes | QMessageBox::No, this);
 
 			qmb.setDefaultButton(QMessageBox::No);
