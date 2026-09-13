@@ -298,21 +298,27 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	Channel *lc = nullptr;
-	if (uSource->iId >= 0 && Meta::mp->bRememberChan) {
-		unsigned int lastChannelID = m_dbWrapper.getLastChannelID(iServerNum, static_cast< unsigned int >(uSource->iId),
-																  static_cast< unsigned int >(iRememberChanDuration),
-																  tUptime.elapsed< std::chrono::seconds >());
-		lc                         = qhChannels.value(lastChannelID);
-	}
+	if (ok) {
+		if (uSource->iId >= 0 && Meta::mp->bRememberChan) {
+			unsigned int lastChannelID = m_dbWrapper.getLastChannelID(
+				iServerNum, static_cast< unsigned int >(uSource->iId),
+				static_cast< unsigned int >(iRememberChanDuration), tUptime.elapsed< std::chrono::seconds >());
+			lc = qhChannels.value(lastChannelID);
+		}
 
-	if (!lc || !hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
-		lc = qhChannels.value(iDefaultChan);
 		if (!lc || !hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
-			lc = root;
-			if (isChannelFull(lc, uSource)) {
-				reason = QString::fromLatin1("Server channels are full");
-				rtType = MumbleProto::Reject_RejectType_ServerFull;
-				ok     = false;
+			lc = qhChannels.value(iDefaultChan);
+			if (!lc || !hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
+				lc = root;
+				if (!hasPermission(uSource, lc, ChanACL::Enter)) {
+					reason = "You do not have permission to enter this server";
+					rtType = MumbleProto::Reject_RejectType_None;
+					ok     = false;
+				} else if (isChannelFull(lc, uSource)) {
+					reason = QString::fromLatin1("Server channels are full");
+					rtType = MumbleProto::Reject_RejectType_ServerFull;
+					ok     = false;
+				}
 			}
 		}
 	}
