@@ -3891,7 +3891,7 @@ Om alternativet inte är aktiverat fungerar inte Mumbles globala kortkommandon i
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan för närvarande endast använda musknappar och tangentbordsmodifierare (Alt, Ctrl, Cmd osv.) för globala kortkommandon.&lt;/p&gt;&lt;p&gt;Om du vill ha större flexibilitet kan du lägga till Mumble som ett betrott hjälpmedelsprogram i avsnittet Integritet och säkerhet i Macens Systeminställningar.&lt;/p&gt;&lt;p&gt;Öppna Integritet och säkerhet i Systeminställningar och bläddra sedan tills du hittar Hjälpmedel i listan. Lägg slutligen till Mumble i listan över betrodda hjälpmedelsprogram.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -8581,7 +8581,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikrofonåtkomst nekades. Tillåt Mumble att använda mikrofonen genom att ändra inställningarna i Systeminställningar -&gt; Integritet och säkerhet -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
