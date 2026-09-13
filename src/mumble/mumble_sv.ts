@@ -4630,6 +4630,28 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <source>decibels</source>
         <translation>decibeller</translation>
     </message>
+    <message>
+        <source>If checked, images in the chat log are scaled down to fit the log&apos;s width and a part of its height, and are displayed on their own line. The full-size image stays available via the image&apos;s context menu.
+
+Whether an image is displayed on its own line only changes for new messages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale images to fit the chat log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The maximum height an image may occupy in the chat log, as a percentage of the log&apos;s visible height. Images are always scaled to fit the log&apos;s width; this additionally keeps a tall image from filling the whole log.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum image height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No limit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LookConfig</name>
