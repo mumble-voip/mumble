@@ -21,6 +21,24 @@
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
+bool UserDelegate::drawAvatarIcon(QPainter &painter, const QRect &rect, const ClientUser *user,
+								  const QIcon &talkIndicator) {
+	if (user == nullptr || user->qbaTextureHash.isEmpty() || user->qbaTexture.isEmpty()) {
+		return false;
+	}
+
+	QPixmap avatar;
+	avatar.loadFromData(user->qbaTexture);
+	painter.save();
+	painter.setRenderHint(QPainter::Antialiasing);
+	painter.drawPixmap(rect, avatar);
+	if (user->tsState != Settings::TalkState::Passive) {
+		talkIndicator.paint(&painter, rect.adjusted(-5, -5, 5, 5));
+	}
+	painter.restore();
+	return true;
+}
+
 void UserDelegate::adjustIcons(int iconTotalDimension, int iconIconPadding, int iconIconDimension) {
 	m_iconTotalDimension = iconTotalDimension;
 	m_iconIconPadding    = iconIconPadding;
@@ -68,8 +86,13 @@ void UserDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, 
 	o.rect = option.rect.adjusted(0, 0, static_cast< int >(-m_iconTotalDimension * ql.count()), 0);
 
 	// draw icon
+	ModelItem *item      = static_cast< ModelItem * >(index.internalPointer());
+	ClientUser *user     = item->pUser;
+	const QIcon &icon    = o.icon;
 	QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
-	o.icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
+	if (item->isListener || !drawAvatarIcon(*painter, decorationRect.adjusted(-3, 0, -3, 0), user, icon)) {
+		icon.paint(painter, decorationRect, o.decorationAlignment, iconMode, QIcon::On);
+	}
 
 	// draw text
 	QRect textRect   = style->subElementRect(QStyle::SE_ItemViewItemText, &o, o.widget);
@@ -279,6 +302,15 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	if (c && idx.parent().isValid()) {
 		setRowHidden(idx.row(), idx.parent(), c->isFiltered());
 	}
+}
+
+void UserView::triggerUpdate() {
+	QPalette previousPalette = palette();
+	QPalette palette;
+	palette.setColor(QPalette::WindowText, previousPalette.color(QPalette::WindowText).darker(101));
+	setPalette(palette);
+	QApplication::processEvents();
+	setPalette(previousPalette);
 }
 
 void UserView::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector< int > &) {
