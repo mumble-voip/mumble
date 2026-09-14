@@ -5210,6 +5210,14 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
         <source>Restore window geometry on startup</source>
         <translation>Återställ fönstrets storlek och placering vid start</translation>
     </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -8581,7 +8589,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Åtkomst till mikrofonen nekades. Tillåt Mumble att använda mikrofonen genom att ändra inställningarna i Systeminställningar -&gt; Sekretess och säkerhet -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
