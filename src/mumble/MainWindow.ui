@@ -62,6 +62,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="qaHelpWhatsThis"/>
+     <addaction name="qaHelpDocumentation"/>
     <addaction name="separator"/>
     <addaction name="qaHelpAbout"/>
     <addaction name="qaHelpAboutQt"/>
@@ -739,6 +740,17 @@ the channel's context menu.</string>
    </property>
    <property name="menuRole">
     <enum>QAction::AboutQtRole</enum>
+   </property>
+  </action>
+  <action name="qaHelpDocumentation">
+   <property name="text">
+    <string>&amp;Documentation</string>
+   </property>
+   <property name="toolTip">
+    <string>Open links to official Mumble documentation resources</string>
+   </property>
+   <property name="whatsThis">
+    <string>Shows official Mumble documentation and support links.</string>
    </property>
   </action>
   <action name="qaHelpVersionCheck">
