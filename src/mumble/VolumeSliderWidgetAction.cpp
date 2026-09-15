@@ -5,14 +5,20 @@
 
 #include "VolumeSliderWidgetAction.h"
 
+#include "Database.h"
+#include "MainWindow.h"
 #include "MumbleApplication.h"
+#include "UserModel.h"
 #include "VolumeAdjustment.h"
+#include "Global.h"
+
 #include "widgets/EventFilters.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QSlider>
 #include <QToolTip>
+#include <QWheelEvent>
 
 VolumeSliderWidgetAction::VolumeSliderWidgetAction(QWidget *parent)
 	: QWidgetAction(parent), m_widget(make_qt_unique< QWidget >(parent)),
@@ -84,6 +90,53 @@ VolumeSliderWidgetAction::VolumeSliderWidgetAction(QWidget *parent)
 	m_widget->setFocusPolicy(Qt::TabFocus);
 
 	setDefaultWidget(m_widget.get());
+}
+
+bool VolumeSliderWidgetAction::handleMouseWheel(const QWheelEvent &event) {
+	if (!event.modifiers().testFlag(Qt::ControlModifier)) {
+		return false;
+	}
+
+	if (!Global::get().s.m_ctrlScrollLocalVolAdj) {
+		return false;
+	}
+
+	ClientUser *user = Global::get().mw->pmModel->getSelectedUser();
+	if (!user) {
+		return false;
+	}
+
+	ClientUser *self = ClientUser::get(Global::get().uiSession);
+	if (user == self) {
+		return true;
+	}
+
+	const int wheelDelta = event.angleDelta().y();
+	if (wheelDelta == 0) {
+		return true;
+	}
+
+	int volAdjustment = VolumeAdjustment::toIntegerDBAdjustment(user->getLocalVolumeAdjustments());
+
+	if (wheelDelta < 0) {
+		if (volAdjustment <= min()) {
+			return true;
+		}
+
+		volAdjustment -= 1;
+	} else {
+		if (volAdjustment >= max()) {
+			return true;
+		}
+
+		volAdjustment += 1;
+	}
+
+	user->setLocalVolumeAdjustment(VolumeAdjustment::toFactor(volAdjustment));
+
+	Global::get().db->setUserLocalVolume(user->qsHash, user->getLocalVolumeAdjustments());
+
+	return true;
 }
 
 void VolumeSliderWidgetAction::updateLabelValue(bool checkMouseButtons) {
