@@ -5211,6 +5211,14 @@ The setting only applies for new messages, the already shown ones will retain th
         <source>Restore window geometry on startup</source>
         <translation>Восстановить размер и положения окна при запуске</translation>
     </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
@@ -8582,7 +8590,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Доступ к микрофону запрещен. Пожалуйста, разрешите Mumble использовать микрофон в «Системнае настройки» -&gt; «Конфиденциальность и безопасность» -&gt; «Микрофон».</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

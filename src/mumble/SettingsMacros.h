@@ -140,45 +140,46 @@
 #define PRIVACY_SETTINGS PROCESS(privacy, HIDE_OS_FROM_SERVER_KEY, bHideOS)
 
 
-#define UI_SETTINGS                                                              \
-	PROCESS(ui, LANGUAGE_KEY, qsLanguage)                                        \
-	PROCESS(ui, THEME_KEY, themeName)                                            \
-	PROCESS(ui, THEME_STYLE_KEY, themeStyleName)                                 \
-	PROCESS(ui, THEME_DARK_KEY, themeDarkName)                                   \
-	PROCESS(ui, THEME_DARK_STYLE_KEY, themeDarkStyleName)                        \
-	PROCESS(ui, THEME_METHOD_KEY, styleType)                                     \
-	PROCESS(ui, CHANNEL_EXPANSION_MODE_KEY, ceExpand)                            \
-	PROCESS(ui, CHANNEL_DRAG_MODE_KEY, ceChannelDrag)                            \
-	PROCESS(ui, USER_DRAG_MODE_KEY, ceUserDrag)                                  \
-	PROCESS(ui, ALWAYS_ON_TOP_KEY, aotbAlwaysOnTop)                              \
-	PROCESS(ui, QUIT_BEHAVIOR_KEY, quitBehavior)                                 \
-	PROCESS(ui, SHOW_DEVELOPER_MENU_KEY, bEnableDeveloperMenu)                   \
-	PROCESS(ui, LOCK_LAYOUT_KEY, bLockLayout)                                    \
-	PROCESS(ui, MINIMAL_VIEW_KEY, bMinimalView)                                  \
-	PROCESS(ui, HIDE_FRAME_KEY, bHideFrame)                                      \
-	PROCESS(ui, DISPLAY_USERS_BEFORE_CHANNELS, bUserTop)                         \
-	PROCESS(ui, WINDOW_GEOMETRY_KEY, qbaMainWindowGeometry)                      \
-	PROCESS(ui, WINDOW_GEOMETRY_MINIMAL_VIEW_KEY, qbaMinimalViewGeometry)        \
-	PROCESS(ui, WINDOW_STATE_KEY, qbaMainWindowState)                            \
-	PROCESS(ui, WINDOW_STATE_MINIMAL_VIEW_KEY, qbaMinimalViewState)              \
-	PROCESS(ui, PREVENT_WINDOW_STATES_KEY, preventWindowStates)                  \
-	PROCESS(ui, WINDOW_LAYOUT_KEY, wlWindowLayout)                               \
-	PROCESS(ui, SERVER_FILTER_MODE_KEY, ssFilter)                                \
-	PROCESS(ui, HIDE_IN_TRAY_KEY, bHideInTray)                                   \
-	PROCESS(ui, DISPLAY_TALKING_STATE_IN_TRAY_KEY, bStateInTray)                 \
-	PROCESS(ui, SEND_USAGE_STATISTICS_KEY, bUsage)                               \
-	PROCESS(ui, DISPLAY_USER_COUNT_KEY, bShowUserCount)                          \
-	PROCESS(ui, DISPLAY_VOLUME_ADJUSTMENTS_KEY, bShowVolumeAdjustments)          \
-	PROCESS(ui, DISPLAY_NICKNAMES_ONLY_KEY, bShowNicknamesOnly)                  \
-	PROCESS(ui, SELECTED_ITEM_AS_CHATBAR_TARGET_KEY, bChatBarUseSelection)       \
-	PROCESS(ui, FILTER_HIDES_EMPTY_CHANNEL_KEY, bFilterHidesEmptyChannels)       \
-	PROCESS(ui, FILTER_ACTIVE_KEY, bFilterActive)                                \
-	PROCESS(ui, CONTEXT_MENU_ENTRIES_IN_MENU_BAR_KEY, bShowContextMenuInMenuBar) \
-	PROCESS(ui, DISPLAY_TRANSMIT_MODE_COMBOBOX_KEY, bShowTransmitModeComboBox)   \
-	PROCESS(ui, HIGH_CONTRAST_MODE_KEY, bHighContrast)                           \
-	PROCESS(ui, MAX_LOG_LENGTH_KEY, iMaxLogBlocks)                               \
-	PROCESS(ui, USE_24H_CLOCK_KEY, bLog24HourClock)                              \
-	PROCESS(ui, LOG_MESSAGE_MARGINS_KEY, iChatMessageMargins)                    \
+#define UI_SETTINGS                                                               \
+	PROCESS(ui, LANGUAGE_KEY, qsLanguage)                                         \
+	PROCESS(ui, THEME_KEY, themeName)                                             \
+	PROCESS(ui, THEME_STYLE_KEY, themeStyleName)                                  \
+	PROCESS(ui, THEME_DARK_KEY, themeDarkName)                                    \
+	PROCESS(ui, THEME_DARK_STYLE_KEY, themeDarkStyleName)                         \
+	PROCESS(ui, THEME_METHOD_KEY, styleType)                                      \
+	PROCESS(ui, CHANNEL_EXPANSION_MODE_KEY, ceExpand)                             \
+	PROCESS(ui, CHANNEL_DRAG_MODE_KEY, ceChannelDrag)                             \
+	PROCESS(ui, USER_DRAG_MODE_KEY, ceUserDrag)                                   \
+	PROCESS(ui, ALWAYS_ON_TOP_KEY, aotbAlwaysOnTop)                               \
+	PROCESS(ui, QUIT_BEHAVIOR_KEY, quitBehavior)                                  \
+	PROCESS(ui, SHOW_DEVELOPER_MENU_KEY, bEnableDeveloperMenu)                    \
+	PROCESS(ui, LOCK_LAYOUT_KEY, bLockLayout)                                     \
+	PROCESS(ui, MINIMAL_VIEW_KEY, bMinimalView)                                   \
+	PROCESS(ui, HIDE_FRAME_KEY, bHideFrame)                                       \
+	PROCESS(ui, DISPLAY_USERS_BEFORE_CHANNELS, bUserTop)                          \
+	PROCESS(ui, WINDOW_GEOMETRY_KEY, qbaMainWindowGeometry)                       \
+	PROCESS(ui, WINDOW_GEOMETRY_MINIMAL_VIEW_KEY, qbaMinimalViewGeometry)         \
+	PROCESS(ui, WINDOW_STATE_KEY, qbaMainWindowState)                             \
+	PROCESS(ui, WINDOW_STATE_MINIMAL_VIEW_KEY, qbaMinimalViewState)               \
+	PROCESS(ui, PREVENT_WINDOW_STATES_KEY, preventWindowStates)                   \
+	PROCESS(ui, WINDOW_LAYOUT_KEY, wlWindowLayout)                                \
+	PROCESS(ui, SERVER_FILTER_MODE_KEY, ssFilter)                                 \
+	PROCESS(ui, HIDE_IN_TRAY_KEY, bHideInTray)                                    \
+	PROCESS(ui, DISPLAY_TALKING_STATE_IN_TRAY_KEY, bStateInTray)                  \
+	PROCESS(ui, SEND_USAGE_STATISTICS_KEY, bUsage)                                \
+	PROCESS(ui, DISPLAY_USER_COUNT_KEY, bShowUserCount)                           \
+	PROCESS(ui, DISPLAY_VOLUME_ADJUSTMENTS_KEY, bShowVolumeAdjustments)           \
+	PROCESS(ui, DISPLAY_NICKNAMES_ONLY_KEY, bShowNicknamesOnly)                   \
+	PROCESS(ui, SELECTED_ITEM_AS_CHATBAR_TARGET_KEY, bChatBarUseSelection)        \
+	PROCESS(ui, CTRL_SCROLL_LOCAL_VOLUME_ADJUSTMENT_KEY, m_ctrlScrollLocalVolAdj) \
+	PROCESS(ui, FILTER_HIDES_EMPTY_CHANNEL_KEY, bFilterHidesEmptyChannels)        \
+	PROCESS(ui, FILTER_ACTIVE_KEY, bFilterActive)                                 \
+	PROCESS(ui, CONTEXT_MENU_ENTRIES_IN_MENU_BAR_KEY, bShowContextMenuInMenuBar)  \
+	PROCESS(ui, DISPLAY_TRANSMIT_MODE_COMBOBOX_KEY, bShowTransmitModeComboBox)    \
+	PROCESS(ui, HIGH_CONTRAST_MODE_KEY, bHighContrast)                            \
+	PROCESS(ui, MAX_LOG_LENGTH_KEY, iMaxLogBlocks)                                \
+	PROCESS(ui, USE_24H_CLOCK_KEY, bLog24HourClock)                               \
+	PROCESS(ui, LOG_MESSAGE_MARGINS_KEY, iChatMessageMargins)                     \
 	PROCESS(ui, DISABLE_PUBLIC_SERVER_LIST_KEY, bDisablePublicList)
 
 
