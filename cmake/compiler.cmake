@@ -118,6 +118,11 @@ elseif(UNIX OR MINGW)
 			add_compile_options("-g")
 		endif()
 	endif()
+
+	check_cxx_compiler_flag("-Wsfinae-incomplete" COMPILER_HAS_SFINAE_INCOMPLETE_FLAG)
+	if(COMPILER_HAS_SFINAE_INCOMPLETE_FLAG)
+		add_compile_options("-Wno-error=sfinae-incomplete")
+	endif()
 endif()
 
 function(target_disable_warnings TARGET)
