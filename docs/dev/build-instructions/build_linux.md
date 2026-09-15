@@ -148,6 +148,49 @@ This means you need to generate the files like so:
 `cmake -Dice=OFF ..`
 </details>
 
+<details>
+  <summary><b>Arch Linux</b></summary>
+In order to install the needed dependencies on Arch Linux, you have to run the following command:
+
+```bash
+sudo pacman -S --needed \
+  base-devel \
+  cmake \
+  pkgconf \
+  git \
+  qt6-base \
+  qt6-tools \
+  qt6-svg \
+  qt6-5compat \
+  mesa \
+  boost \
+  boost-libs \
+  openssl \
+  protobuf \
+  libcap \
+  libxi \
+  alsa-lib \
+  libogg \
+  libsndfile \
+  opus \
+  speexdsp \
+  speech-dispatcher \
+  avahi \
+  libxcb \
+  libxinerama \
+  zeroc-ice \
+  poco \
+  nlohmann-json \
+  microsoft-gsl \
+  postgresql-libs \
+  mariadb-libs
+```
+
+`postgresql-libs` and `mariadb-libs` are only needed if you are building the server with the respective database backends enabled (the default). If you
+cross-compile overlay support for 32bit applications (`-Doverlay-xcompile=ON`, the default), you additionally need the `multilib` repository enabled along
+with the `lib32-gcc-libs` package (which pulls in `lib32-glibc`); otherwise pass `-Doverlay-xcompile=OFF` to cmake.
+</details>
+
 If you are using any other distribution that is not based on one of the distros listed above, you probably have to adapt the commands to your distro manually.
 
 ## Running cmake
