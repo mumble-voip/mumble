@@ -233,13 +233,17 @@ QString ModelItem::hash() const {
 }
 
 UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
-	qiTalkingOff      = QIcon(QLatin1String("skin:talking_off.svg"));
-	qiTalkingOn       = QIcon(QLatin1String("skin:talking_on.svg"));
-	qiTalkingMuted    = QIcon(QLatin1String("skin:talking_muted.svg"));
-	qiTalkingShout    = QIcon(QLatin1String("skin:talking_alt.svg"));
-	qiTalkingWhisper  = QIcon(QLatin1String("skin:talking_whisper.svg"));
-	qiPrioritySpeaker = QIcon(QLatin1String("skin:priority_speaker.svg"));
-	qiRecording       = QIcon(QLatin1String("skin:actions/media-record.svg"));
+	qiTalkingOff           = QIcon(QLatin1String("skin:talking_off.svg"));
+	qiTalkingOn            = QIcon(QLatin1String("skin:talking_on.svg"));
+	qiTalkingMuted         = QIcon(QLatin1String("skin:talking_muted.svg"));
+	qiTalkingShout         = QIcon(QLatin1String("skin:talking_alt.svg"));
+	qiTalkingWhisper       = QIcon(QLatin1String("skin:talking_whisper.svg"));
+	qiPrioritySpeaker      = QIcon(QLatin1String("skin:priority_speaker.svg"));
+	qiCustomTalkingOn      = QIcon(QLatin1String("skin:custom_talking_on.svg"));
+	qiCustomTalkingMuted   = QIcon(QLatin1String("skin:custom_talking_muted.svg"));
+	qiCustomTalkingShout   = QIcon(QLatin1String("skin:custom_talking_alt.svg"));
+	qiCustomTalkingWhisper = QIcon(QLatin1String("skin:custom_talking_whisper.svg"));
+	qiRecording            = QIcon(QLatin1String("skin:actions/media-record.svg"));
 	qiMutedPushToMute.addFile(QLatin1String("skin:muted_pushtomute.svg"));
 	qiMutedSelf       = QIcon(QLatin1String("skin:muted_self.svg"));
 	qiMutedServer     = QIcon(QLatin1String("skin:muted_server.svg"));
@@ -275,6 +279,24 @@ UserModel::~UserModel() {
 	Q_ASSERT(ModelItem::c_qhUsers.count() == 0);
 	Q_ASSERT(ModelItem::c_qhChannels.count() == 1);
 	delete miRoot;
+}
+
+QString UserModel::mergeIconsToImg(const QList< QPair< QIcon, QRect > > &iconsWithRect, const QSize &fullSize,
+								   const QString &format) {
+	QImage image = QImage(fullSize, QImage::Format_ARGB32);
+	image.fill(Qt::transparent);
+	QPainter painter(&image);
+	painter.setRenderHint(QPainter::Antialiasing);
+	for (auto [icon, rect] : iconsWithRect) {
+		icon.paint(&painter, rect);
+	}
+
+	QByteArray mergedIconBa;
+	QBuffer buffer(&mergedIconBa);
+	buffer.open(QIODevice::WriteOnly);
+	image.save(&buffer, qvariant_cast< QByteArray >(format));
+	QString base64 = qvariant_cast< QString >(mergedIconBa.toBase64());
+	return QLatin1String("<img src=\"data:image/%2;base64,%1\" />").arg(base64, format);
 }
 
 
@@ -436,29 +458,29 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				if (idx.column() == 0) {
 					if (item->isListener) {
 						return qiEar;
-					} else {
-						// Select the talking-state symbol to display
-						if (p == pSelf && p->bSelfMute) {
-							// This is a workaround for a bug that can lead to the user having muted him/herself but
-							// the talking icon is stuck at qiTalkingOn for some reason.
-							// Until someone figures out how to fix the root of the problem, we'll have this workaround
-							// to cure the symptoms of the bug.
-							return qiTalkingOff;
-						}
+					}
+					// Select the talking-state symbol to display
+					if (p == pSelf && p->bSelfMute) {
+						// This is a workaround for a bug that can lead to the user having muted him/herself but
+						// the talking icon is stuck at qiTalkingOn for some reason.
+						// Until someone figures out how to fix the root of the problem, we'll have this workaround
+						// to cure the symptoms of the bug.
+						return qiTalkingOff;
+					}
 
-						switch (p->tsState) {
-							case Settings::Talking:
-								return qiTalkingOn;
-							case Settings::MutedTalking:
-								return qiTalkingMuted;
-							case Settings::Whispering:
-								return qiTalkingWhisper;
-							case Settings::Shouting:
-								return qiTalkingShout;
-							case Settings::Passive:
-							default:
-								return qiTalkingOff;
-						}
+					bool isUserProvidedAvatar = !p->qbaTextureHash.isEmpty() && !p->qbaTexture.isEmpty();
+					switch (p->tsState) {
+						case Settings::Talking:
+							return isUserProvidedAvatar ? qiCustomTalkingOn : qiTalkingOn;
+						case Settings::MutedTalking:
+							return isUserProvidedAvatar ? qiCustomTalkingMuted : qiTalkingMuted;
+						case Settings::Whispering:
+							return isUserProvidedAvatar ? qiCustomTalkingWhisper : qiTalkingWhisper;
+						case Settings::Shouting:
+							return isUserProvidedAvatar ? qiCustomTalkingShout : qiTalkingShout;
+						case Settings::Passive:
+						default:
+							return qiTalkingOff;
 					}
 				}
 				break;
@@ -715,46 +737,68 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 		case Qt::WhatsThisRole:
 			switch (section) {
 				case 0:
-					if (isUser)
-						return QString::fromLatin1("%1"
-												   "<table>"
-												   "<tr><td><img src=\"skin:talking_on.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%2</td></tr>"
-												   "<tr><td><img src=\"skin:talking_alt.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%3</td></tr>"
-												   "<tr><td><img src=\"skin:talking_whisper.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%4</td></tr>"
-												   "<tr><td><img src=\"skin:talking_off.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%5</td></tr>"
-												   "<tr><td><img src=\"skin:talking_muted.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%6</td></tr>"
-												   "<tr><td><img src=\"skin:ear.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%7</td></tr>"
-												   "</table>")
+					if (isUser) {
+						QIcon placeholderIcon("skin:mimetypes/image-x-generic.svg");
+						QRect rect(0, 0, 88, 88);
+						const QSize &fullSize                        = rect.size();
+						QList< QPair< QIcon, QRect > > iconsWithRect = { { placeholderIcon, QRect(22, 22, 44, 44) },
+																		 { qiCustomTalkingOn, rect } };
+						QString customTalkingOnWithPlaceholderImg    = mergeIconsToImg(iconsWithRect, fullSize);
+						iconsWithRect.replace(1, { qiCustomTalkingShout, rect });
+						QString customTalkingShoutWithPlaceholderImg = mergeIconsToImg(iconsWithRect, fullSize);
+						iconsWithRect.replace(1, { qiCustomTalkingWhisper, rect });
+						QString customTalkingWhisperWithPlaceholderImg = mergeIconsToImg(iconsWithRect, fullSize);
+						iconsWithRect.replace(1, { qiCustomTalkingMuted, rect });
+						QString customTalkingMutedWithPlaceholderImg = mergeIconsToImg(iconsWithRect, fullSize);
+						iconsWithRect.removeLast();
+						QString placeholderImg = mergeIconsToImg(iconsWithRect, fullSize);
+						return QString::fromLatin1(
+								   "%1"
+								   "<table>"
+								   "<tr><td valign=\"middle\"><h1 style=\"font-weight: 900;\">"
+								   "<img src=\"skin:talking_on.svg\" height=64 /> / "
+								   "%2 &nbsp;&nbsp;</h1></td><td valign=\"middle\">%3</td></tr>"
+								   "<tr><td valign=\"middle\"><h1 style=\"font-weight: 900;\">"
+								   "<img src=\"skin:talking_alt.svg\" height=64 /> / "
+								   "%4 &nbsp;&nbsp;</h1></td><td valign=\"middle\">%5</td></tr>"
+								   "<tr><td valign=\"middle\"><h1 style=\"font-weight: 900;\">"
+								   "<img src=\"skin:talking_whisper.svg\" height=64 /> / "
+								   "%6 &nbsp;&nbsp;</h1></td><td valign=\"middle\">%7</td></tr>"
+								   "<tr><td valign=\"middle\"><h1 style=\"font-weight: 900;\">"
+								   "<img src=\"skin:talking_off.svg\" height=64 /> / "
+								   "%8 &nbsp;&nbsp;</h1></td><td valign=\"middle\">%9</td></tr>"
+								   "<tr><td valign=\"middle\"><h1 style=\"font-weight: 900;\">"
+								   "<img src=\"skin:talking_muted.svg\" height=64 /> / "
+								   "%10 &nbsp;&nbsp;</h1></td><td valign=\"middle\">%11</td></tr>"
+								   "<tr><td valign=\"middle\"><img src=\"skin:ear.svg\" height=64 /></td>"
+								   "<td valign=\"middle\">%12</td></tr>"
+								   "</table>")
 							.arg(tr("This is a user connected to the server. The icon to the left of the user "
 									"indicates whether or not they are talking:"),
-								 tr("Talking to your channel."), tr("Shouting directly to your channel."),
-								 tr("Whispering directly to you."), tr("Not talking."),
+								 customTalkingOnWithPlaceholderImg, tr("Talking to your channel."),
+								 customTalkingShoutWithPlaceholderImg, tr("Shouting directly to your channel."),
+								 customTalkingWhisperWithPlaceholderImg, tr("Whispering directly to you."),
+								 placeholderImg, tr("Not talking."), customTalkingMutedWithPlaceholderImg,
 								 tr("Talking while being muted on your end"),
 								 tr("This is a channel listener. The corresponding user hears everything you say in "
 									"this channel."));
-					else
-						return QString::fromLatin1("%1"
-												   "<table>"
-												   "<tr><td><img src=\"skin:channel_active.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%2</td></tr>"
-												   "<tr><td><img src=\"skin:channel_linked.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%3</td></tr>"
-												   "<tr><td><img src=\"skin:channel.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%4</td></tr>"
-												   "</table>")
-							.arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
-								 tr("Your current channel."),
-								 tr("A channel that is linked with your channel. Linked channels can talk to each "
-									"other."),
-								 tr("A channel on the server that you are not linked to."));
+					}
+					return QString::fromLatin1("%1"
+											   "<table>"
+											   "<tr><td><img src=\"skin:channel_active.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%2</td></tr>"
+											   "<tr><td><img src=\"skin:channel_linked.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%3</td></tr>"
+											   "<tr><td><img src=\"skin:channel.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%4</td></tr>"
+											   "</table>")
+						.arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
+							 tr("Your current channel."),
+							 tr("A channel that is linked with your channel. Linked channels can talk to each "
+								"other."),
+							 tr("A channel on the server that you are not linked to."));
 				case 1:
-					if (isUser)
+					if (isUser) {
 						return QString::fromLatin1("%1"
 												   "<table>"
 												   "<tr><td><img src=\"skin:emblems/emblem-favorite.svg\" height=64 "
@@ -791,29 +835,29 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 								 tr("User has a new comment set (click to show)"),
 								 tr("User has a comment set, which you've already seen. (click to show)"),
 								 tr("Ignoring Text Messages"));
-					else
-						return QString::fromLatin1("%1"
-												   "<table>"
-												   "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%10</td></tr>"
-												   "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%11</td></tr>"
-												   "<tr><td><img src=\"skin:filter.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%12</td></tr>"
-												   "<tr><td><img src=\"skin:pin.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%13</td></tr>"
-												   "<tr><td><img src=\"skin:lock_locked.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%14</td></tr>"
-												   "<tr><td><img src=\"skin:lock_unlocked.svg\" height=64 /></td><td "
-												   "valign=\"middle\">%15</td></tr>"
-												   "</table>")
-							.arg(tr("This shows the flags the channel has, if any:"),
-								 tr("Channel has a new comment set (click to show)"),
-								 tr("Channel has a comment set, which you've already seen. (click to show)"),
-								 tr("Channel will be hidden when filtering is enabled"),
-								 tr("Channel will be pinned when filtering is enabled"),
-								 tr("Channel has access restrictions so that you can't enter it"),
-								 tr("Channel has access restrictions but you can enter nonetheless"));
+					}
+					return QString::fromLatin1("%1"
+											   "<table>"
+											   "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%10</td></tr>"
+											   "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%11</td></tr>"
+											   "<tr><td><img src=\"skin:filter.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%12</td></tr>"
+											   "<tr><td><img src=\"skin:pin.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%13</td></tr>"
+											   "<tr><td><img src=\"skin:lock_locked.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%14</td></tr>"
+											   "<tr><td><img src=\"skin:lock_unlocked.svg\" height=64 /></td><td "
+											   "valign=\"middle\">%15</td></tr>"
+											   "</table>")
+						.arg(tr("This shows the flags the channel has, if any:"),
+							 tr("Channel has a new comment set (click to show)"),
+							 tr("Channel has a comment set, which you've already seen. (click to show)"),
+							 tr("Channel will be hidden when filtering is enabled"),
+							 tr("Channel will be pinned when filtering is enabled"),
+							 tr("Channel has access restrictions so that you can't enter it"),
+							 tr("Channel has access restrictions but you can enter nonetheless"));
 			}
 			break;
 	}
