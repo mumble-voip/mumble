@@ -5210,6 +5210,14 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
         <source>Restore window geometry on startup</source>
         <translation>Ripristina geometria della finestra all&apos;avvio</translation>
     </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
