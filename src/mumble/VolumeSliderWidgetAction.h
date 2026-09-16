@@ -19,6 +19,9 @@ class VolumeSliderWidgetAction : public QWidgetAction {
 public:
 	VolumeSliderWidgetAction(QWidget *parent = nullptr);
 
+	static constexpr auto min() { return -30; }
+	static constexpr auto max() { return 30; }
+
 protected:
 	qt_unique_ptr< QWidget > m_widget;
 	QSlider *m_volumeSlider;
