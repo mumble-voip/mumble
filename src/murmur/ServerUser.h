@@ -15,6 +15,7 @@
 #include "ClientType.h"
 #include "Connection.h"
 #include "HostAddress.h"
+#include "MumbleProtocol.h"
 #include "ServerUserInfo.h"
 #include "Timer.h"
 
@@ -124,6 +125,10 @@ public:
 
 	std::int64_t activityTime() const;
 	void resetActivityTime();
+
+	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType);
+	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+					 QByteArray &cache);
 
 	float dUDPPingAvg, dUDPPingVar;
 	float dTCPPingAvg, dTCPPingVar;

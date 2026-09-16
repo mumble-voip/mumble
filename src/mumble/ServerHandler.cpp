@@ -355,9 +355,12 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 
 void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type) {
 	QByteArray qba;
+	if (!Connection::messageToNetwork(msg, type, qba)) {
+		qWarning("Connection::messageToNetwork() failed");
+		return;
+	}
 
 	if (QThread::currentThread() != thread()) {
-		Connection::messageToNetwork(msg, type, qba);
 		ServerHandlerMessageEvent *shme = new ServerHandlerMessageEvent(qba, type, false);
 		QApplication::postEvent(this, shme);
 	} else {
@@ -365,7 +368,7 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, Mum
 		if (!connection)
 			return;
 
-		connection->sendMessage(msg, type, qba);
+		connection->sendMessage(qba);
 	}
 }
 

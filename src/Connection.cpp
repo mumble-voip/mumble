@@ -197,18 +197,6 @@ void Connection::socketDisconnected() {
 	return true;
 }
 
-void Connection::sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
-							 QByteArray &cache) {
-	if (cache.isEmpty()) {
-		if (!messageToNetwork(msg, msgType, cache)) {
-			warn("Sending message to network failed");
-			return;
-		};
-	}
-
-	sendMessage(cache);
-}
-
 void Connection::sendMessage(const QByteArray &qbaMsg) {
 	if (qbaMsg.isEmpty() || qtsSocket->state() != QAbstractSocket::SocketState::ConnectedState) {
 		return;

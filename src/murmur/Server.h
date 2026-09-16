@@ -347,7 +347,6 @@ public:
 					  Version::full_t version, Version::CompareMode mode);
 	void sendProtoExcept(ServerUser *, const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type,
 						 Version::full_t version, Version::CompareMode mode);
-	void sendProtoMessage(ServerUser *, const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType type);
 
 	// sendAll sends a protobuf message to all users on the server whose version is either bigger than v or
 	// lower than ~v. If v == 0 the message is sent to everyone.
@@ -361,7 +360,7 @@ public:
 		sendProtoExcept(u, msg, Mumble::Protocol::TCPMessageType::name, v, mode);                      \
 	}                                                                                                  \
 	void sendMessage(ServerUser *u, const MumbleProto::name &msg) {                                    \
-		sendProtoMessage(u, msg, Mumble::Protocol::TCPMessageType::name);                              \
+		u->sendMessage(msg, Mumble::Protocol::TCPMessageType::name);                                   \
 	}
 
 	MUMBLE_ALL_TCP_MESSAGES
