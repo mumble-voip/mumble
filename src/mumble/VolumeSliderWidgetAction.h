@@ -12,6 +12,7 @@
 
 class QSlider;
 class QLabel;
+class QWheelEvent;
 
 class VolumeSliderWidgetAction : public QWidgetAction {
 	Q_OBJECT
@@ -21,6 +22,14 @@ public:
 
 	static constexpr auto min() { return -30; }
 	static constexpr auto max() { return 30; }
+
+	/**
+	 * Handles a mouse wheel scroll event.
+	 * Volume is decreased when scrolling down and increased when scrolling up.
+	 * @param event Mouse wheel event
+	 * @return Returns whether the event was handled.
+	 */
+	static bool handleMouseWheel(const QWheelEvent &event);
 
 protected:
 	qt_unique_ptr< QWidget > m_widget;

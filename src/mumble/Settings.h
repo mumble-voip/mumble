@@ -439,6 +439,7 @@ struct Settings {
 	bool bChatBarUseSelection            = false;
 	bool bFilterHidesEmptyChannels       = true;
 	bool bFilterActive                   = false;
+	bool ctrlScrollLocalVolAdj           = true;
 	bool bShowContextMenuInMenuBar       = false;
 
 	// Search settings
