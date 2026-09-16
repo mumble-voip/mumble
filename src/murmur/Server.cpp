@@ -1899,12 +1899,6 @@ void Server::doSync(unsigned int id) {
 	}
 }
 
-void Server::sendProtoMessage(ServerUser *u, const ::google::protobuf::Message &msg,
-							  Mumble::Protocol::TCPMessageType msgType) {
-	QByteArray cache;
-	u->sendMessage(msg, msgType, cache);
-}
-
 void Server::sendProtoAll(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 						  Version::full_t version, Version::CompareMode mode) {
 	sendProtoExcept(nullptr, msg, msgType, version, mode);
