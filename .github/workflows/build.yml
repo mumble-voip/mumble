@@ -49,13 +49,16 @@ jobs:
             os: [ubuntu-24.04, ubuntu-26.04]
             type: [shared]
             arch: [x86_64, arm64]
+            compiler: [gcc]
             include:
             - os: windows-2025
               type: static
               arch: x86_64
+              compiler: cl
             - os: macos-15
               type: static
               arch: x86_64
+              compiler: clang
 
     runs-on: ${{ matrix.os }}
 
@@ -72,7 +75,7 @@ jobs:
       run: brew install bash
 
     - name: Set environment variables
-      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
+      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ matrix.compiler }}" "${{ github.workspace }}"
       shell: bash
 
     - uses: actions/cache/restore@v5
