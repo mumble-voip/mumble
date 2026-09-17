@@ -9,6 +9,12 @@ source /etc/os-release
 
 sudo apt update
 
+case $MUMBLE_CC in
+	gcc|gcc-*)
+		sudo apt -y install $MUMBLE_CC-multilib $MUMBLE_CXX-multilib
+		;;
+esac
+
 sudo apt -y install \
 	build-essential \
 	g++-multilib \

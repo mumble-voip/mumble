@@ -51,6 +51,10 @@ jobs:
             arch: [x86_64, arm64]
             compiler: [gcc]
             include:
+            - os: ubuntu-26.04
+              type: shared
+              arch: x86_64
+              compiler: gcc-16
             - os: windows-2025
               type: static
               arch: x86_64
