@@ -6,29 +6,121 @@
 #include "IPCUtils.h"
 
 #ifndef _WIN32
+#	include <cstdio>
 #	include <cstdlib>
+#	include <string>
+#	include <system_error>
 
+#	include <sys/stat.h>
 #	include <unistd.h>
 #endif
 
 namespace Mumble {
 
+#ifndef _WIN32
+namespace {
+
+	// Creates the given directory if it doesn't exist yet, using only non-throwing
+	// std::filesystem calls, so that this never throws even on a read-only or sandboxed
+	// filesystem. If the directory was created by this call, its permissions are restricted to
+	// the owner (0700), since it is then a directory Mumble controls; an already-existing
+	// directory's permissions are left untouched, since it may belong to the user or another
+	// application.
+	void ensureDirectoryCreated(const std::filesystem::path &dir) {
+		std::error_code ec;
+		bool created = std::filesystem::create_directories(dir, ec);
+		if (created) {
+			std::error_code permEc;
+			std::filesystem::permissions(dir, std::filesystem::perms::owner_all, std::filesystem::perm_options::replace,
+										 permEc);
+		}
+	}
+
+	// Returns whether the given path is an existing directory the current user can both write to
+	// and enter.
+	bool isUsableDirectory(const std::filesystem::path &dir) {
+		std::error_code ec;
+		if (!std::filesystem::is_directory(dir, ec) || ec) {
+			return false;
+		}
+
+		return ::access(dir.c_str(), W_OK | X_OK) == 0;
+	}
+
+	// Returns whether the given path is a real directory (not a symlink) owned by the current
+	// user with permissions restricted to exactly 0700. lstat() is used instead of
+	// std::filesystem::is_directory() so that a symlink someone else planted at this path is
+	// rejected instead of followed.
+	bool isPrivateOwnedDirectory(const std::filesystem::path &dir) {
+		struct stat st;
+		if (::lstat(dir.c_str(), &st) != 0) {
+			return false;
+		}
+
+		return S_ISDIR(st.st_mode) && st.st_uid == getuid() && (st.st_mode & 07777) == S_IRWXU;
+	}
+
+	// Prints the warning message the XDG Base Directory Specification mandates for falling back
+	// away from $XDG_RUNTIME_DIR. ipcutils doesn't depend on Qt (it's a static library linked into
+	// overlay_gl, which gets injected into other processes), so qWarning() isn't available here.
+	void warnRuntimeDirFallback(const std::filesystem::path &dir) {
+		std::fprintf(stderr, "Mumble: $XDG_RUNTIME_DIR is not available, falling back to \"%s\" for IPC endpoints\n",
+					 dir.c_str());
+	}
+
+} // namespace
+#endif
+
 std::filesystem::path getRuntimeDirectory() {
 #ifdef _WIN32
 	return {};
 #else
-	std::filesystem::path runtimeDir;
+	static const std::filesystem::path dir = [] {
+		const char *xdgRuntimeDir = std::getenv("XDG_RUNTIME_DIR");
+		if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
+			std::filesystem::path base(xdgRuntimeDir);
+			if (isUsableDirectory(base)) {
+				std::filesystem::path candidate = base / "info.mumble.Mumble";
+				ensureDirectoryCreated(candidate);
+				return candidate;
+			}
+		}
 
-	const char *xdgRuntimeDir = std::getenv("XDG_RUNTIME_DIR");
-	if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
-		runtimeDir = std::filesystem::path(xdgRuntimeDir) / "info.mumble.Mumble";
-	} else {
-		runtimeDir = std::filesystem::path("/run/user") / std::to_string(getuid()) / "info.mumble.Mumble";
-	}
+		// /run/user/<uid> is normally created and maintained by the system (e.g. by
+		// systemd-logind), so this process must not attempt to create it or its /run parent
+		// itself. Only use it if it is already there and usable.
+		std::filesystem::path runUserDir = std::filesystem::path("/run/user") / std::to_string(getuid());
+		if (isUsableDirectory(runUserDir)) {
+			std::filesystem::path candidate = runUserDir / "info.mumble.Mumble";
+			ensureDirectoryCreated(candidate);
+			warnRuntimeDirFallback(candidate);
+			return candidate;
+		}
 
-	std::filesystem::create_directories(runtimeDir);
+		// Fall back to the system's shared temp directory. Since it is typically writable by
+		// every local user, the leaf name is qualified with the current uid and only accepted if
+		// it turns out to be a private directory this process itself owns; if another user got
+		// there first, or the path is a symlink, the candidate is discarded instead of being used.
+		std::error_code ec;
+		std::filesystem::path tmpDir = std::filesystem::temp_directory_path(ec);
+		if (!ec && !tmpDir.empty()) {
+			std::filesystem::path candidate = tmpDir / ("info.mumble.Mumble-" + std::to_string(getuid()));
+			ensureDirectoryCreated(candidate);
+			if (isPrivateOwnedDirectory(candidate)) {
+				warnRuntimeDirFallback(candidate);
+				return candidate;
+			}
+		}
 
-	return runtimeDir;
+		// Last resort: the current directory. This is returned unconditionally, even if it could
+		// not be created, since there is nothing else left to try.
+		std::filesystem::path candidate = std::filesystem::path(".") / "info.mumble.Mumble";
+		ensureDirectoryCreated(candidate);
+		warnRuntimeDirFallback(candidate);
+		return candidate;
+	}();
+
+	return dir;
 #endif
 }
 
