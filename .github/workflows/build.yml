@@ -16,7 +16,7 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -Dtest-lto=OFF -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache
+  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache
 
 
 jobs:
@@ -46,16 +46,31 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-22.04, ubuntu-24.04, ubuntu-26.04]
+            os: [ubuntu-24.04, ubuntu-26.04]
             type: [shared]
             arch: [x86_64, arm64]
+            compiler: [gcc]
             include:
-            - os: windows-2025-vs2026
+            - os: ubuntu-26.04
+              type: shared
+              arch: x86_64
+              compiler: gcc-16
+            - os: ubuntu-26.04
+              type: shared
+              arch: x86_64
+              compiler: clang-22
+            - os: windows-2025
               type: static
               arch: x86_64
+              compiler: cl
+            - os: windows-2025
+              type: static
+              arch: x86_64
+              compiler: clang-cl
             - os: macos-15
               type: static
               arch: x86_64
+              compiler: clang
 
     runs-on: ${{ matrix.os }}
 
@@ -72,7 +87,7 @@ jobs:
       run: brew install bash
 
     - name: Set environment variables
-      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ github.workspace }}"
+      run: $GITHUB_WORKSPACE/.github/workflows/set_environment_variables.sh "${{ matrix.os }}" "${{ matrix.type }}" "${{ matrix.arch }}" "${{ matrix.compiler }}" "${{ github.workspace }}"
       shell: bash
 
     - uses: actions/cache/restore@v5

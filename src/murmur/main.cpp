@@ -135,10 +135,8 @@ struct CLIOptions {
 	bool printLicense            = false;
 	bool printThirdPartyLicenses = false;
 
-#ifdef Q_OS_UNIX
 	bool limits = false;
 	std::optional< unsigned int > readSupwSrv;
-#endif
 
 	static constexpr const char *const CLI_ABOUT_SECTION          = "About";
 	static constexpr const char *const CLI_LOGGING_SECTION        = "Logging";
@@ -332,17 +330,14 @@ int main(int argc, char **argv) {
 
 		QString inifile = QString::fromStdString(cli_options.iniFile.value_or(""));
 		QString supw;
-		bool detach        = cli_options.detach;
-		bool disableSu     = false;
-		bool wipeSsl       = cli_options.wipeSsl;
-		bool wipeLogs      = cli_options.wipeLogs;
-		unsigned int sunum = 0;
-
-#ifdef Q_OS_UNIX
-		bool readPw = false;
-#endif
-		bool logGroups = cli_options.logGroups;
-		bool logACL    = cli_options.logAcls;
+		[[maybe_unused]] bool detach = cli_options.detach;
+		bool disableSu               = false;
+		bool wipeSsl                 = cli_options.wipeSsl;
+		bool wipeLogs                = cli_options.wipeLogs;
+		unsigned int sunum           = 0;
+		[[maybe_unused]] bool readPw = false;
+		bool logGroups               = cli_options.logGroups;
+		bool logACL                  = cli_options.logAcls;
 
 		if (cli_options.disableSuSrv) {
 			detach    = false;
@@ -353,7 +348,6 @@ int main(int argc, char **argv) {
 		if (!std::get< 0 >(cli_options.supwSrv).empty()) {
 			supw  = QString::fromStdString(std::get< 0 >(cli_options.supwSrv));
 			sunum = std::get< 1 >(cli_options.supwSrv).value_or< unsigned int >(0);
-#ifdef Q_OS_UNIX
 		} else if (cli_options.readSupwSrv) {
 			// Note that it is essential to set detach = false here. If this is ever to be changed, the code part
 			// handling the readPw = true part has to be moved up so that it is executed before fork is called on Unix
@@ -363,7 +357,7 @@ int main(int argc, char **argv) {
 			readPw = true;
 			sunum  = *cli_options.readSupwSrv;
 		}
-
+#ifdef Q_OS_UNIX
 		inifile = unixhandler.trySystemIniFiles(inifile);
 
 		if (cli_options.limits) {
@@ -372,8 +366,8 @@ int main(int argc, char **argv) {
 			unixhandler.setuid();
 			unixhandler.finalcap();
 			LimitTest::testLimits(a);
-#endif
 		}
+#endif
 
 		if (!QSslSocket::supportsSsl()) {
 			qFatal("SSL: this version of Murmur is built against Qt without SSL Support. Aborting.");
