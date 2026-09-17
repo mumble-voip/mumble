@@ -50,7 +50,7 @@ jobs:
             type: [shared]
             arch: [x86_64, arm64]
             include:
-            - os: windows-2025-vs2026
+            - os: windows-2025
               type: static
               arch: x86_64
             - os: macos-15
