@@ -5213,11 +5213,11 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy podczas przewijania kółkiem myszy w górę (zwiększanie) lub w dół (zmniejszanie) przy wciśniętym klawiszu Control należy zmieniać lokalną regulację głośności dla wybranego użytkownika.</translation>
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL + kółko myszy, aby zmienić głośność wybranego użytkownika</translation>
     </message>
 </context>
 <context>
