@@ -63,6 +63,10 @@ jobs:
               type: static
               arch: x86_64
               compiler: cl
+            - os: windows-2025
+              type: static
+              arch: x86_64
+              compiler: clang-cl
             - os: macos-15
               type: static
               arch: x86_64
