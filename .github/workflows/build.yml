@@ -55,6 +55,10 @@ jobs:
               type: shared
               arch: x86_64
               compiler: gcc-16
+            - os: ubuntu-26.04
+              type: shared
+              arch: x86_64
+              compiler: clang-22
             - os: windows-2025
               type: static
               arch: x86_64

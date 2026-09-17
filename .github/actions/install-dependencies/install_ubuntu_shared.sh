@@ -13,6 +13,9 @@ case $MUMBLE_CC in
 	gcc|gcc-*)
 		sudo apt -y install $MUMBLE_CC-multilib $MUMBLE_CXX-multilib
 		;;
+	clang|clang-*)
+		sudo apt -y install $MUMBLE_CC
+		;;
 esac
 
 sudo apt -y install \
