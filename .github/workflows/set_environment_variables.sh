@@ -30,13 +30,14 @@ ADDITIONAL_CMAKE_OPTIONS=""
 VCPKG_CMAKE_OPTIONS=""
 
 VCPKG_TARGET_TRIPLET=""
-if [[ "$arch" == "x86_64" ]]; then
-	VCPKG_TARGET_TRIPLET="x64"
-else
-	echo "Unknown architecture '$arch'"
-	exit 1
-fi
-
+case "$arch" in
+	x86_64) VCPKG_TARGET_TRIPLET="x64" ;;
+	arm64)  VCPKG_TARGET_TRIPLET="arm64" ;;
+	*)
+		echo "Unknown architecture '$arch'" >&2
+		exit 1
+		;;
+esac
 
 case "$os" in
 	"ubuntu")
