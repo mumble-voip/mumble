@@ -62,6 +62,8 @@ public:
 	void wipe();
 };
 
+enum class BlobRequestType { None, Window, Tooltip };
+
 class UserModel : public QAbstractItemModel {
 	friend struct ModelItem;
 	friend class UserView;
@@ -196,6 +198,7 @@ public:
 
 	QVariant otherRoles(const QModelIndex &idx, int role) const;
 
+	BlobRequestType blobRequestType;
 	unsigned int uiSessionComment;
 	int iChannelDescription;
 
