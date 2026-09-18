@@ -197,6 +197,32 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 	MSG_SETUP(ServerUser::Connected);
 
+	const auto serverFull = [&]() -> bool {
+		if (static_cast< unsigned int >(qhUsers.count()) >= iMaxUsers) {
+			log(uSource, QString("Max users (%1) reached, rejecting connection").arg(iMaxUsers));
+			return true;
+		}
+
+		if (qqIds.isEmpty()) {
+			log(uSource, QString("Session ID pool (%1) empty, rejecting connection").arg(iMaxUsers));
+			return true;
+		}
+
+		return false;
+	};
+
+	if (serverFull()) {
+		const auto reason = QString::fromLatin1("Server is full (max %1 users)").arg(iMaxUsers);
+
+		MumbleProto::Reject mpr;
+		mpr.set_reason(u8(reason));
+		mpr.set_type(MumbleProto::Reject_RejectType_ServerFull);
+		sendMessage(uSource, mpr);
+
+		uSource->disconnectSocket();
+		return;
+	}
+
 	// As the first thing, assign a session ID to this client. Given that the client initiated
 	// the authentication procedure we can be sure that this is not just a random TCP connection.
 	// Thus it is about time we assign the ID to this client in order to be able to reference it
@@ -261,12 +287,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			rtType = MumbleProto::Reject_RejectType_UsernameInUse;
 			ok     = false;
 		}
-	}
-
-	if ((id != 0) && (static_cast< unsigned int >(qhUsers.count()) > iMaxUsers)) {
-		reason = QString::fromLatin1("Server is full (max %1 users)").arg(iMaxUsers);
-		rtType = MumbleProto::Reject_RejectType_ServerFull;
-		ok     = false;
 	}
 
 	if ((id != 0) && (uSource->qsHash.isEmpty() && bCertRequired)) {
