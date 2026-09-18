@@ -95,6 +95,7 @@ case "$compiler" in
 esac
 
 # set environment variables in a way that GitHub Actions understands and preserves
+echo "MUMBLE_ARCH=$arch" >> "$GITHUB_ENV"
 echo "MUMBLE_CC=$cc" >> "$GITHUB_ENV"
 echo "MUMBLE_CXX=$cxx" >> "$GITHUB_ENV"
 echo "MUMBLE_ENVIRONMENT_SOURCE=$MUMBLE_ENVIRONMENT_SOURCE" >> "$GITHUB_ENV"

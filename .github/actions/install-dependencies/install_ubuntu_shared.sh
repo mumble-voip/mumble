@@ -9,18 +9,35 @@ source /etc/os-release
 
 sudo apt update
 
+if [ -z "$MUMBLE_ARCH" ]; then
+	MUMBLE_ARCH=x86_64
+fi
+
+if [ -z "$MUMBLE_CC" ]; then
+	MUMBLE_CC=gcc
+	MUMBLE_CXX=g++
+fi
+
 case $MUMBLE_CC in
 	gcc|gcc-*)
-		sudo apt -y install $MUMBLE_CC-multilib $MUMBLE_CXX-multilib
+		if [[ "$MUMBLE_ARCH" = "x86_64" ]]; then
+			sudo apt -y install $MUMBLE_CC-multilib $MUMBLE_CXX-multilib
+		else
+			sudo apt -y install $MUMBLE_CC $MUMBLE_CXX
+		fi
 		;;
 	clang|clang-*)
-		sudo apt -y install $MUMBLE_CC
+		# Unfortunately there is no package that pulls in the default libstdc++ alone.
+		if [[ "$MUMBLE_ARCH" = "x86_64" ]]; then
+			sudo apt -y install $MUMBLE_CC g++-multilib
+		else
+			sudo apt -y install $MUMBLE_CC g++
+		fi
 		;;
 esac
 
 sudo apt -y install \
 	build-essential \
-	g++-multilib \
 	ninja-build \
 	pkg-config \
 	qt6-base-dev \
