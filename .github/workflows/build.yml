@@ -72,7 +72,7 @@ jobs:
               arch: x86_64
               compiler: clang
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}${{ matrix.arch == 'arm64' && '-arm' || '' }}
 
     steps:
     - uses: actions/checkout@v6
@@ -97,7 +97,7 @@ jobs:
 
     - uses: hendrikmuhs/ccache-action@v1.2.24
       with:
-        key: ${{ github.base_ref || github.ref_name }}.${{ matrix.os }}.${{ matrix.type }}
+        key: ${{ github.base_ref || github.ref_name }}_${{ matrix.os }}_${{ matrix.type }}.${{ matrix.compiler }}.${{ matrix.arch }}
         save: ${{ github.event_name != 'pull_request' }}
         append-timestamp: false
 
@@ -131,7 +131,7 @@ jobs:
       name: Publish
       uses: actions/upload-artifact@v7
       with:
-        name: 'Mumble-${{ matrix.os }}'
+        name: 'Mumble_${{ matrix.os }}.${{ matrix.compiler }}.${{ matrix.arch }}'
         compression-level: 9
         path: |
           build/mumble
