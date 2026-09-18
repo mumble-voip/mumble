@@ -243,6 +243,10 @@ quint16 Connection::localPort() const {
 	return qtsSocket->localPort();
 }
 
+QSslCertificate Connection::peerCertificate() const {
+	return qtsSocket->peerCertificate();
+}
+
 QList< QSslCertificate > Connection::peerCertificateChain() const {
 	// The documentation of QSslSocket::peerCertificateChain() actually says nothing
 	// about the order of the certificates in the chain. The sentence in this functions

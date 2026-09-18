@@ -559,7 +559,7 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 	if (!connection)
 		return;
 
-	qscCert                      = connection->peerCertificateChain();
+	const QSslCertificate cert   = connection->peerCertificate();
 	QList< QSslError > newErrors = errors;
 
 #ifdef Q_OS_WIN
@@ -577,8 +577,8 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 		}
 	}
 
-	if (bRevalidate) {
-		QByteArray der    = qscCert.first().toDer();
+	if (bRevalidate && !cert.isNull()) {
+		QByteArray der    = cert.toDer();
 		DWORD errorStatus = WinVerifySslCert(der);
 		if (errorStatus == CERT_TRUST_NO_ERROR) {
 			for (const QSslError &e : errorsToRemove) {
@@ -593,12 +593,14 @@ void ServerHandler::setSslErrors(const QList< QSslError > &errors) {
 #endif
 
 	bStrong = false;
-	if ((qscCert.size() > 0)
-		&& (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex())
-			== database->getDigest(qsHostName, usPort)))
+	if (!cert.isNull()
+		&& (QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex())
+			== database->getDigest(qsHostName, usPort))) {
 		connection->proceedAnyway();
-	else
+	} else {
 		qlErrors = newErrors;
+		qscCert  = connection->peerCertificateChain();
+	}
 }
 
 void ServerHandler::sendPing() {

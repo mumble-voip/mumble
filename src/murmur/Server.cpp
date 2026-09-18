@@ -1547,12 +1547,9 @@ void Server::encrypted() {
 	}
 	sendMessage(uSource, mpv);
 
-	QList< QSslCertificate > certs = uSource->peerCertificateChain();
-	if (!certs.isEmpty()) {
-		// Get the client's immediate SSL certificate
-		const QSslCertificate &cert = certs.first();
-		uSource->qslEmail           = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
-		uSource->qsHash             = QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex());
+	if (const QSslCertificate cert = uSource->peerCertificate(); !cert.isNull()) {
+		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
+		uSource->qsHash   = QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex());
 		if (!uSource->qslEmail.isEmpty() && uSource->bVerified) {
 			QString subject;
 			QString issuer;
@@ -1562,7 +1559,7 @@ void Server::encrypted() {
 				subject = subjectList.first();
 			}
 
-			QStringList issuerList = certs.first().issuerInfo(QSslCertificate::CommonName);
+			QStringList issuerList = cert.issuerInfo(QSslCertificate::CommonName);
 			if (!issuerList.isEmpty()) {
 				issuer = issuerList.first();
 			}
