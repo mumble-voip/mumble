@@ -1132,6 +1132,7 @@ void UserModel::moveUser(ClientUser *p, Channel *np) {
 	item = moveItem(opi, pi, item);
 
 	if (p->uiSession == Global::get().uiSession) {
+		emit localUserChannelChanged(oc->iId, np->iId);
 		ensureSelfVisible();
 		recheckLinks();
 	}

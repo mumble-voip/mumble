@@ -190,6 +190,7 @@ private:
 	Q_DISABLE_COPY(GlobalShortcutConfig)
 protected:
 	QList< Shortcut > qlShortcuts;
+	mutable QList< Shortcut > qlPreviouslyAppliedShortcuts;
 	QTreeWidgetItem *itemForShortcut(const Shortcut &) const;
 	bool showWarning() const;
 	bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
