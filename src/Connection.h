@@ -70,6 +70,8 @@ public:
 	void disconnectSocket(bool force = false);
 	void forceFlush();
 
+	/// Returns the peer's immediate certificate.
+	QSslCertificate peerCertificate() const;
 	/// Returns the peer's chain of digital certificates, starting with the peer's immediate certificate
 	/// and ending with the CA's certificate.
 	QList< QSslCertificate > peerCertificateChain() const;
