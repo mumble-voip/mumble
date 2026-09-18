@@ -314,6 +314,8 @@ QString ChanACL::whatsThis(Perm p) {
 		case Listen:
 			return tr("This represents the permission to use the listen-feature allowing to listen to a channel "
 					  "without being in it.");
+		case PrivateMessage:
+			return tr("This represents the permission to write direct text messages to other users on the server.");
 		default:
 			break;
 	}
@@ -369,6 +371,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Register Self");
 		case Listen:
 			return tr("Listen");
+		case PrivateMessage:
+			return tr("Private message");
 		default:
 			break;
 	}
