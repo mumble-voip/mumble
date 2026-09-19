@@ -46,6 +46,7 @@
 	PROCESS(audio, VAD_MODE_KEY, vsVAD)                                                     \
 	PROCESS(audio, VAD_MIN_KEY, fVADmin)                                                    \
 	PROCESS(audio, VAD_MAX_KEY, fVADmax)                                                    \
+	PROCESS(audio, VAD_WEBRTC_AGGRESSIVENESS_KEY, fVADWebRTCAggressiveness)                 \
 	PROCESS(audio, NOISE_CANCEL_MODE_KEY, noiseCancelMode)                                  \
 	PROCESS(audio, SPEEX_NOISE_CANCEL_STRENGTH_KEY, iSpeexNoiseCancelStrength)              \
 	PROCESS(audio, INPUT_CHANNEL_MASK_KEY, uiAudioInputChannelMask)                         \
