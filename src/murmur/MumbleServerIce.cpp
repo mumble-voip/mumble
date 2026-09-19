@@ -29,7 +29,9 @@
 #include <openssl/err.h>
 
 #include <Ice/Ice.h>
-#include <Ice/SliceChecksums.h>
+#if ICE_INT_VERSION < 30800
+#	include <Ice/SliceChecksums.h>
+#endif
 #include <IceUtil/IceUtil.h>
 
 #include <cassert>
@@ -2271,7 +2273,19 @@ static void impl_Meta_getSliceChecksums(const ::MumbleServer::AMD_Meta_getSliceC
 										const Ice::ObjectAdapterPtr) {
 	ICE_IMPL_BEGIN
 
+#if ICE_INT_VERSION < 30800
 	cb->ice_response(::Ice::sliceChecksums());
+#else
+	// Slice checksums are removed in Ice 3.8. Eventually, we want to remove this API function
+	// as well but until then we have to provide _something_ that allows checking whether
+	// the Slice definitions match the client's expectation. We do this by providing the server's
+	// release/version. This is absolutely not the same as the checksum thing did/attempted but it
+	// should keep code reasonably working that just checks two dicts for equality to see whether
+	// the Ice implementations are compatible.
+	MumbleServer::SliceChecksumDict dict;
+	dict.emplace("Server Release", Version::getRelease().toStdString());
+	cb->ice_response(std::move(dict));
+#endif
 
 	ICE_IMPL_END
 }
