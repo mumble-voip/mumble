@@ -95,25 +95,23 @@ typedef struct _Context {
 	unsigned int frameCount;
 } Context;
 
-static const char vshader[] =
-	"#version 330\n"
-	"layout(location = 0) in vec2 position;\n"
-	"layout(location = 1) in vec2 texcoord;\n"
-	"uniform mat4 mvp;\n"
-	"out vec2 v_texcoord;\n"
-	"void main() {\n"
-	"    gl_Position = mvp * vec4(position, 0.0, 1.0);\n"
-	"    v_texcoord = texcoord;\n"
-	"}\n";
+static const char vshader[] = "#version 330\n"
+							  "layout(location = 0) in vec2 position;\n"
+							  "layout(location = 1) in vec2 texcoord;\n"
+							  "uniform mat4 mvp;\n"
+							  "out vec2 v_texcoord;\n"
+							  "void main() {\n"
+							  "    gl_Position = mvp * vec4(position, 0.0, 1.0);\n"
+							  "    v_texcoord = texcoord;\n"
+							  "}\n";
 
-static const char fshader[] =
-	"#version 330\n"
-	"uniform sampler2D tex;\n"
-	"in vec2 v_texcoord;\n"
-	"layout(location = 0) out vec4 fragColor;\n"
-	"void main() {\n"
-	"    fragColor = texture(tex, v_texcoord);\n"
-	"}\n";
+static const char fshader[] = "#version 330\n"
+							  "uniform sampler2D tex;\n"
+							  "in vec2 v_texcoord;\n"
+							  "layout(location = 0) out vec4 fragColor;\n"
+							  "void main() {\n"
+							  "    fragColor = texture(tex, v_texcoord);\n"
+							  "}\n";
 
 const GLfloat fBorder[] = { 0.125f, 0.250f, 0.5f, 0.75f };
 
@@ -212,18 +210,18 @@ static void resolveGLFunctions(void) {
 	}
 	resolved = true;
 
-#	define GLRESOLVE(name)                                                                    \
-		do {                                                                                  \
-			if (oglXGetProcAddressARB) {                                                      \
-				o##name = (__typeof__(o##name)) oglXGetProcAddressARB((const GLubyte *) #name); \
-			}                                                                                 \
-			if (!o##name && oglXGetProcAddress) {                                              \
-				o##name = (__typeof__(o##name)) oglXGetProcAddress((const GLubyte *) #name);   \
-			}                                                                                 \
-			if (!o##name && odlsym) {                                                         \
-				o##name = (__typeof__(o##name)) odlsym(RTLD_DEFAULT, #name);                  \
-			}                                                                                 \
-		} while (0)
+#define GLRESOLVE(name)                                                                     \
+	do {                                                                                    \
+		if (oglXGetProcAddressARB) {                                                        \
+			o##name = (__typeof__(o##name)) oglXGetProcAddressARB((const GLubyte *) #name); \
+		}                                                                                   \
+		if (!o##name && oglXGetProcAddress) {                                               \
+			o##name = (__typeof__(o##name)) oglXGetProcAddress((const GLubyte *) #name);    \
+		}                                                                                   \
+		if (!o##name && odlsym) {                                                           \
+			o##name = (__typeof__(o##name)) odlsym(RTLD_DEFAULT, #name);                    \
+		}                                                                                   \
+	} while (0)
 
 	GLRESOLVE(glXGetCurrentContext);
 	GLRESOLVE(glXQueryDrawable);
@@ -282,15 +280,14 @@ static void resolveGLFunctions(void) {
 	GLRESOLVE(glGetBooleanv);
 	GLRESOLVE(glPolygonMode);
 
-#	undef GLRESOLVE
+#undef GLRESOLVE
 
-	if (!oglBindBuffer || !oglBindTexture || !oglBindVertexArray || !oglUseProgram || !oglDrawArrays
-		|| !oglEnable || !oglDisable || !oglViewport || !oglGetIntegerv || !oglGetError
-		|| !oglGenBuffers || !oglGenTextures || !oglGenVertexArrays
-		|| !oglCreateProgram || !oglCreateShader || !oglCompileShader || !oglLinkProgram || !oglAttachShader
-		|| !oglBlendEquation || !oglTexImage2D || !oglTexSubImage2D || !oglTexParameteri
-		|| !oglGetTexParameterfv || !oglGetUniformLocation || !oglUniform1i || !oglUniformMatrix4fv
-		|| !oglGetShaderiv || !oglGetProgramiv) {
+	if (!oglBindBuffer || !oglBindTexture || !oglBindVertexArray || !oglUseProgram || !oglDrawArrays || !oglEnable
+		|| !oglDisable || !oglViewport || !oglGetIntegerv || !oglGetError || !oglGenBuffers || !oglGenTextures
+		|| !oglGenVertexArrays || !oglCreateProgram || !oglCreateShader || !oglCompileShader || !oglLinkProgram
+		|| !oglAttachShader || !oglBlendEquation || !oglTexImage2D || !oglTexSubImage2D || !oglTexParameteri
+		|| !oglGetTexParameterfv || !oglGetUniformLocation || !oglUniform1i || !oglUniformMatrix4fv || !oglGetShaderiv
+		|| !oglGetProgramiv) {
 		resolveFailed = true;
 	}
 }
@@ -298,62 +295,62 @@ static void resolveGLFunctions(void) {
 // Redirect direct GL calls through the resolved function pointers.
 // This must come after resolveGLFunctions so the resolve code can
 // reference the original GL declarations from the headers.
-#	define glXGetCurrentContext oglXGetCurrentContext
-#	define glXQueryDrawable oglXQueryDrawable
-#	define glXQueryVersion oglXQueryVersion
+#define glXGetCurrentContext oglXGetCurrentContext
+#define glXQueryDrawable oglXQueryDrawable
+#define glXQueryVersion oglXQueryVersion
 
-#	define glActiveTexture oglActiveTexture
-#	define glAttachShader oglAttachShader
-#	define glBindBuffer oglBindBuffer
-#	define glBindTexture oglBindTexture
-#	define glBindVertexArray oglBindVertexArray
-#	define glBlendFunc oglBlendFunc
-#	define glBlendFuncSeparate oglBlendFuncSeparate
-#	define glBufferData oglBufferData
-#	define glBufferSubData oglBufferSubData
-#	define glCompileShader oglCompileShader
-#	define glCreateProgram oglCreateProgram
-#	define glCreateShader oglCreateShader
-#	define glDeleteProgram oglDeleteProgram
-#	define glDeleteShader oglDeleteShader
-#	define glDeleteTextures oglDeleteTextures
-#	define glDisable oglDisable
-#	define glDrawArrays oglDrawArrays
-#	define glEnable oglEnable
-#	define glEnableVertexAttribArray oglEnableVertexAttribArray
-#	define glGenBuffers oglGenBuffers
-#	define glGenTextures oglGenTextures
-#	define glGenVertexArrays oglGenVertexArrays
-#	define glGetError oglGetError
-#	define glGetIntegerv oglGetIntegerv
-#	define glGetProgramInfoLog oglGetProgramInfoLog
-#	define glGetProgramiv oglGetProgramiv
-#	define glGetShaderInfoLog oglGetShaderInfoLog
-#	define glGetShaderiv oglGetShaderiv
-#	define glGetString oglGetString
-#	define glGetTexParameterfv oglGetTexParameterfv
-#	define glGetUniformLocation oglGetUniformLocation
-#	define glIsEnabled oglIsEnabled
-#	define glIsTexture oglIsTexture
-#	define glLinkProgram oglLinkProgram
-#	define glPixelStorei oglPixelStorei
-#	define glShaderSource oglShaderSource
-#	define glTexImage2D oglTexImage2D
-#	define glTexParameterfv oglTexParameterfv
-#	define glTexParameteri oglTexParameteri
-#	define glTexSubImage2D oglTexSubImage2D
-#	define glUniform1i oglUniform1i
-#	define glUniformMatrix4fv oglUniformMatrix4fv
-#	define glUseProgram oglUseProgram
-#	define glVertexAttribPointer oglVertexAttribPointer
-#	define glViewport oglViewport
+#define glActiveTexture oglActiveTexture
+#define glAttachShader oglAttachShader
+#define glBindBuffer oglBindBuffer
+#define glBindTexture oglBindTexture
+#define glBindVertexArray oglBindVertexArray
+#define glBlendFunc oglBlendFunc
+#define glBlendFuncSeparate oglBlendFuncSeparate
+#define glBufferData oglBufferData
+#define glBufferSubData oglBufferSubData
+#define glCompileShader oglCompileShader
+#define glCreateProgram oglCreateProgram
+#define glCreateShader oglCreateShader
+#define glDeleteProgram oglDeleteProgram
+#define glDeleteShader oglDeleteShader
+#define glDeleteTextures oglDeleteTextures
+#define glDisable oglDisable
+#define glDrawArrays oglDrawArrays
+#define glEnable oglEnable
+#define glEnableVertexAttribArray oglEnableVertexAttribArray
+#define glGenBuffers oglGenBuffers
+#define glGenTextures oglGenTextures
+#define glGenVertexArrays oglGenVertexArrays
+#define glGetError oglGetError
+#define glGetIntegerv oglGetIntegerv
+#define glGetProgramInfoLog oglGetProgramInfoLog
+#define glGetProgramiv oglGetProgramiv
+#define glGetShaderInfoLog oglGetShaderInfoLog
+#define glGetShaderiv oglGetShaderiv
+#define glGetString oglGetString
+#define glGetTexParameterfv oglGetTexParameterfv
+#define glGetUniformLocation oglGetUniformLocation
+#define glIsEnabled oglIsEnabled
+#define glIsTexture oglIsTexture
+#define glLinkProgram oglLinkProgram
+#define glPixelStorei oglPixelStorei
+#define glShaderSource oglShaderSource
+#define glTexImage2D oglTexImage2D
+#define glTexParameterfv oglTexParameterfv
+#define glTexParameteri oglTexParameteri
+#define glTexSubImage2D oglTexSubImage2D
+#define glUniform1i oglUniform1i
+#define glUniformMatrix4fv oglUniformMatrix4fv
+#define glUseProgram oglUseProgram
+#define glVertexAttribPointer oglVertexAttribPointer
+#define glViewport oglViewport
 
-#	define glBindFramebuffer oglBindFramebuffer
-#	define glBlendEquation oglBlendEquation
-#	define glBlendEquationSeparate oglBlendEquationSeparate
-#	define glColorMask oglColorMask
-#	define glGetBooleanv oglGetBooleanv
-#	define glPolygonMode oglPolygonMode
+#define glBindFramebuffer oglBindFramebuffer
+#define glBlendEquation oglBlendEquation
+#define glBlendEquationSeparate oglBlendEquationSeparate
+#define glColorMask oglColorMask
+#define glGetBooleanv oglGetBooleanv
+#define glPolygonMode oglPolygonMode
 
 __attribute__((format(printf, 1, 2))) static void ods(const char *format, ...) {
 	if (!bDebug) {
@@ -737,14 +734,8 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	float xmx = right / w;
 	float ymx = bottom / h;
 
-	GLfloat data[] = {
-		left,  bottom, xm,  ymx,
-		left,  top,    xm,  ym,
-		right, top,    xmx, ym,
-		left,  bottom, xm,  ymx,
-		right, top,    xmx, ym,
-		right, bottom, xmx, ymx
-	};
+	GLfloat data[] = { left, bottom, xm, ymx, left,  top, xm,  ym, right, top,    xmx, ym,
+					   left, bottom, xm, ymx, right, top, xmx, ym, right, bottom, xmx, ymx };
 
 	glBindVertexArray(ctx->vao);
 	glBindBuffer(GL_ARRAY_BUFFER, ctx->vbo);
@@ -810,11 +801,11 @@ static void drawContext(Context *ctx, int width, int height) {
 	glGetIntegerv(GL_UNPACK_ROW_LENGTH, &savedUnpackRowLength);
 	glGetIntegerv(GL_UNPACK_SKIP_PIXELS, &savedUnpackSkipPixels);
 	glGetIntegerv(GL_UNPACK_SKIP_ROWS, &savedUnpackSkipRows);
-	savedBlend          = glIsEnabled(GL_BLEND);
-	savedDepthTest      = glIsEnabled(GL_DEPTH_TEST);
-	savedScissorTest    = glIsEnabled(GL_SCISSOR_TEST);
-	savedCullFace       = glIsEnabled(GL_CULL_FACE);
-	savedStencilTest    = glIsEnabled(GL_STENCIL_TEST);
+	savedBlend           = glIsEnabled(GL_BLEND);
+	savedDepthTest       = glIsEnabled(GL_DEPTH_TEST);
+	savedScissorTest     = glIsEnabled(GL_SCISSOR_TEST);
+	savedCullFace        = glIsEnabled(GL_CULL_FACE);
+	savedStencilTest     = glIsEnabled(GL_STENCIL_TEST);
 	savedFramebufferSrgb = glIsEnabled(GL_FRAMEBUFFER_SRGB);
 	glGetIntegerv(GL_BLEND_SRC_RGB, &savedBlendSrcRGB);
 	glGetIntegerv(GL_BLEND_DST_RGB, &savedBlendDstRGB);
@@ -888,8 +879,8 @@ static void drawContext(Context *ctx, int width, int height) {
 	glToggle(GL_CULL_FACE, savedCullFace);
 	glToggle(GL_STENCIL_TEST, savedStencilTest);
 	glToggle(GL_FRAMEBUFFER_SRGB, savedFramebufferSrgb);
-	glBlendFuncSeparate((GLenum) savedBlendSrcRGB, (GLenum) savedBlendDstRGB,
-						(GLenum) savedBlendSrcAlpha, (GLenum) savedBlendDstAlpha);
+	glBlendFuncSeparate((GLenum) savedBlendSrcRGB, (GLenum) savedBlendDstRGB, (GLenum) savedBlendSrcAlpha,
+						(GLenum) savedBlendDstAlpha);
 	glBlendEquationSeparate((GLenum) savedBlendEqRGB, (GLenum) savedBlendEqAlpha);
 	glColorMask(savedColorMask[0], savedColorMask[1], savedColorMask[2], savedColorMask[3]);
 	if (savedPolygonMode[0] != GL_FILL || savedPolygonMode[1] != GL_FILL) {
