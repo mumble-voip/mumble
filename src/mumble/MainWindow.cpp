@@ -2119,6 +2119,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
 
 	::TextMessage *texm = new ::TextMessage(this, tr("Sending message to %1").arg(p->qsName));
+	messageBoxPointer   = texm;
 	int res             = texm->exec();
 
 	// Try to get find the user using the session id.
@@ -2133,6 +2134,11 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 			Global::get().l->log(Log::TextMessage,
 								 tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()),
 								 tr("Message to %1").arg(p->qsName), true);
+		}
+	} else if (!p && (res == QDialog::Accepted)) {
+		QString msg = texm->message();
+		if (!msg.isEmpty()) {
+			Global::get().l->log(Log::Warning, tr("Failed to send: '%1'").arg(msg, true));
 		}
 	}
 	delete texm;
@@ -2601,6 +2607,7 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 	unsigned int id = c->iId;
 
 	::TextMessage *texm = new ::TextMessage(this, tr("Sending message to channel %1").arg(c->qsName), true);
+	messageBoxPointer   = texm;
 	int res             = texm->exec();
 
 	c = Channel::get(id);
@@ -2614,6 +2621,12 @@ void MainWindow::on_qaChannelSendMessage_triggered() {
 		else
 			Global::get().l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), texm->message()),
 								 tr("Message to channel %1").arg(c->qsName), true);
+	} else if (Global::get().uiSession == 0 && (res == QDialog::Accepted)) {
+		QString msg = texm->message();
+		// This indicates to the user that the connection was lost before their message was sent, so the message was not delivered.
+		if (!msg.isEmpty()) {
+			Global::get().l->log(Log::Warning, tr("Failed to send: '%1'").arg(msg, true));
+		}
 	}
 	delete texm;
 }
@@ -2719,7 +2732,17 @@ void MainWindow::updateMenuPermissions() {
 	}
 	qteChat->setEnabled(chatBarEnabled);
 }
-
+//updates the ok button for sending message thought message box dialog
+void MainWindow::updateTextBoxSend() {
+	
+	if (messageBoxPointer != nullptr) {
+		if (Global::get().uiSession == 0) { 
+			messageBoxPointer->qbbButtons->button(QDialogButtonBox::Ok)->setEnabled(false);
+		} else { 
+			messageBoxPointer->qbbButtons->button(QDialogButtonBox::Ok)->setEnabled(true);
+		}
+	}
+}
 void MainWindow::userStateChanged() {
 	emit talkingStatusChanged();
 
@@ -3884,7 +3907,11 @@ void MainWindow::updateChatBar() {
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
 	if (Global::get().uiSession == 0) {
-		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
+		if (bRetryServer) {
+			qteChat->setEnabled(false);
+		} else {
+			qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
+		}
 	} else if (!Global::get().s.bChatBarUseSelection || !p || p->uiSession == Global::get().uiSession) {
 		// Channel tree target
 		if (!Global::get().s.bChatBarUseSelection || !c) // If no channel selected fallback to current one
@@ -3898,6 +3925,7 @@ void MainWindow::updateChatBar() {
 	}
 
 	updateMenuPermissions();
+	updateTextBoxSend();
 }
 
 void MainWindow::customEvent(QEvent *evt) {
@@ -4094,6 +4122,8 @@ void MainWindow::disconnectFromServer() {
 	if (Global::get().sh && Global::get().sh->isRunning()) {
 		Global::get().sh->disconnect();
 	}
+	bRetryServer = false;
+	updateChatBar();
 }
 
 void MainWindow::addServerAsFavorite() {
