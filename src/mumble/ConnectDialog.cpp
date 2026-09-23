@@ -1137,7 +1137,7 @@ ConnectDialog::~ConnectDialog() {
 
 void ConnectDialog::accept() {
 	ServerItem *si = static_cast< ServerItem * >(qtwServers->currentItem());
-	if (!si || (bAllowHostLookup && si->qlAddresses.isEmpty()) || si->qsHostname.isEmpty()) {
+	if (!si || si->qsHostname.isEmpty()) {
 		qWarning() << "Invalid server";
 		return;
 	}
@@ -1342,11 +1342,9 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 		qpbEdit->setEnabled(false);
 	}
 
-	bool bOk = !si->qlAddresses.isEmpty();
-	if (!bAllowHostLookup) {
-		bOk = true;
-	}
-	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
+	bool hasParent   = si->siParent != nullptr;
+	bool hasHostname = si->qsHostname.isEmpty();
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(hasParent && hasHostname);
 
 	bLastFound = true;
 }
@@ -1502,13 +1500,8 @@ void ConnectDialog::timeTick() {
 			qtwServers->setCurrentItem(items.at(0));
 			if (Global::get().s.bAutoConnect && bAutoConnect) {
 				siAutoConnect = static_cast< ServerItem * >(items.at(0));
-				if (!siAutoConnect->qlAddresses.isEmpty()) {
-					accept();
-					return;
-				} else if (!bAllowHostLookup) {
-					accept();
-					return;
-				}
+				accept();
+				return;
 			}
 		}
 	}
@@ -1668,9 +1661,6 @@ void ConnectDialog::startDns(ServerItem *si) {
 			si->qlAddresses = qhDNSCache.value(unresolved);
 		}
 	}
-
-	if (qtwServers->currentItem() == si)
-		qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(!si->qlAddresses.isEmpty());
 
 	if (!si->qlAddresses.isEmpty()) {
 		for (const ServerAddress &addr : si->qlAddresses) {
