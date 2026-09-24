@@ -789,26 +789,33 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 	setWindowTitle(tr("Add Server"));
 	init();
 
-	if (!updateFromClipboard()) {
-		// If connected to a server assume the user wants to add it
-		if (Global::get().sh && Global::get().sh->isRunning()) {
-			QString host, name, user, pw;
-			unsigned short port = DEFAULT_MUMBLE_PORT;
-
-			Global::get().sh->getConnectionInfo(host, port, user, pw);
-			Channel *c = Channel::get(Mumble::ROOT_CHANNEL_ID);
-			if (c && c->qsName != QLatin1String("Root")) {
-				name = c->qsName;
-			}
-
-			showNotice(tr("You are currently connected to a server.\nDo you want to fill the dialog with the "
-						  "connection data of this server?\nHost: %1 Port: %2")
-						   .arg(host)
-						   .arg(port));
-			m_si = new ServerItem(name, host, port, user, pw);
-		}
-	}
 	qleUsername->setText(Global::get().s.qsUsername);
+
+	if (updateFromClipboard()) {
+		return;
+	}
+
+	if (updateFromSearch()) {
+		return;
+	}
+
+	// If connected to a server assume the user wants to add it
+	if (Global::get().sh && Global::get().sh->isRunning()) {
+		QString host, name, user, pw;
+		unsigned short port = DEFAULT_MUMBLE_PORT;
+
+		Global::get().sh->getConnectionInfo(host, port, user, pw);
+		Channel *c = Channel::get(Mumble::ROOT_CHANNEL_ID);
+		if (c && c->qsName != QLatin1String("Root")) {
+			name = c->qsName;
+		}
+
+		showNotice(tr("You are currently connected to a server.\nDo you want to fill the dialog with the "
+					  "connection data of this server?\nHost: %1 Port: %2")
+					   .arg(host)
+					   .arg(port));
+		m_si = new ServerItem(name, host, port, user, pw);
+	}
 }
 
 void ConnectDialogEdit::init() {
@@ -858,6 +865,23 @@ bool ConnectDialogEdit::updateFromClipboard() {
 		adjustSize();
 		return false;
 	}
+}
+
+bool ConnectDialogEdit::updateFromSearch() {
+	ConnectDialog *connectDialog = qobject_cast< ConnectDialog * >(parent());
+
+	if (!connectDialog) {
+		return false;
+	}
+
+	QString searchContent = connectDialog->qleSearchServername->text();
+
+	if (searchContent.isEmpty() || searchContent.length() <= 2) {
+		return false;
+	}
+
+	qleServer->setText(searchContent);
+	return true;
 }
 
 void ConnectDialogEdit::on_qbFill_clicked() {
