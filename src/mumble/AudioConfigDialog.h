@@ -17,6 +17,7 @@ private:
 	Q_DISABLE_COPY(AudioInputDialog)
 
 	void updateAudioCueEnabled();
+	void updateVad();
 
 protected:
 	QTimer *qtTick;
@@ -67,6 +68,11 @@ public slots:
 	void on_qcbIdleAction_currentIndexChanged(int v);
 	void on_qrbNoiseSupSpeex_toggled(bool checked);
 	void on_qrbNoiseSupBoth_toggled(bool checked);
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	void on_qrbWebRTC_toggled(bool);
+	void on_qsWebRTCAggressiveness_valueChanged(int);
+#endif
 };
 
 class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
