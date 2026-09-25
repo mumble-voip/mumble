@@ -256,6 +256,7 @@ AudioDeviceID GetDeviceID(const QString& devUid, AUDirection type) {
 	len                       = sizeof(AudioValueTranslation);
 	propertyAddress.mSelector = kAudioHardwarePropertyDeviceForUID;
 	err = AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, nullptr, &len, &avt);
+	CFRelease(csDevUid);
 	if (err != noErr) {
 		throw CoreAudioException(QString("Unable to query AudioDeviceID of %1.").arg(devUid));
 	}
