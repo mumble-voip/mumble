@@ -51,6 +51,13 @@ const AudioObjectPropertyAddress kOutputDeviceAddress = {
 	kAudioObjectPropertyScopeGlobal,
 	kAudioObjectPropertyElementMain
 };
+// Fires whenever a device is added to or removed from the system, not just when the default
+// device changes; used to notice a specifically selected (non-default) device coming back.
+const AudioObjectPropertyAddress kDeviceListAddress = {
+	kAudioHardwarePropertyDevices,
+	kAudioObjectPropertyScopeGlobal,
+	kAudioObjectPropertyElementMain
+};
 
 // CoreAudio delivers property/device change notifications on its own
 // dispatch threads, not on the Qt main thread. Audio::stopInput()/
@@ -260,6 +267,23 @@ AudioDeviceID GetDeviceID(const QString& devUid, AUDirection type) {
 	}
 
 	return devId;
+}
+
+// Non-throwing wrapper around GetDeviceID(): callers get a bool instead of having to catch
+// CoreAudioException themselves for the common "not found" case.
+bool DeviceExists(const QString &devUid, AUDirection type) {
+	try {
+		GetDeviceID(devUid, type);
+		return true;
+	} catch (CoreAudioException &) {
+		return false;
+	}
+}
+
+// True when configuredDevice is set and its current availability no longer matches onFallback,
+// i.e. it just disappeared while in use, or just reappeared while running on the fallback.
+bool DeviceAvailabilityChanged(const QString &configuredDevice, bool onFallback, AUDirection type) {
+	return !configuredDevice.isEmpty() && DeviceExists(configuredDevice, type) == onFallback;
 }
 
 AudioDeviceID GetDefaultDeviceID(AUDirection type) {
@@ -818,19 +842,28 @@ void CoreAudioInput::run() {
 	auHAL = nullptr;
 	auVoip = nullptr;
 
+	// Read once here rather than from devicesChanged(), which runs on a CoreAudio notification
+	// thread and must not touch Global::get().s.
+	qsConfiguredInputDevice = QString();
+	bInputOnFallbackDevice  = false;
+	qsConfiguredEchoDevice  = QString();
+	bEchoOnFallbackDevice   = false;
+
 	memset(&buflist, 0, sizeof(AudioBufferList));
 
 	try {
 		if (!Global::get().s.qsCoreAudioInput.isEmpty()) {
 			qWarning("CoreAudioInput: Set device to '%s'.", qPrintable(Global::get().s.qsCoreAudioInput));
+			qsConfiguredInputDevice = Global::get().s.qsCoreAudioInput;
 			try {
-				inputDevId = core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioInput, AUDirection::INPUT);
+				inputDevId = core_audio_utils::GetDeviceID(qsConfiguredInputDevice, AUDirection::INPUT);
 			} catch (core_audio_utils::CoreAudioException &e) {
 				// Selected device is gone (e.g. unplugged); the setting is left untouched so it's
 				// used again once it reappears.
 				qWarning("CoreAudioInput: Selected device '%s' is not available (%s), falling back to the "
-						 "default device.", qPrintable(Global::get().s.qsCoreAudioInput), qPrintable(e.getMessage()));
+						 "default device.", qPrintable(qsConfiguredInputDevice), qPrintable(e.getMessage()));
 				inputDevId = core_audio_utils::GetDefaultDeviceID(AUDirection::INPUT);
+				bInputOnFallbackDevice = true;
 			}
 		} else {
 			qWarning("CoreAudioInput: Set device to 'Default Device'.");
@@ -841,14 +874,14 @@ void CoreAudioInput::run() {
 			// qsCoreAudioOutput may be empty ("Default Device"); GetDeviceID() would now throw
 			// for an empty UID, so only look it up when a specific device is actually selected.
 			if (!Global::get().s.qsCoreAudioOutput.isEmpty()) {
+				qsConfiguredEchoDevice = Global::get().s.qsCoreAudioOutput;
 				try {
-					echoOutputDevId =
-						core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioOutput, AUDirection::OUTPUT);
+					echoOutputDevId = core_audio_utils::GetDeviceID(qsConfiguredEchoDevice, AUDirection::OUTPUT);
 				} catch (core_audio_utils::CoreAudioException &e) {
 					qWarning("CoreAudioInput: Selected echo device '%s' is not available (%s), falling back to "
-							 "the default device.", qPrintable(Global::get().s.qsCoreAudioOutput),
-							 qPrintable(e.getMessage()));
+							 "the default device.", qPrintable(qsConfiguredEchoDevice), qPrintable(e.getMessage()));
 					// echoOutputDevId stays 0; openAUVoip() then falls back to the default output.
+					bEchoOnFallbackDevice = true;
 				}
 			}
 			if (!openAUVoip(fmt)) { return; };
@@ -937,6 +970,19 @@ void CoreAudioInput::run() {
 		bDeviceListenerRegistered = true;
 	}
 
+	// Only worth listening for devices appearing/disappearing when a specific (non-default)
+	// device is actually configured; the default device is already covered by the listener above.
+	if (!qsConfiguredInputDevice.isEmpty() || !qsConfiguredEchoDevice.isEmpty()) {
+		err = AudioObjectAddPropertyListener(kAudioObjectSystemObject, &kDeviceListAddress,
+											  CoreAudioInput::devicesChanged, this);
+		if (err != noErr) {
+			qWarning("CoreAudioInput: Unable to create device list change listener. Unable to notice the "
+					 "selected device coming back. (OSStatus %d)", static_cast< int >(err));
+		} else {
+			bDeviceListListenerRegistered = true;
+		}
+	}
+
 	buflist.mNumberBuffers = 1;
 	AudioBuffer *b         = buflist.mBuffers;
 	b->mNumberChannels     = iMicChannels;
@@ -951,6 +997,15 @@ void CoreAudioInput::run() {
 	}
 
 	bRunning = true;
+
+	// The listener above was only just registered; catch here a configured device that already
+	// changed availability before that.
+	if (core_audio_utils::DeviceAvailabilityChanged(qsConfiguredInputDevice, bInputOnFallbackDevice,
+													AUDirection::INPUT)
+		|| core_audio_utils::DeviceAvailabilityChanged(qsConfiguredEchoDevice, bEchoOnFallbackDevice,
+													   AUDirection::OUTPUT)) {
+		scheduleInputRestart();
+	}
 }
 
 void CoreAudioInput::stop() {
@@ -972,6 +1027,13 @@ void CoreAudioInput::stop() {
 		                                                     CoreAudioInput::deviceChange, this),
 		                   "CoreAudioInput: Unable to remove input device change listener.");
 		bDeviceListenerRegistered = false;
+	}
+
+	if (bDeviceListListenerRegistered) {
+		CHECK_WARN_STATUS(AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &kDeviceListAddress,
+		                                                     CoreAudioInput::devicesChanged, this),
+		                   "CoreAudioInput: Unable to remove device list change listener.");
+		bDeviceListListenerRegistered = false;
 	}
 
 	if (auHAL) {
@@ -1066,6 +1128,31 @@ OSStatus CoreAudioInput::deviceChange(AudioObjectID inObjectID, UInt32 inNumberA
 	return noErr;
 }
 
+OSStatus CoreAudioInput::devicesChanged(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+										const AudioObjectPropertyAddress inAddresses[], void *udata) {
+	Q_UNUSED(inObjectID);
+	Q_UNUSED(inNumberAddresses);
+	Q_UNUSED(inAddresses);
+
+	CoreAudioInput *o = reinterpret_cast< CoreAudioInput * >(udata);
+	if (!o->bRunning) return noErr;
+
+	// Device list changes for unrelated devices too; only restart if this flips whether one of
+	// our configured devices just appeared or disappeared.
+	bool restart = core_audio_utils::DeviceAvailabilityChanged(o->qsConfiguredInputDevice,
+																o->bInputOnFallbackDevice, AUDirection::INPUT)
+				|| core_audio_utils::DeviceAvailabilityChanged(o->qsConfiguredEchoDevice,
+																o->bEchoOnFallbackDevice, AUDirection::OUTPUT);
+
+	if (restart) {
+		qWarning("CoreAudioInput: Selected device availability changed. Restarting AudioInput.");
+		// See the comment in propertyChange(): the restart must happen on the main thread, not here.
+		scheduleInputRestart();
+	}
+
+	return noErr;
+}
+
 
 CoreAudioOutput::CoreAudioOutput() {
 }
@@ -1080,18 +1167,25 @@ void CoreAudioOutput::run() {
 	AudioObjectPropertyAddress propertyAddress = { 0, kAudioDevicePropertyScopeOutput,
 	                                               kAudioObjectPropertyElementMain };
 
+	// Read once here rather than from devicesChanged(), which runs on a CoreAudio notification
+	// thread and must not touch Global::get().s.
+	qsConfiguredOutputDevice = QString();
+	bOutputOnFallbackDevice  = false;
+
 	try {
 		if (!Global::get().s.qsCoreAudioOutput.isEmpty()) {
 			qWarning("CoreAudioOutput: Set device to '%s'.", qPrintable(Global::get().s.qsCoreAudioOutput));
+			qsConfiguredOutputDevice = Global::get().s.qsCoreAudioOutput;
 
 			try {
-				devId = core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioOutput, AUDirection::OUTPUT);
+				devId = core_audio_utils::GetDeviceID(qsConfiguredOutputDevice, AUDirection::OUTPUT);
 			} catch (core_audio_utils::CoreAudioException &e) {
 				// Selected device is gone (e.g. unplugged); the setting is left untouched so it's
 				// used again once it reappears.
 				qWarning("CoreAudioOutput: Selected device '%s' is not available (%s), falling back to the "
-						 "default device.", qPrintable(Global::get().s.qsCoreAudioOutput), qPrintable(e.getMessage()));
+						 "default device.", qPrintable(qsConfiguredOutputDevice), qPrintable(e.getMessage()));
 				devId = core_audio_utils::GetDefaultDeviceID(AUDirection::OUTPUT);
+				bOutputOnFallbackDevice = true;
 			}
 		} else {
 			qWarning("CoreAudioOutput: Set device to 'Default Device'.");
@@ -1190,6 +1284,19 @@ void CoreAudioOutput::run() {
 		bDeviceListenerRegistered = true;
 	}
 
+	// Only worth listening for devices appearing/disappearing when a specific (non-default)
+	// device is actually configured; the default device is already covered by the listener above.
+	if (!qsConfiguredOutputDevice.isEmpty()) {
+		err = AudioObjectAddPropertyListener(kAudioObjectSystemObject, &kDeviceListAddress,
+											  CoreAudioOutput::devicesChanged, this);
+		if (err != noErr) {
+			qWarning("CoreAudioOutput: Unable to create device list change listener. Unable to notice the "
+					 "selected device coming back. (OSStatus %d)", static_cast< int >(err));
+		} else {
+			bDeviceListListenerRegistered = true;
+		}
+	}
+
 	AURenderCallbackStruct cb;
 	cb.inputProc       = CoreAudioOutput::outputCallback;
 	cb.inputProcRefCon = this;
@@ -1217,6 +1324,12 @@ void CoreAudioOutput::run() {
 	             "CoreAudioOutput: Unable to start AudioUnit");
 
 	bRunning = true;
+
+	// See CoreAudioInput::run() for why this check exists.
+	if (core_audio_utils::DeviceAvailabilityChanged(qsConfiguredOutputDevice, bOutputOnFallbackDevice,
+													AUDirection::OUTPUT)) {
+		scheduleOutputRestart();
+	}
 }
 
 void CoreAudioOutput::stop() {
@@ -1236,6 +1349,13 @@ void CoreAudioOutput::stop() {
 		                                                     CoreAudioOutput::deviceChange, this),
 		                   "CoreAudioOutput: Unable to remove output device change listener.");
 		bDeviceListenerRegistered = false;
+	}
+
+	if (bDeviceListListenerRegistered) {
+		CHECK_WARN_STATUS(AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &kDeviceListAddress,
+		                                                     CoreAudioOutput::devicesChanged, this),
+		                   "CoreAudioOutput: Unable to remove device list change listener.");
+		bDeviceListListenerRegistered = false;
 	}
 
 	if (auHAL) {
@@ -1315,6 +1435,27 @@ OSStatus CoreAudioOutput::deviceChange(AudioObjectID inObjectID, UInt32 inNumber
 	qWarning("CoreAudioOutput: Output device change detected. Restarting AudioOutput.");
 	// See the comment in propertyChange(): the restart must happen on the main thread, not here.
 	scheduleOutputRestart();
+
+	return noErr;
+}
+
+OSStatus CoreAudioOutput::devicesChanged(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+										 const AudioObjectPropertyAddress inAddresses[], void *udata) {
+	Q_UNUSED(inObjectID);
+	Q_UNUSED(inNumberAddresses);
+	Q_UNUSED(inAddresses);
+
+	CoreAudioOutput *o = reinterpret_cast< CoreAudioOutput * >(udata);
+	if (!o->bRunning) return noErr;
+
+	// Device list changes for unrelated devices too; only restart if this flips availability -
+	// see CoreAudioInput::devicesChanged().
+	if (core_audio_utils::DeviceAvailabilityChanged(o->qsConfiguredOutputDevice, o->bOutputOnFallbackDevice,
+													AUDirection::OUTPUT)) {
+		qWarning("CoreAudioOutput: Selected device availability changed. Restarting AudioOutput.");
+		// See the comment in propertyChange(): the restart must happen on the main thread, not here.
+		scheduleOutputRestart();
+	}
 
 	return noErr;
 }
