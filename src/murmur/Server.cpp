@@ -1495,12 +1495,6 @@ void Server::newClient() {
 #endif
 		sock->setSslConfiguration(config);
 
-		if (qqIds.isEmpty()) {
-			log(QString("Session ID pool (%1) empty, rejecting connection").arg(iMaxUsers));
-			sock->disconnectFromHost();
-			sock->deleteLater();
-			return;
-		}
 
 		ServerUser *u = new ServerUser(this, sock);
 		u->haAddress  = ha;
