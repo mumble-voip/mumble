@@ -655,6 +655,56 @@ QString Log::validHtml(const QString &html, QTextCursor *tc) {
 	(void) qtd.documentLayout();
 	qtd.setHtml(html);
 
+	// ==== dsh patch 1：收到的图片自动缩放到聊天栏宽度 ====
+	// 原版行为：图片按发送方嵌入的尺寸原样显示，1600px 宽的大图会把聊天窗口撑爆，
+	// 而且超过 2048x2048 的消息会被判定为 "Text object too large to display" 直接丢弃。
+	// 这里在文档装载后、尺寸校验前，把每张图片按聊天视图宽度等比缩小（只改显示尺寸，
+	// 不碰原始资源），既不会撑爆窗口，也让原来会被丢掉的大图能正常显示。
+	// 修改点：src/mumble/Log.cpp 的 Log::validHtml
+	{
+		int dshTargetWidth = 0;
+		if (Global::get().mw && Global::get().mw->qteLog) {
+			dshTargetWidth = Global::get().mw->qteLog->viewport()->width() - 32;
+		}
+		if (dshTargetWidth <= 0) {
+			dshTargetWidth = qr.width() / 2 - 32;
+		}
+		if (dshTargetWidth > 0) {
+			for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
+				for (QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
+					const QTextFragment &qtf = qtbi.fragment();
+					QTextCharFormat qcf      = qtf.charFormat();
+					if (!qcf.isImageFormat()) {
+						continue;
+					}
+					QTextImageFormat qif = qcf.toImageFormat();
+					int w                = static_cast< int >(qif.width());
+					int h                = static_cast< int >(qif.height());
+					if (w <= 0 || h <= 0) {
+						// 显示尺寸未知时，去文档资源里取图片原始尺寸
+						const QVariant res = qtd.resource(QTextDocument::ImageResource, QUrl(qif.name()));
+						if (res.canConvert< QImage >()) {
+							const QImage img = res.value< QImage >();
+							w                = img.width();
+							h                = img.height();
+						}
+					}
+					if (w <= 0 || h <= 0 || w <= dshTargetWidth) {
+						continue;
+					}
+					qif.setWidth(dshTargetWidth);
+					qif.setHeight(qMax(1, static_cast< int >(h * (static_cast< double >(dshTargetWidth) / w))));
+					QTextCursor qtc(&qtd);
+					qtc.setPosition(qtf.position(), QTextCursor::MoveAnchor);
+					qtc.setPosition(qtf.position() + qtf.length(), QTextCursor::KeepAnchor);
+					qtc.setCharFormat(qif);
+					qtbi = qtb.begin(); // 尺寸改动会让迭代器失效，重新从头遍历本块
+				}
+			}
+		}
+	}
+	// ==== dsh patch 1 结束 ====
+
 	QStringList qslAllowed = allowedSchemes();
 	for (QTextBlock qtb = qtd.begin(); qtb != qtd.end(); qtb = qtb.next()) {
 		for (QTextBlock::iterator qtbi = qtb.begin(); qtbi != qtb.end(); ++qtbi) {
