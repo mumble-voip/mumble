@@ -253,6 +253,12 @@ AudioDeviceID GetDeviceID(const QString& devUid, AUDirection type) {
 		throw CoreAudioException(QString("Unable to query AudioDeviceID of %1.").arg(devUid));
 	}
 
+	// A missing UID returns noErr with kAudioObjectUnknown rather than an error; treat that
+	// as a lookup failure too so callers fall back instead of opening a nonexistent device.
+	if (devId == kAudioObjectUnknown) {
+		throw CoreAudioException(QString("Device %1 is not currently available.").arg(devUid));
+	}
+
 	return devId;
 }
 
@@ -817,14 +823,34 @@ void CoreAudioInput::run() {
 	try {
 		if (!Global::get().s.qsCoreAudioInput.isEmpty()) {
 			qWarning("CoreAudioInput: Set device to '%s'.", qPrintable(Global::get().s.qsCoreAudioInput));
-			inputDevId = core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioInput, AUDirection::INPUT);
+			try {
+				inputDevId = core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioInput, AUDirection::INPUT);
+			} catch (core_audio_utils::CoreAudioException &e) {
+				// Selected device is gone (e.g. unplugged); the setting is left untouched so it's
+				// used again once it reappears.
+				qWarning("CoreAudioInput: Selected device '%s' is not available (%s), falling back to the "
+						 "default device.", qPrintable(Global::get().s.qsCoreAudioInput), qPrintable(e.getMessage()));
+				inputDevId = core_audio_utils::GetDefaultDeviceID(AUDirection::INPUT);
+			}
 		} else {
 			qWarning("CoreAudioInput: Set device to 'Default Device'.");
 			inputDevId = core_audio_utils::GetDefaultDeviceID(AUDirection::INPUT);
 		}
 
 		if (doEcho) {
-			echoOutputDevId = core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioOutput, AUDirection::OUTPUT);
+			// qsCoreAudioOutput may be empty ("Default Device"); GetDeviceID() would now throw
+			// for an empty UID, so only look it up when a specific device is actually selected.
+			if (!Global::get().s.qsCoreAudioOutput.isEmpty()) {
+				try {
+					echoOutputDevId =
+						core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioOutput, AUDirection::OUTPUT);
+				} catch (core_audio_utils::CoreAudioException &e) {
+					qWarning("CoreAudioInput: Selected echo device '%s' is not available (%s), falling back to "
+							 "the default device.", qPrintable(Global::get().s.qsCoreAudioOutput),
+							 qPrintable(e.getMessage()));
+					// echoOutputDevId stays 0; openAUVoip() then falls back to the default output.
+				}
+			}
 			if (!openAUVoip(fmt)) { return; };
 		} else {
 			if (!openAUHAL(fmt)) { return; };
@@ -1058,7 +1084,15 @@ void CoreAudioOutput::run() {
 		if (!Global::get().s.qsCoreAudioOutput.isEmpty()) {
 			qWarning("CoreAudioOutput: Set device to '%s'.", qPrintable(Global::get().s.qsCoreAudioOutput));
 
-			devId = core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioOutput, AUDirection::OUTPUT);
+			try {
+				devId = core_audio_utils::GetDeviceID(Global::get().s.qsCoreAudioOutput, AUDirection::OUTPUT);
+			} catch (core_audio_utils::CoreAudioException &e) {
+				// Selected device is gone (e.g. unplugged); the setting is left untouched so it's
+				// used again once it reappears.
+				qWarning("CoreAudioOutput: Selected device '%s' is not available (%s), falling back to the "
+						 "default device.", qPrintable(Global::get().s.qsCoreAudioOutput), qPrintable(e.getMessage()));
+				devId = core_audio_utils::GetDefaultDeviceID(AUDirection::OUTPUT);
+			}
 		} else {
 			qWarning("CoreAudioOutput: Set device to 'Default Device'.");
 
