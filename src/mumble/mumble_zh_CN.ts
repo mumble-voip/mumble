@@ -5211,11 +5211,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>当 Control 键按下时， 鼠标滚轮向上（增大）或向下（减小）滚动是否更改已选用户的本地音量。</translation>
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL + 滚轮更改已选用户音量</translation>
     </message>
 </context>
 <context>
