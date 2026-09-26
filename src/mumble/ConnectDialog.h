@@ -217,6 +217,7 @@ public slots:
 	void on_qleServer_textEdited(const QString &);
 	void showNotice(const QString &text);
 	bool updateFromClipboard();
+	bool updateFromSearch();
 
 public:
 	QString qsName, qsHostname, qsUsername, qsPassword;
