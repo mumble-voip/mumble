@@ -6,10 +6,11 @@ set -x
 os=$1
 build_type=$2
 arch=$3
-workspace=$4
+compiler=$4
+workspace=$5
 
 
-if [[ "$os" == "" || "$build_type" == "" || "$arch" == "" || "$workspace" == "" ]]; then
+if [[ "$os" == "" || "$build_type" == "" || "$arch" == "" || "$compiler" == "" || "$workspace" == "" ]]; then
 	echo "Invalid parameters"
 	exit 1
 fi
@@ -20,23 +21,25 @@ os="${os,,}"
 os=$(echo "$os" | sed 's/-.*//')
 build_type="${build_type,,}"
 arch="${arch,,}"
+compiler="${compiler,,}"
 
 
 MUMBLE_ENVIRONMENT_DIR="$workspace/build_env"
-MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2026-02"
-MUMBLE_ENVIRONMENT_COMMIT="b1fe4a4257"
+MUMBLE_ENVIRONMENT_SOURCE="https://github.com/mumble-voip/vcpkg/releases/download/2026-09"
+MUMBLE_ENVIRONMENT_COMMIT="9a25cab914"
 MUMBLE_ENVIRONMENT_VERSION=""
 ADDITIONAL_CMAKE_OPTIONS=""
 VCPKG_CMAKE_OPTIONS=""
 
 VCPKG_TARGET_TRIPLET=""
-if [[ "$arch" == "x86_64" ]]; then
-	VCPKG_TARGET_TRIPLET="x64"
-else
-	echo "Unknown architecture '$arch'"
-	exit 1
-fi
-
+case "$arch" in
+	x86_64) VCPKG_TARGET_TRIPLET="x64" ;;
+	arm64)  VCPKG_TARGET_TRIPLET="arm64" ;;
+	*)
+		echo "Unknown architecture '$arch'" >&2
+		exit 1
+		;;
+esac
 
 case "$os" in
 	"ubuntu")
@@ -64,7 +67,37 @@ if [[ "$build_type" == "static" ]]; then
 	VCPKG_CMAKE_OPTIONS="$VCPKG_CMAKE_OPTIONS -DIce_HOME='$MUMBLE_ENVIRONMENT_DIR/installed/$VCPKG_TARGET_TRIPLET'"
 fi
 
+case "$compiler" in
+	cl|clang-cl)
+		cc="$compiler"
+		cxx="$compiler"
+		;;
+	gcc)
+		cc=gcc
+		cxx=g++
+		;;
+	gcc-[0-9]*)
+		cc="$compiler"
+		cxx="g++-${compiler#gcc-}"
+		;;
+	clang)
+		cc=clang
+		cxx=clang++
+		;;
+	clang-[0-9]*)
+		cc="$compiler"
+		cxx="clang++-${compiler#clang-}"
+		;;
+	*)
+		echo "Unknown compiler '$compiler'" >&2
+		exit 1
+		;;
+esac
+
 # set environment variables in a way that GitHub Actions understands and preserves
+echo "MUMBLE_ARCH=$arch" >> "$GITHUB_ENV"
+echo "MUMBLE_CC=$cc" >> "$GITHUB_ENV"
+echo "MUMBLE_CXX=$cxx" >> "$GITHUB_ENV"
 echo "MUMBLE_ENVIRONMENT_SOURCE=$MUMBLE_ENVIRONMENT_SOURCE" >> "$GITHUB_ENV"
 echo "MUMBLE_ENVIRONMENT_DIR=$MUMBLE_ENVIRONMENT_DIR" >> "$GITHUB_ENV"
 echo "MUMBLE_ENVIRONMENT_VERSION=$MUMBLE_ENVIRONMENT_VERSION" >> "$GITHUB_ENV"

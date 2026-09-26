@@ -46,7 +46,6 @@ jobs:
             -Dtests=ON \
             -Dsymbols=ON \
             -Ddisplay-install-paths=ON \
-            -Dtest-lto=OFF \
             -Dice=OFF \
             -DCMAKE_UNITY_BUILD=ON
           cmake --build .

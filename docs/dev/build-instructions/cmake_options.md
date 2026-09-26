@@ -274,11 +274,6 @@ Build static binaries.
 Build binaries in a way that allows easier debugging.
 (Default: OFF)
 
-### test-lto
-
-Whether to use LTO when building test cases
-(Default: ${lto})
-
 ### tests
 
 Build tests.
