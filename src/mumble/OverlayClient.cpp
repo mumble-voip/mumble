@@ -159,7 +159,7 @@ void OverlayClient::updateMouse() {
 				quint32 *dstimg  = reinterpret_cast< quint32 * >(out.scanLine(i));
 				quint32 *dstmask = reinterpret_cast< quint32 * >(outmask.scanLine(i));
 
-				for (int j = 0; j < w; ++j) {
+				for (std::size_t j = 0; j < w; ++j) {
 					dstmask[j] = srcmask[j];
 					dstimg[j]  = srcimg[j];
 				}
