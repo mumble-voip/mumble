@@ -5212,11 +5212,11 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Se cambiare la regolazione del volume locale per l&apos;utente selezionato quando si scorre la rotella del mouse su (aumentare) o giù (diminuire) mentre Control viene premuto.</translation>
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL + Scorri per cambiare il volume dell&apos;utente selezionato</translation>
     </message>
 </context>
 <context>

@@ -5212,11 +5212,11 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     </message>
     <message>
         <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Huruvida den lokala volymjusteringen för den valda användaren ska ändras när mushjulet rullas uppåt (öka) eller nedåt (minska) samtidigt som Control-tangenten hålls nedtryckt.</translation>
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl + scrolla för att ändra volymen för den valda användaren</translation>
     </message>
 </context>
 <context>
