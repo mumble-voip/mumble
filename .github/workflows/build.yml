@@ -71,8 +71,12 @@ jobs:
               type: static
               arch: x86_64
               compiler: clang
+            - os: macos-15
+              type: static
+              arch: arm64
+              compiler: clang
 
-    runs-on: ${{ matrix.os }}${{ matrix.arch == 'arm64' && '-arm' || '' }}
+    runs-on: ${{ matrix.os }}${{ (matrix.arch == 'arm64' && startsWith(matrix.os, 'ubuntu')) && '-arm' || '' }}
 
     steps:
     - uses: actions/checkout@v6
