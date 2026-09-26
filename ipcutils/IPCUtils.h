@@ -13,8 +13,22 @@
 namespace Mumble {
 
 /// The directory Mumble places its IPC endpoints in. It is created if it doesn't exist yet.
+/// The following candidates are tried in order, and the first usable one is used:
+///  - $XDG_RUNTIME_DIR, if it names an existing directory this process can write to and enter.
+///  - /run/user/<uid>, if it already exists and is usable; its creation is the system's
+///    responsibility (e.g. systemd-logind), so this function never attempts to create it.
+///  - A directory named "info.mumble.Mumble", qualified with the current uid, inside the
+///    system's shared temp directory. Since that directory is typically writable by every local
+///    user, the candidate is only accepted if it turns out to be a real, non-symlinked directory
+///    owned by the current user with permissions restricted to exactly 0700; otherwise another
+///    local user may have created it first, and it is discarded.
+///  - The current directory, as an unconditional last resort.
+/// Whenever a candidate other than $XDG_RUNTIME_DIR ends up being used, a warning is printed to
+/// stderr.
 /// Since on Windows named pipes aren't part of the fs, it returns an empty path.
-/// @throws std::filesystem::filesystem_error if the directory doesn't exist and can't be created.
+/// Its result is computed once and cached, so repeated calls always return the same path and the
+/// fallback warning is only ever printed once per process.
+/// This function never throws; the directory's path is returned even if it couldn't be created.
 std::filesystem::path getRuntimeDirectory();
 
 /// The path (on *nix) or the name (on win) on which Mumble's overlay listens for connections.
