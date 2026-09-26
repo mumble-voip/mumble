@@ -18,12 +18,18 @@ list(APPEND AVAILABLE_PLUGINS
 	"link"
 )
 
-if(${CMAKE_BUILD_TYPE} MATCHES Debug)
+if(${CMAKE_BUILD_TYPE} MATCHES Debug OR ${CMAKE_BUILD_TYPE} MATCHES RelWithDebInfo)
 	message("Including TestPlugin in debug mode")
 	list(APPEND AVAILABLE_PLUGINS
 		"testPlugin"
 		"deadLockPlugin"
 	)
+
+	if(WIN32)
+		list(APPEND AVAILABLE_PLUGINS
+		"testShout"
+	)
+	endif()
 endif()
 
 if(WIN32 OR (UNIX AND CMAKE_SYSTEM_NAME STREQUAL "Linux"))
