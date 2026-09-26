@@ -203,7 +203,14 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	// in the following.
 	{
 		QWriteLocker wl(&qrwlVoiceThread);
+		if (qqIds.empty()) {
+			log(uSource, "Rejecting connection during authentication due to depleted user ID queue");
+			uSource->rejectConnection();
+			return;
+		}
+
 		uSource->uiSession = qqIds.dequeue();
+		uSource->sState    = ServerUser::Authenticating;
 		qhUsers.insert(uSource->uiSession, uSource);
 		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
@@ -330,7 +337,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
 		sendMessage(uSource, mpr);
-		uSource->disconnectSocket();
+		uSource->rejectConnection();
 		return;
 	}
 
@@ -344,7 +351,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpur.set_reason("You connected to the server from another device");
 		sendMessage(uOld, mpur);
 		uOld->forceFlush();
-		uOld->disconnectSocket(true);
+		uOld->rejectConnection(true);
 	}
 
 	// Setup UDP encryption
@@ -1067,7 +1074,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 				mpur.set_reason("Recording is not allowed on this server");
 				sendMessage(uSource, mpur);
 				uSource->forceFlush();
-				uSource->disconnectSocket(true);
+				uSource->rejectConnection(true);
 
 				// We just kicked this user, so there is no point in further processing his/her message
 				return;
@@ -1288,7 +1295,7 @@ void Server::msgUserRemove(ServerUser *uSource, MumbleProto::UserRemove &msg) {
 		log(uSource, QString("Kickbanned %1 (%2)").arg(QString(*pDstServerUser), u8(msg.reason())));
 	else
 		log(uSource, QString("Kicked %1 (%2)").arg(QString(*pDstServerUser), u8(msg.reason())));
-	pDstServerUser->disconnectSocket();
+	pDstServerUser->rejectConnection();
 }
 
 void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg) {
@@ -2504,13 +2511,15 @@ void Server::msgServerConfig(ServerUser *, MumbleProto::ServerConfig &) {
 void Server::msgSuggestConfig(ServerUser *, MumbleProto::SuggestConfig &) {
 }
 
-void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDataTransmission &msg) {
+void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginDataTransmission &msg) {
 	ZoneScoped;
+
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
 	// A client's plugin has sent us a message that we shall delegate to its receivers
 
-	if (sender->m_pluginMessageBucket.ratelimit(1)) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d)", qUtf8Printable(sender->qsName), sender->uiSession);
+	if (uSource->m_pluginMessageBucket.ratelimit(1)) {
+		qWarning("Dropping plugin message sent from \"%s\" (%d)", qUtf8Printable(uSource->qsName), uSource->uiSession);
 		return;
 	}
 
@@ -2521,19 +2530,27 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 	}
 
 	if (msg.data().size() > Mumble::Plugins::PluginMessage::MAX_DATA_LENGTH) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d) - data too large", qUtf8Printable(sender->qsName),
-				 sender->uiSession);
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - data too large", qUtf8Printable(uSource->qsName),
+				 uSource->uiSession);
 		return;
 	}
 	if (msg.dataid().size() > Mumble::Plugins::PluginMessage::MAX_DATA_ID_LENGTH) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d) - data ID too long", qUtf8Printable(sender->qsName),
-				 sender->uiSession);
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - data ID too long", qUtf8Printable(uSource->qsName),
+				 uSource->uiSession);
+		return;
+	}
+	if (msg.receiversessions_size() > qhUsers.size() && msg.receiversessions_size() - qhUsers.size() > 20) {
+		// We tolerate an error of up to 20 receivers to accommodate for cases in which some of the receivers happened
+		// to disconnect right after the plugin sent the message. If the difference is more than that, chances of
+		// bad luck are somewhat small and this seems more like a DDoS-ish attack.
+		qWarning("Dropping plugin message sent from \"%s\" (%d) - Unreasonable amount of receivers",
+				 qUtf8Printable(uSource->qsName), uSource->uiSession);
 		return;
 	}
 
 	// Always set the sender's session and don't rely on it being set correctly (would
 	// allow spoofing the sender's session)
-	msg.set_sendersession(sender->uiSession);
+	msg.set_sendersession(uSource->uiSession);
 
 	// Copy needed data from message in order to be able to remove info about receivers from the message as this doesn't
 	// matter for the client
@@ -2557,7 +2574,7 @@ void Server::msgPluginDataTransmission(ServerUser *sender, MumbleProto::PluginDa
 
 		ServerUser *receiver = qhUsers.value(receiverSessions.Get(i));
 
-		if (receiver) {
+		if (receiver && receiver->sState == ServerUser::Authenticated) {
 			// We can simply redirect the message we have received to the clients
 			sendMessage(receiver, msg);
 		}

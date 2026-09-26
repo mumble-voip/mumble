@@ -227,3 +227,8 @@ bool LeakyBucket::ratelimit(int tokens) {
 
 	return limit;
 }
+
+void ServerUser::rejectConnection(bool forceDisconnect) {
+	sState = ServerUser::Rejected;
+	disconnectSocket(forceDisconnect);
+}
