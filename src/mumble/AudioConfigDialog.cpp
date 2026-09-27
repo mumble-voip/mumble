@@ -14,6 +14,7 @@
 #include "Utils.h"
 #include "Global.h"
 
+#include <QFileDialog>
 #include <QSignalBlocker>
 
 #include <cstdint>
@@ -681,6 +682,13 @@ AudioOutputDialog::AudioOutputDialog(Settings &st) : ConfigWidget(st) {
 	qlBloom->setToolTip(bloomTooltip);
 	qsBloom->setToolTip(bloomTooltip);
 	qsbBloom->setToolTip(bloomTooltip);
+
+#ifndef USE_HRTF
+	qcbHrtf->setVisible(false);
+	qlHrtfFile->setVisible(false);
+	qleHrtfFile->setVisible(false);
+	qpbHrtfBrowse->setVisible(false);
+#endif
 }
 
 QString AudioOutputDialog::title() const {
@@ -748,6 +756,8 @@ void AudioOutputDialog::load(const Settings &r) {
 	qsbBloom->setValue(static_cast< int >(r.fAudioBloom * 100));
 	loadCheckBox(qcbHeadphones, r.bPositionalHeadphone);
 	loadCheckBox(qcbPositional, r.bPositionalAudio);
+	loadCheckBox(qcbHrtf, r.bHrtf);
+	qleHrtfFile->setText(r.qsHrtfFile);
 
 	qsOtherVolume->setEnabled(r.bAttenuateOthersOnTalk || r.bAttenuateOthers);
 	qlOtherVolume->setEnabled(r.bAttenuateOthersOnTalk || r.bAttenuateOthers);
@@ -777,6 +787,8 @@ void AudioOutputDialog::save() const {
 	s.bPositionalAudio               = qcbPositional->isChecked();
 	s.bPositionalHeadphone           = qcbHeadphones->isChecked();
 	s.bExclusiveOutput               = qcbExclusive->isChecked();
+	s.bHrtf                          = qcbHrtf->isChecked();
+	s.qsHrtfFile                     = qleHrtfFile->text();
 
 
 	if (AudioOutputRegistrar::qmNew) {
@@ -957,4 +969,13 @@ void AudioOutputDialog::on_qcbAttenuateOthers_clicked(bool checked) {
 
 void AudioOutputDialog::on_qcbOnlyAttenuateSameOutput_clicked(bool checked) {
 	qcbAttenuateLoopbacks->setEnabled(checked);
+}
+
+void AudioOutputDialog::on_qpbHrtfBrowse_clicked() {
+	const QString path = QFileDialog::getOpenFileName(
+		this, tr("Select HRTF SOFA file"), qleHrtfFile->text(),
+		tr("SOFA files (*.sofa);;All files (*)"));
+	if (!path.isEmpty()) {
+		qleHrtfFile->setText(path);
+	}
 }
