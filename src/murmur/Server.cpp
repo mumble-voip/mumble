@@ -622,9 +622,11 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "rollingStatsWindow")
 		rollingStatsWindow = i ? static_cast< unsigned int >(i) : Meta::mp->rollingStatsWindow;
 	else if (key == "username")
-		qrUserName = !v.isNull() ? QRegularExpression(v) : QRegularExpression(Meta::mp->userNamePattern);
+		qrUserName =
+			QRegularExpression(QRegularExpression::anchoredPattern(!v.isNull() ? v : Meta::mp->userNamePattern));
 	else if (key == "channelname")
-		qrChannelName = !v.isNull() ? QRegularExpression(v) : QRegularExpression(Meta::mp->channelNamePattern);
+		qrChannelName =
+			QRegularExpression(QRegularExpression::anchoredPattern(!v.isNull() ? v : Meta::mp->channelNamePattern));
 	else if (key == "suggestversion")
 		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp->m_suggestVersion;
 	else if (key == "suggestpositional")
