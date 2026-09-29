@@ -59,7 +59,7 @@ jobs:
       run: |
           cmake -G Ninja -S $GITHUB_WORKSPACE -B ${{runner.workspace}}/build \
           -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES='cmake/mumble_dependency_provider.cmake' \
+          -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=cmake/mumble_dependency_provider.cmake \
           $CMAKE_OPTIONS \
           -DCMAKE_UNITY_BUILD=ON
       shell: bash
