@@ -8,102 +8,107 @@ message(STATUS "Using Mumble's dependency provider")
 include(FetchContent)
 include(FindPackageHandleStandardArgs)
 
-# Note: find_package (and FetchContent_MakeAvailable for that matter) have the package/dependency
-# name as their first argument, which is why we can rely on that here as well.
-macro(mumble_provide_dependency METHOD DEP_NAME)
-	if (NOT "${METHOD}" STREQUAL "FIND_PACKAGE")
-		message(FATAL_ERROR "mumble_provide_dependency called for unexpected method: ${METHOD}")
-	endif()
-
-	set(VARIABLES_TO_BE_CLEARED "VARIABLES_TO_BE_CLEARED")
-
+# Determines how to provide the given dependency. Results are exported as _MUMBLE_DEP_<DEP_NAME>_*
+# and registered in _MUMBLE_DEP_<DEP_NAME>_VARIABLES_TO_BE_CLEARED.
+function(_mumble_dep_prepare DEP_NAME)
 	string(TOUPPER "${DEP_NAME}" DEP_NAME_UPPER)
+	set(TO_BE_CLEARED "${_MUMBLE_DEP_${DEP_NAME}_VARIABLES_TO_BE_CLEARED}")
 
-
-	# Handle defaults while still respecting package-specific overwrites
-	if (DEFINED MUMBLE_DEP_SKIP_FIND_PACKAGE AND NOT DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FIND_PACKAGE)
-		set(MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FIND_PACKAGE ${MUMBLE_DEP_SKIP_FIND_PACKAGE})
-		list(APPEND VARIABLES_TO_BE_CLEARED "MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FIND_PACKAGE")
-	endif()
-	if (DEFINED MUMBLE_DEP_SKIP_FETCHCONTENT AND NOT DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FETCHCONTENT)
-		set(MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FETCHCONTENT ${MUMBLE_DEP_SKIP_FETCHCONTENT})
-		list(APPEND VARIABLES_TO_BE_CLEARED "MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FETCHCONTENT")
-	endif()
-
-
-	# Remove REQUIRED keyword so we have a chance at trying different methods to satisfy the
-	# dependency without CMake erroring in between.
-	set(FIND_ARGS "${ARGN}")
-	list(APPEND VARIABLES_TO_BE_CLEARED "FIND_ARGS")
-	list(FIND FIND_ARGS "REQUIRED" REQUIRED_IDX)
-	list(APPEND VARIABLES_TO_BE_CLEARED "REQUIRED_IDX")
-	if ("${REQUIRED_IDX}" GREATER_EQUAL 0)
-		list(REMOVE_AT FIND_ARGS "${REQUIRED_IDX}")
-	endif()
-	# We also want a custom handling of the QUIET option
-	list(FIND FIND_ARGS "QUIET" QUIET_IDX)
-	list(APPEND VARIABLES_TO_BE_CLEARED "QUIET_IDX")
-	if ("${QUIET_IDX}" GREATER_EQUAL 0)
-		list(REMOVE_AT FIND_ARGS "${QUIET_IDX}")
-	endif()
-
-	if (NOT MUMBLE_DEP_DEBUG_MODE)
-		set(QUIET_KEYWORD "QUIET")
-		list(APPEND VARIABLES_TO_BE_CLEARED "QUIET_KEYWORD")
-	endif()
-
-	if (NOT MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FIND_PACKAGE)
-		if (DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_FIND_PACKAGE_ARGS)
-			set(FIND_PACKAGE_ARGS "${MUMBLE_DEP_${DEP_NAME_UPPER}_FIND_PACKAGE_ARGS}")
+	# Package-specific settings take precedence over the global defaults
+	foreach(METHOD IN ITEMS "FIND_PACKAGE" "FETCHCONTENT")
+		if (DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_${METHOD})
+			set(SKIP "${MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_${METHOD}}")
 		else()
-			set(FIND_PACKAGE_ARGS "${FIND_ARGS}")
+			set(SKIP "${MUMBLE_DEP_SKIP_${METHOD}}")
 		endif()
+		set(_MUMBLE_DEP_${DEP_NAME}_SKIP_${METHOD} "${SKIP}" PARENT_SCOPE)
+		list(APPEND TO_BE_CLEARED "_MUMBLE_DEP_${DEP_NAME}_SKIP_${METHOD}")
+	endforeach()
 
-		if (DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_FIND_PACKAGE_EXTRA_ARGS)
-			set(FIND_PACKAGE_ARGS "${FIND_PACKAGE_ARGS};${MUMBLE_DEP_${DEP_NAME_UPPER}_FIND_PACKAGE_EXTRA_ARGS}")
-		endif()
-		list(APPEND VARIABLES_TO_BE_CLEARED "FIND_PACKAGE_ARGS")
+	if (DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_FIND_PACKAGE_ARGS)
+		set(FIND_ARGS "${MUMBLE_DEP_${DEP_NAME_UPPER}_FIND_PACKAGE_ARGS}")
+	else()
+		set(FIND_ARGS "${ARGN}")
+		# Without REQUIRED, a failed find_package doesn't prevent us from trying other methods.
+		# QUIET is handled separately below.
+		list(REMOVE_ITEM FIND_ARGS "REQUIRED" "QUIET")
+	endif()
+	list(APPEND FIND_ARGS ${MUMBLE_DEP_${DEP_NAME_UPPER}_FIND_PACKAGE_EXTRA_ARGS})
+	if (NOT MUMBLE_DEP_DEBUG_MODE)
+		list(APPEND FIND_ARGS "QUIET")
+	endif()
+	set(_MUMBLE_DEP_${DEP_NAME}_FIND_PACKAGE_ARGS "${FIND_ARGS}" PARENT_SCOPE)
+	list(APPEND TO_BE_CLEARED "_MUMBLE_DEP_${DEP_NAME}_FIND_PACKAGE_ARGS")
 
-		find_package(${DEP_NAME} ${FIND_PACKAGE_ARGS} ${QUIET_KEYWORD} BYPASS_PROVIDER)
+	if (DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_FETCHCONTENT_ID)
+		set(_MUMBLE_DEP_${DEP_NAME}_FETCHCONTENT_ID "${MUMBLE_DEP_${DEP_NAME_UPPER}_FETCHCONTENT_ID}" PARENT_SCOPE)
+		list(APPEND TO_BE_CLEARED "_MUMBLE_DEP_${DEP_NAME}_FETCHCONTENT_ID")
 	endif()
 
-	
-	if (NOT ${DEP_NAME}_FOUND AND NOT MUMBLE_DEP_${DEP_NAME_UPPER}_SKIP_FETCHCONTENT AND DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_FETCHCONTENT_ID)
-		FetchContent_MakeAvailable(${MUMBLE_DEP_${DEP_NAME_UPPER}_FETCHCONTENT_ID})
-		set(${DEP_NAME}_FOUND TRUE)
-		set(${DEP_NAME}_FETCHED TRUE)
-	endif()
+	set(_MUMBLE_DEP_${DEP_NAME}_VARIABLES_TO_BE_CLEARED "${TO_BE_CLEARED}" PARENT_SCOPE)
+endfunction()
 
+# Validates the obtained dependency and updates <DEP_NAME>_FOUND accordingly.
+function(_mumble_dep_verify DEP_NAME)
+	string(TOUPPER "${DEP_NAME}" DEP_NAME_UPPER)
 
 	if (DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_EXPECTED_MAIN_TARGET)
 		if (NOT TARGET ${MUMBLE_DEP_${DEP_NAME_UPPER}_EXPECTED_MAIN_TARGET})
 			set(${DEP_NAME}_FOUND FALSE)
+			set(${DEP_NAME}_FOUND FALSE PARENT_SCOPE)
 		endif()
 	endif()
 
 	if (${DEP_NAME}_FOUND AND NOT DEFINED MUMBLE_DEP_${DEP_NAME_UPPER}_LICENSE AND NOT DEP_NAME_UPPER STREQUAL "THREADS" AND NOT DEP_NAME_UPPER STREQUAL "PKGCONFIG")
 		message(WARNING "Using dependency '${DEP_NAME}' with unknown license (${DEP_NAME_UPPER})")
 	endif()
-	
+endfunction()
+
+# This has to be a macro so that variables set by find_package and FetchContent_MakeAvailable reach the caller.
+# Both may call the provider recursively, which overwrites any plain local variable. Macro parameters are
+# immune to this, so all state is stored in variables that contain DEP_NAME in their name.
+macro(mumble_provide_dependency METHOD DEP_NAME)
+	if (NOT "${METHOD}" STREQUAL "FIND_PACKAGE")
+		message(FATAL_ERROR "mumble_provide_dependency called for unexpected method: ${METHOD}")
+	endif()
+
+	if (DEFINED _MUMBLE_DEP_${DEP_NAME}_ACTIVE)
+		message(FATAL_ERROR "Recursive request for dependency '${DEP_NAME}' while it is being provided")
+	endif()
+	set(_MUMBLE_DEP_${DEP_NAME}_ACTIVE ON)
+	set(_MUMBLE_DEP_${DEP_NAME}_VARIABLES_TO_BE_CLEARED "_MUMBLE_DEP_${DEP_NAME}_VARIABLES_TO_BE_CLEARED;_MUMBLE_DEP_${DEP_NAME}_ACTIVE")
+
+	_mumble_dep_prepare("${DEP_NAME}" ${ARGN})
+
+	if (NOT _MUMBLE_DEP_${DEP_NAME}_SKIP_FIND_PACKAGE)
+		find_package(${DEP_NAME} ${_MUMBLE_DEP_${DEP_NAME}_FIND_PACKAGE_ARGS} BYPASS_PROVIDER)
+	endif()
+
+	if (NOT ${DEP_NAME}_FOUND AND NOT _MUMBLE_DEP_${DEP_NAME}_SKIP_FETCHCONTENT AND DEFINED _MUMBLE_DEP_${DEP_NAME}_FETCHCONTENT_ID)
+		FetchContent_MakeAvailable(${_MUMBLE_DEP_${DEP_NAME}_FETCHCONTENT_ID})
+		set(${DEP_NAME}_FOUND TRUE)
+		set(${DEP_NAME}_FETCHED TRUE)
+	endif()
+
+	_mumble_dep_verify("${DEP_NAME}")
 
 	if (${DEP_NAME}_VERSION)
-		set(VERSION_ARGS "HANDLE_VERSION_RANGE;VERSION_VAR;${DEP_NAME}_VERSION")
-		list(APPEND VARIABLES_TO_BE_CLEARED "VERSION_ARGS")
+		set(_MUMBLE_DEP_${DEP_NAME}_VERSION_ARGS "HANDLE_VERSION_RANGE;VERSION_VAR;${DEP_NAME}_VERSION")
+		list(APPEND _MUMBLE_DEP_${DEP_NAME}_VARIABLES_TO_BE_CLEARED "_MUMBLE_DEP_${DEP_NAME}_VERSION_ARGS")
 	endif()
 
 	find_package_handle_standard_args("${DEP_NAME}"
 		REQUIRED_VARS "${DEP_NAME}_FOUND"
 		NAME_MISMATCHED
-		${VERSION_ARGS}
+		${_MUMBLE_DEP_${DEP_NAME}_VERSION_ARGS}
 	)
 
-
 	# Clear up created variables
-	list(REVERSE VARIABLES_TO_BE_CLEARED)
-	foreach(CURRENT IN LISTS VARIABLES_TO_BE_CLEARED)
-		unset("${CURRENT}")
+	list(REVERSE _MUMBLE_DEP_${DEP_NAME}_VARIABLES_TO_BE_CLEARED)
+	foreach(_MUMBLE_DEP_${DEP_NAME}_CURRENT IN LISTS _MUMBLE_DEP_${DEP_NAME}_VARIABLES_TO_BE_CLEARED)
+		unset("${_MUMBLE_DEP_${DEP_NAME}_CURRENT}")
 	endforeach()
-	unset(CURRENT)
+	unset(_MUMBLE_DEP_${DEP_NAME}_CURRENT)
 endmacro()
 
 cmake_language(SET_DEPENDENCY_PROVIDER mumble_provide_dependency SUPPORTED_METHODS FIND_PACKAGE)
