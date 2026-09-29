@@ -46,7 +46,7 @@ sudo apt install \
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
-If `cmake` the version shipped by your distribution is not recent enough, you can install a recent one via the
+If the version of `cmake` shipped by your distribution is not recent enough, you can install a recent one via the
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 </details>
 
@@ -89,7 +89,7 @@ sudo apt install \
   qtchooser
 ```
 
-See also Ubuntu notes, which explain some things relevant to Debian builds._
+_See also the Ubuntu notes, which explain some things relevant to Debian builds._
 
 </details>
 
