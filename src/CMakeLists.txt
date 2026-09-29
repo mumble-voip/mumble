@@ -32,7 +32,6 @@ find_package(OpenSSL
 find_package(Protobuf REQUIRED)
 
 add_library(shared STATIC)
-target_set_mumble_compiler_flags(shared)
 
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${PROTO_FILE} OUT_VAR BUILT_PROTO_FILES)
 protobuf_generate(LANGUAGE cpp TARGET shared PROTOS ${UDP_PROTO_FILE} OUT_VAR BUILT_UDP_PROTO_FILES)
@@ -245,3 +244,14 @@ endif()
 if(benchmarks)
 	add_subdirectory(benchmarks)
 endif()
+
+# Apply our compiler flags to all targets defined in this directory tree, excluding
+# dependencies that are added from elsewhere (e.g. 3rdparty or FetchContent)
+get_targets(MUMBLE_TARGETS "${CMAKE_CURRENT_SOURCE_DIR}")
+foreach(CURRENT_TARGET IN LISTS MUMBLE_TARGETS)
+	get_target_property(TARGET_SOURCE_DIR "${CURRENT_TARGET}" SOURCE_DIR)
+	cmake_path(IS_PREFIX CMAKE_CURRENT_SOURCE_DIR "${TARGET_SOURCE_DIR}" IS_MUMBLE_TARGET)
+	if(IS_MUMBLE_TARGET)
+		target_set_mumble_compiler_flags("${CURRENT_TARGET}")
+	endif()
+endforeach()

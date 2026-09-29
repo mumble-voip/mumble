@@ -36,11 +36,12 @@ get_compiler_flags(
 	OUTPUT_VARIABLE MUMBLE_COMPILER_FLAGS
 )
 
+# Prepends our flags so that target-specific options (e.g. disabled warnings) take precedence
 function(target_set_mumble_compiler_flags TARGET)
-	target_compile_options(${TARGET} PRIVATE ${MUMBLE_COMPILER_FLAGS})
+	target_compile_options(${TARGET} BEFORE PRIVATE ${MUMBLE_COMPILER_FLAGS})
 	if (MSVC)
 		# Disable warning about padding having been added due to alignment specifier
-		target_compile_options(${TARGET} PRIVATE "/wd4324")
+		target_compile_options(${TARGET} BEFORE PRIVATE "/wd4324")
 	endif()
 endfunction()
 
