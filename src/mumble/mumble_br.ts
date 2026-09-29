@@ -662,6 +662,14 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation type="unfinished"></translation>
     </message>
@@ -688,10 +696,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Authors</source>
         <translation>Aozerien</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>

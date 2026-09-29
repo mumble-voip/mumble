@@ -670,6 +670,14 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
         <translation>Om Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>&amp;Om Mumble</translation>
     </message>
@@ -696,10 +704,6 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     <message>
         <source>Authors</source>
         <translation>Författare</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>Licensavtal för tredjepart</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>

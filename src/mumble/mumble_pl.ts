@@ -670,6 +670,14 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
         <translation>O programie Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>&amp;O programie Mumble</translation>
     </message>
@@ -696,10 +704,6 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     <message>
         <source>Authors</source>
         <translation>Autorzy</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>Umowy licencyjne stron trzecich</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
