@@ -6,6 +6,11 @@
 			"license": "LGPL-2.1-only"
 		},
 		{
+			"name": "arc4random_uniform",
+			"website": "https://www.openbsd.org",
+			"license": "ISC"
+		},
+		{
 			"name": "AVAHI",
 			"website": "https://avahi.org",
 			"components": [
@@ -36,6 +41,11 @@
 			"source_code": "https://github.com/libexpat/libexpat.git"
 		},
 		{
+			"name": "flag-icons",
+			"license": "MIT",
+			"source_code": "https://github.com/lipis/flag-icons"
+		},
+		{
 			"name": "fmt",
 			"source_code": "https://github.com/fmtlib/fmt.git",
 			"license": "MIT"
@@ -64,6 +74,11 @@
 			"name": "MariaDB",
 			"website": "https://mariadb.org",
 			"license": "LGPL-2.1-or-later"
+		},
+		{
+			"name": "MinHook",
+			"license": "BSD-2-Clause",
+			"source_code": "https://github.com/TsudaKageyu/minhook"
 		},
 		{
 			"name": "MySQL",
@@ -129,6 +144,16 @@
 			"license": "PSF-2.0"
 		},
 		{
+			"name": "QQBonjour",
+			"website": "https://doc.qt.io/archives/qq/qq23-bonjour.html",
+			"license": "BSD-3-Clause"
+		},
+		{
+			"name": "Qt-Translations",
+			"website": "https://www.virtualbox.org/ticket/2018",
+			"license": "MIT"
+		},
+		{
 			"name": "Qt6",
 			"website": "https://www.qt.io",
 			"components": [
@@ -161,15 +186,20 @@
 			"cmake_target": "readerwriterqueue::readerwriterqueue"
 		},
 		{
+			"name": "RNNoise",
+			"license": "BSD-3-Clause",
+			"source_code": "https://github.com/xiph/rnnoise.git"
+		},
+		{
+			"name": "smallft",
+			"website": "https://www.xiph.org",
+			"license": "BSD-3-Clause"
+		},
+		{
 			"name": "Sndfile",
 			"license": "LGPL-2.1-or-later",
 			"source_code": "https://github.com/libsndfile/libsndfile.git",
 			"cmake_target": "SndFile::sndfile"
-		},
-		{
-			"name": "RNNoise",
-			"license": "BSD-3-Clause",
-			"source_code": "https://github.com/xiph/rnnoise.git"
 		},
 		{
 			"name": "Soci",
@@ -177,11 +207,6 @@
 			"source_code": "https://github.com/SOCI/soci.git",
 			"tracked_version": "v4.1.4",
 			"cmake_target": "SOCI::SOCI"
-		},
-		{
-			"name": "SpeexDSP",
-			"website": "https://www.speex.org",
-			"license": "BSD-3-Clause"
 		},
 		{
 			"name": "spdlog",
@@ -200,9 +225,19 @@
 			"source_code": "https://github.com/brailcom/speechd"
 		},
 		{
+			"name": "SpeexDSP",
+			"website": "https://www.speex.org",
+			"license": "BSD-3-Clause"
+		},
+		{
 			"name": "SQLite3",
 			"website": "https://sqlite.org",
 			"license": "blessing"
+		},
+		{
+			"name": "Tracy",
+			"license": "BSD-3-Clause",
+			"source_code": "https://github.com/wolfpld/tracy"
 		},
 		{
 			"name": "utf8cpp",
@@ -219,6 +254,11 @@
 			"name": "X11",
 			"website": "https://www.x.org",
 			"license": "X11"
+		},
+		{
+			"name": "XInputCheck",
+			"website": "https://www.libsdl.org",
+			"license": "Zlib"
 		},
 		{
 			"name": "ZLib",
