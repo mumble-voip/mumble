@@ -737,12 +737,9 @@ if(bundled-speex)
 
 	install_library(speexdsp mumble_client)
 else()
-	find_package(speexdsp REQUIRED)
+	find_package(SpeexDSP REQUIRED)
 
-	target_link_libraries(mumble_client_lib
-		PUBLIC
-			${speexdsp_LIBRARIES}
-	)
+	target_link_libraries(mumble_client_lib PUBLIC SpeexDSP::speexdsp)
 endif()
 
 if(rnnoise)
@@ -766,9 +763,9 @@ if(rnnoise)
 
 		install_library(rnnoise mumble_client)
 	else()
-		find_package(rnnoise REQUIRED)
+		find_package(RNNoise REQUIRED)
 
-		target_link_libraries(mumble_client_lib PRIVATE ${rnnoise_LIBRARIES})
+		target_link_libraries(mumble_client_lib PRIVATE RNNoise::rnnoise)
 	endif()
 endif()
 
