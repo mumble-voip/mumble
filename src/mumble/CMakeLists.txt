@@ -356,7 +356,7 @@ add_custom_command(
 	ARGS "${CMAKE_SOURCE_DIR}/scripts/generate_flag_qrc.py" --flag-dir "${CMAKE_SOURCE_DIR}/3rdparty/flag-icons/flags/4x3" --output "${CMAKE_BINARY_DIR}/mumble_flags.qrc"
 	COMMENT "Generating mumble_flags.qrc"
 )
-list(APPEND MUMBLE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
+list(APPEND MUMBLE_EXE_SOURCES "${CMAKE_BINARY_DIR}/mumble_flags.qrc")
 
 add_library(mumble_client_lib STATIC ${MUMBLE_SOURCES})
 target_set_mumble_compiler_flags(mumble_client_lib)
@@ -372,7 +372,7 @@ endif()
 target_set_mumble_compiler_flags(mumble)
 
 if(WIN32)
-	target_sources(mumble_client_lib
+	target_sources(mumble
 		PRIVATE
 			"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 			"${MUMBLE_RC}"
@@ -573,15 +573,15 @@ target_link_libraries(mumble_client_lib
 
 if(static)
 	if(TARGET Qt6::QSQLiteDriverPlugin)
-		include_qt_plugin(mumble_client_lib PRIVATE "QSQLiteDriverPlugin")
+		include_qt_plugin(mumble PRIVATE "QSQLiteDriverPlugin")
 		target_link_libraries(mumble_client_lib PUBLIC Qt6::QSQLiteDriverPlugin)
 	endif()
 	if(TARGET Qt6::QSvgIconPlugin)
-		include_qt_plugin(mumble_client_lib PRIVATE "QSvgIconPlugin")
+		include_qt_plugin(mumble PRIVATE "QSvgIconPlugin")
 		target_link_libraries(mumble_client_lib PUBLIC Qt6::QSvgIconPlugin)
 	endif()
 	if(TARGET Qt6::QSvgPlugin)
-		include_qt_plugin(mumble_client_lib PRIVATE "QSvgPlugin")
+		include_qt_plugin(mumble PRIVATE "QSvgPlugin")
 		target_link_libraries(mumble_client_lib PUBLIC Qt6::QSvgPlugin)
 	endif()
 endif()
@@ -620,7 +620,7 @@ if(WIN32)
 	)
 
 	if(static AND TARGET Qt6::QWindowsIntegrationPlugin)
-		include_qt_plugin(mumble_client_lib PRIVATE QWindowsIntegrationPlugin)
+		include_qt_plugin(mumble PRIVATE QWindowsIntegrationPlugin)
 		target_link_libraries(mumble_client_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
@@ -670,7 +670,7 @@ else()
 		endif()
 
 		if(static AND TARGET Qt6::QXcbIntegrationPlugin)
-			include_qt_plugin(mumble_client_lib PRIVATE QXcbIntegrationPlugin)
+			include_qt_plugin(mumble PRIVATE QXcbIntegrationPlugin)
 			target_link_libraries(mumble_client_lib PUBLIC Qt6::QXcbIntegrationPlugin)
 		endif()
 
@@ -703,7 +703,7 @@ else()
 		)
 
 		if(static AND TARGET Qt6::QCocoaIntegrationPlugin)
-			include_qt_plugin(mumble_client_lib PRIVATE QCocoaIntegrationPlugin)
+			include_qt_plugin(mumble PRIVATE QCocoaIntegrationPlugin)
 			target_link_libraries(mumble_client_lib PUBLIC Qt6::QCocoaIntegrationPlugin)
 		endif()
 
@@ -1105,7 +1105,7 @@ if(wasapi)
 	endif()
 
 	if(MSVC)
-		set_property(TARGET mumble_client_lib APPEND_STRING PROPERTY LINK_FLAGS " /DELAYLOAD:avrt.dll")
+		target_link_options(mumble PRIVATE "/DELAYLOAD:avrt.dll")
 	endif()
 endif()
 

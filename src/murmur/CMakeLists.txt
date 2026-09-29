@@ -18,7 +18,7 @@ option(ice "Build support for Ice RPC." ON)
 
 find_package(Qt6 COMPONENTS Sql REQUIRED)
 
-add_library(mumble_server_lib OBJECT
+add_library(mumble_server_lib STATIC
 	"AudioReceiverBuffer.cpp"
 	"AudioReceiverBuffer.h"
 	"Cert.cpp"
@@ -97,12 +97,12 @@ target_link_libraries(mumble_server_lib PUBLIC shared Qt6::Sql)
 if(static)
 	# MariaDB and MySQL
 	if(TARGET Qt6::QMYSQLDriverPlugin)
-		include_qt_plugin(mumble_server_lib PRIVATE "QMYSQLDriverPlugin")
+		include_qt_plugin(mumble-server PRIVATE "QMYSQLDriverPlugin")
 		target_link_libraries(mumble_server_lib PRIVATE Qt6::QMYSQLDriverPlugin)
 	endif()
 	# Open DataBase Connectivity
 	if(TARGET Qt6::QODBCDriverPlugin)
-		include_qt_plugin(mumble_server_lib PRIVATE "QODBCDriverPlugin")
+		include_qt_plugin(mumble-server PRIVATE "QODBCDriverPlugin")
 		target_link_libraries(mumble_server_lib PRIVATE Qt6::QODBCDriverPlugin)
 		if(WIN32)
 			find_library(LIB_ODBC32 "odbc32")
@@ -111,12 +111,12 @@ if(static)
 	endif()
 	# PostgreSQL
 	if(TARGET Qt6::QPSQLDriverPlugin)
-		include_qt_plugin(mumble_server_lib PRIVATE "QPSQLDriverPlugin")
+		include_qt_plugin(mumble-server PRIVATE "QPSQLDriverPlugin")
 		target_link_libraries(mumble_server_lib PRIVATE Qt6::QPSQLDriverPlugin)
 	endif()
 	# SQLite
 	if(TARGET Qt6::QSQLiteDriverPlugin)
-		include_qt_plugin(mumble_server_lib PRIVATE "QSQLiteDriverPlugin")
+		include_qt_plugin(mumble-server PRIVATE "QSQLiteDriverPlugin")
 		target_link_libraries(mumble_server_lib PRIVATE Qt6::QSQLiteDriverPlugin)
 	endif()
 endif()
@@ -128,13 +128,16 @@ if(WIN32)
 			"About.h"
 			"Tray.cpp"
 			"Tray.h"
-			"murmur.qrc"
+	)
 
+	target_sources(mumble-server
+		PRIVATE
+			"murmur.qrc"
 			"${CMAKE_SOURCE_DIR}/auxiliary_files/mumble.appcompat.manifest"
 			"${MURMUR_RC}"
 	)
 
-	set_target_properties(mumble_server_lib
+	set_target_properties(mumble-server
 		PROPERTIES
 			AUTORCC ON
 	)
@@ -150,7 +153,7 @@ if(WIN32)
 	)
 
 	if(static AND TARGET Qt6::QWindowsIntegrationPlugin)
-		include_qt_plugin(mumble_server_lib PRIVATE QWindowsIntegrationPlugin)
+		include_qt_plugin(mumble-server PRIVATE QWindowsIntegrationPlugin)
 		target_link_libraries(mumble_server_lib PRIVATE Qt6::QWindowsIntegrationPlugin)
 	endif()
 else()
