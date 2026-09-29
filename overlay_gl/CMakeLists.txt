@@ -21,7 +21,8 @@ set_target_properties(overlay_gl
 
 if(NOT APPLE)
 	find_package(OpenGL REQUIRED)
-	target_link_libraries(overlay_gl PRIVATE OpenGL::GL)
+	# Only headers are needed: GL is resolved at runtime and must not be loaded into every process we are injected into
+	target_link_libraries(overlay_gl PRIVATE $<COMPILE_ONLY:OpenGL::GL>)
 
 	target_link_options(overlay_gl BEFORE
 		PRIVATE
