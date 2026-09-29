@@ -4,7 +4,7 @@
 how dependencies are discovered (or, indeed, _provided_) during configuration.
 
 We use this mechanism to provide a "download and build missing dependencies automatically" semantic for a subset of Mumble's dependencies. The
-implementation of our provider lives under [cmake/mumble_dependency_provider.cmake](/mumble_dependency_provider.cmake).
+implementation of our provider lives under [cmake/mumble_dependency_provider.cmake](cmake/mumble_dependency_provider.cmake).
 
 
 ## Using The Provider
