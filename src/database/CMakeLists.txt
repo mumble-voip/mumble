@@ -71,4 +71,4 @@ target_link_libraries(mumble_database PUBLIC SOCI::SOCI)
 
 find_package("nlohmann_json" REQUIRED)
 
-target_link_libraries(mumble_database PUBLIC nlohmann_json)
+target_link_libraries(mumble_database PUBLIC nlohmann_json::nlohmann_json)
