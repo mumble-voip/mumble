@@ -9,7 +9,8 @@
 			"name": "AVAHI",
 			"website": "https://avahi.org",
 			"components": [
-				"avahi-compat-libdns_sd"
+				"avahi-compat-libdns_sd",
+				"AvahiCompatLibDNSsd"
 			],
 			"license": "LGPL-2.1-only"
 		},
@@ -182,7 +183,8 @@
 		{
 			"name": "speech-dispatcher",
 			"components": [
-				"speechd"
+				"speechd",
+				"SpeechDispatcher"
 			],
 			"license": "LGPL-2.1-or-later",
 			"source_code": "https://github.com/brailcom/speechd"
