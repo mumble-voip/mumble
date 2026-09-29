@@ -32,7 +32,7 @@ case "$os" in
 		eval "$( "C:/vcvars-bash/vcvarsall.sh" x64 )"
 
 		PATH="$PATH:/C/WixSharp"
-		echo "PATH=$PATH" >> "$GITHUB_ENV"
+		echo "PATH=$(cygpath --windows --path "$PATH")" >> "$GITHUB_ENV"
 
 		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Ddatabase-sqlite-tests=ON"
 		OS_SPECIFIC_CMAKE_OPTIONS="$OS_SPECIFIC_CMAKE_OPTIONS -Ddatabase-mysql-tests=ON"
