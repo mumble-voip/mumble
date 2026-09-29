@@ -164,7 +164,7 @@
 			"name": "Sndfile",
 			"license": "LGPL-2.1-or-later",
 			"source_code": "https://github.com/libsndfile/libsndfile.git",
-			"cmake_target": "Sndfile::sndfile"
+			"cmake_target": "SndFile::sndfile"
 		},
 		{
 			"name": "Soci",
