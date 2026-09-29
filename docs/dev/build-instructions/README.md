@@ -13,6 +13,8 @@ Furthermore Mumble requires a **Cpp20**-conform compiler.
 
 You'll also need [`python`](https://www.python.org/downloads/). For detailed installation help, see [their Beginner's Guide](https://wiki.python.org/moin/BeginnersGuide(2f)Download.html).
 
+Finally, you will need [`CMake`](https://cmake.org/) v3.28 or later.
+
 ## Checkout the code
 
 The first step in building Mumble is to clone this repository and all the submodules via `git clone --depth 1 --recursive https://github.com/mumble-voip/mumble.git`.

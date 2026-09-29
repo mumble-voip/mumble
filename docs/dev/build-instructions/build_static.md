@@ -16,9 +16,6 @@ available there.
 The entire build environment will require between 30GB and 60GB of space on your hard-drive. If installed via script, it tends to converge towards the
 lower bound whereas a manual installation usually tends towards the higher bound.
 
-In addition to the dependencies installed via vcpkg, you'll also need [cmake](https://cmake.org/) (v3.23 or later). On Linux you might have to install
-cmake using a [PPA](https://apt.kitware.com/) and on macOS you can install it using [homebrew](https://formulae.brew.sh/formula/cmake).
-
 Furthermore you need a C++ compiler. On Linux and MacOS that'd usually be `gcc` (`g++`) or `clang`. On Windows you probably want to use MSVC
 (check out [Setup Visual Studio](setup_visual_studio.md) on how to install it).
 
