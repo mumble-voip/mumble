@@ -14,7 +14,7 @@ option(zeroconf "Build support for zeroconf (mDNS/DNS-SD)." ON)
 
 option(tracy "Enable the tracy profiler." OFF)
 
-find_package(Qt6 6.2
+find_package("Qt6" 6.2
 	COMPONENTS
 		Core
 		Network
@@ -22,14 +22,14 @@ find_package(Qt6 6.2
 	REQUIRED
 )
 
-find_package(OpenSSL
+find_package("OpenSSL"
 	COMPONENTS
 		Crypto
 		SSL
 	REQUIRED
 )
 
-find_package(Protobuf REQUIRED)
+find_package("Protobuf" REQUIRED)
 
 add_library(shared STATIC)
 
@@ -216,8 +216,7 @@ set(BUILD_SHARED_LIBS ${PREV_BUILD_SHARED_LIBS} CACHE BOOL "" FORCE)
 
 target_link_libraries(shared PUBLIC Tracy::TracyClient)
 
-set(SPDLOG_SYSTEM_INCLUDES ON)
-find_package(spdlog 1.10 REQUIRED)
+find_package("spdlog" 1.10 REQUIRED)
 
 target_link_libraries(shared PUBLIC spdlog::spdlog)
 

@@ -10,7 +10,7 @@ else()
 	set(QUIET_STR "QUIET")
 endif()
 
-find_package(PkgConfig ${QUIET_STR})
+find_package("PkgConfig" ${QUIET_STR})
 
 
 # Uses pkg-config to obtain the value of a module variable

@@ -74,7 +74,7 @@ if(MSVC)
 	option(elevation "Set \"uiAccess=true\", required for global shortcuts to work with privileged applications. Requires the client's executable to be signed with a trusted code signing certificate." OFF)
 endif()
 
-find_package(Qt6
+find_package("Qt6"
 	COMPONENTS
 		Concurrent
 		Sql
@@ -457,7 +457,7 @@ target_include_directories(mumble_client_lib
 		"${PLUGINS_DIR}"
 )
 
-find_package(Poco
+find_package("Poco"
 	COMPONENTS
 		XML
 		Zip
@@ -530,7 +530,7 @@ find_package("nlohmann_json" REQUIRED)
 
 target_link_libraries(mumble_client_lib PUBLIC nlohmann_json::nlohmann_json)
 
-find_package(SndFile REQUIRED)
+find_package("SndFile" REQUIRED)
 
 # Check if sndfile version supports opus
 if("${SndFile_VERSION}" VERSION_GREATER_EQUAL "1.0.29")
@@ -557,7 +557,7 @@ else()
 	target_link_libraries(mumble_client_lib PUBLIC ${SndFile_LIBRARIES})
 endif()
 
-find_package(utf8cpp REQUIRED)
+find_package("utf8cpp" REQUIRED)
 
 target_link_libraries(mumble_client_lib
 	PUBLIC
@@ -610,7 +610,7 @@ if(WIN32)
 	# to include plain guiddef.h without having to worry about side-effects.
 	set_source_files_properties("WinGUIDs.cpp" PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE)
 
-	find_package(Boost
+	find_package("Boost"
 		COMPONENTS
 			system
 			thread
@@ -622,7 +622,7 @@ if(WIN32)
 		target_link_libraries(mumble_client_lib PUBLIC Qt6::QWindowsIntegrationPlugin)
 	endif()
 
-	find_package(readerwriterqueue REQUIRED)
+	find_package("readerwriterqueue" REQUIRED)
 	add_subdirectory("${3RDPARTY_DIR}/xinputcheck-build" "${CMAKE_CURRENT_BINARY_DIR}/xinputcheck" EXCLUDE_FROM_ALL)
 
 	# Disable all warnings that the xinputcheck code may emit
@@ -658,10 +658,10 @@ else()
 	target_sources(mumble_client_lib PRIVATE "SharedMemory_unix.cpp")
 
 	if(NOT APPLE)
-		find_package(X11 COMPONENTS Xext REQUIRED)
+		find_package("X11" COMPONENTS Xext REQUIRED)
 
 		if(xinput2)
-			find_package(X11 COMPONENTS Xi REQUIRED)
+			find_package("X11" COMPONENTS Xi REQUIRED)
 			target_link_libraries(mumble_client_lib PUBLIC X11::Xi)
 		else()
 			target_compile_definitions(mumble_client_lib PUBLIC "NO_XINPUT2")
@@ -735,7 +735,7 @@ if(bundled-speex)
 
 	install_library(speexdsp mumble_client)
 else()
-	find_package(SpeexDSP REQUIRED)
+	find_package("SpeexDSP" REQUIRED)
 
 	target_link_libraries(mumble_client_lib PUBLIC SpeexDSP::speexdsp)
 endif()
@@ -761,14 +761,14 @@ if(rnnoise)
 
 		install_library(rnnoise mumble_client)
 	else()
-		find_package(RNNoise REQUIRED)
+		find_package("RNNoise" REQUIRED)
 
 		target_link_libraries(mumble_client_lib PRIVATE RNNoise::rnnoise)
 	endif()
 endif()
 
 if(qtspeech)
-	find_package(Qt6 COMPONENTS TextToSpeech REQUIRED)
+	find_package("Qt6" COMPONENTS TextToSpeech REQUIRED)
 	target_sources(mumble_client_lib PRIVATE "TextToSpeech.cpp")
 	target_link_libraries(mumble_client_lib PUBLIC Qt6::TextToSpeech)
 elseif(WIN32)
@@ -785,7 +785,7 @@ else()
 	target_sources(mumble_client_lib PRIVATE "TextToSpeech_unix.cpp")
 
 	if(speechd)
-		find_package(SpeechDispatcher REQUIRED)
+		find_package("SpeechDispatcher" REQUIRED)
 
 		target_compile_definitions(mumble_client_lib
 			PUBLIC
@@ -824,7 +824,7 @@ if(NOT update)
 endif()
 
 if(dbus AND (NOT WIN32 AND NOT APPLE))
-	find_package(Qt6 COMPONENTS DBus REQUIRED)
+	find_package("Qt6" COMPONENTS DBus REQUIRED)
 
 	target_sources(mumble_client_lib
 		PRIVATE
@@ -952,7 +952,7 @@ endif()
 
 if(zeroconf)
 	if(NOT APPLE)
-		find_package(AvahiCompatLibDNSsd QUIET)
+		find_package("AvahiCompatLibDNSsd" QUIET)
 		if(AvahiCompatLibDNSsd_FOUND)
 			target_link_libraries(mumble_client_lib PUBLIC AvahiCompatLibDNSsd::AvahiCompatLibDNSsd)
 		else()
@@ -982,7 +982,7 @@ if(zeroconf)
 endif()
 
 if(alsa)
-	find_package(ALSA REQUIRED)
+	find_package("ALSA" REQUIRED)
 	target_sources(mumble_client_lib
 		PRIVATE
 			"ALSAAudio.cpp"

@@ -52,7 +52,7 @@ foreach(CURRENT_DEP_IDX RANGE ${LAST_IDX})
 
 	set(FETCHCONTENT_ARG "")
 	if (DEP_SOURCE AND DEP_VERSION)
-		if ("${DEP_SOURCE}" MATCHES ".*\\.git")
+		if ("${DEP_SOURCE}" MATCHES "\\.git$")
 			FetchContent_Declare("${DEP_NAME}"
 				GIT_TAG        "${DEP_VERSION}"
 				GIT_REPOSITORY "${DEP_SOURCE}"
@@ -62,7 +62,7 @@ foreach(CURRENT_DEP_IDX RANGE ${LAST_IDX})
 			)
 		else()
 			if (NOT DEP_FILE OR NOT DEP_HASH)
-				message(FATAL_ERROR "Missing 'file_name' and 'file_hash' propeerties for dependency '${DEP_NAME}'")
+				message(FATAL_ERROR "Missing 'file_name' and 'file_hash' properties for dependency '${DEP_NAME}'")
 			endif()
 			FetchContent_Declare("${DEP_NAME}"
 				# This URL scheme assumes we're using GitHub repo URLs as DEP_SOURCE

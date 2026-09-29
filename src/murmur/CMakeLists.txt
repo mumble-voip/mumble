@@ -16,7 +16,7 @@ include(qt-utils)
 
 option(ice "Build support for Ice RPC." ON)
 
-find_package(Qt6 COMPONENTS Sql REQUIRED)
+find_package("Qt6" COMPONENTS Sql REQUIRED)
 
 add_library(mumble_server_lib STATIC
 	"AudioReceiverBuffer.cpp"
@@ -140,7 +140,7 @@ if(WIN32)
 			AUTORCC ON
 	)
 
-	find_package(Qt6 COMPONENTS Widgets REQUIRED)
+	find_package("Qt6" COMPONENTS Widgets REQUIRED)
 
 	target_link_libraries(mumble_server_lib
 		PUBLIC
@@ -169,7 +169,7 @@ endif()
 
 if(zeroconf)
 	if(NOT APPLE)
-		find_package(AvahiCompatLibDNSsd QUIET)
+		find_package("AvahiCompatLibDNSsd" QUIET)
 		if(AvahiCompatLibDNSsd_FOUND)
 			target_link_libraries(mumble_server_lib PUBLIC AvahiCompatLibDNSsd::AvahiCompatLibDNSsd)
 		else()
@@ -198,7 +198,7 @@ if(zeroconf)
 endif()
 
 if(ice)
-	find_package(Ice
+	find_package("Ice"
 		COMPONENTS
 			Ice
 			IceSSL
@@ -270,7 +270,7 @@ if(ice)
 		# BZip2 is used by Ice, specifically in ConnectionI.cpp.
 		# We link to the library explicitly because CMake is not aware of the dependency.
 		# TODO: Fix or rewrite the official FindIce.cmake.
-		find_package(BZip2 REQUIRED)
+		find_package("BZip2" REQUIRED)
 	endif()
 	target_link_libraries(mumble_server_lib
 		PUBLIC

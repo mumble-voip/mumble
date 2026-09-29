@@ -3,7 +3,7 @@
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-find_package(PkgConfig)
+find_package("PkgConfig")
 include(FindPackageHandleStandardArgs)
 
 macro(mumble_find_via_pkgconf DEP_NAME TARGET_NAME PKGCONF_SPEC)

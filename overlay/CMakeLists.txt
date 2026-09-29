@@ -139,7 +139,7 @@ else()
 	target_link_libraries(overlay PRIVATE ipcutils)
 endif()
 
-find_package(Boost REQUIRED)
+find_package("Boost" REQUIRED)
 
 if(BUILD_OVERLAY_XCOMPILE)
 	set_target_properties(overlay PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${MUMBLE_BINARY_DIR})
