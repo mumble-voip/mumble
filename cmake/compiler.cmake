@@ -51,6 +51,9 @@ if(MSVC)
 		add_compile_options("-arch:SSE")
 	endif()
 
+	# Define the __cplusplus macro the way the standard says it should
+	add_compile_options("/Zc:__cplusplus")
+
 	if(symbols)
 		# Configure build to be able to properly debug release builds (https://docs.microsoft.com/cpp/build/how-to-debug-a-release-build).
 		# This includes explicitly disabling /Oy to help debugging (https://docs.microsoft.com/cpp/build/reference/oy-frame-pointer-omission).
