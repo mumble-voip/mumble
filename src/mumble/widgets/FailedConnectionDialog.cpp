@@ -10,6 +10,7 @@
 #include "Global.h"
 
 #include <QAction>
+#include <QFont>
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
@@ -26,14 +27,24 @@ FailedConnectionDialog::FailedConnectionDialog(ConnectDetails details, Connectio
 
 	qcbSavePassword->setChecked(!Global::get().s.bSuppressIdentity);
 
-	if (!Global::get().db->isFavorite(m_details.host, m_details.port)) {
+	const bool canSavePassword = Global::get().db->isFavorite(m_details.host, m_details.port);
+	qlSavePasswordNotice->setVisible(!canSavePassword);
+
+	if (!canSavePassword) {
 		qcbSavePassword->setEnabled(false);
 		qcbSavePassword->setChecked(false);
-		QString warning        = tr("Unavailable, because the server is not saved in favorites");
-		QString currentText    = qcbSavePassword->text();
-		QString accessibleText = currentText + " — " + warning;
-		qcbSavePassword->setAccessibleName(accessibleText);
-		qcbSavePassword->setToolTip(warning);
+
+		// Relative to the current font, so the user's font size settings are respected
+		QFont noticeFont = qlSavePasswordNotice->font();
+		noticeFont.setPointSizeF(noticeFont.pointSizeF() * 0.85);
+		qlSavePasswordNotice->setFont(noticeFont);
+
+		const QString notSavedReason = tr("Passwords can only be saved for servers in your favorites");
+		qcbSavePassword->setToolTip(notSavedReason);
+		qlSavePasswordNotice->setToolTip(notSavedReason);
+
+		userPasswordInput->setAccessibleDescription(notSavedReason);
+		serverPasswordInput->setAccessibleDescription(notSavedReason);
 	}
 
 	connectSignals();
