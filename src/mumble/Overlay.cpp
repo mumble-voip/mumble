@@ -239,7 +239,18 @@ void Overlay::createPipe() {
 	// Allow anyone to access the pipe in order to communicate with the overlay
 	qlsServer->setSocketOptions(QLocalServer::WorldAccessOption);
 
-	const QString pipepath = QString::fromStdString(Mumble::getOverlayPipePath().string());
+	QString pipepath;
+	try {
+		pipepath = QString::fromStdString(Mumble::getOverlayPipePath().string());
+	} catch (const std::filesystem::filesystem_error &e) {
+		QMessageBox::warning(nullptr, QLatin1String("Mumble"),
+							 tr("Failed to create communication with overlay: %1. No overlay will be available.")
+								 .arg(QString::fromLocal8Bit(e.what()).toHtmlEscaped()),
+							 QMessageBox::Ok, QMessageBox::NoButton);
+		delete qlsServer;
+		qlsServer = nullptr;
+		return;
+	}
 
 #ifndef Q_OS_WIN
 	{

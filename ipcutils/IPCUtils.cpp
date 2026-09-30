@@ -6,6 +6,7 @@
 #include "IPCUtils.h"
 
 #ifndef _WIN32
+#	include <climits>
 #	include <cstdlib>
 
 #	include <unistd.h>
@@ -23,7 +24,16 @@ std::filesystem::path getRuntimeDirectory() {
 	if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
 		runtimeDir = std::filesystem::path(xdgRuntimeDir) / "info.mumble.Mumble";
 	} else {
+#	ifdef __APPLE__
+		char tempDir[PATH_MAX];
+		if (confstr(_CS_DARWIN_USER_TEMP_DIR, tempDir, sizeof(tempDir)) > 0) {
+			runtimeDir = std::filesystem::path(tempDir) / "info.mumble.Mumble";
+		} else {
+			runtimeDir = std::filesystem::temp_directory_path() / "info.mumble.Mumble";
+		}
+#	else
 		runtimeDir = std::filesystem::path("/run/user") / std::to_string(getuid()) / "info.mumble.Mumble";
+#	endif
 	}
 
 	std::filesystem::create_directories(runtimeDir);

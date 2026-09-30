@@ -234,7 +234,15 @@ void SocketRPCClient::processXml() {
 SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 	qlsServer = new QLocalServer(this);
 
-	const QString pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
+	QString pipepath;
+	try {
+		pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
+	} catch (const std::filesystem::filesystem_error &e) {
+		qWarning() << "SocketRPC: Failed to determine socket path:" << e.what();
+		delete qlsServer;
+		qlsServer = nullptr;
+		return;
+	}
 
 #ifndef Q_OS_WIN
 	{
@@ -265,7 +273,13 @@ void SocketRPC::newConnection() {
 }
 
 bool SocketRPC::send(const QString &basename, const QString &request, const QMap< QString, QVariant > &param) {
-	const QString pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
+	QString pipepath;
+	try {
+		pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
+	} catch (const std::filesystem::filesystem_error &e) {
+		qWarning() << "SocketRPC: Failed to determine socket path:" << e.what();
+		return false;
+	}
 
 	QLocalSocket qls;
 	qls.connectToServer(pipepath);
