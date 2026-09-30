@@ -18,7 +18,6 @@ When cloning the repo, the source tree should look something like this:
 ```
 <repo root>
 ├── 3rdparty
-├── 3rdPartyLicenses
 ├── cmake
 │   └── FindModules
 ├── docs

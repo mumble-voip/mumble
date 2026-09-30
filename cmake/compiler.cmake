@@ -36,7 +36,14 @@ get_compiler_flags(
 	OUTPUT_VARIABLE MUMBLE_COMPILER_FLAGS
 )
 
-message(STATUS "Using (among others) the following compiler flags: ${MUMBLE_COMPILER_FLAGS}")
+# Prepends our flags so that target-specific options (e.g. disabled warnings) take precedence
+function(target_set_mumble_compiler_flags TARGET)
+	target_compile_options(${TARGET} BEFORE PRIVATE ${MUMBLE_COMPILER_FLAGS})
+	if (MSVC)
+		# Disable warning about padding having been added due to alignment specifier
+		target_compile_options(${TARGET} BEFORE PRIVATE "/wd4324")
+	endif()
+endfunction()
 
 if(MSVC)
 	if(32_BIT)
@@ -44,6 +51,9 @@ if(MSVC)
 		# Our 32 bit binaries should not contain any SSE2 code, so override the default.
 		add_compile_options("-arch:SSE")
 	endif()
+
+	# Define the __cplusplus macro the way the standard says it should
+	add_compile_options("/Zc:__cplusplus")
 
 	if(symbols)
 		# Configure build to be able to properly debug release builds (https://docs.microsoft.com/cpp/build/how-to-debug-a-release-build).

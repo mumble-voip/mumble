@@ -675,7 +675,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Third-party license agreements</source>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

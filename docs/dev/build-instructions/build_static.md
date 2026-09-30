@@ -16,9 +16,6 @@ available there.
 The entire build environment will require between 30GB and 60GB of space on your hard-drive. If installed via script, it tends to converge towards the
 lower bound whereas a manual installation usually tends towards the higher bound.
 
-In addition to the dependencies installed via vcpkg, you'll also need [cmake](https://cmake.org/) (v3.23 or later). On Linux you might have to install
-cmake using a [PPA](https://apt.kitware.com/) and on macOS you can install it using [homebrew](https://formulae.brew.sh/formula/cmake).
-
 Furthermore you need a C++ compiler. On Linux and MacOS that'd usually be `gcc` (`g++`) or `clang`. On Windows you probably want to use MSVC
 (check out [Setup Visual Studio](setup_visual_studio.md) on how to install it).
 
@@ -41,7 +38,7 @@ For common configurations, you can also use the [pre-built vcpkg environments](h
 
 1. Download & unzip the appropriate environment from [the releases page](https://github.com/mumble-voip/vcpkg/releases).
 2. When using the `cmake` commands below, use the unzipped folder as `<vcpkg dir>` in the `-DCMAKE_TOOLCHAIN_FILE` and `-DIce_HOME` arguments. Use
-   the corresponding triplet for `-DVCPKG_TARGET_TRIPLET`. You'll also need to set `-Dbundled-cli11=OFF` and `-Dbundled-spdlog=OFF`
+   the corresponding triplet for `-DVCPKG_TARGET_TRIPLET`.
 
 For example, on Windows, after extracting `mumble_env.x64-windows-static-md.<hash>.7z` to `C:\mumble-env\`, `CMAKE_TOOLCHAIN_FILE` would be `C:\mumble-env\mumble_env.x64-windows-static-md.<hash>\scripts\buildsystems\vcpkg.cmake"`. (Replace `<hash>` with the commit hash in the filename, e.g. `b1fe4a4257`.)
 
@@ -132,7 +129,6 @@ Important configuration options
 | `CMAKE_TOOLCHAIN_FILE` | `<vcpkg_root>/scripts/buildsystems/vcpkg.cmake` | |
 | `Ice_HOME` | `<vcpkg dir>/installed/x64-windows-static-md` | Required if you build with Ice (enabled by default) |
 | `static` | `ON` | |
-| `bundled-cli11` and<br />`bundled-spdlog`|`OFF`|Required when using pre-built environments from after 2026-02. Without these flags, linker errors for unresolved CLI11/spdlog/fmt symbols will occur. See [common build errors](common_build_errors.md)|
 
 `<vcpkg dir>` is a placeholder for your prepared build environment vcpkg setup (the path to the vcpkg directory created by the get_dependency script, or the path to your pre-built environment).
 
@@ -146,8 +142,6 @@ cmake \
       "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" \
       "-DIce_HOME=<vcpkg dir>/installed/x64-linux" \
       "-DCMAKE_BUILD_TYPE=Release" \
-      "-Dbundled-cli11=OFF" \
-      "-Dbundled-spdlog=OFF" \
       ..
 ```
 
@@ -160,8 +154,6 @@ cmake \
       "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" \
       "-DIce_HOME=<vcpkg dir>/installed/x64-osx" \
       "-DCMAKE_BUILD_TYPE=Release" \
-      "-Dbundled-cli11=OFF" \
-      "-Dbundled-spdlog=OFF" \
       ..
 ```
 
@@ -176,8 +168,6 @@ cmake -G "NMake Makefiles" `
       "-DCMAKE_TOOLCHAIN_FILE=<vcpkg dir>/scripts/buildsystems/vcpkg.cmake" `
       "-DIce_HOME=<vcpkg dir>/installed/x64-windows-static-md" `
       "-DCMAKE_BUILD_TYPE=Release" `
-      -Dbundled-cli11=OFF `
-      -Dbundled-spdlog=OFF `
       ..
 ```
 

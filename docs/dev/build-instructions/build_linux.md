@@ -36,13 +36,17 @@ sudo apt install \
   libxcb-xinerama0 \
   libzeroc-ice-dev \
   libpoco-dev \
+  nlohmann-json3-dev \
+  libcli11-dev \
+  libsoci-dev \
+  libutfcpp-dev \
   g++-multilib
 ```
 
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
-You will need `cmake` **v3.23 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
+If the version of `cmake` shipped by your distribution is not recent enough, you can install a recent one via the
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 </details>
 
@@ -85,9 +89,7 @@ sudo apt install \
   qtchooser
 ```
 
-1. There is a problem with Opus, causing crashes on some systems. Disabling the bundled opus version when running cmake might be necessary for now:
-   `cmake -Dbundled-opus=OFF ..`
-2. _Also, see Ubuntu notes, which explain some things relevant to Debian builds._
+_See also the Ubuntu notes, which explain some things relevant to Debian builds._
 
 </details>
 

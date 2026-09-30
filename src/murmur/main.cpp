@@ -44,6 +44,7 @@
 #	include <spdlog/sinks/syslog_sink.h>
 
 #	include <fcntl.h>
+#	include <unistd.h>
 #endif
 
 #include <CLI/CLI.hpp>

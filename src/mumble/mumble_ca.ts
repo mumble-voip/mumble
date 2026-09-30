@@ -670,6 +670,14 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
         <translation>Quant al Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>&amp;Quant al Mumble</translation>
     </message>
@@ -696,10 +704,6 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     <message>
         <source>Authors</source>
         <translation>Autors</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>Acords de llicència de tercers</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
@@ -8589,7 +8593,7 @@ Per actualitzar aquests fitxers a la darrera versió, feu clic al botó de sota.
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">S&apos;ha denegat l&apos;accés al micròfon. Si us plau, permeteu que Mumble utilitzi el micròfon canviant la configuració de la configuració del sistema -&gt; Privacitat i seguretat -&gt; Micròfon.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

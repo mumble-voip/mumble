@@ -13,11 +13,20 @@ Furthermore Mumble requires a **Cpp20**-conform compiler.
 
 You'll also need [`python`](https://www.python.org/downloads/). For detailed installation help, see [their Beginner's Guide](https://wiki.python.org/moin/BeginnersGuide(2f)Download.html).
 
+Finally, you will need [`CMake`](https://cmake.org/) v3.28 or later.
+
 ## Checkout the code
 
 The first step in building Mumble is to clone this repository and all the submodules via `git clone --depth 1 --recursive https://github.com/mumble-voip/mumble.git`.
 
 _Tip:_ You can also [build a specific version or commit](faq.md#build-a-specific-version-or-commit) of Mumble.
+
+
+## The Mumble Dependency Provider
+
+Mumble provides its own CMake [dependency provider](https://cmake.org/cmake/help/latest/guide/using-dependencies/index.html#dependency-providers) that
+can be used in case automatically downloading and building certain dependencies (instead of requiring them to be installed on your system) is
+desirable. For more information, please read the [associated documentation](dependency_provider.md).
 
 
 ## Using the BUILD_NUMBER variable
