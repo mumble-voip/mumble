@@ -2410,7 +2410,7 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 	// A client's plugin has sent us a message that we shall delegate to its receivers
 
 	if (uSource->m_pluginMessageBucket.ratelimit(1)) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d)", qUtf8Printable(uSource->qsName), uSource->uiSession);
+		qWarning("Dropping plugin message sent from \"%s\" (%u)", qUtf8Printable(uSource->qsName), uSource->uiSession);
 		return;
 	}
 
@@ -2421,12 +2421,12 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 	}
 
 	if (msg.data().size() > Mumble::Plugins::PluginMessage::MAX_DATA_LENGTH) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d) - data too large", qUtf8Printable(uSource->qsName),
+		qWarning("Dropping plugin message sent from \"%s\" (%u) - data too large", qUtf8Printable(uSource->qsName),
 				 uSource->uiSession);
 		return;
 	}
 	if (msg.dataid().size() > Mumble::Plugins::PluginMessage::MAX_DATA_ID_LENGTH) {
-		qWarning("Dropping plugin message sent from \"%s\" (%d) - data ID too long", qUtf8Printable(uSource->qsName),
+		qWarning("Dropping plugin message sent from \"%s\" (%u) - data ID too long", qUtf8Printable(uSource->qsName),
 				 uSource->uiSession);
 		return;
 	}
@@ -2434,7 +2434,7 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 		// We tolerate an error of up to 20 receivers to accommodate for cases in which some of the receivers happened
 		// to disconnect right after the plugin sent the message. If the difference is more than that, chances of
 		// bad luck are somewhat small and this seems more like a DDoS-ish attack.
-		qWarning("Dropping plugin message sent from \"%s\" (%d) - Unreasonable amount of receivers",
+		qWarning("Dropping plugin message sent from \"%s\" (%u) - Unreasonable amount of receivers",
 				 qUtf8Printable(uSource->qsName), uSource->uiSession);
 		return;
 	}
