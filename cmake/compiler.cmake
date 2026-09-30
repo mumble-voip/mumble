@@ -59,9 +59,15 @@ if(MSVC)
 		# Configure build to be able to properly debug release builds (https://docs.microsoft.com/cpp/build/how-to-debug-a-release-build).
 		# This includes explicitly disabling /Oy to help debugging (https://docs.microsoft.com/cpp/build/reference/oy-frame-pointer-omission).
 		# Also set /Zo to enhance optimized debugging (https://docs.microsoft.com/cpp/build/reference/zo-enhance-optimized-debugging).
+		# (s)ccache can't cache compilations that write to a shared PDB (/Zi), so embed debug info into the object files instead.
+		if(CMAKE_C_COMPILER_LAUNCHER MATCHES "ccache" OR CMAKE_CXX_COMPILER_LAUNCHER MATCHES "ccache")
+			set(MUMBLE_MSVC_DEBUG_INFO_FLAG "/Z7")
+		else()
+			set(MUMBLE_MSVC_DEBUG_INFO_FLAG "/Zi")
+		endif()
 		add_compile_options(
 			"/GR"
-			"/Zi"
+			"${MUMBLE_MSVC_DEBUG_INFO_FLAG}"
 			"/Zo"
 			"/Oy-"
 		)

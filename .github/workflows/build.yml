@@ -22,6 +22,7 @@ env:
     -Ddisplay-install-paths=ON
     -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
     -DCMAKE_C_COMPILER_LAUNCHER=ccache
+  CCACHE_COMPRESSLEVEL: 10
 
 
 jobs:
@@ -108,7 +109,6 @@ jobs:
       with:
         key: ${{ github.base_ref || github.ref_name }}_${{ matrix.os }}_${{ matrix.type }}.${{ matrix.compiler }}.${{ matrix.arch }}
         save: ${{ github.event_name != 'pull_request' }}
-        append-timestamp: false
 
     - uses: ./.github/actions/install-dependencies
       with:
