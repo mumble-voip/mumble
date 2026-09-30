@@ -205,6 +205,11 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		QWriteLocker wl(&qrwlVoiceThread);
 		if (qqIds.empty()) {
 			log(uSource, "Rejecting connection during authentication due to depleted user ID queue");
+			// In case rejectConnection -> disconnectSocket fires signals in a synchronous manner,
+			// the signal handler (Server::connectionClosed) will try to take the lock again, which
+			// will still be held here, leading to a deadlock. Hence, we release it before calling
+			// rejectConnection.
+			wl.unlock();
 			uSource->rejectConnection();
 			return;
 		}
