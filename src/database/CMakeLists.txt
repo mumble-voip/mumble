@@ -74,10 +74,10 @@ else()
 		list(APPEND components "PostgreSQL")
 	endif()
 
-	find_package("Soci" 4.1.0 COMPONENTS ${components} CONFIG REQUIRED)
+	find_package("SOCI" 4.1.4 COMPONENTS ${components} CONFIG REQUIRED)
 endif()
 
-target_link_libraries(mumble_database PUBLIC SOCI::soci)
+target_link_libraries(mumble_database PUBLIC SOCI::SOCI)
 
 
 if (NOT TARGET nlohmann_json)
@@ -90,4 +90,4 @@ if (NOT TARGET nlohmann_json)
 	endif()
 endif()
 
-target_link_libraries(mumble_database PUBLIC nlohmann_json)
+target_link_libraries(mumble_database PUBLIC nlohmann_json::nlohmann_json)
