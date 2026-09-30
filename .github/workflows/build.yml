@@ -108,7 +108,6 @@ jobs:
       with:
         key: ${{ github.base_ref || github.ref_name }}_${{ matrix.os }}_${{ matrix.type }}.${{ matrix.compiler }}.${{ matrix.arch }}
         save: ${{ github.event_name != 'pull_request' }}
-        append-timestamp: false
 
     - uses: ./.github/actions/install-dependencies
       with:
