@@ -14,7 +14,7 @@ set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MumbleServer.ice")
 
 include(qt-utils)
 
-option(ice "Build support for Ice RPC." ON)
+option(ice "Build support for Ice RPC (requires Ice 3.7 or later)." ON)
 
 find_package("Qt6" COMPONENTS Sql REQUIRED)
 
@@ -198,19 +198,19 @@ if(zeroconf)
 endif()
 
 if(ice)
+	# Ice 3.7 ships the libraries for its C++11 mapping with a "++11" suffix
 	find_package("Ice"
 		COMPONENTS
-			Ice
-			IceSSL
+			Ice++11
+			IceSSL++11
 		OPTIONAL_COMPONENTS
-			IceDiscovery
-			IceLocatorDiscovery
-			IceUtil
+			IceDiscovery++11
+			IceLocatorDiscovery++11
 		REQUIRED
 	)
 
-	if(Ice_VERSION_MAJOR LESS 3)
-		message(FATAL_ERROR "Unsupported Ice version, at least 3.0 is required.")
+	if(Ice_VERSION VERSION_LESS "3.7")
+		message(FATAL_ERROR "Unsupported Ice version, at least 3.7 is required.")
 	endif()
 
 	get_filename_component(ICE_FILE_NAME ${ICE_FILE} NAME_WE)
@@ -234,14 +234,14 @@ if(ice)
 	)
 
 	add_custom_target(generate_murmur_ice_wrapper
-		DEPENDS "MumbleServerIceWrapper.cpp" 
+		DEPENDS "MumbleServerIceWrapper.cpp" "MumbleServerIceWrapper.h"
 	)
 	add_dependencies(mumble_server_lib generate_murmur_ice_wrapper)
 	add_custom_command(
-		OUTPUT "MumbleServerIceWrapper.cpp"
+		OUTPUT "MumbleServerIceWrapper.cpp" "MumbleServerIceWrapper.h"
 		COMMAND Python::Interpreter
 		ARGS "${PROJECT_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
-			-g "${ICE_FILE_NAME}.h" -o "MumbleServerIceWrapper.cpp" -q
+			-g "${ICE_FILE_NAME}.h" -o "MumbleServerIceWrapper.cpp" --out-header "MumbleServerIceWrapper.h" -q
 		DEPENDS ${ICE_GENERATED_FILES} "${PROJECT_SOURCE_DIR}/scripts/generateIceWrapper.py"
 		COMMENT "Generating MumbleServerIceWrapper"
 	)
@@ -262,6 +262,7 @@ if(ice)
 		PUBLIC
 			"USE_ICE"
 			"ICE_STATIC_LIBS"
+			"ICE_CPP11_MAPPING"
 	)
 
 	target_include_directories(mumble_server_lib PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
@@ -274,11 +275,10 @@ if(ice)
 	endif()
 	target_link_libraries(mumble_server_lib
 		PUBLIC
-			Ice::Ice
-			Ice::IceSSL
-			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>
-			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery>
-			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
+			Ice::Ice++11
+			Ice::IceSSL++11
+			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery++11>
+			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery++11>
 			$<TARGET_NAME_IF_EXISTS:BZip2::BZip2>
 	)
 	
