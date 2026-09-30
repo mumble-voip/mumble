@@ -7,9 +7,6 @@
 #import <Carbon/Carbon.h>
 
 #include "GlobalShortcut_macx.h"
-#ifdef USE_OVERLAY
-#	include "OverlayClient.h"
-#endif
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
@@ -23,7 +20,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);
 	unsigned int keycode;
 	bool suppress = false;
-	bool forward = false;
 	bool down = false;
 	int64_t repeat = 0;
 
@@ -42,29 +38,14 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			/* Suppressing "the" mouse button is probably not a good idea :-) */
 			if (keycode == 0)
 				suppress = false;
-			forward = !suppress;
 			break;
 		}
 
 		case kCGEventMouseMoved:
 		case kCGEventLeftMouseDragged:
 		case kCGEventRightMouseDragged:
-		case kCGEventOtherMouseDragged: {
-#ifdef USE_OVERLAY
-			if (Global::get().ocIntercept) {
-				int64_t dx = CGEventGetIntegerValueField(event, kCGMouseEventDeltaX);
-				int64_t dy = CGEventGetIntegerValueField(event, kCGMouseEventDeltaY);
-				Global::get().ocIntercept->iMouseX = qBound<int>(0, Global::get().ocIntercept->iMouseX + static_cast<int>(dx), Global::get().ocIntercept->iWidth - 1);
-				Global::get().ocIntercept->iMouseY = qBound<int>(0, Global::get().ocIntercept->iMouseY + static_cast<int>(dy), Global::get().ocIntercept->iHeight - 1);
-				QMetaObject::invokeMethod(Global::get().ocIntercept, "updateMouse", Qt::QueuedConnection);
-				forward = true;
-			}
-#endif
-			break;
-		}
-
+		case kCGEventOtherMouseDragged:
 		case kCGEventScrollWheel:
-			forward = true;
 			break;
 
 		case kCGEventKeyDown:
@@ -75,7 +56,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 				keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode));
 				suppress = gs->handleButton(keycode, down);
 			}
-			forward = true;
 			break;
 
 		case kCGEventFlagsChanged: {
@@ -87,17 +67,13 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 				gs->dumpEventTaps();
 
 			suppress = gs->handleModButton(f);
-			forward = !suppress;
 			break;
 		}
 
 		case kCGEventTapDisabledByTimeout:
 			qWarning("GlobalShortcutMac: EventTap disabled by timeout. Re-enabling.");
 			/*
-			 * On Snow Leopard, we get this event type quite often. It disables our event
-			 * tap completely. Possible Apple bug.
-			 *
-			 * For now, simply call CGEventTapEnable() to enable our event tap again.
+			 * Re-enable the event tap if it gets disabled by timeout.
 			 *
 			 * See: http://lists.apple.com/archives/quartz-dev/2009/Sep/msg00007.html
 			 */
@@ -111,18 +87,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			break;
 	}
 
-#ifdef USE_OVERLAY
-		if (forward && Global::get().ocIntercept) {
-			NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-			NSEvent *evt = [[NSEvent eventWithCGEvent:event] retain];
-			QMetaObject::invokeMethod(gs, "forwardEvent", Qt::QueuedConnection, Q_ARG(void *, evt));
-			[pool release];
-			return nullptr;
-		}
-#else
-	// Mark forward as unused in this case
-	(void) forward;
-#endif
 	return suppress ? nullptr : event;
 }
 
@@ -163,10 +127,6 @@ GlobalShortcutMac::GlobalShortcutMac()
 
 	kbdLayout = nullptr;
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
-# if MAC_OS_X_VERSION_MIN_REQUIRED < 1050
-	if (TISCopyCurrentKeyboardInputSource && TISGetInputSourceProperty)
-# endif
 	{
 		TISInputSourceRef inputSource = TISCopyCurrentKeyboardInputSource();
 		if (inputSource) {
@@ -175,16 +135,6 @@ GlobalShortcutMac::GlobalShortcutMac()
 				kbdLayout = reinterpret_cast<UCKeyboardLayout *>(const_cast<UInt8 *>(CFDataGetBytePtr(data)));
 		}
 	}
-#endif
-#ifndef __LP64__
-	if (! kbdLayout) {
-		SInt16 currentKeyScript = GetScriptManagerVariable(smKeyScript);
-		SInt16 lastKeyLayoutID = GetScriptVariable(currentKeyScript, smScriptKeys);
-		Handle handle = GetResource('uchr', lastKeyLayoutID);
-		if (handle)
-			kbdLayout = reinterpret_cast<UCKeyboardLayout *>(*handle);
-	}
-#endif
 	if (! kbdLayout)
 		qWarning("GlobalShortcutMac: No keyboard layout mapping available. Unable to perform key translation.");
 
@@ -203,128 +153,36 @@ GlobalShortcutMac::~GlobalShortcutMac() {
 }
 
 void GlobalShortcutMac::dumpEventTaps() {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	uint32_t ntaps = 0;
-	CGEventTapInformation table[64];
-	if (CGGetEventTapList(20, table, &ntaps) == kCGErrorSuccess) {
-		qWarning("--- Installed Event Taps ---");
-		for (uint32_t i = 0; i < ntaps; i++) {
-			CGEventTapInformation *info = &table[i];
+	@autoreleasepool {
+		uint32_t ntaps = 0;
+		CGEventTapInformation table[64];
+		if (CGGetEventTapList(20, table, &ntaps) == kCGErrorSuccess) {
+			qWarning("--- Installed Event Taps ---");
+			for (uint32_t i = 0; i < ntaps; i++) {
+				CGEventTapInformation *info = &table[i];
 
-			NSString *processName = nil;
-			NSRunningApplication *app = [NSRunningApplication runningApplicationWithProcessIdentifier: info->processBeingTapped];
-			if (app) {
-				processName = [app localizedName];
+				NSString *processName = nil;
+				NSRunningApplication *app = [NSRunningApplication runningApplicationWithProcessIdentifier: info->processBeingTapped];
+				if (app) {
+					processName = [app localizedName];
+				}
+
+				qWarning("{");
+				qWarning("  eventTapID: %u", info->eventTapID);
+				qWarning("  tapPoint: 0x%x", info->tapPoint);
+				qWarning("  options = 0x%x", info->options);
+				qWarning("  eventsOfInterest = 0x%llx", info->eventsOfInterest);
+				qWarning("  tappingProcess = %i (%s)", info->tappingProcess, [processName UTF8String]);
+				qWarning("  processBeingTapped = %i", info->processBeingTapped);
+				qWarning("  enabled = %s", info->enabled ? "true":"false");
+				qWarning("  minUsecLatency = %.2f", info->minUsecLatency);
+				qWarning("  avgUsecLatency = %.2f", info->avgUsecLatency);
+				qWarning("  maxUsecLatency = %.2f", info->maxUsecLatency);
+				qWarning("}");
 			}
-
-			qWarning("{");
-			qWarning("  eventTapID: %u", info->eventTapID);
-			qWarning("  tapPoint: 0x%x", info->tapPoint);
-			qWarning("  options = 0x%x", info->options);
-			qWarning("  eventsOfInterest = 0x%llx", info->eventsOfInterest);
-			qWarning("  tappingProcess = %i (%s)", info->tappingProcess, [processName UTF8String]);
-			qWarning("  processBeingTapped = %i", info->processBeingTapped);
-			qWarning("  enabled = %s", info->enabled ? "true":"false");
-			qWarning("  minUsecLatency = %.2f", info->minUsecLatency);
-			qWarning("  avgUsecLatency = %.2f", info->avgUsecLatency);
-			qWarning("  maxUsecLatency = %.2f", info->maxUsecLatency);
-			qWarning("}");
+			qWarning("--- End of Event Taps ---");
 		}
-		qWarning("--- End of Event Taps ---");
 	}
-	[pool release];
-}
-
-void GlobalShortcutMac::forwardEvent(void *evt) {
-	NSEvent *event = (NSEvent *) evt;
-#ifdef USE_OVERLAY
-	SEL sel = nil;
-
-	if (!Global::get().ocIntercept) {
-		[event release];
-		return;
-	}
-
-	QWidget *vp  = Global::get().ocIntercept->qgv.viewport();
-	NSView *view = (NSView *) vp->winId();
-
-	switch ([event type]) {
-		case NSEventTypeLeftMouseDown:
-			sel = @selector(mouseDown:);
-			break;
-		case NSEventTypeLeftMouseUp:
-			sel = @selector(mouseUp:);
-			break;
-		case NSEventTypeLeftMouseDragged:
-			sel = @selector(mouseDragged:);
-			break;
-		case NSEventTypeRightMouseDown:
-			sel = @selector(rightMouseDown:);
-			break;
-		case NSEventTypeRightMouseUp:
-			sel = @selector(rightMouseUp:);
-			break;
-		case NSEventTypeRightMouseDragged:
-			sel = @selector(rightMouseDragged:);
-			break;
-		case NSEventTypeOtherMouseDown:
-			sel = @selector(otherMouseDown:);
-			break;
-		case NSEventTypeOtherMouseUp:
-			sel = @selector(otherMouseUp:);
-			break;
-		case NSEventTypeOtherMouseDragged:
-			sel = @selector(otherMouseDragged:);
-			break;
-		case NSEventTypeMouseEntered:
-			sel = @selector(mouseEntered:);
-			break;
-		case NSEventTypeMouseExited:
-			sel = @selector(mouseExited:);
-			break;
-		case NSEventTypeMouseMoved:
-			sel = @selector(mouseMoved:);
-			break;
-		default:
-			// Ignore the rest. We only care about mouse events.
-			break;
-	}
-
-	if (sel) {
-		NSPoint p; p.x = (CGFloat) Global::get().ocIntercept->iMouseX;
-		p.y = (CGFloat) (Global::get().ocIntercept->iHeight - Global::get().ocIntercept->iMouseY);
-		NSEvent *mouseEvent = [NSEvent mouseEventWithType:[event type] location:p modifierFlags:[event modifierFlags] timestamp:[event timestamp]
-		                               windowNumber:0 context:nil eventNumber:[event eventNumber] clickCount:[event clickCount]
-		                               pressure:[event pressure]];
-		if ([view respondsToSelector:sel])
-				[view performSelector:sel withObject:mouseEvent];
-		[event release];
-		return;
-	}
-
-	switch ([event type]) {
-		case NSEventTypeKeyDown:
-			sel = @selector(keyDown:);
-			break;
-		case NSEventTypeKeyUp:
-			sel = @selector(keyUp:);
-			break;
-		case NSEventTypeFlagsChanged:
-			sel = @selector(flagsChanged:);
-			break;
-		case NSEventTypeScrollWheel:
-			sel = @selector(scrollWheel:);
-			break;
-		default:
-			break;
-	}
-
-	if (sel) {
-		if ([view respondsToSelector:sel])
-				[view performSelector:sel withObject:event];
-	}
-#endif
-	[event release];
 }
 
 void GlobalShortcutMac::run() {

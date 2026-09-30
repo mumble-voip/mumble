@@ -19,11 +19,6 @@
 
 #include "ui_OverlayEditor.h"
 
-#ifdef Q_OS_MAC
-// The function is defined in Overlay_macx.mm because it uses Apple's Objective-C API.
-pid_t getForegroundProcessId();
-#endif
-
 class ClientUser;
 class Overlay;
 class QLocalServer;

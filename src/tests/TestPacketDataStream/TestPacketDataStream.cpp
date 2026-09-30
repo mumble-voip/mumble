@@ -123,7 +123,7 @@ void TestPacketDataStream::space() {
 
 	PacketDataStream out(buff, 1);
 
-	char val = -2;
+	signed char val = -2;
 
 	out << val;
 	QVERIFY(out.isValid());
@@ -140,7 +140,7 @@ void TestPacketDataStream::space() {
 
 	PacketDataStream in(buff, 1);
 
-	char v;
+	signed char v;
 
 	in >> v;
 	QCOMPARE(v, val);

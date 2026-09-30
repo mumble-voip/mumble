@@ -41,11 +41,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p),
 		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Win32"));
 #	endif
 #elif defined(Q_OS_MAC)
-#	if defined(USE_MAC_UNIVERSAL)
-		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("MacOSX-Universal"));
-#	else
 		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("MacOSX"));
-#	endif
 #else
 		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Unix"));
 #endif

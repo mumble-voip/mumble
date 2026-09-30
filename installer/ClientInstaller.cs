@@ -77,6 +77,7 @@ public class ClientInstaller : MumbleInstall {
 			"rl.dll",
 			"se.dll",
 			"sr.dll",
+			"teardown.dll",
 			"ut3.dll",
 			"ut99.dll",
 			"ut2004.dll",

@@ -6,6 +6,8 @@
 #include "lib.h"
 #include "excludecheck.h"
 
+#include "IPCUtils.h"
+
 #include "overlay_exe/overlay_exe.h"
 
 static HANDLE hMapObject = nullptr;
@@ -119,7 +121,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		return;
 
 	if (hSocket == INVALID_HANDLE_VALUE) {
-		hSocket = CreateFileW(L"\\\\.\\pipe\\MumbleOverlayPipe", GENERIC_READ | GENERIC_WRITE, 0, nullptr,
+		hSocket = CreateFileW(Mumble::getOverlayPipeDevicePath().c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr,
 							  OPEN_EXISTING, 0, nullptr);
 		if (hSocket == INVALID_HANDLE_VALUE) {
 			ods("Pipe: Connection failed");

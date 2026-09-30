@@ -13,6 +13,8 @@
 #	include "Utils.h"
 #endif
 
+#include "crypto/CryptStateOCB2.h"
+
 #include <chrono>
 
 ServerUser::ServerUser(Server *p, QSslSocket *socket)
@@ -35,12 +37,43 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket)
 	iLastPermissionCheck = -1;
 
 	bOpus = false;
+
+	csCrypt = std::make_unique< CryptStateOCB2 >();
 }
 
+ServerUser::~ServerUser() {
+}
 
 ServerUser::operator QString() const {
 	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
 }
+
+std::int64_t ServerUser::activityTime() const {
+	const auto elapsed = m_lastActivityTimer.elapsed< std::chrono::milliseconds >();
+	return elapsed.count();
+}
+
+void ServerUser::resetActivityTime() {
+	m_lastActivityTimer.restart();
+}
+
+void ServerUser::sendMessage(const ::google::protobuf::Message &msg, const Mumble::Protocol::TCPMessageType msgType) {
+	QByteArray cache;
+	sendMessage(msg, msgType, cache);
+}
+
+void ServerUser::sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+							 QByteArray &cache) {
+	if (cache.isEmpty()) {
+		if (!Connection::messageToNetwork(msg, msgType, cache)) {
+			warn("Connection::messageToNetwork() failed");
+			return;
+		};
+	}
+
+	Connection::sendMessage(cache);
+}
+
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
 	iSum    = 0;
@@ -193,4 +226,9 @@ bool LeakyBucket::ratelimit(int tokens) {
 	}
 
 	return limit;
+}
+
+void ServerUser::rejectConnection(bool forceDisconnect) {
+	sState = ServerUser::Rejected;
+	disconnectSocket(forceDisconnect);
 }

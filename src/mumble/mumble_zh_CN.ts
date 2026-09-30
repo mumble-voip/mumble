@@ -670,6 +670,14 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>关于 Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>关于 Mumble(&amp;A)</translation>
     </message>
@@ -696,10 +704,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Authors</source>
         <translation>作者</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>第三方许可</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
@@ -1259,6 +1263,10 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>音频输入</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation>麦克风访问被拒绝。请在系统设置 -&gt; 隐私与安全性 -&gt;麦克风中更改设置，允许 Mumble 使用麦克风。</translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 毫秒</translation>
     </message>
@@ -1281,10 +1289,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 千比特/秒（音频 %2，位置 %4，开销 %3）</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>访问麦克风的权限被拒绝。请您前往“系统偏好设置 -&gt; 安全性与隐私 -&gt; 隐私 -&gt; 麦克风”，允许 Mumble 使用麦克风。</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3750,10 +3754,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 目前仅支持鼠标按钮和键盘修饰键（Alt、Ctrl、Cmd 等）作为全局快捷键。&lt;/p&gt;&lt;p&gt;如果您希望更灵活，可以在系统辅助功能偏好设置中启用&lt;span style=&quot; font-style:italic;&quot;&gt;辅助设备访问&lt;/span&gt;。但请注意，此更改还可能允许恶意程序读取键盘上键入的内容。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>打开辅助功能偏好设置</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
@@ -3864,10 +3864,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 目前仅支持鼠标按钮和键盘修饰键（Alt、Ctrl、Cmd 等）作为全局快捷键。&lt;/p&gt;&lt;p&gt;如果您希望更灵活，可以在 Mac 系统偏好设置的“安全性与隐私”中将 Mumble 添加为信任的辅助功能程序。&lt;/p&gt;&lt;p&gt;在偏好设置的“安全性与隐私”面板，转到“隐私”标签。然后在左侧的列表内选择“辅助功能”（靠近底部）。最后，在右侧添加 Mumble 作为信任的辅助功能程序&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>快捷键</translation>
     </message>
@@ -3895,6 +3891,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Shortcut input combinations</source>
         <translation>快捷键输入组合</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble 的全局快捷键目前只能使用鼠标按钮和键盘修饰键（Alt、Ctrl、Cmd 等）。&lt;/p&gt;&lt;p&gt;如果您需要更灵活地配置，可以在 Mac 系统设置的“隐私与安全性”中把 Mumble 添加为受信任的辅助功能程序。&lt;/p&gt;&lt;p&gt;在系统设置中，打开隐私与安全性，在列表中滚动到辅助功能。最后，将 Mumble 添加到受信任的辅助功能程序列表中。&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -5234,6 +5234,14 @@ Whether an image is displayed on its own line only changes for new messages.</so
     <message>
         <source>Restore window geometry on startup</source>
         <translation>在启动时恢复窗口形状</translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation>当 Control 键按下时， 鼠标滚轮向上（增大）或向下（减小）滚动是否更改已选用户的本地音量。</translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation>CTRL + 滚轮更改已选用户音量</translation>
     </message>
 </context>
 <context>
@@ -8605,8 +8613,8 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>默认设备</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>访问麦克风的权限被拒绝。请您前往“系统偏好设置 -&gt; 安全性与隐私 -&gt; 隐私 -&gt; 麦克风”，允许 Mumble 使用麦克风。</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation>麦克风访问被拒绝。请在系统设置 -&gt; 隐私与安全性 -&gt;麦克风中更改设置，允许 Mumble 使用麦克风。</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

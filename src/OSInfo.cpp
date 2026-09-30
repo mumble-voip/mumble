@@ -55,14 +55,22 @@ static QString regString(wchar_t *string, int size) {
 ///
 /// This returns a string of the kind:
 ///
-///    Windows 10 Enterprise 2009 19042.804
+///    Windows 10 Enterprise 2009 19042.2965 (Win10 2009 aka. 20H2)
+///    Windows 10 Enterprise 21H1 19043.7548
 ///
 /// which is:
 ///
 ///    $ProductName $Version $Build.$Ubr
 ///
-/// Of note, $Version is formatted as YYMM.
+/// Of note, $Version is formatted as YYMM.          (Until Win10-20H2)
+///          $Version is formatted as YY[Half-Year]. (Since Win10-20H2)
 /// So, 2009 is a Windows 10 update released in September 2020.
+///     21H1 is a Windows 10 update released in the first half of 2021 (for this release: May).
+///
+/// With Windows 10 (2009) aka. (20H2), Microsoft changed its versioning scheme.
+/// This specific release contains both [ReleaseId] and [DisplayVersion] in the Registry.
+/// Starting with Windows 10 (21H1), [ReleaseId] was deprecated (kept only for compat).
+/// [DisplayVersion] is now the standard, including for Windows 11.
 ///
 /// This function can be called on non-Windows 10 OSes.
 /// On those, this functions fails to query some of the
@@ -87,11 +95,17 @@ static QString win10DisplayableVersion() {
 	}
 	const auto productName = regString(buf, static_cast< int >(len / sizeof(buf[0])));
 
+	// Try to catch new DisplayVersion (> Win10-20H2).
 	len = sizeof(buf);
-	err = RegQueryValueEx(key, L"ReleaseId", nullptr, nullptr, reinterpret_cast< LPBYTE >(&buf[0]), &len);
+	err = RegQueryValueEx(key, L"DisplayVersion", nullptr, nullptr, reinterpret_cast< LPBYTE >(&buf[0]), &len);
 	if (err != ERROR_SUCCESS) {
-		RegCloseKey(key);
-		return QString();
+		// Try to catch old ReleaseId (Win10-20H2 >).
+		len = sizeof(buf);
+		err = RegQueryValueEx(key, L"ReleaseId", nullptr, nullptr, reinterpret_cast< LPBYTE >(&buf[0]), &len);
+		if (err != ERROR_SUCCESS) {
+			RegCloseKey(key);
+			return QString();
+		}
 	}
 	const auto releaseId = regString(buf, static_cast< int >(len / sizeof(buf[0])));
 

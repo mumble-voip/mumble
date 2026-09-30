@@ -22,6 +22,11 @@ def FindLupdate(vcpkg_triplet: Optional[str] = None) -> Optional[str]:
     logging.debug('Looking for lupdate…')
     if which('lupdate') is not None:
         return 'lupdate'
+
+    for i in reversed(range(5, 10)):
+        if which(f'lupdate{i}'):
+            return f'lupdate{i}'
+
     if vcpkg_triplet is not None:
         vcpkgbin = os.path.join(os.path.expanduser('~'), 'vcpkg', 'installed', vcpkg_triplet, 'tools', 'qt6', 'bin')
         logging.debug('Looking for lupdate in %s…', vcpkgbin)

@@ -672,10 +672,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Autorë</translation>
     </message>
     <message>
-        <source>Third-party license agreements</source>
-        <translation>Marrëveshje licencash palësh të treta</translation>
-    </message>
-    <message>
         <source>&amp;About Mumble</source>
         <translation>&amp;Mbi Mumble-in</translation>
     </message>
@@ -698,6 +694,14 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
         <translation>Për një listë të autorëve, ju lutemi, shihni &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
@@ -1253,10 +1257,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Hyrje</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1295,6 +1295,10 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <source>milliseconds</source>
         <translation>milisekonda</translation>
+    </message>
+    <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>seconds</source>
@@ -3635,10 +3639,6 @@ Host: %1 Port: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Parapëlqime</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Anashkaloje</translation>
     </message>
@@ -3795,10 +3795,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Shkurtore</translation>
     </message>
@@ -3824,6 +3820,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shortcut input combinations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5249,6 +5249,14 @@ Whether an image is displayed on its own line only changes for new messages.</so
     </message>
     <message>
         <source>Restore window geometry on startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8545,7 +8553,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Pajisje Parazgjedhje</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

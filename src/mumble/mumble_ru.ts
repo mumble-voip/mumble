@@ -670,6 +670,14 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>О Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>&amp;О Mumble</translation>
     </message>
@@ -696,10 +704,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Authors</source>
         <translation>Авторы</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>Сторонние лицензии</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
@@ -1259,6 +1263,10 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>Исходящий звук</translation>
     </message>
     <message>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation>Доступ к микрофону запрещен. Пожалуйста, разрешите Mumble использовать микрофон в «Системнае настройки» -&gt; «Конфиденциальность и безопасность» -&gt; «Микрофон».</translation>
+    </message>
+    <message>
         <source>%1 ms</source>
         <translation>%1 мс</translation>
     </message>
@@ -1281,10 +1289,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation>%1 кбит/с (Аудио %2, Позиция %4, Накладные расходы %3)</translation>
-    </message>
-    <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Доступ к микрофону запрещен. Разрешите Mumble использовать микрофон, изменив настройки в Системных настройках -&gt; Безопасность и конфиденциальность -&gt; Конфиденциальность -&gt; Микрофон.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
@@ -3752,10 +3756,6 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если вы хотите больше гибкости, вы можете включить &lt;span style=&quot;font-style:italic;&quot;&gt;Доступ для вспомогательных устройств&lt;/span&gt; в системных настройках доступа. Тем не менее, обращаем ваше внимание, что это изменение потенциально позволит вредоносным программам читать то, что напечатано на вашей клавиатуре.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>Open Accessibility Preferences</source>
-        <translation>Открыть настройки специальных возможностей</translation>
-    </message>
-    <message>
         <source>Skip</source>
         <translation>Пропустить</translation>
     </message>
@@ -3866,10 +3866,6 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если вы хотите больше гибкости, вы можете добавить Mumble в качестве надежной программы доступности в разделе «Защита и безопасность» в системных настройках вашего Mac.&lt;/p&gt;&lt;p&gt; На панели «Защита и безопасность» перейдите на вкладку «Конфиденциальность». Затем выберите Универсальный доступ (внизу) в списке слева. Наконец, добавьте Mumble в список доверенных программ доступности.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <source>Shortcuts</source>
         <translation>Горячие клавиши</translation>
     </message>
@@ -3897,6 +3893,10 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     <message>
         <source>Shortcut input combinations</source>
         <translation>Комбинации клавиш быстрого ввода</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -5187,7 +5187,7 @@ Whether an image is displayed on its own line only changes for new messages.</so
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Темная тема</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
@@ -5195,11 +5195,11 @@ Whether an image is displayed on its own line only changes for new messages.</so
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматическая тема в соответствии с системной</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Авто</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
@@ -5207,7 +5207,7 @@ Whether an image is displayed on its own line only changes for new messages.</so
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Темная</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
@@ -5215,19 +5215,19 @@ Whether an image is displayed on its own line only changes for new messages.</so
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Светлая тема</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Светлая</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть папку с темами в системном файловом менеджере</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть папку с темами</translation>
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
@@ -5235,6 +5235,14 @@ Whether an image is displayed on its own line only changes for new messages.</so
     </message>
     <message>
         <source>Restore window geometry on startup</source>
+        <translation>Восстановить размер и положения окна при запуске</translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6278,11 +6286,11 @@ Whether an image is displayed on its own line only changes for new messages.</so
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Согласно настройкам сервера, ваше имя пользователя считается некорректным.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отказано: Согласно настройкам сервера, название канала некорректно.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
@@ -6788,12 +6796,12 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation>Канал &amp;Фильтр</translation>
+        <translation>Канал и фильтр</translation>
     </message>
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться к серверу</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
@@ -6935,7 +6943,7 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустить мастер сертификатов</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
@@ -6971,7 +6979,7 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Проверить наличие обновлений</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
@@ -6991,7 +6999,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Enter chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите сообщение в чат</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
@@ -8607,8 +8615,8 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Устройство по умолчанию</translation>
     </message>
     <message>
-        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Preferences -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Microphone.</source>
-        <translation>Доступ к микрофону запрещен. Разрешите Mumble использовать микрофон, изменив настройки в Системных настройках -&gt; Безопасность и конфиденциальность -&gt; Конфиденциальность -&gt; Микрофон.</translation>
+        <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
+        <translation type="unfinished">Доступ к микрофону запрещен. Пожалуйста, разрешите Mumble использовать микрофон в «Системнае настройки» -&gt; «Конфиденциальность и безопасность» -&gt; «Микрофон».</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
@@ -8752,7 +8760,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>text messages ignored</source>
-        <translation type="unfinished"></translation>
+        <translation>текстовые сообщения игнорируются</translation>
     </message>
     <message>
         <source>registered</source>
@@ -9348,7 +9356,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрыть</translation>
     </message>
 </context>
 <context>

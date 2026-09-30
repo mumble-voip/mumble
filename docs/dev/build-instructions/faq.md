@@ -1,5 +1,7 @@
 # Build FAQ
 
+For common compilation errors, see [common build errors](./common_build_errors.md).
+
 ### How to speed up the compilation
 
 Mumble supports being compiled as a [unity build](https://en.wikipedia.org/wiki/Unity_build), if you are using cmake 3.16 or newer. To use this

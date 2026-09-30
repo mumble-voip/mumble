@@ -31,6 +31,8 @@
 
 #include "Utils.h"
 
+#include "crypto/CryptState.h"
+
 #include "murmur/database/DBUserData.h"
 #include "murmur/database/UserProperty.h"
 
@@ -195,11 +197,30 @@ Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &conne
 #endif
 			} else {
 #ifdef Q_OS_UNIX
-				int val = 0xe0;
-				if (setsockopt(sock, IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+				int val     = 0xe0;
+				auto setTos = [&](const int level, const int optname) {
+					if (setsockopt(sock, level, optname, &val, sizeof(val)) == 0)
+						return true;
 					val = 0x80;
-					if (setsockopt(sock, IPPROTO_IP, IP_TOS, &val, sizeof(val)))
-						log("Server: Failed to set TOS for UDP Socket");
+					return setsockopt(sock, level, optname, &val, sizeof(val)) == 0;
+				};
+
+				bool ok = false;
+				if (addr.ss_family == AF_INET6) {
+					ok = setTos(IPPROTO_IPV6, IPV6_TCLASS);
+					// Dual-stack: IPv4-mapped datagrams still use IP_TOS on Linux.
+					int v6only    = 1;
+					socklen_t len = sizeof(v6only);
+					if (getsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, &v6only, &len) == 0 && v6only == 0) {
+						val = 0xe0;
+						setTos(IPPROTO_IP, IP_TOS);
+					}
+				} else {
+					ok = setTos(IPPROTO_IP, IP_TOS);
+				}
+
+				if (!ok) {
+					log(QLatin1String("Failed to set TOS/TCLASS for UDP"));
 				}
 #	if defined(SO_PRIORITY)
 				socklen_t optlen = sizeof(val);
@@ -1526,12 +1547,9 @@ void Server::encrypted() {
 	}
 	sendMessage(uSource, mpv);
 
-	QList< QSslCertificate > certs = uSource->peerCertificateChain();
-	if (!certs.isEmpty()) {
-		// Get the client's immediate SSL certificate
-		const QSslCertificate &cert = certs.first();
-		uSource->qslEmail           = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
-		uSource->qsHash             = QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex());
+	if (const QSslCertificate cert = uSource->peerCertificate(); !cert.isNull()) {
+		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
+		uSource->qsHash   = QString::fromLatin1(cert.digest(QCryptographicHash::Sha1).toHex());
 		if (!uSource->qslEmail.isEmpty() && uSource->bVerified) {
 			QString subject;
 			QString issuer;
@@ -1541,7 +1559,7 @@ void Server::encrypted() {
 				subject = subjectList.first();
 			}
 
-			QStringList issuerList = certs.first().issuerInfo(QSslCertificate::CommonName);
+			QStringList issuerList = cert.issuerInfo(QSslCertificate::CommonName);
 			if (!issuerList.isEmpty()) {
 				issuer = issuerList.first();
 			}
@@ -1556,7 +1574,7 @@ void Server::encrypted() {
 			if (ban.qsHash == uSource->qsHash) {
 				log(uSource, QString("Certificate hash is banned: %1, Username: %2, Reason: %3.")
 								 .arg(ban.qsHash, ban.qsUsername, ban.qsReason));
-				uSource->disconnectSocket();
+				uSource->rejectConnection();
 			}
 		}
 	}
@@ -1625,7 +1643,7 @@ void Server::sslError(const QList< QSslError > &errors) {
 		// https://bugreports.qt.io/browse/QTBUG-53906
 		// https://github.com/mumble-voip/mumble/issues/2334
 
-		u->disconnectSocket();
+		u->rejectConnection();
 	}
 }
 
@@ -1658,7 +1676,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		m_dbWrapper.updateLastDisconnect(iServerNum, static_cast< unsigned int >(u->iId));
 	}
 
-	if (u->sState == ServerUser::Authenticated) {
+	if (u->was_authenticated) {
 		if (m_channelListenerManager.isListeningToAny(u->uiSession)) {
 			for (unsigned int channelID : m_channelListenerManager.getListenedChannelsForUser(u->uiSession)) {
 				// Remove the client from the list on the server
@@ -1703,7 +1721,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	if (u->uiSession > 0 && u->uiSession < iMaxUsers * 2)
 		qqIds.enqueue(u->uiSession); // Reinsert session id into pool
 
-	if (u->sState == ServerUser::Authenticated) {
+	if (u->was_authenticated) {
 		clearTempGroups(u);     // Also clears ACL cache
 		recheckCodecVersions(); // Maybe can choose a better codec now
 	}
@@ -1721,8 +1739,16 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 		u = static_cast< ServerUser * >(sender());
 	}
 
-	if (u->sState == ServerUser::Authenticated) {
-		u->resetActivityTime();
+	switch (u->sState) {
+		case ServerUser::Rejected:
+			// Discard message
+			return;
+		case ServerUser::Connected:
+		case ServerUser::Authenticating:
+			break;
+		case ServerUser::Authenticated:
+			u->resetActivityTime();
+			break;
 	}
 
 	if (type == Mumble::Protocol::TCPMessageType::UDPTunnel) {
@@ -1793,7 +1819,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 				mpr.set_reason("The server is currently in read-only mode and doesn't accept new connections");
 				mpr.set_type(MumbleProto::Reject_RejectType_NoNewConnections);
 				sendMessage(u, mpr);
-				u->disconnectSocket();
+				u->rejectConnection();
 			}
 				[[fallthrough]];
 			default:
@@ -1847,7 +1873,7 @@ void Server::checkTimeout() {
 	}
 	qrwlVoiceThread.unlock();
 	for (ServerUser *u : qlClose) {
-		u->disconnectSocket(true);
+		u->rejectConnection(true);
 	}
 }
 
@@ -1876,12 +1902,6 @@ void Server::doSync(unsigned int id) {
 		MumbleProto::CryptSetup mpcs;
 		sendMessage(u, mpcs);
 	}
-}
-
-void Server::sendProtoMessage(ServerUser *u, const ::google::protobuf::Message &msg,
-							  Mumble::Protocol::TCPMessageType msgType) {
-	QByteArray cache;
-	u->sendMessage(msg, msgType, cache);
 }
 
 void Server::sendProtoAll(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
@@ -2238,37 +2258,22 @@ void Server::clearWhisperTargetCache() {
 	}
 }
 
-QString Server::addressToString(const QHostAddress &adr, unsigned short port) {
-	HostAddress ha(adr);
-
-	if ((Meta::mp->iObfuscate != 0)) {
-		QCryptographicHash h(QCryptographicHash::Sha1);
-		QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-		h.addData(byteView);
-#else
-		h.addData(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
-#endif
-		if (adr.protocol() == QAbstractSocket::IPv4Protocol) {
-			quint32 num = adr.toIPv4Address();
-			byteView    = { reinterpret_cast< const char * >(&num), sizeof(num) };
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-			h.addData(byteView);
-#else
-			h.addData(reinterpret_cast< const char * >(&num), sizeof(num));
-#endif
-		} else if (adr.protocol() == QAbstractSocket::IPv6Protocol) {
-			Q_IPV6ADDR num = adr.toIPv6Address();
-			byteView       = { reinterpret_cast< const char * >(num.c), sizeof(num.c) };
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-			h.addData(byteView);
-#else
-			h.addData(reinterpret_cast< const char * >(num.c), sizeof(num.c));
-#endif
-		}
-		return QString("<<%1:%2>>").arg(QString::fromLatin1(h.result().toHex()), QString::number(port));
+QString Server::addressToString(const HostAddress &adr, const unsigned short port) {
+	if (Meta::mp->iObfuscate == 0) {
+		return QString("%1:%2").arg(adr.toString(), QString::number(port));
 	}
-	return QString("%1:%2").arg(ha.toString(), QString::number(port));
+
+	QCryptographicHash h(QCryptographicHash::Sha1);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+	QByteArrayView byteView(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
+	h.addData(byteView);
+	h.addData(adr.getByteRepresentation());
+#else
+	h.addData(reinterpret_cast< const char * >(&Meta::mp->iObfuscate), sizeof(Meta::mp->iObfuscate));
+	h.addData(adr.toByteArray());
+#endif
+
+	return QString("<<%1:%2>>").arg(QString::fromLatin1(h.result().toHex()), QString::number(port));
 }
 
 bool Server::validateUserName(const QString &name) {
@@ -2694,8 +2699,9 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		if (userID < 0 && certhash.isEmpty()) {
 			// The only alternative to password-based authentication is the one based on certificates.
 			// If none was provided and password authentication did not apply, then we report that
-			// we don't know this user.
-			return UNKNOWN_USER;
+			// we don't know this user - UNLESS the requested name belongs to a registered account.
+			// In that case we must fail as AUTHENTICATION_FAILED to prevent impersonating that user.
+			return usedReservedName ? AUTHENTICATION_FAILED : UNKNOWN_USER;
 		}
 
 		if (userID < 0) {

@@ -31,9 +31,6 @@ public:
 	bool enabled() Q_DECL_OVERRIDE;
 	bool canDisable() Q_DECL_OVERRIDE;
 
-public slots:
-	void forwardEvent(void *evt);
-
 protected:
 	CFRunLoopRef loop;
 	CFMachPortRef port;

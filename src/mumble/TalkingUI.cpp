@@ -10,6 +10,7 @@
 #include "MainWindow.h"
 #include "TalkingUIComponent.h"
 #include "UserModel.h"
+#include "VolumeSliderWidgetAction.h"
 #include "widgets/MultiStyleWidgetWrapper.h"
 #include "Global.h"
 
@@ -573,6 +574,12 @@ void TalkingUI::mousePressEvent(QMouseEvent *event) {
 	}
 
 	updateUI();
+}
+
+void TalkingUI::wheelEvent(QWheelEvent *event) {
+	if (!VolumeSliderWidgetAction::handleMouseWheel(*event)) {
+		return QWidget::wheelEvent(event);
+	}
 }
 
 void TalkingUI::setVisible(bool visible) {

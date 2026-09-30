@@ -15,6 +15,7 @@
 #include "ClientType.h"
 #include "Connection.h"
 #include "HostAddress.h"
+#include "MumbleProtocol.h"
 #include "ServerUserInfo.h"
 #include "Timer.h"
 
@@ -27,6 +28,9 @@
 #	include <sys/socket.h>
 #endif
 
+#include <atomic>
+#include <memory>
+#include <mutex>
 #include <vector>
 
 // Unfortunately, this needs to be "large enough" to hold
@@ -42,7 +46,7 @@ struct BandwidthRecord {
 	Timer tIdleControl;
 	unsigned short a_iBW[N_BANDWIDTH_SLOTS];
 	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
-	mutable QMutex qmMutex;
+	mutable std::mutex qmMutex;
 
 	BandwidthRecord();
 	bool addFrame(int size, int maxpersec);
@@ -90,6 +94,7 @@ private:
 	/// A timer that is used to measure time intervals. It is essential
 	/// that this timer uses a monotonic clock (which is why QElapsedTimer is
 	/// used instead of QTime or QDateTime).
+	/// TODO: Switch to Timer.
 	QElapsedTimer m_timer;
 
 public:
@@ -102,6 +107,8 @@ public:
 	LeakyBucket(unsigned int tokensPerSec, unsigned int maxTokens);
 };
 
+class CryptState;
+
 class ServerUser : public Connection, public ServerUserInfo {
 private:
 	Q_OBJECT
@@ -109,11 +116,21 @@ private:
 protected:
 	Server *s;
 
+	Timer m_lastActivityTimer;
+
 public:
-	enum State { Connected, Authenticated };
-	State sState;
+	enum State { Rejected, Connected, Authenticating, Authenticated };
+	std::atomic< State > sState;
+	std::atomic< bool > was_authenticated = false;
 	ClientType m_clientType;
 	operator QString() const;
+
+	std::int64_t activityTime() const;
+	void resetActivityTime();
+
+	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType);
+	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+					 QByteArray &cache);
 
 	float dUDPPingAvg, dUDPPingVar;
 	float dTCPPingAvg, dTCPPingVar;
@@ -153,7 +170,15 @@ public:
 	BandwidthRecord bwr;
 	struct sockaddr_storage saiUdpAddress;
 	struct sockaddr_storage saiTcpLocalAddress;
+
+	/// qmCrypt locks access to csCrypt.
+	std::mutex qmCrypt;
+	std::unique_ptr< CryptState > csCrypt;
+
 	ServerUser(Server *parent, QSslSocket *socket);
+	~ServerUser();
+
+	void rejectConnection(bool forceDisconnect = false);
 };
 
 #endif

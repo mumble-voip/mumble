@@ -4,7 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 
-cmake_minimum_required(VERSION 3.23...4.2)
+cmake_minimum_required(VERSION 3.28...4.2)
 
 set(BUILD_NUMBER CACHE STRING "The build number of the current build. Will be used in Mumble's version to make sure newer builds upgrade older installations properly.")
 set(BUILD_RELEASE_DATE CACHE STRING "The release date to be used in the generated appstream metadata.")
@@ -37,15 +37,16 @@ if(NOT DEFINED CMAKE_CXX_STANDARD OR CMAKE_CXX_STANDARD LESS 20)
 	set(CMAKE_CXX_STANDARD 20)
 endif()
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+set(CMAKE_OSX_DEPLOYMENT_TARGET 15)
 
 
 include(pkg-utils)
 include(project-utils)
 include(TargetArch)
 include(CheckIPOSupported)
+include(dependencies)
 
-find_package(Python 3 COMPONENTS Interpreter REQUIRED)
+find_package("Python" 3 COMPONENTS Interpreter REQUIRED)
 
 
 check_ipo_supported(RESULT LTO_DEFAULT)
@@ -87,8 +88,6 @@ endif()
 
 option(lto "Enables link-time optimizations for release builds" ${LTO_DEFAULT})
 
-option(bundled-utfcpp "Use the bundled utf8cpp version instead of looking for one on the system" ON)
-
 include(compiler)
 include(os)
 
@@ -103,7 +102,7 @@ if(APPLE AND MUMBLE_TARGET_ARCH MATCHES ";")
 	set(MUMBLE_TARGET_ARCH "universal")
 endif()
 
-if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD")
+if(NOT ${CMAKE_SYSTEM_NAME} STREQUAL "OpenBSD" AND NOT APPLE)
 	option(overlay "Build overlay." ${client})
 	if(64_BIT AND NOT MUMBLE_TARGET_ARCH STREQUAL "arm64")
 		option(overlay-xcompile "Build 32 bit overlay library, necessary for the overlay to work with 32 bit processes." ${client})
@@ -174,22 +173,12 @@ set(CMAKE_UNITY_BUILD_BATCH_SIZE 40)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ${lto})
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 
-if(bundled-utfcpp)
-	add_subdirectory(${3RDPARTY_DIR}/utfcpp)
-else()
-	find_pkg("utf8cpp" REQUIRED)
-	add_library(utfcpp ALIAS utf8cpp::utf8cpp)
-endif()
-
 if(g15 AND WIN32)
 	add_subdirectory("helpers/g15helper")
 endif()
 
-if(APPLE AND MUMBLE_TARGET_ARCH MATCHES "arm.*")
-	# mach_override doesn't support ARM
-	# https://github.com/rentzsch/mach_override/issues/6
-	set(overlay OFF CACHE BOOL "" FORCE)
-	message(STATUS "Disabling the overlay on ARM macOS")
+if(client OR overlay)
+	add_subdirectory(ipcutils)
 endif()
 
 if(overlay)
@@ -198,10 +187,6 @@ if(overlay)
         else()
                 if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch64")
                         add_subdirectory(overlay_gl)
-                endif()
-
-                if(APPLE)
-                        add_subdirectory(macx/osax)
                 endif()
         endif()
 endif()

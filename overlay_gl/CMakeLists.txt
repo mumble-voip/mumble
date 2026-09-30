@@ -9,26 +9,29 @@ include(CheckIncludeFile)
 
 add_library(overlay_gl SHARED "overlay.c")
 
+target_link_libraries(overlay_gl PRIVATE ipcutils)
+
 set_target_properties(overlay_gl
 	PROPERTIES
 		LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 		OUTPUT_NAME "mumbleoverlay"
 		VERSION ${CMAKE_PROJECT_VERSION}
+		LINKER_LANGUAGE CXX # linker needs C++ runtime for ipcutils
 )
 
 if(NOT APPLE)
-	find_pkg(gl REQUIRED)
-	target_include_directories(overlay_gl PRIVATE ${gl_INCLUDE_DIRS})
+	find_package("OpenGL" REQUIRED)
+	# Only headers are needed: GL is resolved at runtime and must not be loaded into every process we are injected into
+	target_link_libraries(overlay_gl PRIVATE $<COMPILE_ONLY:OpenGL::GL>)
 
 	target_link_options(overlay_gl BEFORE
 		PRIVATE
 			"-Wl,-z,lazy"
 	)
 
-	set_target_properties(overlay_gl
-		PROPERTIES
-			COMPILE_DEFINITIONS
-				"TARGET_UNIX"
+	target_compile_definitions(overlay_gl
+		PRIVATE
+			"TARGET_UNIX"
 	)
 
 	if(overlay-xcompile)
@@ -48,6 +51,17 @@ if(NOT APPLE)
 		)
 
 		add_library(overlay_gl_x86 SHARED "overlay.c")
+
+		get_target_property(ipcutils_sources ipcutils SOURCES)
+		get_target_property(ipcutils_source_dir ipcutils SOURCE_DIR)
+		list(TRANSFORM ipcutils_sources PREPEND "${ipcutils_source_dir}/")
+
+		add_library(ipcutils_x86 STATIC ${ipcutils_sources})
+		target_include_directories(ipcutils_x86 PUBLIC "${ipcutils_source_dir}")
+		target_compile_options(ipcutils_x86 PRIVATE "-m32")
+		set_target_properties(ipcutils_x86 PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+		target_link_libraries(overlay_gl_x86 PRIVATE ipcutils_x86)
 
 		target_compile_definitions(overlay_gl_x86
 			PRIVATE
@@ -74,6 +88,7 @@ if(NOT APPLE)
 				LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 				OUTPUT_NAME "mumbleoverlay.x86"
 				VERSION ${CMAKE_PROJECT_VERSION}
+				LINKER_LANGUAGE CXX
 		)
 	endif()
 
@@ -99,30 +114,6 @@ if(NOT APPLE)
 			install(TARGETS overlay_gl_x86 LIBRARY DESTINATION "${MUMBLE_INSTALL_LIBDIR}")
 		endif()
 	endif()
-else()
-	add_subdirectory("${3RDPARTY_DIR}/mach-override-build" "${CMAKE_CURRENT_BINARY_DIR}/mach-override" EXCLUDE_FROM_ALL)
-
-	find_library(LIB_COREFOUNDATION "CoreFoundation")
-
-	target_compile_definitions(overlay_gl
-		PRIVATE
-			"TARGET_MAC"
-	)
-	target_compile_options(overlay_gl
-		PRIVATE
-			"-ObjC"
-	)
-	target_sources(overlay_gl
-		PRIVATE
-			"avail_mac.h"
-			"overlay_gl.plist"
-	)
-	target_link_libraries(overlay_gl
-		PRIVATE
-			"-undefined dynamic_lookup" # Defer libGL symbol resolution until first use, which is never for non-libGL users.
-			mach-override
-			${LIB_COREFOUNDATION}
-	)
 endif()
 
 # install native overlay library

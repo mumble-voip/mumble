@@ -39,14 +39,14 @@ protected:
 	static void hupSignalHandler(int);
 	static void termSignalHandler(int);
 	static void usr1SignalHandler(int);
+
+	void reloadSettings();
 public slots:
 	void handleSigHup();
 	void handleSigTerm();
 	void handleSigUsr1();
 
 public:
-	bool logToSyslog;
-
 	void setuid();
 	void initialcap();
 	void finalcap();

@@ -36,7 +36,14 @@ get_compiler_flags(
 	OUTPUT_VARIABLE MUMBLE_COMPILER_FLAGS
 )
 
-message(STATUS "Using (among others) the following compiler flags: ${MUMBLE_COMPILER_FLAGS}")
+# Prepends our flags so that target-specific options (e.g. disabled warnings) take precedence
+function(target_set_mumble_compiler_flags TARGET)
+	target_compile_options(${TARGET} BEFORE PRIVATE ${MUMBLE_COMPILER_FLAGS})
+	if (MSVC)
+		# Disable warning about padding having been added due to alignment specifier
+		target_compile_options(${TARGET} BEFORE PRIVATE "/wd4324")
+	endif()
+endfunction()
 
 if(MSVC)
 	if(32_BIT)
@@ -45,13 +52,22 @@ if(MSVC)
 		add_compile_options("-arch:SSE")
 	endif()
 
+	# Define the __cplusplus macro the way the standard says it should
+	add_compile_options("/Zc:__cplusplus")
+
 	if(symbols)
 		# Configure build to be able to properly debug release builds (https://docs.microsoft.com/cpp/build/how-to-debug-a-release-build).
 		# This includes explicitly disabling /Oy to help debugging (https://docs.microsoft.com/cpp/build/reference/oy-frame-pointer-omission).
 		# Also set /Zo to enhance optimized debugging (https://docs.microsoft.com/cpp/build/reference/zo-enhance-optimized-debugging).
+		# (s)ccache can't cache compilations that write to a shared PDB (/Zi), so embed debug info into the object files instead.
+		if(CMAKE_C_COMPILER_LAUNCHER MATCHES "ccache" OR CMAKE_CXX_COMPILER_LAUNCHER MATCHES "ccache")
+			set(MUMBLE_MSVC_DEBUG_INFO_FLAG "/Z7")
+		else()
+			set(MUMBLE_MSVC_DEBUG_INFO_FLAG "/Zi")
+		endif()
 		add_compile_options(
 			"/GR"
-			"/Zi"
+			"${MUMBLE_MSVC_DEBUG_INFO_FLAG}"
 			"/Zo"
 			"/Oy-"
 		)
@@ -117,6 +133,11 @@ elseif(UNIX OR MINGW)
 		if(symbols)
 			add_compile_options("-g")
 		endif()
+	endif()
+
+	check_cxx_compiler_flag("-Wsfinae-incomplete" COMPILER_HAS_SFINAE_INCOMPLETE_FLAG)
+	if(COMPILER_HAS_SFINAE_INCOMPLETE_FLAG)
+		add_compile_options("-Wno-error=sfinae-incomplete")
 	endif()
 endif()
 

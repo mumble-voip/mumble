@@ -103,12 +103,14 @@ void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 }
 
 bool LogTextBrowser::event(QEvent *e) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
 	// Moving the window to a screen with a different scale factor changes the
 	// pixel size the displayed image resources should be rendered at, without
 	// necessarily changing the logical viewport size.
 	if (e->type() == QEvent::DevicePixelRatioChange) {
 		m_imageFitTimer->start();
 	}
+#endif
 	return QTextBrowser::event(e);
 }
 

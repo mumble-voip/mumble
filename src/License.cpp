@@ -7,19 +7,23 @@
 
 #include "licenses.h"
 
+#include <QString>
+
+#include <vector>
+
 QString License::license() {
-	return QString::fromUtf8(licenseMumble);
+	return QString::fromUtf8(mumbleLicense);
 }
 
-QList< LicenseInfo > License::thirdPartyLicenses() {
-	QList< LicenseInfo > licenses;
-	for (int i = 0; !licenses3rdParties[i].isEmpty(); i++) {
-		const ThirdPartyLicense *tpl = &licenses3rdParties[i];
+std::vector< LicenseInfo > License::thirdPartyLicenses() {
+	std::vector< LicenseInfo > licenses;
+	for (const ThirdPartyLicense &current : licenses3rdParties) {
 		LicenseInfo li;
-		li.name    = QString::fromUtf8(tpl->name);
-		li.url     = QString::fromUtf8(tpl->url);
-		li.license = QString::fromUtf8(tpl->license);
-		licenses << li;
+		li.name      = QString::fromUtf8(current.name);
+		li.url       = QString::fromUtf8(current.url);
+		li.licenseId = QString::fromUtf8(current.spdxLicenseId);
+
+		licenses.emplace_back(std::move(li));
 	}
 	return licenses;
 }
@@ -27,17 +31,14 @@ QList< LicenseInfo > License::thirdPartyLicenses() {
 QString License::printableThirdPartyLicenseInfo() {
 	QString output;
 
-	QList< LicenseInfo > thirdPartyLicenses = License::thirdPartyLicenses();
-	for (const LicenseInfo &li : thirdPartyLicenses) {
-		QString header          = QString::fromLatin1("%1 (%2)\n").arg(li.name).arg(li.url);
-		QString headerHorizLine = QString::fromLatin1("-").repeated(header.size()) + QLatin1String("\n");
-
-		output.append(headerHorizLine);
-		output.append(header);
-		output.append(headerHorizLine);
-		output.append(QLatin1String("\n"));
-		output.append(li.license);
-		output.append(QLatin1String("\n\n"));
+	for (const LicenseInfo &li : License::thirdPartyLicenses()) {
+		output += "- ";
+		output.append(li.name);
+		output += " (";
+		output.append(li.licenseId);
+		output += ") - ";
+		output.append(li.url);
+		output += "\n";
 	}
 
 	return output;

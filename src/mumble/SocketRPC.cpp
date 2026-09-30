@@ -11,7 +11,8 @@
 #include "ServerHandler.h"
 #include "Global.h"
 
-#include <QtCore/QProcessEnvironment>
+#include "IPCUtils.h"
+
 #include <QtCore/QUrlQuery>
 #include <QtNetwork/QLocalServer>
 #include <QtXml/QDomDocument>
@@ -233,22 +234,9 @@ void SocketRPCClient::processXml() {
 SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 	qlsServer = new QLocalServer(this);
 
-	QString pipepath;
+	const QString pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
 
-#ifdef Q_OS_WIN
-	pipepath = basename;
-#else
-	{
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QDir xdgRuntimeDir     = QDir(xdgRuntimePath);
-
-		if (!xdgRuntimePath.isNull() && xdgRuntimeDir.exists()) {
-			pipepath = xdgRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
-		} else {
-			pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
-		}
-	}
-
+#ifndef Q_OS_WIN
 	{
 		QFile f(pipepath);
 		if (f.exists()) {
@@ -277,22 +265,7 @@ void SocketRPC::newConnection() {
 }
 
 bool SocketRPC::send(const QString &basename, const QString &request, const QMap< QString, QVariant > &param) {
-	QString pipepath;
-
-#ifdef Q_OS_WIN
-	pipepath = basename;
-#else
-	{
-		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
-		QDir xdgRuntimeDir     = QDir(xdgRuntimePath);
-
-		if (!xdgRuntimePath.isNull() && xdgRuntimeDir.exists()) {
-			pipepath = xdgRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
-		} else {
-			pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
-		}
-	}
-#endif
+	const QString pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
 
 	QLocalSocket qls;
 	qls.connectToServer(pipepath);

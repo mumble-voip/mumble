@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
-<dictionary>
-	<suite name="MumbleOverlaySuite" code="MUOL" description="Mumble In-Game Overlay">
-		<command name="load Mumble Overlay" code="MUOLload" description="Load the Mumble Overlay into process"/>
-		<command name="load Mumble Overlay for Leopard" code="MUOLdaol" description="Load the Mumble Overlay into process (for Leopard)"/>
-	</suite>
-</dictionary>

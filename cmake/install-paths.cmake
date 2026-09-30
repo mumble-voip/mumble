@@ -23,7 +23,7 @@ function(assert_is_relative path)
 endfunction()
 
 function(pkgconf_install_path outputVariable module variable default)
-	find_package(PkgConfig)
+	find_package("PkgConfig")
 
 	if(NOT PkgConfig_FOUND)
 		# Immediately use the default and return

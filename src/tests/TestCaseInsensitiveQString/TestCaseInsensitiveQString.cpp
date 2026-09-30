@@ -37,6 +37,10 @@ private slots:
 		QVERIFY(QString("abc") < istr);
 		QVERIFY(istr < QString("xyz"));
 		QVERIFY(CaseInsensitiveQString("another") < istr);
+
+		// A strict '<' must be false for equal operands, including case-insensitive equality.
+		QVERIFY(!(istr < QString("test")));
+		QVERIFY(!(istr < QString("TEST")));
 	}
 
 	void less_equal() const {
@@ -57,6 +61,10 @@ private slots:
 		QVERIFY(QString("xyz") > istr);
 		QVERIFY(istr > QString("abc"));
 		QVERIFY(CaseInsensitiveQString("Xenia") > istr);
+
+		// A strict '>' must be false for equal operands, including case-insensitive equality.
+		QVERIFY(!(istr > QString("test")));
+		QVERIFY(!(istr > QString("TEST")));
 	}
 
 	void greater_equal() const {

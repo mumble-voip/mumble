@@ -44,6 +44,7 @@ private:
 protected:
 	void mouseReleaseEvent(QMouseEvent *) Q_DECL_OVERRIDE;
 	void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+	void wheelEvent(QWheelEvent *) Q_DECL_OVERRIDE;
 	bool event(QEvent *) Q_DECL_OVERRIDE;
 
 public:

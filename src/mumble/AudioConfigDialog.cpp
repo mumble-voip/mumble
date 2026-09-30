@@ -212,8 +212,7 @@ void AudioInputDialog::verifyMicrophonePermission() {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText(
 				tr("Access to the microphone was denied. Please allow Mumble to use the microphone "
-				   "by changing the settings in System Preferences -> Security & Privacy -> Privacy -> "
-				   "Microphone."));
+				   "by changing the settings in System Settings -> Privacy & Security -> Microphone."));
 		} else if (air->name == QLatin1String("WASAPI")) {
 			qlInputHelp->setVisible(true);
 			qlInputHelp->setText(tr("Access to the microphone was denied. Please check that your operating system's "

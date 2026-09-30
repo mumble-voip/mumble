@@ -31,6 +31,7 @@
 
 #define SERVERSEND_EVENT 3501
 
+#include "HostAddress.h"
 #include "Mumble.pb.h"
 #include "MumbleProtocol.h"
 #include "ServerAddress.h"
@@ -39,6 +40,7 @@
 #include <memory>
 
 class Connection;
+class CryptState;
 class Database;
 class PacketDataStream;
 class QUdpSocket;
@@ -105,8 +107,8 @@ protected:
 	DWORD dwFlowUDP;
 #endif
 
-	QHostAddress qhaRemote;
-	QHostAddress qhaLocal;
+	HostAddress qhaRemote;
+	HostAddress qhaLocal;
 	QUdpSocket *qusUdp;
 	QMutex qmUdp;
 
@@ -119,6 +121,7 @@ public:
 	QList< QSslError > qlErrors;
 	QList< QSslCertificate > qscCert;
 	QSslCipher qscCipher;
+	std::unique_ptr< CryptState > csCrypt;
 	ConnectionPtr cConnection;
 	QByteArray qbaDigest;
 	std::shared_ptr< VoiceRecorder > recorder;

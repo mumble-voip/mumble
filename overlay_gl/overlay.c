@@ -11,7 +11,6 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <math.h>
-#include <pwd.h>
 #include <semaphore.h>
 #include <stdarg.h>
 #include <stdbool.h>
@@ -52,6 +51,7 @@
 #endif
 
 #include "../overlay/overlay.h"
+#include "IPCUtils_c.h"
 
 static bool bDebug       = false;
 static bool bCursorAvail = false;
@@ -72,6 +72,9 @@ typedef struct _Context {
 
 	struct sockaddr_un saName;
 	int iSocket;
+	// monotonic timestamp (in seconds) of the last connect() attempt, used to throttle
+	// reconnects while the overlay endpoint isn't reachable
+	double connectAttempt;
 	// overlay message, temporary variable for processing from socket
 	struct OverlayMsg omMsg;
 	// opengl overlay texture
@@ -86,7 +89,7 @@ typedef struct _Context {
 
 	GLuint uiProgram;
 
-	clock_t timeT;
+	double timeT;
 	unsigned int frameCount;
 
 	GLint maxVertexAttribs;
@@ -111,6 +114,15 @@ static Context *contexts = NULL;
 
 #define AVAIL(name) dlsym(RTLD_DEFAULT, #name)
 #define FDEF(name) static __typeof__(&name) o##name = NULL
+
+// Minimum time between connect() attempts while the overlay endpoint isn't reachable
+#define OVERLAY_RECONNECT_INTERVAL 1.0f // seconds
+
+static double monotonicSeconds(void) {
+	struct timespec ts;
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return (double) ts.tv_sec + (double) ts.tv_nsec / 1e9;
+}
 
 #if defined(TARGET_UNIX)
 FDEF(dlsym);
@@ -140,33 +152,21 @@ __attribute__((format(printf, 1, 2))) static void ods(const char *format, ...) {
 
 static void newContext(Context *ctx) {
 	ctx->iSocket           = -1;
+	ctx->connectAttempt    = 0.0;
 	ctx->omMsg.omh.iLength = -1;
 	ctx->texture           = ~0U;
-	ctx->timeT             = clock();
+	ctx->timeT             = monotonicSeconds();
 	ctx->frameCount        = 0;
 
-	char *home = getenv("HOME");
-	if (home == NULL) {
-		struct passwd *pwent = getpwuid(getuid());
-		if (pwent && pwent->pw_dir && pwent->pw_dir[0]) {
-			home = pwent->pw_dir;
+	char *pipePath = get_overlay_pipe_path();
+	if (pipePath != NULL) {
+		// ctx->saName.sun_path is a statically sized char array, therefore sizeof is correct here
+		size_t sunPathBufLen = sizeof(ctx->saName.sun_path) / sizeof(ctx->saName.sun_path[0]);
+		if (strlen(pipePath) < sunPathBufLen) {
+			ctx->saName.sun_family = PF_UNIX;
+			strcpy(ctx->saName.sun_path, pipePath);
 		}
-	}
-
-	char *xdgRuntimeDir            = getenv("XDG_RUNTIME_DIR");
-	const char *overlayPipeXdgDir  = "/MumbleOverlayPipe";
-	const char *overlayPipeHomeDir = "/.MumbleOverlayPipe";
-	// ctx->saName.sun_path is a statically sized char array, therefore sizeof is correct here
-	size_t sunPathBufLen = sizeof(ctx->saName.sun_path) / sizeof(ctx->saName.sun_path[0]);
-
-	if (xdgRuntimeDir != NULL && strlen(xdgRuntimeDir) + strlen(overlayPipeXdgDir) < sunPathBufLen) {
-		ctx->saName.sun_family = PF_UNIX;
-		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
-		strcat(ctx->saName.sun_path, overlayPipeXdgDir);
-	} else if (home && strlen(home) + strlen(overlayPipeHomeDir) < sunPathBufLen) {
-		ctx->saName.sun_family = PF_UNIX;
-		strcpy(ctx->saName.sun_path, home);
-		strcat(ctx->saName.sun_path, overlayPipeHomeDir);
+		free(pipePath);
 	}
 
 	ods("OpenGL Version %s, Vendor %s, Renderer %s, Shader %s", glGetString(GL_VERSION), glGetString(GL_VENDOR),
@@ -254,6 +254,13 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		releaseMem(ctx);
 		if (!ctx->saName.sun_path[0])
 			return;
+
+		double now = monotonicSeconds();
+		if (ctx->connectAttempt != 0.0 && (now - ctx->connectAttempt) < OVERLAY_RECONNECT_INTERVAL) {
+			return;
+		}
+		ctx->connectAttempt = now;
+
 		ctx->iSocket = socket(AF_UNIX, SOCK_STREAM, 0);
 		if (ctx->iSocket == -1) {
 			ods("socket() failure");
@@ -484,8 +491,8 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 
 static void drawContext(Context *ctx, int width, int height) {
 	// calculate FPS and send it as an overlay message
-	clock_t t     = clock();
-	float elapsed = (float) (t - ctx->timeT) / CLOCKS_PER_SEC;
+	double t      = monotonicSeconds();
+	float elapsed = (float) (t - ctx->timeT);
 	++(ctx->frameCount);
 	if (elapsed > OVERLAY_FPS_INTERVAL) {
 		struct OverlayMsg om;

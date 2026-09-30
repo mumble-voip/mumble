@@ -34,39 +34,14 @@ Build an x86 overlay
 Bundle Qt's translations as well
 (Default: ${static})
 
-### bundled-cli11
-
-Use the bundled CLI11 version instead of looking for one on the system
-(Default: ON)
-
-### bundled-json
-
-Build the included version of nlohmann_json instead of looking for one on the system
-(Default: ON)
-
 ### bundled-rnnoise
 
 Build the included version of RNNoise instead of looking for one on the system.
 (Default: ${rnnoise})
 
-### bundled-soci
-
-Build the included version of SOCI instead of looking for one on the system
-(Default: ON)
-
-### bundled-spdlog
-
-Use the bundled spdlog version instead of looking for one on the system
-(Default: ON)
-
 ### bundled-speex
 
 Build the included version of Speex instead of looking for one on the system.
-(Default: ON)
-
-### bundled-utfcpp
-
-Use the bundled utf8cpp version instead of looking for one on the system
 (Default: ON)
 
 ### client
@@ -273,11 +248,6 @@ Build static binaries.
 
 Build binaries in a way that allows easier debugging.
 (Default: OFF)
-
-### test-lto
-
-Whether to use LTO when building test cases
-(Default: ${lto})
 
 ### tests
 

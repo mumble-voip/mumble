@@ -159,7 +159,7 @@ void OverlayClient::updateMouse() {
 				quint32 *dstimg  = reinterpret_cast< quint32 * >(out.scanLine(i));
 				quint32 *dstmask = reinterpret_cast< quint32 * >(outmask.scanLine(i));
 
-				for (int j = 0; j < w; ++j) {
+				for (std::size_t j = 0; j < w; ++j) {
 					dstmask[j] = srcmask[j];
 					dstimg[j]  = srcimg[j];
 				}
@@ -258,13 +258,6 @@ void OverlayClient::showGui() {
 
 	ougUsers.bShowExamples = true;
 
-#ifdef Q_OS_MAC
-	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar);
-	Global::get().mw->setUnifiedTitleAndToolBarOnMac(false);
-	if (!Global::get().s.os.qsStyle.isEmpty())
-		qApp->setStyle(Global::get().s.os.qsStyle);
-#endif
-
 	setupScene(true);
 
 	OverlayMsg om;
@@ -312,12 +305,6 @@ void OverlayClient::hideGui() {
 	if (bWasVisible) {
 		Global::get().mw->loadState(Global::get().s.bMinimalView);
 	}
-
-#ifdef Q_OS_MAC
-	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
-	Global::get().mw->setUnifiedTitleAndToolBarOnMac(true);
-	Themes::apply();
-#endif
 
 	setupScene(false);
 

@@ -408,10 +408,6 @@ const QString Settings::cqsDefaultPushClickOff = QLatin1String(":/off.ogg");
 const QString Settings::cqsDefaultMuteCue = QLatin1String(":/off.ogg");
 
 OverlaySettings::OverlaySettings() {
-#ifdef Q_OS_MACOS
-	qsStyle = QLatin1String("Cleanlooks");
-#endif
-
 	qcUserName[Settings::Passive]      = QColor(170, 170, 170);
 	qcUserName[Settings::MutedTalking] = QColor(170, 170, 170);
 	qcUserName[Settings::Talking]      = QColor(255, 255, 255);
@@ -431,7 +427,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 			fMutedDeafened = 0.5f;
 			fAvatar        = 1.0f;
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
+#if defined(Q_OS_WIN)
 			qfUserName = QFont(QLatin1String("Verdana"), 20);
 #else
 			qfUserName = QFont(QLatin1String("Arial"), 20);
@@ -471,7 +467,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 			fMutedDeafened = (7.0f / 8.0f);
 			fAvatar        = 1.0f;
 
-#if defined(Q_OS_WIN) || defined(Q_OS_MACOS)
+#if defined(Q_OS_WIN)
 			qfUserName = QFont(QLatin1String("Verdana"), 20);
 #else
 			qfUserName = QFont(QLatin1String("Arial"), 20);
