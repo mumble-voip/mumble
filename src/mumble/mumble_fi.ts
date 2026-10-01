@@ -3699,6 +3699,18 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7469,14 +7481,6 @@ kanavien alivalikosta.</translation>
         <translation>Älä lähetä varmennetta palvelimelle äläkä tallenna salasanoja. (Ei tallenneta).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Piilottaa identiteettitiedot ohjelmalta.&lt;/b&gt;&lt;p&gt;Ohjelma ei tunnistaudu sertifikaatilla vaikka se olisi olemassa, eikä myöskään tallenna salasanoja yhteyksille. Tämä asetus on pääasiassa testikäyttöön ja valintaa ei tulla muistamaan ohjelman sulkemisen jälkeen.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>Piilota varmenne ja salasanatietue</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Välityspalvelimen tyyppi. &lt;/b&gt;&lt;br /&gt;Tämä kierrättää kaikki Mumblen ulkoyhteydet välityspalvelimen kautta. Huomio: välityspalvelimen tunnelointi pakottaa Mumblen käyttämään TCP-yhteystilaa, joka johtaa datan lähetykseen hallintakanavan kautta.</translation>
     </message>
@@ -7617,6 +7621,14 @@ Estää mahdollisesti tunnistamista helpottavien tietojen, koskien käyttöjärj
     <message>
         <source>Proxy password</source>
         <translation>Välityspalvelimen salasana</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

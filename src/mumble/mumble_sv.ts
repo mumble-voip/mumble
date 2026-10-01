@@ -3699,6 +3699,18 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7469,14 +7481,6 @@ kanalens innehållsmeny.</translation>
         <translation>Skicka inte certifikat till servern eller spara lösenord. (Inte sparat).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Detta kommer att avlägsna information om indentitet från klienten.&lt;/b&gt;&lt;p&gt;Klienten kommer inte att identifiera sig själv utan något certifikat, eller lagra lösenord för anslutningar. Detta är primärt ett testalternativ och kommer inte att sparas.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>Inaktivera lagring av certifikat och lösenord</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Typ av proxy att ansluta genom.&lt;/b&gt;&lt;br /&gt;Detta gör att Mumble ansluter genom en proxy för atta utgående anslutningar. Kom ihåg: Tunnling av proxy tvingar Mumble till kompatibilitetsläge för TCP, vilket orsakar att all ljuddata skickas via kontrollkanalen.</translation>
     </message>
@@ -7617,6 +7621,14 @@ Förhindrar klienten från att skicka potentiellt identifierande information om 
     <message>
         <source>Proxy password</source>
         <translation>Lösenord för proxy</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

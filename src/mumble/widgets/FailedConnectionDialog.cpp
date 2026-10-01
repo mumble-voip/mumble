@@ -10,6 +10,7 @@
 #include "Global.h"
 
 #include <QAction>
+#include <QFont>
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
@@ -23,6 +24,28 @@ FailedConnectionDialog::FailedConnectionDialog(ConnectDetails details, Connectio
 
 	userPasswordInput->setText(m_details.password);
 	serverPasswordInput->setText(m_details.password);
+
+	qcbSavePassword->setChecked(!Global::get().s.bSuppressIdentity);
+
+	const bool canSavePassword = Global::get().db->isFavorite(m_details.host, m_details.port);
+	qlSavePasswordNotice->setVisible(!canSavePassword);
+
+	if (!canSavePassword) {
+		qcbSavePassword->setEnabled(false);
+		qcbSavePassword->setChecked(false);
+
+		// Relative to the current font, so the user's font size settings are respected
+		QFont noticeFont = qlSavePasswordNotice->font();
+		noticeFont.setPointSizeF(noticeFont.pointSizeF() * 0.85);
+		qlSavePasswordNotice->setFont(noticeFont);
+
+		const QString notSavedReason = tr("Passwords can only be saved for servers in your favorites");
+		qcbSavePassword->setToolTip(notSavedReason);
+		qlSavePasswordNotice->setToolTip(notSavedReason);
+
+		userPasswordInput->setAccessibleDescription(notSavedReason);
+		serverPasswordInput->setAccessibleDescription(notSavedReason);
+	}
 
 	connectSignals();
 
@@ -69,7 +92,7 @@ void FailedConnectionDialog::connectSignals() {
 }
 
 void FailedConnectionDialog::initiateReconnect() {
-	if (!Global::get().s.bSuppressIdentity) {
+	if (Global::get().db->isFavorite(m_details.host, m_details.port) && qcbSavePassword->isChecked()) {
 		Global::get().db->setPassword(m_details.host, m_details.port, m_details.username, m_details.password);
 	}
 

@@ -3699,6 +3699,18 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
         <source>Cancel</source>
         <translation type="unfinished">Anul·la</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7469,14 +7481,6 @@ al menú contextual del canal.</translation>
         <translation>No enviïs el certificat al servidor i no desis les contrasenyes. (No desat).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Això suprimeix la informació d&apos;identitat del client.&lt;/b&gt;&lt;p&gt;El client no s&apos;identificarà amb un certificat, encara que el tingui, i no desarà les contrasenyes ala memòria cau per les connexions. És més que res una opció per fer proves i no s&apos;ha desat.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>Suprimeix el certificat i la contrasenya desada</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Tipus de servidor intermediari al que connectar.&lt;/b&gt;&lt;br /&gt;Això fa que el Mumble connecti a través d&apos;un servidor intermediari per a totes les connexions sortints. Nota: La connexió amb Proxy obliga al Mumble a utilitzar el mode de compatibilitat TCP, fent que totes les dades de veu s&apos;enviïn pel canal de control.</translation>
     </message>
@@ -7617,6 +7621,14 @@ Evita que el client pugui enviar informació que identifiqui el sistema operatiu
     <message>
         <source>Proxy password</source>
         <translation>Contrasenya del proxy</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

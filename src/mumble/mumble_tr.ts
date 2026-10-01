@@ -3698,6 +3698,18 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7468,14 +7480,6 @@ filtrelenmesi için ilave kanallar ekleyebilirsiniz.</translation>
         <translation>Sunucuya sertifika gönderme ve parolaları kaydetme (Seçenek durumu kaydedilmez).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Bu, istemciden kimlik verilerini kaldıracaktır.&lt;/b&gt;&lt;p&gt;İstemci kendisini varsa bile sertifika ile doğrulamayacak, ve bağlantılar için parolaları saklamayacaktır. Öncelikle bir test seçeneği olup, kaydedilmez.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>Sertifika ve parola saklamasını kaldır</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Aracılığıyla bağlanılacak vekil tipi&lt;/b&gt;&lt;br /&gt;Bu ayar Mumble&apos;ın tüm dışarıya giden bağlantılar için bir vekil sunucudan geçmesini sağlar. Not: Vekil tüneli kullanmak, Mumble&apos;ı TCP uyumluluk kipine zorlar ve bu tüm ses verilerinin kontrol kanalından yollanmasına yol açar.</translation>
     </message>
@@ -7616,6 +7620,14 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>Proxy password</source>
         <translation>Vekil parolası</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
