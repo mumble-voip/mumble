@@ -1713,6 +1713,12 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 			old->removeUser(u);
 
 		m_channelListenerManager.removeVolumeAdjustmentsOfUser(u->uiSession);
+
+		for (ServerUser *user : qhUsers) {
+			for (WhisperTarget &target : user->qmTargets) {
+				std::erase(target.sessions, u->uiSession);
+			}
+		}
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
