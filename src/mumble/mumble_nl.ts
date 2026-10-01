@@ -3699,6 +3699,18 @@ Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeve
         <source>Cancel</source>
         <translation type="unfinished">Annuleer</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7469,14 +7481,6 @@ context-menu van het kanaal.</translation>
         <translation>Certificaat niet naar server verzenden en geen wachtwoorden bewaren. (Niet opgeslagen).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Onderdrukt Mumble-identiteitsinformatie.&lt;/b&gt;&lt;p&gt;Mumble identificeert niet met een certificaat, zelfs indien ingesteld, en cachet geen wachtwoorden voor verbindingen. Vooral test-optie (niet opgeslagen).&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>Voorkom opslag certificaten en wachtwoorden</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Soort proxy&lt;/b&gt;&lt;br /&gt;Laat Mumble via een proxy-verbinding maken (uitgaande verbindingen). Tunnelen zet Mumble in TCP-compatibiliteitsmodus, waardoor spraakgegevens via beheerkanaal gaan verlopen.</translation>
     </message>
@@ -7616,6 +7620,14 @@ Voorkomt dat Mumble potentieel identificerende informatie over het besturingssys
     </message>
     <message>
         <source>Proxy password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

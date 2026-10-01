@@ -3693,6 +3693,18 @@ Label of the server. This is what the server will be named like in your server l
         <source>Cancel</source>
         <translation type="unfinished">ביטול</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7456,14 +7468,6 @@ the channel&apos;s context menu.</source>
         <translation>אל תשלח תעודת אבטחה ואל תשמור סיסמאות (לא נשמר בעת יציאה).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;b&gt;אפשרות זו תמנע שליחה של מידע זיהוי מן הלקוח.&lt;/b&gt;&lt;p dir=&quot;RTL&quot;&gt;הלקוח לא יזהה את עצמו בעזרת תעודת אבטחה, גם אם הוגדרה תעודה כזה, ולא ישמור סיסמאות עבור חיבורים. אפשרות זו היא בעיקר עבור ניפוי שגיאות ולא תשמר בעת יציאה מתוך Mumble.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>בטל אחסון תעודה וסיסמה</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;טיפוס ציר להתחבר דרכו.&lt;/b&gt;&lt;br /&gt;זה מאפשר ל-Mumble להתחבר דרך ציר עבור כל החיבורים היוצאים. שים לב: תיעול ציר מחייב את Mumble להשתמש במצב תאימות ל-TCP, שגורם לכל נתוני הקול להשלח דרך ערוץ הבקרה.</translation>
     </message>
@@ -7602,6 +7606,14 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Proxy password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

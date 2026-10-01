@@ -3631,6 +3631,18 @@ Host: %1 Port: %2</source>
         <source>Cancel</source>
         <translation>Anuloje</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7444,14 +7456,6 @@ the channel&apos;s context menu.</source>
         <translation>Mos dërgo dëshmi te shërbyesi dhe mos ruaj fjalëkalime. (S’u ruajt).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>Dëshmi ose fjalëkalim i gabuar</translation>
-    </message>
-    <message>
         <source>Proxy</source>
         <translation>Ndërmjetës</translation>
     </message>
@@ -7619,6 +7623,14 @@ Prevents the client from sending potentially identifying information about the o
     <message>
         <source>Proxy password</source>
         <translation>Fjalëkalim ndërmjetësi</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

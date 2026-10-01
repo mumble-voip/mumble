@@ -3698,6 +3698,18 @@ Label of the server. This is what the server will be named like in your server l
         <source>Cancel</source>
         <translation type="unfinished">취소</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7468,14 +7480,6 @@ the channel&apos;s context menu.</source>
         <translation>인증서를 서버로 보내지 않고 비밀번호를 저장하지 않습니다. (저장되지 않음).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;클라이언트의 정보를 숨깁니다.&lt;/b&gt;&lt;p&gt;클라이언트는 정의된 경우에도 인증서로 자신을 식별하지 않으며 연결에 대한 비밀번호를 저장하지 않습니다. 이 옵션은 주로 테스트 옵션이며 저장되지 않습니다.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>인증서와 비밀번호 저장 금지</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;연결할 프록시 유형입니다.&lt;/b&gt;&lt;br /&gt;Mumble이 모든 송신 연결을 프록시를 통해 연결합니다. 참고: 프록시 터널링은 Mumble을 TCP 호환 모드로 강제 전환하여 모든 음성 데이터가 제어 채널을 통해 전송되도록 합니다.</translation>
     </message>
@@ -7615,6 +7619,14 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Proxy password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

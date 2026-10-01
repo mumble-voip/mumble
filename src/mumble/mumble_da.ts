@@ -3695,6 +3695,18 @@ Etikette for serveren. Dette er, hvad serveren vil blive navngivet som i din ser
         <source>Cancel</source>
         <translation type="unfinished">Annullér</translation>
     </message>
+    <message>
+        <source>Save password on this device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Passwords can only be saved for servers in your favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcut</name>
@@ -7459,14 +7471,6 @@ kanalens genvejsmenu.</translation>
         <translation>Send ikke certifikat til server og gem ikke adgangskoder. (Gemmes ikke).</translation>
     </message>
     <message>
-        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Dette vil tilbageholde identificerbar information, så det ikke sendes til serveren.&lt;/b&gt;&lt;p&gt;Du vil ikke autenticifere med et certifikat, selvom du har ét, og du vil ikke opbevare adgangskoder for forbindelser. Dette er primært en test-indstilling og bliver derfor ikke gemt.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <source>Suppress certificate and password storage</source>
-        <translation>Tilbagehold certifikat og gemte adgangskoder</translation>
-    </message>
-    <message>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
         <translation>&lt;b&gt;Typen af proxyen der skal oprettes forbindelse gennem.&lt;/b&gt;&lt;br /&gt;Dette får Mumble til at oprette forbindelse gennem en proxy for alle udgående forbindelser. Vær opmærksom på, at brug af proxy tvinger Mumble til at bruge TCP-kompatibilitetstilstand, som resulterer, i at alt tale-data vil blive sendt gennem kontrolkanalen.</translation>
     </message>
@@ -7605,6 +7609,14 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Proxy password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suppress certificate information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
