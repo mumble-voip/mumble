@@ -3193,6 +3193,11 @@ Channel *Server::createNewChannel(Channel *parent, const QString &name, bool tem
 	if (temporary) {
 		// Make sure temporary channel IDs will not collide with regular channel IDs
 		id += iChannelCountLimit > 0 ? static_cast< unsigned int >(iChannelCountLimit) * 2 : 1'000'000u;
+
+		// Ensure we don't collide with the ID of any other (temporary) channel
+		while (qhChannels.contains(id)) {
+			++id;
+		}
 	}
 
 	Channel *c    = new Channel(id, name, parent);
