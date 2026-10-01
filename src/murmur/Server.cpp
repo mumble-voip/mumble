@@ -1942,11 +1942,15 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		chan->unlink(nullptr);
 	}
 
-	for (Channel *c : chan->qlChannels) {
+	// Note: we use a copy of qlChannels in order to avoid (indirect) concurrent modification of the list while we are
+	// iterating over it.
+	for (Channel *c : QList< Channel * >(chan->qlChannels)) {
 		removeChannel(c, dest);
 	}
 
-	for (User *p : chan->qlUsers) {
+	// Note: we use a copy of qlUsers in order to avoid (indirect) concurrent modification of the list while we are
+	// iterating over it.
+	for (User *p : QList< User * >(chan->qlUsers)) {
 		{
 			QWriteLocker wl(&qrwlVoiceThread);
 			chan->removeUser(p);
@@ -3171,6 +3175,11 @@ Channel *Server::createNewChannel(Channel *parent, const QString &name, bool tem
 	if (temporary) {
 		// Make sure temporary channel IDs will not collide with regular channel IDs
 		id += iChannelCountLimit > 0 ? static_cast< unsigned int >(iChannelCountLimit) * 2 : 1'000'000u;
+
+		// Ensure we don't collide with the ID of any other (temporary) channel
+		while (qhChannels.contains(id)) {
+			++id;
+		}
 	}
 
 	Channel *c    = new Channel(id, name, parent);
