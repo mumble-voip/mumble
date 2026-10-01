@@ -2010,6 +2010,14 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		qhChannels.remove(chan->iId);
 	}
 
+	{
+		QMutexLocker qml(&qmCache);
+
+		for (ChanACL::ChanCache *cache : acCache) {
+			cache->remove(chan);
+		}
+	}
+
 	delete chan;
 }
 
