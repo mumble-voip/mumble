@@ -687,7 +687,7 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 		MumbleProto::ContextActionModify mpcam;
 		mpcam.set_action(iceString(action));
 		mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
-		ServerUser *su = s->qhUsers.value(session);
+		ServerUser *su = s->qhUsers.value(pSrc->uiSession);
 		if (su)
 			s->sendMessage(su, mpcam);
 	}
