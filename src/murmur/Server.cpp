@@ -1687,6 +1687,8 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 			}
 		}
 
+		m_channelListenerManager.removeVolumeAdjustmentsOfUser(u->uiSession);
+
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
 		sendExcept(u, mpur);
@@ -1994,6 +1996,8 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 
 		sendAll(mpus);
 	}
+
+	m_channelListenerManager.removeVolumeAdjustmentsOfChannel(chan->iId);
 
 	MumbleProto::ChannelRemove mpcr;
 	mpcr.set_channel_id(chan->iId);
