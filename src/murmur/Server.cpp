@@ -3128,8 +3128,8 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 			return false;
 		}
 
-		qhUserIDCache.remove(qhUserNameCache.value(id));
-		qhUserNameCache.remove(id);
+		qhUserIDCache.remove(qhUserNameCache.value(userID));
+		qhUserNameCache.remove(userID);
 		qhUserIDCache.remove(name);
 	}
 
