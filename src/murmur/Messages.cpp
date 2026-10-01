@@ -24,7 +24,9 @@
 #include <algorithm>
 #include <cassert>
 #include <set>
+#include <tuple>
 #include <unordered_map>
+#include <unordered_set>
 
 #include <QtCore/QStack>
 #include <QtCore/QTimeZone>
@@ -2303,43 +2305,44 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 	if ((target < 1) || (target >= 0x1f))
 		return;
 
+	// The client-provided list is validated and deduplicated before taking the lock, as it can be arbitrarily long
+	WhisperTarget wt;
+	std::unordered_set< unsigned int > sessions;
+	std::set< std::tuple< unsigned int, bool, bool, QString > > channels;
+	for (int i = 0; i < msg.targets_size(); ++i) {
+		const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
+		for (int j = 0; j < t.session_size(); ++j) {
+			unsigned int s = t.session(j);
+			if (qhUsers.contains(s) && sessions.insert(s).second) {
+				wt.sessions.push_back(s);
+			}
+		}
+		if (t.has_channel_id()) {
+			unsigned int id = t.channel_id();
+			if (qhChannels.contains(id)) {
+				WhisperTarget::Channel wtc;
+				wtc.id              = id;
+				wtc.includeChildren = t.children();
+				wtc.includeLinks    = t.links();
+				if (t.has_group()) {
+					wtc.targetGroup = u8(t.group());
+				}
+
+				if (channels.emplace(wtc.id, wtc.includeChildren, wtc.includeLinks, wtc.targetGroup).second) {
+					wt.channels.push_back(std::move(wtc));
+				}
+			}
+		}
+	}
+
 	QWriteLocker lock(&qrwlVoiceThread);
 
 	uSource->qmTargetCache.remove(target);
 
-	int count = msg.targets_size();
-	if (count == 0) {
+	if (wt.sessions.empty() && wt.channels.empty()) {
 		uSource->qmTargets.remove(target);
 	} else {
-		WhisperTarget wt;
-		for (int i = 0; i < count; ++i) {
-			const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
-			for (int j = 0; j < t.session_size(); ++j) {
-				unsigned int s = t.session(j);
-				if (qhUsers.contains(s)) {
-					wt.sessions.push_back(s);
-				}
-			}
-			if (t.has_channel_id()) {
-				unsigned int id = t.channel_id();
-				if (qhChannels.contains(id)) {
-					WhisperTarget::Channel wtc;
-					wtc.id              = id;
-					wtc.includeChildren = t.children();
-					wtc.includeLinks    = t.links();
-					if (t.has_group()) {
-						wtc.targetGroup = u8(t.group());
-					}
-
-					wt.channels.push_back(wtc);
-				}
-			}
-		}
-		if (wt.sessions.empty() && wt.channels.empty()) {
-			uSource->qmTargets.remove(target);
-		} else {
-			uSource->qmTargets.insert(target, std::move(wt));
-		}
+		uSource->qmTargets.insert(target, std::move(wt));
 	}
 }
 
