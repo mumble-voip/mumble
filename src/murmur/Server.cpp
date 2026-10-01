@@ -2017,6 +2017,16 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		}
 
 		qhChannels.remove(chan->iId);
+
+		for (ServerUser *user : qhUsers) {
+			for (auto it = user->qmTargets.begin(); it != user->qmTargets.end(); ++it) {
+				if (std::erase_if(it->channels,
+								  [chan](const WhisperTarget::Channel &target) { return target.id == chan->iId; })
+					> 0) {
+					user->qmTargetCache.remove(it.key());
+				}
+			}
+		}
 	}
 
 	{
