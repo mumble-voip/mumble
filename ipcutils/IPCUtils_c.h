@@ -12,7 +12,7 @@ extern "C" {
 
 /// A \0-terminated heap-allocated string: the pipe path on *nix, or the pipe name on Windows.
 /// The caller is responsible for free()ing it. Returns NULL if allocation fails or if the
-/// runtime directory doesn't exist and can't be created.
+/// runtime directory cannot be created or validated.
 char *get_overlay_pipe_path(void);
 
 #ifdef __cplusplus

@@ -10,17 +10,21 @@
 #include <cstring>
 
 char *get_overlay_pipe_path(void) {
-	std::string path = Mumble::getOverlayPipePath().string();
+	try {
+		std::string path = Mumble::getOverlayPipePath().string();
 
-	if (path.empty()) {
+		if (path.empty()) {
+			return nullptr;
+		}
+
+		char *result = static_cast< char * >(std::malloc((path.size() + 1) * sizeof(char)));
+		if (result == nullptr) {
+			return nullptr;
+		}
+
+		std::memcpy(result, path.c_str(), path.size() + 1);
+		return result;
+	} catch (...) {
 		return nullptr;
 	}
-
-	char *result = static_cast< char * >(std::malloc((path.size() + 1) * sizeof(char)));
-	if (result == nullptr) {
-		return nullptr;
-	}
-
-	std::memcpy(result, path.c_str(), path.size() + 1);
-	return result;
 }

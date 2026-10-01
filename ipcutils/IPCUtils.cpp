@@ -6,6 +6,7 @@
 #include "IPCUtils.h"
 
 #ifndef _WIN32
+#	include <cerrno>
 #	include <cstdio>
 #	include <cstdlib>
 #	include <string>
@@ -20,44 +21,68 @@ namespace Mumble {
 #ifndef _WIN32
 namespace {
 
-	// Creates the given directory if it doesn't exist yet, using only non-throwing
-	// std::filesystem calls, so that this never throws even on a read-only or sandboxed
-	// filesystem. If the directory was created by this call, its permissions are restricted to
-	// the owner (0700), since it is then a directory Mumble controls; an already-existing
-	// directory's permissions are left untouched, since it may belong to the user or another
-	// application.
-	void ensureDirectoryCreated(const std::filesystem::path &dir) {
-		std::error_code ec;
-		bool created = std::filesystem::create_directories(dir, ec);
-		if (created) {
-			std::error_code permEc;
-			std::filesystem::permissions(dir, std::filesystem::perms::owner_all, std::filesystem::perm_options::replace,
-										 permEc);
+	void checkPrivateDirectory(const std::filesystem::path &dir) {
+		const std::filesystem::file_status status = std::filesystem::symlink_status(dir);
+		if (std::filesystem::is_symlink(status) || !std::filesystem::is_directory(status)) {
+			throw std::filesystem::filesystem_error("Runtime directory is not a real directory", dir,
+													std::make_error_code(std::errc::not_a_directory));
 		}
-	}
-
-	// Returns whether the given path is an existing directory the current user can both write to
-	// and enter.
-	bool isUsableDirectory(const std::filesystem::path &dir) {
-		std::error_code ec;
-		if (!std::filesystem::is_directory(dir, ec) || ec) {
-			return false;
+		if ((status.permissions() & std::filesystem::perms::mask) != std::filesystem::perms::owner_all) {
+			throw std::filesystem::filesystem_error("Runtime directory must have permissions 0700", dir,
+													std::make_error_code(std::errc::permission_denied));
 		}
 
-		return ::access(dir.c_str(), W_OK | X_OK) == 0;
-	}
-
-	// Returns whether the given path is a real directory (not a symlink) owned by the current
-	// user with permissions restricted to exactly 0700. lstat() is used instead of
-	// std::filesystem::is_directory() so that a symlink someone else planted at this path is
-	// rejected instead of followed.
-	bool isPrivateOwnedDirectory(const std::filesystem::path &dir) {
+		// std::filesystem::file_status does not expose the owning user ID.
 		struct stat st;
 		if (::lstat(dir.c_str(), &st) != 0) {
-			return false;
+			const std::error_code error(errno, std::generic_category());
+			throw std::filesystem::filesystem_error("Unable to check runtime directory owner", dir, error);
+		}
+		if (st.st_uid != getuid()) {
+			throw std::filesystem::filesystem_error("Runtime directory is owned by another user", dir,
+													std::make_error_code(std::errc::permission_denied));
+		}
+	}
+
+	void checkTemporaryDirectory(const std::filesystem::path &dir) {
+		const std::filesystem::file_status status = std::filesystem::status(dir);
+		if (!std::filesystem::is_directory(status)) {
+			throw std::filesystem::filesystem_error("Temporary path is not a directory", dir,
+													std::make_error_code(std::errc::not_a_directory));
 		}
 
-		return S_ISDIR(st.st_mode) && st.st_uid == getuid() && (st.st_mode & 07777) == S_IRWXU;
+		// A shared parent must prevent other users from replacing our directory after validation.
+		// Follow the base's symlink here: /tmp is a symlink on macOS.
+		struct stat st;
+		if (::stat(dir.c_str(), &st) != 0) {
+			const std::error_code error(errno, std::generic_category());
+			throw std::filesystem::filesystem_error("Unable to check temporary directory owner", dir, error);
+		}
+		const std::filesystem::perms writableByOthers =
+			std::filesystem::perms::group_write | std::filesystem::perms::others_write;
+		if ((st.st_uid != getuid() && st.st_uid != 0)
+			|| ((status.permissions() & writableByOthers) != std::filesystem::perms::none
+				&& (status.permissions() & std::filesystem::perms::sticky_bit) == std::filesystem::perms::none)) {
+			throw std::filesystem::filesystem_error("Temporary directory does not protect runtime directory ownership",
+													dir, std::make_error_code(std::errc::permission_denied));
+		}
+	}
+
+	void ensurePrivateDirectory(const std::filesystem::path &dir) {
+		// Unlike std::filesystem::create_directory, mkdir can restrict access from the instant of
+		// creation. Only create the leaf, never system-managed parents such as /run/user/<uid>.
+		if (::mkdir(dir.c_str(), S_IRWXU) == 0) {
+			// Restore owner permissions if the process's umask removed any. Never chmod an existing
+			// directory, and do not follow a symlink if the leaf was replaced in the meantime.
+			std::filesystem::permissions(dir, std::filesystem::perms::owner_all,
+										 std::filesystem::perm_options::replace
+											 | std::filesystem::perm_options::nofollow);
+		} else if (errno != EEXIST) {
+			const std::error_code error(errno, std::generic_category());
+			throw std::filesystem::filesystem_error("Unable to create runtime directory", dir, error);
+		}
+
+		checkPrivateDirectory(dir);
 	}
 
 	// Prints the warning message the XDG Base Directory Specification mandates for falling back
@@ -76,48 +101,34 @@ std::filesystem::path getRuntimeDirectory() {
 	return {};
 #else
 	static const std::filesystem::path dir = [] {
-		const char *xdgRuntimeDir = std::getenv("XDG_RUNTIME_DIR");
-		if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
-			std::filesystem::path base(xdgRuntimeDir);
-			if (isUsableDirectory(base)) {
-				std::filesystem::path candidate = base / "info.mumble.Mumble";
-				ensureDirectoryCreated(candidate);
-				return candidate;
+		const char *xdgRuntimeDir  = std::getenv("XDG_RUNTIME_DIR");
+		std::filesystem::path base = xdgRuntimeDir ? xdgRuntimeDir : "";
+		// The XDG specification requires relative values to be ignored. Select a location from
+		// the environment before checking the filesystem, so a temporary failure cannot send
+		// the client and overlay to different directories. They must share the same environment.
+		const bool useXdg = !base.empty() && base.is_absolute();
+		if (useXdg) {
+			// Ignore trailing separators when checking whether the base itself is a symlink.
+			while (base.has_relative_path() && base.filename().empty()) {
+				base = base.parent_path();
 			}
-		}
-
-		// /run/user/<uid> is normally created and maintained by the system (e.g. by
-		// systemd-logind), so this process must not attempt to create it or its /run parent
-		// itself. Only use it if it is already there and usable.
-		std::filesystem::path runUserDir = std::filesystem::path("/run/user") / std::to_string(getuid());
-		if (isUsableDirectory(runUserDir)) {
-			std::filesystem::path candidate = runUserDir / "info.mumble.Mumble";
-			ensureDirectoryCreated(candidate);
-			warnRuntimeDirFallback(candidate);
-			return candidate;
-		}
-
-		// Fall back to the system's shared temp directory. Since it is typically writable by
-		// every local user, the leaf name is qualified with the current uid and only accepted if
-		// it turns out to be a private directory this process itself owns; if another user got
-		// there first, or the path is a symlink, the candidate is discarded instead of being used.
-		std::error_code ec;
-		std::filesystem::path tmpDir = std::filesystem::temp_directory_path(ec);
-		if (!ec && !tmpDir.empty()) {
-			std::filesystem::path candidate = tmpDir / ("info.mumble.Mumble-" + std::to_string(getuid()));
-			ensureDirectoryCreated(candidate);
-			if (isPrivateOwnedDirectory(candidate)) {
-				warnRuntimeDirFallback(candidate);
-				return candidate;
+			checkPrivateDirectory(base);
+		} else {
+			base = std::filesystem::temp_directory_path();
+			if (!base.is_absolute()) {
+				throw std::filesystem::filesystem_error("Temporary directory must be absolute", base,
+														std::make_error_code(std::errc::invalid_argument));
 			}
+			checkTemporaryDirectory(base);
 		}
 
-		// Last resort: the current directory. This is returned unconditionally, even if it could
-		// not be created, since there is nothing else left to try.
-		std::filesystem::path candidate = std::filesystem::path(".") / "info.mumble.Mumble";
-		ensureDirectoryCreated(candidate);
-		warnRuntimeDirFallback(candidate);
-		return candidate;
+		const std::filesystem::path dir =
+			base / (useXdg ? "info.mumble.Mumble" : "info.mumble.Mumble-" + std::to_string(getuid()));
+		ensurePrivateDirectory(dir);
+		if (!useXdg) {
+			warnRuntimeDirFallback(dir);
+		}
+		return dir;
 	}();
 
 	return dir;
