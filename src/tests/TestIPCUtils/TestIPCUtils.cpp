@@ -10,6 +10,7 @@
 #include <filesystem>
 #include <fstream>
 #include <functional>
+#include <initializer_list>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -223,7 +224,7 @@ int main() {
 			require(fs::exists(leaf / "marker"), "Existing leaf contents changed");
 		});
 
-		for (const mode_t mode : { 0755, 0701, 0777, 0600, 01700, 02700 }) {
+		for (const mode_t mode : std::initializer_list< mode_t >{ 0755, 0701, 0777, 0600, 01700, 02700 }) {
 			run(kind + " rejects insecure leaf mode " + std::to_string(mode), [=](const fs::path &root) {
 				const fs::path base = useXdg ? root / "xdg" : root / "tmp";
 				if (useXdg) {
@@ -323,7 +324,7 @@ int main() {
 		expectSuccess(root / "xdg" / "info.mumble.Mumble");
 	});
 
-	for (const mode_t mode : { 0777, 0770, 0702 }) {
+	for (const mode_t mode : std::initializer_list< mode_t >{ 0777, 0770, 0702 }) {
 		run("Non-sticky writable temp base is rejected " + std::to_string(mode), [=](const fs::path &root) {
 			setMode(root / "tmp", mode);
 			const struct stat before = fileStatus(root / "tmp");
@@ -347,7 +348,7 @@ int main() {
 		});
 	}
 
-	for (const mode_t mode : { 0755, 0711, 0770, 01700 }) {
+	for (const mode_t mode : std::initializer_list< mode_t >{ 0755, 0711, 0770, 01700 }) {
 		run("XDG rejects insecure base mode " + std::to_string(mode), [=](const fs::path &root) {
 			const fs::path base = root / "xdg";
 			makeDirectory(base, mode);
