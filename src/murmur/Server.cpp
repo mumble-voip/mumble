@@ -2010,6 +2010,14 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		m_channelListenerManager.removeVolumeAdjustmentsOfChannel(chan->iId);
 	}
 
+	{
+		QMutexLocker qml(&qmCache);
+
+		for (ChanACL::ChanCache *cache : acCache) {
+			cache->remove(chan);
+		}
+	}
+
 	delete chan;
 }
 
