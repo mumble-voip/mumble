@@ -408,6 +408,19 @@ public:
 	QString getRegisteredUserName(int userID);
 	int getRegisteredUserID(const QString &name);
 
+	/// Removes all invalid (non-existent) user IDs from the provided set
+	template< typename SetLike > void removeInvalidUserIDs(SetLike &set) {
+		auto it = set.begin();
+
+		while (it != set.end()) {
+			if (*it < 0 || getRegisteredUserName(*it).isEmpty()) {
+				it = set.erase(it);
+			} else {
+				++it;
+			}
+		}
+	}
+
 	bool registerUser(ServerUser &user);
 	int registerUser(const ServerUserInfo &userInfo);
 
