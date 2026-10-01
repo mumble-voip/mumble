@@ -1725,7 +1725,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
-		auto func_ptr = std::mem_fn< void(unsigned int) >(&Server::removeChannel);
+		auto func_ptr = std::mem_fn(&Server::removeTemporaryChannelIfEmpty);
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(std::bind(func_ptr, this, old->iId)));
 	}
 
@@ -1944,9 +1944,10 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 	}
 }
 
-void Server::removeChannel(unsigned int id) {
+void Server::removeTemporaryChannelIfEmpty(unsigned int id) {
+	// The removal is deferred, so the channel might have been refilled or replaced by a different one in the meantime
 	Channel *c = qhChannels.value(id);
-	if (c)
+	if (c && c->bTemporary && c->qlUsers.isEmpty())
 		removeChannel(c);
 }
 
@@ -2139,7 +2140,7 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
-		auto func_ptr = std::mem_fn< void(unsigned int) >(&Server::removeChannel);
+		auto func_ptr = std::mem_fn(&Server::removeTemporaryChannelIfEmpty);
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(std::bind(func_ptr, this, old->iId)));
 	}
 
