@@ -20,8 +20,11 @@ Group::Group(Channel *assoc, const QString &name) {
 	bInherit     = true;
 	bInheritable = true;
 	qsName       = name;
-	if (c)
+	if (c) {
+		// Make sure we don't leak the group we are overwriting (if any)
+		delete c->qhGroups[name];
 		c->qhGroups[name] = this;
+	}
 }
 
 #ifdef MURMUR
