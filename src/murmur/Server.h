@@ -379,6 +379,8 @@ public:
 
 	void removeTemporaryChannelIfEmpty(unsigned int id);
 	void removeChannel(Channel *c, Channel *dest = nullptr);
+	/// Removes the user from qhHostUsers. Requires the write lock on qrwlVoiceThread to be held.
+	void removeHostUser(ServerUser *u);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 	bool unregisterUser(int id);
 
