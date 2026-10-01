@@ -90,6 +90,7 @@ public:
 	bool bAllowPing;
 
 	QString qsLogfile;
+	QString logSys;
 	QString qsPid;
 	QString qsIceEndpoint;
 	QString qsIceSecretRead, qsIceSecretWrite;

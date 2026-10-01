@@ -11,6 +11,7 @@
 #include "MainWindow.h"
 #include "ServerHandler.h"
 #include "UserModel.h"
+#include "VolumeSliderWidgetAction.h"
 #include "Global.h"
 
 #include <QtGui/QDesktopServices>
@@ -240,6 +241,12 @@ void UserView::keyPressEvent(QKeyEvent *ev) {
 	if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
 		UserView::nodeActivated(currentIndex());
 	QTreeView::keyPressEvent(ev);
+}
+
+void UserView::wheelEvent(QWheelEvent *event) {
+	if (!VolumeSliderWidgetAction::handleMouseWheel(*event)) {
+		return QTreeView::wheelEvent(event);
+	}
 }
 
 void UserView::nodeActivated(const QModelIndex &idx) {

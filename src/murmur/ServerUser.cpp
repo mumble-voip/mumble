@@ -57,6 +57,23 @@ void ServerUser::resetActivityTime() {
 	m_lastActivityTimer.restart();
 }
 
+void ServerUser::sendMessage(const ::google::protobuf::Message &msg, const Mumble::Protocol::TCPMessageType msgType) {
+	QByteArray cache;
+	sendMessage(msg, msgType, cache);
+}
+
+void ServerUser::sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+							 QByteArray &cache) {
+	if (cache.isEmpty()) {
+		if (!Connection::messageToNetwork(msg, msgType, cache)) {
+			warn("Connection::messageToNetwork() failed");
+			return;
+		};
+	}
+
+	Connection::sendMessage(cache);
+}
+
 BandwidthRecord::BandwidthRecord() {
 	iRecNum = 0;
 	iSum    = 0;
@@ -209,4 +226,9 @@ bool LeakyBucket::ratelimit(int tokens) {
 	}
 
 	return limit;
+}
+
+void ServerUser::rejectConnection(bool forceDisconnect) {
+	sState = ServerUser::Rejected;
+	disconnectSocket(forceDisconnect);
 }

@@ -670,6 +670,14 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
         <translation>Informazioni su Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>&amp;Informazioni su Mumble</translation>
     </message>
@@ -696,10 +704,6 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     <message>
         <source>Authors</source>
         <translation>Autori</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>Accordi di licenze di terze parti</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
@@ -5209,6 +5213,14 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     <message>
         <source>Restore window geometry on startup</source>
         <translation>Ripristina geometria della finestra all&apos;avvio</translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation>Se cambiare la regolazione del volume locale per l&apos;utente selezionato quando si scorre la rotella del mouse su (aumentare) o giù (diminuire) mentre Control viene premuto.</translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation>CTRL + Scorri per cambiare il volume dell&apos;utente selezionato</translation>
     </message>
 </context>
 <context>

@@ -106,7 +106,7 @@ void initLog(QTextBrowser *textBox = nullptr) {
 	// Set up file log
 	using FileSink = spdlog::sinks::rotating_file_sink_st;
 	// 5MB
-	static constexpr std::size_t maxSize  = 5 * 1024 * 2024;
+	static constexpr std::size_t maxSize  = 5 * 1024 * 1024;
 	static constexpr std::size_t maxFiles = 3;
 
 #ifndef Q_OS_MACOS

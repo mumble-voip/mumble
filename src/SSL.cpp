@@ -12,7 +12,15 @@
 #include <QtNetwork/QSslConfiguration>
 #include <QtNetwork/QSslSocket>
 
+#include <QStringList>
+
 #include <openssl/ssl.h>
+
+bool MumbleSSL::isTLS13CipherSuiteName(const QString &name) {
+	return name == QLatin1String("TLS_AES_256_GCM_SHA384") || name == QLatin1String("TLS_CHACHA20_POLY1305_SHA256")
+		   || name == QLatin1String("TLS_AES_128_GCM_SHA256") || name == QLatin1String("TLS_AES_128_CCM_SHA256")
+		   || name == QLatin1String("TLS_AES_128_CCM_8_SHA256");
+}
 
 void MumbleSSL::initialize() {
 	// Let Qt initialize its copy of OpenSSL, if it's different than
@@ -32,7 +40,8 @@ void MumbleSSL::destroy() {
 }
 
 QString MumbleSSL::defaultOpenSSLCipherString() {
-	return QLatin1String("EECDH+AESGCM:EDH+aRSA+AESGCM:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:AES256-SHA:AES128-SHA");
+	return QLatin1String("TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:EECDH+AESGCM:"
+						 "EDH+aRSA+AESGCM:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:AES256-SHA:AES128-SHA");
 }
 
 QList< QSslCipher > MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString) {
@@ -43,8 +52,25 @@ QList< QSslCipher > MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherStri
 	const SSL_METHOD *meth = nullptr;
 	int i                  = 0;
 
-	QByteArray csbuf    = cipherString.toLatin1();
-	const char *ciphers = csbuf.constData();
+	QStringList tls13CipherSuites;
+	QStringList legacyCipherTokens;
+
+	const QStringList cipherTokens = cipherString.split(QLatin1Char(':'), Qt::SkipEmptyParts);
+	if (cipherTokens.isEmpty()) {
+		return chosenCiphers;
+	}
+
+	for (const QString &token : cipherTokens) {
+		if (MumbleSSL::isTLS13CipherSuiteName(token)) {
+			tls13CipherSuites << token;
+		} else {
+			legacyCipherTokens << token;
+		}
+	}
+
+	const QString legacyCipherString = legacyCipherTokens.join(QLatin1Char(':'));
+	QByteArray legacyCsbuf           = legacyCipherString.toLatin1();
+	const char *legacyCiphers        = legacyCsbuf.constData();
 
 	meth = SSLv23_server_method();
 	if (!meth) {
@@ -59,10 +85,24 @@ QList< QSslCipher > MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherStri
 		goto out;
 	}
 
-	if (!SSL_CTX_set_cipher_list(ctx, ciphers)) {
-		qWarning("MumbleSSL: error parsing OpenSSL cipher string in ciphersFromOpenSSLCipherString");
-		goto out;
+	if (!legacyCipherString.isEmpty()) {
+		if (!SSL_CTX_set_cipher_list(ctx, legacyCiphers)) {
+			qWarning("MumbleSSL: error parsing OpenSSL cipher string in ciphersFromOpenSSLCipherString");
+			goto out;
+		}
 	}
+
+	// OpenSSL validates TLS 1.2 and older cipher-list expressions and
+	// TLS 1.3 cipher-suite names via separate APIs.
+#if OPENSSL_VERSION_NUMBER >= 0x10101000L && !defined(LIBRESSL_VERSION_NUMBER)
+	if (!tls13CipherSuites.isEmpty()) {
+		const QByteArray tls13Csbuf = tls13CipherSuites.join(QLatin1Char(':')).toLatin1();
+		if (!SSL_CTX_set_ciphersuites(ctx, tls13Csbuf.constData())) {
+			qWarning("MumbleSSL: error parsing TLS 1.3 cipher suites in ciphersFromOpenSSLCipherString");
+			goto out;
+		}
+	}
+#endif
 
 	ssl = SSL_new(ctx);
 	if (!ssl) {
@@ -70,10 +110,25 @@ QList< QSslCipher > MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherStri
 		goto out;
 	}
 
+	for (const QString &name : tls13CipherSuites) {
+		QSslCipher c = QSslCipher(name);
+		if (!c.isNull()) {
+			chosenCiphers << c;
+		}
+	}
+
+	if (legacyCipherString.isEmpty()) {
+		goto out;
+	}
+
 	while (1) {
 		const char *name = SSL_get_cipher_list(ssl, i);
 		if (!name) {
 			break;
+		}
+		if (MumbleSSL::isTLS13CipherSuiteName(QString::fromLatin1(name))) {
+			++i;
+			continue;
 		}
 		QSslCipher c = QSslCipher(QString::fromLatin1(name));
 		if (!c.isNull()) {

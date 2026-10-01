@@ -111,8 +111,7 @@ int UnixMurmur::iTermFd[2];
 int UnixMurmur::iUsr1Fd[2];
 
 UnixMurmur::UnixMurmur() {
-	bRoot       = true;
-	logToSyslog = false;
+	bRoot = true;
 
 	if (geteuid() != 0 && getuid() != 0) {
 		bRoot = false;
@@ -195,6 +194,20 @@ void UnixMurmur::usr1SignalHandler(int) {
 	Q_UNUSED(len);
 }
 
+void UnixMurmur::reloadSettings() {
+	if (!meta) {
+		return;
+	}
+
+	qWarning("UnixMurmur: Trying to reload SSL settings...");
+
+	if (const bool ok = meta->reloadSSLSettings(); ok) {
+		qWarning("UnixMurmur: Done reloading SSL settings.");
+	} else {
+		qWarning("UnixMurmur: Failed to reload SSL settings. Server state is intact and fully operational. No "
+				 "configuration changes were made.");
+	}
+}
 
 void UnixMurmur::handleSigHup() {
 	qsnHup->setEnabled(false);
@@ -202,31 +215,10 @@ void UnixMurmur::handleSigHup() {
 	ssize_t len = ::read(iHupFd[1], &tmp, sizeof(tmp));
 	Q_UNUSED(len);
 
-	if (logToSyslog) {
-		qWarning("Caught SIGHUP, but logging to syslog");
-	} else if (!qfLog) {
-		qWarning("Caught SIGHUP, but logfile not in use");
-	} else if (!qfLog->isOpen()) {
-		qWarning("Caught SIGHUP, but logfile not in use -- interpreting as hint to quit");
-		QCoreApplication::instance()->quit();
-	} else {
-		qWarning("Caught SIGHUP, will reopen %s", qPrintable(Meta::mp->qsLogfile));
+	qDebug("Caught SIGHUP");
 
-		QFile *newlog = new QFile(Meta::mp->qsLogfile);
-		bool result   = newlog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text);
-		if (!result) {
-			delete newlog;
-			qCritical("Failed to reopen logfile for writing, keeping old log");
-		} else {
-			QFile *oldlog = qfLog;
+	reloadSettings();
 
-			newlog->setTextModeEnabled(true);
-			qfLog = newlog;
-			oldlog->close();
-			delete oldlog;
-			qWarning("Log rotated successfully");
-		}
-	}
 	qsnHup->setEnabled(true);
 }
 
@@ -249,16 +241,9 @@ void UnixMurmur::handleSigUsr1() {
 	ssize_t len = ::read(iUsr1Fd[1], &tmp, sizeof(tmp));
 	Q_UNUSED(len);
 
-	if (meta) {
-		qWarning("UnixMurmur: Trying to reload SSL settings...");
-		bool ok = meta->reloadSSLSettings();
-		if (ok) {
-			qWarning("UnixMurmur: Done reloading SSL settings.");
-		} else {
-			qWarning("UnixMurmur: Failed to reload SSL settings. Server state is intact and fully operational. No "
-					 "configuration changes were made.");
-		}
-	}
+	qDebug("Caught SIGUSR1");
+
+	reloadSettings();
 
 	qsnUsr1->setEnabled(true);
 }

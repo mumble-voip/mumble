@@ -745,7 +745,7 @@ void PrepareDXGI11(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 								dxgi->offsetPresent);
 						} else {
 							ods("D3D11: Failed to verify Present offset for %ls. Found %d, but previously found %d.",
-								dxgi->wcFileName, offset, dxgi->offsetPresent);
+								dxgi->wcFileName, *offset, dxgi->offsetPresent);
 						}
 					}
 				}
@@ -765,7 +765,7 @@ void PrepareDXGI11(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 						} else {
 							ods("D3D11: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found "
 								"%d.",
-								dxgi->wcFileName, offset, dxgi->offsetResize);
+								dxgi->wcFileName, *offset, dxgi->offsetResize);
 						}
 					}
 				}

@@ -4062,8 +4062,9 @@ void MainWindow::openServerConnectDialog(bool autoconnect) {
 	ConnectDialog *cd = new ConnectDialog(this, autoconnect);
 	int res           = cd->exec();
 
-	if (cd->qsServer.isEmpty() || (cd->usPort == 0) || cd->qsUsername.isEmpty())
+	if (cd->qsServer.isEmpty() || (cd->usPort == 0) || cd->qsUsername.isEmpty()) {
 		res = QDialog::Rejected;
+	}
 
 	if (res == QDialog::Accepted) {
 		recreateServerHandler();

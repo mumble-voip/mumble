@@ -6,6 +6,8 @@
 #ifndef MUMBLE_CONNECTION_H_
 #define MUMBLE_CONNECTION_H_
 
+#include "HostAddress.h"
+#include "Logger.h"
 #include "MumbleProtocol.h"
 
 #include <QtCore/QtGlobal>
@@ -56,24 +58,30 @@ signals:
 public:
 	Connection(QObject *parent, QSslSocket *qtsSocket);
 	~Connection();
+
+	template< typename... Args > void warn(spdlog::format_string_t< Args... > fmt, Args &&... args) const {
+		mumble::log::warn("{}:{} -> {}", peerAddress().toStdString(), peerPort(),
+						  spdlog::fmt_lib::format(fmt, std::forward< Args >(args)...));
+	}
+
 	static bool messageToNetwork(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
 								 QByteArray &cache);
-	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
-					 QByteArray &cache);
 	void sendMessage(const QByteArray &qbaMsg);
 	void disconnectSocket(bool force = false);
 	void forceFlush();
 
+	/// Returns the peer's immediate certificate.
+	QSslCertificate peerCertificate() const;
 	/// Returns the peer's chain of digital certificates, starting with the peer's immediate certificate
 	/// and ending with the CA's certificate.
 	QList< QSslCertificate > peerCertificateChain() const;
 	QSslCipher sessionCipher() const;
 	QSsl::SslProtocol sessionProtocol() const;
 	QString sessionProtocolString() const;
-	QHostAddress peerAddress() const;
+	HostAddress peerAddress() const;
 	quint16 peerPort() const;
 	/// Look up the local address of this Connection.
-	QHostAddress localAddress() const;
+	HostAddress localAddress() const;
 	/// Look up the local port of this Connection.
 	quint16 localPort() const;
 	bool bDisconnectedEmitted;

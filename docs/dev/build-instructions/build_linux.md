@@ -36,13 +36,17 @@ sudo apt install \
   libxcb-xinerama0 \
   libzeroc-ice-dev \
   libpoco-dev \
+  nlohmann-json3-dev \
+  libcli11-dev \
+  libsoci-dev \
+  libutfcpp-dev \
   g++-multilib
 ```
 
 The dependence on `g++-multilib` only applies if you are on a 64bit system and want to cross-compile overlay support for 32bit applications as well
 (which is enabled by default). If you don't do this (`-Doverlay-xcompile=OFF` when invoking cmake), you also don't have to install `g++-multilib`.
 
-You will need `cmake` **v3.23 or later**. If the version shipped by your distribution is not recent enough, you can install a recent one via the
+If the version of `cmake` shipped by your distribution is not recent enough, you can install a recent one via the
 [official PPA](https://apt.kitware.com/) or from the [linked page](https://cmake.org/download/).
 </details>
 
@@ -85,9 +89,7 @@ sudo apt install \
   qtchooser
 ```
 
-1. There is a problem with Opus, causing crashes on some systems. Disabling the bundled opus version when running cmake might be necessary for now:
-   `cmake -Dbundled-opus=OFF ..`
-2. _Also, see Ubuntu notes, which explain some things relevant to Debian builds._
+_See also the Ubuntu notes, which explain some things relevant to Debian builds._
 
 </details>
 
@@ -146,6 +148,49 @@ sudo zypper install \
 There is no official package for Ice on OpenSUSE Tumbleweed.
 This means you need to generate the files like so:
 `cmake -Dice=OFF ..`
+</details>
+
+<details>
+  <summary><b>Arch Linux</b></summary>
+In order to install the needed dependencies on Arch Linux, you have to run the following command:
+
+```bash
+sudo pacman -S --needed \
+  base-devel \
+  cmake \
+  pkgconf \
+  git \
+  qt6-base \
+  qt6-tools \
+  qt6-svg \
+  qt6-5compat \
+  mesa \
+  boost \
+  boost-libs \
+  openssl \
+  protobuf \
+  libcap \
+  libxi \
+  alsa-lib \
+  libogg \
+  libsndfile \
+  opus \
+  speexdsp \
+  speech-dispatcher \
+  avahi \
+  libxcb \
+  libxinerama \
+  zeroc-ice \
+  poco \
+  nlohmann-json \
+  microsoft-gsl \
+  postgresql-libs \
+  mariadb-libs
+```
+
+`postgresql-libs` and `mariadb-libs` are only needed if you are building the server with the respective database backends enabled (the default). If you
+cross-compile overlay support for 32bit applications (`-Doverlay-xcompile=ON`, the default), you additionally need the `multilib` repository enabled along
+with the `lib32-gcc-libs` package (which pulls in `lib32-glibc`); otherwise pass `-Doverlay-xcompile=OFF` to cmake.
 </details>
 
 If you are using any other distribution that is not based on one of the distros listed above, you probably have to adapt the commands to your distro manually.

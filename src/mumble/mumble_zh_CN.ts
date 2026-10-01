@@ -670,6 +670,14 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>关于 Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>关于 Mumble(&amp;A)</translation>
     </message>
@@ -696,10 +704,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <source>Authors</source>
         <translation>作者</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>第三方许可</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
@@ -5208,6 +5212,14 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Restore window geometry on startup</source>
         <translation>在启动时恢复窗口形状</translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation>当 Control 键按下时， 鼠标滚轮向上（增大）或向下（减小）滚动是否更改已选用户的本地音量。</translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation>CTRL + 滚轮更改已选用户音量</translation>
     </message>
 </context>
 <context>

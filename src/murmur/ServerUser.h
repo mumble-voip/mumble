@@ -15,6 +15,7 @@
 #include "ClientType.h"
 #include "Connection.h"
 #include "HostAddress.h"
+#include "MumbleProtocol.h"
 #include "ServerUserInfo.h"
 #include "Timer.h"
 
@@ -27,6 +28,7 @@
 #	include <sys/socket.h>
 #endif
 
+#include <atomic>
 #include <memory>
 #include <mutex>
 #include <vector>
@@ -117,13 +119,18 @@ protected:
 	Timer m_lastActivityTimer;
 
 public:
-	enum State { Connected, Authenticated };
-	State sState;
+	enum State { Rejected, Connected, Authenticating, Authenticated };
+	std::atomic< State > sState;
+	std::atomic< bool > was_authenticated = false;
 	ClientType m_clientType;
 	operator QString() const;
 
 	std::int64_t activityTime() const;
 	void resetActivityTime();
+
+	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType);
+	void sendMessage(const ::google::protobuf::Message &msg, Mumble::Protocol::TCPMessageType msgType,
+					 QByteArray &cache);
 
 	float dUDPPingAvg, dUDPPingVar;
 	float dTCPPingAvg, dTCPPingVar;
@@ -170,6 +177,8 @@ public:
 
 	ServerUser(Server *parent, QSslSocket *socket);
 	~ServerUser();
+
+	void rejectConnection(bool forceDisconnect = false);
 };
 
 #endif

@@ -670,6 +670,14 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
         <translation>Om Mumble</translation>
     </message>
     <message>
+        <source>Third-party Dependencies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;About Mumble</source>
         <translation>&amp;Om Mumble</translation>
     </message>
@@ -696,10 +704,6 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     <message>
         <source>Authors</source>
         <translation>Författare</translation>
-    </message>
-    <message>
-        <source>Third-party license agreements</source>
-        <translation>Licensavtal för tredjepart</translation>
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
@@ -3891,7 +3895,7 @@ Om alternativet inte är aktiverat fungerar inte Mumbles globala kortkommandon i
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan för närvarande endast använda musknappar och tangentbordsmodifierare (Alt, Ctrl, Cmd osv.) för globala kortkommandon.&lt;/p&gt;&lt;p&gt;Om du vill ha större flexibilitet kan du lägga till Mumble som ett betrott hjälpmedelsprogram i avsnittet Integritet och säkerhet i Macens Systeminställningar.&lt;/p&gt;&lt;p&gt;Öppna Integritet och säkerhet i Systeminställningar och bläddra sedan tills du hittar Hjälpmedel i listan. Lägg slutligen till Mumble i listan över betrodda hjälpmedelsprogram.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -5209,6 +5213,14 @@ Inställningen gäller endast för nya meddelanden, de redan visade meddelandena
     <message>
         <source>Restore window geometry on startup</source>
         <translation>Återställ fönstrets storlek och placering vid start</translation>
+    </message>
+    <message>
+        <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
+        <translation>Huruvida den lokala volymjusteringen för den valda användaren ska ändras när mushjulet rullas uppåt (öka) eller nedåt (minska) samtidigt som Control-tangenten hålls nedtryckt.</translation>
+    </message>
+    <message>
+        <source>CTRL + Scroll to change selected user&apos;s volume</source>
+        <translation>Ctrl + scrolla för att ändra volymen för den valda användaren</translation>
     </message>
 </context>
 <context>
@@ -8581,7 +8593,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mikrofonåtkomst nekades. Tillåt Mumble att använda mikrofonen genom att ändra inställningarna i Systeminställningar -&gt; Integritet och säkerhet -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
