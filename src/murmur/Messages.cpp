@@ -216,8 +216,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 		uSource->uiSession = qqIds.dequeue();
 		uSource->sState    = ServerUser::Authenticating;
-		qhUsers.insert(uSource->uiSession, uSource);
-		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
 
 	Channel *root = qhChannels.value(0);
@@ -275,7 +273,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		}
 	}
 
-	if ((id != 0) && (static_cast< unsigned int >(qhUsers.count()) > iMaxUsers)) {
+	if ((id != 0) && (static_cast< unsigned int >(qhUsers.count()) >= iMaxUsers)) {
 		reason = QString::fromLatin1("Server is full (max %1 users)").arg(iMaxUsers);
 		rtType = MumbleProto::Reject_RejectType_ServerFull;
 		ok     = false;
@@ -336,8 +334,18 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
 		sendMessage(uSource, mpr);
+
+		// The authenticator may have assigned temporary groups to the session
+		clearTempGroups(uSource);
+
 		uSource->rejectConnection();
 		return;
+	}
+
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		qhUsers.insert(uSource->uiSession, uSource);
+		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
 
 	startThread();
