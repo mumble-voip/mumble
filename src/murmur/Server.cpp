@@ -2284,7 +2284,7 @@ void Server::clearACLCache(User *p) {
 
 				mpus.Clear();
 				mpus.set_session(user->uiSession);
-				mpus.set_suppress(true);
+				mpus.set_suppress(user->bSuppress);
 				sendAll(mpus);
 			}
 		};
