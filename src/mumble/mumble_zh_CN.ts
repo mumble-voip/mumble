@@ -671,11 +671,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>第三方依赖</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>取决于构建配置，您的 Mumble 版本可能不依赖所有条目</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -3700,15 +3700,15 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>在此设备上保存密码</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>只有收藏的服务器才能保存密码。</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>只有收藏的服务器才能保存密码</translation>
     </message>
 </context>
 <context>
@@ -7623,11 +7623,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;这会隐藏来自客户端的身份信息。&lt;/b&gt;&lt;p&gt;客户端不会使用证书来标识自身，即使已定义证书也是如此。这主要是测试选项，不会被保存。&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate information</source>
-        <translation type="unfinished"></translation>
+        <translation>隐藏证书信息</translation>
     </message>
 </context>
 <context>
