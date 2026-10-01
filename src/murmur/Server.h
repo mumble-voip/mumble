@@ -406,6 +406,8 @@ public:
 	bool channelListenerExists(const ServerUser &user, const Channel &channel);
 
 	QString getRegisteredUserName(int userID);
+	/// @returns The subset of the given user IDs that belong to registered users
+	QSet< int > filterRegisteredUserIDs(const QSet< int > &userIDs);
 	int getRegisteredUserID(const QString &name);
 
 	bool registerUser(ServerUser &user);

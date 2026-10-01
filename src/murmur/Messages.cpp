@@ -1958,6 +1958,19 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		if (mpqu.ids_size())
 			sendMessage(uSource, mpqu);
 	} else {
+		// Looking up user IDs may query the authenticator and the DB, so it must not happen while holding the lock
+		QSet< int > userIDs;
+		for (const MumbleProto::ACL_ChanGroup &group : msg.groups()) {
+			userIDs.unite(QSet< int >(group.add().begin(), group.add().end()));
+			userIDs.unite(QSet< int >(group.remove().begin(), group.remove().end()));
+		}
+		for (const MumbleProto::ACL_ChanACL &acl : msg.acls()) {
+			if (acl.has_user_id()) {
+				userIDs.insert(static_cast< int >(acl.user_id()));
+			}
+		}
+		const QSet< int > registeredUserIDs = filterRegisteredUserIDs(userIDs);
+
 		{
 			QWriteLocker wl(&qrwlVoiceThread);
 
@@ -1997,10 +2010,10 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				g->bInherit                             = group.inherit();
 				g->bInheritable                         = group.inheritable();
 				for (int j = 0; j < group.add_size(); ++j)
-					if (!getRegisteredUserName(static_cast< int >(group.add(j))).isEmpty())
+					if (registeredUserIDs.contains(static_cast< int >(group.add(j))))
 						g->qsAdd << static_cast< int >(group.add(j));
 				for (int j = 0; j < group.remove_size(); ++j)
-					if (!getRegisteredUserName(static_cast< int >(group.remove(j))).isEmpty())
+					if (registeredUserIDs.contains(static_cast< int >(group.remove(j))))
 						g->qsRemove << static_cast< int >(group.remove(j));
 
 				g->qsTemporary = hOldTemp.value(g->qsName);
@@ -2013,7 +2026,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			// Add new ACLs
 			for (int i = 0; i < msg.acls_size(); ++i) {
 				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
-				if (mpacl.has_user_id() && getRegisteredUserName(static_cast< int >(mpacl.user_id())).isEmpty())
+				if (mpacl.has_user_id() && !registeredUserIDs.contains(static_cast< int >(mpacl.user_id())))
 					continue;
 
 				ChanACL *a    = new ChanACL(c);

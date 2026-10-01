@@ -1686,6 +1686,14 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 	NEED_SERVER;
 	NEED_CHANNEL;
 
+	// Looking up user IDs may query the authenticator and the DB, so it must not happen while holding the lock
+	QSet< int > userIDs;
+	for (const ::MumbleServer::Group &gi : groups) {
+		userIDs.unite(QSet< int >(gi.add.begin(), gi.add.end()));
+		userIDs.unite(QSet< int >(gi.remove.begin(), gi.remove.end()));
+	}
+	const QSet< int > registeredUserIDs = server->filterRegisteredUserIDs(userIDs);
+
 	{
 		QWriteLocker locker(&server->qrwlVoiceThread);
 
@@ -1709,14 +1717,14 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 			g->bInheritable = gi.inheritable;
 
 			for (int id : gi.add) {
-				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+				if (!registeredUserIDs.contains(id)) {
 					continue;
 				}
 				g->qsAdd << static_cast< int >(id);
 			}
 
 			for (int id : gi.remove) {
-				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+				if (!registeredUserIDs.contains(id)) {
 					continue;
 				}
 				g->qsRemove << static_cast< int >(id);

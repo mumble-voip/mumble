@@ -3013,6 +3013,18 @@ QString Server::getRegisteredUserName(int userID) {
 	return name;
 }
 
+QSet< int > Server::filterRegisteredUserIDs(const QSet< int > &userIDs) {
+	QSet< int > registeredIDs;
+
+	for (int id : userIDs) {
+		if (!getRegisteredUserName(id).isEmpty()) {
+			registeredIDs.insert(id);
+		}
+	}
+
+	return registeredIDs;
+}
+
 int Server::getRegisteredUserID(const QString &name) {
 	if (qhUserIDCache.contains(name)) {
 		return qhUserIDCache.value(name);
