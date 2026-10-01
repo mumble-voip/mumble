@@ -648,6 +648,10 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 
 		for (int addedGroupMemberID : currentGroup->qsAdd) {
 			assert(addedGroupMemberID >= 0);
+			if (currentGroup->qsRemove.contains(addedGroupMemberID)) {
+				// The DB can only store one of both and removals take precedence when checking group membership
+				continue;
+			}
 			m_serverDB.getGroupMemberTable().addEntry(serverID, groupID,
 													  static_cast< unsigned int >(addedGroupMemberID), true);
 		}
