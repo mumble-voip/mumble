@@ -52,6 +52,7 @@
 #include <cassert>
 #include <chrono>
 #include <functional>
+#include <limits>
 #include <optional>
 #include <span>
 #include <vector>
@@ -3211,16 +3212,17 @@ QMap< int, QString > Server::getUserProperties(int userID) {
 
 Channel *Server::createNewChannel(Channel *parent, const QString &name, bool temporary, int position,
 								  unsigned int maxUsers) {
-	unsigned int id = m_dbWrapper.getNextAvailableChannelID(iServerNum);
+	unsigned int id;
 
 	if (temporary) {
-		// Make sure temporary channel IDs will not collide with regular channel IDs
-		id += iChannelCountLimit > 0 ? static_cast< unsigned int >(iChannelCountLimit) * 2 : 1'000'000u;
-
-		// Ensure we don't collide with the ID of any other (temporary) channel
+		// Temporary channels are not stored in the DB, whose IDs grow upwards from 0. Hence, temporary channel IDs
+		// are allocated downwards from the largest ID that the Ice interface (using int) can represent.
+		id = static_cast< unsigned int >(std::numeric_limits< int >::max());
 		while (qhChannels.contains(id)) {
-			++id;
+			--id;
 		}
+	} else {
+		id = m_dbWrapper.getNextAvailableChannelID(iServerNum);
 	}
 
 	Channel *c    = new Channel(id, name, parent);
