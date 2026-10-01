@@ -2472,15 +2472,16 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
-	int ntextures     = msg.session_texture_size();
-	int ncomments     = msg.session_comment_size();
-	int ndescriptions = msg.channel_description_size();
+	// Every ID is answered only once, regardless of how often it is contained in the request
+	const std::set< unsigned int > textureSessions(msg.session_texture().begin(), msg.session_texture().end());
+	const std::set< unsigned int > commentSessions(msg.session_comment().begin(), msg.session_comment().end());
+	const std::set< unsigned int > descriptionChannels(msg.channel_description().begin(),
+													   msg.channel_description().end());
 
-	if (ndescriptions) {
+	if (!descriptionChannels.empty()) {
 		MumbleProto::ChannelState mpcs;
-		for (int i = 0; i < ndescriptions; ++i) {
-			unsigned int id = msg.channel_description(i);
-			Channel *c      = qhChannels.value(id);
+		for (unsigned int id : descriptionChannels) {
+			Channel *c = qhChannels.value(id);
 			if (c && !c->qsDesc.isEmpty()) {
 				mpcs.set_channel_id(id);
 				mpcs.set_description(u8(c->qsDesc));
@@ -2488,22 +2489,20 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 			}
 		}
 	}
-	if (ntextures || ncomments) {
+	if (!textureSessions.empty() || !commentSessions.empty()) {
 		MumbleProto::UserState mpus;
-		for (int i = 0; i < ntextures; ++i) {
-			unsigned int session = msg.session_texture(i);
-			ServerUser *su       = qhUsers.value(session);
+		for (unsigned int session : textureSessions) {
+			ServerUser *su = qhUsers.value(session);
 			if (su && !su->qbaTexture.isEmpty()) {
 				mpus.set_session(session);
 				mpus.set_texture(blob(su->qbaTexture));
 				sendMessage(uSource, mpus);
 			}
 		}
-		if (ntextures)
+		if (!textureSessions.empty())
 			mpus.clear_texture();
-		for (int i = 0; i < ncomments; ++i) {
-			unsigned int session = msg.session_comment(i);
-			ServerUser *su       = qhUsers.value(session);
+		for (unsigned int session : commentSessions) {
+			ServerUser *su = qhUsers.value(session);
 			if (su && !su->qsComment.isEmpty()) {
 				mpus.set_session(session);
 				mpus.set_comment(u8(su->qsComment));
