@@ -1797,6 +1797,17 @@ static void impl_Server_registerUser(const ::MumbleServer::AMD_Server_registerUs
 
 	int userid = server->registerUser(info);
 
+	const auto passwordIt = im.find(::MumbleServer::UserInfo::UserPassword);
+	if (userid >= 0 && passwordIt != im.end()) {
+		QMap< int, QString > properties;
+		properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password), u8(passwordIt->second));
+		const auto kdfIt = im.find(::MumbleServer::UserInfo::UserKDFIterations);
+		if (kdfIt != im.end()) {
+			properties.insert(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations), u8(kdfIt->second));
+		}
+		server->setUserProperties(userid, properties);
+	}
+
 	if (userid < 0)
 		cb->ice_exception(InvalidUserException());
 	else
