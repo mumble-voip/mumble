@@ -239,7 +239,8 @@ bool Group::appliesToUser(const Channel &currentChannel, const Channel &aclChann
 
 		while (!groupStack.isEmpty()) {
 			const Group *group = groupStack.pop();
-			if (group->qsAdd.contains(user.iId) || group->qsTemporary.contains(user.iId)
+			// Negative entries in qsTemporary are sessions, so unregistered users (iId == -1) must not be looked up
+			if (group->qsAdd.contains(user.iId) || (user.iId >= 0 && group->qsTemporary.contains(user.iId))
 				|| group->qsTemporary.contains(-static_cast< int >(user.uiSession)))
 				matches = true;
 			if (group->qsRemove.contains(user.iId))

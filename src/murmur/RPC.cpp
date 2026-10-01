@@ -270,7 +270,9 @@ void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 		while (!qlChans.isEmpty()) {
 			Channel *chan = qlChans.takeLast();
 			for (Group *g : chan->qhGroups) {
-				g->qsTemporary.remove(user->iId);
+				if (user->iId >= 0) {
+					g->qsTemporary.remove(user->iId);
+				}
 				g->qsTemporary.remove(-static_cast< int >(user->uiSession));
 			}
 
