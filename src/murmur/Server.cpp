@@ -1713,6 +1713,12 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 		if (old)
 			old->removeUser(u);
+
+		for (ServerUser *user : qhUsers) {
+			for (WhisperTarget &target : user->qmTargets) {
+				std::erase(target.sessions, u->uiSession);
+			}
+		}
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
