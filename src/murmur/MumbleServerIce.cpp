@@ -36,6 +36,7 @@
 #include <chrono>
 #include <limits>
 #include <sstream>
+#include <unordered_set>
 
 using namespace std;
 using namespace MumbleServer;
@@ -1686,6 +1687,15 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 	NEED_SERVER;
 	NEED_CHANNEL;
 
+	// Looking up user IDs may query the authenticator and the DB, so it must not happen while holding the lock
+	std::unordered_set< int > userIDs;
+	for (const ::MumbleServer::Group &gi : groups) {
+		userIDs.merge(std::unordered_set< int >(gi.add.begin(), gi.add.end()));
+		userIDs.merge(std::unordered_set< int >(gi.remove.begin(), gi.remove.end()));
+	}
+
+	server->removeInvalidUserIDs(userIDs);
+
 	{
 		QWriteLocker locker(&server->qrwlVoiceThread);
 
@@ -1709,14 +1719,14 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 			g->bInheritable = gi.inheritable;
 
 			for (int id : gi.add) {
-				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+				if (!userIDs.contains(id)) {
 					continue;
 				}
 				g->qsAdd << static_cast< int >(id);
 			}
 
 			for (int id : gi.remove) {
-				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+				if (!userIDs.contains(id)) {
 					continue;
 				}
 				g->qsRemove << static_cast< int >(id);
