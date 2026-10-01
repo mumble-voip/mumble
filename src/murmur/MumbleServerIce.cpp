@@ -1854,11 +1854,13 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 		return;
 	}
 
-	if (info.contains(static_cast< int >(::mumble::server::db::UserProperty::Comment))) {
+	const int nameKey    = static_cast< int >(::mumble::server::db::UserProperty::Name);
+	const int commentKey = static_cast< int >(::mumble::server::db::UserProperty::Comment);
+	if (info.contains(nameKey) || info.contains(commentKey)) {
 		for (ServerUser *u : server->qhUsers) {
 			if (u->iId == id)
-				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, u->qsName,
-									 info.value(static_cast< int >(::mumble::server::db::UserProperty::Comment)));
+				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker,
+									 info.value(nameKey, u->qsName), info.value(commentKey, u->qsComment));
 		}
 	}
 
