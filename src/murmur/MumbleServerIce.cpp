@@ -1711,7 +1711,9 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 
 		channel->bInheritACL = inherit;
 		for (const ::MumbleServer::Group &gi : groups) {
-			QString name    = u8(gi.name);
+			QString name = u8(gi.name);
+			// A later group with the same name replaces an earlier one
+			delete channel->qhGroups.value(name);
 			::Group *g      = new ::Group(channel, name);
 			g->bInherit     = gi.inherit;
 			g->bInheritable = gi.inheritable;

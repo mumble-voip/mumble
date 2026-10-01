@@ -2006,9 +2006,11 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			// Add new groups
 			for (int i = 0; i < msg.groups_size(); ++i) {
 				const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
-				Group *g                                = new Group(c, u8(group.name()));
-				g->bInherit                             = group.inherit();
-				g->bInheritable                         = group.inheritable();
+				// A later group with the same name replaces an earlier one
+				delete c->qhGroups.value(u8(group.name()));
+				Group *g        = new Group(c, u8(group.name()));
+				g->bInherit     = group.inherit();
+				g->bInheritable = group.inheritable();
 				for (int j = 0; j < group.add_size(); ++j)
 					if (registeredUserIDs.contains(static_cast< int >(group.add(j))))
 						g->qsAdd << static_cast< int >(group.add(j));
