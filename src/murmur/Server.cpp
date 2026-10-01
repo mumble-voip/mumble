@@ -1711,6 +1711,8 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 		if (old)
 			old->removeUser(u);
+
+		m_channelListenerManager.removeVolumeAdjustmentsOfUser(u->uiSession);
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
@@ -2004,6 +2006,8 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		}
 
 		qhChannels.remove(chan->iId);
+
+		m_channelListenerManager.removeVolumeAdjustmentsOfChannel(chan->iId);
 	}
 
 	delete chan;
