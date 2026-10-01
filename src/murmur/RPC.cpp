@@ -246,10 +246,10 @@ void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const Q
 		}
 	}
 
-	if (userid >= 0) {
-		User *p = qhUsers.value(static_cast< unsigned int >(userid));
-		if (p)
-			clearACLCache(p);
+	for (ServerUser *u : qhUsers) {
+		if ((userid >= 0 && u->iId == userid)
+			|| (sessionId != 0 && u->uiSession == static_cast< unsigned int >(sessionId)))
+			clearACLCache(u);
 	}
 }
 
