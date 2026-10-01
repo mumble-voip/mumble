@@ -2266,11 +2266,15 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 			} else {
 				const QString &name = u8(user.name()).trimmed();
 				if (validateUserName(name)) {
-					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
-
 					QMap< int, QString > info;
 					info.insert(static_cast< int >(::mumble::server::db::UserProperty::Name), name);
-					setUserProperties(static_cast< int >(id), info);
+					if (!setUserProperties(static_cast< int >(id), info)) {
+						log(uSource,
+							QString::fromLatin1("Failed to rename user %1 to '%2'").arg(QString::number(id), name));
+						continue;
+					}
+
+					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
 					MumbleProto::UserState mpus;
 					for (ServerUser *serverUser : qhUsers) {
