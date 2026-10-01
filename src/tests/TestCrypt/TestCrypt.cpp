@@ -22,6 +22,7 @@ private slots:
 	void xexstarAttack();
 	void ivrecovery();
 	void reverserecovery();
+	void packetlossrecovery();
 	void tamper();
 };
 
@@ -132,7 +133,7 @@ void TestCrypt::ivrecovery() {
 	QVERIFY(enc.getEncryptIV() == dec.getDecryptIV());
 
 	// Wrap too far
-	for (int i = 0; i < 257; i++)
+	for (unsigned int i = 0; i < CryptStateOCB2::MAX_RECOVERABLE_PACKET_LOSS + 2; i++)
 		enc.encrypt(secret, crypted, 10);
 
 	QVERIFY(!dec.decrypt(crypted, decr, 14));
@@ -142,6 +143,69 @@ void TestCrypt::ivrecovery() {
 	enc.encrypt(secret, crypted, 10);
 
 	QVERIFY(dec.decrypt(crypted, decr, 14));
+}
+
+void TestCrypt::packetlossrecovery() {
+	CryptStateOCB2 enc, dec;
+	enc.genKey();
+	dec.setKey(enc.getRawKey(), enc.getDecryptIV(), enc.getEncryptIV());
+
+	unsigned char secret[10] = "abcdefghi";
+	unsigned char crypted[14];
+	unsigned char decr[10];
+
+	// The replay protection stores the second IV byte for every value of the first one. Slots that are skipped by a
+	// burst of lost packets keep their old value, which can wrongly flag a valid packet as a replay once the second
+	// byte wraps around. In practice, the slots are refreshed by the regular traffic in between, so simulate that.
+	auto receiveInOrder = [&]() {
+		for (int i = 0; i < 256; i++) {
+			enc.encrypt(secret, crypted, 10);
+			QVERIFY(dec.decrypt(crypted, decr, 14));
+		}
+	};
+
+	receiveInOrder();
+
+	// Losing any number of packets up to the limit must not cause the IVs to go out of sync
+	for (unsigned int lost = 0; lost <= CryptStateOCB2::MAX_RECOVERABLE_PACKET_LOSS; lost++) {
+		receiveInOrder();
+
+		dec.m_statsLocal.lost = 0;
+		for (unsigned int i = 0; i <= lost; i++)
+			enc.encrypt(secret, crypted, 10);
+
+		QVERIFY(dec.decrypt(crypted, decr, 14));
+		QVERIFY(memcmp(secret, decr, 10) == 0);
+		QCOMPARE(dec.m_statsLocal.lost, lost);
+		QVERIFY(enc.getEncryptIV() == dec.getDecryptIV());
+
+		// The packet we recovered with must not be accepted a second time
+		QVERIFY(!dec.decrypt(crypted, decr, 14));
+	}
+
+	// A packet from before a burst of loss is too late to be accepted once we've recovered
+	unsigned char late[14];
+	enc.encrypt(secret, late, 10);
+	for (int i = 0; i < 500; i++)
+		enc.encrypt(secret, crypted, 10);
+	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(!dec.decrypt(late, decr, 14));
+
+	// ...but a packet that is only slightly older than the one we recovered with is (exactly once)
+	for (int i = 0; i < 300; i++)
+		enc.encrypt(secret, crypted, 10);
+	enc.encrypt(secret, late, 10);
+	for (int i = 0; i < 10; i++)
+		enc.encrypt(secret, crypted, 10);
+	QVERIFY(dec.decrypt(crypted, decr, 14));
+	QVERIFY(dec.decrypt(late, decr, 14));
+	QVERIFY(memcmp(secret, decr, 10) == 0);
+	QVERIFY(!dec.decrypt(late, decr, 14));
+
+	// Losing more packets than we can recover from requires a resync
+	for (unsigned int i = 0; i < CryptStateOCB2::MAX_RECOVERABLE_PACKET_LOSS + 2; i++)
+		enc.encrypt(secret, crypted, 10);
+	QVERIFY(!dec.decrypt(crypted, decr, 14));
 }
 
 void TestCrypt::testvectors() {
