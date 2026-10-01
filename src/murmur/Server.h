@@ -377,7 +377,7 @@ public:
 	void log(const QString &) const;
 	void log(ServerUser *u, const QString &) const;
 
-	void removeChannel(unsigned int id);
+	void removeTemporaryChannelIfEmpty(unsigned int id);
 	void removeChannel(Channel *c, Channel *dest = nullptr);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 	bool unregisterUser(int id);
