@@ -1413,7 +1413,7 @@ void Server::log(const QString &msg) const {
 		const_cast< DBWrapper & >(m_dbWrapper).logMessage(iServerNum, msg.toStdString());
 	}
 
-	qWarning("%d => %s", iServerNum, msg.toUtf8().constData());
+	qWarning("%u => %s", iServerNum, msg.toUtf8().constData());
 }
 
 void Server::newClient() {
