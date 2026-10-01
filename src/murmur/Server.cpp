@@ -996,7 +996,7 @@ void Server::run() {
 								u             = usr;
 								u->sUdpSocket = sock;
 								memcpy(&u->saiUdpAddress, &from, sizeof(from));
-								qhHostUsers[from].remove(u);
+								removeHostUser(u);
 								qhPeerUsers.insert(key, u);
 							}
 							qrwlVoiceThread.unlock();
@@ -1707,7 +1707,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		QWriteLocker wl(&qrwlVoiceThread);
 
 		qhUsers.remove(u->uiSession);
-		qhHostUsers[u->haAddress].remove(u);
+		removeHostUser(u);
 
 		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6)
 						   ? (reinterpret_cast< sockaddr_in6 * >(&u->saiUdpAddress)->sin6_port)
@@ -1941,6 +1941,16 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 			if (isUnknown || fulfillsVersionRequirement) {
 				usr->sendMessage(msg, msgType, cache);
 			}
+		}
+	}
+}
+
+void Server::removeHostUser(ServerUser *u) {
+	auto it = qhHostUsers.find(u->haAddress);
+	if (it != qhHostUsers.end()) {
+		it->remove(u);
+		if (it->isEmpty()) {
+			qhHostUsers.erase(it);
 		}
 	}
 }
