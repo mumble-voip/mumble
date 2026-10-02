@@ -6680,7 +6680,7 @@ Valid actions are:
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation>Канал &amp;Фильтр</translation>
+        <translation>Канал и фильтр</translation>
     </message>
     <message>
         <source>Usage: mumble [options] [&lt;url&gt; | &lt;plugin_list&gt;]
@@ -6809,7 +6809,7 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться к серверу</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
@@ -6951,7 +6951,7 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустить мастер сертификатов</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
@@ -6987,7 +6987,7 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Проверить наличие обновлений</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
@@ -7007,7 +7007,7 @@ mumble://[&lt;имя пользователя&gt;[:&lt;пароль&gt;]@]&lt;х
     </message>
     <message>
         <source>Enter chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите сообщение в чат</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
@@ -8649,7 +8649,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>text messages ignored</source>
-        <translation type="unfinished"></translation>
+        <translation>текстовые сообщения игнорируются</translation>
     </message>
     <message>
         <source>registered</source>

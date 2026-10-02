@@ -3032,7 +3032,7 @@ Are you sure you wish to replace your certificate?
     </message>
     <message>
         <source>Muted (self)</source>
-        <translation>Mudo (por sí mismo)</translation>
+        <translation>Silenciado (por sí mismo)</translation>
     </message>
     <message>
         <source>Deafened (self)</source>
@@ -4016,7 +4016,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <source>Other self-muted/deafened</source>
-        <translation>Otro se enmudeció/ensordeció a sí mismo</translation>
+        <translation>Otro se silenció/ensordeció a sí mismo</translation>
     </message>
     <message>
         <source>User recording state changed</source>
@@ -4032,7 +4032,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <source>You self-muted</source>
-        <translation>Te has enmudecido</translation>
+        <translation>Te has silenciado</translation>
     </message>
     <message>
         <source>User muted (you)</source>
@@ -4048,7 +4048,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation>Te has desenmudecido</translation>
+        <translation>Te has desilenciado</translation>
     </message>
     <message>
         <source>You self-deafened</source>
@@ -5093,17 +5093,17 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     <message>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Enmudecerse</translation>
+        <translation>Silenciarse</translation>
     </message>
     <message>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Fija su estado de enmudecimiento.</translation>
+        <translation>Fija su estado de silencio.</translation>
     </message>
     <message>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Esto establecerá o conmutará su estado de enmudecimiento. Si lo desactiva, también desactivará el ensordecimiento.</translation>
+        <translation>Esto establecerá o conmutará su estado de silencio. Si lo desactiva, también desactivará el ensordecimiento.</translation>
     </message>
     <message>
         <source>Deafen Self</source>
@@ -5118,7 +5118,7 @@ La configuración solo se aplica a los mensajes nuevos, los que ya se muestran c
     <message>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Esto fijará o conmutará su estado de ensordecimiento. Si lo activa, también activara su enmudecimiento.</translation>
+        <translation>Esto fijará o conmutará su estado de ensordecimiento. Si lo activa, también activara su silencio.</translation>
     </message>
     <message>
         <source>Whisper/Shout</source>
@@ -5691,7 +5691,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     </message>
     <message>
         <source>Mute yourself</source>
-        <translation>Se enmudece a sí mismo</translation>
+        <translation>Silenciarse a sí mismo</translation>
     </message>
     <message>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
