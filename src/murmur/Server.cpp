@@ -383,8 +383,8 @@ void Server::readParams() {
 	rollingStatsWindow                 = Meta::mp->rollingStatsWindow;
 	bCertRequired                      = Meta::mp->bCertRequired;
 	bForceExternalAuth                 = Meta::mp->bForceExternalAuth;
-	qrUserName                         = Meta::mp->qrUserName;
-	qrChannelName                      = Meta::mp->qrChannelName;
+	qrUserName                         = QRegularExpression(Meta::mp->userNamePattern);
+	qrChannelName                      = QRegularExpression(Meta::mp->channelNamePattern);
 	iMessageLimit                      = Meta::mp->iMessageLimit;
 	iMessageBurst                      = Meta::mp->iMessageBurst;
 	iPluginMessageLimit                = Meta::mp->iPluginMessageLimit;
@@ -622,9 +622,11 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "rollingStatsWindow")
 		rollingStatsWindow = i ? static_cast< unsigned int >(i) : Meta::mp->rollingStatsWindow;
 	else if (key == "username")
-		qrUserName = !v.isNull() ? QRegularExpression(v) : Meta::mp->qrUserName;
+		qrUserName =
+			QRegularExpression(QRegularExpression::anchoredPattern(!v.isNull() ? v : Meta::mp->userNamePattern));
 	else if (key == "channelname")
-		qrChannelName = !v.isNull() ? QRegularExpression(v) : Meta::mp->qrChannelName;
+		qrChannelName =
+			QRegularExpression(QRegularExpression::anchoredPattern(!v.isNull() ? v : Meta::mp->channelNamePattern));
 	else if (key == "suggestversion")
 		m_suggestVersion = !v.isNull() ? Version::fromConfig(v) : Meta::mp->m_suggestVersion;
 	else if (key == "suggestpositional")
@@ -2287,6 +2289,8 @@ bool Server::validateUserName(const QString &name) {
 		return false;
 	}
 
+	qrUserName.setPatternOptions(QRegularExpression::UseUnicodePropertiesOption);
+
 	return qrUserName.match(name).hasMatch();
 }
 
@@ -2294,6 +2298,8 @@ bool Server::validateChannelName(const QString &name) {
 	if (name.length() > 512) {
 		return false;
 	}
+
+	qrChannelName.setPatternOptions(QRegularExpression::UseUnicodePropertiesOption);
 
 	return qrChannelName.match(name).hasMatch();
 }
