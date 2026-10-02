@@ -8413,6 +8413,10 @@ Klik op de onderstaande knop om deze bestanden naar de laatste versie bij te wer
         <translation>Bijwerken van plug-in &quot;%1&quot; is mislukt vanwege te veel doorverwijzingen</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>Kon de update voor plug-in &quot;%1&quot; niet downloaden van &quot;%2&quot; (HTTP-statuscode %3)</translation>
     </message>
