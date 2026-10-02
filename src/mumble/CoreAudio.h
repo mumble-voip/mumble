@@ -43,10 +43,30 @@ protected:
 	AudioDeviceID inputDevId{};
 	AudioDeviceID echoOutputDevId{};
 	AudioBufferList buflist{};
+	/// The AudioUnit (auHAL or auVoip) that CoreAudioInput::propertyChange was registered on;
+	/// needed to remove that exact listener in stop().
+	AudioUnit auPropertyListener{};
+	/// Whether CoreAudioInput::deviceChange is currently registered as a system property listener.
+	bool bDeviceListenerRegistered = false;
+	/// UID configured for input when run() started; empty for "Default Device". Cached here
+	/// because devicesChanged() runs off the Qt thread and can't read Settings.
+	QString qsConfiguredInputDevice;
+	/// Whether inputDevId is running on the default device because qsConfiguredInputDevice
+	/// could not be found.
+	bool bInputOnFallbackDevice = false;
+	/// Same as qsConfiguredInputDevice/bInputOnFallbackDevice, but for echoOutputDevId.
+	QString qsConfiguredEchoDevice;
+	bool bEchoOnFallbackDevice = false;
+	/// Whether CoreAudioInput::devicesChanged is currently registered as a listener.
+	bool bDeviceListListenerRegistered = false;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
 	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
 								 const AudioObjectPropertyAddress inAddresses[], void *udata);
+	/// Fires when a device is added to or removed from the system, so a configured device
+	/// coming back (or disappearing) can be noticed even though it isn't the default device.
+	static OSStatus devicesChanged(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+								   const AudioObjectPropertyAddress inAddresses[], void *udata);
 	static OSStatus inputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
 								  UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 
@@ -64,10 +84,26 @@ private:
 protected:
 	/// Hardware Abstraction Layer's AudioOutputUnit, directly interacts with the hardware
 	AudioUnit auHAL{};
+	/// Whether CoreAudioOutput::propertyChange is currently registered as a listener on auHAL.
+	bool bPropertyListenerRegistered = false;
+	/// Whether CoreAudioOutput::deviceChange is currently registered as a system property listener.
+	bool bDeviceListenerRegistered = false;
+	/// UID configured for output when run() started; empty for "Default Device". Cached here
+	/// because devicesChanged() runs off the Qt thread and can't read Settings.
+	QString qsConfiguredOutputDevice;
+	/// Whether devId is running on the default device because qsConfiguredOutputDevice could
+	/// not be found.
+	bool bOutputOnFallbackDevice = false;
+	/// Whether CoreAudioOutput::devicesChanged is currently registered as a listener.
+	bool bDeviceListListenerRegistered = false;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
 	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
 								 const AudioObjectPropertyAddress inAddresses[], void *udata);
+	/// Fires when a device is added to or removed from the system, so a configured device
+	/// coming back (or disappearing) can be noticed even though it isn't the default device.
+	static OSStatus devicesChanged(AudioObjectID inObjectID, UInt32 inNumberAddresses,
+								   const AudioObjectPropertyAddress inAddresses[], void *udata);
 	static OSStatus outputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
 								   UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 
