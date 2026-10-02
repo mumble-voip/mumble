@@ -182,10 +182,18 @@ namespace server {
 				if (fromSchemaVersion < 10) {
 					// In v10 we renamed this table from "channel_info" to "channel_properties"
 					// -> Import all data from the old table into the new one
+
+					// Usually, we don't mess with migration and let administrators fix inconsistencies themselves.
+					// In this case, we actually prevent migrating rows which contain value = NULL, because
+					// we have received an enormous amount of bug reports for this. Almost every Mumble database
+					// seems to have these rows and, as they are merely channel properties, we decided to
+					// interfer and drop them here using "WHERE value IS NOT NULL".
+					// https://github.com/mumble-voip/mumble/issues/7103
+
 					m_sql << "INSERT INTO \"" << getName() << "\" (\"" << column::server_id << "\", \""
 						  << column::channel_id << "\", \"" << column::key << "\", \"" << column::value
 						  << "\") SELECT \"server_id\", \"channel_id\", \"key\", value FROM \"channel_info"
-						  << mdb::Database::OLD_TABLE_SUFFIX << "\"";
+						  << mdb::Database::OLD_TABLE_SUFFIX << "\" WHERE \"value\" IS NOT NULL";
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
