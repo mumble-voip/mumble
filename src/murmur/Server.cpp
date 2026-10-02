@@ -2289,6 +2289,8 @@ bool Server::validateUserName(const QString &name) {
 		return false;
 	}
 
+	qrUserName.setPatternOptions(QRegularExpression::UseUnicodePropertiesOption);
+
 	return qrUserName.match(name).hasMatch();
 }
 
@@ -2296,6 +2298,8 @@ bool Server::validateChannelName(const QString &name) {
 	if (name.length() > 512) {
 		return false;
 	}
+
+	qrChannelName.setPatternOptions(QRegularExpression::UseUnicodePropertiesOption);
 
 	return qrChannelName.match(name).hasMatch();
 }
