@@ -377,8 +377,10 @@ public:
 	void log(const QString &) const;
 	void log(ServerUser *u, const QString &) const;
 
-	void removeChannel(unsigned int id);
+	void removeTemporaryChannelIfEmpty(unsigned int id);
 	void removeChannel(Channel *c, Channel *dest = nullptr);
+	/// Removes the user from qhHostUsers. Requires the write lock on qrwlVoiceThread to be held.
+	void removeHostUser(ServerUser *u);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 	bool unregisterUser(int id);
 
@@ -406,6 +408,8 @@ public:
 	bool channelListenerExists(const ServerUser &user, const Channel &channel);
 
 	QString getRegisteredUserName(int userID);
+	/// @returns The subset of the given user IDs that belong to registered users
+	QSet< int > filterRegisteredUserIDs(const QSet< int > &userIDs);
 	int getRegisteredUserID(const QString &name);
 
 	bool registerUser(ServerUser &user);

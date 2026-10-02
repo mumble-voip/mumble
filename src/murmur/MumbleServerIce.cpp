@@ -479,6 +479,25 @@ void MumbleServerIce::removeServerUpdatingAuthenticator(const ::Server *server) 
 	}
 }
 
+/// Calls the given function on every proxy in the list. Proxies for which the call fails are passed to onFailure
+/// only after all calls are done, as onFailure is expected to remove them from the list being iterated over.
+template< typename Proxy, typename Call, typename OnFailure >
+static void callProxies(const QList< Proxy > &proxies, Call call, OnFailure onFailure) {
+	QList< Proxy > failedProxies;
+
+	for (const Proxy &prx : proxies) {
+		try {
+			call(prx);
+		} catch (...) {
+			failedProxies.append(prx);
+		}
+	}
+
+	for (const Proxy &prx : failedProxies) {
+		onFailure(prx);
+	}
+}
+
 static ServerPrx idToProxy(unsigned int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
@@ -497,13 +516,9 @@ void MumbleServerIce::started(::Server *s) {
 	if (qlList.isEmpty())
 		return;
 
-	for (const ::MumbleServer::MetaCallbackPrx &prx : qlList) {
-		try {
-			prx->started(idToProxy(s->iServerNum, adapter));
-		} catch (...) {
-			badMetaProxy(prx);
-		}
-	}
+	callProxies(
+		qlList, [&](const ::MumbleServer::MetaCallbackPrx &prx) { prx->started(idToProxy(s->iServerNum, adapter)); },
+		[&](const ::MumbleServer::MetaCallbackPrx &prx) { badMetaProxy(prx); });
 }
 
 void MumbleServerIce::stopped(::Server *s) {
@@ -516,13 +531,9 @@ void MumbleServerIce::stopped(::Server *s) {
 	if (qmList.isEmpty())
 		return;
 
-	for (const ::MumbleServer::MetaCallbackPrx &prx : qmList) {
-		try {
-			prx->stopped(idToProxy(s->iServerNum, adapter));
-		} catch (...) {
-			badMetaProxy(prx);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::MetaCallbackPrx &prx) { prx->stopped(idToProxy(s->iServerNum, adapter)); },
+		[&](const ::MumbleServer::MetaCallbackPrx &prx) { badMetaProxy(prx); });
 }
 
 void MumbleServerIce::userConnected(const ::User *p) {
@@ -536,13 +547,9 @@ void MumbleServerIce::userConnected(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
-		try {
-			prx->userConnected(mp);
-		} catch (...) {
-			badServerProxy(prx, s);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::ServerCallbackPrx &prx) { prx->userConnected(mp); },
+		[&](const ::MumbleServer::ServerCallbackPrx &prx) { badServerProxy(prx, s); });
 }
 
 void MumbleServerIce::userDisconnected(const ::User *p) {
@@ -558,13 +565,9 @@ void MumbleServerIce::userDisconnected(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
-		try {
-			prx->userDisconnected(mp);
-		} catch (...) {
-			badServerProxy(prx, s);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::ServerCallbackPrx &prx) { prx->userDisconnected(mp); },
+		[&](const ::MumbleServer::ServerCallbackPrx &prx) { badServerProxy(prx, s); });
 }
 
 void MumbleServerIce::userStateChanged(const ::User *p) {
@@ -578,13 +581,9 @@ void MumbleServerIce::userStateChanged(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
-		try {
-			prx->userStateChanged(mp);
-		} catch (...) {
-			badServerProxy(prx, s);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::ServerCallbackPrx &prx) { prx->userStateChanged(mp); },
+		[&](const ::MumbleServer::ServerCallbackPrx &prx) { badServerProxy(prx, s); });
 }
 
 void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &message) {
@@ -601,13 +600,9 @@ void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &mess
 	::MumbleServer::TextMessage textMessage;
 	textmessageToTextmessage(message, textMessage);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
-		try {
-			prx->userTextMessage(mp, textMessage);
-		} catch (...) {
-			badServerProxy(prx, s);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::ServerCallbackPrx &prx) { prx->userTextMessage(mp, textMessage); },
+		[&](const ::MumbleServer::ServerCallbackPrx &prx) { badServerProxy(prx, s); });
 }
 
 void MumbleServerIce::channelCreated(const ::Channel *c) {
@@ -621,13 +616,9 @@ void MumbleServerIce::channelCreated(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
-		try {
-			prx->channelCreated(mc);
-		} catch (...) {
-			badServerProxy(prx, s);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::ServerCallbackPrx &prx) { prx->channelCreated(mc); },
+		[&](const ::MumbleServer::ServerCallbackPrx &prx) { badServerProxy(prx, s); });
 }
 
 void MumbleServerIce::channelRemoved(const ::Channel *c) {
@@ -641,13 +632,9 @@ void MumbleServerIce::channelRemoved(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
-		try {
-			prx->channelRemoved(mc);
-		} catch (...) {
-			badServerProxy(prx, s);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::ServerCallbackPrx &prx) { prx->channelRemoved(mc); },
+		[&](const ::MumbleServer::ServerCallbackPrx &prx) { badServerProxy(prx, s); });
 }
 
 void MumbleServerIce::channelStateChanged(const ::Channel *c) {
@@ -661,13 +648,9 @@ void MumbleServerIce::channelStateChanged(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
-		try {
-			prx->channelStateChanged(mc);
-		} catch (...) {
-			badServerProxy(prx, s);
-		}
-	}
+	callProxies(
+		qmList, [&](const ::MumbleServer::ServerCallbackPrx &prx) { prx->channelStateChanged(mc); },
+		[&](const ::MumbleServer::ServerCallbackPrx &prx) { badServerProxy(prx, s); });
 }
 
 void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, unsigned int session, int iChannel) {
@@ -703,7 +686,7 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 		MumbleProto::ContextActionModify mpcam;
 		mpcam.set_action(iceString(action));
 		mpcam.set_operation(MumbleProto::ContextActionModify_Operation_Remove);
-		ServerUser *su = s->qhUsers.value(session);
+		ServerUser *su = s->qhUsers.value(pSrc->uiSession);
 		if (su)
 			s->sendMessage(su, mpcam);
 	}
@@ -1703,6 +1686,14 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 	NEED_SERVER;
 	NEED_CHANNEL;
 
+	// Looking up user IDs may query the authenticator and the DB, so it must not happen while holding the lock
+	QSet< int > userIDs;
+	for (const ::MumbleServer::Group &gi : groups) {
+		userIDs.unite(QSet< int >(gi.add.begin(), gi.add.end()));
+		userIDs.unite(QSet< int >(gi.remove.begin(), gi.remove.end()));
+	}
+	const QSet< int > registeredUserIDs = server->filterRegisteredUserIDs(userIDs);
+
 	{
 		QWriteLocker locker(&server->qrwlVoiceThread);
 
@@ -1720,20 +1711,22 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 
 		channel->bInheritACL = inherit;
 		for (const ::MumbleServer::Group &gi : groups) {
-			QString name    = u8(gi.name);
+			QString name = u8(gi.name);
+			// A later group with the same name replaces an earlier one
+			delete channel->qhGroups.value(name);
 			::Group *g      = new ::Group(channel, name);
 			g->bInherit     = gi.inherit;
 			g->bInheritable = gi.inheritable;
 
 			for (int id : gi.add) {
-				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+				if (!registeredUserIDs.contains(id)) {
 					continue;
 				}
 				g->qsAdd << static_cast< int >(id);
 			}
 
 			for (int id : gi.remove) {
-				if (server->getRegisteredUserName(static_cast< int >(id)).isEmpty()) {
+				if (!registeredUserIDs.contains(id)) {
 					continue;
 				}
 				g->qsRemove << static_cast< int >(id);
@@ -1804,6 +1797,17 @@ static void impl_Server_registerUser(const ::MumbleServer::AMD_Server_registerUs
 
 	int userid = server->registerUser(info);
 
+	const auto passwordIt = im.find(::MumbleServer::UserInfo::UserPassword);
+	if (userid >= 0 && passwordIt != im.end()) {
+		QMap< int, QString > properties;
+		properties.insert(static_cast< int >(::mumble::server::db::UserProperty::Password), u8(passwordIt->second));
+		const auto kdfIt = im.find(::MumbleServer::UserInfo::UserKDFIterations);
+		if (kdfIt != im.end()) {
+			properties.insert(static_cast< int >(::mumble::server::db::UserProperty::kdfIterations), u8(kdfIt->second));
+		}
+		server->setUserProperties(userid, properties);
+	}
+
 	if (userid < 0)
 		cb->ice_exception(InvalidUserException());
 	else
@@ -1850,11 +1854,13 @@ static void impl_Server_updateRegistration(const ::MumbleServer::AMD_Server_upda
 		return;
 	}
 
-	if (info.contains(static_cast< int >(::mumble::server::db::UserProperty::Comment))) {
+	const int nameKey    = static_cast< int >(::mumble::server::db::UserProperty::Name);
+	const int commentKey = static_cast< int >(::mumble::server::db::UserProperty::Comment);
+	if (info.contains(nameKey) || info.contains(commentKey)) {
 		for (ServerUser *u : server->qhUsers) {
 			if (u->iId == id)
-				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, u->qsName,
-									 info.value(static_cast< int >(::mumble::server::db::UserProperty::Comment)));
+				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker,
+									 info.value(nameKey, u->qsName), info.value(commentKey, u->qsComment));
 		}
 	}
 

@@ -143,6 +143,20 @@ std::unordered_map< unsigned int, VolumeAdjustment >
 	return adjustments;
 }
 
+void ChannelListenerManager::removeVolumeAdjustmentsOfUser(unsigned int userSession) {
+	QWriteLocker lock(&m_volumeLock);
+
+	std::erase_if(m_listenerVolumeAdjustments,
+				  [userSession](const auto &entry) { return entry.first.userSession == userSession; });
+}
+
+void ChannelListenerManager::removeVolumeAdjustmentsOfChannel(unsigned int channelID) {
+	QWriteLocker lock(&m_volumeLock);
+
+	std::erase_if(m_listenerVolumeAdjustments,
+				  [channelID](const auto &entry) { return entry.first.channelID == channelID; });
+}
+
 void ChannelListenerManager::clear() {
 	{
 		QWriteLocker lock(&m_listenerLock);

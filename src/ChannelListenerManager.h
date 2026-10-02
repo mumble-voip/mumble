@@ -119,6 +119,16 @@ public:
 	std::unordered_map< unsigned int, VolumeAdjustment >
 		getAllListenerVolumeAdjustments(unsigned int userSession) const;
 
+	/// Removes all volume adjustments of the given user
+	///
+	/// @param userSession The session ID of the user
+	void removeVolumeAdjustmentsOfUser(unsigned int userSession);
+
+	/// Removes all volume adjustments for listeners of the given channel
+	///
+	/// @param channelID The ID of the channel
+	void removeVolumeAdjustmentsOfChannel(unsigned int channelID);
+
 	/// Clears all ChannelListeners and volume adjustments
 	void clear();
 signals:
