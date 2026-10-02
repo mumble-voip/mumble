@@ -671,11 +671,11 @@ Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin 
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Üçüncü Taraf Bağımlılıklar</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Derleme yapılandırmasına bağlı olarak, kullandığınız Mumble sürümü listelenen tüm girdilere bağımlı olmayabilir</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -3700,15 +3700,15 @@ Sunucunun etiketi. Bu, sunucu listenizde sunucunun ismidir ve istediğinizi seç
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolayı bu aygıtta kaydet</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolalar yalnızca favorilerinize eklediğiniz sunucular için kaydedilebilir.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Parolalar yalnızca favorilerinize eklediğiniz sunucular için kaydedilebilir</translation>
     </message>
 </context>
 <context>
@@ -7623,11 +7623,11 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Bu, istemciden gelen kimlik bilgilerinin gizlenmesini sağlar.&lt;/b&gt;&lt;p&gt;İstemci, tanımlanmış olsa bile bir sertifika ile kimliğini belirtmez. Bu, esas olarak bir test seçeneğidir ve kaydedilmez.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate information</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifika bilgilerini gizle</translation>
     </message>
 </context>
 <context>

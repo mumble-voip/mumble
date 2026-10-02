@@ -671,11 +671,11 @@ Określa maksymalną dozwoloną liczbę użytkowników na tym kanale. Jeżeli wa
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Zależności od stron trzecich</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>W zależności od konfiguracji kompilacji ta wersja programu Mumble może nie być zależna od wszystkich wymienionych elementów</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -3702,15 +3702,15 @@ Etykieta serwera. Określa, pod jaką nazwą twój serwer będzie wyświetlany n
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz hasło na tym urządzeniu</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasła można zapisywać tylko dla serwerów znajdujących się na liście ulubionych.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasła można zapisywać tylko dla serwerów znajdujących się na liście ulubionych</translation>
     </message>
 </context>
 <context>
@@ -7625,11 +7625,11 @@ Uniemożliwia klientowi wysyłanie potencjalnie identyfikujących informacji o s
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Spowoduje to ukrycie informacji o tożsamości klienta.&lt;/b&gt;&lt;p&gt;Klient nie będzie uwierzytelniał się za pomocą certyfikatu, nawet jeśli został on zdefiniowany. Jest to opcja przeznaczona głównie do celów testowych i nie jest zapisywana.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate information</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj informacje o certyfikacie</translation>
     </message>
 </context>
 <context>
