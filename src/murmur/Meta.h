@@ -101,8 +101,8 @@ public:
 	QUrl qurlRegWeb;
 	bool bBonjour;
 
-	QRegularExpression qrUserName;
-	QRegularExpression qrChannelName;
+	QString userNamePattern;
+	QString channelNamePattern;
 
 	unsigned int iMessageLimit;
 	unsigned int iMessageBurst;

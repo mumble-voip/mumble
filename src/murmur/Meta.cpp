@@ -140,8 +140,8 @@ MetaParams::MetaParams() {
 	iChannelNestingLimit = 10;
 	iChannelCountLimit   = 1000;
 
-	qrUserName    = QRegularExpression(QLatin1String("[ -=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
-	qrChannelName = QRegularExpression(QLatin1String("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
+	userNamePattern    = QLatin1String("[ -=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+");
+	channelNamePattern = QLatin1String("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
 
 	iMessageLimit = 1;
 	iMessageBurst = 5;
@@ -410,8 +410,8 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	qrUserName    = QRegularExpression(typeCheckedFromSettings("username", qrUserName.pattern()));
-	qrChannelName = QRegularExpression(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
+	userNamePattern    = typeCheckedFromSettings("username", userNamePattern);
+	channelNamePattern = typeCheckedFromSettings("channelname", channelNamePattern);
 
 	iMessageLimit = typeCheckedFromSettings< unsigned int >("messagelimit", 1);
 	iMessageBurst = typeCheckedFromSettings< unsigned int >("messageburst", 5);
@@ -463,8 +463,8 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("certificate"), QString::fromUtf8(qscCert.toPem()));
 	qmConfig.insert(QLatin1String("key"), QString::fromUtf8(qskKey.toPem()));
 	qmConfig.insert(QLatin1String("obfuscate"), bObfuscate ? QLatin1String("true") : QLatin1String("false"));
-	qmConfig.insert(QLatin1String("username"), qrUserName.pattern());
-	qmConfig.insert(QLatin1String("channelname"), qrChannelName.pattern());
+	qmConfig.insert(QLatin1String("username"), userNamePattern);
+	qmConfig.insert(QLatin1String("channelname"), channelNamePattern);
 	qmConfig.insert(QLatin1String("certrequired"), bCertRequired ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("forceExternalAuth"),
 					bForceExternalAuth ? QLatin1String("true") : QLatin1String("false"));
