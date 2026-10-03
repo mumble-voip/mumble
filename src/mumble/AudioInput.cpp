@@ -18,6 +18,10 @@
 #include "VoiceRecorder.h"
 #include "Global.h"
 
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+#	include "WebRTC_Priv.h"
+#endif
+
 #include <opus.h>
 
 #ifdef USE_RNNOISE
@@ -27,6 +31,7 @@ extern "C" {
 #endif
 
 #include <algorithm>
+#include <atomic>
 #include <cassert>
 #include <chrono>
 #include <exception>
@@ -250,6 +255,12 @@ AudioInput::AudioInput()
 #ifdef USE_RNNOISE
 	denoiseState = rnnoise_create(nullptr);
 #endif
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	m_vadWebrtcAggressiveness = static_cast< webrtc::Vad::Aggressiveness >(Global::get().s.fVADWebRTCAggressiveness);
+#endif
+
+	updateVad(Global::get().s.vsVAD);
 
 	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
 	iEchoFreq = iMicFreq = iSampleRate;
@@ -941,11 +952,32 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 						   static_cast< std::streamsize >(iFrameSize * sizeof(short)));
 	}
 
-	fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
+	Settings::VADSource currentVad = m_vad.load();
+
+	switch (currentVad) {
+		case Settings::WebRTC:
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+		{
+			auto webrtcVad = m_vadWebrtc.load();
+
+			if (!webrtcVad) {
+				break;
+			}
+
+			fSpeechProb = !!webrtcVad->VoiceActivity(psSource, iFrameSize, iSampleRate);
+			break;
+		}
+#else
+			fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
+			break;
+#endif
+		default:
+			fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
+	}
 
 	// clean microphone level: peak of filtered signal attenuated by AGC gain
 	dPeakCleanMic = qMax(dPeakSignal - static_cast< float >(gainValue), -96.0f);
-	float level   = (Global::get().s.vsVAD == Settings::SignalToNoise) ? fSpeechProb : (1.0f + dPeakCleanMic / 96.0f);
+	float level   = (currentVad == Settings::Amplitude) ? (1.0f + dPeakCleanMic / 96.0f) : fSpeechProb;
 
 	bool bIsSpeech = false;
 
@@ -1243,6 +1275,34 @@ void AudioInput::updateUserMuteDeafState(const ClientUser *user) {
 		onUserMutedChanged();
 	}
 }
+
+void AudioInput::updateVad(Settings::VADSource src) {
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+	if (src == Settings::WebRTC) {
+		auto u = webrtc::CreateVad(m_vadWebrtcAggressiveness);
+		if (!u) {
+			qWarning() << "AudioInput: Failed to initialize WebRTC VAD, disabled";
+		}
+		m_vadWebrtc.store(std::move(u));
+	} else {
+		m_vadWebrtc.store(nullptr);
+	}
+#endif
+	m_vad.store(src);
+}
+
+#ifdef USE_WEBRTC_AUDIO_PROCESSING
+void AudioInput::updateWebrtcAggressiveness(webrtc::Vad::Aggressiveness aggressiveness) {
+	m_vadWebrtcAggressiveness = aggressiveness;
+	if (m_vad.load() == Settings::WebRTC && m_vadWebrtc.load()) {
+		auto u = webrtc::CreateVad(m_vadWebrtcAggressiveness);
+		if (!u) {
+			qWarning() << "AudioInput: Failed to initialize WebRTC VAD, disabled";
+		}
+		m_vadWebrtc.store(std::move(u));
+	}
+}
+#endif
 
 void AudioInput::onUserMutedChanged() {
 }
