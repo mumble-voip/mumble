@@ -126,7 +126,7 @@ Build support for Logitech G-Keys. Note: This feature does not require any build
 
 ### ice
 
-Build support for Ice RPC.
+Build support for Ice RPC (requires Ice 3.7 or later).
 (Default: ON)
 
 ### jackaudio

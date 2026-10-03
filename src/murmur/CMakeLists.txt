@@ -14,7 +14,7 @@ set(ICE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/MumbleServer.ice")
 
 include(qt-utils)
 
-option(ice "Build support for Ice RPC." ON)
+option(ice "Build support for Ice RPC (requires Ice 3.7 or later)." ON)
 
 find_package("Qt6" COMPONENTS Sql REQUIRED)
 
@@ -58,7 +58,7 @@ else()
 	add_executable(mumble-server "main.cpp")
 endif()
 
-target_link_libraries(mumble-server mumble_server_lib CLI11::CLI11)
+target_link_libraries(mumble-server PRIVATE mumble_server_lib CLI11::CLI11)
 
 set_property(TARGET mumble-server PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
 set_property(TARGET mumble_server_lib PROPERTY INTERPROCEDURAL_OPTIMIZATION ${lto})
@@ -198,20 +198,35 @@ if(zeroconf)
 endif()
 
 if(ice)
+	# Ice 3.7 ships the libraries for its C++11 mapping with a "++11" suffix, which Ice 3.8 (only providing that mapping)
+	# doesn't use anymore. Therefore, the version has to be known before searching for the actual components.
 	find_package("Ice"
-		COMPONENTS
-			Ice
-			IceSSL
 		OPTIONAL_COMPONENTS
-			IceDiscovery
-			IceLocatorDiscovery
-			IceUtil
+			Ice++11
+			Ice
 		REQUIRED
 	)
 
-	if(Ice_VERSION_MAJOR LESS 3)
-		message(FATAL_ERROR "Unsupported Ice version, at least 3.0 is required.")
+	if(Ice_VERSION VERSION_LESS "3.7")
+		message(FATAL_ERROR "Unsupported Ice version, at least 3.7 is required.")
 	endif()
+
+	if(Ice_VERSION VERSION_LESS "3.8")
+		set(ICE_COMPONENT_SUFFIX "++11")
+		# In Ice 3.7 IceSSL is still an independent component
+		set(ICE_SSL_COMPONENT "IceSSL++11")
+		set(ICE_CHECKSUM_ARGS "--checksum")
+	endif()
+
+	find_package("Ice"
+		COMPONENTS
+			"Ice${ICE_COMPONENT_SUFFIX}"
+			${ICE_SSL_COMPONENT}
+		OPTIONAL_COMPONENTS
+			"IceDiscovery${ICE_COMPONENT_SUFFIX}"
+			"IceLocatorDiscovery${ICE_COMPONENT_SUFFIX}"
+		REQUIRED
+	)
 
 	get_filename_component(ICE_FILE_NAME ${ICE_FILE} NAME_WE)
 
@@ -227,41 +242,49 @@ if(ice)
 	add_custom_command(
 		OUTPUT ${ICE_GENERATED_FILES}
 		COMMAND ${Ice_SLICE2CPP_EXECUTABLE}
-		ARGS "--checksum" ${SLICE_INCLUDE_ARGS} ${ICE_FILE}
+		ARGS ${ICE_CHECKSUM_ARGS} ${SLICE_INCLUDE_ARGS} ${ICE_FILE}
 		MAIN_DEPENDENCY ${ICE_FILE}
 		COMMENT "Generating Ice files"
 		VERBATIM
 	)
 
+	add_library(mumble_server_generated_ice_files STATIC ${ICE_GENERATED_FILES})
+	target_include_directories(mumble_server_generated_ice_files PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+	target_disable_warnings(mumble_server_generated_ice_files)
+	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
+	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
+	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
+	target_compile_definitions(mumble_server_generated_ice_files
+		PUBLIC
+			"ICE_STATIC_LIBS"
+			"ICE_CPP11_MAPPING"
+	)
+
+	target_link_libraries(mumble_server_lib PUBLIC mumble_server_generated_ice_files)
+
 	add_custom_target(generate_murmur_ice_wrapper
-		DEPENDS "MumbleServerIceWrapper.cpp" 
+		DEPENDS "MumbleServerIceWrapper.cpp" "MumbleServerIceWrapper.h"
 	)
 	add_dependencies(mumble_server_lib generate_murmur_ice_wrapper)
 	add_custom_command(
-		OUTPUT "MumbleServerIceWrapper.cpp"
+		OUTPUT "MumbleServerIceWrapper.cpp" "MumbleServerIceWrapper.h"
 		COMMAND Python::Interpreter
-		ARGS "${CMAKE_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
-			-g "${ICE_FILE_NAME}.h" -o "MumbleServerIceWrapper.cpp" -q
-		DEPENDS ${ICE_GENERATED_FILES}
+		ARGS "${PROJECT_SOURCE_DIR}/scripts/generateIceWrapper.py" -i "${ICE_FILE}"
+			-g "${ICE_FILE_NAME}.h" -o "MumbleServerIceWrapper.cpp" --out-header "MumbleServerIceWrapper.h" -q
+		DEPENDS ${ICE_GENERATED_FILES} "${PROJECT_SOURCE_DIR}/scripts/generateIceWrapper.py"
 		COMMENT "Generating MumbleServerIceWrapper"
 	)
 	# Even though the file is a .cpp, it is still being included in MumbleServerIce.cpp
 	target_include_directories(mumble_server_lib PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
-	# We explicitly tell CMake not to call any autogen tools (e.g. MOC) for the generated files.
-	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
-	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
-
 	target_sources(mumble_server_lib
 		PRIVATE
 			"MumbleServerIce.cpp"
 			"MumbleServerIce.h"
-			${ICE_GENERATED_FILES}
 	)
 	target_compile_definitions(mumble_server_lib
 		PUBLIC
 			"USE_ICE"
-			"ICE_STATIC_LIBS"
 	)
 
 	target_include_directories(mumble_server_lib PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
@@ -272,13 +295,12 @@ if(ice)
 		# TODO: Fix or rewrite the official FindIce.cmake.
 		find_package("BZip2" REQUIRED)
 	endif()
-	target_link_libraries(mumble_server_lib
+	target_link_libraries(mumble_server_generated_ice_files
 		PUBLIC
-			Ice::Ice
-			Ice::IceSSL
-			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery>
-			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery>
-			$<TARGET_NAME_IF_EXISTS:Ice::IceUtil>
+			"Ice::Ice${ICE_COMPONENT_SUFFIX}"
+			$<TARGET_NAME_IF_EXISTS:Ice::IceSSL${ICE_COMPONENT_SUFFIX}>
+			$<TARGET_NAME_IF_EXISTS:Ice::IceDiscovery${ICE_COMPONENT_SUFFIX}>
+			$<TARGET_NAME_IF_EXISTS:Ice::IceLocatorDiscovery${ICE_COMPONENT_SUFFIX}>
 			$<TARGET_NAME_IF_EXISTS:BZip2::BZip2>
 	)
 	

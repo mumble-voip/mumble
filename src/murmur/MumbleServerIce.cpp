@@ -29,9 +29,11 @@
 #include <openssl/err.h>
 
 #include <Ice/Ice.h>
-#include <Ice/SliceChecksums.h>
-#include <IceUtil/IceUtil.h>
+#if ICE_INT_VERSION < 30800
+#	include <Ice/SliceChecksums.h>
+#endif
 
+#include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <limits>
@@ -234,7 +236,7 @@ static void infoToInfo(const QMap< int, QString > &info, ::MumbleServer::UserInf
 static void infoToInfo(const ::MumbleServer::UserInfoMap &im, QMap< int, QString > &info) {
 	::MumbleServer::UserInfoMap::const_iterator i;
 	for (i = im.begin(); i != im.end(); ++i)
-		info.insert((*i).first, u8((*i).second));
+		info.insert(static_cast< int >((*i).first), u8((*i).second));
 }
 
 static void textmessageToTextmessage(const ::TextMessage &tm, ::MumbleServer::TextMessage &tmdst) {
@@ -277,11 +279,32 @@ static void textmessageToTextmessage(const ::TextMessage &tm, ::MumbleServer::Te
 	return ::DBState::Normal;
 }
 
+// Proxies are shared pointers, which compare by address. As every incoming call creates new proxy instances, proxies
+// have to be compared by the object they refer to instead.
+template< typename Proxy > static bool containsProxy(const QList< Proxy > &list, const Proxy &prx) {
+	return std::any_of(list.begin(), list.end(), [&prx](const Proxy &p) { return Ice::targetEqualTo(p, prx); });
+}
+
+template< typename Proxy > static qsizetype removeProxy(QList< Proxy > &list, const Proxy &prx) {
+	return list.removeIf([&prx](const Proxy &p) { return Ice::targetEqualTo(p, prx); });
+}
+
+template< typename Key, typename Proxy >
+static QList< Key > keysOfProxy(const QMap< Key, Proxy > &map, const Proxy &prx) {
+	QList< Key > keys;
+	for (auto it = map.cbegin(); it != map.cend(); ++it) {
+		if (Ice::targetEqualTo(it.value(), prx)) {
+			keys.append(it.key());
+		}
+	}
+	return keys;
+}
+
 class ServerLocator : public virtual Ice::ServantLocator {
 public:
-	virtual Ice::ObjectPtr locate(const Ice::Current &, Ice::LocalObjectPtr &);
-	virtual void finished(const Ice::Current &, const Ice::ObjectPtr &, const Ice::LocalObjectPtr &){};
-	virtual void deactivate(const std::string &){};
+	Ice::ObjectPtr locate(const Ice::Current &, std::shared_ptr< void > &) override;
+	void finished(const Ice::Current &, const Ice::ObjectPtr &, const std::shared_ptr< void > &) override{};
+	void deactivate(const std::string &) override{};
 };
 
 MumbleServerIce::MumbleServerIce() {
@@ -317,15 +340,11 @@ MumbleServerIce::MumbleServerIce() {
 		}
 		adapter =
 			communicator->createObjectAdapterWithEndpoints("Mumble Server", qPrintable(::Meta::mp->qsIceEndpoint));
-		MetaPtr m = new MetaI;
-#if ICE_INT_VERSION >= 30700
-		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, Ice::stringToIdentity("Meta")));
-#else
-		MetaPrx mprx = MetaPrx::uncheckedCast(adapter->add(m, communicator->stringToIdentity("Meta")));
-#endif
-		adapter->addServantLocator(new ServerLocator(), "s");
+		MetaPtr m       = std::make_shared< MetaI >();
+		MetaPrxPtr mprx = Ice::uncheckedCast< MetaPrx >(adapter->add(m, Ice::stringToIdentity("Meta")));
+		adapter->addServantLocator(std::make_shared< ServerLocator >(), "s");
 
-		iopServer = new ServerI;
+		iopServer = std::make_shared< ServerI >();
 
 		adapter->activate();
 		for (const Ice::EndpointPtr &ep : mprx->ice_getEndpoints()) {
@@ -356,49 +375,49 @@ void MumbleServerIce::customEvent(QEvent *evt) {
 		static_cast< ExecEvent * >(evt)->execute();
 }
 
-void MumbleServerIce::badMetaProxy(const ::MumbleServer::MetaCallbackPrx &prx) {
+void MumbleServerIce::badMetaProxy(const ::MumbleServer::MetaCallbackPrxPtr &prx) {
 	qCritical("Ice MetaCallback %s failed", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
 	removeMetaCallback(prx);
 }
 
-void MumbleServerIce::badServerProxy(const ::MumbleServer::ServerCallbackPrx &prx, const ::Server *server) {
+void MumbleServerIce::badServerProxy(const ::MumbleServer::ServerCallbackPrxPtr &prx, const ::Server *server) {
 	server->log(QString("Ice ServerCallback %1 failed").arg(QString::fromStdString(communicator->proxyToString(prx))));
 	removeServerCallback(server, prx);
 }
 
 void MumbleServerIce::badAuthenticator(::Server *server) {
 	server->disconnectAuthenticator(this);
-	const ::MumbleServer::ServerAuthenticatorPrx &prx = qmServerAuthenticator.value(server->iServerNum);
+	const ::MumbleServer::ServerAuthenticatorPrxPtr &prx = qmServerAuthenticator.value(server->iServerNum);
 	server->log(QString("Ice Authenticator %1 failed").arg(QString::fromStdString(communicator->proxyToString(prx))));
 	removeServerAuthenticator(server);
 	removeServerUpdatingAuthenticator(server);
 }
 
-void MumbleServerIce::addMetaCallback(const ::MumbleServer::MetaCallbackPrx &prx) {
-	if (!qlMetaCallbacks.contains(prx)) {
+void MumbleServerIce::addMetaCallback(const ::MumbleServer::MetaCallbackPrxPtr &prx) {
+	if (!containsProxy(qlMetaCallbacks, prx)) {
 		qWarning("Added Ice MetaCallback %s", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
 		qlMetaCallbacks.append(prx);
 	}
 }
 
-void MumbleServerIce::removeMetaCallback(const ::MumbleServer::MetaCallbackPrx &prx) {
-	if (qlMetaCallbacks.removeAll(prx)) {
+void MumbleServerIce::removeMetaCallback(const ::MumbleServer::MetaCallbackPrxPtr &prx) {
+	if (removeProxy(qlMetaCallbacks, prx)) {
 		qWarning("Removed Ice MetaCallback %s", qPrintable(QString::fromStdString(communicator->proxyToString(prx))));
 	}
 }
 
-void MumbleServerIce::addServerCallback(const ::Server *server, const ::MumbleServer::ServerCallbackPrx &prx) {
-	QList<::MumbleServer::ServerCallbackPrx > &cbList = qmServerCallbacks[server->iServerNum];
+void MumbleServerIce::addServerCallback(const ::Server *server, const ::MumbleServer::ServerCallbackPrxPtr &prx) {
+	QList<::MumbleServer::ServerCallbackPrxPtr > &cbList = qmServerCallbacks[server->iServerNum];
 
-	if (!cbList.contains(prx)) {
+	if (!containsProxy(cbList, prx)) {
 		server->log(
 			QString("Added Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
 		cbList.append(prx);
 	}
 }
 
-void MumbleServerIce::removeServerCallback(const ::Server *server, const ::MumbleServer::ServerCallbackPrx &prx) {
-	if (qmServerCallbacks[server->iServerNum].removeAll(prx)) {
+void MumbleServerIce::removeServerCallback(const ::Server *server, const ::MumbleServer::ServerCallbackPrxPtr &prx) {
+	if (removeProxy(qmServerCallbacks[server->iServerNum], prx)) {
 		server->log(
 			QString("Removed Ice ServerCallback %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
 	}
@@ -412,11 +431,11 @@ void MumbleServerIce::removeServerCallbacks(const ::Server *server) {
 }
 
 void MumbleServerIce::addServerContextCallback(const ::Server *server, int session_id, const QString &action,
-											   const ::MumbleServer::ServerContextCallbackPrx &prx) {
-	QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &callbacks =
+											   const ::MumbleServer::ServerContextCallbackPrxPtr &prx) {
+	QMap< QString, ::MumbleServer::ServerContextCallbackPrxPtr > &callbacks =
 		qmServerContextCallbacks[server->iServerNum][session_id];
 
-	if (!callbacks.contains(action) || callbacks[action] != prx) {
+	if (!callbacks.contains(action) || !Ice::targetEqualTo(callbacks[action], prx)) {
 		server->log(QString("Added Ice ServerContextCallback %1 for session %2, action %3")
 						.arg(QString::fromStdString(communicator->proxyToString(prx)))
 						.arg(session_id)
@@ -425,7 +444,7 @@ void MumbleServerIce::addServerContextCallback(const ::Server *server, int sessi
 	}
 }
 
-const QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > >
+const QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrxPtr > >
 	MumbleServerIce::getServerContextCallbacks(const ::Server *server) const {
 	return qmServerContextCallbacks[server->iServerNum];
 }
@@ -437,15 +456,15 @@ void MumbleServerIce::removeServerContextCallback(const ::Server *server, int se
 }
 
 void MumbleServerIce::setServerAuthenticator(const ::Server *server,
-											 const ::MumbleServer::ServerAuthenticatorPrx &prx) {
-	if (prx != qmServerAuthenticator[server->iServerNum]) {
+											 const ::MumbleServer::ServerAuthenticatorPrxPtr &prx) {
+	if (!Ice::targetEqualTo(prx, qmServerAuthenticator[server->iServerNum])) {
 		server->log(
 			QString("Set Ice Authenticator to %1").arg(QString::fromStdString(communicator->proxyToString(prx))));
 		qmServerAuthenticator[server->iServerNum] = prx;
 	}
 }
 
-const ::MumbleServer::ServerAuthenticatorPrx MumbleServerIce::getServerAuthenticator(const ::Server *server) const {
+const ::MumbleServer::ServerAuthenticatorPrxPtr MumbleServerIce::getServerAuthenticator(const ::Server *server) const {
 	return qmServerAuthenticator[server->iServerNum];
 }
 
@@ -457,15 +476,15 @@ void MumbleServerIce::removeServerAuthenticator(const ::Server *server) {
 }
 
 void MumbleServerIce::setServerUpdatingAuthenticator(const ::Server *server,
-													 const ::MumbleServer::ServerUpdatingAuthenticatorPrx &prx) {
-	if (prx != qmServerUpdatingAuthenticator[server->iServerNum]) {
+													 const ::MumbleServer::ServerUpdatingAuthenticatorPrxPtr &prx) {
+	if (!Ice::targetEqualTo(prx, qmServerUpdatingAuthenticator[server->iServerNum])) {
 		server->log(QString("Set Ice UpdatingAuthenticator to %1")
 						.arg(QString::fromStdString(communicator->proxyToString(prx))));
 		qmServerUpdatingAuthenticator[server->iServerNum] = prx;
 	}
 }
 
-const ::MumbleServer::ServerUpdatingAuthenticatorPrx
+const ::MumbleServer::ServerUpdatingAuthenticatorPrxPtr
 	MumbleServerIce::getServerUpdatingAuthenticator(const ::Server *server) const {
 	return qmServerUpdatingAuthenticator[server->iServerNum];
 }
@@ -479,12 +498,12 @@ void MumbleServerIce::removeServerUpdatingAuthenticator(const ::Server *server) 
 	}
 }
 
-static ServerPrx idToProxy(unsigned int id, const Ice::ObjectAdapterPtr &adapter) {
+static ServerPrxPtr idToProxy(unsigned int id, const Ice::ObjectAdapterPtr &adapter) {
 	Ice::Identity ident;
 	ident.category = "s";
 	ident.name     = iceString(QString::number(id));
 
-	return ServerPrx::uncheckedCast(adapter->createProxy(ident));
+	return Ice::uncheckedCast< ServerPrx >(adapter->createProxy(ident));
 }
 
 void MumbleServerIce::started(::Server *s) {
@@ -492,12 +511,12 @@ void MumbleServerIce::started(::Server *s) {
 	connect(s, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this,
 			SLOT(contextAction(const User *, const QString &, unsigned int, int)));
 
-	const QList<::MumbleServer::MetaCallbackPrx > &qlList = qlMetaCallbacks;
+	const QList<::MumbleServer::MetaCallbackPrxPtr > &qlList = qlMetaCallbacks;
 
 	if (qlList.isEmpty())
 		return;
 
-	for (const ::MumbleServer::MetaCallbackPrx &prx : qlList) {
+	for (const ::MumbleServer::MetaCallbackPrxPtr &prx : qlList) {
 		try {
 			prx->started(idToProxy(s->iServerNum, adapter));
 		} catch (...) {
@@ -511,12 +530,12 @@ void MumbleServerIce::stopped(::Server *s) {
 	removeServerAuthenticator(s);
 	removeServerUpdatingAuthenticator(s);
 
-	const QList<::MumbleServer::MetaCallbackPrx > &qmList = qlMetaCallbacks;
+	const QList<::MumbleServer::MetaCallbackPrxPtr > &qmList = qlMetaCallbacks;
 
 	if (qmList.isEmpty())
 		return;
 
-	for (const ::MumbleServer::MetaCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::MetaCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->stopped(idToProxy(s->iServerNum, adapter));
 		} catch (...) {
@@ -528,7 +547,7 @@ void MumbleServerIce::stopped(::Server *s) {
 void MumbleServerIce::userConnected(const ::User *p) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList<::MumbleServer::ServerCallbackPrxPtr > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -536,7 +555,7 @@ void MumbleServerIce::userConnected(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::ServerCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->userConnected(mp);
 		} catch (...) {
@@ -550,7 +569,7 @@ void MumbleServerIce::userDisconnected(const ::User *p) {
 
 	qmServerContextCallbacks[s->iServerNum].remove(static_cast< int >(p->uiSession));
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList<::MumbleServer::ServerCallbackPrxPtr > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -558,7 +577,7 @@ void MumbleServerIce::userDisconnected(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::ServerCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->userDisconnected(mp);
 		} catch (...) {
@@ -570,7 +589,7 @@ void MumbleServerIce::userDisconnected(const ::User *p) {
 void MumbleServerIce::userStateChanged(const ::User *p) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList<::MumbleServer::ServerCallbackPrxPtr > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -578,7 +597,7 @@ void MumbleServerIce::userStateChanged(const ::User *p) {
 	::MumbleServer::User mp;
 	userToUser(p, mp);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::ServerCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->userStateChanged(mp);
 		} catch (...) {
@@ -590,7 +609,7 @@ void MumbleServerIce::userStateChanged(const ::User *p) {
 void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &message) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList<::MumbleServer::ServerCallbackPrxPtr > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -601,7 +620,7 @@ void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &mess
 	::MumbleServer::TextMessage textMessage;
 	textmessageToTextmessage(message, textMessage);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::ServerCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->userTextMessage(mp, textMessage);
 		} catch (...) {
@@ -613,7 +632,7 @@ void MumbleServerIce::userTextMessage(const ::User *p, const ::TextMessage &mess
 void MumbleServerIce::channelCreated(const ::Channel *c) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList<::MumbleServer::ServerCallbackPrxPtr > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -621,7 +640,7 @@ void MumbleServerIce::channelCreated(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::ServerCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->channelCreated(mc);
 		} catch (...) {
@@ -633,7 +652,7 @@ void MumbleServerIce::channelCreated(const ::Channel *c) {
 void MumbleServerIce::channelRemoved(const ::Channel *c) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList<::MumbleServer::ServerCallbackPrxPtr > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -641,7 +660,7 @@ void MumbleServerIce::channelRemoved(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::ServerCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->channelRemoved(mc);
 		} catch (...) {
@@ -653,7 +672,7 @@ void MumbleServerIce::channelRemoved(const ::Channel *c) {
 void MumbleServerIce::channelStateChanged(const ::Channel *c) {
 	::Server *s = qobject_cast<::Server * >(sender());
 
-	const QList<::MumbleServer::ServerCallbackPrx > &qmList = qmServerCallbacks[s->iServerNum];
+	const QList<::MumbleServer::ServerCallbackPrxPtr > &qmList = qmServerCallbacks[s->iServerNum];
 
 	if (qmList.isEmpty())
 		return;
@@ -661,7 +680,7 @@ void MumbleServerIce::channelStateChanged(const ::Channel *c) {
 	::MumbleServer::Channel mc;
 	channelToChannel(c, mc);
 
-	for (const ::MumbleServer::ServerCallbackPrx &prx : qmList) {
+	for (const ::MumbleServer::ServerCallbackPrxPtr &prx : qmList) {
 		try {
 			prx->channelStateChanged(mc);
 		} catch (...) {
@@ -676,16 +695,17 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 	if (!qmServerContextCallbacks.contains(s->iServerNum))
 		return;
 
-	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmServer =
+	QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrxPtr > > &qmServer =
 		qmServerContextCallbacks[s->iServerNum];
 	if (!qmServer.contains(static_cast< int >(pSrc->uiSession)))
 		return;
 
-	QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &qmUser = qmServer[static_cast< int >(pSrc->uiSession)];
+	QMap< QString, ::MumbleServer::ServerContextCallbackPrxPtr > &qmUser =
+		qmServer[static_cast< int >(pSrc->uiSession)];
 	if (!qmUser.contains(action))
 		return;
 
-	const ::MumbleServer::ServerContextCallbackPrx &prx = qmUser[action];
+	const ::MumbleServer::ServerContextCallbackPrxPtr &prx = qmUser[action];
 
 	::MumbleServer::User mp;
 	userToUser(pSrc, mp);
@@ -712,7 +732,7 @@ void MumbleServerIce::contextAction(const ::User *pSrc, const QString &action, u
 void MumbleServerIce::idToNameSlot(QString &name, int id) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
+	const ServerAuthenticatorPrxPtr prx = getServerAuthenticator(server);
 	try {
 		name = u8(prx->idToName(id));
 	} catch (...) {
@@ -722,7 +742,7 @@ void MumbleServerIce::idToNameSlot(QString &name, int id) {
 void MumbleServerIce::idToTextureSlot(QByteArray &qba, int id) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
+	const ServerAuthenticatorPrxPtr prx = getServerAuthenticator(server);
 	try {
 		const ::MumbleServer::Texture &tex = prx->idToTexture(id);
 
@@ -738,7 +758,7 @@ void MumbleServerIce::idToTextureSlot(QByteArray &qba, int id) {
 void MumbleServerIce::nameToIdSlot(int &id, const QString &name) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
+	const ServerAuthenticatorPrxPtr prx = getServerAuthenticator(server);
 	try {
 		id = prx->nameToId(iceString(name));
 	} catch (...) {
@@ -751,7 +771,7 @@ void MumbleServerIce::authenticateSlot(int &res, QString &uname, int sessionId,
 									   bool certstrong, const QString &pw) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerAuthenticatorPrx prx = getServerAuthenticator(server);
+	const ServerAuthenticatorPrxPtr prx = getServerAuthenticator(server);
 	::std::string newname;
 	::MumbleServer::GroupNameList groups;
 	::MumbleServer::CertificateList certs;
@@ -788,7 +808,7 @@ void MumbleServerIce::authenticateSlot(int &res, QString &uname, int sessionId,
 void MumbleServerIce::registerUserSlot(int &res, const QMap< int, QString > &info) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
+	const ServerUpdatingAuthenticatorPrxPtr prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
 		return;
 
@@ -805,7 +825,7 @@ void MumbleServerIce::registerUserSlot(int &res, const QMap< int, QString > &inf
 void MumbleServerIce::unregisterUserSlot(int &res, int id) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
+	const ServerUpdatingAuthenticatorPrxPtr prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
 		return;
 	try {
@@ -818,7 +838,7 @@ void MumbleServerIce::unregisterUserSlot(int &res, int id) {
 void MumbleServerIce::getRegistrationSlot(int &res, int id, QMap< int, QString > &info) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
+	const ServerUpdatingAuthenticatorPrxPtr prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
 		return;
 
@@ -837,7 +857,7 @@ void MumbleServerIce::getRegistrationSlot(int &res, int id, QMap< int, QString >
 void MumbleServerIce::getRegisteredUsersSlot(const QString &filter, QMap< int, QString > &m) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
+	const ServerUpdatingAuthenticatorPrxPtr prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
 		return;
 
@@ -857,7 +877,7 @@ void MumbleServerIce::getRegisteredUsersSlot(const QString &filter, QMap< int, Q
 void MumbleServerIce::setInfoSlot(int &res, int id, const QMap< int, QString > &info) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
+	const ServerUpdatingAuthenticatorPrxPtr prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
 		return;
 
@@ -874,7 +894,7 @@ void MumbleServerIce::setInfoSlot(int &res, int id, const QMap< int, QString > &
 void MumbleServerIce::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *server = qobject_cast<::Server * >(sender());
 
-	const ServerUpdatingAuthenticatorPrx prx = getServerUpdatingAuthenticator(server);
+	const ServerUpdatingAuthenticatorPrxPtr prx = getServerUpdatingAuthenticator(server);
 	if (!prx)
 		return;
 
@@ -891,7 +911,7 @@ void MumbleServerIce::setTextureSlot(int &res, int id, const QByteArray &texture
 	}
 }
 
-Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, Ice::LocalObjectPtr &) {
+Ice::ObjectPtr ServerLocator::locate(const Ice::Current &, std::shared_ptr< void > &) {
 	return iopServer;
 }
 
@@ -1015,14 +1035,14 @@ static void impl_Server_delete(const ::MumbleServer::AMD_Server_deletePtr cb, in
 }
 
 static void impl_Server_addCallback(const MumbleServer::AMD_Server_addCallbackPtr cb, int server_id,
-									const MumbleServer::ServerCallbackPrx &cbptr) {
+									const MumbleServer::ServerCallbackPrxPtr &cbptr) {
 	ICE_IMPL_BEGIN
 
 	NEED_SERVER;
 
 	try {
-		const MumbleServer::ServerCallbackPrx &oneway =
-			MumbleServer::ServerCallbackPrx::checkedCast(cbptr->ice_oneway()->ice_connectionCached(false));
+		const MumbleServer::ServerCallbackPrxPtr &oneway =
+			Ice::checkedCast< MumbleServer::ServerCallbackPrx >(cbptr->ice_oneway()->ice_connectionCached(false));
 		mi->addServerCallback(server, oneway);
 		cb->ice_response();
 	} catch (...) {
@@ -1033,14 +1053,14 @@ static void impl_Server_addCallback(const MumbleServer::AMD_Server_addCallbackPt
 }
 
 static void impl_Server_removeCallback(const MumbleServer::AMD_Server_removeCallbackPtr cb, int server_id,
-									   const MumbleServer::ServerCallbackPrx &cbptr) {
+									   const MumbleServer::ServerCallbackPrxPtr &cbptr) {
 	ICE_IMPL_BEGIN
 
 	NEED_SERVER;
 
 	try {
-		const MumbleServer::ServerCallbackPrx &oneway =
-			MumbleServer::ServerCallbackPrx::uncheckedCast(cbptr->ice_oneway()->ice_connectionCached(false));
+		const MumbleServer::ServerCallbackPrxPtr &oneway =
+			Ice::uncheckedCast< MumbleServer::ServerCallbackPrx >(cbptr->ice_oneway()->ice_connectionCached(false));
 		mi->removeServerCallback(server, oneway);
 		cb->ice_response();
 	} catch (...) {
@@ -1051,7 +1071,7 @@ static void impl_Server_removeCallback(const MumbleServer::AMD_Server_removeCall
 }
 
 static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAuthenticatorPtr &cb, int server_id,
-										 const ::MumbleServer::ServerAuthenticatorPrx &aptr) {
+										 const ::MumbleServer::ServerAuthenticatorPrxPtr &aptr) {
 	ICE_IMPL_BEGIN
 
 	VERIFY_DB_NOT_IN_READONLY;
@@ -1060,12 +1080,13 @@ static void impl_Server_setAuthenticator(const ::MumbleServer::AMD_Server_setAut
 	if (mi->getServerAuthenticator(server))
 		server->disconnectAuthenticator(mi);
 
-	::MumbleServer::ServerAuthenticatorPrx prx;
+	::MumbleServer::ServerAuthenticatorPrxPtr prx;
 
 	try {
-		prx = ::MumbleServer::ServerAuthenticatorPrx::checkedCast(aptr->ice_connectionCached(false)->ice_timeout(5000));
-		const ::MumbleServer::ServerUpdatingAuthenticatorPrx uprx =
-			::MumbleServer::ServerUpdatingAuthenticatorPrx::checkedCast(prx);
+		prx = Ice::checkedCast<::MumbleServer::ServerAuthenticatorPrx >(
+			aptr->ice_connectionCached(false)->ice_timeout(5000));
+		const ::MumbleServer::ServerUpdatingAuthenticatorPrxPtr uprx =
+			Ice::checkedCast<::MumbleServer::ServerUpdatingAuthenticatorPrx >(prx);
 
 		mi->setServerAuthenticator(server, prx);
 		if (uprx)
@@ -1241,7 +1262,7 @@ static bool channelSort(const ::Channel *a, const ::Channel *b) {
 }
 
 TreePtr recurseTree(const ::Channel *c) {
-	TreePtr t = new Tree();
+	TreePtr t = std::make_shared< Tree >();
 	channelToChannel(c, t->c);
 	QList<::User * > users = c->qlUsers;
 	std::sort(users.begin(), users.end(), userSort);
@@ -1396,13 +1417,13 @@ static void impl_Server_effectivePermissions(const ::MumbleServer::AMD_Server_ef
 
 static void impl_Server_addContextCallback(const MumbleServer::AMD_Server_addContextCallbackPtr cb, int server_id,
 										   ::Ice::Int session, const ::std::string &action, const ::std::string &text,
-										   const ::MumbleServer::ServerContextCallbackPrx &cbptr, int ctx) {
+										   const ::MumbleServer::ServerContextCallbackPrxPtr &cbptr, int ctx) {
 	ICE_IMPL_BEGIN
 
 	NEED_SERVER;
 	NEED_PLAYER;
 
-	const QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &qmPrx =
+	const QMap< QString, ::MumbleServer::ServerContextCallbackPrxPtr > &qmPrx =
 		mi->getServerContextCallbacks(server)[session];
 
 	if (!(ctx
@@ -1413,8 +1434,9 @@ static void impl_Server_addContextCallback(const MumbleServer::AMD_Server_addCon
 	}
 
 	try {
-		const MumbleServer::ServerContextCallbackPrx &oneway = MumbleServer::ServerContextCallbackPrx::checkedCast(
-			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
+		const MumbleServer::ServerContextCallbackPrxPtr &oneway =
+			Ice::checkedCast< MumbleServer::ServerContextCallbackPrx >(
+				cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 		if (qmPrx.contains(u8(action))) {
 			// Since the server has no notion of the ctx part of the context action
 			// make sure we remove them all clientside when overriding an old callback
@@ -1441,22 +1463,23 @@ static void impl_Server_addContextCallback(const MumbleServer::AMD_Server_addCon
 }
 
 static void impl_Server_removeContextCallback(const MumbleServer::AMD_Server_removeContextCallbackPtr cb, int server_id,
-											  const MumbleServer::ServerContextCallbackPrx &cbptr) {
+											  const MumbleServer::ServerContextCallbackPrxPtr &cbptr) {
 	ICE_IMPL_BEGIN
 
 	NEED_SERVER;
 
-	const QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrx > > &qmPrx =
+	const QMap< int, QMap< QString, ::MumbleServer::ServerContextCallbackPrxPtr > > &qmPrx =
 		mi->getServerContextCallbacks(server);
 
 	try {
-		const MumbleServer::ServerContextCallbackPrx &oneway = MumbleServer::ServerContextCallbackPrx::uncheckedCast(
-			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
+		const MumbleServer::ServerContextCallbackPrxPtr &oneway =
+			Ice::uncheckedCast< MumbleServer::ServerContextCallbackPrx >(
+				cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 
 		for (int session : qmPrx.keys()) {
 			ServerUser *user = server->qhUsers.value(static_cast< unsigned int >(session));
-			const QMap< QString, ::MumbleServer::ServerContextCallbackPrx > &qm = qmPrx[session];
-			for (const QString &act : qm.keys(oneway)) {
+			const QMap< QString, ::MumbleServer::ServerContextCallbackPrxPtr > &qm = qmPrx[session];
+			for (const QString &act : keysOfProxy(qm, oneway)) {
 				mi->removeServerContextCallback(server, session, act);
 
 				// Ask clients to remove the clientside callbacks
@@ -2271,7 +2294,19 @@ static void impl_Meta_getSliceChecksums(const ::MumbleServer::AMD_Meta_getSliceC
 										const Ice::ObjectAdapterPtr) {
 	ICE_IMPL_BEGIN
 
+#if ICE_INT_VERSION < 30800
 	cb->ice_response(::Ice::sliceChecksums());
+#else
+	// Slice checksums are removed in Ice 3.8. Eventually, we want to remove this API function
+	// as well but until then we have to provide _something_ that allows checking whether
+	// the Slice definitions match the client's expectation. We do this by providing the server's
+	// release/version. This is absolutely not the same as the checksum thing did/attempted but it
+	// should keep code reasonably working that just checks two dicts for equality to see whether
+	// the Ice implementations are compatible.
+	MumbleServer::SliceChecksumDict dict;
+	dict.emplace("Server Release", Version::getRelease().toStdString());
+	cb->ice_response(std::move(dict));
+#endif
 
 	ICE_IMPL_END
 }
@@ -2358,11 +2393,11 @@ static void impl_Meta_getVersion(const ::MumbleServer::AMD_Meta_getVersionPtr cb
 }
 
 static void impl_Meta_addCallback(const MumbleServer::AMD_Meta_addCallbackPtr cb, const Ice::ObjectAdapterPtr,
-								  const MumbleServer::MetaCallbackPrx &cbptr) {
+								  const MumbleServer::MetaCallbackPrxPtr &cbptr) {
 	ICE_IMPL_BEGIN
 
 	try {
-		const MumbleServer::MetaCallbackPrx &oneway = MumbleServer::MetaCallbackPrx::checkedCast(
+		const MumbleServer::MetaCallbackPrxPtr &oneway = Ice::checkedCast< MumbleServer::MetaCallbackPrx >(
 			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 		mi->addMetaCallback(oneway);
 		cb->ice_response();
@@ -2374,11 +2409,11 @@ static void impl_Meta_addCallback(const MumbleServer::AMD_Meta_addCallbackPtr cb
 }
 
 static void impl_Meta_removeCallback(const MumbleServer::AMD_Meta_removeCallbackPtr cb, const Ice::ObjectAdapterPtr,
-									 const MumbleServer::MetaCallbackPrx &cbptr) {
+									 const MumbleServer::MetaCallbackPrxPtr &cbptr) {
 	ICE_IMPL_BEGIN
 
 	try {
-		const MumbleServer::MetaCallbackPrx &oneway = MumbleServer::MetaCallbackPrx::uncheckedCast(
+		const MumbleServer::MetaCallbackPrxPtr &oneway = Ice::uncheckedCast< MumbleServer::MetaCallbackPrx >(
 			cbptr->ice_oneway()->ice_connectionCached(false)->ice_timeout(5000));
 		mi->removeMetaCallback(oneway);
 		cb->ice_response();
