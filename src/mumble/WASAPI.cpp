@@ -121,6 +121,9 @@ void WASAPIInit::destroy() {
 WASAPIInputRegistrar::WASAPIInputRegistrar() : AudioInputRegistrar(QLatin1String("WASAPI"), 10) {
 	echoOptions.push_back(EchoCancelOptionID::SPEEX_MIXED);
 	echoOptions.push_back(EchoCancelOptionID::SPEEX_MULTICHANNEL);
+#ifdef USE_WEBRTC_APM
+	echoOptions.push_back(EchoCancelOptionID::WEBRTC_AEC);
+#endif
 }
 
 bool WASAPIInputRegistrar::isMicrophoneAccessDeniedByOS() {
@@ -225,8 +228,15 @@ void WASAPIInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &s) 
 }
 
 bool WASAPIInputRegistrar::canEcho(EchoCancelOptionID echoOptionIDs, const QString &outputSystem) const {
-	return (echoOptionIDs == EchoCancelOptionID::SPEEX_MIXED || echoOptionIDs == EchoCancelOptionID::SPEEX_MULTICHANNEL)
-		   && (outputSystem == name);
+	if (outputSystem != name)
+		return false;
+	if (echoOptionIDs == EchoCancelOptionID::SPEEX_MIXED || echoOptionIDs == EchoCancelOptionID::SPEEX_MULTICHANNEL)
+		return true;
+#ifdef USE_WEBRTC_APM
+	if (echoOptionIDs == EchoCancelOptionID::WEBRTC_AEC)
+		return true;
+#endif
+	return false;
 }
 
 bool WASAPIInputRegistrar::canExclusive() const {
@@ -1029,8 +1039,12 @@ void WASAPIOutput::run() {
 	pAudioClient->GetStreamLatency(&latency);
 	pAudioClient->GetBufferSize(&bufferFrameCount);
 	qWarning("WASAPIOutput: Stream Latency %lld (%d)", latency, bufferFrameCount);
-
 	iMixerFreq = pwfx->nSamplesPerSec;
+
+	// Store total output latency for WebRTC AEC delay estimation:
+	// hardware/driver path (latency is in 100ns units) + software buffer occupancy
+	Global::get().iOutputLatencyMs.store(static_cast< int >(latency / 10000)
+										 + static_cast< int >(bufferFrameCount) * 1000 / iMixerFreq);
 
 	qWarning("WASAPIOutput: Periods %lldus %lldus (latency %lldus)", def / 10LL, min / 10LL, latency / 10LL);
 	qWarning("WASAPIOutput: Buffer is %dus (%d)", (bufferFrameCount * 1000000) / iMixerFreq,
