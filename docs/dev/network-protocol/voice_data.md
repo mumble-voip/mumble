@@ -1,12 +1,40 @@
-# Voice data
+# UDP Protocol
 
-Mumble audio channel is used to transmit the actual audio packets over the
-network. Unlike the TCP control channel, the audio channel uses a custom
-encoding for the audio packets. The audio channel is transport independent and
-features such as encryption are implemented by the transport layer. Integers
-above 8-bits are encoded using the *Variable length integer encoding*.
+Mumble audio channel is used to transmit the actual audio packets over UDP.
 
-## Packet format
+The audio channel is transport independent and features such as encryption are implemented by the transport layer.
+
+There are two different ways to send UDP Packets:
+
+For build v1.5.517 and newer you are expected use protocol buffers: [`MumbleUDP.proto`](https://github.com/mumble-voip/mumble/blob/master/src/MumbleUDP.proto).
+
+For build v1.5.516 and older you are expected use the Legacy Packet format as described below.
+
+For both the Protobuf packet format and the Legacy Packet format:
+- All UDP packets must be sent with a 4 byte header, even if they're unencrypted (like `Ping` and the UDP variant of `Authentication`).
+- You should discard any UDP message that is less than or equal to `5 bytes` (4 bytes for header + type + session) as no valid packet can be this small.
+- You should discard any UDP message that is larger than `1024` bytes, as that is the max allowed per packet.
+
+The server expects the client to send a `Ping` packet, by default the Mumble client
+sends one every `5 seconds`, on the newer protocol the server can configure
+how often the client should ping the server with the `ServerConfig` packet `udp_ping_interval` setting.
+
+TODO: Go into more detail about how we expect timing out clients to work with UDP.
+
+A lower ping value will put more stress on the server, but will also fail over to TCP faster, resulting in a better client experience.
+
+
+## Protobuf packet format
+
+The mumble proto packets are much simpler than the legacy packet format, the majority
+of the encoding/decoding is handled by the Protobuf Protocol.
+
+You can find more details on the UDP protocol [`here`](https://github.com/mumble-voip/mumble/blob/master/src/MumbleUDP.proto)
+
+
+## Legacy Packet format
+Integers above 8-bits are encoded using the *Variable length integer encoding*.
+
 
 The mumble audio channel packets are variable length packets that begin with an
 8-bit header field which describes the packet type and target. The most
@@ -240,8 +268,14 @@ Since UDP is a connectionless protocol, it is heavily affected by network
 topology such as NAT configuration. It should not be used for audio
 transmission before the connectivity has been determined.
 
-The client starts the connectivity checks by sending a *Ping packet* to the
-server. When the server receives this packet it will respond by echoing it back
+The client can start the connectivity checks with a *Authenticate packet*, which
+will try to authenticate the user to the specified `session_id` that is sent, or
+older versions use the *Ping packet*.
+
+When the server receives the *Authenticate packet* and the server successfully
+decrypts the packets voice data it should send repeat the packet back to the client.
+
+When the server receives the *Ping packet* it will respond by echoing it back
 to the address it received it from. Once the client receives the response from
 the server it can start using the UDP transport for audio data. When the server
 receives incoming audio data over the UDP transport it can switch the outgoing
