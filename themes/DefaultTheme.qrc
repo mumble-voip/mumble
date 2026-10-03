@@ -59,6 +59,10 @@
     <file alias="talking_on.svg">Default/talking_on.svg</file>
     <file alias="talking_muted.svg">Default/talking_muted.svg</file>
     <file alias="talking_whisper.svg">Default/talking_whisper.svg</file>
+    <file alias="custom_talking_alt.svg">Default/custom_talking_alt.svg</file>
+    <file alias="custom_talking_on.svg">Default/custom_talking_on.svg</file>
+    <file alias="custom_talking_muted.svg">Default/custom_talking_muted.svg</file>
+    <file alias="custom_talking_whisper.svg">Default/custom_talking_whisper.svg</file>
     <file alias="theme.ini">Default/theme.ini</file>
     <file alias="actions/audio-input-microphone-muted.svg">Default/actions/audio-input-microphone-muted.svg</file>
     <file alias="actions/audio-input-microphone.svg">Default/actions/audio-input-microphone.svg</file>
