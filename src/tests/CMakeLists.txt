@@ -38,6 +38,10 @@ if(server)
 	add_subdirectory("TestAudioReceiverBuffer")
 endif()
 
+if(TARGET ipcutils)
+	add_subdirectory("TestIPCUtils")
+endif()
+
 # Shared tests
 add_subdirectory("TestCaseInsensitiveQString")
 add_subdirectory("TestCryptographicHash")
