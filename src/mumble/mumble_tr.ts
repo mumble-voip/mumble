@@ -8412,6 +8412,10 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
         <translation>Çok fazla yönlendirme nedeniyle &quot;%1&quot; eklentisi için güncelleme başarısız oldu</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>&quot;%1&quot; için eklenti güncellemesi &quot;%2&quot; konumundan indirilemiyor (HTTP durum kodu %3)</translation>
     </message>

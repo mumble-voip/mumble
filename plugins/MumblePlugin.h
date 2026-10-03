@@ -1156,6 +1156,7 @@ MUMBLE_PLUGIN_EXPORT bool MUMBLE_PLUGIN_CALLING_CONVENTION mumble_hasUpdate();
 
 /**
  * This function is used to retrieve the URL for downloading the newer/updated version of this plugin.
+ * The URL has to use HTTPS (and so does every redirect from it), or the update is ignored.
  *
  * NOTE: This function may be called without the plugin being loaded
  *
