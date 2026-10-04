@@ -10,6 +10,8 @@
 #include <QReadLocker>
 #include <QWriteLocker>
 
+#include <algorithm>
+
 std::size_t qHash(const ChannelListener &listener) {
 	return std::hash< ChannelListener >()(listener);
 }
@@ -102,10 +104,8 @@ void ChannelListenerManager::setListenerVolumeAdjustment(unsigned int userSessio
 	}
 }
 
-const VolumeAdjustment &ChannelListenerManager::getListenerVolumeAdjustment(unsigned int userSession,
-																			unsigned int channelID) const {
-	static VolumeAdjustment fallbackObj = VolumeAdjustment::fromFactor(1.0f);
-
+VolumeAdjustment ChannelListenerManager::getListenerVolumeAdjustment(unsigned int userSession,
+																	 unsigned int channelID) const {
 	QReadLocker lock(&m_volumeLock);
 
 	ChannelListener key = {};
@@ -115,7 +115,7 @@ const VolumeAdjustment &ChannelListenerManager::getListenerVolumeAdjustment(unsi
 	auto it = m_listenerVolumeAdjustments.find(key);
 
 	if (it == m_listenerVolumeAdjustments.end()) {
-		return fallbackObj;
+		return VolumeAdjustment::fromFactor(1.0f);
 	} else {
 		return it->second;
 	}
@@ -141,6 +141,20 @@ std::unordered_map< unsigned int, VolumeAdjustment >
 	}
 
 	return adjustments;
+}
+
+void ChannelListenerManager::removeVolumeAdjustmentsOfUser(unsigned int userSession) {
+	QWriteLocker lock(&m_volumeLock);
+
+	std::erase_if(m_listenerVolumeAdjustments,
+				  [userSession](const auto &entry) { return entry.first.userSession == userSession; });
+}
+
+void ChannelListenerManager::removeVolumeAdjustmentsOfChannel(unsigned int channelID) {
+	QWriteLocker lock(&m_volumeLock);
+
+	std::erase_if(m_listenerVolumeAdjustments,
+				  [channelID](const auto &entry) { return entry.first.channelID == channelID; });
 }
 
 void ChannelListenerManager::clear() {

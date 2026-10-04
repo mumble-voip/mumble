@@ -270,25 +270,25 @@ void UnixMurmur::setuid() {
 				  "special privileges to set itself up on these systems, so this behavior is highly discouraged.");
 
 		if (::setgid(Meta::mp->uiGid) != 0)
-			qFatal("Failed to switch to gid %d", Meta::mp->uiGid);
+			qFatal("Failed to switch to gid %u", Meta::mp->uiGid);
 		if (::setuid(Meta::mp->uiUid) != 0)
-			qFatal("Failed to switch to uid %d", Meta::mp->uiUid);
+			qFatal("Failed to switch to uid %u", Meta::mp->uiUid);
 
 		uid_t uid = getuid(), euid = geteuid();
 		gid_t gid = getgid(), egid = getegid();
 		if (uid == Meta::mp->uiUid && euid == Meta::mp->uiUid && gid == Meta::mp->uiGid && egid == Meta::mp->uiGid) {
-			qCritical("Successfully switched to uid %d", Meta::mp->uiUid);
+			qCritical("Successfully switched to uid %u", Meta::mp->uiUid);
 		} else
 			qFatal("Couldn't switch uid/gid.");
 #else
 		if (::initgroups(qPrintable(Meta::mp->qsName), Meta::mp->uiGid) != 0)
 			qCritical("Can't initialize supplementary groups");
 		if (::setgid(Meta::mp->uiGid) != 0)
-			qCritical("Failed to switch to gid %d", Meta::mp->uiGid);
+			qCritical("Failed to switch to gid %u", Meta::mp->uiGid);
 		if (::setuid(Meta::mp->uiUid) != 0) {
-			qFatal("Failed to become uid %d", Meta::mp->uiUid);
+			qFatal("Failed to become uid %u", Meta::mp->uiUid);
 		} else {
-			qCritical("Successfully switched to uid %d", Meta::mp->uiUid);
+			qCritical("Successfully switched to uid %u", Meta::mp->uiUid);
 			initialcap();
 		}
 		if (!Meta::mp->qsHome.isEmpty()) {

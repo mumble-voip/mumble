@@ -50,6 +50,7 @@
 #include <cassert>
 #include <chrono>
 #include <functional>
+#include <limits>
 #include <optional>
 #include <span>
 #include <vector>
@@ -995,7 +996,7 @@ void Server::run() {
 								u             = usr;
 								u->sUdpSocket = sock;
 								memcpy(&u->saiUdpAddress, &from, sizeof(from));
-								qhHostUsers[from].remove(u);
+								removeHostUser(u);
 								qhPeerUsers.insert(key, u);
 							}
 							qrwlVoiceThread.unlock();
@@ -1412,7 +1413,7 @@ void Server::log(const QString &msg) const {
 		const_cast< DBWrapper & >(m_dbWrapper).logMessage(iServerNum, msg.toStdString());
 	}
 
-	qWarning("%d => %s", iServerNum, msg.toUtf8().constData());
+	qWarning("%u => %s", iServerNum, msg.toUtf8().constData());
 }
 
 void Server::newClient() {
@@ -1687,6 +1688,8 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 			}
 		}
 
+		m_channelListenerManager.removeVolumeAdjustmentsOfUser(u->uiSession);
+
 		MumbleProto::UserRemove mpur;
 		mpur.set_session(u->uiSession);
 		sendExcept(u, mpur);
@@ -1704,7 +1707,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		QWriteLocker wl(&qrwlVoiceThread);
 
 		qhUsers.remove(u->uiSession);
-		qhHostUsers[u->haAddress].remove(u);
+		removeHostUser(u);
 
 		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6)
 						   ? (reinterpret_cast< sockaddr_in6 * >(&u->saiUdpAddress)->sin6_port)
@@ -1714,10 +1717,16 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 		if (old)
 			old->removeUser(u);
+
+		for (ServerUser *user : qhUsers) {
+			for (WhisperTarget &target : user->qmTargets) {
+				std::erase(target.sessions, u->uiSession);
+			}
+		}
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
-		auto func_ptr = std::mem_fn< void(unsigned int) >(&Server::removeChannel);
+		auto func_ptr = std::mem_fn(&Server::removeTemporaryChannelIfEmpty);
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(std::bind(func_ptr, this, old->iId)));
 	}
 
@@ -1936,9 +1945,20 @@ void Server::sendProtoExcept(ServerUser *u, const ::google::protobuf::Message &m
 	}
 }
 
-void Server::removeChannel(unsigned int id) {
+void Server::removeHostUser(ServerUser *u) {
+	auto it = qhHostUsers.find(u->haAddress);
+	if (it != qhHostUsers.end()) {
+		it->remove(u);
+		if (it->isEmpty()) {
+			qhHostUsers.erase(it);
+		}
+	}
+}
+
+void Server::removeTemporaryChannelIfEmpty(unsigned int id) {
+	// The removal is deferred, so the channel might have been refilled or replaced by a different one in the meantime
 	Channel *c = qhChannels.value(id);
-	if (c)
+	if (c && c->bTemporary && c->qlUsers.isEmpty())
 		removeChannel(c);
 }
 
@@ -1995,6 +2015,8 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		sendAll(mpus);
 	}
 
+	m_channelListenerManager.removeVolumeAdjustmentsOfChannel(chan->iId);
+
 	MumbleProto::ChannelRemove mpcr;
 	mpcr.set_channel_id(chan->iId);
 	sendAll(mpcr);
@@ -2013,6 +2035,24 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 		}
 
 		qhChannels.remove(chan->iId);
+
+		for (ServerUser *user : qhUsers) {
+			for (auto it = user->qmTargets.begin(); it != user->qmTargets.end(); ++it) {
+				if (std::erase_if(it->channels,
+								  [chan](const WhisperTarget::Channel &target) { return target.id == chan->iId; })
+					> 0) {
+					user->qmTargetCache.remove(it.key());
+				}
+			}
+		}
+	}
+
+	{
+		QMutexLocker qml(&qmCache);
+
+		for (ChanACL::ChanCache *cache : acCache) {
+			cache->remove(chan);
+		}
 	}
 
 	delete chan;
@@ -2111,7 +2151,7 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	}
 
 	if (old && old->bTemporary && old->qlUsers.isEmpty()) {
-		auto func_ptr = std::mem_fn< void(unsigned int) >(&Server::removeChannel);
+		auto func_ptr = std::mem_fn(&Server::removeTemporaryChannelIfEmpty);
 		QCoreApplication::instance()->postEvent(this, new ExecEvent(std::bind(func_ptr, this, old->iId)));
 	}
 
@@ -2244,7 +2284,7 @@ void Server::clearACLCache(User *p) {
 
 				mpus.Clear();
 				mpus.set_session(user->uiSession);
-				mpus.set_suppress(true);
+				mpus.set_suppress(user->bSuppress);
 				sendAll(mpus);
 			}
 		};
@@ -3124,8 +3164,8 @@ bool Server::setUserProperties(int userID, QMap< int, QString > properties) {
 			return false;
 		}
 
-		qhUserIDCache.remove(qhUserNameCache.value(id));
-		qhUserNameCache.remove(id);
+		qhUserIDCache.remove(qhUserNameCache.value(userID));
+		qhUserNameCache.remove(userID);
 		qhUserIDCache.remove(name);
 	}
 
@@ -3198,17 +3238,22 @@ QMap< int, QString > Server::getUserProperties(int userID) {
 
 Channel *Server::createNewChannel(Channel *parent, const QString &name, bool temporary, int position,
 								  unsigned int maxUsers) {
-	unsigned int id = m_dbWrapper.getNextAvailableChannelID(iServerNum);
+	unsigned int id = std::numeric_limits< unsigned int >::max();
 
 	if (temporary) {
-		// Make sure temporary channel IDs will not collide with regular channel IDs
-		id += iChannelCountLimit > 0 ? static_cast< unsigned int >(iChannelCountLimit) * 2 : 1'000'000u;
-
-		// Ensure we don't collide with the ID of any other (temporary) channel
+		// Temporary channels are not stored in the DB, whose IDs grow upwards from 0. Hence, temporary channel IDs
+		// are allocated downwards from the largest possible ID. For backwards compatibility reasons, we can only
+		// use std::int32_t (which is what the client-side plugin interface uses; signedness is also required by our Ice
+		// interface)
+		id = static_cast< unsigned int >(std::numeric_limits< std::int32_t >::max());
 		while (qhChannels.contains(id)) {
-			++id;
+			--id;
 		}
+	} else {
+		id = m_dbWrapper.getNextAvailableChannelID(iServerNum);
 	}
+
+	assert(id != std::numeric_limits< unsigned int >::max());
 
 	Channel *c    = new Channel(id, name, parent);
 	c->bTemporary = temporary;
