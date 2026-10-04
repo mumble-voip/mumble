@@ -112,7 +112,7 @@ public:
 	/// @param userSession The session ID of the user
 	/// @param channelID The ID of the channel
 	/// @returns The volume adjustment for the listener of the given user in the given channel.
-	const VolumeAdjustment &getListenerVolumeAdjustment(unsigned int userSession, unsigned int channelID) const;
+	VolumeAdjustment getListenerVolumeAdjustment(unsigned int userSession, unsigned int channelID) const;
 
 	/// @param userSession The session ID of the user whose listener's volume adjustments to obtain
 	/// @returns A map between channel IDs and the currently set volume adjustment
