@@ -102,10 +102,8 @@ void ChannelListenerManager::setListenerVolumeAdjustment(unsigned int userSessio
 	}
 }
 
-const VolumeAdjustment &ChannelListenerManager::getListenerVolumeAdjustment(unsigned int userSession,
-																			unsigned int channelID) const {
-	static VolumeAdjustment fallbackObj = VolumeAdjustment::fromFactor(1.0f);
-
+VolumeAdjustment ChannelListenerManager::getListenerVolumeAdjustment(unsigned int userSession,
+																	 unsigned int channelID) const {
 	QReadLocker lock(&m_volumeLock);
 
 	ChannelListener key = {};
@@ -115,7 +113,7 @@ const VolumeAdjustment &ChannelListenerManager::getListenerVolumeAdjustment(unsi
 	auto it = m_listenerVolumeAdjustments.find(key);
 
 	if (it == m_listenerVolumeAdjustments.end()) {
-		return fallbackObj;
+		return VolumeAdjustment::fromFactor(1.0f);
 	} else {
 		return it->second;
 	}
