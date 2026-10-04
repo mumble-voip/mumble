@@ -377,8 +377,10 @@ public:
 	void log(const QString &) const;
 	void log(ServerUser *u, const QString &) const;
 
-	void removeChannel(unsigned int id);
+	void removeTemporaryChannelIfEmpty(unsigned int id);
 	void removeChannel(Channel *c, Channel *dest = nullptr);
+	/// Removes the user from qhHostUsers. Requires the write lock on qrwlVoiceThread to be held.
+	void removeHostUser(ServerUser *u);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
 	bool unregisterUser(int id);
 
@@ -407,6 +409,19 @@ public:
 
 	QString getRegisteredUserName(int userID);
 	int getRegisteredUserID(const QString &name);
+
+	/// Removes all invalid (non-existent) user IDs from the provided set
+	template< typename SetLike > void removeInvalidUserIDs(SetLike &set) {
+		auto it = set.begin();
+
+		while (it != set.end()) {
+			if (*it < 0 || getRegisteredUserName(*it).isEmpty()) {
+				it = set.erase(it);
+			} else {
+				++it;
+			}
+		}
+	}
 
 	bool registerUser(ServerUser &user);
 	int registerUser(const ServerUserInfo &userInfo);

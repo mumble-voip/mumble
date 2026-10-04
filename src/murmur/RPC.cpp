@@ -135,11 +135,9 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 
 	if (links != oldset) {
 		// Remove
-		for (Channel *l : oldset) {
-			if (!links.contains(l)) {
-				unlinkChannels(*cChannel, *l);
-				mpcs.add_links_remove(l->iId);
-			}
+		for (Channel *l : oldset - links) {
+			unlinkChannels(*cChannel, *l);
+			mpcs.add_links_remove(l->iId);
 		}
 
 		// Add
@@ -248,10 +246,10 @@ void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const Q
 		}
 	}
 
-	if (userid >= 0) {
-		User *p = qhUsers.value(static_cast< unsigned int >(userid));
-		if (p)
-			clearACLCache(p);
+	for (ServerUser *u : qhUsers) {
+		if ((userid >= 0 && u->iId == userid)
+			|| (sessionId != 0 && u->uiSession == static_cast< unsigned int >(sessionId)))
+			clearACLCache(u);
 	}
 }
 
@@ -272,7 +270,9 @@ void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 		while (!qlChans.isEmpty()) {
 			Channel *chan = qlChans.takeLast();
 			for (Group *g : chan->qhGroups) {
-				g->qsTemporary.remove(user->iId);
+				if (user->iId >= 0) {
+					g->qsTemporary.remove(user->iId);
+				}
 				g->qsTemporary.remove(-static_cast< int >(user->uiSession));
 			}
 

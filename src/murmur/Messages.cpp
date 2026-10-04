@@ -24,7 +24,9 @@
 #include <algorithm>
 #include <cassert>
 #include <set>
+#include <tuple>
 #include <unordered_map>
+#include <unordered_set>
 
 #include <QtCore/QStack>
 #include <QtCore/QTimeZone>
@@ -216,8 +218,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 		uSource->uiSession = qqIds.dequeue();
 		uSource->sState    = ServerUser::Authenticating;
-		qhUsers.insert(uSource->uiSession, uSource);
-		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
 
 	Channel *root = qhChannels.value(0);
@@ -275,7 +275,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		}
 	}
 
-	if ((id != 0) && (static_cast< unsigned int >(qhUsers.count()) > iMaxUsers)) {
+	if ((id != 0) && (static_cast< unsigned int >(qhUsers.count()) >= iMaxUsers)) {
 		reason = QString::fromLatin1("Server is full (max %1 users)").arg(iMaxUsers);
 		rtType = MumbleProto::Reject_RejectType_ServerFull;
 		ok     = false;
@@ -342,8 +342,18 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
 		sendMessage(uSource, mpr);
+
+		// The authenticator may have assigned temporary groups to the session
+		clearTempGroups(uSource);
+
 		uSource->rejectConnection();
 		return;
+	}
+
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		qhUsers.insert(uSource->uiSession, uSource);
+		qhHostUsers[uSource->haAddress].insert(uSource);
 	}
 
 	startThread();
@@ -1943,6 +1953,20 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		if (mpqu.ids_size())
 			sendMessage(uSource, mpqu);
 	} else {
+		// Looking up user IDs may query the authenticator and the DB, so it must not happen while holding the lock
+		std::unordered_set< int > userIDs;
+		for (const MumbleProto::ACL_ChanGroup &group : msg.groups()) {
+			userIDs.merge(std::unordered_set< int >(group.add().begin(), group.add().end()));
+			userIDs.merge(std::unordered_set< int >(group.remove().begin(), group.remove().end()));
+		}
+		for (const MumbleProto::ACL_ChanACL &acl : msg.acls()) {
+			if (acl.has_user_id()) {
+				userIDs.insert(static_cast< int >(acl.user_id()));
+			}
+		}
+
+		removeInvalidUserIDs(userIDs);
+
 		{
 			QWriteLocker wl(&qrwlVoiceThread);
 
@@ -1982,10 +2006,10 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				g->bInherit                             = group.inherit();
 				g->bInheritable                         = group.inheritable();
 				for (int j = 0; j < group.add_size(); ++j)
-					if (!getRegisteredUserName(static_cast< int >(group.add(j))).isEmpty())
+					if (userIDs.contains(static_cast< int >(group.add(j))))
 						g->qsAdd << static_cast< int >(group.add(j));
 				for (int j = 0; j < group.remove_size(); ++j)
-					if (!getRegisteredUserName(static_cast< int >(group.remove(j))).isEmpty())
+					if (userIDs.contains(static_cast< int >(group.remove(j))))
 						g->qsRemove << static_cast< int >(group.remove(j));
 
 				g->qsTemporary = hOldTemp.value(g->qsName);
@@ -1998,7 +2022,7 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 			// Add new ACLs
 			for (int i = 0; i < msg.acls_size(); ++i) {
 				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
-				if (mpacl.has_user_id() && getRegisteredUserName(static_cast< int >(mpacl.user_id())).isEmpty())
+				if (mpacl.has_user_id() && !userIDs.contains(static_cast< int >(mpacl.user_id())))
 					continue;
 
 				ChanACL *a    = new ChanACL(c);
@@ -2248,11 +2272,15 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 			} else {
 				const QString &name = u8(user.name()).trimmed();
 				if (validateUserName(name)) {
-					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
-
 					QMap< int, QString > info;
 					info.insert(static_cast< int >(::mumble::server::db::UserProperty::Name), name);
-					setUserProperties(static_cast< int >(id), info);
+					if (!setUserProperties(static_cast< int >(id), info)) {
+						log(uSource,
+							QString::fromLatin1("Failed to rename user %1 to '%2'").arg(QString::number(id), name));
+						continue;
+					}
+
+					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
 					MumbleProto::UserState mpus;
 					for (ServerUser *serverUser : qhUsers) {
@@ -2290,43 +2318,44 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 	if ((target < 1) || (target >= 0x1f))
 		return;
 
+	// The client-provided list is validated and deduplicated before taking the lock, as it can be arbitrarily long
+	WhisperTarget wt;
+	std::unordered_set< unsigned int > sessions;
+	std::set< std::tuple< unsigned int, bool, bool, QString > > channels;
+	for (int i = 0; i < msg.targets_size(); ++i) {
+		const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
+		for (int j = 0; j < t.session_size(); ++j) {
+			unsigned int s = t.session(j);
+			if (qhUsers.contains(s) && sessions.insert(s).second) {
+				wt.sessions.push_back(s);
+			}
+		}
+		if (t.has_channel_id()) {
+			unsigned int id = t.channel_id();
+			if (qhChannels.contains(id)) {
+				WhisperTarget::Channel wtc;
+				wtc.id              = id;
+				wtc.includeChildren = t.children();
+				wtc.includeLinks    = t.links();
+				if (t.has_group()) {
+					wtc.targetGroup = u8(t.group());
+				}
+
+				if (channels.emplace(wtc.id, wtc.includeChildren, wtc.includeLinks, wtc.targetGroup).second) {
+					wt.channels.push_back(std::move(wtc));
+				}
+			}
+		}
+	}
+
 	QWriteLocker lock(&qrwlVoiceThread);
 
 	uSource->qmTargetCache.remove(target);
 
-	int count = msg.targets_size();
-	if (count == 0) {
+	if (wt.sessions.empty() && wt.channels.empty()) {
 		uSource->qmTargets.remove(target);
 	} else {
-		WhisperTarget wt;
-		for (int i = 0; i < count; ++i) {
-			const MumbleProto::VoiceTarget_Target &t = msg.targets(i);
-			for (int j = 0; j < t.session_size(); ++j) {
-				unsigned int s = t.session(j);
-				if (qhUsers.contains(s)) {
-					wt.sessions.push_back(s);
-				}
-			}
-			if (t.has_channel_id()) {
-				unsigned int id = t.channel_id();
-				if (qhChannels.contains(id)) {
-					WhisperTarget::Channel wtc;
-					wtc.id              = id;
-					wtc.includeChildren = t.children();
-					wtc.includeLinks    = t.links();
-					if (t.has_group()) {
-						wtc.targetGroup = u8(t.group());
-					}
-
-					wt.channels.push_back(wtc);
-				}
-			}
-		}
-		if (wt.sessions.empty() && wt.channels.empty()) {
-			uSource->qmTargets.remove(target);
-		} else {
-			uSource->qmTargets.insert(target, std::move(wt));
-		}
+		uSource->qmTargets.insert(target, std::move(wt));
 	}
 }
 
@@ -2467,15 +2496,16 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 
-	int ntextures     = msg.session_texture_size();
-	int ncomments     = msg.session_comment_size();
-	int ndescriptions = msg.channel_description_size();
+	// Every ID is answered only once, regardless of how often it is contained in the request
+	const std::set< unsigned int > textureSessions(msg.session_texture().begin(), msg.session_texture().end());
+	const std::set< unsigned int > commentSessions(msg.session_comment().begin(), msg.session_comment().end());
+	const std::set< unsigned int > descriptionChannels(msg.channel_description().begin(),
+													   msg.channel_description().end());
 
-	if (ndescriptions) {
+	if (!descriptionChannels.empty()) {
 		MumbleProto::ChannelState mpcs;
-		for (int i = 0; i < ndescriptions; ++i) {
-			unsigned int id = msg.channel_description(i);
-			Channel *c      = qhChannels.value(id);
+		for (unsigned int id : descriptionChannels) {
+			Channel *c = qhChannels.value(id);
 			if (c && !c->qsDesc.isEmpty()) {
 				mpcs.set_channel_id(id);
 				mpcs.set_description(u8(c->qsDesc));
@@ -2483,22 +2513,20 @@ void Server::msgRequestBlob(ServerUser *uSource, MumbleProto::RequestBlob &msg) 
 			}
 		}
 	}
-	if (ntextures || ncomments) {
+	if (!textureSessions.empty() || !commentSessions.empty()) {
 		MumbleProto::UserState mpus;
-		for (int i = 0; i < ntextures; ++i) {
-			unsigned int session = msg.session_texture(i);
-			ServerUser *su       = qhUsers.value(session);
+		for (unsigned int session : textureSessions) {
+			ServerUser *su = qhUsers.value(session);
 			if (su && !su->qbaTexture.isEmpty()) {
 				mpus.set_session(session);
 				mpus.set_texture(blob(su->qbaTexture));
 				sendMessage(uSource, mpus);
 			}
 		}
-		if (ntextures)
+		if (!textureSessions.empty())
 			mpus.clear_texture();
-		for (int i = 0; i < ncomments; ++i) {
-			unsigned int session = msg.session_comment(i);
-			ServerUser *su       = qhUsers.value(session);
+		for (unsigned int session : commentSessions) {
+			ServerUser *su = qhUsers.value(session);
 			if (su && !su->qsComment.isEmpty()) {
 				mpus.set_session(session);
 				mpus.set_comment(u8(su->qsComment));

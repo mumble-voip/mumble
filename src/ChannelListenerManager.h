@@ -112,12 +112,22 @@ public:
 	/// @param userSession The session ID of the user
 	/// @param channelID The ID of the channel
 	/// @returns The volume adjustment for the listener of the given user in the given channel.
-	const VolumeAdjustment &getListenerVolumeAdjustment(unsigned int userSession, unsigned int channelID) const;
+	VolumeAdjustment getListenerVolumeAdjustment(unsigned int userSession, unsigned int channelID) const;
 
 	/// @param userSession The session ID of the user whose listener's volume adjustments to obtain
 	/// @returns A map between channel IDs and the currently set volume adjustment
 	std::unordered_map< unsigned int, VolumeAdjustment >
 		getAllListenerVolumeAdjustments(unsigned int userSession) const;
+
+	/// Removes all volume adjustments of the given user
+	///
+	/// @param userSession The session ID of the user
+	void removeVolumeAdjustmentsOfUser(unsigned int userSession);
+
+	/// Removes all volume adjustments for listeners of the given channel
+	///
+	/// @param channelID The ID of the channel
+	void removeVolumeAdjustmentsOfChannel(unsigned int channelID);
 
 	/// Clears all ChannelListeners and volume adjustments
 	void clear();
