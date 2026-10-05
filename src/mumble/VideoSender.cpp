@@ -71,7 +71,7 @@ void VideoSender::processFrame(const EncodedVideoFrame &frame) {
 
 		MumbleUDP::Video videoMsg;
 		videoMsg.set_sender_session(session);
-		videoMsg.set_codec(MumbleUDP::Video_Codec_H264);
+		videoMsg.set_codec(frame.codec);
 		videoMsg.set_width(frame.width);
 		videoMsg.set_height(frame.height);
 		videoMsg.set_frame_number(frame.frameNumber);

@@ -50,6 +50,7 @@
 #include "ScreenShareReceiver.h"
 #include "ScreenShareViewer.h"
 #ifdef USE_SCREEN_SHARING
+#	include "VideoEncoderBackend.h"
 #	include "VideoSender.h"
 #endif
 #include "SearchDialog.h"
@@ -256,6 +257,9 @@ MainWindow::MainWindow(QWidget *p)
 	m_videoSender->moveToThread(m_videoSenderThread);
 	connect(m_videoSenderThread, &QThread::finished, m_videoSender, &QObject::deleteLater);
 	m_videoSenderThread->start();
+
+	// Finding out which video encoders work takes a moment, so do that ahead of time
+	VideoEncoders::startProbing();
 #endif
 }
 

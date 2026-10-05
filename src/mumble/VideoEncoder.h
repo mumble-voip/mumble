@@ -7,18 +7,15 @@
 #define MUMBLE_MUMBLE_VIDEOENCODER_H_
 
 #include "ScreenCapture.h"
+#include "VideoEncoderBackend.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtGui/QImage>
 
-extern "C" {
-#include <libavcodec/avcodec.h>
-#include <libswscale/swscale.h>
-}
-
 #include <atomic>
+#include <memory>
 
 class QTimer;
 
@@ -27,6 +24,9 @@ class QTimer;
 /// The encoder is meant to live on its own thread (see QObject::moveToThread()), so that colour conversion and
 /// encoding don't block the GUI. All public methods may be called from any thread: they only hand the work over,
 /// which is then carried out on the encoder's thread. frameEncoded() is emitted from the encoder's thread.
+///
+/// The actual encoding is done by a VideoEncoderBackend. Encoders are tried in order of preference, and the first
+/// one that can be opened for the captured picture size is used.
 ///
 /// Frames are limited to the target frame rate. Capture sources may deliver frames much faster and irregularly
 /// (e.g. only when the screen content changes), and encoding may not keep up with them. In both cases only the
@@ -81,8 +81,9 @@ private:
 	/// the screen doesn't change.
 	void sendHeartbeat();
 	void encodeImage(const QImage &srcImage, qint64 captureTime);
-	bool initEncoder(int width, int height);
-	void destroyEncoder();
+	/// Opens the most preferred encoder that works for the given picture size. Afterwards, m_encoderWidth and
+	/// m_encoderHeight are set to the given size, whether that worked or not.
+	bool openBackend(int width, int height);
 
 	qint64 now() const;
 
@@ -121,12 +122,12 @@ private:
 	/// Fires when no frame was encoded for a while, see sendHeartbeat()
 	QTimer *m_heartbeatTimer = nullptr;
 
-	AVCodecContext *m_codecCtx = nullptr;
-	AVFrame *m_frame           = nullptr;
-	AVPacket *m_packet         = nullptr;
-	SwsContext *m_swsCtx       = nullptr;
-	int m_encoderWidth         = 0;
-	int m_encoderHeight        = 0;
+	std::unique_ptr< VideoEncoderBackend > m_backend;
+	/// Picture size m_backend was opened for (or tried to)
+	int m_encoderWidth  = 0;
+	int m_encoderHeight = 0;
+	/// The encoder that was used last, so that switching to a different one can be reported
+	QString m_lastEncoderId;
 };
 
 #endif // MUMBLE_MUMBLE_VIDEOENCODER_H_
