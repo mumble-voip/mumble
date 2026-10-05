@@ -235,7 +235,8 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 		Global::get().mw->enableRecording(msg.recording_allowed());
 	}
 	if (msg.has_screen_sharing_allowed()) {
-		Global::get().screenSharingAllowed = msg.screen_sharing_allowed();
+		Global::get().screenSharingSupported = true;
+		Global::get().screenSharingAllowed   = msg.screen_sharing_allowed();
 		updateScreenShareAction();
 	}
 	if (msg.has_max_video_bandwidth()) {
@@ -1294,6 +1295,9 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 			updateMenuPermissions();
 		}
 	}
+
+	// Whether we may share our screen depends on the permissions in our own channel
+	updateScreenShareAction();
 }
 
 /// This message is being received in order for the server to instruct this client which codec it should use.
