@@ -231,6 +231,8 @@ MainWindow::MainWindow(QWidget *p)
 	connect(m_screenShareThread, &QThread::finished, Global::get().screenShareReceiver, &QObject::deleteLater);
 	connect(Global::get().screenShareReceiver, &ScreenShareReceiver::frameDecoded, this,
 			&MainWindow::onRemoteFrameDecoded, Qt::QueuedConnection);
+	connect(Global::get().screenShareReceiver, &ScreenShareReceiver::keyFrameNeeded, this,
+			&MainWindow::requestScreenShareKeyFrame, Qt::QueuedConnection);
 	// Covers users leaving the server as well as us disconnecting, upon which all users are removed
 	connect(pmModel, &UserModel::userRemoved, this, &MainWindow::onRemoteScreenShareStopped);
 	m_screenShareThread->start();
@@ -4349,6 +4351,15 @@ void MainWindow::updateScreenShareSubscriptions() {
 			subscribeToScreenShare(user->uiSession);
 	}
 #endif
+}
+
+void MainWindow::requestScreenShareKeyFrame(quint32 senderSession) {
+	if (!Global::get().sh)
+		return;
+
+	MumbleProto::VideoKeyFrameRequest mpvkfr;
+	mpvkfr.set_session(senderSession);
+	Global::get().sh->sendMessage(mpvkfr);
 }
 
 void MainWindow::onRemoteScreenShareStopped(quint32 senderSession) {

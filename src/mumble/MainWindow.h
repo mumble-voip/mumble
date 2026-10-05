@@ -482,6 +482,7 @@ public:
 	void screenShare();
 	void sendScreenShareFrame(const EncodedVideoFrame &frame);
 	void onRemoteFrameDecoded(quint32 senderSession, QImage frame);
+	void requestScreenShareKeyFrame(quint32 senderSession);
 	void onRemoteScreenShareStopped(quint32 senderSession);
 	/// Receives the screen shares of everyone in our channel, and forgets about those that the server doesn't
 	/// relay to us anymore, because the sharing user stopped, left or isn't in our channel anymore.

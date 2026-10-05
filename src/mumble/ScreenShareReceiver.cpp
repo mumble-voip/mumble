@@ -35,6 +35,9 @@ static constexpr quint64 STREAM_RESTART_FRAMES   = 64;
 /// Bounds for the amount of buffered data per sender.
 static constexpr std::size_t MAX_PENDING_FRAMES = 60;
 static constexpr std::size_t MAX_DECODED_FRAMES = 30;
+/// How long to wait for a requested key frame before asking again. The key frame itself may get lost as well,
+/// or the sender may hold the request back for a moment.
+static constexpr qint64 KEYFRAME_REQUEST_INTERVAL = 500'000;
 
 /// Difference a - b of two points in time. Timestamps come from other clients and may be anything, so all times
 /// wrap around instead of overflowing, and are only compared by the sign of their difference (serial number
@@ -271,6 +274,15 @@ void ScreenShareReceiver::processSender(quint32 session, SenderState &sender) {
 	}
 }
 
+void ScreenShareReceiver::requestKeyFrame(quint32 session, SenderState &sender) {
+	const qint64 currentTime = now();
+	if (sender.lastKeyFrameRequest >= 0 && currentTime - sender.lastKeyFrameRequest < KEYFRAME_REQUEST_INTERVAL)
+		return;
+
+	sender.lastKeyFrameRequest = currentTime;
+	emit keyFrameNeeded(session);
+}
+
 void ScreenShareReceiver::onTimer() {
 	for (std::pair< const quint32, SenderState > &entry : m_senders)
 		processSender(entry.first, entry.second);
@@ -418,8 +430,12 @@ void ScreenShareReceiver::decodeCompleteFrame(quint32 session, SenderState &send
 	// Drop non-keyframes until the decoder has seen at least one IDR.
 	// Without SPS/PPS (which come with the keyframe) the decoder can't
 	// reference picture parameters and emits "non-existing PPS" errors.
-	if (!ds.gotKeyFrame && !isKeyFrame)
+	// This is the case after a frame was lost, or when joining a stream that is already running. Rather than
+	// waiting for the sender's next periodic key frame, ask for one right away.
+	if (!ds.gotKeyFrame && !isKeyFrame) {
+		requestKeyFrame(session, sender);
 		return;
+	}
 
 	if (isKeyFrame) {
 		// Flush any buffered decoder state from a previous stream so the new
@@ -444,6 +460,7 @@ void ScreenShareReceiver::decodeCompleteFrame(quint32 session, SenderState &send
 		// Flush and wait for the next keyframe so we don't propagate corruption.
 		avcodec_flush_buffers(ds.codecCtx);
 		ds.gotKeyFrame = false;
+		requestKeyFrame(session, sender);
 		return;
 	}
 

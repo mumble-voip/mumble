@@ -40,6 +40,9 @@ class QTimer;
 /// adapts to how much the arrival times vary. Frames that are already late by the time a newer frame is due
 /// are skipped, so playback catches up instead of falling behind. All of this only relies on frame numbers
 /// and timestamps, so it is independent of the codec in use.
+///
+/// When a frame is lost, the following frames can't be decoded until the next key frame. Instead of waiting
+/// for the sender's next periodic key frame, keyFrameNeeded() is emitted so that one can be requested.
 class ScreenShareReceiver : public QObject {
 private:
 	Q_OBJECT
@@ -61,6 +64,9 @@ public:
 
 signals:
 	void frameDecoded(quint32 senderSession, QImage frame);
+	/// Emitted from the receiver's thread when the stream of the given sender can't be decoded until its next
+	/// key frame. While that is the case, it is emitted again every now and then.
+	void keyFrameNeeded(quint32 senderSession);
 
 private:
 #ifdef USE_SCREEN_SHARING
@@ -136,6 +142,8 @@ private:
 		PlayoutClock clock;
 		/// Decoded frames waiting for their display time, in display order.
 		std::deque< DecodedFrame > decoded;
+		/// Local time at which a key frame was last asked for, or -1 if none was yet.
+		qint64 lastKeyFrameRequest = -1;
 	};
 
 	std::map< quint32, SenderState > m_senders;
@@ -150,6 +158,8 @@ private:
 	void processSender(quint32 session, SenderState &sender);
 	void onTimer();
 	void scheduleTimer();
+	/// Asks for a key frame from the given sender, unless that was done only recently.
+	void requestKeyFrame(quint32 session, SenderState &sender);
 
 	struct DecoderState {
 		AVCodecContext *codecCtx      = nullptr;
