@@ -109,6 +109,11 @@ message Video {
 	// True if this frame is a key frame: it doesn't depend on any earlier frame and contains everything a decoder
 	// needs to start decoding the stream at it. Only meaningful on fragment_index 0.
 	bool is_keyframe = 9;
+
+	// Capture time of this frame in microseconds, measured on the sender's monotonic clock relative
+	// to the start of the stream. All fragments of a frame carry the same value. Receivers use the
+	// difference between timestamps to schedule frames for display; the absolute value has no meaning.
+	uint64 timestamp = 10;
 }
 
 /**

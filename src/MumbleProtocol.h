@@ -165,7 +165,8 @@ namespace Protocol {
 		std::uint32_t fragmentIndex  = 0;
 		std::uint32_t fragmentCount  = 0;
 		std::span< const byte > payload;
-		bool isKeyFrame = false;
+		bool isKeyFrame         = false;
+		std::uint64_t timestamp = 0;
 	};
 
 	struct PingData {
