@@ -203,9 +203,6 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	Global::get().sh->sendMessage(mpus);
 #endif
 
-	// Until now, it was unknown which users are in our channel
-	updateScreenShareSubscriptions();
-
 	emit serverSynchronized();
 }
 
@@ -952,6 +949,7 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	if (pDst != pSelf) {
 		pmModel->removeUser(pDst);
 		updateScreenShareEncoderSelection();
+		updateScreenShareSubscriptions();
 	}
 }
 
