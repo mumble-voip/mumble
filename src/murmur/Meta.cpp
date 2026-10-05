@@ -98,6 +98,7 @@ MetaParams::MetaParams() {
 	// (restricted by the maximum bitrate Opus supports)
 	// 558000 = 510000 (Opus) + 9600 (position) + 38400 (TCP overhead)
 	iMaxBandwidth              = 558000;
+	maxVideoBandwidth          = 3000000;
 	iMaxUsers                  = 1000;
 	iMaxUsersPerChannel        = 0;
 	iMaxListenersPerChannel    = -1;
@@ -328,6 +329,7 @@ void MetaParams::read(QString fname) {
 	kdfIterations              = typeCheckedFromSettings("kdfiterations", -1);
 	bAllowHTML                 = typeCheckedFromSettings("allowhtml", bAllowHTML);
 	iMaxBandwidth              = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
+	maxVideoBandwidth          = typeCheckedFromSettings("videobandwidth", maxVideoBandwidth);
 	iDefaultChan               = typeCheckedFromSettings("defaultchannel", iDefaultChan);
 	bRememberChan              = typeCheckedFromSettings("rememberchannel", bRememberChan);
 	iRememberChanDuration      = typeCheckedFromSettings("rememberchannelduration", iRememberChanDuration);
@@ -457,6 +459,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("kdfiterations"), QString::number(kdfIterations));
 	qmConfig.insert(QLatin1String("allowhtml"), bAllowHTML ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("bandwidth"), QString::number(iMaxBandwidth));
+	qmConfig.insert(QLatin1String("videobandwidth"), QString::number(maxVideoBandwidth));
 	qmConfig.insert(QLatin1String("users"), QString::number(iMaxUsers));
 	qmConfig.insert(QLatin1String("defaultchannel"), QString::number(iDefaultChan));
 	qmConfig.insert(QLatin1String("rememberchannel"), bRememberChan ? QLatin1String("true") : QLatin1String("false"));

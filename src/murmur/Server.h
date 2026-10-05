@@ -121,6 +121,7 @@ public:
 	int iTimeout;
 	std::chrono::seconds handshakeTimeout;
 	int iMaxBandwidth;
+	unsigned int m_maxVideoBandwidth;
 	unsigned int iMaxUsers;
 	unsigned int iMaxUsersPerChannel;
 	unsigned int iDefaultChan;

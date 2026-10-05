@@ -364,6 +364,7 @@ void Server::readParams() {
 	iTimeout                           = Meta::mp->iTimeout;
 	handshakeTimeout                   = Meta::mp->handshakeTimeout;
 	iMaxBandwidth                      = Meta::mp->iMaxBandwidth;
+	m_maxVideoBandwidth                = Meta::mp->maxVideoBandwidth;
 	iMaxUsers                          = Meta::mp->iMaxUsers;
 	iMaxUsersPerChannel                = Meta::mp->iMaxUsersPerChannel;
 	iMaxTextMessageLength              = Meta::mp->iMaxTextMessageLength;
@@ -436,6 +437,7 @@ void Server::readParams() {
 	m_dbWrapper.getConfigurationTo(iServerNum, "port", usPort);
 	m_dbWrapper.getConfigurationTo(iServerNum, "timeout", iTimeout);
 	m_dbWrapper.getConfigurationTo(iServerNum, "bandwidth", iMaxBandwidth);
+	m_dbWrapper.getConfigurationTo(iServerNum, "videobandwidth", m_maxVideoBandwidth);
 	m_dbWrapper.getConfigurationTo(iServerNum, "users", iMaxUsers);
 	m_dbWrapper.getConfigurationTo(iServerNum, "usersperchannel", iMaxUsersPerChannel);
 	m_dbWrapper.getConfigurationTo(iServerNum, "textmessagelength", iMaxTextMessageLength);
@@ -532,6 +534,19 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			iMaxBandwidth = length;
 			MumbleProto::ServerConfig mpsc;
 			mpsc.set_max_bandwidth(static_cast< unsigned int >(length));
+			sendAll(mpsc);
+		}
+	} else if (key == "videobandwidth") {
+		// Anything that isn't a number would be read as 0, which means that there is no limit
+		bool valid             = false;
+		unsigned int bandwidth = v.toUInt(&valid);
+		if (!valid) {
+			bandwidth = Meta::mp->maxVideoBandwidth;
+		}
+		if (bandwidth != m_maxVideoBandwidth) {
+			m_maxVideoBandwidth = bandwidth;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_max_video_bandwidth(bandwidth);
 			sendAll(mpsc);
 		}
 	} else if (key == "users") {
@@ -1222,6 +1237,14 @@ void Server::processVideoMsg(ServerUser *u, MumbleUDP::Video &videoMsg) {
 
 	if (u->sState != ServerUser::Authenticated || !u->bScreenSharing || !u->cChannel)
 		return;
+
+	// IP + UDP + Crypt + message type + message. All of the message counts, including the fields this server doesn't
+	// know, as they are relayed as well.
+	const std::size_t ipHeaderSize = (u->saiUdpAddress.ss_family == AF_INET6) ? 40 : 20;
+	if (!u->m_videoBandwidth.allow(videoMsg.frame_number(), ipHeaderSize + 8 + 4 + 1 + videoMsg.ByteSizeLong(),
+								   m_maxVideoBandwidth)) {
+		return;
+	}
 
 	QByteArray cache;
 

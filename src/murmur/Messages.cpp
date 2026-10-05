@@ -632,6 +632,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpsc.set_max_users(static_cast< unsigned int >(iMaxUsers));
 	mpsc.set_recording_allowed(allowRecording);
 	mpsc.set_screen_sharing_allowed(allowScreenSharing);
+	mpsc.set_max_video_bandwidth(m_maxVideoBandwidth);
 	sendMessage(uSource, mpsc);
 
 	MumbleProto::SuggestConfig mpsug;

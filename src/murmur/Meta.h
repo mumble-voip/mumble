@@ -46,6 +46,7 @@ public:
 	/// it is dropped. A value <= 0 disables this timeout.
 	std::chrono::seconds handshakeTimeout;
 	int iMaxBandwidth;
+	unsigned int maxVideoBandwidth;
 	unsigned int iMaxUsers;
 	unsigned int iMaxUsersPerChannel;
 	int iMaxListenersPerChannel;
