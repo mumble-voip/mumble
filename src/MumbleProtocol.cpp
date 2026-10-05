@@ -953,6 +953,9 @@ namespace Protocol {
 		// Keyframe flag
 		m_videoData.isKeyFrame = m_videoMessage.is_keyframe();
 
+		// Capture time
+		m_videoData.timestamp = m_videoMessage.timestamp();
+
 		return true;
 	}
 

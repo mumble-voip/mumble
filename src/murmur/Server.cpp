@@ -1218,6 +1218,7 @@ void Server::processVideoMsg(ServerUser *u, const Mumble::Protocol::VideoData &v
 	videoMsg.set_fragment_index(videoData.fragmentIndex);
 	videoMsg.set_fragment_count(videoData.fragmentCount);
 	videoMsg.set_is_keyframe(videoData.isKeyFrame);
+	videoMsg.set_timestamp(videoData.timestamp);
 
 	videoMsg.set_video_data(reinterpret_cast< const char * >(videoData.payload.data()),
 							static_cast< int >(videoData.payload.size()));
