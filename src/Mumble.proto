@@ -639,3 +639,13 @@ message PluginDataTransmission {
 	// process it or not
 	optional string dataID = 4;
 }
+
+// Sent by a client that receives a user's screen share to ask that user for a new key frame,
+// for example because video data got lost and the stream can't be decoded again until the next key frame.
+// The server forwards the request to the sharing user.
+message VideoKeyFrameRequest {
+	// The session of the user whose screen share a key frame is requested for.
+	optional uint32 session = 1;
+	// The session of the user that requested the key frame. Set by the server when forwarding the request.
+	optional uint32 actor = 2;
+}
