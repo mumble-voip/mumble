@@ -41,7 +41,7 @@ ScreenCapture::ScreenCapture(QObject *parent) : QObject(parent) {
 #ifdef USE_SCREEN_SHARING
 	m_keyFrameTimer = new QTimer(this);
 	m_keyFrameTimer->setSingleShot(true);
-	connect(m_keyFrameTimer, &QTimer::timeout, this, [this]() { m_keyFrameRequested = true; });
+	connect(m_keyFrameTimer, &QTimer::timeout, this, &ScreenCapture::forceKeyFrame);
 #endif
 
 #if defined(USE_SCREEN_SHARING) && (defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL))
@@ -90,6 +90,7 @@ void ScreenCapture::stopCapture() {
 #	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
 	m_frameRateTimer->stop();
 	m_pendingFrame   = QImage();
+	m_lastFrame      = QImage();
 	m_lastEncodeTime = -1;
 #	endif
 	destroyEncoder();
@@ -112,11 +113,22 @@ void ScreenCapture::requestKeyFrame() {
 		return;
 	}
 
-	m_keyFrameRequested = true;
+	forceKeyFrame();
 #endif
 }
 
 #ifdef USE_SCREEN_SHARING
+
+void ScreenCapture::forceKeyFrame() {
+	m_keyFrameRequested = true;
+
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	// Native capture streams only deliver a frame when the screen content changes, so the key frame might not
+	// go out for a long time. Encode the last frame again in that case.
+	if (m_pendingFrame.isNull() && !m_lastFrame.isNull())
+		submitFrame(m_lastFrame);
+#	endif
+}
 
 void ScreenCapture::setSource(const CaptureSource &source) {
 	m_source = source;
@@ -138,6 +150,7 @@ void ScreenCapture::startCaptureNative() {
 		self->m_frameNumber    = 0;
 		self->m_lastPts        = -1;
 		self->m_lastEncodeTime = -1;
+		self->m_lastFrame      = QImage();
 		self->m_streamClock.start();
 		emit self->captureStarted();
 	};
@@ -202,6 +215,7 @@ void ScreenCapture::encodePendingFrame() {
 
 	const QImage frame = std::move(m_pendingFrame);
 	m_pendingFrame     = QImage();
+	m_lastFrame        = frame;
 	m_lastEncodeTime   = m_streamClock.nsecsElapsed() / 1000;
 
 	encodeImage(frame, m_pendingCaptureTime);

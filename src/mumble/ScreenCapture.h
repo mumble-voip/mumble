@@ -98,6 +98,8 @@ private:
 #ifdef USE_SCREEN_SHARING
 	bool initEncoder(int width, int height);
 	void destroyEncoder();
+	/// Makes the next frame a key frame, encoding the last frame again if no new one is on its way.
+	void forceKeyFrame();
 	/// Shared encode path used by both capture modes.
 	/// @param captureTime  Capture time in microseconds on m_streamClock.
 	void encodeImage(const QImage &srcImage, qint64 captureTime);
@@ -114,6 +116,8 @@ private:
 	QTimer *m_frameRateTimer = nullptr;
 	QImage m_pendingFrame;
 	qint64 m_pendingCaptureTime = 0;
+	/// The frame that was last handed to the encoder, kept to be encoded again as a requested key frame.
+	QImage m_lastFrame;
 	/// Time at which the last frame was handed to the encoder, or -1 if none was yet.
 	qint64 m_lastEncodeTime = -1;
 #	endif
