@@ -2775,6 +2775,8 @@ void MainWindow::updateMenuPermissions() {
 		}
 	}
 	qteChat->setEnabled(chatBarEnabled);
+
+	updateScreenShareAction();
 }
 
 void MainWindow::userStateChanged() {
@@ -3653,7 +3655,8 @@ void MainWindow::serverConnected() {
 
 	enableRecording(true);
 	// Only allowed once the server says so, as servers that don't support screen sharing never do
-	Global::get().screenSharingAllowed = false;
+	Global::get().screenSharingSupported = false;
+	Global::get().screenSharingAllowed   = false;
 	updateScreenShareAction();
 	Global::get().maxVideoBandwidth = 0;
 	updateScreenShareBitrate();
@@ -4392,7 +4395,15 @@ void MainWindow::updateScreenShareBitrate() {
 
 void MainWindow::updateScreenShareAction() {
 	const bool sharing = Global::get().sc && Global::get().sc->isCapturing();
-	qaScreenShare->setEnabled(sharing || (Global::get().sh && Global::get().screenSharingAllowed));
+
+	// Permissions that aren't known yet (0) have been requested from the server (see updateMenuPermissions()).
+	// Until they arrive, sharing is assumed to be allowed: the server checks the permission anyway.
+	ClientUser *self = Global::get().uiSession ? ClientUser::get(Global::get().uiSession) : nullptr;
+	const ChanACL::Permissions permissions =
+		(self && self->cChannel) ? static_cast< ChanACL::Permissions >(self->cChannel->uiPermissions) : ChanACL::None;
+	const bool permitted = !permissions || (permissions & (ChanACL::Write | ChanACL::ScreenShare));
+
+	qaScreenShare->setEnabled(sharing || (Global::get().sh && Global::get().screenSharingAllowed && permitted));
 }
 
 void MainWindow::onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame) {
