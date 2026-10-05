@@ -6,6 +6,8 @@
 #ifndef MUMBLE_MUMBLE_SCREENCAPTURE_H_
 #define MUMBLE_MUMBLE_SCREENCAPTURE_H_
 
+#include "MumbleUDP.pb.h"
+
 #include <QtCore/QByteArray>
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QMetaType>
@@ -24,8 +26,9 @@ class VideoEncoder;
 
 /// An encoded video frame together with the metadata needed to transmit it.
 struct EncodedVideoFrame {
-	/// Codec-specific encoded byte stream (currently H.264 Annex-B).
+	/// Encoded byte stream in the format given by the protocol for the codec
 	QByteArray data;
+	MumbleUDP::Video::Codec codec = MumbleUDP::Video::H264;
 	/// Counter of emitted frames in decode order, starting at 0.
 	quint64 frameNumber = 0;
 	/// Capture time in microseconds relative to the start of the stream.

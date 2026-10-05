@@ -11,10 +11,6 @@
 #include <QtCore/QMutexLocker>
 #include <QtCore/QTimer>
 
-extern "C" {
-#include <libavutil/opt.h>
-}
-
 #include <algorithm>
 
 /// Viewers request a key frame whenever they need one (on joining, after a loss), so periodic key frames are only
@@ -46,9 +42,7 @@ VideoEncoder::VideoEncoder(QObject *parent) : QObject(parent) {
 	connect(m_heartbeatTimer, &QTimer::timeout, this, &VideoEncoder::sendHeartbeat);
 }
 
-VideoEncoder::~VideoEncoder() {
-	destroyEncoder();
-}
+VideoEncoder::~VideoEncoder() = default;
 
 void VideoEncoder::start(const QElapsedTimer &streamClock) {
 	const quint64 stream = ++m_stream;
@@ -111,7 +105,10 @@ void VideoEncoder::processStop() {
 		QMutexLocker lock(&m_incomingMutex);
 		m_incomingFrame = QImage();
 	}
-	destroyEncoder();
+	m_backend.reset();
+	m_encoderWidth  = 0;
+	m_encoderHeight = 0;
+	m_lastEncoderId.clear();
 }
 
 void VideoEncoder::processKeyFrameRequest() {
@@ -195,61 +192,44 @@ void VideoEncoder::processIncomingFrame() {
 }
 
 void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
-	// Convert to Format_RGBA8888 for mapping to AV_PIX_FMT_RGBA.
-	QImage image = srcImage.convertToFormat(QImage::Format_RGBA8888);
-	// libx264 (YUV420P) requires even dimensions — crop one pixel if needed.
-	const int width  = image.width() & ~1;
-	const int height = image.height() & ~1;
+	// Encoders generally require even dimensions — crop one pixel if needed.
+	const int width  = srcImage.width() & ~1;
+	const int height = srcImage.height() & ~1;
 	if (width <= 0 || height <= 0)
 		return;
-	if (width != image.width() || height != image.height())
-		image = image.copy(0, 0, width, height);
+	const QImage image =
+		(width != srcImage.width() || height != srcImage.height()) ? srcImage.copy(0, 0, width, height) : srcImage;
 
-	// (Re-)initialise the encoder when the resolution changes.
-	if (!m_codecCtx || m_encoderWidth != width || m_encoderHeight != height) {
-		destroyEncoder();
-		if (!initEncoder(width, height)) {
-			processStop();
-			emit failed();
-			return;
-		}
+	// (Re-)open the encoder when the resolution changes.
+	if (m_encoderWidth != width || m_encoderHeight != height)
+		openBackend(width, height);
+	if (!m_backend) {
+		processStop();
+		emit failed();
+		return;
 	}
-
-	// Colour-space conversion: RGBA to YUV420P.
-	m_swsCtx = sws_getCachedContext(m_swsCtx, width, height, AV_PIX_FMT_RGBA, width, height, AV_PIX_FMT_YUV420P,
-									SWS_BICUBIC, nullptr, nullptr, nullptr);
-	if (!m_swsCtx)
-		return;
-
-	if (av_frame_make_writable(m_frame) < 0)
-		return;
-
-	const uint8_t *srcData[1] = { image.constBits() };
-	int srcLinesize[1]        = { static_cast< int >(image.bytesPerLine()) };
-	sws_scale(m_swsCtx, srcData, srcLinesize, 0, height, m_frame->data, m_frame->linesize);
 
 	// The encoder runs on a microsecond time base, so the capture time can be used as pts directly. This lets
 	// rate control see the real frame spacing, independently of the codec and of how regularly frames arrive.
 	// Encoders reject non-increasing pts, which could only happen for two frames within the same microsecond.
-	m_lastPts    = std::max(captureTime, m_lastPts + 1);
-	m_frame->pts = m_lastPts;
-	// The frame is reused, so the picture type has to be reset after a forced key frame.
-	m_frame->pict_type = m_keyFrameRequested ? AV_PICTURE_TYPE_I : AV_PICTURE_TYPE_NONE;
+	m_lastPts = std::max(captureTime, m_lastPts + 1);
 
-	if (avcodec_send_frame(m_codecCtx, m_frame) < 0)
+	std::vector< VideoEncoderBackend::Packet > packets;
+	if (!m_backend->encode(image, m_lastPts, m_keyFrameRequested, packets))
 		return;
 
 	m_keyFrameRequested = false;
 
-	// Encoders may delay, reorder or drop frames, so all metadata is taken from the packet that comes out.
-	while (avcodec_receive_packet(m_codecCtx, m_packet) == 0) {
+	// Encoders may delay, reorder or drop frames, so all metadata is taken from the packets that come out.
+	for (VideoEncoderBackend::Packet &packet : packets) {
 		EncodedVideoFrame encoded;
-		encoded.data        = QByteArray(reinterpret_cast< const char * >(m_packet->data), m_packet->size);
+		encoded.data        = std::move(packet.data);
+		encoded.codec       = m_backend->info().codec;
 		encoded.frameNumber = m_frameNumber++;
-		encoded.timestamp   = static_cast< quint64 >(m_packet->pts != AV_NOPTS_VALUE ? m_packet->pts : m_lastPts);
+		encoded.timestamp   = static_cast< quint64 >(packet.timestamp);
 		encoded.width       = static_cast< quint32 >(m_encoderWidth);
 		encoded.height      = static_cast< quint32 >(m_encoderHeight);
-		encoded.isKeyFrame  = (m_packet->flags & AV_PKT_FLAG_KEY) != 0;
+		encoded.isKeyFrame  = packet.isKeyFrame;
 
 		if (encoded.isKeyFrame) {
 			// Also serves any request that is currently being held back
@@ -259,83 +239,45 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 
 		if (m_stream == m_currentStream)
 			emit frameEncoded(encoded);
-		av_packet_unref(m_packet);
 	}
 }
 
-bool VideoEncoder::initEncoder(int width, int height) {
-	// To use hardware-accelerated encoding (e.g. h264_videotoolbox on macOS,
-	// h264_nvenc on NVIDIA), replace "libx264" with the appropriate encoder name
-	// and add any codec-specific option calls below.
-	const char *encoderName = "libx264";
-	const AVCodec *codec    = avcodec_find_encoder_by_name(encoderName);
-	if (!codec) {
-		// I'm logging straight into the chatbox here so I can test things. But this probably should be a qWarning
-		Global::get().l->log(Log::Warning,
-							 QObject::tr("H.264 encoder (libx264) not available. "
-										 "Ensure libx264 is installed and libavcodec was compiled with it."));
-		return false;
-	}
-
-	m_codecCtx = avcodec_alloc_context3(codec);
-	if (!m_codecCtx)
-		return false;
-
-	m_codecCtx->width     = width;
-	m_codecCtx->height    = height;
-	m_codecCtx->time_base = { 1, 1'000'000 }; // pts are capture timestamps in microseconds
-	m_codecCtx->framerate = { FPS, 1 };       // nominal rate; actual frame spacing comes from pts
-	m_codecCtx->pix_fmt   = AV_PIX_FMT_YUV420P;
-	m_codecCtx->bit_rate  = BITRATE;
-	m_codecCtx->gop_size  = VIDEO_GOP_SIZE;
-
-	// Minimise encoding latency. These could maybe be settings?
-	av_opt_set(m_codecCtx->priv_data, "preset", "superfast", 0);
-	av_opt_set(m_codecCtx->priv_data, "tune", "zerolatency", 0);
-	// Make requested key frames IDR frames, as decoders can only start over at those.
-	av_opt_set(m_codecCtx->priv_data, "forced-idr", "1", 0);
-
-	if (avcodec_open2(m_codecCtx, codec, nullptr) < 0) {
-		avcodec_free_context(&m_codecCtx);
-		return false;
-	}
-
-	m_frame         = av_frame_alloc();
-	m_frame->format = AV_PIX_FMT_YUV420P;
-	m_frame->width  = width;
-	m_frame->height = height;
-	if (av_frame_get_buffer(m_frame, 0) < 0) {
-		av_frame_free(&m_frame);
-		avcodec_free_context(&m_codecCtx);
-		return false;
-	}
-
-	m_packet = av_packet_alloc();
-
+bool VideoEncoder::openBackend(int width, int height) {
+	m_backend.reset();
 	m_encoderWidth  = width;
 	m_encoderHeight = height;
+
+	VideoEncoderConfig config;
+	config.width            = width;
+	config.height           = height;
+	config.bitrate          = BITRATE;
+	config.fps              = FPS;
+	config.keyFrameInterval = VIDEO_GOP_SIZE;
+
+	// The preferred encoder may not support every picture size (e.g. hardware encoders have size limits), so
+	// fall back to the next one in that case.
+	for (const VideoEncoderInfo &info : VideoEncoders::available()) {
+		m_backend = VideoEncoders::create(info.id, config);
+		if (m_backend)
+			break;
+	}
+
+	if (!m_backend) {
+		Global::get().l->log(
+			Log::Warning,
+			QObject::tr("Screen sharing: No video encoder is available for %1x%2.").arg(width).arg(height));
+		return false;
+	}
+
+	if (m_backend->info().id != m_lastEncoderId) {
+		m_lastEncoderId = m_backend->info().id;
+		Global::get().l->log(Log::Information,
+							 QObject::tr("Screen sharing: Encoding with %1.").arg(m_backend->info().name));
+	}
 
 	// A new encoder starts with a key frame anyway.
 	m_keyFrameRequested = false;
 	m_lastKeyFrameTime  = -1;
 	m_keyFrameTimer->stop();
 	return true;
-}
-
-void VideoEncoder::destroyEncoder() {
-	if (m_swsCtx) {
-		sws_freeContext(m_swsCtx);
-		m_swsCtx = nullptr;
-	}
-	if (m_frame) {
-		av_frame_free(&m_frame);
-	}
-	if (m_packet) {
-		av_packet_free(&m_packet);
-	}
-	if (m_codecCtx) {
-		avcodec_free_context(&m_codecCtx);
-	}
-	m_encoderWidth  = 0;
-	m_encoderHeight = 0;
 }
