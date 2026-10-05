@@ -24,11 +24,20 @@ static constexpr int CAPTURE_INTERVAL_MS = 66;        // ~15 fps
 static constexpr int VIDEO_BITRATE       = 1'500'000; // 1.5 Mbps
 static constexpr int VIDEO_FPS           = 15;
 static constexpr int VIDEO_GOP_SIZE      = 5; // keyframe every ~333 ms — limits UDP error propagation
+/// Minimum time between a key frame and one sent on request. Viewers tend to lose the same packets and each of
+/// them asks for a key frame, so this keeps a single loss from causing a burst of key frames.
+static constexpr qint64 MIN_KEYFRAME_REQUEST_INTERVAL_US = 500'000;
 
 ScreenCapture::ScreenCapture(QObject *parent) : QObject(parent) {
 	m_captureTimer = new QTimer(this);
 	m_captureTimer->setInterval(CAPTURE_INTERVAL_MS);
 	connect(m_captureTimer, &QTimer::timeout, this, &ScreenCapture::captureFrame);
+
+#ifdef USE_SCREEN_SHARING
+	m_keyFrameTimer = new QTimer(this);
+	m_keyFrameTimer->setSingleShot(true);
+	connect(m_keyFrameTimer, &QTimer::timeout, this, [this]() { m_keyFrameRequested = true; });
+#endif
 }
 
 ScreenCapture::~ScreenCapture() {
@@ -60,12 +69,29 @@ void ScreenCapture::stopCapture() {
 	m_capturing = false;
 
 #ifdef USE_SCREEN_SHARING
+	m_keyFrameTimer->stop();
 	destroyEncoder();
 #endif
 }
 
 bool ScreenCapture::isCapturing() const {
 	return m_capturing;
+}
+
+void ScreenCapture::requestKeyFrame() {
+#ifdef USE_SCREEN_SHARING
+	if (!m_capturing || m_keyFrameRequested || m_keyFrameTimer->isActive())
+		return;
+
+	const qint64 currentTime = m_streamClock.nsecsElapsed() / 1000;
+	const qint64 earliest    = m_lastKeyFrameTime + MIN_KEYFRAME_REQUEST_INTERVAL_US;
+	if (m_lastKeyFrameTime >= 0 && currentTime < earliest) {
+		m_keyFrameTimer->start(static_cast< int >((earliest - currentTime + 999) / 1000));
+		return;
+	}
+
+	m_keyFrameRequested = true;
+#endif
 }
 
 void ScreenCapture::captureFrame() {
@@ -121,9 +147,13 @@ void ScreenCapture::captureFrame() {
 	// Encoders reject non-increasing pts, which could only happen for two frames within the same microsecond.
 	m_lastPts    = std::max(captureTime, m_lastPts + 1);
 	m_frame->pts = m_lastPts;
+	// The frame is reused, so the picture type has to be reset after a forced key frame.
+	m_frame->pict_type = m_keyFrameRequested ? AV_PICTURE_TYPE_I : AV_PICTURE_TYPE_NONE;
 
 	if (avcodec_send_frame(m_codecCtx, m_frame) < 0)
 		return;
+
+	m_keyFrameRequested = false;
 
 	// Encoders may delay, reorder or drop frames, so all metadata is taken from the packet that comes out.
 	while (avcodec_receive_packet(m_codecCtx, m_packet) == 0) {
@@ -134,6 +164,13 @@ void ScreenCapture::captureFrame() {
 		encoded.width       = static_cast< quint32 >(m_encoderWidth);
 		encoded.height      = static_cast< quint32 >(m_encoderHeight);
 		encoded.isKeyFrame  = (m_packet->flags & AV_PKT_FLAG_KEY) != 0;
+
+		if (encoded.isKeyFrame) {
+			// Also serves any request that is currently being held back
+			m_lastKeyFrameTime = m_streamClock.nsecsElapsed() / 1000;
+			m_keyFrameTimer->stop();
+		}
+
 		emit frameEncoded(encoded);
 		av_packet_unref(m_packet);
 	}
@@ -170,6 +207,8 @@ bool ScreenCapture::initEncoder(int width, int height) {
 	// Minimise encoding latency. These could maybe be settings?
 	av_opt_set(m_codecCtx->priv_data, "preset", "superfast", 0);
 	av_opt_set(m_codecCtx->priv_data, "tune", "zerolatency", 0);
+	// Make requested key frames IDR frames, as decoders can only start over at those.
+	av_opt_set(m_codecCtx->priv_data, "forced-idr", "1", 0);
 
 	if (avcodec_open2(m_codecCtx, codec, nullptr) < 0) {
 		avcodec_free_context(&m_codecCtx);
@@ -190,6 +229,11 @@ bool ScreenCapture::initEncoder(int width, int height) {
 
 	m_encoderWidth  = width;
 	m_encoderHeight = height;
+
+	// A new encoder starts with a key frame anyway.
+	m_keyFrameRequested = false;
+	m_lastKeyFrameTime  = -1;
+	m_keyFrameTimer->stop();
 	return true;
 }
 

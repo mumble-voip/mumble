@@ -53,6 +53,11 @@ public:
 	void stopCapture();
 	bool isCapturing() const;
 
+	/// Makes the encoder emit a key frame as soon as possible, so that viewers who lost part of the stream can
+	/// start decoding again. Requests that come in shortly after a key frame are held back for a moment, which
+	/// limits how many key frames are sent no matter how many viewers ask for them.
+	void requestKeyFrame();
+
 signals:
 	/// Emitted for every successfully encoded frame.
 	void frameEncoded(const EncodedVideoFrame &frame);
@@ -74,6 +79,13 @@ private:
 	SwsContext *m_swsCtx       = nullptr;
 	int m_encoderWidth         = 0;
 	int m_encoderHeight        = 0;
+
+	/// Set when the next frame shall be encoded as a key frame.
+	bool m_keyFrameRequested = false;
+	/// Time on m_streamClock at which the last key frame was emitted, or -1 if none was yet.
+	qint64 m_lastKeyFrameTime = -1;
+	/// Fires when a held back key frame request may be served.
+	QTimer *m_keyFrameTimer = nullptr;
 #endif
 
 	QTimer *m_captureTimer = nullptr;

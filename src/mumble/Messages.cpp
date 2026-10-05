@@ -27,6 +27,7 @@
 #include "ChannelListenerManager.h"
 #include "PluginManager.h"
 #include "ProtoUtils.h"
+#include "ScreenCapture.h"
 #include "ScreenShareReceiver.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
@@ -1355,6 +1356,9 @@ void MainWindow::msgPluginDataTransmission(const MumbleProto::PluginDataTransmis
 }
 
 void MainWindow::msgVideoKeyFrameRequest(const MumbleProto::VideoKeyFrameRequest &) {
+	// The server only forwards requests for our own stream to us
+	if (Global::get().sc && Global::get().sc->isCapturing())
+		Global::get().sc->requestKeyFrame();
 }
 
 void MainWindow::msgVideoSubscription(const MumbleProto::VideoSubscription &) {
