@@ -8,18 +8,17 @@
 
 #include <QtCore/QByteArray>
 #include <QtCore/QElapsedTimer>
+#include <QtCore/QMetaType>
 #include <QtCore/QObject>
 #include <QtCore/QTimer>
 #include <cstdint>
 
 #ifdef USE_SCREEN_SHARING
 #	include "CaptureSource.h"
-extern "C" {
-#	include <libavcodec/avcodec.h>
-#	include <libavutil/opt.h>
-#	include <libswscale/swscale.h>
-}
 #endif
+
+class QThread;
+class VideoEncoder;
 
 /// An encoded video frame together with the metadata needed to transmit it.
 struct EncodedVideoFrame {
@@ -35,8 +34,12 @@ struct EncodedVideoFrame {
 	/// True when the frame is an IDR / key frame.
 	bool isKeyFrame = false;
 };
+Q_DECLARE_METATYPE(EncodedVideoFrame)
 
 /// Captures a selected screen or window at ~15 fps and emits encoded video frames via frameEncoded().
+///
+/// Capturing happens on the GUI thread, but the captured images are encoded on a separate thread owned by this
+/// object (see VideoEncoder). Hence frameEncoded() is emitted from that thread.
 ///
 /// On macOS, startCaptureNative() shows the OS-native SCContentSharingPicker and streams
 /// frames via SCStream; captureStarted() / captureAborted() signals report the async outcome.
@@ -77,7 +80,7 @@ public:
 #endif
 
 signals:
-	/// Emitted for every successfully encoded frame.
+	/// Emitted from the encoder's thread for every successfully encoded frame.
 	void frameEncoded(const EncodedVideoFrame &frame);
 	/// Emitted when capturing stopped by itself instead of through stopCapture(), e.g. because grabbing the screen
 	/// failed or the user ended it through the system (e.g. the desktop's screen sharing indicator). Capturing has
@@ -96,55 +99,16 @@ private slots:
 
 private:
 #ifdef USE_SCREEN_SHARING
-	bool initEncoder(int width, int height);
-	void destroyEncoder();
-	/// Makes the next frame a key frame, encoding the last frame again if no new one is on its way.
-	void forceKeyFrame();
-	/// Shared encode path used by both capture modes.
-	/// @param captureTime  Capture time in microseconds on m_streamClock.
-	void encodeImage(const QImage &srcImage, qint64 captureTime);
-
-#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
-	/// Entry point for frames pushed by a native capture stream. These streams may deliver frames at a much
-	/// higher and irregular rate (e.g. only when the screen content changes), so frames are limited to the
-	/// target frame rate here. Only the most recent frame is kept: when frames arrive faster than they can be
-	/// sent, the older ones are dropped instead of piling up.
-	void submitFrame(const QImage &frame);
-	void encodePendingFrame();
-
-	/// Fires when the next frame slot opens up while a frame is pending.
-	QTimer *m_frameRateTimer = nullptr;
-	QImage m_pendingFrame;
-	qint64 m_pendingCaptureTime = 0;
-	/// The frame that was last handed to the encoder, kept to be encoded again as a requested key frame.
-	QImage m_lastFrame;
-	/// Time at which the last frame was handed to the encoder, or -1 if none was yet.
-	qint64 m_lastEncodeTime = -1;
-#	endif
-
 	CaptureSource m_source; ///< Defaults to EntireScreen, screenIndex=0 (primary display).
 
-	AVCodecContext *m_codecCtx = nullptr;
-	AVFrame *m_frame           = nullptr;
-	AVPacket *m_packet         = nullptr;
-	SwsContext *m_swsCtx       = nullptr;
-	int m_encoderWidth         = 0;
-	int m_encoderHeight        = 0;
-
-	/// Set when the next frame shall be encoded as a key frame.
-	bool m_keyFrameRequested = false;
-	/// Time on m_streamClock at which the last key frame was emitted, or -1 if none was yet.
-	qint64 m_lastKeyFrameTime = -1;
-	/// Fires when a held back key frame request may be served.
-	QTimer *m_keyFrameTimer = nullptr;
+	QThread *m_encoderThread = nullptr;
+	/// Lives on m_encoderThread and is deleted there once the thread has finished.
+	VideoEncoder *m_encoder = nullptr;
 #endif
 
 	QTimer *m_captureTimer = nullptr;
 	/// Reference clock for frame timestamps, started together with the stream.
 	QElapsedTimer m_streamClock;
-	quint64 m_frameNumber = 0;
-	/// Timestamp of the last frame handed to the encoder, used to keep pts strictly increasing.
-	qint64 m_lastPts = -1;
 	bool m_capturing = false;
 };
 

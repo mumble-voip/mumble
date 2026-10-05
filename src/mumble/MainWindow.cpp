@@ -4340,6 +4340,9 @@ void MainWindow::sendScreenShareFrame(const EncodedVideoFrame &frame) {
 	ClientUser *p       = ClientUser::get(Global::get().uiSession);
 	if (!p || !sh || frame.data.isEmpty())
 		return;
+	// Frames are encoded on another thread, so some may still come in after sharing was stopped
+	if (!Global::get().sc || !Global::get().sc->isCapturing())
+		return;
 
 	// Fragment the encoded frame into UDP-safe chunks and send each as a MumbleUDP::Video message.
 	// 900 is a bit of a hardcoded arbitrary data. But it seems like a safe value for most MTU
