@@ -234,6 +234,10 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 	if (msg.has_recording_allowed()) {
 		Global::get().mw->enableRecording(msg.recording_allowed());
 	}
+	if (msg.has_screen_sharing_allowed()) {
+		Global::get().screenSharingAllowed = msg.screen_sharing_allowed();
+		updateScreenShareAction();
+	}
 }
 
 /// This message is being received when the server denied the permission to perform a requested action. This function
@@ -624,8 +628,13 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		// Do nothing during initial sync
 		if (pSelf) {
 			if (pDst == pSelf) {
+				// The server may end our screen share as well, e.g. because it isn't allowed anymore
+				if (!pDst->bScreenSharing)
+					stopScreenShareCapture();
+
 				// Reflect the toggle state back onto the toolbar button.
 				Global::get().mw->qaScreenShare->setChecked(pDst->bScreenSharing);
+				updateScreenShareAction();
 				if (pDst->bScreenSharing) {
 					Global::get().l->log(Log::Information, tr("Screen sharing started."));
 				} else {

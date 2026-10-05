@@ -108,6 +108,8 @@ public:
 	unsigned int uiImageLength;
 	unsigned int uiMaxUsers;
 	bool recordingAllowed;
+	/// Whether the server lets us share our screen. Servers that don't support screen sharing never allow it.
+	bool screenSharingAllowed;
 	bool bQuit;
 	QString windowTitlePostfix;
 	bool bDebugDumpInput;
