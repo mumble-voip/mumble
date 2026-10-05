@@ -37,7 +37,7 @@ class BanEditor;
 class UserEdit;
 class ServerHandler;
 class ScreenShareViewer;
-struct EncodedVideoFrame;
+class VideoSender;
 class GlobalShortcut;
 class TextToSpeech;
 class UserModel;
@@ -138,6 +138,9 @@ public:
 	QThread *m_screenShareThread = nullptr;
 	/// Whether the system's screen picker is open, i.e. a screen share is about to start.
 	bool m_screenSharePickerOpen = false;
+	/// Sends our own screen share stream. Lives on m_videoSenderThread and is deleted there once it has finished.
+	VideoSender *m_videoSender   = nullptr;
+	QThread *m_videoSenderThread = nullptr;
 
 	MumbleProto::Reject_RejectType rtLast;
 	bool bRetryServer;
@@ -483,7 +486,6 @@ public:
 	void toggleSelfPrioritySpeaker();
 	void recording();
 	void screenShare();
-	void sendScreenShareFrame(const EncodedVideoFrame &frame);
 	void onRemoteFrameDecoded(quint32 senderSession, QImage frame);
 	void requestScreenShareKeyFrame(quint32 senderSession);
 	void onRemoteScreenShareStopped(quint32 senderSession);

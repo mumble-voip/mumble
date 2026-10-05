@@ -49,6 +49,9 @@
 #endif
 #include "ScreenShareReceiver.h"
 #include "ScreenShareViewer.h"
+#ifdef USE_SCREEN_SHARING
+#	include "VideoSender.h"
+#endif
 #include "SearchDialog.h"
 #include "ServerHandler.h"
 #include "ServerInformation.h"
@@ -243,6 +246,17 @@ MainWindow::MainWindow(QWidget *p)
 	// Covers users leaving the server as well as us disconnecting, upon which all users are removed
 	connect(pmModel, &UserModel::userRemoved, this, &MainWindow::onRemoteScreenShareStopped);
 	m_screenShareThread->start();
+
+#ifdef USE_SCREEN_SHARING
+	// Our own stream is paced out on a thread of its own, so that neither a busy GUI nor the encoder can hold
+	// up sending and cause bursts.
+	m_videoSenderThread = new QThread(this);
+	m_videoSenderThread->setObjectName(QLatin1String("VideoSender"));
+	m_videoSender = new VideoSender();
+	m_videoSender->moveToThread(m_videoSenderThread);
+	connect(m_videoSenderThread, &QThread::finished, m_videoSender, &QObject::deleteLater);
+	m_videoSenderThread->start();
+#endif
 }
 
 // Loading a state that was stored by a different version of Qt can lead to a crash.
@@ -677,6 +691,10 @@ MainWindow::~MainWindow() {
 	m_screenShareThread->quit();
 	m_screenShareThread->wait();
 	Global::get().screenShareReceiver = nullptr;
+	if (m_videoSenderThread) {
+		m_videoSenderThread->quit();
+		m_videoSenderThread->wait();
+	}
 
 	delete qwPTTButtonWidget;
 	delete qdwLog->titleBarWidget();
@@ -3751,6 +3769,10 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	if (Global::get().sc && Global::get().sc->isCapturing()) {
 		Global::get().sc->stopCapture();
 	}
+#ifdef USE_SCREEN_SHARING
+	if (m_videoSender)
+		m_videoSender->reset();
+#endif
 
 	if (!Global::get().sh->qlErrors.isEmpty()) {
 		for (const QSslError &e : Global::get().sh->qlErrors) {
@@ -4227,7 +4249,11 @@ void MainWindow::screenShare() {
 	if (!currentlySharing) {
 		if (!Global::get().sc) {
 			Global::get().sc = new ScreenCapture(this);
-			connect(Global::get().sc, &ScreenCapture::frameEncoded, this, &MainWindow::sendScreenShareFrame);
+#ifdef USE_SCREEN_SHARING
+			// Frames are emitted on the encoder's thread; the sender takes care of the thread hop itself.
+			connect(Global::get().sc, &ScreenCapture::frameEncoded, m_videoSender, &VideoSender::sendFrame,
+					Qt::DirectConnection);
+#endif
 			// The server has to learn about capturing having stopped by itself as well
 			connect(Global::get().sc, &ScreenCapture::captureEnded, this, [this]() {
 				qaScreenShare->setChecked(false);
@@ -4327,52 +4353,15 @@ void MainWindow::screenShare() {
 		Global::get().sh->sendMessage(mpus);
 	} else {
 		Global::get().sc->stopCapture();
+#ifdef USE_SCREEN_SHARING
+		if (m_videoSender)
+			m_videoSender->reset();
+#endif
 
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
 		mpus.set_screen_sharing(false);
 		Global::get().sh->sendMessage(mpus);
-	}
-}
-
-void MainWindow::sendScreenShareFrame(const EncodedVideoFrame &frame) {
-	ServerHandlerPtr sh = Global::get().sh;
-	ClientUser *p       = ClientUser::get(Global::get().uiSession);
-	if (!p || !sh || frame.data.isEmpty())
-		return;
-	// Frames are encoded on another thread, so some may still come in after sharing was stopped
-	if (!Global::get().sc || !Global::get().sc->isCapturing())
-		return;
-
-	// Fragment the encoded frame into UDP-safe chunks and send each as a MumbleUDP::Video message.
-	// 900 is a bit of a hardcoded arbitrary data. But it seems like a safe value for most MTU
-	static constexpr int MAX_FRAGMENT_BYTES = 900;
-	const int dataSize                      = static_cast< int >(frame.data.size());
-	const int fragmentCount                 = (dataSize + MAX_FRAGMENT_BYTES - 1) / MAX_FRAGMENT_BYTES;
-
-	for (int i = 0; i < fragmentCount; ++i) {
-		const int offset    = i * MAX_FRAGMENT_BYTES;
-		const int chunkSize = std::min(MAX_FRAGMENT_BYTES, dataSize - offset);
-
-		MumbleUDP::Video videoMsg;
-		videoMsg.set_sender_session(p->uiSession);
-		videoMsg.set_codec(MumbleUDP::Video_Codec_H264);
-		videoMsg.set_width(frame.width);
-		videoMsg.set_height(frame.height);
-		videoMsg.set_frame_number(frame.frameNumber);
-		videoMsg.set_fragment_index(static_cast< std::uint32_t >(i));
-		videoMsg.set_fragment_count(static_cast< std::uint32_t >(fragmentCount));
-		videoMsg.set_video_data(frame.data.constData() + offset, static_cast< std::size_t >(chunkSize));
-		videoMsg.set_is_keyframe(frame.isKeyFrame && i == 0);
-		videoMsg.set_timestamp(frame.timestamp);
-
-		const int msgSize = static_cast< int >(videoMsg.ByteSizeLong());
-		std::vector< unsigned char > packet(static_cast< std::size_t >(msgSize + 1));
-		packet[0] = static_cast< unsigned char >(Mumble::Protocol::UDPMessageType::Video);
-		if (!videoMsg.SerializeToArray(packet.data() + 1, msgSize))
-			continue;
-
-		sh->sendMessage(packet.data(), static_cast< int >(packet.size()));
 	}
 }
 
