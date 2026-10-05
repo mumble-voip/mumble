@@ -262,6 +262,10 @@ const SettingsKey RECORDING_FILE_KEY   = { "recording_file" };
 const SettingsKey RECORDING_MODE_KEY   = { "recording_mode" };
 const SettingsKey RECORDING_FORMAT_KEY = { "recording_format" };
 
+// Screen sharing
+const SettingsKey SCREEN_SHARE_ENCODER_MODE_KEY = { "encoder_mode" };
+const SettingsKey SCREEN_SHARE_ENCODER_KEY      = { "encoder" };
+
 // Hidden
 const SettingsKey DISABLE_CONNECT_DIALOG_EDITING_KEY = { "disable_connect_dialog_editing" };
 

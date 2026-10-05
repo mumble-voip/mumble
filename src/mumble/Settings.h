@@ -30,6 +30,7 @@
 #include "QuitBehavior.h"
 #include "SSL.h"
 #include "SearchDialog.h"
+#include "VideoEncoderMode.h"
 
 #include <nlohmann/json_fwd.hpp>
 
@@ -541,6 +542,11 @@ struct Settings {
 	QString qsRecordingFile       = QStringLiteral("Mumble-%date-%time-%host-%user");
 	RecordingMode rmRecordingMode = RecordingMixdown;
 	int iRecordingFormat          = 0;
+
+	// Screen sharing
+	VideoEncoderMode screenShareEncoderMode = VideoEncoderMode::Optimised;
+	/// Encoder to use in VideoEncoderMode::Manual (see VideoEncoderInfo::id)
+	QString screenShareEncoder;
 
 	// Special configuration options not exposed to UI
 

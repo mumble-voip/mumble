@@ -869,6 +869,10 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	if (msg.has_comment())
 		pmModel->setComment(pDst, u8(msg.comment()));
 
+	// Someone joined or left our channel, we changed channel, or someone's video capabilities changed
+	if (msg.has_channel_id() || msg.has_video_capabilities())
+		updateScreenShareEncoderSelection();
+
 	// Someone started or stopped sharing their screen, or we or someone else changed channel
 	if (msg.has_screen_sharing() || msg.has_channel_id())
 		updateScreenShareSubscriptions();
@@ -926,8 +930,10 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 								  Q_ARG(unsigned int, pDst->uiSession));
 	}
 
-	if (pDst != pSelf)
+	if (pDst != pSelf) {
 		pmModel->removeUser(pDst);
+		updateScreenShareEncoderSelection();
+	}
 }
 
 /// This message is being received when the server informs the local client about channel properties (either during

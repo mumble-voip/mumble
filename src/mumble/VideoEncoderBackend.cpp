@@ -14,6 +14,7 @@ extern "C" {
 #include <libavutil/log.h>
 }
 
+#include <algorithm>
 #include <atomic>
 #include <cstdarg>
 #include <mutex>
@@ -70,6 +71,43 @@ void startProbing() {
 	thread->setObjectName(QLatin1String("VideoEncoderProbe"));
 	QObject::connect(thread, &QThread::finished, thread, &QObject::deleteLater);
 	thread->start(QThread::LowPriority);
+}
+
+QStringList order(const std::vector< VideoEncoderInfo > &encoders, const VideoEncoderSelection &selection) {
+	std::vector< const VideoEncoderInfo * > ordered;
+	for (const VideoEncoderInfo &info : encoders) {
+		ordered.push_back(&info);
+	}
+
+	switch (selection.mode) {
+		case VideoEncoderMode::Best:
+			break;
+		case VideoEncoderMode::Optimised: {
+			auto viewerCount = [&selection](const VideoEncoderInfo *info) {
+				const unsigned int codec = static_cast< unsigned int >(info->codec);
+				return std::count_if(selection.viewerDecoders.begin(), selection.viewerDecoders.end(),
+									 [codec](const std::vector< unsigned int > &decoders) {
+										 return std::find(decoders.begin(), decoders.end(), codec) != decoders.end();
+									 });
+			};
+			std::stable_sort(ordered.begin(), ordered.end(),
+							 [&viewerCount](const VideoEncoderInfo *lhs, const VideoEncoderInfo *rhs) {
+								 return viewerCount(lhs) > viewerCount(rhs);
+							 });
+			break;
+		}
+		case VideoEncoderMode::Manual:
+			std::stable_partition(ordered.begin(), ordered.end(), [&selection](const VideoEncoderInfo *info) {
+				return info->id == selection.manualEncoder;
+			});
+			break;
+	}
+
+	QStringList ids;
+	for (const VideoEncoderInfo *info : ordered) {
+		ids << info->id;
+	}
+	return ids;
 }
 
 std::unique_ptr< VideoEncoderBackend > create(const QString &id, const VideoEncoderConfig &config) {
