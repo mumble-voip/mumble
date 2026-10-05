@@ -25,8 +25,10 @@ class QTimer;
 /// encoding don't block the GUI. All public methods may be called from any thread: they only hand the work over,
 /// which is then carried out on the encoder's thread. frameEncoded() is emitted from the encoder's thread.
 ///
-/// The actual encoding is done by a VideoEncoderBackend. Encoders are tried in order of preference, and the first
-/// one that can be opened for the captured picture size is used.
+/// The actual encoding is done by a VideoEncoderBackend. Encoders are tried in order of preference (see
+/// setSelection()), and the first one that can be opened for the captured picture size is used. When the preferred
+/// encoder changes while streaming (e.g. because a viewer joined that can't decode the current codec), the stream
+/// switches over to it, starting with a key frame.
 ///
 /// Frames are limited to the target frame rate. Capture sources may deliver frames much faster and irregularly
 /// (e.g. only when the screen content changes), and encoding may not keep up with them. In both cases only the
@@ -61,6 +63,9 @@ public:
 	/// limits how many key frames are sent no matter how many viewers ask for them.
 	void requestKeyFrame();
 
+	/// Sets what the choice of the encoder is based on. The selection is kept across streams.
+	void setSelection(const VideoEncoderSelection &selection);
+
 signals:
 	/// Emitted for every successfully encoded frame.
 	void frameEncoded(const EncodedVideoFrame &frame);
@@ -72,6 +77,7 @@ private:
 	void processStart(const QElapsedTimer &streamClock);
 	void processStop();
 	void processKeyFrameRequest();
+	void processSelection(const VideoEncoderSelection &selection);
 	/// Encodes the incoming frame if the frame rate allows it, or schedules it for the next frame slot.
 	void processIncomingFrame();
 
@@ -126,6 +132,8 @@ private:
 	/// Fires when no frame was encoded for a while, see sendHeartbeat()
 	QTimer *m_heartbeatTimer = nullptr;
 
+	/// IDs of the encoders to use, most preferred first
+	QStringList m_encoderOrder;
 	std::unique_ptr< VideoEncoderBackend > m_backend;
 	/// Picture size m_backend was opened for (or tried to)
 	int m_encoderWidth             = 0;

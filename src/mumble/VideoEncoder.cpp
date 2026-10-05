@@ -81,6 +81,11 @@ void VideoEncoder::requestKeyFrame() {
 		this, [this]() { processKeyFrameRequest(); }, Qt::QueuedConnection);
 }
 
+void VideoEncoder::setSelection(const VideoEncoderSelection &selection) {
+	QMetaObject::invokeMethod(
+		this, [this, selection]() { processSelection(selection); }, Qt::QueuedConnection);
+}
+
 qint64 VideoEncoder::now() const {
 	return m_streamClock.nsecsElapsed() / 1000;
 }
@@ -110,6 +115,24 @@ void VideoEncoder::processStop() {
 	m_encoderHeight = 0;
 	m_lastEncoderId.clear();
 	m_failedEncoders.clear();
+}
+
+void VideoEncoder::processSelection(const VideoEncoderSelection &selection) {
+	// Waits for the encoders to be probed, which is why this has to happen on the encoder's thread
+	QStringList order = VideoEncoders::order(VideoEncoders::available(), selection);
+	if (order == m_encoderOrder)
+		return;
+	m_encoderOrder = std::move(order);
+
+	if (!m_backend || m_encoderOrder.isEmpty() || m_backend->info().id == m_encoderOrder.front())
+		return;
+
+	// Switch over to the now preferred encoder with the next frame. Viewers need a key frame for the new codec
+	// right away, even if the screen content doesn't change.
+	m_backend.reset();
+	m_encoderWidth  = 0;
+	m_encoderHeight = 0;
+	forceKeyFrame();
 }
 
 void VideoEncoder::processKeyFrameRequest() {
@@ -301,12 +324,15 @@ bool VideoEncoder::openBackend(int width, int height, QImage::Format format) {
 	config.fps              = FPS;
 	config.keyFrameInterval = VIDEO_GOP_SIZE;
 
+	if (m_encoderOrder.isEmpty())
+		m_encoderOrder = VideoEncoders::order(VideoEncoders::available(), VideoEncoderSelection());
+
 	// The preferred encoder may not support every picture size (e.g. hardware encoders have size limits), so
 	// fall back to the next one in that case.
-	for (const VideoEncoderInfo &info : VideoEncoders::available()) {
-		if (m_failedEncoders.contains(info.id))
+	for (const QString &id : m_encoderOrder) {
+		if (m_failedEncoders.contains(id))
 			continue;
-		m_backend = VideoEncoders::create(info.id, config);
+		m_backend = VideoEncoders::create(id, config);
 		if (m_backend)
 			break;
 	}

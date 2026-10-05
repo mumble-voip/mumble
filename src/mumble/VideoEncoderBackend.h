@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_VIDEOENCODERBACKEND_H_
 
 #include "MumbleUDP.pb.h"
+#include "VideoEncoderMode.h"
 
 #include <QtCore/QByteArray>
 #include <QtCore/QString>
@@ -25,6 +26,16 @@ struct VideoEncoderInfo {
 	MumbleUDP::Video::Codec codec = MumbleUDP::Video::H264;
 	/// Whether the encoder runs on dedicated hardware rather than on the CPU
 	bool hardware = false;
+};
+
+/// What the choice of the video encoder is based on.
+struct VideoEncoderSelection {
+	VideoEncoderMode mode = VideoEncoderMode::Optimised;
+	/// Encoder picked by the user, for VideoEncoderMode::Manual
+	QString manualEncoder;
+	/// For each viewer, the codecs (MumbleUDP::Video::Codec values) it can decode. Viewers that didn't tell are
+	/// not included.
+	std::vector< std::vector< unsigned int > > viewerDecoders;
 };
 
 /// Parameters for opening an encoder.
@@ -82,6 +93,15 @@ const std::vector< VideoEncoderInfo > &available();
 /// Starts probing the available encoders in the background, so that a later call to available() does not block.
 /// Only the first call does anything.
 void startProbing();
+
+/// Orders the given encoders by preference according to the selection. Every encoder is included, so that the
+/// others can serve as fallback when the preferred one can't be opened (e.g. for an unsupported picture size).
+///
+/// - Best: as given, i.e. by rank.
+/// - Optimised: by how many viewers can decode the encoder's codec, ties broken by rank. This picks the best
+///   codec all viewers can decode, and if there is none, the one most of them can decode.
+/// - Manual: the picked encoder first, then by rank.
+QStringList order(const std::vector< VideoEncoderInfo > &encoders, const VideoEncoderSelection &selection);
 
 /// Opens the encoder with the given ID, or returns nullptr if that fails.
 std::unique_ptr< VideoEncoderBackend > create(const QString &id, const VideoEncoderConfig &config);

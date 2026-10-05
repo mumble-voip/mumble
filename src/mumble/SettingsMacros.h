@@ -231,6 +231,11 @@
 	PROCESS(recording, RECORDING_FORMAT_KEY, iRecordingFormat)
 
 
+#define SCREEN_SHARE_SETTINGS                                                    \
+	PROCESS(screen_share, SCREEN_SHARE_ENCODER_MODE_KEY, screenShareEncoderMode) \
+	PROCESS(screen_share, SCREEN_SHARE_ENCODER_KEY, screenShareEncoder)
+
+
 #define HIDDEN_SETTINGS PROCESS(hidden, DISABLE_CONNECT_DIALOG_EDITING_KEY, disableConnectDialogEditing)
 
 
@@ -338,6 +343,7 @@
 	MANUAL_PLUGIN_SETTINGS     \
 	PTT_WINDOW_SETTINGS        \
 	RECORDING_SETTINGS         \
+	SCREEN_SHARE_SETTINGS      \
 	HIDDEN_SETTINGS            \
 	WIN_OVERLAY_SETTINGS       \
 	LCD_SETTINGS               \
@@ -380,6 +386,8 @@
 	PTT_WINDOW_SETTINGS                                  \
 	INTERMEDIATE_OPERATION                               \
 	RECORDING_SETTINGS                                   \
+	INTERMEDIATE_OPERATION                               \
+	SCREEN_SHARE_SETTINGS                                \
 	INTERMEDIATE_OPERATION                               \
 	HIDDEN_SETTINGS                                      \
 	INTERMEDIATE_OPERATION                               \

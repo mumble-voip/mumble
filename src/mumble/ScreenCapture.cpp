@@ -157,6 +157,10 @@ void ScreenCapture::requestKeyFrame() {
 
 #ifdef USE_SCREEN_SHARING
 
+void ScreenCapture::setEncoderSelection(const VideoEncoderSelection &selection) {
+	m_encoder->setSelection(selection);
+}
+
 void ScreenCapture::setSource(const CaptureSource &source) {
 	m_source = source;
 }

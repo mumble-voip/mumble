@@ -18,6 +18,7 @@
 
 #ifdef USE_SCREEN_SHARING
 #	include "CaptureSource.h"
+#	include "VideoEncoderBackend.h"
 #endif
 
 class FrameGrabber;
@@ -74,6 +75,10 @@ public:
 	void requestKeyFrame();
 
 #ifdef USE_SCREEN_SHARING
+	/// Sets what the choice of the video encoder is based on. May be called while capturing, in which case the
+	/// stream switches to a different encoder if necessary.
+	void setEncoderSelection(const VideoEncoderSelection &selection);
+
 	/// Sets the capture source for the non-native picker path. Call before startCapture().
 	void setSource(const CaptureSource &source);
 

@@ -489,6 +489,9 @@ public:
 	void screenShare();
 	void onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame);
 	void requestScreenShareKeyFrame(quint32 senderSession);
+	/// Tells the screen capture what to base the choice of the video encoder on, i.e. the settings and the codecs
+	/// the users in our channel can decode. Has to be called whenever any of these changes.
+	void updateScreenShareEncoderSelection();
 	void onRemoteScreenShareStopped(quint32 senderSession);
 	/// Receives the screen shares of everyone in our channel, and forgets about those that the server doesn't
 	/// relay to us anymore, because the sharing user stopped, left or isn't in our channel anymore.
