@@ -618,6 +618,10 @@ message ServerConfig {
 	optional uint32 max_users = 6;
 	// Whether using Mumble's recording feature is allowed on the server
 	optional bool recording_allowed = 7;
+	// Whether users may share their screen on the server. Servers that support screen sharing always send this field
+	// in the ServerConfig sent while connecting, so its absence there means that the server doesn't relay any video.
+	// A ServerConfig sent later on only contains the fields that changed.
+	optional bool screen_sharing_allowed = 8;
 }
 
 // Sent by the server to inform the clients of suggested client configuration
