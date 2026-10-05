@@ -238,6 +238,10 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 		Global::get().screenSharingAllowed = msg.screen_sharing_allowed();
 		updateScreenShareAction();
 	}
+	if (msg.has_max_video_bandwidth()) {
+		Global::get().maxVideoBandwidth = msg.max_video_bandwidth();
+		updateScreenShareBitrate();
+	}
 }
 
 /// This message is being received when the server denied the permission to perform a requested action. This function

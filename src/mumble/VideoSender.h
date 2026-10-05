@@ -41,10 +41,13 @@ public:
 	void sendFrame(const EncodedVideoFrame &frame);
 	/// Drops everything that has not been sent yet, e.g. because sharing stopped.
 	void reset();
+	/// Sets the encoder's target bit rate in bits per second, which the pacing rate is based on.
+	void setBitrate(int bitrate);
 
 private:
 	void processFrame(const EncodedVideoFrame &frame);
 	void processReset();
+	void processBitrate(int bitrate);
 	/// Sends as many queued fragments as the current budget allows.
 	void sendDue();
 
@@ -53,6 +56,9 @@ private:
 	/// Serialized UDP messages waiting to be sent, in order
 	std::deque< std::vector< unsigned char > > m_queue;
 	std::size_t m_queuedBytes = 0;
+
+	/// Rate at which fragments are sent normally, in bytes per microsecond
+	double m_pacingRate;
 
 	/// Number of bytes that may be sent right now. Refilled according to the pacing rate, it may become
 	/// slightly negative as whole fragments are sent.

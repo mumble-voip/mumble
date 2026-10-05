@@ -123,6 +123,7 @@ Global::Global(const QString &qsConfigPath) {
 	recordingAllowed = true;
 
 	screenSharingAllowed = false;
+	maxVideoBandwidth    = 0;
 
 	zeroconf = nullptr;
 	lcd      = nullptr;

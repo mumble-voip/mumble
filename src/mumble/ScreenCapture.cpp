@@ -179,6 +179,10 @@ void ScreenCapture::setFrameRate(int frameRate) {
 		m_grabContext, [this, interval]() { m_grabTimer->setInterval(interval); }, Qt::QueuedConnection);
 }
 
+void ScreenCapture::setBitrate(int bitrate) {
+	m_encoder->setBitrate(bitrate);
+}
+
 void ScreenCapture::setSource(const CaptureSource &source) {
 	m_source = source;
 }

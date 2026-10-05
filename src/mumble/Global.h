@@ -110,6 +110,8 @@ public:
 	bool recordingAllowed;
 	/// Whether the server lets us share our screen. Servers that don't support screen sharing never allow it.
 	bool screenSharingAllowed;
+	/// The server's limit for the bandwidth of our screen share in bits per second, 0 if there is none
+	unsigned int maxVideoBandwidth;
 	bool bQuit;
 	QString windowTitlePostfix;
 	bool bDebugDumpInput;

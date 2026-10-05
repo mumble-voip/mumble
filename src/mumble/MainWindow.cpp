@@ -50,6 +50,7 @@
 #include "ScreenShareReceiver.h"
 #include "ScreenShareViewer.h"
 #ifdef USE_SCREEN_SHARING
+#	include "VideoEncoder.h"
 #	include "VideoEncoderBackend.h"
 #	include "VideoSender.h"
 #endif
@@ -3654,6 +3655,8 @@ void MainWindow::serverConnected() {
 	// Only allowed once the server says so, as servers that don't support screen sharing never do
 	Global::get().screenSharingAllowed = false;
 	updateScreenShareAction();
+	Global::get().maxVideoBandwidth = 0;
+	updateScreenShareBitrate();
 
 	if (Global::get().s.bMute || Global::get().s.bDeaf) {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
@@ -4271,6 +4274,7 @@ void MainWindow::screenShare() {
 				mpus.set_screen_sharing(false);
 				Global::get().sh->sendMessage(mpus);
 			});
+			updateScreenShareBitrate();
 		}
 
 #if defined(USE_SCREEN_SHARING) && (defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL))
@@ -4375,6 +4379,16 @@ void MainWindow::stopScreenShareCapture() {
 #ifdef USE_SCREEN_SHARING
 	if (m_videoSender)
 		m_videoSender->reset();
+#endif
+}
+
+void MainWindow::updateScreenShareBitrate() {
+#ifdef USE_SCREEN_SHARING
+	const int bitrate = VideoEncoder::bitrateFor(Global::get().maxVideoBandwidth);
+	if (Global::get().sc)
+		Global::get().sc->setBitrate(bitrate);
+	if (m_videoSender)
+		m_videoSender->setBitrate(bitrate);
 #endif
 }
 
