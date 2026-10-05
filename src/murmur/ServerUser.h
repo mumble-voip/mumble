@@ -32,6 +32,7 @@
 #include <atomic>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <vector>
 
 // Unfortunately, this needs to be "large enough" to hold
@@ -151,6 +152,9 @@ public:
 
 	QList< int > qlCodecs;
 	bool bOpus;
+	/// Video codecs (MumbleUDP::Video::Codec values) the user's client can decode, or nothing if the client
+	/// never announced them.
+	std::optional< std::vector< unsigned int > > m_videoDecoders;
 
 	QStringList qslAccessTokens;
 

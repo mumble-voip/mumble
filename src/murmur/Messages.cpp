@@ -547,6 +547,12 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_recording(true);
 		if (u->bScreenSharing)
 			mpus.set_screen_sharing(true);
+		if (u->m_videoDecoders) {
+			MumbleProto::UserState_VideoCapabilities *capabilities = mpus.mutable_video_capabilities();
+			for (unsigned int codec : *u->m_videoDecoders) {
+				capabilities->add_decoders(codec);
+			}
+		}
 		if (u->bSelfDeaf)
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
@@ -974,8 +980,8 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	// Prevent self-targeting state changes from being applied to others
 	if ((pDstServerUser != uSource)
 		&& (msg.has_self_deaf() || msg.has_self_mute() || msg.has_plugin_context() || msg.has_plugin_identity()
-			|| msg.has_recording() || msg.has_screen_sharing() || msg.listening_channel_add_size() > 0
-			|| msg.listening_channel_remove_size() > 0)) {
+			|| msg.has_recording() || msg.has_screen_sharing() || msg.has_video_capabilities()
+			|| msg.listening_channel_add_size() > 0 || msg.listening_channel_remove_size() > 0)) {
 		return;
 	}
 
@@ -1123,6 +1129,35 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		sendAll(mptm, Version::fromComponents(1, 2, 3), Version::CompareMode::LessThan);
 
 		bBroadcast = true;
+	}
+
+	if (msg.has_video_capabilities()) {
+		assert(uSource == pDstServerUser);
+
+		// Drop duplicates and limit the size, as the list is stored and relayed to every client
+		static constexpr std::size_t MAX_VIDEO_DECODERS = 32;
+		std::vector< unsigned int > decoders;
+		for (unsigned int codec : msg.video_capabilities().decoders()) {
+			if (decoders.size() < MAX_VIDEO_DECODERS
+				&& std::find(decoders.begin(), decoders.end(), codec) == decoders.end()) {
+				decoders.push_back(codec);
+			}
+		}
+
+		if (pDstServerUser->m_videoDecoders != decoders) {
+			pDstServerUser->m_videoDecoders = decoders;
+
+			// Relay the cleaned up list. An empty list still has to be sent, so the field has to be set either way.
+			MumbleProto::UserState_VideoCapabilities *capabilities = msg.mutable_video_capabilities();
+			capabilities->clear_decoders();
+			for (unsigned int codec : decoders) {
+				capabilities->add_decoders(codec);
+			}
+
+			bBroadcast = true;
+		} else {
+			msg.clear_video_capabilities();
+		}
 	}
 
 	if (msg.has_channel_id()) {
