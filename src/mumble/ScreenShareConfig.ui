@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScreenShareConfig</class>
+ <widget class="QWidget" name="ScreenShareConfig">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Screen Sharing</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="qgbEncoder">
+     <property name="title">
+      <string>Video encoder</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="qlEncoderMode">
+        <property name="text">
+         <string>Encoder &amp;selection</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbEncoderMode</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="qcbEncoderMode">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>How the video encoder for screen sharing is chosen</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets how the video encoder for sharing your screen is chosen.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Optimised for viewers&lt;/i&gt; uses the best encoder whose video all users in your channel can decode, and switches encoders when the users in the channel change.&lt;br /&gt;&lt;i&gt;Best available&lt;/i&gt; always uses the best encoder that works on this computer, preferring hardware encoders.&lt;br /&gt;&lt;i&gt;Manual&lt;/i&gt; uses the encoder you select.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="qlEncoderModeDescription">
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qlEncoder">
+        <property name="text">
+         <string>&amp;Encoder</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbEncoder</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="qcbEncoder">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>Encoder to use in manual mode</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This is the encoder used when the encoder selection is set to manual.&lt;/b&gt;&lt;br /&gt;Only encoders that work on this computer are listed. Hardware encoders run on the graphics card and barely load the CPU. If the selected encoder can't be used for the shared screen, the best other one is used instead.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
