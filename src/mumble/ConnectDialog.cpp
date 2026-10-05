@@ -1367,7 +1367,7 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 	}
 
 	bool hasParent   = si->siParent != nullptr;
-	bool hasHostname = si->qsHostname.isEmpty();
+	bool hasHostname = !si->qsHostname.isEmpty();
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(hasParent && hasHostname);
 
 	bLastFound = true;
