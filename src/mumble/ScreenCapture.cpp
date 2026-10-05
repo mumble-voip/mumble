@@ -16,6 +16,8 @@
 
 #include "Global.h"
 
+#include <algorithm>
+
 // These values are still hardcoded. This should probably be a setting.
 // For now these values seem alright for testing
 static constexpr int CAPTURE_INTERVAL_MS = 66;        // ~15 fps
@@ -43,7 +45,9 @@ void ScreenCapture::startCapture() {
 		return;
 
 	m_frameNumber = 0;
+	m_lastPts     = -1;
 	m_capturing   = true;
+	m_streamClock.start();
 	m_captureTimer->start();
 #endif
 }
@@ -66,6 +70,8 @@ bool ScreenCapture::isCapturing() const {
 
 void ScreenCapture::captureFrame() {
 #ifdef USE_SCREEN_SHARING
+	const qint64 captureTime = m_streamClock.nsecsElapsed() / 1000;
+
 	QScreen *screen = QGuiApplication::primaryScreen();
 	if (!screen)
 		return;
@@ -105,23 +111,27 @@ void ScreenCapture::captureFrame() {
 	int srcLinesize[1]        = { static_cast< int >(image.bytesPerLine()) };
 	sws_scale(m_swsCtx, srcData, srcLinesize, 0, height, m_frame->data, m_frame->linesize);
 
-	m_frame->pts = static_cast< int64_t >(m_frameNumber);
+	// The encoder runs on a microsecond time base, so the capture time can be used as pts directly. This lets
+	// rate control see the real frame spacing, independently of the codec and of how regularly frames arrive.
+	// Encoders reject non-increasing pts, which could only happen for two frames within the same microsecond.
+	m_lastPts    = std::max(captureTime, m_lastPts + 1);
+	m_frame->pts = m_lastPts;
 
 	if (avcodec_send_frame(m_codecCtx, m_frame) < 0)
 		return;
 
+	// Encoders may delay, reorder or drop frames, so all metadata is taken from the packet that comes out.
 	while (avcodec_receive_packet(m_codecCtx, m_packet) == 0) {
 		EncodedVideoFrame encoded;
 		encoded.data        = QByteArray(reinterpret_cast< const char * >(m_packet->data), m_packet->size);
-		encoded.frameNumber = m_frameNumber;
+		encoded.frameNumber = m_frameNumber++;
+		encoded.timestamp   = static_cast< quint64 >(m_packet->pts != AV_NOPTS_VALUE ? m_packet->pts : m_lastPts);
 		encoded.width       = static_cast< quint32 >(m_encoderWidth);
 		encoded.height      = static_cast< quint32 >(m_encoderHeight);
 		encoded.isKeyFrame  = (m_packet->flags & AV_PKT_FLAG_KEY) != 0;
 		emit frameEncoded(encoded);
 		av_packet_unref(m_packet);
 	}
-
-	++m_frameNumber;
 #endif
 }
 
@@ -146,7 +156,8 @@ bool ScreenCapture::initEncoder(int width, int height) {
 
 	m_codecCtx->width     = width;
 	m_codecCtx->height    = height;
-	m_codecCtx->time_base = { 1, VIDEO_FPS };
+	m_codecCtx->time_base = { 1, 1'000'000 }; // pts are capture timestamps in microseconds
+	m_codecCtx->framerate = { VIDEO_FPS, 1 }; // nominal rate; actual frame spacing comes from pts
 	m_codecCtx->pix_fmt   = AV_PIX_FMT_YUV420P;
 	m_codecCtx->bit_rate  = VIDEO_BITRATE;
 	m_codecCtx->gop_size  = VIDEO_GOP_SIZE;

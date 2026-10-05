@@ -4251,6 +4251,7 @@ void MainWindow::sendScreenShareFrame(const EncodedVideoFrame &frame) {
 		videoMsg.set_fragment_count(static_cast< std::uint32_t >(fragmentCount));
 		videoMsg.set_video_data(frame.data.constData() + offset, static_cast< std::size_t >(chunkSize));
 		videoMsg.set_is_keyframe(frame.isKeyFrame && i == 0);
+		videoMsg.set_timestamp(frame.timestamp);
 
 		const int msgSize = static_cast< int >(videoMsg.ByteSizeLong());
 		std::vector< unsigned char > packet(static_cast< std::size_t >(msgSize + 1));

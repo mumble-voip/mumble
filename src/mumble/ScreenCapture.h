@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_SCREENCAPTURE_H_
 
 #include <QtCore/QByteArray>
+#include <QtCore/QElapsedTimer>
 #include <QtCore/QObject>
 #include <QtCore/QTimer>
 #include <cstdint>
@@ -23,8 +24,10 @@ extern "C" {
 struct EncodedVideoFrame {
 	/// Codec-specific encoded byte stream (currently H.264 Annex-B).
 	QByteArray data;
-	/// Monotonically increasing counter starting at 0.
+	/// Counter of emitted frames in decode order, starting at 0.
 	quint64 frameNumber = 0;
+	/// Capture time in microseconds relative to the start of the stream.
+	quint64 timestamp = 0;
 	/// Dimensions of the encoded picture in pixels.
 	quint32 width  = 0;
 	quint32 height = 0;
@@ -71,8 +74,12 @@ private:
 #endif
 
 	QTimer *m_captureTimer = nullptr;
-	quint64 m_frameNumber  = 0;
-	bool m_capturing       = false;
+	/// Reference clock for frame timestamps, started together with the stream.
+	QElapsedTimer m_streamClock;
+	quint64 m_frameNumber = 0;
+	/// Timestamp of the last frame handed to the encoder, used to keep pts strictly increasing.
+	qint64 m_lastPts = -1;
+	bool m_capturing = false;
 };
 
 #endif // MUMBLE_MUMBLE_SCREENCAPTURE_H_
