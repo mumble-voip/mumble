@@ -1157,7 +1157,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		if (!pDstServerUser->m_videoCapabilities
 			|| pDstServerUser->m_videoCapabilities->SerializeAsString() != capabilities->SerializeAsString()) {
 			pDstServerUser->m_videoCapabilities = *capabilities;
-			pDstServerUser->m_videoDecoders     = decoders;
+			{
+				// The list is used by the voice thread when relaying video
+				QWriteLocker wl(&qrwlVoiceThread);
+				pDstServerUser->m_videoDecoders = decoders;
+			}
 
 			bBroadcast = true;
 		} else {
