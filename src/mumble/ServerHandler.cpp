@@ -333,9 +333,7 @@ void ServerHandler::handleVideoPacket(const Mumble::Protocol::VideoData &videoDa
 	if (!sender || !sender->bScreenSharing)
 		return;
 
-	// Forward to the receiver for fragment reassembly and decoding.
-	// ScreenShareReceiver::frameDecoded is connected with Qt::QueuedConnection so
-	// the actual display happens on the GUI thread.
+	// Forward to the receiver, which reassembles and decodes the frame on its own thread.
 	if (Global::get().screenShareReceiver)
 		Global::get().screenShareReceiver->handleVideoPacket(videoData);
 }

@@ -25,9 +25,11 @@ extern "C" {
 
 /// Reassembles UDP video fragments and decodes video frames.
 ///
-/// Thread-safe to call handleVideoPacket() from a non-GUI thread;
-/// frameDecoded() is emitted via a queued connection and delivered on the
-/// GUI thread when connected with Qt::QueuedConnection.
+/// The receiver is meant to live on its own thread (see QObject::moveToThread()). handleVideoPacket() and
+/// resetSender() may be called from any thread: they only queue the work, which is then carried out on the
+/// receiver's thread. This keeps all reassembly and decoder state on a single thread and keeps decoding off
+/// both the network and the GUI thread. frameDecoded() is emitted from the receiver's thread, so it has to be
+/// connected with a queued connection to deliver frames to the GUI.
 class ScreenShareReceiver : public QObject {
 private:
 	Q_OBJECT
@@ -40,7 +42,7 @@ public:
 	/// Called (potentially from the ServerHandler thread) for every incoming Video UDP message.
 	void handleVideoPacket(const Mumble::Protocol::VideoData &videoData);
 
-	/// Tear down decoder state for a sender who stopped sharing.
+	/// Tear down decoder state for a sender who stopped sharing. May be called from any thread.
 	void resetSender(quint32 senderSession);
 
 signals:
@@ -48,6 +50,23 @@ signals:
 
 private:
 #ifdef USE_SCREEN_SHARING
+	/// Owning copy of a Mumble::Protocol::VideoData, whose payload only points into the network buffer.
+	struct VideoPacket {
+		quint32 senderSession         = 0;
+		MumbleUDP::Video::Codec codec = MumbleUDP::Video::H264;
+		quint32 width                 = 0;
+		quint32 height                = 0;
+		quint64 frameNumber           = 0;
+		quint32 fragmentIndex         = 0;
+		quint32 fragmentCount         = 0;
+		QByteArray payload;
+		bool isKeyFrame   = false;
+		quint64 timestamp = 0;
+	};
+
+	void processPacket(const VideoPacket &packet);
+	void processReset(quint32 senderSession);
+
 	struct PendingFrame {
 		quint32 fragmentCount = 0;
 		std::vector< QByteArray > fragments;

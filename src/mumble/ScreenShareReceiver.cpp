@@ -53,6 +53,36 @@ void ScreenShareReceiver::handleVideoPacket(const Mumble::Protocol::VideoData &v
 #ifndef USE_SCREEN_SHARING
 	Q_UNUSED(videoData);
 #else
+	// videoData.payload points into the caller's network buffer, so take a copy before handing it over.
+	VideoPacket packet;
+	packet.senderSession = videoData.senderSession;
+	packet.codec         = videoData.codec;
+	packet.width         = videoData.width;
+	packet.height        = videoData.height;
+	packet.frameNumber   = videoData.frameNumber;
+	packet.fragmentIndex = videoData.fragmentIndex;
+	packet.fragmentCount = videoData.fragmentCount;
+	packet.payload       = QByteArray(reinterpret_cast< const char * >(videoData.payload.data()),
+                                static_cast< qsizetype >(videoData.payload.size()));
+	packet.isKeyFrame    = videoData.isKeyFrame;
+	packet.timestamp     = videoData.timestamp;
+
+	QMetaObject::invokeMethod(
+		this, [this, packet = std::move(packet)]() { processPacket(packet); }, Qt::QueuedConnection);
+#endif
+}
+
+void ScreenShareReceiver::resetSender(quint32 senderSession) {
+#ifdef USE_SCREEN_SHARING
+	QMetaObject::invokeMethod(
+		this, [this, senderSession]() { processReset(senderSession); }, Qt::QueuedConnection);
+#else
+	Q_UNUSED(senderSession);
+#endif
+}
+
+#ifdef USE_SCREEN_SHARING
+void ScreenShareReceiver::processPacket(const VideoPacket &videoData) {
 	const quint32 session   = videoData.senderSession;
 	const quint64 frameNum  = videoData.frameNumber;
 	const quint32 fragIdx   = videoData.fragmentIndex;
@@ -83,10 +113,9 @@ void ScreenShareReceiver::handleVideoPacket(const Mumble::Protocol::VideoData &v
 	// OR keyframe flag (UDP fragments may arrive out of order)
 	pf.isKeyFrame |= videoData.isKeyFrame;
 
-	// Store fragment (copy once per fragment, unavoidable unless lifetime guaranteed)
+	// Store fragment (duplicates are ignored)
 	if (pf.fragments[fragIdx].isEmpty()) {
-		pf.fragments[fragIdx] = QByteArray(reinterpret_cast< const char * >(videoData.payload.data()),
-										   static_cast< int >(videoData.payload.size()));
+		pf.fragments[fragIdx] = videoData.payload;
 	}
 
 	// Early exit until complete
@@ -127,19 +156,13 @@ void ScreenShareReceiver::handleVideoPacket(const Mumble::Protocol::VideoData &v
 	}
 
 	decodeCompleteFrame(session, complete, fw, fh, isKeyFrm, codec);
-#endif
 }
 
-void ScreenShareReceiver::resetSender(quint32 senderSession) {
-#ifdef USE_SCREEN_SHARING
+void ScreenShareReceiver::processReset(quint32 senderSession) {
 	m_fragmentBuffer.erase(senderSession);
 	destroyDecoder(senderSession);
-#else
-	Q_UNUSED(senderSession);
-#endif
 }
 
-#ifdef USE_SCREEN_SHARING
 bool ScreenShareReceiver::ensureDecoder(quint32 session, MumbleUDP::Video::Codec protoCodec) {
 	if (m_decoders.count(session) && m_decoders[session].codecCtx)
 		return true;

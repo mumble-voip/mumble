@@ -8,6 +8,7 @@
 
 #include <QtCore/QMap>
 #include <QtCore/QPointer>
+#include <QtCore/QThread>
 #include <QtCore/QtGlobal>
 #include <QtGui/QImage>
 #include <QtNetwork/QAbstractSocket>
@@ -129,6 +130,8 @@ public:
 
 	VoiceRecorderDialog *voiceRecorderDialog;
 	QMap< quint32, ScreenShareViewer * > m_screenShareViewers;
+	/// Thread that Global::get().screenShareReceiver lives on.
+	QThread *m_screenShareThread = nullptr;
 
 	MumbleProto::Reject_RejectType rtLast;
 	bool bRetryServer;
