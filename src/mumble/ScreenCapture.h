@@ -19,6 +19,19 @@ extern "C" {
 }
 #endif
 
+/// An encoded video frame together with the metadata needed to transmit it.
+struct EncodedVideoFrame {
+	/// Codec-specific encoded byte stream (currently H.264 Annex-B).
+	QByteArray data;
+	/// Monotonically increasing counter starting at 0.
+	quint64 frameNumber = 0;
+	/// Dimensions of the encoded picture in pixels.
+	quint32 width  = 0;
+	quint32 height = 0;
+	/// True when the frame is an IDR / key frame.
+	bool isKeyFrame = false;
+};
+
 /// Captures the primary display at ~15 fps and emits encoded video frames via frameEncoded().
 ///
 /// Requires the build option -Dscreen-sharing=ON (links libavcodec/libswscale).
@@ -39,10 +52,7 @@ public:
 
 signals:
 	/// Emitted for every successfully encoded frame.
-	/// @param encodedData  Codec-specific encoded byte stream (currently H.264 Annex-B).
-	/// @param frameNumber  Monotonically increasing counter starting at 0.
-	/// @param isKeyFrame  True when the frame is an IDR / key frame.
-	void frameEncoded(QByteArray encodedData, quint64 frameNumber, bool isKeyFrame);
+	void frameEncoded(const EncodedVideoFrame &frame);
 
 private slots:
 	void captureFrame();

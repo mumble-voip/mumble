@@ -4225,21 +4225,17 @@ void MainWindow::screenShare() {
 	}
 }
 
-void MainWindow::sendScreenShareFrame(QByteArray encodedData, quint64 frameNumber, bool isKeyFrame) {
+void MainWindow::sendScreenShareFrame(const EncodedVideoFrame &frame) {
 	ServerHandlerPtr sh = Global::get().sh;
 	ClientUser *p       = ClientUser::get(Global::get().uiSession);
-	if (!p || !sh || encodedData.isEmpty())
+	if (!p || !sh || frame.data.isEmpty())
 		return;
 
 	// Fragment the encoded frame into UDP-safe chunks and send each as a MumbleUDP::Video message.
 	// 900 is a bit of a hardcoded arbitrary data. But it seems like a safe value for most MTU
 	static constexpr int MAX_FRAGMENT_BYTES = 900;
-	const int dataSize                      = static_cast< int >(encodedData.size());
+	const int dataSize                      = static_cast< int >(frame.data.size());
 	const int fragmentCount                 = (dataSize + MAX_FRAGMENT_BYTES - 1) / MAX_FRAGMENT_BYTES;
-
-	QScreen *screen  = QGuiApplication::primaryScreen();
-	const int width  = screen ? screen->size().width() : 0;
-	const int height = screen ? screen->size().height() : 0;
 
 	for (int i = 0; i < fragmentCount; ++i) {
 		const int offset    = i * MAX_FRAGMENT_BYTES;
@@ -4248,13 +4244,13 @@ void MainWindow::sendScreenShareFrame(QByteArray encodedData, quint64 frameNumbe
 		MumbleUDP::Video videoMsg;
 		videoMsg.set_sender_session(p->uiSession);
 		videoMsg.set_codec(MumbleUDP::Video_Codec_H264);
-		videoMsg.set_width(static_cast< std::uint32_t >(width));
-		videoMsg.set_height(static_cast< std::uint32_t >(height));
-		videoMsg.set_frame_number(frameNumber);
+		videoMsg.set_width(frame.width);
+		videoMsg.set_height(frame.height);
+		videoMsg.set_frame_number(frame.frameNumber);
 		videoMsg.set_fragment_index(static_cast< std::uint32_t >(i));
 		videoMsg.set_fragment_count(static_cast< std::uint32_t >(fragmentCount));
-		videoMsg.set_video_data(encodedData.constData() + offset, static_cast< std::size_t >(chunkSize));
-		videoMsg.set_is_keyframe(isKeyFrame && i == 0);
+		videoMsg.set_video_data(frame.data.constData() + offset, static_cast< std::size_t >(chunkSize));
+		videoMsg.set_is_keyframe(frame.isKeyFrame && i == 0);
 
 		const int msgSize = static_cast< int >(videoMsg.ByteSizeLong());
 		std::vector< unsigned char > packet(static_cast< std::size_t >(msgSize + 1));

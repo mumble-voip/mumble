@@ -111,9 +111,13 @@ void ScreenCapture::captureFrame() {
 		return;
 
 	while (avcodec_receive_packet(m_codecCtx, m_packet) == 0) {
-		QByteArray encodedData(reinterpret_cast< const char * >(m_packet->data), m_packet->size);
-		const bool isKey = (m_packet->flags & AV_PKT_FLAG_KEY) != 0;
-		emit frameEncoded(encodedData, m_frameNumber, isKey);
+		EncodedVideoFrame encoded;
+		encoded.data        = QByteArray(reinterpret_cast< const char * >(m_packet->data), m_packet->size);
+		encoded.frameNumber = m_frameNumber;
+		encoded.width       = static_cast< quint32 >(m_encoderWidth);
+		encoded.height      = static_cast< quint32 >(m_encoderHeight);
+		encoded.isKeyFrame  = (m_packet->flags & AV_PKT_FLAG_KEY) != 0;
+		emit frameEncoded(encoded);
 		av_packet_unref(m_packet);
 	}
 

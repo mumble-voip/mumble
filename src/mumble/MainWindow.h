@@ -36,6 +36,7 @@ class BanEditor;
 class UserEdit;
 class ServerHandler;
 class ScreenShareViewer;
+struct EncodedVideoFrame;
 class GlobalShortcut;
 class TextToSpeech;
 class UserModel;
@@ -472,7 +473,7 @@ public:
 	void toggleSelfPrioritySpeaker();
 	void recording();
 	void screenShare();
-	void sendScreenShareFrame(QByteArray encodedData, quint64 frameNumber, bool isKeyFrame);
+	void sendScreenShareFrame(const EncodedVideoFrame &frame);
 	void onRemoteFrameDecoded(quint32 senderSession, QImage frame);
 	void onRemoteScreenShareStopped(quint32 senderSession);
 	void openSelfCommentDialog();
