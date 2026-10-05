@@ -3651,7 +3651,9 @@ void MainWindow::serverConnected() {
 	Global::get().uiMaxUsers      = 0;
 
 	enableRecording(true);
-	qaScreenShare->setEnabled(true);
+	// Only allowed once the server says so, as servers that don't support screen sharing never do
+	Global::get().screenSharingAllowed = false;
+	updateScreenShareAction();
 
 	if (Global::get().s.bMute || Global::get().s.bDeaf) {
 		Global::get().sh->setSelfMuteDeafState(Global::get().s.bMute, Global::get().s.bDeaf);
@@ -3766,14 +3768,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 	// We can't record or share screen without a server, so disable that functionality here
 	enableRecording(false);
-	qaScreenShare->setEnabled(false);
-	if (Global::get().sc && Global::get().sc->isCapturing()) {
-		Global::get().sc->stopCapture();
-	}
-#ifdef USE_SCREEN_SHARING
-	if (m_videoSender)
-		m_videoSender->reset();
-#endif
+	stopScreenShareCapture();
+	Global::get().screenSharingAllowed = false;
+	updateScreenShareAction();
 
 	if (!Global::get().sh->qlErrors.isEmpty()) {
 		for (const QSslError &e : Global::get().sh->qlErrors) {
@@ -4363,17 +4360,27 @@ void MainWindow::screenShare() {
 		mpus.set_screen_sharing(true);
 		Global::get().sh->sendMessage(mpus);
 	} else {
-		Global::get().sc->stopCapture();
-#ifdef USE_SCREEN_SHARING
-		if (m_videoSender)
-			m_videoSender->reset();
-#endif
+		stopScreenShareCapture();
 
 		MumbleProto::UserState mpus;
 		mpus.set_session(p->uiSession);
 		mpus.set_screen_sharing(false);
 		Global::get().sh->sendMessage(mpus);
 	}
+}
+
+void MainWindow::stopScreenShareCapture() {
+	if (Global::get().sc && Global::get().sc->isCapturing())
+		Global::get().sc->stopCapture();
+#ifdef USE_SCREEN_SHARING
+	if (m_videoSender)
+		m_videoSender->reset();
+#endif
+}
+
+void MainWindow::updateScreenShareAction() {
+	const bool sharing = Global::get().sc && Global::get().sc->isCapturing();
+	qaScreenShare->setEnabled(sharing || (Global::get().sh && Global::get().screenSharingAllowed));
 }
 
 void MainWindow::onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame) {
