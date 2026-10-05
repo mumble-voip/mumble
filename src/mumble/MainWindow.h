@@ -491,6 +491,8 @@ public:
 	void stopScreenShareCapture();
 	/// Enables the screen share action if we may share our screen, and always while we do.
 	void updateScreenShareAction();
+	/// Makes our screen share keep to the server's bandwidth limit.
+	void updateScreenShareBitrate();
 	void onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame);
 	void requestScreenShareKeyFrame(quint32 senderSession);
 	/// Tells the screen capture what to base the choice of the video encoder on, i.e. the settings and the codecs

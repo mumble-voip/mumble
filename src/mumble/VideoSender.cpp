@@ -20,8 +20,7 @@ static constexpr int MAX_FRAGMENT_BYTES = 900;
 
 /// Pacing rate relative to the encoder's target bit rate. Regular frames are well below the average size, so
 /// they still go out right away, while a key frame takes a few hundred milliseconds.
-static constexpr double PACING_FACTOR       = 2.5;
-static constexpr double PACING_BYTES_PER_US = PACING_FACTOR * VideoEncoder::BITRATE / 8 / 1'000'000;
+static constexpr double PACING_FACTOR = 2.5;
 /// Upper limit for how long fragments may wait in the queue. When more is queued than can be sent within that
 /// time at the pacing rate, the rate is raised accordingly. Everything behind a key frame is delayed by as much,
 /// which viewers see as a stutter once it exceeds their playout delay. Since the encoder limits the size of key
@@ -32,7 +31,11 @@ static constexpr qint64 MAX_QUEUE_DELAY_US = 100'000;
 static constexpr qint64 MAX_BURST_US    = 10'000;
 static constexpr int PACING_INTERVAL_MS = 5;
 
-VideoSender::VideoSender(QObject *parent) : QObject(parent) {
+static double pacingRate(int bitrate) {
+	return PACING_FACTOR * bitrate / 8 / 1'000'000;
+}
+
+VideoSender::VideoSender(QObject *parent) : QObject(parent), m_pacingRate(pacingRate(VideoEncoder::DEFAULT_BITRATE)) {
 	m_clock.start();
 
 	// The timer is a child, so it moves to the sender's thread together with it.
@@ -52,6 +55,11 @@ void VideoSender::sendFrame(const EncodedVideoFrame &frame) {
 void VideoSender::reset() {
 	QMetaObject::invokeMethod(
 		this, [this]() { processReset(); }, Qt::QueuedConnection);
+}
+
+void VideoSender::setBitrate(int bitrate) {
+	QMetaObject::invokeMethod(
+		this, [this, bitrate]() { processBitrate(bitrate); }, Qt::QueuedConnection);
 }
 
 qint64 VideoSender::now() const {
@@ -104,6 +112,10 @@ void VideoSender::processReset() {
 	m_timer->stop();
 }
 
+void VideoSender::processBitrate(int bitrate) {
+	m_pacingRate = pacingRate(bitrate);
+}
+
 void VideoSender::sendDue() {
 	ServerHandlerPtr sh = Global::get().sh;
 	if (!sh) {
@@ -112,7 +124,7 @@ void VideoSender::sendDue() {
 	}
 
 	const qint64 currentTime = now();
-	const double rate        = std::max(PACING_BYTES_PER_US, static_cast< double >(m_queuedBytes) / MAX_QUEUE_DELAY_US);
+	const double rate        = std::max(m_pacingRate, static_cast< double >(m_queuedBytes) / MAX_QUEUE_DELAY_US);
 	m_budget     = std::min(m_budget + rate * static_cast< double >(currentTime - m_lastRefill), rate * MAX_BURST_US);
 	m_lastRefill = currentTime;
 
