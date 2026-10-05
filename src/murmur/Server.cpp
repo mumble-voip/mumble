@@ -2303,6 +2303,13 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 			p->bPrioritySpeaker = false;
 			mpus.set_priority_speaker(p->bPrioritySpeaker);
 		}
+
+		if (p->bScreenSharing
+			&& !ChanACL::hasPermission(static_cast< ServerUser * >(p), c, ChanACL::ScreenShare, nullptr)) {
+			// End the screen share, as it would be shown in a channel the user may not share their screen in
+			p->bScreenSharing = false;
+			mpus.set_screen_sharing(false);
+		}
 	}
 
 	clearACLCache(p);
@@ -2458,6 +2465,16 @@ void Server::clearACLCache(User *p) {
 				mpus.Clear();
 				mpus.set_session(user->uiSession);
 				mpus.set_suppress(user->bSuppress);
+				sendAll(mpus);
+			}
+
+			// Likewise, end a user's screen share if they may no longer share their screen in their channel
+			if (user->bScreenSharing && !ChanACL::hasPermission(user, user->cChannel, ChanACL::ScreenShare, &acCache)) {
+				user->bScreenSharing = false;
+
+				mpus.Clear();
+				mpus.set_session(user->uiSession);
+				mpus.set_screen_sharing(false);
 				sendAll(mpus);
 			}
 		};

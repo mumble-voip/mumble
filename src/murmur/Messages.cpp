@@ -983,12 +983,19 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_screen_sharing() && msg.screen_sharing() && !pDstServerUser->bScreenSharing) {
+		bool allowed = true;
 		if (!allowScreenSharing) {
 			MumbleProto::PermissionDenied mppd;
 			mppd.set_type(MumbleProto::PermissionDenied_DenyType_Text);
 			mppd.set_reason(u8(QLatin1String("Screen sharing is not allowed on this server")));
 			sendMessage(uSource, mppd);
+			allowed = false;
+		} else if (!hasPermission(pDstServerUser, pDstServerUser->cChannel, ChanACL::ScreenShare)) {
+			PERM_DENIED(pDstServerUser, pDstServerUser->cChannel, ChanACL::ScreenShare);
+			allowed = false;
+		}
 
+		if (!allowed) {
 			// The client may already have started sharing, so tell it that it isn't
 			MumbleProto::UserState mpus;
 			mpus.set_session(uSource->uiSession);
