@@ -1881,6 +1881,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 			case Mumble::Protocol::TCPMessageType::PermissionQuery:
 			case Mumble::Protocol::TCPMessageType::UserStats:
 			case Mumble::Protocol::TCPMessageType::RequestBlob:
+			case Mumble::Protocol::TCPMessageType::VideoKeyFrameRequest:
 				break;
 			// In case the user is authenticated as a registered user, a DB update can occur, which is
 			// why we have to block connections from new clients in read-only mode.

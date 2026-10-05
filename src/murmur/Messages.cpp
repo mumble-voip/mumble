@@ -2634,7 +2634,30 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 	}
 }
 
-void Server::msgVideoKeyFrameRequest(ServerUser *, MumbleProto::VideoKeyFrameRequest &) {
+void Server::msgVideoKeyFrameRequest(ServerUser *uSource, MumbleProto::VideoKeyFrameRequest &msg) {
+	ZoneScoped;
+
+	// Requests are sent automatically by the client, so they don't count as user activity
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
+	RATELIMIT(uSource);
+
+	if (!msg.has_session()) {
+		return;
+	}
+
+	ServerUser *target = qhUsers.value(msg.session());
+
+	// Video is only relayed to the users in the sender's channel (see processVideoMsg()), so nobody else
+	// has a stream to request a key frame for.
+	if (!target || target == uSource || target->sState != ServerUser::Authenticated || !target->bScreenSharing
+		|| target->cChannel != uSource->cChannel) {
+		return;
+	}
+
+	// Always set the requester's session ourselves, so that it can't be spoofed
+	msg.set_actor(uSource->uiSession);
+
+	sendMessage(target, msg);
 }
 
 void Server::msgVideoSubscription(ServerUser *, MumbleProto::VideoSubscription &) {
