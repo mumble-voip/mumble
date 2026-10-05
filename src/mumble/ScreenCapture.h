@@ -102,6 +102,22 @@ private:
 	/// @param captureTime  Capture time in microseconds on m_streamClock.
 	void encodeImage(const QImage &srcImage, qint64 captureTime);
 
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	/// Entry point for frames pushed by a native capture stream. These streams may deliver frames at a much
+	/// higher and irregular rate (e.g. only when the screen content changes), so frames are limited to the
+	/// target frame rate here. Only the most recent frame is kept: when frames arrive faster than they can be
+	/// sent, the older ones are dropped instead of piling up.
+	void submitFrame(const QImage &frame);
+	void encodePendingFrame();
+
+	/// Fires when the next frame slot opens up while a frame is pending.
+	QTimer *m_frameRateTimer = nullptr;
+	QImage m_pendingFrame;
+	qint64 m_pendingCaptureTime = 0;
+	/// Time at which the last frame was handed to the encoder, or -1 if none was yet.
+	qint64 m_lastEncodeTime = -1;
+#	endif
+
 	CaptureSource m_source; ///< Defaults to EntireScreen, screenIndex=0 (primary display).
 
 	AVCodecContext *m_codecCtx = nullptr;

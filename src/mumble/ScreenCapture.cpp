@@ -24,10 +24,11 @@
 
 // These values are still hardcoded. This should probably be a setting.
 // For now these values seem alright for testing
-static constexpr int CAPTURE_INTERVAL_MS = 66;        // ~15 fps
-static constexpr int VIDEO_BITRATE       = 1'500'000; // 1.5 Mbps
-static constexpr int VIDEO_FPS           = 15;
-static constexpr int VIDEO_GOP_SIZE      = 60 * VIDEO_FPS; // keyframe every ~60 s — receivers request them on loss
+static constexpr int CAPTURE_INTERVAL_MS  = 66;        // ~15 fps
+static constexpr int VIDEO_BITRATE        = 1'500'000; // 1.5 Mbps
+static constexpr int VIDEO_FPS            = 15;
+static constexpr int VIDEO_GOP_SIZE       = 60 * VIDEO_FPS; // keyframe every ~60 s — receivers request them on loss
+static constexpr qint64 FRAME_INTERVAL_US = 1'000'000 / VIDEO_FPS;
 /// Minimum time between a key frame and one sent on request. Viewers tend to lose the same packets and each of
 /// them asks for a key frame, so this keeps a single loss from causing a burst of key frames.
 static constexpr qint64 MIN_KEYFRAME_REQUEST_INTERVAL_US = 500'000;
@@ -41,6 +42,13 @@ ScreenCapture::ScreenCapture(QObject *parent) : QObject(parent) {
 	m_keyFrameTimer = new QTimer(this);
 	m_keyFrameTimer->setSingleShot(true);
 	connect(m_keyFrameTimer, &QTimer::timeout, this, [this]() { m_keyFrameRequested = true; });
+#endif
+
+#if defined(USE_SCREEN_SHARING) && (defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL))
+	m_frameRateTimer = new QTimer(this);
+	m_frameRateTimer->setSingleShot(true);
+	m_frameRateTimer->setTimerType(Qt::PreciseTimer);
+	connect(m_frameRateTimer, &QTimer::timeout, this, &ScreenCapture::encodePendingFrame);
 #endif
 }
 
@@ -78,6 +86,11 @@ void ScreenCapture::stopCapture() {
 	sckit_stop();
 #	elif defined(HAS_WAYLAND_PORTAL)
 	xdg_portal_stop();
+#	endif
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	m_frameRateTimer->stop();
+	m_pendingFrame   = QImage();
+	m_lastEncodeTime = -1;
 #	endif
 	destroyEncoder();
 #endif
@@ -121,9 +134,10 @@ void ScreenCapture::startCaptureNative() {
 	auto onStarted = [self]() {
 		if (!self)
 			return;
-		self->m_capturing   = true;
-		self->m_frameNumber = 0;
-		self->m_lastPts     = -1;
+		self->m_capturing      = true;
+		self->m_frameNumber    = 0;
+		self->m_lastPts        = -1;
+		self->m_lastEncodeTime = -1;
 		self->m_streamClock.start();
 		emit self->captureStarted();
 	};
@@ -154,7 +168,7 @@ void ScreenCapture::startCaptureNative() {
 	auto onFrame = [self](QImage frame) {
 		if (!self || !self->m_capturing)
 			return;
-		self->encodeImage(frame, self->m_streamClock.nsecsElapsed() / 1000);
+		self->submitFrame(frame);
 	};
 
 #		ifdef Q_OS_MAC
@@ -162,6 +176,35 @@ void ScreenCapture::startCaptureNative() {
 #		else
 	xdg_portal_startCapture(std::move(onStarted), std::move(onCancelled), std::move(onError), std::move(onFrame));
 #		endif
+}
+
+void ScreenCapture::submitFrame(const QImage &frame) {
+	const qint64 currentTime = m_streamClock.nsecsElapsed() / 1000;
+
+	// Replaces a frame that is still waiting for its slot
+	m_pendingFrame       = frame;
+	m_pendingCaptureTime = currentTime;
+
+	const qint64 nextSlot = m_lastEncodeTime + FRAME_INTERVAL_US;
+	if (m_lastEncodeTime < 0 || currentTime >= nextSlot) {
+		m_frameRateTimer->stop();
+		encodePendingFrame();
+	} else if (!m_frameRateTimer->isActive()) {
+		// Make sure that the latest frame still goes out even if the source does not deliver another one
+		// (which happens as soon as the screen content stops changing).
+		m_frameRateTimer->start(static_cast< int >((nextSlot - currentTime + 999) / 1000));
+	}
+}
+
+void ScreenCapture::encodePendingFrame() {
+	if (m_pendingFrame.isNull() || !m_capturing)
+		return;
+
+	const QImage frame = std::move(m_pendingFrame);
+	m_pendingFrame     = QImage();
+	m_lastEncodeTime   = m_streamClock.nsecsElapsed() / 1000;
+
+	encodeImage(frame, m_pendingCaptureTime);
 }
 #	endif // Q_OS_MAC || HAS_WAYLAND_PORTAL
 
