@@ -256,9 +256,6 @@ void ServerHandler::udpReady() {
 		if (!connection)
 			continue;
 
-		if (!connection->csCrypt->isValid())
-			continue;
-
 		if (buflen < 5)
 			continue;
 
@@ -267,16 +264,23 @@ void ServerHandler::udpReady() {
 		// 4 bytes is the overhead of the encryption
 		assert(buffer.size() >= buflen - 4);
 
-		if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(),
-										  buflen)) {
-			if (connection->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
-				if (connection->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
-					connection->csCrypt->tLastRequest.restart();
-					MumbleProto::CryptSetup mpcs;
-					sendMessage(mpcs);
+		{
+			QMutexLocker qml(&qmUdp);
+
+			if (!csCrypt->isValid())
+				continue;
+
+			if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(),
+											  buflen)) {
+				if (connection->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+					if (connection->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
+						connection->csCrypt->tLastRequest.restart();
+						MumbleProto::CryptSetup mpcs;
+						sendMessage(mpcs);
+					}
 				}
+				continue;
 			}
-			continue;
 		}
 
 		if (m_udpDecoder.decode(buffer.subspan(0, buflen - 4))) {

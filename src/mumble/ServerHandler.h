@@ -109,7 +109,6 @@ protected:
 	HostAddress qhaRemote;
 	HostAddress qhaLocal;
 	QUdpSocket *qusUdp;
-	QMutex qmUdp;
 
 	void handleVoicePacket(const Mumble::Protocol::AudioData &audioData);
 
@@ -120,6 +119,7 @@ public:
 	QList< QSslError > qlErrors;
 	QList< QSslCertificate > qscCert;
 	QSslCipher qscCipher;
+	QMutex qmUdp;
 	ConnectionPtr cConnection;
 	QByteArray qbaDigest;
 	std::shared_ptr< VoiceRecorder > recorder;

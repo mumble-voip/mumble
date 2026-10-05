@@ -1074,9 +1074,18 @@ void MainWindow::msgPing(const MumbleProto::Ping &) {
 }
 
 void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
-	ConnectionPtr c = Global::get().sh->cConnection;
+	ServerHandlerPtr sh = Global::get().sh;
+
+	QMutexLocker qml(&sh->qmUdp);
+
+	ConnectionPtr c = sh->cConnection;
 	if (!c)
 		return;
+
+	if (!c->csCrypt) {
+		return;
+	}
+
 	if (msg.has_key() && msg.has_client_nonce() && msg.has_server_nonce()) {
 		const std::string &key          = msg.key();
 		const std::string &client_nonce = msg.client_nonce();
