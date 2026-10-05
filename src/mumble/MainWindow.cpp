@@ -1861,7 +1861,8 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserTextureReset);
 	}
 
-	if (p && !isSelf && p->bScreenSharing) {
+	// Screen shares are only relayed within a channel
+	if (p && !isSelf && p->bScreenSharing && self && p->cChannel == self->cChannel) {
 		qmUser->addSeparator();
 		qmUser->addAction(qaUserViewScreenShare);
 	}
@@ -3763,6 +3764,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qlUserActions.clear();
 
 	pmModel->removeAll();
+	updateScreenShareSubscriptions();
 	qtvUsers->setRowHidden(0, QModelIndex(), true);
 
 	// Update QActions and menus
@@ -4406,20 +4408,27 @@ void MainWindow::updateScreenShareAction() {
 	qaScreenShare->setEnabled(sharing || (Global::get().sh && Global::get().screenSharingAllowed && permitted));
 }
 
+ScreenShareViewer *MainWindow::screenShareViewer(quint32 senderSession) {
+	if (!m_screenShareViewers.contains(senderSession)) {
+		ClientUser *sender = ClientUser::get(senderSession);
+		const QString name = sender ? sender->qsName : tr("Unknown");
+
+		ScreenShareViewer *viewer = new ScreenShareViewer(senderSession, name, this);
+		connect(viewer, &ScreenShareViewer::closed, this, &MainWindow::unsubscribeFromScreenShare);
+		m_screenShareViewers.insert(senderSession, viewer);
+	}
+
+	return m_screenShareViewers[senderSession];
+}
+
 void MainWindow::onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame) {
 	// Frames decoded before the share ended may still arrive afterwards, they must not bring the viewer back
 	ClientUser *sender = ClientUser::get(senderSession);
 	if (!sender || !sender->bScreenSharing)
 		return;
-	const QString name = sender->qsName;
 
-	if (!m_screenShareViewers.contains(senderSession)) {
-		ScreenShareViewer *viewer = new ScreenShareViewer(senderSession, name, this);
-		m_screenShareViewers.insert(senderSession, viewer);
-	}
-
-	ScreenShareViewer *viewer = m_screenShareViewers[senderSession];
-	viewer->updateFrame(frame);
+	// Always store the latest frame, but never reopen a window the user closed.
+	screenShareViewer(senderSession)->updateFrame(frame);
 }
 
 void MainWindow::subscribeToScreenShare(quint32 senderSession) {
@@ -4435,6 +4444,10 @@ void MainWindow::subscribeToScreenShare(quint32 senderSession) {
 	mpvs.set_session(senderSession);
 	mpvs.set_subscribe(true);
 	Global::get().sh->sendMessage(mpvs);
+
+	// Ask for a key frame right away instead of waiting for the next periodic one. The request arrives after
+	// the subscription, as both are sent over TCP.
+	requestScreenShareKeyFrame(senderSession);
 }
 
 void MainWindow::unsubscribeFromScreenShare(quint32 senderSession) {
@@ -4457,17 +4470,6 @@ void MainWindow::updateScreenShareSubscriptions() {
 		if (!self || !sender || !sender->bScreenSharing || sender->cChannel != self->cChannel)
 			onRemoteScreenShareStopped(senderSession);
 	}
-
-#ifdef USE_SCREEN_SHARING
-	// Without screen sharing support we can't decode any video, and the server doesn't relay any to us anyway
-	if (!self || !self->cChannel)
-		return;
-
-	for (const User *user : self->cChannel->qlUsers) {
-		if (user != self && user->bScreenSharing)
-			subscribeToScreenShare(user->uiSession);
-	}
-#endif
 }
 
 void MainWindow::updateScreenShareFrameRate() {
@@ -4498,7 +4500,8 @@ void MainWindow::updateScreenShareEncoderSelection() {
 }
 
 void MainWindow::requestScreenShareKeyFrame(quint32 senderSession) {
-	if (!Global::get().sh)
+	// The server only forwards requests for streams that we subscribed to
+	if (!Global::get().sh || !m_screenShareSubscriptions.contains(senderSession))
 		return;
 
 	MumbleProto::VideoKeyFrameRequest mpvkfr;
@@ -4511,13 +4514,8 @@ void MainWindow::on_qaUserViewScreenShare_triggered() {
 	if (!p || !p->bScreenSharing)
 		return;
 
-	if (!m_screenShareViewers.contains(p->uiSession)) {
-		ScreenShareViewer *viewer = new ScreenShareViewer(p->uiSession, p->qsName, this);
-		m_screenShareViewers.insert(p->uiSession, viewer);
-	}
-
-	ScreenShareViewer *viewer = m_screenShareViewers[p->uiSession];
-	viewer->showAndRefresh();
+	screenShareViewer(p->uiSession)->showAndRefresh();
+	subscribeToScreenShare(p->uiSession);
 }
 
 void MainWindow::onRemoteScreenShareStopped(quint32 senderSession) {

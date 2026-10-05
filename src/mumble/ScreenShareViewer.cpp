@@ -9,6 +9,7 @@
 #	include "VideoWidget.h"
 #endif
 
+#include <QtGui/QCloseEvent>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
 
@@ -39,6 +40,12 @@ void ScreenShareViewer::showAndRefresh() {
 	show();
 	raise();
 	activateWindow();
+}
+
+void ScreenShareViewer::closeEvent(QCloseEvent *event) {
+	QDialog::closeEvent(event);
+
+	emit closed(m_senderSession);
 }
 
 void ScreenShareViewer::updateFrame(VideoFrame frame) {
