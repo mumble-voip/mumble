@@ -49,7 +49,8 @@
 	PROCESS_MUMBLE_TCP_MESSAGE(ServerConfig, 24)           \
 	PROCESS_MUMBLE_TCP_MESSAGE(SuggestConfig, 25)          \
 	PROCESS_MUMBLE_TCP_MESSAGE(PluginDataTransmission, 26) \
-	PROCESS_MUMBLE_TCP_MESSAGE(VideoKeyFrameRequest, 27)
+	PROCESS_MUMBLE_TCP_MESSAGE(VideoKeyFrameRequest, 27)   \
+	PROCESS_MUMBLE_TCP_MESSAGE(VideoSubscription, 28)
 
 /**
  * "X-macro" for all Mumble Protobuf UDP messages types.

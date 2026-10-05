@@ -1307,6 +1307,9 @@ void MainWindow::msgPluginDataTransmission(const MumbleProto::PluginDataTransmis
 void MainWindow::msgVideoKeyFrameRequest(const MumbleProto::VideoKeyFrameRequest &) {
 }
 
+void MainWindow::msgVideoSubscription(const MumbleProto::VideoSubscription &) {
+}
+
 #undef ACTOR_INIT
 #undef VICTIM_INIT
 #undef SELF_INIT

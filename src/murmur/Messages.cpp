@@ -2616,6 +2616,9 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 void Server::msgVideoKeyFrameRequest(ServerUser *, MumbleProto::VideoKeyFrameRequest &) {
 }
 
+void Server::msgVideoSubscription(ServerUser *, MumbleProto::VideoSubscription &) {
+}
+
 #undef RATELIMIT
 #undef MSG_SETUP
 #undef MSG_SETUP_NO_UNIDLE

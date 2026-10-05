@@ -665,3 +665,15 @@ message VideoKeyFrameRequest {
 	// The session of the user that requested the key frame. Set by the server when forwarding the request.
 	optional uint32 actor = 2;
 }
+
+// Sent by a client to tell the server whose screen share it wants to receive. As video needs a lot of bandwidth,
+// the server only relays a screen share to the users that subscribed to it. Subscribing to a user who isn't sharing
+// their screen in the same channel has no effect. A subscription ends when either user leaves their channel or the
+// sharing user stops sharing their screen; to receive the user's next screen share, the client has to subscribe again.
+message VideoSubscription {
+	// The session of the user sharing their screen.
+	optional uint32 session = 1;
+	// True to start receiving the screen share, false to stop. Messages without this field are ignored, so that newer
+	// clients can send messages that only change fields older servers don't know.
+	optional bool subscribe = 2;
+}

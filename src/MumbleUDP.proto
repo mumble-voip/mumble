@@ -55,7 +55,8 @@ message Audio {
 
 /**
  * Sent by a client to stream an encoded video frame fragment to other users in the same channel.
- * The server relays each fragment to all other users in the sender's channel.
+ * The server relays each fragment to the other users in the sender's channel that subscribed to the stream (see
+ * the VideoSubscription TCP message) and that can decode its codec (see UserState.video_capabilities).
  * Large frames are split into multiple fragments; receivers reassemble them using
  * frame_number + fragment_index / fragment_count.
  *
