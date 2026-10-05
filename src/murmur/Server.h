@@ -401,6 +401,8 @@ public:
 	/// Ends the user's screen share, e.g. because screen sharing is not allowed for them anymore, and tells
 	/// everyone about it.
 	void stopScreenSharing(ServerUser *u);
+	/// Ends all subscriptions to the user's screen share. Must not be called while holding the voice thread lock.
+	void endVideoSubscriptionsTo(ServerUser *sharer);
 	bool unregisterUser(int id);
 
 	Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *parent = nullptr);

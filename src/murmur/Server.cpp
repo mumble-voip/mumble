@@ -648,11 +648,20 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			sendAll(mpsc);
 
 			if (!allowScreenSharing) {
-				for (ServerUser *u : qhUsers) {
-					if (u->bScreenSharing) {
-						stopScreenSharing(u);
-					}
-				}
+				// Ending a screen share takes the voice thread lock, which the caller (e.g. Ice) may be holding right
+				// now, so it is done once the current event has been handled. Until then, the screen shares are
+				// still relayed.
+				QCoreApplication::instance()->postEvent(this, new ExecEvent([this]() {
+															if (allowScreenSharing) {
+																return;
+															}
+
+															for (ServerUser *u : qhUsers) {
+																if (u->bScreenSharing) {
+																	stopScreenSharing(u);
+																}
+															}
+														}));
 			}
 		}
 	} else if (key == "rollingStatsWindow")
@@ -1269,11 +1278,11 @@ void Server::processVideoMsg(ServerUser *u, MumbleUDP::Video &videoMsg) {
 
 	const unsigned int codec = static_cast< unsigned int >(videoMsg.codec());
 
-	// Broadcast packet to all users in channel
+	// Send packet to the users in the channel that are watching the stream
 	for (User *p : u->cChannel->qlUsers) {
 		ServerUser *dst = static_cast< ServerUser * >(p);
 
-		if (dst == u)
+		if (dst == u || !dst->m_videoSubscriptions.contains(u->uiSession))
 			continue;
 
 		// Only send video to clients that told us they can decode it. This also leaves out clients that don't
@@ -1816,6 +1825,11 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		m_pendingConnections.erase(u);
 		removeHostUser(u);
 
+		// The session may be reused by another user, whose stream nobody subscribed to
+		for (ServerUser *other : qhUsers) {
+			other->m_videoSubscriptions.remove(u->uiSession);
+		}
+
 		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6)
 						   ? (reinterpret_cast< sockaddr_in6 * >(&u->saiUdpAddress)->sin6_port)
 						   : (reinterpret_cast< sockaddr_in * >(&u->saiUdpAddress)->sin_port);
@@ -1958,6 +1972,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 			case Mumble::Protocol::TCPMessageType::UserStats:
 			case Mumble::Protocol::TCPMessageType::RequestBlob:
 			case Mumble::Protocol::TCPMessageType::VideoKeyFrameRequest:
+			case Mumble::Protocol::TCPMessageType::VideoSubscription:
 				break;
 			// In case the user is authenticated as a registered user, a DB update can occur, which is
 			// why we have to block connections from new clients in read-only mode.
@@ -2333,6 +2348,12 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 			p->bScreenSharing = false;
 			mpus.set_screen_sharing(false);
 		}
+
+		// Video is only relayed within a channel, so leaving it ends all subscriptions of and to the user
+		static_cast< ServerUser * >(p)->m_videoSubscriptions.clear();
+		for (ServerUser *u : qhUsers) {
+			u->m_videoSubscriptions.remove(p->uiSession);
+		}
 	}
 
 	clearACLCache(p);
@@ -2356,11 +2377,20 @@ void Server::stopScreenSharing(ServerUser *u) {
 		return;
 
 	u->bScreenSharing = false;
+	endVideoSubscriptionsTo(u);
 
 	MumbleProto::UserState mpus;
 	mpus.set_session(u->uiSession);
 	mpus.set_screen_sharing(false);
 	sendAll(mpus);
+}
+
+void Server::endVideoSubscriptionsTo(ServerUser *sharer) {
+	QWriteLocker wl(&qrwlVoiceThread);
+
+	for (ServerUser *u : qhUsers) {
+		u->m_videoSubscriptions.remove(sharer->uiSession);
+	}
 }
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm) {
@@ -2453,6 +2483,7 @@ void Server::flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQu
 
 void Server::clearACLCache(User *p) {
 	MumbleProto::PermissionQuery mppq;
+	std::vector< ServerUser * > stoppedSharing;
 
 	{
 		QMutexLocker qml(&qmCache);
@@ -2494,6 +2525,7 @@ void Server::clearACLCache(User *p) {
 			// Likewise, end a user's screen share if they may no longer share their screen in their channel
 			if (user->bScreenSharing && !ChanACL::hasPermission(user, user->cChannel, ChanACL::ScreenShare, &acCache)) {
 				user->bScreenSharing = false;
+				stoppedSharing.push_back(user);
 
 				mpus.Clear();
 				mpus.set_session(user->uiSession);
@@ -2509,6 +2541,11 @@ void Server::clearACLCache(User *p) {
 				processingFunction(currentUser);
 			}
 		}
+	}
+
+	// Only done now, as the voice thread lock must not be taken while holding qmCache
+	for (ServerUser *user : stoppedSharing) {
+		endVideoSubscriptionsTo(user);
 	}
 
 	// A change in ACLs means that the user might be able to whisper

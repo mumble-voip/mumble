@@ -1137,6 +1137,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		assert(uSource == pDstServerUser);
 
 		pDstServerUser->bScreenSharing = msg.screen_sharing();
+		if (!pDstServerUser->bScreenSharing) {
+			endVideoSubscriptionsTo(pDstServerUser);
+		}
 
 		MumbleProto::TextMessage mptm;
 		mptm.add_tree_id(0);
@@ -2716,10 +2719,10 @@ void Server::msgVideoKeyFrameRequest(ServerUser *uSource, MumbleProto::VideoKeyF
 
 	ServerUser *target = qhUsers.value(msg.session());
 
-	// Video is only relayed to the users in the sender's channel (see processVideoMsg()), so nobody else
-	// has a stream to request a key frame for.
+	// Video is only relayed to the users in the sender's channel that subscribed to the stream (see
+	// processVideoMsg()), so nobody else has a stream to request a key frame for.
 	if (!target || target == uSource || target->sState != ServerUser::Authenticated || !target->bScreenSharing
-		|| target->cChannel != uSource->cChannel) {
+		|| target->cChannel != uSource->cChannel || !uSource->m_videoSubscriptions.contains(target->uiSession)) {
 		return;
 	}
 
@@ -2729,7 +2732,34 @@ void Server::msgVideoKeyFrameRequest(ServerUser *uSource, MumbleProto::VideoKeyF
 	sendMessage(target, msg);
 }
 
-void Server::msgVideoSubscription(ServerUser *, MumbleProto::VideoSubscription &) {
+void Server::msgVideoSubscription(ServerUser *uSource, MumbleProto::VideoSubscription &msg) {
+	ZoneScoped;
+
+	MSG_SETUP(ServerUser::Authenticated);
+	RATELIMIT(uSource);
+
+	// A message without subscribe may come from a newer client that only changes something about its subscription
+	// that this server doesn't know about. Taking it for an unsubscription would end the subscription instead.
+	if (!msg.has_session() || !msg.has_subscribe()) {
+		return;
+	}
+
+	if (msg.subscribe()) {
+		ServerUser *target = qhUsers.value(msg.session());
+
+		// Video is only relayed within a channel, and subscriptions end when either user leaves it or the
+		// target stops sharing, so subscribing to anyone else would never have any effect.
+		if (!target || target == uSource || target->sState != ServerUser::Authenticated || !target->bScreenSharing
+			|| target->cChannel != uSource->cChannel) {
+			return;
+		}
+
+		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->m_videoSubscriptions.insert(target->uiSession);
+	} else {
+		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->m_videoSubscriptions.remove(msg.session());
+	}
 }
 
 #undef RATELIMIT
