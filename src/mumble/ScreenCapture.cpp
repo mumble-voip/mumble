@@ -23,7 +23,7 @@
 static constexpr int CAPTURE_INTERVAL_MS = 66;        // ~15 fps
 static constexpr int VIDEO_BITRATE       = 1'500'000; // 1.5 Mbps
 static constexpr int VIDEO_FPS           = 15;
-static constexpr int VIDEO_GOP_SIZE      = 5; // keyframe every ~333 ms — limits UDP error propagation
+static constexpr int VIDEO_GOP_SIZE      = 60 * VIDEO_FPS; // keyframe every ~60 s — receivers request them on loss
 /// Minimum time between a key frame and one sent on request. Viewers tend to lose the same packets and each of
 /// them asks for a key frame, so this keeps a single loss from causing a burst of key frames.
 static constexpr qint64 MIN_KEYFRAME_REQUEST_INTERVAL_US = 500'000;
