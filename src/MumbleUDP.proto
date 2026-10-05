@@ -77,9 +77,17 @@ message Video {
 	// overwrites it with the authenticated sender's session before forwarding.
 	uint32 sender_session = 1;
 
-	// Codec identifier. Currently only "H264" is defined.
+	// Codec of video_data. Receivers that can't decode the codec drop the stream. Which codecs a client
+	// can decode is announced in UserState.video_capabilities.
 	enum Codec {
+		// H.264 / AVC: one access unit per frame, in Annex B byte stream format.
 		H264 = 0;
+		// VP8: one compressed frame per frame.
+		VP8 = 1;
+		// VP9: one compressed frame (or superframe) per frame.
+		VP9 = 2;
+		// AV1: one temporal unit per frame, in low overhead bitstream format (sequences of OBUs).
+		AV1 = 3;
 	}
 	Codec codec = 2;
 

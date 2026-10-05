@@ -192,6 +192,12 @@ message UserState {
 		optional float volume_adjustment = 2;
 	}
 
+	message VideoCapabilities {
+		// Video codecs the client can decode, as values of MumbleUDP.Video.Codec. Unknown values have to be
+		// ignored, so that newer codecs can be added.
+		repeated uint32 decoders = 1;
+	}
+
 	// Unique user session ID of the user whose state this is, may change on
 	// reconnect.
 	optional uint32 session = 1;
@@ -247,6 +253,9 @@ message UserState {
 	repeated VolumeAdjustment listening_volume_adjustment = 23;
 	// True if the user is currently sharing their screen.
 	optional bool screen_sharing = 24;
+	// The video capabilities of the user's client. Only the client itself may set these for its own user. A
+	// newly sent value replaces the previous one as a whole.
+	optional VideoCapabilities video_capabilities = 25;
 }
 
 // Relays information on the bans. The client may send the BanList message to
