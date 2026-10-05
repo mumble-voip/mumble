@@ -145,6 +145,7 @@ public:
 	bool bBonjour;
 	bool bAllowPing;
 	bool allowRecording;
+	bool allowScreenSharing;
 	unsigned int rollingStatsWindow;
 
 	QRegularExpression qrUserName;
@@ -396,6 +397,9 @@ public:
 	/// Removes the user from qhHostUsers. Requires the write lock on qrwlVoiceThread to be held.
 	void removeHostUser(ServerUser *u);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
+	/// Ends the user's screen share, e.g. because screen sharing is not allowed for them anymore, and tells
+	/// everyone about it.
+	void stopScreenSharing(ServerUser *u);
 	bool unregisterUser(int id);
 
 	Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *parent = nullptr);

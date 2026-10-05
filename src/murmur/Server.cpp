@@ -383,6 +383,7 @@ void Server::readParams() {
 	bBonjour                           = Meta::mp->bBonjour;
 	bAllowPing                         = Meta::mp->bAllowPing;
 	allowRecording                     = Meta::mp->allowRecording;
+	allowScreenSharing                 = Meta::mp->allowScreenSharing;
 	rollingStatsWindow                 = Meta::mp->rollingStatsWindow;
 	bCertRequired                      = Meta::mp->bCertRequired;
 	bForceExternalAuth                 = Meta::mp->bForceExternalAuth;
@@ -440,6 +441,7 @@ void Server::readParams() {
 	m_dbWrapper.getConfigurationTo(iServerNum, "textmessagelength", iMaxTextMessageLength);
 	m_dbWrapper.getConfigurationTo(iServerNum, "imagemessagelength", iMaxImageMessageLength);
 	m_dbWrapper.getConfigurationTo(iServerNum, "allowhtml", bAllowHTML);
+	m_dbWrapper.getConfigurationTo(iServerNum, "allowscreensharing", allowScreenSharing);
 	m_dbWrapper.getConfigurationTo(iServerNum, "defaultchannel", iDefaultChan);
 	m_dbWrapper.getConfigurationTo(iServerNum, "rememberchannel", bRememberChan);
 	m_dbWrapper.getConfigurationTo(iServerNum, "rememberchannelduration", iRememberChanDuration);
@@ -622,7 +624,23 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bAllowPing;
 	else if (key == "allowrecording")
 		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp->allowRecording;
-	else if (key == "rollingStatsWindow")
+	else if (key == "allowscreensharing") {
+		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp->allowScreenSharing;
+		if (allow != allowScreenSharing) {
+			allowScreenSharing = allow;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_screen_sharing_allowed(allowScreenSharing);
+			sendAll(mpsc);
+
+			if (!allowScreenSharing) {
+				for (ServerUser *u : qhUsers) {
+					if (u->bScreenSharing) {
+						stopScreenSharing(u);
+					}
+				}
+			}
+		}
+	} else if (key == "rollingStatsWindow")
 		rollingStatsWindow = i ? static_cast< unsigned int >(i) : Meta::mp->rollingStatsWindow;
 	else if (key == "username")
 		qrUserName =
@@ -2301,6 +2319,18 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	sendClientPermission(static_cast< ServerUser * >(p), c);
 	if (c->cParent)
 		sendClientPermission(static_cast< ServerUser * >(p), c->cParent);
+}
+
+void Server::stopScreenSharing(ServerUser *u) {
+	if (!u->bScreenSharing)
+		return;
+
+	u->bScreenSharing = false;
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(u->uiSession);
+	mpus.set_screen_sharing(false);
+	sendAll(mpus);
 }
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm) {

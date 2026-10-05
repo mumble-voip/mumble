@@ -631,6 +631,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpsc.set_image_message_length(static_cast< unsigned int >(iMaxImageMessageLength));
 	mpsc.set_max_users(static_cast< unsigned int >(iMaxUsers));
 	mpsc.set_recording_allowed(allowRecording);
+	mpsc.set_screen_sharing_allowed(allowScreenSharing);
 	sendMessage(uSource, mpsc);
 
 	MumbleProto::SuggestConfig mpsug;
@@ -979,6 +980,22 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			|| msg.has_recording() || msg.has_screen_sharing() || msg.has_video_capabilities()
 			|| msg.listening_channel_add_size() > 0 || msg.listening_channel_remove_size() > 0)) {
 		return;
+	}
+
+	if (msg.has_screen_sharing() && msg.screen_sharing() && !pDstServerUser->bScreenSharing) {
+		if (!allowScreenSharing) {
+			MumbleProto::PermissionDenied mppd;
+			mppd.set_type(MumbleProto::PermissionDenied_DenyType_Text);
+			mppd.set_reason(u8(QLatin1String("Screen sharing is not allowed on this server")));
+			sendMessage(uSource, mppd);
+
+			// The client may already have started sharing, so tell it that it isn't
+			MumbleProto::UserState mpus;
+			mpus.set_session(uSource->uiSession);
+			mpus.set_screen_sharing(false);
+			sendMessage(uSource, mpus);
+			return;
+		}
 	}
 
 	/*
