@@ -613,6 +613,11 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
+	if (msg.has_video_capabilities()) {
+		const auto &decoders = msg.video_capabilities().decoders();
+		pDst->setVideoDecoders(std::vector< unsigned int >(decoders.begin(), decoders.end()));
+	}
+
 	if (msg.has_screen_sharing()) {
 		pDst->setScreenSharing(msg.screen_sharing());
 
