@@ -622,6 +622,9 @@ message ServerConfig {
 	// in the ServerConfig sent while connecting, so its absence there means that the server doesn't relay any video.
 	// A ServerConfig sent later on only contains the fields that changed.
 	optional bool screen_sharing_allowed = 8;
+	// The maximum bandwidth a user's screen share may use, in bits per second, including the headers of the packets
+	// it is sent in. 0 means that there is no limit.
+	optional uint32 max_video_bandwidth = 9;
 }
 
 // Sent by the server to inform the clients of suggested client configuration
