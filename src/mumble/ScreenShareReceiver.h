@@ -166,8 +166,6 @@ private:
 		AVFrame *frame                = nullptr;
 		AVPacket *packet              = nullptr;
 		SwsContext *swsCtx            = nullptr;
-		int swsWidth                  = 0;
-		int swsHeight                 = 0;
 		MumbleUDP::Video::Codec codec = MumbleUDP::Video::H264;
 		/// Drop P-frames until the decoder has seen at least one IDR keyframe.
 		bool gotKeyFrame = false;

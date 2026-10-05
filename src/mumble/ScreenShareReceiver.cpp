@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <span>
 
 #ifdef USE_SCREEN_SHARING
 // Playout tuning. All times are in microseconds.
@@ -46,24 +47,49 @@ static qint64 timeDiff(quint64 a, quint64 b) {
 	return static_cast< qint64 >(a - b);
 }
 
-/// Maps the protocol's Codec enum to the corresponding FFmpeg codec ID.
-/// To add support for a new codec: add the proto enum value in MumbleUDP.proto,
-/// then add a case here returning the appropriate AV_CODEC_ID_*.
-static AVCodecID codecIdForProtoCodec(MumbleUDP::Video::Codec c) {
-	switch (c) {
+/// Finds the decoder to use for the given codec, or nullptr if there is none.
+///
+/// Decoders are looked up by name in order of preference. The generic lookup by codec ID is not good enough,
+/// as FFmpeg's own AV1 decoder only works together with hardware acceleration and fails on every frame
+/// otherwise.
+static const AVCodec *findDecoder(MumbleUDP::Video::Codec codec) {
+	static constexpr const char *H264_DECODERS[] = { "h264", "libopenh264" };
+	static constexpr const char *VP8_DECODERS[]  = { "vp8", "libvpx" };
+	static constexpr const char *VP9_DECODERS[]  = { "vp9", "libvpx-vp9" };
+	static constexpr const char *AV1_DECODERS[]  = { "libdav1d", "libaom-av1" };
+
+	std::span< const char *const > names;
+	switch (codec) {
 		case MumbleUDP::Video::H264:
-			return AV_CODEC_ID_H264;
+			names = H264_DECODERS;
+			break;
+		case MumbleUDP::Video::VP8:
+			names = VP8_DECODERS;
+			break;
+		case MumbleUDP::Video::VP9:
+			names = VP9_DECODERS;
+			break;
+		case MumbleUDP::Video::AV1:
+			names = AV1_DECODERS;
+			break;
 		default:
-			return AV_CODEC_ID_NONE;
+			return nullptr;
 	}
+
+	for (const char *name : names) {
+		if (const AVCodec *decoder = avcodec_find_decoder_by_name(name))
+			return decoder;
+	}
+	return nullptr;
 }
 #endif
 
 std::vector< MumbleUDP::Video::Codec > ScreenShareReceiver::supportedCodecs() {
 	std::vector< MumbleUDP::Video::Codec > codecs;
 #ifdef USE_SCREEN_SHARING
-	for (MumbleUDP::Video::Codec codec : { MumbleUDP::Video::H264 }) {
-		const AVCodec *decoder = avcodec_find_decoder(codecIdForProtoCodec(codec));
+	for (MumbleUDP::Video::Codec codec :
+		 { MumbleUDP::Video::H264, MumbleUDP::Video::VP8, MumbleUDP::Video::VP9, MumbleUDP::Video::AV1 }) {
+		const AVCodec *decoder = findDecoder(codec);
 		if (!decoder)
 			continue;
 
@@ -370,14 +396,16 @@ quint64 ScreenShareReceiver::PlayoutClock::displayTime(quint64 timestamp) const 
 }
 
 bool ScreenShareReceiver::ensureDecoder(quint32 session, MumbleUDP::Video::Codec protoCodec) {
-	if (m_decoders.count(session) && m_decoders[session].codecCtx)
-		return true;
+	auto it = m_decoders.find(session);
+	if (it != m_decoders.end() && it->second.codecCtx) {
+		if (it->second.codec == protoCodec)
+			return true;
 
-	const AVCodecID avCodecId = codecIdForProtoCodec(protoCodec);
-	if (avCodecId == AV_CODEC_ID_NONE)
-		return false;
+		// The sender switched to a different codec, which always starts with a key frame
+		destroyDecoder(session);
+	}
 
-	const AVCodec *codec = avcodec_find_decoder(avCodecId);
+	const AVCodec *codec = findDecoder(protoCodec);
 	if (!codec)
 		return false;
 
@@ -468,15 +496,9 @@ void ScreenShareReceiver::decodeCompleteFrame(quint32 session, SenderState &send
 		const int dw = ds.frame->width;
 		const int dh = ds.frame->height;
 
-		// (Re-)create the sws context if dimensions changed.
-		if (!ds.swsCtx || ds.swsWidth != dw || ds.swsHeight != dh) {
-			if (ds.swsCtx)
-				sws_freeContext(ds.swsCtx);
-			ds.swsCtx = sws_getContext(dw, dh, static_cast< AVPixelFormat >(ds.frame->format), dw, dh, AV_PIX_FMT_RGBA,
-									   SWS_BILINEAR, nullptr, nullptr, nullptr);
-			ds.swsWidth  = dw;
-			ds.swsHeight = dh;
-		}
+		// The context is cached, and only recreated when the dimensions or the pixel format changed.
+		ds.swsCtx = sws_getCachedContext(ds.swsCtx, dw, dh, static_cast< AVPixelFormat >(ds.frame->format), dw, dh,
+										 AV_PIX_FMT_RGBA, SWS_BILINEAR, nullptr, nullptr, nullptr);
 		if (!ds.swsCtx)
 			continue;
 

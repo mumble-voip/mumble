@@ -9,6 +9,9 @@
 #include <QtCore/QHash>
 #include <QtCore/QReadWriteLock>
 
+#include <optional>
+#include <vector>
+
 #include "Settings.h"
 #include "Timer.h"
 #include "User.h"
@@ -39,6 +42,10 @@ public:
 
 	QByteArray qbaTextureFormat;
 	QString qsFriendName;
+
+	/// Video codecs (MumbleUDP::Video::Codec values) the user's client can decode, or nothing if it never told
+	/// (e.g. because it doesn't support video at all).
+	std::optional< std::vector< unsigned int > > m_videoDecoders;
 
 	QString getFlagsString() const;
 	ClientUser(QObject *p = nullptr);
@@ -86,6 +93,7 @@ public slots:
 	void setPrioritySpeaker(bool priority);
 	void setRecording(bool recording);
 	void setScreenSharing(bool sharing);
+	void setVideoDecoders(std::vector< unsigned int > decoders);
 	void setLocalVolumeAdjustment(float adjustment);
 	void setLocalNickname(const QString &nickname);
 signals:
@@ -94,6 +102,7 @@ signals:
 	void prioritySpeakerStateChanged();
 	void recordingStateChanged();
 	void screenSharingStateChanged();
+	void videoDecodersChanged();
 	void localVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);
 	void localNicknameChanged();
 };
