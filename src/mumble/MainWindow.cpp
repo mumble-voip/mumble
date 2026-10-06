@@ -4327,6 +4327,7 @@ void MainWindow::screenShare() {
 					Qt::SingleShotConnection);
 
 				updateScreenShareEncoderSelection();
+				updateScreenShareFrameRate();
 				sc->startCaptureNative();
 				return; // Don't send UserState yet — wait for captureStarted.
 			}
@@ -4349,6 +4350,7 @@ void MainWindow::screenShare() {
 		Global::get().sc->setSource(dlg.selectedSource());
 #endif
 		updateScreenShareEncoderSelection();
+		updateScreenShareFrameRate();
 		Global::get().sc->startCapture();
 		if (!Global::get().sc->isCapturing()) {
 			// E.g. because this build doesn't support screen sharing. Nothing would be sent, so don't claim to share.
@@ -4435,6 +4437,13 @@ void MainWindow::updateScreenShareSubscriptions() {
 		if (user != self && user->bScreenSharing)
 			subscribeToScreenShare(user->uiSession);
 	}
+#endif
+}
+
+void MainWindow::updateScreenShareFrameRate() {
+#ifdef USE_SCREEN_SHARING
+	if (Global::get().sc)
+		Global::get().sc->setFrameRate(Global::get().s.screenShareFrameRate);
 #endif
 }
 

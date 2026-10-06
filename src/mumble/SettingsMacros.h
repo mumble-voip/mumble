@@ -233,7 +233,8 @@
 
 #define SCREEN_SHARE_SETTINGS                                                    \
 	PROCESS(screen_share, SCREEN_SHARE_ENCODER_MODE_KEY, screenShareEncoderMode) \
-	PROCESS(screen_share, SCREEN_SHARE_ENCODER_KEY, screenShareEncoder)
+	PROCESS(screen_share, SCREEN_SHARE_ENCODER_KEY, screenShareEncoder)          \
+	PROCESS(screen_share, SCREEN_SHARE_FRAME_RATE_KEY, screenShareFrameRate)
 
 
 #define HIDDEN_SETTINGS PROCESS(hidden, DISABLE_CONNECT_DIALOG_EDITING_KEY, disableConnectDialogEditing)

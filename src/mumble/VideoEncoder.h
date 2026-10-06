@@ -39,12 +39,15 @@ private:
 	Q_DISABLE_COPY(VideoEncoder)
 
 public:
-	// These values are still hardcoded. This should probably be a setting.
-	// For now these values seem alright for testing
-	static constexpr int FPS                  = 15;
-	static constexpr qint64 FRAME_INTERVAL_US = 1'000'000 / FPS;
+	/// Range of the frame rate in frames per second (see setFrameRate())
+	static constexpr int MIN_FRAME_RATE     = 1;
+	static constexpr int MAX_FRAME_RATE     = 60;
+	static constexpr int DEFAULT_FRAME_RATE = 15;
 	/// Target bit rate in bits per second
 	static constexpr int BITRATE = 1'500'000;
+
+	/// Time between two frames at the given frame rate, in microseconds.
+	static qint64 frameInterval(int frameRate);
 
 	explicit VideoEncoder(QObject *parent = nullptr);
 	~VideoEncoder() override;
@@ -66,6 +69,12 @@ public:
 	/// Sets what the choice of the encoder is based on. The selection is kept across streams.
 	void setSelection(const VideoEncoderSelection &selection);
 
+	/// Sets the maximum number of frames per second, clamped to MIN_FRAME_RATE..MAX_FRAME_RATE. With a higher
+	/// frame rate, motion is smoother, but every frame gets fewer bits, so details get blurrier. When streaming,
+	/// the encoder is opened again with the new frame rate, starting with a key frame. The frame rate is kept
+	/// across streams.
+	void setFrameRate(int frameRate);
+
 signals:
 	/// Emitted for every successfully encoded frame.
 	void frameEncoded(const EncodedVideoFrame &frame);
@@ -78,6 +87,7 @@ private:
 	void processStop();
 	void processKeyFrameRequest();
 	void processSelection(const VideoEncoderSelection &selection);
+	void processFrameRate(int frameRate);
 	/// Encodes the incoming frame if the frame rate allows it, or schedules it for the next frame slot.
 	void processIncomingFrame();
 
@@ -134,6 +144,7 @@ private:
 
 	/// IDs of the encoders to use, most preferred first
 	QStringList m_encoderOrder;
+	int m_frameRate = DEFAULT_FRAME_RATE;
 	std::unique_ptr< VideoEncoderBackend > m_backend;
 	/// Picture size m_backend was opened for (or tried to)
 	int m_encoderWidth             = 0;

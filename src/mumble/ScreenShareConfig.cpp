@@ -6,6 +6,7 @@
 #include "ScreenShareConfig.h"
 
 #include "MainWindow.h"
+#include "VideoEncoder.h"
 #include "VideoEncoderBackend.h"
 #include "Global.h"
 
@@ -31,6 +32,8 @@ ScreenShareConfig::ScreenShareConfig(Settings &st) : ConfigWidget(st) {
 		qcbEncoderMode->addItem(tr("Best available"), static_cast< int >(VideoEncoderMode::Best));
 		qcbEncoderMode->addItem(tr("Manual"), static_cast< int >(VideoEncoderMode::Manual));
 	}
+
+	qsFrameRate->setRange(VideoEncoder::MIN_FRAME_RATE, VideoEncoder::MAX_FRAME_RATE);
 
 	qcbEncoder->addItem(tr("Detecting encoders..."));
 	qcbEncoder->setEnabled(false);
@@ -66,6 +69,9 @@ QIcon ScreenShareConfig::icon() const {
 }
 
 void ScreenShareConfig::load(const Settings &r) {
+	qsFrameRate->setValue(r.screenShareFrameRate);
+	on_qsFrameRate_valueChanged(qsFrameRate->value());
+
 	const int modeIndex = qcbEncoderMode->findData(static_cast< int >(r.screenShareEncoderMode));
 	qcbEncoderMode->setCurrentIndex(modeIndex >= 0 ? modeIndex : 0);
 	// Not emitted if the index didn't change
@@ -76,6 +82,7 @@ void ScreenShareConfig::load(const Settings &r) {
 }
 
 void ScreenShareConfig::save() const {
+	s.screenShareFrameRate      = qsFrameRate->value();
 	const VideoEncoderMode mode = static_cast< VideoEncoderMode >(qcbEncoderMode->currentData().toInt());
 	s.screenShareEncoderMode    = mode;
 	// The list is disabled in the other modes and only shows the first encoder if none was picked
@@ -90,6 +97,7 @@ void ScreenShareConfig::save() const {
 void ScreenShareConfig::accept() const {
 	// Switches an ongoing stream over to the newly preferred encoder
 	Global::get().mw->updateScreenShareEncoderSelection();
+	Global::get().mw->updateScreenShareFrameRate();
 }
 
 void ScreenShareConfig::fillEncoders() {
@@ -147,4 +155,8 @@ void ScreenShareConfig::on_qcbEncoderMode_currentIndexChanged(int index) {
 
 	qcbEncoder->setEnabled(m_encodersKnown && mode == VideoEncoderMode::Manual
 						   && !qcbEncoder->currentData().toString().isEmpty());
+}
+
+void ScreenShareConfig::on_qsFrameRate_valueChanged(int value) {
+	qlFrameRateValue->setText(tr("%n fps", "frames per second", value));
 }

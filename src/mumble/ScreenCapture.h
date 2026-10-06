@@ -79,6 +79,10 @@ public:
 	/// stream switches to a different encoder if necessary.
 	void setEncoderSelection(const VideoEncoderSelection &selection);
 
+	/// Sets the maximum number of frames per second (see VideoEncoder::setFrameRate()). May be called while
+	/// capturing, but native capture streams only deliver frames at the new rate once they are started again.
+	void setFrameRate(int frameRate);
+
 	/// Sets the capture source for the non-native picker path. Call before startCapture().
 	void setSource(const CaptureSource &source);
 
@@ -151,6 +155,10 @@ private:
 	/// Reference clock for frame timestamps, started together with the stream.
 	QElapsedTimer m_streamClock;
 	bool m_capturing = false;
+#ifdef USE_SCREEN_SHARING
+	/// Initialised to VideoEncoder::DEFAULT_FRAME_RATE
+	int m_frameRate;
+#endif
 };
 
 #endif // MUMBLE_MUMBLE_SCREENCAPTURE_H_

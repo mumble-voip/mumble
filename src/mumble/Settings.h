@@ -547,6 +547,8 @@ struct Settings {
 	VideoEncoderMode screenShareEncoderMode = VideoEncoderMode::Optimised;
 	/// Encoder to use in VideoEncoderMode::Manual (see VideoEncoderInfo::id)
 	QString screenShareEncoder;
+	/// Maximum number of frames per second of the shared screen
+	int screenShareFrameRate = 15;
 
 	// Special configuration options not exposed to UI
 

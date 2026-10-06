@@ -25,16 +25,24 @@
 
 #include "Global.h"
 
+#include <algorithm>
+
 #ifdef USE_SCREEN_SHARING
-// Rounded up, so that grabbed frames never come in faster than the encoder's frame rate limit lets them through
-static constexpr int CAPTURE_INTERVAL_MS = static_cast< int >((VideoEncoder::FRAME_INTERVAL_US + 999) / 1000);
-#else
-static constexpr int CAPTURE_INTERVAL_MS = 67;
+/// Rounded up, so that grabbed frames never come in faster than the encoder's frame rate limit lets them through
+static int captureInterval(int frameRate) {
+	return static_cast< int >((VideoEncoder::frameInterval(frameRate) + 999) / 1000);
+}
 #endif
 
 ScreenCapture::ScreenCapture(QObject *parent) : QObject(parent) {
+#ifdef USE_SCREEN_SHARING
+	m_frameRate = VideoEncoder::DEFAULT_FRAME_RATE;
+#endif
+
 	m_captureTimer = new QTimer(this);
-	m_captureTimer->setInterval(CAPTURE_INTERVAL_MS);
+#ifdef USE_SCREEN_SHARING
+	m_captureTimer->setInterval(captureInterval(m_frameRate));
+#endif
 	m_captureTimer->setTimerType(Qt::PreciseTimer);
 	connect(m_captureTimer, &QTimer::timeout, this, &ScreenCapture::captureFrame);
 
@@ -55,7 +63,7 @@ ScreenCapture::ScreenCapture(QObject *parent) : QObject(parent) {
 	m_grabThread->setObjectName(QLatin1String("ScreenGrabber"));
 	m_grabContext = new QObject();
 	m_grabTimer   = new QTimer(m_grabContext);
-	m_grabTimer->setInterval(CAPTURE_INTERVAL_MS);
+	m_grabTimer->setInterval(captureInterval(m_frameRate));
 	m_grabTimer->setTimerType(Qt::PreciseTimer);
 	connect(m_grabTimer, &QTimer::timeout, m_grabContext, [this]() { grabFrame(); });
 	m_grabContext->moveToThread(m_grabThread);
@@ -159,6 +167,16 @@ void ScreenCapture::requestKeyFrame() {
 
 void ScreenCapture::setEncoderSelection(const VideoEncoderSelection &selection) {
 	m_encoder->setSelection(selection);
+}
+
+void ScreenCapture::setFrameRate(int frameRate) {
+	m_frameRate = std::clamp(frameRate, VideoEncoder::MIN_FRAME_RATE, VideoEncoder::MAX_FRAME_RATE);
+	m_encoder->setFrameRate(m_frameRate);
+
+	const int interval = captureInterval(m_frameRate);
+	m_captureTimer->setInterval(interval);
+	QMetaObject::invokeMethod(
+		m_grabContext, [this, interval]() { m_grabTimer->setInterval(interval); }, Qt::QueuedConnection);
 }
 
 void ScreenCapture::setSource(const CaptureSource &source) {
@@ -272,9 +290,11 @@ void ScreenCapture::startCaptureNative() {
 	auto onFrame = [sink](QImage frame) { sink->submit(frame); };
 
 #		ifdef Q_OS_MAC
-	sckit_startWithNativePicker(std::move(onStarted), std::move(onCancelled), std::move(onError), std::move(onFrame));
+	sckit_startWithNativePicker(m_frameRate, std::move(onStarted), std::move(onCancelled), std::move(onError),
+								std::move(onFrame));
 #		else
-	xdg_portal_startCapture(std::move(onStarted), std::move(onCancelled), std::move(onError), std::move(onFrame));
+	xdg_portal_startCapture(m_frameRate, std::move(onStarted), std::move(onCancelled), std::move(onError),
+							std::move(onFrame));
 #		endif
 }
 #	endif // Q_OS_MAC || HAS_WAYLAND_PORTAL

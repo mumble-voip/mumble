@@ -17,8 +17,6 @@
 #	include <algorithm>
 #	include <cmath>
 
-static constexpr int SCKIT_FPS = 15;
-
 // ---------------------------------------------------------------------------
 // Objective-C delegate — implements picker + stream + output protocols.
 // Instantiated by sckit_startWithNativePicker and released by sckit_stop.
@@ -32,6 +30,7 @@ static constexpr int SCKIT_FPS = 15;
 @property(nonatomic, copy) void (^onError)(NSString *);
 @property(nonatomic, copy) void (^onFrame)(QImage);
 @property(nonatomic, assign) CGSize lastContentSize;
+@property(nonatomic, assign) int frameRate;
 
 - (void)startStreamWithFilter:(SCContentFilter *)filter;
 
@@ -100,7 +99,7 @@ static constexpr int SCKIT_FPS = 15;
 
 	SCStreamConfiguration *config = [[SCStreamConfiguration alloc] init];
 	config.pixelFormat            = kCVPixelFormatType_32BGRA;
-	config.minimumFrameInterval   = CMTimeMake(1, SCKIT_FPS);
+	config.minimumFrameInterval   = CMTimeMake(1, self.frameRate);
 	config.showsCursor            = YES;
 	config.width                  = static_cast< size_t >(size.width);
 	config.height                 = static_cast< size_t >(size.height);
@@ -244,13 +243,15 @@ static SCKitDelegate *g_delegate = nil;
 
 void sckit_stop();
 
-void sckit_startWithNativePicker(std::function< void() > onStarted,
+void sckit_startWithNativePicker(int frameRate,
+								 std::function< void() > onStarted,
 								 std::function< void() > onCancelled,
 								 std::function< void(QString) > onError,
 								 std::function< void(QImage) > onFrame) {
 	sckit_stop(); // Clean up any previous session.
 
 	SCKitDelegate *delegate = [[SCKitDelegate alloc] init];
+	delegate.frameRate      = frameRate;
 	delegate.onStarted      = [onStarted]() { onStarted(); };
 	delegate.onCancelled    = [onCancelled]() { onCancelled(); };
 	delegate.onError        = [onError](NSString *msg) {
