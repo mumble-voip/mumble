@@ -994,6 +994,14 @@ if(screen-sharing)
 				target_link_libraries(mumble_client_lib PUBLIC X11::X11)
 				target_compile_definitions(mumble_client_lib PRIVATE "HAS_X11_WINDOW_LIST")
 			endif()
+
+			# Grabs X11 screens and windows without involving the GUI thread
+			pkg_check_modules(XCB_FRAME_GRABBER IMPORTED_TARGET xcb xcb-shm)
+			if(XCB_FRAME_GRABBER_FOUND)
+				target_sources(mumble_client_lib PRIVATE "FrameGrabber_xcb.cpp")
+				target_link_libraries(mumble_client_lib PUBLIC PkgConfig::XCB_FRAME_GRABBER)
+				target_compile_definitions(mumble_client_lib PRIVATE "HAS_XCB_FRAME_GRABBER")
+			endif()
 		endif()
 
 		# Wayland screen capture via xdg-desktop-portal + PipeWire.

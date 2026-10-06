@@ -5,6 +5,15 @@
 
 #include "FrameGrabber.h"
 
-std::unique_ptr< FrameGrabber > FrameGrabber::create(const CaptureSource &) {
+#ifdef HAS_XCB_FRAME_GRABBER
+std::unique_ptr< FrameGrabber > createXcbFrameGrabber(const CaptureSource &source);
+#endif
+
+std::unique_ptr< FrameGrabber > FrameGrabber::create(const CaptureSource &source) {
+#ifdef HAS_XCB_FRAME_GRABBER
+	return createXcbFrameGrabber(source);
+#else
+	Q_UNUSED(source);
 	return nullptr;
+#endif
 }
