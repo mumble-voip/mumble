@@ -205,9 +205,33 @@ public:
 	void start() { createSession(); }
 
 private:
-	// Helper: send a portal call, get the returned request path, then subscribe
-	// to org.freedesktop.portal.Request.Response on that exact path.
-	void portalCall(const QString &method, QList< QVariant > args, const char *responseSlot) {
+	/// The object path of the request that a portal call with the given handle_token creates (see the
+	/// org.freedesktop.portal.Request documentation).
+	static QString requestPath(const QString &handleToken) {
+		QString sender = QDBusConnection::sessionBus().baseService();
+		sender.remove(0, 1); // Leading ':'
+		sender.replace(QLatin1Char('.'), QLatin1Char('_'));
+		return QStringLiteral("/org/freedesktop/portal/desktop/request/%1/%2").arg(sender, handleToken);
+	}
+
+	/// Subscribes to org.freedesktop.portal.Request.Response on the given request path.
+	void connectResponse(const QString &path, const char *responseSlot) {
+		QDBusConnection::sessionBus().connect(QString::fromLatin1(PORTAL_SERVICE), path,
+											  QString::fromLatin1(REQUEST_INTERFACE), QStringLiteral("Response"), this,
+											  responseSlot);
+	}
+
+	// Helper: send a portal call whose options contain the given handle_token, and deliver its
+	// org.freedesktop.portal.Request.Response to responseSlot.
+	//
+	// The response may be emitted right away, possibly before the reply to the call arrives, so the subscription
+	// has to be in place before the call is made. The request path follows from the handle_token. Only very old
+	// portals use a different path, which they return; in that case the subscription is made for that one as well.
+	void portalCall(const QString &method, QList< QVariant > args, const QString &handleToken,
+					const char *responseSlot) {
+		const QString expectedPath = requestPath(handleToken);
+		connectResponse(expectedPath, responseSlot);
+
 		QDBusMessage msg =
 			QDBusMessage::createMethodCall(QString::fromLatin1(PORTAL_SERVICE), QString::fromLatin1(PORTAL_OBJECT),
 										   QString::fromLatin1(PORTAL_INTERFACE), method);
@@ -216,53 +240,56 @@ private:
 
 		QDBusPendingCall call = QDBusConnection::sessionBus().asyncCall(msg);
 		auto *watcher         = new QDBusPendingCallWatcher(call, this);
-		connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, responseSlot](QDBusPendingCallWatcher *w) {
-			w->deleteLater();
-			QDBusPendingReply< QDBusObjectPath > reply = *w;
-			if (reply.isError()) {
-				m_onError(QStringLiteral("Portal call failed: %1").arg(reply.error().message()));
-				return;
-			}
-			const QString path = reply.value().path();
-			QDBusConnection::sessionBus().connect(QString::fromLatin1(PORTAL_SERVICE), path,
-												  QString::fromLatin1(REQUEST_INTERFACE), QStringLiteral("Response"),
-												  this, responseSlot);
-		});
+		connect(watcher, &QDBusPendingCallWatcher::finished, this,
+				[this, responseSlot, expectedPath](QDBusPendingCallWatcher *w) {
+					w->deleteLater();
+					QDBusPendingReply< QDBusObjectPath > reply = *w;
+					if (reply.isError()) {
+						m_onError(QStringLiteral("Portal call failed: %1").arg(reply.error().message()));
+						return;
+					}
+					const QString path = reply.value().path();
+					if (path != expectedPath)
+						connectResponse(path, responseSlot);
+				});
 	}
 
 	// ---- Phase 1: CreateSession -------------------------------------------
 	void createSession() {
 		QVariantMap options;
+		const QString handleToken                       = makeToken();
 		options[QStringLiteral("session_handle_token")] = makeToken();
-		options[QStringLiteral("handle_token")]         = makeToken();
+		options[QStringLiteral("handle_token")]         = handleToken;
 
-		portalCall(QStringLiteral("CreateSession"), { QVariant::fromValue(options) },
+		portalCall(QStringLiteral("CreateSession"), { QVariant::fromValue(options) }, handleToken,
 				   SLOT(onCreateSessionResponse(uint, QVariantMap)));
 	}
 
 	// ---- Phase 2: SelectSources -------------------------------------------
 	void selectSources() {
+		const QString handleToken = makeToken();
 		QVariantMap options;
-		options[QStringLiteral("handle_token")] = makeToken();
+		options[QStringLiteral("handle_token")] = handleToken;
 		options[QStringLiteral("types")]        = QVariant::fromValue(static_cast< quint32 >(PORTAL_SOURCE_TYPES));
 		options[QStringLiteral("multiple")]     = false;
 		options[QStringLiteral("cursor_mode")] =
 			QVariant::fromValue(static_cast< quint32 >(PORTAL_CURSOR_MODE_EMBEDDED));
 
 		portalCall(QStringLiteral("SelectSources"),
-				   { QVariant::fromValue(QDBusObjectPath(m_sessionHandle)), QVariant::fromValue(options) },
+				   { QVariant::fromValue(QDBusObjectPath(m_sessionHandle)), QVariant::fromValue(options) }, handleToken,
 				   SLOT(onSelectSourcesResponse(uint, QVariantMap)));
 	}
 
 	// ---- Phase 3: Start ---------------------------------------------------
 	void startSession() {
+		const QString handleToken = makeToken();
 		QVariantMap options;
-		options[QStringLiteral("handle_token")] = makeToken();
+		options[QStringLiteral("handle_token")] = handleToken;
 
 		portalCall(QStringLiteral("Start"),
 				   { QVariant::fromValue(QDBusObjectPath(m_sessionHandle)), QVariant(QString()),
 					 QVariant::fromValue(options) },
-				   SLOT(onStartResponse(uint, QVariantMap)));
+				   handleToken, SLOT(onStartResponse(uint, QVariantMap)));
 	}
 
 	// ---- Phase 4: OpenPipeWireRemote + stream setup -----------------------
