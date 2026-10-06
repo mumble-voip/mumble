@@ -4387,8 +4387,6 @@ void MainWindow::updateScreenShareBitrate() {
 	const int bitrate = VideoEncoder::bitrateFor(Global::get().maxVideoBandwidth);
 	if (Global::get().sc)
 		Global::get().sc->setBitrate(bitrate);
-	if (m_videoSender)
-		m_videoSender->setBitrate(bitrate);
 #endif
 }
 

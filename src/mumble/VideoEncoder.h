@@ -168,6 +168,8 @@ private:
 	QString m_lastEncoderId;
 	/// The bit rate that was used last, so that changes can be reported
 	int m_lastBitrate = 0;
+	/// Target bit rate m_backend was opened with
+	int m_backendBitrate = 0;
 	/// Encoders that failed to encode a picture during the current stream, which are not opened again
 	QStringList m_failedEncoders;
 };

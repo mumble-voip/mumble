@@ -59,11 +59,6 @@ void VideoSender::reset() {
 		this, [this]() { processReset(); }, Qt::QueuedConnection);
 }
 
-void VideoSender::setBitrate(int bitrate) {
-	QMetaObject::invokeMethod(
-		this, [this, bitrate]() { processBitrate(bitrate); }, Qt::QueuedConnection);
-}
-
 qint64 VideoSender::now() const {
 	return m_clock.nsecsElapsed() / 1000;
 }
@@ -72,6 +67,10 @@ void VideoSender::processFrame(const EncodedVideoFrame &frame) {
 	const quint32 session = Global::get().uiSession;
 	if (session == 0 || frame.data.isEmpty())
 		return;
+
+	// Follow the bit rate the frame was actually encoded at, which may be well below the server's limit
+	if (frame.bitrate > 0)
+		m_pacingRate = pacingRate(frame.bitrate);
 
 	// Fragment the encoded frame into UDP-safe chunks, each sent as a MumbleUDP::Video message.
 	const int dataSize      = static_cast< int >(frame.data.size());
@@ -112,10 +111,6 @@ void VideoSender::processReset() {
 	m_queue.clear();
 	m_queuedBytes = 0;
 	m_timer->stop();
-}
-
-void VideoSender::processBitrate(int bitrate) {
-	m_pacingRate = pacingRate(bitrate);
 }
 
 void VideoSender::sendDue() {

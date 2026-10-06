@@ -39,6 +39,8 @@ struct EncodedVideoFrame {
 	quint32 height = 0;
 	/// True when the frame is an IDR / key frame.
 	bool isKeyFrame = false;
+	/// Target bit rate of the encoder that produced the frame, in bits per second
+	int bitrate = 0;
 };
 Q_DECLARE_METATYPE(EncodedVideoFrame)
 
