@@ -35,7 +35,9 @@ static double pacingRate(int bitrate) {
 	return PACING_FACTOR * bitrate / 8 / 1'000'000;
 }
 
-VideoSender::VideoSender(QObject *parent) : QObject(parent), m_pacingRate(pacingRate(VideoEncoder::DEFAULT_BITRATE)) {
+VideoSender::VideoSender(QObject *parent)
+	: QObject(parent),
+	  m_pacingRate(pacingRate(VideoEncoder::bitrateFor(1920, 1080, VideoEncoder::DEFAULT_FRAME_RATE))) {
 	m_clock.start();
 
 	// The timer is a child, so it moves to the sender's thread together with it.
