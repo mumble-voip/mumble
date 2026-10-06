@@ -81,9 +81,11 @@ private:
 	/// the screen doesn't change.
 	void sendHeartbeat();
 	void encodeImage(const QImage &srcImage, qint64 captureTime);
-	/// Opens the most preferred encoder that works for the given picture size. Afterwards, m_encoderWidth and
-	/// m_encoderHeight are set to the given size, whether that worked or not.
-	bool openBackend(int width, int height);
+	/// Opens the most preferred encoder that works for the given picture size and format. Afterwards,
+	/// m_encoderWidth, m_encoderHeight and m_encoderFormat are set to the given values, whether that worked or not.
+	bool openBackend(int width, int height, QImage::Format format);
+	/// Whether encoders take pictures in the given format (see VideoEncoderConfig::inputFormat)
+	static bool isEncodable(QImage::Format format);
 
 	qint64 now() const;
 
@@ -126,8 +128,9 @@ private:
 
 	std::unique_ptr< VideoEncoderBackend > m_backend;
 	/// Picture size m_backend was opened for (or tried to)
-	int m_encoderWidth  = 0;
-	int m_encoderHeight = 0;
+	int m_encoderWidth             = 0;
+	int m_encoderHeight            = 0;
+	QImage::Format m_encoderFormat = QImage::Format_Invalid;
 	/// The encoder that was used last, so that switching to a different one can be reported
 	QString m_lastEncoderId;
 	/// Encoders that failed to encode a picture during the current stream, which are not opened again
