@@ -215,10 +215,14 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 	m_lastPts = std::max(captureTime, m_lastPts + 1);
 
 	std::vector< VideoEncoderBackend::Packet > packets;
-	if (!m_backend->encode(image, m_lastPts, m_keyFrameRequested, packets))
+	const bool keyFrame = m_keyFrameRequested;
+	if (!m_backend->encode(image, m_lastPts, keyFrame, packets))
 		return;
 
 	m_keyFrameRequested = false;
+	if (keyFrame)
+		m_forcedKeyFrameTimestamp = m_lastPts;
+	bool keyFrameIgnored = false;
 
 	// Encoders may delay, reorder or drop frames, so all metadata is taken from the packets that come out.
 	for (VideoEncoderBackend::Packet &packet : packets) {
@@ -237,8 +241,23 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 			m_keyFrameTimer->stop();
 		}
 
+		if (static_cast< qint64 >(encoded.timestamp) == m_forcedKeyFrameTimestamp) {
+			keyFrameIgnored           = !encoded.isKeyFrame;
+			m_forcedKeyFrameTimestamp = -1;
+		}
+
 		if (m_stream == m_currentStream)
 			emit frameEncoded(encoded);
+	}
+
+	if (keyFrameIgnored) {
+		// Not every encoder can be made to emit a key frame (or one that decoders can start at) on request, and
+		// viewers can't continue without one. A newly opened encoder always starts with a key frame, so open the
+		// encoder again with the next frame.
+		m_backend.reset();
+		m_encoderWidth  = 0;
+		m_encoderHeight = 0;
+		forceKeyFrame();
 	}
 }
 
@@ -276,8 +295,9 @@ bool VideoEncoder::openBackend(int width, int height) {
 	}
 
 	// A new encoder starts with a key frame anyway.
-	m_keyFrameRequested = false;
-	m_lastKeyFrameTime  = -1;
+	m_keyFrameRequested       = false;
+	m_lastKeyFrameTime        = -1;
+	m_forcedKeyFrameTimestamp = -1;
 	m_keyFrameTimer->stop();
 	return true;
 }
