@@ -22,6 +22,7 @@
 #include "QtUtils.h"
 #include "Usage.h"
 #include "UserLocalNicknameDialog.h"
+#include "VideoFrame.h"
 
 #include <memory>
 #include <optional>
@@ -486,7 +487,7 @@ public:
 	void toggleSelfPrioritySpeaker();
 	void recording();
 	void screenShare();
-	void onRemoteFrameDecoded(quint32 senderSession, QImage frame);
+	void onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame);
 	void requestScreenShareKeyFrame(quint32 senderSession);
 	void onRemoteScreenShareStopped(quint32 senderSession);
 	/// Receives the screen shares of everyone in our channel, and forgets about those that the server doesn't

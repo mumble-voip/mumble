@@ -4365,7 +4365,7 @@ void MainWindow::screenShare() {
 	}
 }
 
-void MainWindow::onRemoteFrameDecoded(quint32 senderSession, QImage frame) {
+void MainWindow::onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame) {
 	// Frames decoded before the share ended may still arrive afterwards, they must not bring the viewer back
 	ClientUser *sender = ClientUser::get(senderSession);
 	if (!sender || !sender->bScreenSharing)

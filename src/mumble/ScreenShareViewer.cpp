@@ -41,7 +41,7 @@ void ScreenShareViewer::showAndRefresh() {
 	activateWindow();
 }
 
-void ScreenShareViewer::updateFrame(QImage frame) {
+void ScreenShareViewer::updateFrame(VideoFrame frame) {
 	if (frame.isNull())
 		return;
 

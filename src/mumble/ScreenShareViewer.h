@@ -6,7 +6,8 @@
 #ifndef MUMBLE_MUMBLE_SCREENSHAREVIEWER_H_
 #define MUMBLE_MUMBLE_SCREENSHAREVIEWER_H_
 
-#include <QtGui/QImage>
+#include "VideoFrame.h"
+
 #include <QtWidgets/QDialog>
 
 class VideoWidget;
@@ -24,7 +25,7 @@ public:
 	void showAndRefresh();
 
 public slots:
-	void updateFrame(QImage frame);
+	void updateFrame(VideoFrame frame);
 
 private:
 	/// Draws the frames. Only exists when screen sharing is supported.
