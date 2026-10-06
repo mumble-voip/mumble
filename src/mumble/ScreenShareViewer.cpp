@@ -9,7 +9,6 @@
 #	include "VideoWidget.h"
 #endif
 
-#include <QtGui/QCloseEvent>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
 
@@ -42,8 +41,10 @@ void ScreenShareViewer::showAndRefresh() {
 	activateWindow();
 }
 
-void ScreenShareViewer::closeEvent(QCloseEvent *event) {
-	QDialog::closeEvent(event);
+void ScreenShareViewer::done(int result) {
+	// Every way of closing the dialog ends up here: closing the window (see QDialog::closeEvent()), close() and
+	// pressing Escape, which only hides the dialog without a close event.
+	QDialog::done(result);
 
 	emit closed(m_senderSession);
 }
