@@ -36,6 +36,9 @@ Also prefer `std::unique_ptr` over `std::shared_ptr`, unless you are really inte
 
 When it comes to passing pointers into functions, always pass as raw-pointer, unless you want to transfer ownership of the pointer to the function.
 
+When using Qt-types, you may have to use the `qt_unique_ptr` provided in `QtUtils.h` which uses the `deleteLater` function rather than a plain call
+to `delete`.
+
 
 ## Pointer vs. Reference
 
@@ -48,3 +51,31 @@ pass that value by reference instead in order to make sure that the semantics fo
 Wherever feasible, you should prefer using types from the standard library (STL) instead of Qt-specific ones. Note that this only applies if you don't
 have to pass that type (indirectly) into Qt functions that only accept Qt-specific types. In these cases, prefer Qt-types.
 
+
+## Variable Naming
+
+Your variables should carry meaningful names that make it clear what the variable represents. Member variables should be prefixed with `m_`, static
+variables with `s_` and other than these two, no prefixes should be used. In particular, do not use hungarian notation (variable name prefixes
+encoding the variable's type). Variable names should use camelCase.
+
+
+## Visibility
+
+When adding member variables or functions, prefer restricting visibility as much as possible. That is, use `private` or `protected` instead of
+`public` variables/functions for better encapsulation. Prefer public getter/setter functions for variables to public variables unless the latter
+offers clear advantages for the specific use case.
+
+
+## Self-documenting Types
+
+Whenever possible, prefer the use of self-documenting types. An example of this is `std::chrono::seconds` that inherently encodes that it represents
+seconds, which is way superior than e.g. having an `int` value that one has to know represents seconds.
+
+Another advantage of using such types is that some mis-uses of the variable are prevented by means of compiler errors. Whenever possible, this should
+be preferred. Having the compiler check invariants is much better than runtime checks, comments or implicit knowledge.
+
+
+## Curly Braces Around Control Structures
+
+All control structures (if, for, while, etc.) should always enclose their body in curly braces. Even in cases in which the C++ standard would allow to
+omit them.
