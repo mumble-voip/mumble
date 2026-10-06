@@ -14,6 +14,8 @@
 
 #include <algorithm>
 #include <cstring>
+#include <memory>
+#include <mutex>
 #include <vector>
 
 #include <windows.h>
@@ -26,38 +28,80 @@ using Microsoft::WRL::ComPtr;
 
 namespace {
 
-/// Recycles the memory of grabbed images. An image can be reused once the encoder doesn't refer to it anymore, which
-/// saves allocating (and the system zeroing) the memory of a large picture for every frame.
+/// Recycles the memory of grabbed images. Allocating (and the system zeroing) the memory of a large picture for
+/// every frame takes a noticeable amount of time.
+///
+/// The images use pooled buffers as their memory, which come back to the pool once the last copy of an image is
+/// gone. That may happen on any thread (usually the encoder's) and only after the grabber is gone, which is why the
+/// pool is shared by the grabber and all buffers in use. As nothing else refers to a buffer that is handed out,
+/// writing to the image doesn't copy it.
 class ImagePool {
 public:
-	/// Returns an image of the given size and format that nobody else refers to.
+	/// Returns an image of the given size and format that nobody else refers to. The format has to use 32 bits per
+	/// pixel.
 	QImage get(int width, int height, QImage::Format format) {
-		for (QImage &image : m_images) {
-			// An image that is only referred to here can't be referred to by another thread anymore either
-			if (image.isDetached() && image.width() == width && image.height() == height && image.format() == format) {
-				return image;
-			}
-		}
-
-		// Drop images of a different size or format, unless they are still in use
-		m_images.erase(std::remove_if(m_images.begin(), m_images.end(),
-									  [&](const QImage &image) {
-										  return image.isDetached()
-												 && (image.width() != width || image.height() != height
-													 || image.format() != format);
-									  }),
-					   m_images.end());
-
-		QImage image(width, height, format);
-		if (m_images.size() < MAX_IMAGES)
-			m_images.push_back(image);
-		return image;
+		const int bytesPerLine = width * 4;
+		Buffer *buffer =
+			m_shared->acquire(static_cast< std::size_t >(bytesPerLine) * static_cast< std::size_t >(height), m_shared);
+		return QImage(buffer->data.get(), width, height, bytesPerLine, format, &Shared::release, buffer);
 	}
 
 private:
 	/// See XcbConnection::MAX_SEGMENTS
 	static constexpr std::size_t MAX_IMAGES = 6;
-	std::vector< QImage > m_images;
+
+	struct Shared;
+
+	struct Buffer {
+		std::unique_ptr< uchar[] > data;
+		std::size_t size = 0;
+		/// Keeps the pool alive while the buffer is in use
+		std::shared_ptr< Shared > owner;
+	};
+
+	struct Shared {
+		Buffer *acquire(std::size_t size, const std::shared_ptr< Shared > &self) {
+			Buffer *buffer = nullptr;
+			{
+				std::lock_guard< std::mutex > lock(mutex);
+				if (size != this->size) {
+					// The picture size changed, buffers of the old size are of no use anymore
+					free.clear();
+					this->size = size;
+				}
+				if (!free.empty()) {
+					buffer = free.back().release();
+					free.pop_back();
+				}
+			}
+
+			if (!buffer) {
+				buffer       = new Buffer();
+				buffer->data = std::make_unique_for_overwrite< uchar[] >(size);
+				buffer->size = size;
+			}
+			buffer->owner = self;
+			return buffer;
+		}
+
+		/// Hands a buffer back. May be called from any thread.
+		static void release(void *info) {
+			std::unique_ptr< Buffer > buffer(static_cast< Buffer * >(info));
+			// Keeps the pool alive until it is done with the buffer, even if this was the last reference
+			const std::shared_ptr< Shared > owner = std::move(buffer->owner);
+
+			std::lock_guard< std::mutex > lock(owner->mutex);
+			if (buffer->size == owner->size && owner->free.size() < MAX_IMAGES)
+				owner->free.push_back(std::move(buffer));
+		}
+
+		std::mutex mutex;
+		std::vector< std::unique_ptr< Buffer > > free;
+		/// Size of the pictures currently grabbed
+		std::size_t size = 0;
+	};
+
+	std::shared_ptr< Shared > m_shared = std::make_shared< Shared >();
 };
 
 /// Grabs a screen with the DXGI desktop duplication API. Windows only hands out pictures when the screen content
