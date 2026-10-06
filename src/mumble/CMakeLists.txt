@@ -932,7 +932,11 @@ if(screen-sharing)
 				)
 
 	if(WIN32)
-		target_sources(mumble_client_lib PRIVATE "CaptureSourceLister_win.cpp")
+		target_sources(mumble_client_lib PRIVATE
+			"CaptureSourceLister_win.cpp"
+			"FrameGrabber_win.cpp"
+		)
+		target_link_libraries(mumble_client_lib PUBLIC d3d11.lib dxgi.lib)
 
 		if(NOT FFMPEG_DIR)
 			set(FFMPEG_DIR "${3RDPARTY_DIR}/ffmpeg")
