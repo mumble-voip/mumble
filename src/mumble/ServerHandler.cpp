@@ -694,15 +694,19 @@ void ServerHandler::sendPingInternal() {
 void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qbaMsg) {
 	const char *ptr = qbaMsg.constData();
 	if (type == Mumble::Protocol::TCPMessageType::UDPTunnel) {
-		// audio tunneled through tcp.
+		// audio and video tunneled through tcp.
 		// since it could happen that we are receiving udp and tcp messages at the same time (e.g. the server used to
 		// send us packages via TCP but has now switched to UDP again and the first UDP packages arrive at the same time
 		// as the last TCP ones), we want to use a dedicated decoder for this (to make sure there is no concurrent
 		// access to the decoder's internal buffer).
-		if (m_tcpTunnelDecoder.decode(
-				{ reinterpret_cast< const Mumble::Protocol::byte * >(ptr), static_cast< std::size_t >(qbaMsg.size()) })
-			&& m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Audio) {
-			handleVoicePacket(m_tcpTunnelDecoder.getAudioData());
+		if (m_tcpTunnelDecoder.decode({ reinterpret_cast< const Mumble::Protocol::byte * >(ptr),
+										static_cast< std::size_t >(qbaMsg.size()) })) {
+			if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Audio) {
+				handleVoicePacket(m_tcpTunnelDecoder.getAudioData());
+			} else if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Video) {
+				// Only clients that can't use UDP get video through the TCP connection
+				handleVideoPacket(m_tcpTunnelDecoder.getVideoData());
+			}
 		}
 	} else if (type == Mumble::Protocol::TCPMessageType::Ping) {
 		MumbleProto::Ping msg;
