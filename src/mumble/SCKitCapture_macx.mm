@@ -219,7 +219,11 @@ static constexpr int SCKIT_FPS = 15;
 // ---------------------------------------------------------------------------
 - (void)stream:(SCStream *)stream didStopWithError:(NSError *)error {
 	(void) stream;
-	if (error && self.onError) {
+	if (error && error.code == SCStreamErrorUserStopped) {
+		// The user stopped sharing through the system, e.g. with the screen sharing item in the menu bar
+		if (self.onCancelled)
+			dispatch_async(dispatch_get_main_queue(), self.onCancelled);
+	} else if (error && self.onError) {
 		NSString *msg = error.localizedDescription;
 		dispatch_async(dispatch_get_main_queue(), ^{
 			self.onError(msg);

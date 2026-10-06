@@ -462,7 +462,20 @@ private slots:
 			m_onError(QStringLiteral("CreateSession returned empty session handle"));
 			return;
 		}
+
+		// The session is closed when the user stops sharing through the desktop (e.g. its screen sharing
+		// indicator), after which no more frames come in
+		QDBusConnection::sessionBus().connect(QString::fromLatin1(PORTAL_SERVICE), m_sessionHandle,
+											  QStringLiteral("org.freedesktop.portal.Session"),
+											  QStringLiteral("Closed"), this, SLOT(onSessionClosed()));
+
 		selectSources();
+	}
+
+	void onSessionClosed() {
+		// Queued, as the callback ends up deleting this session
+		QMetaObject::invokeMethod(
+			qApp, [cb = m_onCancelled]() { cb(); }, Qt::QueuedConnection);
 	}
 
 	void onSelectSourcesResponse(uint response, const QVariantMap & /*results*/) {

@@ -130,6 +130,12 @@ void ScreenCapture::startCaptureNative() {
 	auto onCancelled = [self]() {
 		if (!self)
 			return;
+		if (self->m_capturing) {
+			// The user ended the running screen share through the system instead of through Mumble
+			self->stopCapture();
+			emit self->captureEnded();
+			return;
+		}
 		emit self->captureAborted();
 	};
 	auto onError = [self](QString error) {

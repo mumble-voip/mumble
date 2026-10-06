@@ -80,7 +80,8 @@ signals:
 	/// Emitted for every successfully encoded frame.
 	void frameEncoded(const EncodedVideoFrame &frame);
 	/// Emitted when capturing stopped by itself instead of through stopCapture(), e.g. because grabbing the screen
-	/// failed. Capturing has already stopped by then.
+	/// failed or the user ended it through the system (e.g. the desktop's screen sharing indicator). Capturing has
+	/// already stopped by then.
 	void captureEnded();
 
 #if defined(USE_SCREEN_SHARING) && (defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL))
