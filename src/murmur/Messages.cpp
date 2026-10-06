@@ -547,12 +547,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_recording(true);
 		if (u->bScreenSharing)
 			mpus.set_screen_sharing(true);
-		if (u->m_videoDecoders) {
-			MumbleProto::UserState_VideoCapabilities *capabilities = mpus.mutable_video_capabilities();
-			for (unsigned int codec : *u->m_videoDecoders) {
-				capabilities->add_decoders(codec);
-			}
-		}
+		if (u->m_videoCapabilities)
+			*mpus.mutable_video_capabilities() = *u->m_videoCapabilities;
 		if (u->bSelfDeaf)
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
@@ -1144,15 +1140,24 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			}
 		}
 
-		if (pDstServerUser->m_videoDecoders != decoders) {
-			pDstServerUser->m_videoDecoders = decoders;
+		// Relay the cleaned up list. An empty list still has to be sent, so the field has to be set either way.
+		MumbleProto::UserState_VideoCapabilities *capabilities = msg.mutable_video_capabilities();
+		capabilities->clear_decoders();
+		for (unsigned int codec : decoders) {
+			capabilities->add_decoders(codec);
+		}
 
-			// Relay the cleaned up list. An empty list still has to be sent, so the field has to be set either way.
-			MumbleProto::UserState_VideoCapabilities *capabilities = msg.mutable_video_capabilities();
-			capabilities->clear_decoders();
-			for (unsigned int codec : decoders) {
-				capabilities->add_decoders(codec);
-			}
+		// Fields this server doesn't know are kept, so that newer clients can announce more than the codecs they can
+		// decode. As they are stored as well, they may only take up so much space.
+		static constexpr std::size_t MAX_VIDEO_CAPABILITIES_BYTES = 1024;
+		if (capabilities->ByteSizeLong() > MAX_VIDEO_CAPABILITIES_BYTES) {
+			capabilities->DiscardUnknownFields();
+		}
+
+		if (!pDstServerUser->m_videoCapabilities
+			|| pDstServerUser->m_videoCapabilities->SerializeAsString() != capabilities->SerializeAsString()) {
+			pDstServerUser->m_videoCapabilities = *capabilities;
+			pDstServerUser->m_videoDecoders     = decoders;
 
 			bBroadcast = true;
 		} else {

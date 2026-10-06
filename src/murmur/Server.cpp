@@ -1811,6 +1811,20 @@ template< typename Message > static void discardUnknownFields(Message &msg) {
 static void discardUnknownFields(MumbleProto::VideoKeyFrameRequest &) {
 }
 
+/// Likewise, video capabilities are relayed with the fields the server doesn't know, so that newer clients can announce
+/// more than the codecs they can decode. The rest of the message is handled like any other.
+static void discardUnknownFields(MumbleProto::UserState &msg) {
+	if (!msg.has_video_capabilities()) {
+		msg.DiscardUnknownFields();
+		return;
+	}
+
+	MumbleProto::UserState_VideoCapabilities capabilities;
+	capabilities.Swap(msg.mutable_video_capabilities());
+	msg.DiscardUnknownFields();
+	msg.mutable_video_capabilities()->Swap(&capabilities);
+}
+
 void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qbaMsg, ServerUser *u) {
 	ZoneScopedN(TracyConstants::TCP_PACKET_PROCESSING_ZONE);
 

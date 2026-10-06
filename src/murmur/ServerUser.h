@@ -15,6 +15,7 @@
 #include "ClientType.h"
 #include "Connection.h"
 #include "HostAddress.h"
+#include "Mumble.pb.h"
 #include "MumbleProtocol.h"
 #include "ServerUserInfo.h"
 #include "Timer.h"
@@ -152,6 +153,9 @@ public:
 
 	QList< int > qlCodecs;
 	bool bOpus;
+	/// The video capabilities the user's client announced, as they are relayed to other clients, or nothing if the
+	/// client never announced them.
+	std::optional< MumbleProto::UserState_VideoCapabilities > m_videoCapabilities;
 	/// Video codecs (MumbleUDP::Video::Codec values) the user's client can decode, or nothing if the client
 	/// never announced them.
 	std::optional< std::vector< unsigned int > > m_videoDecoders;
