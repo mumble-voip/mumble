@@ -11,11 +11,10 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtGui/QImage>
 
 #include <memory>
 #include <vector>
-
-class QImage;
 
 /// Describes a video encoder that is available on this system.
 struct VideoEncoderInfo {
@@ -38,6 +37,9 @@ struct VideoEncoderConfig {
 	int fps = 0;
 	/// Maximum distance between key frames, in frames
 	int keyFrameInterval = 0;
+	/// Format of the pictures that will be passed to encode(). Either QImage::Format_RGB32 or
+	/// QImage::Format_RGBX8888 (or their variants with alpha, which is ignored).
+	QImage::Format inputFormat = QImage::Format_RGB32;
 };
 
 /// An opened video encoder for a fixed picture size.
@@ -57,7 +59,9 @@ public:
 
 	virtual const VideoEncoderInfo &info() const = 0;
 
-	/// Encodes the given picture, which has to be of the size the encoder was opened with.
+	/// Encodes the given picture, which has to be in the format the encoder was opened with and at least of its
+	/// size. Larger pictures are cropped to the size of the encoder. The picture is only read, and may be kept by
+	/// the encoder for a while.
 	/// @param timestamp  Capture time in microseconds. Has to increase with every call.
 	/// @param keyFrame  Whether this picture has to be encoded as a key frame that decoders can start at.
 	/// @param[out] packets  Packets that came out of the encoder are appended to this. Encoders may delay

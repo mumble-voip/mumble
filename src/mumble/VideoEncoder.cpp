@@ -193,17 +193,20 @@ void VideoEncoder::processIncomingFrame() {
 }
 
 void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
-	// Encoders generally require even dimensions — crop one pixel if needed.
+	// Encoders generally require even dimensions. The encoder crops the odd pixel itself, which saves copying the
+	// picture.
 	const int width  = srcImage.width() & ~1;
 	const int height = srcImage.height() & ~1;
 	if (width <= 0 || height <= 0)
 		return;
-	const QImage image =
-		(width != srcImage.width() || height != srcImage.height()) ? srcImage.copy(0, 0, width, height) : srcImage;
 
-	// (Re-)open the encoder when the resolution changes.
-	if (m_encoderWidth != width || m_encoderHeight != height)
-		openBackend(width, height);
+	// Capture sources deliver pictures in a 32 bit RGB format, which encoders take as they are. Anything else
+	// (which shouldn't happen) has to be converted first.
+	const QImage image = isEncodable(srcImage.format()) ? srcImage : srcImage.convertToFormat(QImage::Format_RGB32);
+
+	// (Re-)open the encoder when the resolution or the picture format changes.
+	if (m_encoderWidth != width || m_encoderHeight != height || m_encoderFormat != image.format())
+		openBackend(width, height, image.format());
 	if (!m_backend) {
 		processStop();
 		emit failed();
@@ -270,14 +273,30 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 	}
 }
 
-bool VideoEncoder::openBackend(int width, int height) {
+bool VideoEncoder::isEncodable(QImage::Format format) {
+	switch (format) {
+		case QImage::Format_RGB32:
+		case QImage::Format_ARGB32:
+		case QImage::Format_ARGB32_Premultiplied:
+		case QImage::Format_RGBX8888:
+		case QImage::Format_RGBA8888:
+		case QImage::Format_RGBA8888_Premultiplied:
+			return true;
+		default:
+			return false;
+	}
+}
+
+bool VideoEncoder::openBackend(int width, int height, QImage::Format format) {
 	m_backend.reset();
 	m_encoderWidth  = width;
 	m_encoderHeight = height;
+	m_encoderFormat = format;
 
 	VideoEncoderConfig config;
 	config.width            = width;
 	config.height           = height;
+	config.inputFormat      = format;
 	config.bitrate          = BITRATE;
 	config.fps              = FPS;
 	config.keyFrameInterval = VIDEO_GOP_SIZE;

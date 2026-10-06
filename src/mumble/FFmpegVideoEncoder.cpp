@@ -101,6 +101,44 @@ std::vector< AVPixelFormat > supportedPixelFormats(const AVCodec *codec) {
 	return formats;
 }
 
+/// The pixel format of the given picture format in memory, or AV_PIX_FMT_NONE if there is none the encoders can
+/// take. Alpha is ignored, as there is nothing behind the shared picture.
+AVPixelFormat pixelFormatOf(QImage::Format format) {
+	switch (format) {
+		case QImage::Format_RGB32:
+		case QImage::Format_ARGB32:
+		case QImage::Format_ARGB32_Premultiplied:
+			// 0xffRRGGBB in native byte order
+			return AV_PIX_FMT_0RGB32;
+		case QImage::Format_RGBX8888:
+		case QImage::Format_RGBA8888:
+		case QImage::Format_RGBA8888_Premultiplied:
+			return AV_PIX_FMT_RGB0;
+		default:
+			return AV_PIX_FMT_NONE;
+	}
+}
+
+/// The same pixel format with alpha instead of an unused byte, which some encoders list instead.
+AVPixelFormat withAlpha(AVPixelFormat format) {
+	switch (format) {
+		case AV_PIX_FMT_BGR0:
+			return AV_PIX_FMT_BGRA;
+		case AV_PIX_FMT_RGB0:
+			return AV_PIX_FMT_RGBA;
+		case AV_PIX_FMT_0RGB:
+			return AV_PIX_FMT_ARGB;
+		case AV_PIX_FMT_0BGR:
+			return AV_PIX_FMT_ABGR;
+		default:
+			return AV_PIX_FMT_NONE;
+	}
+}
+
+void releaseImage(void *opaque, uint8_t *) {
+	delete static_cast< QImage * >(opaque);
+}
+
 } // namespace
 
 std::vector< VideoEncoderInfo > FFmpegVideoEncoder::candidates() {
@@ -132,7 +170,7 @@ bool FFmpegVideoEncoder::probe(const VideoEncoderInfo &info) {
 		return false;
 
 	// Some encoders only fail once they get the first picture
-	QImage image(config.width, config.height, QImage::Format_RGBA8888);
+	QImage image(config.width, config.height, config.inputFormat);
 	image.fill(Qt::gray);
 	std::vector< Packet > packets;
 	return encoder->encode(image, 0, true, packets);
@@ -173,16 +211,27 @@ bool FFmpegVideoEncoder::init(const VideoEncoderConfig &config) {
 	if (!codec)
 		return false;
 
-	// Prefer feeding pictures from system memory, which nearly all encoders (including most hardware ones) take.
-	// Only if the encoder doesn't, the pictures are uploaded to the GPU.
-	const std::vector< AVPixelFormat > formats = supportedPixelFormats(codec);
-	auto supports                              = [&formats](AVPixelFormat format) {
-        return formats.empty() || std::find(formats.begin(), formats.end(), format) != formats.end();
-	};
+	const AVPixelFormat inputFormat = pixelFormatOf(config.inputFormat);
+	if (inputFormat == AV_PIX_FMT_NONE)
+		return false;
 
+	const std::vector< AVPixelFormat > formats = supportedPixelFormats(codec);
+	auto lists                                 = [&formats](AVPixelFormat format) {
+        return std::find(formats.begin(), formats.end(), format) != formats.end();
+	};
+	auto supports = [&formats, &lists](AVPixelFormat format) { return formats.empty() || lists(format); };
+
+	// Many hardware encoders (e.g. NVENC and AMF) take RGB pictures and convert them on the GPU. That saves
+	// converting them on the CPU, which costs about as much as encoding in software.
 	AVPixelFormat swFormat = AV_PIX_FMT_NONE;
 	AVPixelFormat hwFormat = AV_PIX_FMT_NONE;
-	if (supports(AV_PIX_FMT_YUV420P)) {
+	if (lists(inputFormat)) {
+		m_inputFormat = inputFormat;
+	} else if (lists(withAlpha(inputFormat))) {
+		m_inputFormat = withAlpha(inputFormat);
+	} else if (supports(AV_PIX_FMT_YUV420P)) {
+		// Otherwise prefer feeding pictures from system memory, which nearly all encoders (including most
+		// hardware ones) take. Only if the encoder doesn't, the pictures are uploaded to the GPU.
 		swFormat = AV_PIX_FMT_YUV420P;
 	} else if (supports(AV_PIX_FMT_NV12)) {
 		swFormat = AV_PIX_FMT_NV12;
@@ -213,11 +262,22 @@ bool FFmpegVideoEncoder::init(const VideoEncoderConfig &config) {
 	m_codecCtx->height    = config.height;
 	m_codecCtx->time_base = { 1, 1'000'000 }; // timestamps are in microseconds
 	m_codecCtx->framerate = { config.fps, 1 };
-	m_codecCtx->pix_fmt   = hwFormat != AV_PIX_FMT_NONE ? hwFormat : swFormat;
-	m_codecCtx->bit_rate  = config.bitrate;
-	m_codecCtx->gop_size  = config.keyFrameInterval;
+	if (hwFormat != AV_PIX_FMT_NONE) {
+		m_codecCtx->pix_fmt = hwFormat;
+	} else if (m_inputFormat != AV_PIX_FMT_NONE) {
+		m_codecCtx->pix_fmt = static_cast< AVPixelFormat >(m_inputFormat);
+	} else {
+		m_codecCtx->pix_fmt = swFormat;
+	}
+	m_codecCtx->bit_rate = config.bitrate;
+	m_codecCtx->gop_size = config.keyFrameInterval;
 	// B-frames add latency, as frames have to wait for later ones
 	m_codecCtx->max_b_frames = 0;
+	if (m_inputFormat == AV_PIX_FMT_NONE) {
+		// What libswscale converts RGB to by default, so that decoders convert it back correctly
+		m_codecCtx->colorspace  = AVCOL_SPC_SMPTE170M;
+		m_codecCtx->color_range = AVCOL_RANGE_MPEG;
+	}
 
 	applyOptions(m_codecCtx->priv_data, spec->options);
 
@@ -249,50 +309,73 @@ bool FFmpegVideoEncoder::init(const VideoEncoderConfig &config) {
 	if (!m_frame || !m_packet)
 		return false;
 
-	m_frame->format = swFormat;
-	m_frame->width  = config.width;
-	m_frame->height = config.height;
-	if (av_frame_get_buffer(m_frame, 0) < 0)
-		return false;
+	if (m_inputFormat == AV_PIX_FMT_NONE) {
+		m_frame->format = swFormat;
+		m_frame->width  = config.width;
+		m_frame->height = config.height;
+		if (av_frame_get_buffer(m_frame, 0) < 0)
+			return false;
+
+		// Converting 1:1 without scaling, so the cheapest filter is just as good as any other
+		m_swsCtx = sws_getContext(config.width, config.height, inputFormat, config.width, config.height, swFormat,
+								  SWS_FAST_BILINEAR, nullptr, nullptr, nullptr);
+		if (!m_swsCtx)
+			return false;
+	}
 
 	return true;
 }
 
-bool FFmpegVideoEncoder::encode(const QImage &srcImage, qint64 timestamp, bool keyFrame,
-								std::vector< Packet > &packets) {
-	if (srcImage.width() != m_codecCtx->width || srcImage.height() != m_codecCtx->height)
+bool FFmpegVideoEncoder::encode(const QImage &image, qint64 timestamp, bool keyFrame, std::vector< Packet > &packets) {
+	if (image.width() < m_codecCtx->width || image.height() < m_codecCtx->height)
 		return false;
-
-	const QImage image = srcImage.convertToFormat(QImage::Format_RGBA8888);
-
-	m_swsCtx =
-		sws_getCachedContext(m_swsCtx, image.width(), image.height(), AV_PIX_FMT_RGBA, m_frame->width, m_frame->height,
-							 static_cast< AVPixelFormat >(m_frame->format), SWS_BICUBIC, nullptr, nullptr, nullptr);
-	if (!m_swsCtx)
-		return false;
-
-	if (av_frame_make_writable(m_frame) < 0)
-		return false;
-
-	const uint8_t *srcData[1] = { image.constBits() };
-	const int srcLinesize[1]  = { static_cast< int >(image.bytesPerLine()) };
-	sws_scale(m_swsCtx, srcData, srcLinesize, 0, image.height(), m_frame->data, m_frame->linesize);
 
 	AVFrame *input = m_frame;
-	if (m_hwFrames) {
-		av_frame_unref(m_hwFrame);
-		if (av_hwframe_get_buffer(m_hwFrames, m_hwFrame, 0) < 0
-			|| av_hwframe_transfer_data(m_hwFrame, m_frame, 0) < 0) {
+	if (m_inputFormat != AV_PIX_FMT_NONE) {
+		// Hand the picture over as it is. The frame refers to a copy of the image, which keeps the memory alive
+		// for as long as the encoder needs it, without copying the pixels.
+		av_frame_unref(m_frame);
+		QImage *held    = new QImage(image);
+		uint8_t *bits   = const_cast< uint8_t * >(held->constBits());
+		m_frame->buf[0] = av_buffer_create(bits, static_cast< size_t >(held->sizeInBytes()), &releaseImage, held,
+										   AV_BUFFER_FLAG_READONLY);
+		if (!m_frame->buf[0]) {
+			delete held;
 			return false;
 		}
-		input = m_hwFrame;
+		m_frame->data[0]     = bits;
+		m_frame->linesize[0] = static_cast< int >(held->bytesPerLine());
+		m_frame->format      = m_inputFormat;
+		m_frame->width       = m_codecCtx->width;
+		m_frame->height      = m_codecCtx->height;
+	} else {
+		if (av_frame_make_writable(m_frame) < 0)
+			return false;
+
+		const uint8_t *srcData[1] = { image.constBits() };
+		const int srcLinesize[1]  = { static_cast< int >(image.bytesPerLine()) };
+		sws_scale(m_swsCtx, srcData, srcLinesize, 0, m_codecCtx->height, m_frame->data, m_frame->linesize);
+
+		if (m_hwFrames) {
+			av_frame_unref(m_hwFrame);
+			if (av_hwframe_get_buffer(m_hwFrames, m_hwFrame, 0) < 0
+				|| av_hwframe_transfer_data(m_hwFrame, m_frame, 0) < 0) {
+				return false;
+			}
+			input = m_hwFrame;
+		}
 	}
 
 	input->pts = timestamp;
 	// Frames are reused, so the picture type has to be reset after a forced key frame
 	input->pict_type = keyFrame ? AV_PICTURE_TYPE_I : AV_PICTURE_TYPE_NONE;
 
-	if (avcodec_send_frame(m_codecCtx, input) < 0)
+	const int sent = avcodec_send_frame(m_codecCtx, input);
+	if (m_inputFormat != AV_PIX_FMT_NONE) {
+		// The encoder took its own reference, if it needs the picture any longer
+		av_frame_unref(m_frame);
+	}
+	if (sent < 0)
 		return false;
 
 	while (avcodec_receive_packet(m_codecCtx, m_packet) == 0) {
