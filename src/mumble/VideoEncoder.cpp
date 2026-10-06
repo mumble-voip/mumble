@@ -17,7 +17,14 @@ extern "C" {
 
 #include <algorithm>
 
-static constexpr int VIDEO_GOP_SIZE = 60 * VideoEncoder::FPS; // keyframe every ~60 s — receivers request them on loss
+/// Viewers request a key frame whenever they need one (on joining, after a loss), so periodic key frames are only
+/// a safety net. Each key frame is much larger than other frames and delays the frames behind it, which viewers
+/// see as a stutter.
+static constexpr int VIDEO_GOP_SIZE = 60 * VideoEncoder::FPS;
+/// When the screen doesn't change, native capture streams stop delivering frames. The last frame is encoded again
+/// after this long (which costs next to nothing, as nothing changed), so that viewers notice the loss of the frame
+/// before the pause and request a key frame.
+static constexpr int HEARTBEAT_INTERVAL_MS = 1'000;
 /// Minimum time between a key frame and one sent on request. Viewers tend to lose the same packets and each of
 /// them asks for a key frame, so this keeps a single loss from causing a burst of key frames.
 static constexpr qint64 MIN_KEYFRAME_REQUEST_INTERVAL_US = 500'000;
@@ -32,6 +39,11 @@ VideoEncoder::VideoEncoder(QObject *parent) : QObject(parent) {
 	m_keyFrameTimer = new QTimer(this);
 	m_keyFrameTimer->setSingleShot(true);
 	connect(m_keyFrameTimer, &QTimer::timeout, this, &VideoEncoder::forceKeyFrame);
+
+	m_heartbeatTimer = new QTimer(this);
+	m_heartbeatTimer->setSingleShot(true);
+	m_heartbeatTimer->setInterval(HEARTBEAT_INTERVAL_MS);
+	connect(m_heartbeatTimer, &QTimer::timeout, this, &VideoEncoder::sendHeartbeat);
 }
 
 VideoEncoder::~VideoEncoder() {
@@ -85,6 +97,7 @@ void VideoEncoder::processStop() {
 	m_running = false;
 	m_frameRateTimer->stop();
 	m_keyFrameTimer->stop();
+	m_heartbeatTimer->stop();
 	m_keyFrameRequested = false;
 	m_lastFrame         = QImage();
 	{
@@ -128,6 +141,19 @@ void VideoEncoder::forceKeyFrame() {
 		submitFrame(m_lastFrame, now());
 }
 
+void VideoEncoder::sendHeartbeat() {
+	if (!m_running || m_lastFrame.isNull())
+		return;
+
+	bool idle;
+	{
+		QMutexLocker lock(&m_incomingMutex);
+		idle = m_incomingFrame.isNull();
+	}
+	if (idle)
+		submitFrame(m_lastFrame, now());
+}
+
 void VideoEncoder::processIncomingFrame() {
 	if (!m_running)
 		return;
@@ -156,6 +182,7 @@ void VideoEncoder::processIncomingFrame() {
 	m_frameRateTimer->stop();
 	m_lastFrame      = frame;
 	m_lastEncodeTime = currentTime;
+	m_heartbeatTimer->start();
 
 	encodeImage(frame, captureTime);
 }

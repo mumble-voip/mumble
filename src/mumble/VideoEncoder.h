@@ -75,6 +75,9 @@ private:
 
 	/// Makes the next frame a key frame, encoding the last frame again if no new one is on its way.
 	void forceKeyFrame();
+	/// Encodes the last frame again if no new one is on its way, so that viewers notice lost frames even while
+	/// the screen doesn't change.
+	void sendHeartbeat();
 	void encodeImage(const QImage &srcImage, qint64 captureTime);
 	bool initEncoder(int width, int height);
 	void destroyEncoder();
@@ -108,6 +111,8 @@ private:
 	qint64 m_lastKeyFrameTime = -1;
 	/// Fires when a held back key frame request may be served.
 	QTimer *m_keyFrameTimer = nullptr;
+	/// Fires when no frame was encoded for a while, see sendHeartbeat()
+	QTimer *m_heartbeatTimer = nullptr;
 
 	AVCodecContext *m_codecCtx = nullptr;
 	AVFrame *m_frame           = nullptr;
