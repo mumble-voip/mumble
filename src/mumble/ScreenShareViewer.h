@@ -26,13 +26,12 @@ public:
 
 public slots:
 	void updateFrame(VideoFrame frame);
+	/// Closes the viewer, however that was triggered.
+	void done(int result) override;
 
 signals:
 	/// Emitted when the window gets closed, by the user or otherwise.
 	void closed(quint32 senderSession);
-
-protected:
-	void closeEvent(QCloseEvent *event) override;
 
 private:
 	/// Draws the frames. Only exists when screen sharing is supported.
