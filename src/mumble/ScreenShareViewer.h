@@ -9,8 +9,7 @@
 #include <QtGui/QImage>
 #include <QtWidgets/QDialog>
 
-class QLabel;
-class QScrollArea;
+class VideoWidget;
 
 /// Floating window that displays the screen share stream from a single remote user.
 class ScreenShareViewer : public QDialog {
@@ -21,21 +20,16 @@ private:
 public:
 	explicit ScreenShareViewer(quint32 senderSession, const QString &senderName, QWidget *parent = nullptr);
 
-	/// Show the window and repaint with the last stored frame.
+	/// Show the window with the last stored frame.
 	void showAndRefresh();
 
 public slots:
 	void updateFrame(QImage frame);
 
-protected:
-	void resizeEvent(QResizeEvent *event) override;
-
 private:
-	void updateImageDisplay();
-
-	QLabel *m_imageLabel;
+	/// Draws the frames. Only exists when screen sharing is supported.
+	VideoWidget *m_videoWidget = nullptr;
 	quint32 m_senderSession;
-	QImage m_currentFrame;
 };
 
 #endif // MUMBLE_MUMBLE_SCREENSHAREVIEWER_H_
