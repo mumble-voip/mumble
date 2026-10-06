@@ -10,6 +10,7 @@
 #include "ExceptionUtils.h"
 #include "Group.h"
 #include "LegacyPasswordHash.h"
+#include "Logger.h"
 #include "Meta.h"
 #include "MumbleConstants.h"
 #include "PBKDF2.h"
@@ -57,6 +58,7 @@
 #include <cassert>
 #include <limits>
 #include <optional>
+#include <sstream>
 #include <stdexcept>
 #include <thread>
 #include <utility>
@@ -104,14 +106,13 @@ DBWrapper::DBWrapper(const ::mdb::ConnectionParameter &connectionParams)
 // Our error handling consists in properly printing the encountered error and then throwing
 // a standard std::exception that should be caught in our QCoreApplication's notify function,
 // which we have overridden to exit all event processing and thereby shutting down all servers.
-#define WRAPPER_END                                                       \
-	}                                                                     \
-	catch (const ::mdb::Exception &e) {                                   \
-		std::cerr << "[ERROR]: Encountered database error:" << std::endl; \
-		mumble::printExceptionMessage(std::cerr, e, 1);                   \
-		std::cerr << std::endl;                                           \
-                                                                          \
-		throw std::runtime_error("Database error");                       \
+#define WRAPPER_END                                                           \
+	}                                                                         \
+	catch (const ::mdb::Exception &e) {                                       \
+		std::stringstream sstream;                                            \
+		mumble::printExceptionMessage(sstream, e, 1);                         \
+		mumble::log::error("Encountered database error:\n{}", sstream.str()); \
+		throw std::runtime_error("Database error");                           \
 	}
 
 std::vector< unsigned int > DBWrapper::getAllServers() {
