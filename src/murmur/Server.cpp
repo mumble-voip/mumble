@@ -1800,6 +1800,17 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		stopThread();
 }
 
+/// Removes the fields this server doesn't know from a received message, so that clients can't pass on data to other
+/// clients that the server doesn't understand.
+template< typename Message > static void discardUnknownFields(Message &msg) {
+	msg.DiscardUnknownFields();
+}
+
+/// Key frame requests are forwarded with the fields the server doesn't know, so that newer clients can add information
+/// to them without every server having to be updated first.
+static void discardUnknownFields(MumbleProto::VideoKeyFrameRequest &) {
+}
+
 void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qbaMsg, ServerUser *u) {
 	ZoneScopedN(TracyConstants::TCP_PACKET_PROCESSING_ZONE);
 
@@ -1906,7 +1917,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 		case Mumble::Protocol::TCPMessageType::name: {                                       \
 			MumbleProto::name msg;                                                           \
 			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
-				msg.DiscardUnknownFields();                                                  \
+				discardUnknownFields(msg);                                                   \
 				msg##name(u, msg);                                                           \
 			}                                                                                \
 			break;                                                                           \
@@ -1920,7 +1931,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 					printf("== %s:\n", #name);                                               \
 					msg.PrintDebugString();                                                  \
 				}                                                                            \
-				msg.DiscardUnknownFields();                                                  \
+				discardUnknownFields(msg);                                                   \
 				msg##name(u, msg);                                                           \
 			}                                                                                \
 			break;                                                                           \
