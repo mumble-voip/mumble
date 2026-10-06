@@ -192,11 +192,11 @@ class XdgPortalSession : public QObject {
 	Q_OBJECT
 
 public:
-	explicit XdgPortalSession(std::function< void() > onStarted, std::function< void() > onCancelled,
+	explicit XdgPortalSession(int frameRate, std::function< void() > onStarted, std::function< void() > onCancelled,
 							  std::function< void(QString) > onError, std::function< void(QImage) > onFrame,
 							  QObject *parent = nullptr)
-		: QObject(parent), m_onStarted(std::move(onStarted)), m_onCancelled(std::move(onCancelled)),
-		  m_onError(std::move(onError)), m_onFrame(std::move(onFrame)) {}
+		: QObject(parent), m_frameRate(frameRate), m_onStarted(std::move(onStarted)),
+		  m_onCancelled(std::move(onCancelled)), m_onError(std::move(onError)), m_onFrame(std::move(onFrame)) {}
 
 	~XdgPortalSession() override { cleanup(); }
 
@@ -381,9 +381,10 @@ private:
 		const struct spa_rectangle szDefault = SPA_RECTANGLE(1920, 1080);
 		const struct spa_rectangle szMin     = SPA_RECTANGLE(1, 1);
 		const struct spa_rectangle szMax     = SPA_RECTANGLE(8192, 8192);
-		const struct spa_fraction fpsDefault = SPA_FRACTION(15, 1);
+		// Frames beyond the frame rate would only be dropped by the encoder, so don't have them copied at all
+		const struct spa_fraction fpsDefault = SPA_FRACTION(static_cast< uint32_t >(m_frameRate), 1);
 		const struct spa_fraction fpsMin     = SPA_FRACTION(0, 1);
-		const struct spa_fraction fpsMax     = SPA_FRACTION(60, 1);
+		const struct spa_fraction fpsMax     = SPA_FRACTION(static_cast< uint32_t >(m_frameRate), 1);
 
 		// clang-format off
 		params[0] = static_cast< const struct spa_pod * >(spa_pod_builder_add_object(
@@ -526,6 +527,7 @@ private slots:
 	}
 
 private:
+	int m_frameRate;
 	std::function< void() > m_onStarted;
 	std::function< void() > m_onCancelled;
 	std::function< void(QString) > m_onError;
@@ -557,12 +559,12 @@ bool xdg_portal_isNativePickerAvailable() {
 	return iface.isValid();
 }
 
-void xdg_portal_startCapture(std::function< void() > onStarted, std::function< void() > onCancelled,
+void xdg_portal_startCapture(int frameRate, std::function< void() > onStarted, std::function< void() > onCancelled,
 							 std::function< void(QString) > onError, std::function< void(QImage) > onFrame) {
 	xdg_portal_stop();
 
-	g_session =
-		new XdgPortalSession(std::move(onStarted), std::move(onCancelled), std::move(onError), std::move(onFrame));
+	g_session = new XdgPortalSession(frameRate, std::move(onStarted), std::move(onCancelled), std::move(onError),
+									 std::move(onFrame));
 	g_session->start();
 }
 

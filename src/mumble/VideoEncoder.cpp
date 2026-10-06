@@ -16,7 +16,7 @@
 /// Viewers request a key frame whenever they need one (on joining, after a loss), so periodic key frames are only
 /// a safety net. Each key frame is much larger than other frames and delays the frames behind it, which viewers
 /// see as a stutter.
-static constexpr int VIDEO_GOP_SIZE = 60 * VideoEncoder::FPS;
+static constexpr int KEY_FRAME_INTERVAL_S = 60;
 /// When the screen doesn't change, native capture streams stop delivering frames. The last frame is encoded again
 /// after this long (which costs next to nothing, as nothing changed), so that viewers notice the loss of the frame
 /// before the pause and request a key frame.
@@ -86,6 +86,15 @@ void VideoEncoder::setSelection(const VideoEncoderSelection &selection) {
 		this, [this, selection]() { processSelection(selection); }, Qt::QueuedConnection);
 }
 
+void VideoEncoder::setFrameRate(int frameRate) {
+	QMetaObject::invokeMethod(
+		this, [this, frameRate]() { processFrameRate(frameRate); }, Qt::QueuedConnection);
+}
+
+qint64 VideoEncoder::frameInterval(int frameRate) {
+	return 1'000'000 / std::clamp(frameRate, MIN_FRAME_RATE, MAX_FRAME_RATE);
+}
+
 qint64 VideoEncoder::now() const {
 	return m_streamClock.nsecsElapsed() / 1000;
 }
@@ -115,6 +124,22 @@ void VideoEncoder::processStop() {
 	m_encoderHeight = 0;
 	m_lastEncoderId.clear();
 	m_failedEncoders.clear();
+}
+
+void VideoEncoder::processFrameRate(int frameRate) {
+	frameRate = std::clamp(frameRate, MIN_FRAME_RATE, MAX_FRAME_RATE);
+	if (frameRate == m_frameRate)
+		return;
+	m_frameRate = frameRate;
+
+	if (!m_backend)
+		return;
+
+	// The key frame interval is given in frames, so open the encoder again with the next frame
+	m_backend.reset();
+	m_encoderWidth  = 0;
+	m_encoderHeight = 0;
+	forceKeyFrame();
 }
 
 void VideoEncoder::processSelection(const VideoEncoderSelection &selection) {
@@ -187,7 +212,7 @@ void VideoEncoder::processIncomingFrame() {
 		return;
 
 	const qint64 currentTime = now();
-	const qint64 nextSlot    = m_lastEncodeTime + FRAME_INTERVAL_US;
+	const qint64 nextSlot    = m_lastEncodeTime + frameInterval(m_frameRate);
 	if (m_lastEncodeTime >= 0 && currentTime < nextSlot) {
 		// Make sure that the latest frame still goes out even if the source does not deliver another one
 		// (which happens as soon as the screen content stops changing).
@@ -321,8 +346,8 @@ bool VideoEncoder::openBackend(int width, int height, QImage::Format format) {
 	config.height           = height;
 	config.inputFormat      = format;
 	config.bitrate          = BITRATE;
-	config.fps              = FPS;
-	config.keyFrameInterval = VIDEO_GOP_SIZE;
+	config.fps              = m_frameRate;
+	config.keyFrameInterval = KEY_FRAME_INTERVAL_S * m_frameRate;
 
 	if (m_encoderOrder.isEmpty())
 		m_encoderOrder = VideoEncoders::order(VideoEncoders::available(), VideoEncoderSelection());

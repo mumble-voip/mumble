@@ -35,6 +35,7 @@ public slots:
 	void save() const Q_DECL_OVERRIDE;
 	void load(const Settings &r) Q_DECL_OVERRIDE;
 	void on_qcbEncoderMode_currentIndexChanged(int index);
+	void on_qsFrameRate_valueChanged(int value);
 };
 
 #endif

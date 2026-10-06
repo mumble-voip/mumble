@@ -25,13 +25,14 @@ bool xdg_portal_isNativePickerAvailable();
 /// Mirrors the macOS sckit_startWithNativePicker() API.
 /// All callbacks except onFrame are invoked on the Qt main thread.
 ///
+/// @param frameRate    Maximum number of frames per second to deliver
 /// @param onStarted    Called once when the PipeWire stream starts delivering frames.
 /// @param onCancelled  Called if the user dismisses the portal picker without a selection, or ends the screen
 ///                     share through the desktop later on (e.g. with its screen sharing indicator).
 /// @param onError      Called with a description string if the session or stream fails.
 /// @param onFrame      Called on the PipeWire thread for each captured frame (QImage::Format_RGB32 or
 ///                     QImage::Format_RGBX8888), so that frames don't have to wait for a busy GUI.
-void xdg_portal_startCapture(std::function< void() > onStarted, std::function< void() > onCancelled,
+void xdg_portal_startCapture(int frameRate, std::function< void() > onStarted, std::function< void() > onCancelled,
 							 std::function< void(QString) > onError, std::function< void(QImage) > onFrame);
 
 /// Stops the active PipeWire stream and closes the portal session.
