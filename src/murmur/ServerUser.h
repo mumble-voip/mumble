@@ -20,6 +20,7 @@
 #include "Timer.h"
 
 #include <QtCore/QElapsedTimer>
+#include <QtCore/QHash>
 #include <QtCore/QStringList>
 
 #ifdef Q_OS_WIN
@@ -159,6 +160,14 @@ public:
 
 	LeakyBucket leakyBucket;
 	LeakyBucket m_pluginMessageBucket;
+
+	/// The frame of each sharing user's video that is currently being tunneled to this user through TCP, and whether
+	/// it is sent or dropped. Only used by the main thread.
+	struct TunneledVideoFrame {
+		std::uint64_t frameNumber;
+		bool send;
+	};
+	QHash< unsigned int, TunneledVideoFrame > m_tunneledVideoFrames;
 
 	int iLastPermissionCheck;
 	QMap< int, unsigned int > qmPermissionSent;

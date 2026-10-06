@@ -1981,9 +1981,41 @@ void Server::checkHandshakeTimeout() {
 	}
 }
 
+/// Video is no longer tunneled to a user while this many bytes are still waiting to be sent to them, which is a bit
+/// more than 100 ms of video at the default video bandwidth limit.
+static constexpr qint64 MAX_QUEUED_TUNNELED_VIDEO_BYTES = 64 * 1024;
+
+/// Whether a packet tunneled to the user through TCP is a video fragment that has to be dropped, because the
+/// connection can't keep up with the video. Otherwise, the video would pile up in the send buffer without limit and
+/// delay voice and everything else sent to the user more and more.
+///
+/// This is decided once per frame, when its first fragment is tunneled, so that a frame either reaches the user
+/// completely or not at all.
+static bool isDroppedTunneledVideo(ServerUser &u, const QByteArray &packet) {
+	// Only packets in the protobuf format start with their message type; video is never sent in any other format
+	if (u.m_version < Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION || packet.isEmpty()
+		|| static_cast< Mumble::Protocol::UDPMessageType >(packet[0]) != Mumble::Protocol::UDPMessageType::Video) {
+		return false;
+	}
+
+	MumbleUDP::Video video;
+	if (!video.ParseFromArray(packet.constData() + 1, static_cast< int >(packet.size() - 1))) {
+		return true;
+	}
+
+	auto it = u.m_tunneledVideoFrames.find(video.sender_session());
+	if (it == u.m_tunneledVideoFrames.end() || it->frameNumber != video.frame_number()) {
+		const bool send = u.bytesToWrite() <= MAX_QUEUED_TUNNELED_VIDEO_BYTES;
+		it              = u.m_tunneledVideoFrames.insert(video.sender_session(), { video.frame_number(), send });
+	}
+
+	return !it->send;
+}
+
 void Server::tcpTransmitData(QByteArray a, unsigned int id) {
-	Connection *c = qhUsers.value(id);
-	if (c) {
+	ServerUser *u = qhUsers.value(id);
+	if (u && !isDroppedTunneledVideo(*u, a)) {
+		Connection *c = u;
 		QByteArray qba;
 		const auto len = a.size();
 
