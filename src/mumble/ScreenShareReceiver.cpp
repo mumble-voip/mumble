@@ -294,9 +294,9 @@ void ScreenShareReceiver::processSender(quint32 session, SenderState &sender) {
 		return timeDiff(frame.displayTime, currentTime) <= 0;
 	});
 	if (due != sender.decoded.rend()) {
-		const QImage image = due->image;
+		const VideoFrame frame = due->frame;
 		sender.decoded.erase(sender.decoded.begin(), due.base());
-		emit frameDecoded(session, image);
+		emit frameDecoded(session, frame);
 	}
 }
 
@@ -447,6 +447,54 @@ void ScreenShareReceiver::destroyDecoder(quint32 session) {
 	m_decoders.erase(it);
 }
 
+VideoFrame ScreenShareReceiver::toVideoFrame(DecoderState &ds) {
+	const AVFrame *decoded = ds.frame;
+	const bool fullRange   = decoded->color_range == AVCOL_RANGE_JPEG || decoded->format == AV_PIX_FMT_YUVJ420P;
+
+	AVFrame *picture = nullptr;
+	if (decoded->format == AV_PIX_FMT_YUV420P || decoded->format == AV_PIX_FMT_YUVJ420P) {
+		// What decoders put out for nearly all streams, so it can be shown as it is. The frame only takes another
+		// reference to the decoded picture.
+		picture = av_frame_clone(decoded);
+	} else {
+		// E.g. 4:4:4 or more than 8 bits per sample. The context is cached, and only recreated when the dimensions
+		// or the pixel format changed.
+		ds.swsCtx = sws_getCachedContext(ds.swsCtx, decoded->width, decoded->height,
+										 static_cast< AVPixelFormat >(decoded->format), decoded->width, decoded->height,
+										 AV_PIX_FMT_YUV420P, SWS_BILINEAR, nullptr, nullptr, nullptr);
+		picture   = av_frame_alloc();
+		if (!ds.swsCtx || !picture)
+			return {};
+
+		picture->format = AV_PIX_FMT_YUV420P;
+		picture->width  = decoded->width;
+		picture->height = decoded->height;
+		if (av_frame_get_buffer(picture, 0) < 0) {
+			av_frame_free(&picture);
+			return {};
+		}
+		sws_scale(ds.swsCtx, decoded->data, decoded->linesize, 0, decoded->height, picture->data, picture->linesize);
+	}
+	if (!picture)
+		return {};
+
+	VideoFrame frame;
+	frame.width  = picture->width;
+	frame.height = picture->height;
+	for (int i = 0; i < 3; ++i) {
+		frame.planes[i]  = picture->data[i];
+		frame.strides[i] = picture->linesize[i];
+	}
+	frame.colorSpace =
+		decoded->colorspace == AVCOL_SPC_BT709 ? VideoFrame::ColorSpace::BT709 : VideoFrame::ColorSpace::BT601;
+	frame.fullRange = fullRange;
+	frame.holder    = std::shared_ptr< const void >(picture, [](const void *p) {
+        AVFrame *f = static_cast< AVFrame * >(const_cast< void * >(p));
+        av_frame_free(&f);
+    });
+	return frame;
+}
+
 void ScreenShareReceiver::decodeCompleteFrame(quint32 session, SenderState &sender, const PendingFrame &pf) {
 	if (!ensureDecoder(session, pf.codec))
 		return;
@@ -493,25 +541,15 @@ void ScreenShareReceiver::decodeCompleteFrame(quint32 session, SenderState &send
 	}
 
 	while (avcodec_receive_frame(ds.codecCtx, ds.frame) == 0) {
-		const int dw = ds.frame->width;
-		const int dh = ds.frame->height;
-
-		// The context is cached, and only recreated when the dimensions or the pixel format changed.
-		ds.swsCtx = sws_getCachedContext(ds.swsCtx, dw, dh, static_cast< AVPixelFormat >(ds.frame->format), dw, dh,
-										 AV_PIX_FMT_RGBA, SWS_BILINEAR, nullptr, nullptr, nullptr);
-		if (!ds.swsCtx)
+		const VideoFrame frame = toVideoFrame(ds);
+		if (frame.isNull())
 			continue;
-
-		QImage img(dw, dh, QImage::Format_RGBA8888);
-		uint8_t *dstData[1] = { img.bits() };
-		int dstStride[1]    = { static_cast< int >(img.bytesPerLine()) };
-		sws_scale(ds.swsCtx, ds.frame->data, ds.frame->linesize, 0, dh, dstData, dstStride);
 
 		const quint64 timestamp = ds.frame->best_effort_timestamp != AV_NOPTS_VALUE
 									  ? static_cast< quint64 >(ds.frame->best_effort_timestamp)
 									  : pf.timestamp;
 
-		sender.decoded.push_back({ sender.clock.displayTime(timestamp), img });
+		sender.decoded.push_back({ sender.clock.displayTime(timestamp), frame });
 		if (sender.decoded.size() > MAX_DECODED_FRAMES)
 			sender.decoded.pop_front();
 	}

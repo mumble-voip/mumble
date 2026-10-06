@@ -286,6 +286,7 @@ set(MUMBLE_SOURCES
 	"UserView.h"
 	"VersionCheck.cpp"
 	"VersionCheck.h"
+	"VideoFrame.h"
 	"ViewCert.cpp"
 	"ViewCert.h"
 	"VoiceRecorder.cpp"

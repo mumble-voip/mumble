@@ -8,10 +8,10 @@
 
 #include "MumbleProtocol.h"
 #include "MumbleUDP.pb.h"
+#include "VideoFrame.h"
 
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QObject>
-#include <QtGui/QImage>
 
 #include <cstdint>
 #include <deque>
@@ -63,7 +63,7 @@ public:
 	static std::vector< MumbleUDP::Video::Codec > supportedCodecs();
 
 signals:
-	void frameDecoded(quint32 senderSession, QImage frame);
+	void frameDecoded(quint32 senderSession, VideoFrame frame);
 	/// Emitted from the receiver's thread when the stream of the given sender can't be decoded until its next
 	/// key frame. While that is the case, it is emitted again every now and then.
 	void keyFrameNeeded(quint32 senderSession);
@@ -129,7 +129,7 @@ private:
 
 	struct DecodedFrame {
 		quint64 displayTime = 0;
-		QImage image;
+		VideoFrame frame;
 	};
 
 	struct SenderState {
@@ -162,9 +162,10 @@ private:
 	void requestKeyFrame(quint32 session, SenderState &sender);
 
 	struct DecoderState {
-		AVCodecContext *codecCtx      = nullptr;
-		AVFrame *frame                = nullptr;
-		AVPacket *packet              = nullptr;
+		AVCodecContext *codecCtx = nullptr;
+		AVFrame *frame           = nullptr;
+		AVPacket *packet         = nullptr;
+		/// Only used for decoded pictures that are not in the format of VideoFrame
 		SwsContext *swsCtx            = nullptr;
 		MumbleUDP::Video::Codec codec = MumbleUDP::Video::H264;
 		/// Drop P-frames until the decoder has seen at least one IDR keyframe.
@@ -175,6 +176,8 @@ private:
 	bool ensureDecoder(quint32 session, MumbleUDP::Video::Codec codec);
 	void destroyDecoder(quint32 session);
 	void decodeCompleteFrame(quint32 session, SenderState &sender, const PendingFrame &frame);
+	/// Turns the picture the decoder just put out into a VideoFrame, converting it only if necessary.
+	VideoFrame toVideoFrame(DecoderState &ds);
 #endif
 };
 
