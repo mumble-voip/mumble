@@ -23,6 +23,7 @@ class ServerHandler;
 class AudioInput;
 class AudioOutput;
 class Database;
+class ScreenShareReceiver;
 class Log;
 class PluginManager;
 class QSettings;
@@ -54,6 +55,7 @@ public:
 	std::shared_ptr< ServerHandler > sh;
 	std::shared_ptr< AudioInput > ai;
 	std::shared_ptr< AudioOutput > ao;
+	ScreenShareReceiver *screenShareReceiver = nullptr;
 	/**
 	 * @remark Must only be accessed from the main event loop
 	 */

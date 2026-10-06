@@ -39,6 +39,8 @@
 #include "QtWidgetUtils.h"
 #include "RichTextEditor.h"
 #include "Screen.h"
+#include "ScreenShareReceiver.h"
+#include "ScreenShareViewer.h"
 #include "SearchDialog.h"
 #include "ServerHandler.h"
 #include "ServerInformation.h"
@@ -215,6 +217,14 @@ MainWindow::MainWindow(QWidget *p)
 	QObject::connect(this, &MainWindow::channelStateChanged, this, &MainWindow::on_channelStateChanged);
 
 	QAccessible::installFactory(AccessibleSlider::semanticSliderFactory);
+
+	// Create the screen-share receiver and connect its frameDecoded signal so that decoded
+	// frames from remote users are delivered on the GUI thread (queued connection).
+	Global::get().screenShareReceiver = new ScreenShareReceiver(this);
+	connect(Global::get().screenShareReceiver, &ScreenShareReceiver::frameDecoded, this,
+			&MainWindow::onRemoteFrameDecoded, Qt::QueuedConnection);
+	// Covers users leaving the server as well as us disconnecting, upon which all users are removed
+	connect(pmModel, &UserModel::userRemoved, this, &MainWindow::onRemoteScreenShareStopped);
 }
 
 // Loading a state that was stored by a different version of Qt can lead to a crash.
@@ -4168,6 +4178,33 @@ void MainWindow::recording() {
 		connect(voiceRecorderDialog, SIGNAL(finished(int)), this, SLOT(voiceRecorderDialog_finished(int)));
 		QObject::connect(Global::get().sh.get(), &ServerHandler::disconnected, voiceRecorderDialog, &QDialog::reject);
 		voiceRecorderDialog->show();
+	}
+}
+
+void MainWindow::onRemoteFrameDecoded(quint32 senderSession, QImage frame) {
+	// Frames decoded before the share ended may still arrive afterwards, they must not bring the viewer back
+	ClientUser *sender = ClientUser::get(senderSession);
+	if (!sender || !sender->bScreenSharing)
+		return;
+	const QString name = sender->qsName;
+
+	if (!m_screenShareViewers.contains(senderSession)) {
+		ScreenShareViewer *viewer = new ScreenShareViewer(senderSession, name, this);
+		m_screenShareViewers.insert(senderSession, viewer);
+	}
+
+	ScreenShareViewer *viewer = m_screenShareViewers[senderSession];
+	viewer->updateFrame(frame);
+}
+
+void MainWindow::onRemoteScreenShareStopped(quint32 senderSession) {
+	if (Global::get().screenShareReceiver)
+		Global::get().screenShareReceiver->resetSender(senderSession);
+
+	if (m_screenShareViewers.contains(senderSession)) {
+		ScreenShareViewer *viewer = m_screenShareViewers.take(senderSession);
+		viewer->close();
+		viewer->deleteLater();
 	}
 }
 

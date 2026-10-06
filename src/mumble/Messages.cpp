@@ -620,6 +620,10 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				}
 			}
 		}
+
+		// Also when the user isn't in our channel (anymore), as their screen share may have been watched before
+		if (!pDst->bScreenSharing)
+			Global::get().mw->onRemoteScreenShareStopped(pDst->uiSession);
 	}
 
 	if (msg.has_priority_speaker()) {
