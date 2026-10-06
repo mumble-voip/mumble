@@ -263,6 +263,7 @@ Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &conne
 		qqIds.enqueue(i);
 
 	connect(qtTimeout, SIGNAL(timeout()), this, SLOT(checkTimeout()));
+	connect(&m_handshakeTimeoutTimer, &QTimer::timeout, this, &Server::checkHandshakeTimeout);
 
 	m_bans = m_dbWrapper.getBans(iServerNum);
 	m_dbWrapper.initializeChannels(*this);
@@ -361,6 +362,7 @@ void Server::readParams() {
 	qsPassword                         = Meta::mp->qsPassword;
 	usPort                             = static_cast< unsigned short >(Meta::mp->usPort + iServerNum);
 	iTimeout                           = Meta::mp->iTimeout;
+	handshakeTimeout                   = Meta::mp->handshakeTimeout;
 	iMaxBandwidth                      = Meta::mp->iMaxBandwidth;
 	iMaxUsers                          = Meta::mp->iMaxUsers;
 	iMaxUsersPerChannel                = Meta::mp->iMaxUsersPerChannel;
@@ -1523,6 +1525,18 @@ void Server::newClient() {
 		connect(u, &ServerUser::handleSslErrors, this, &Server::sslError);
 		connect(u, &ServerUser::encrypted, this, &Server::encrypted);
 
+		// Keep track of the connection until it authenticates, so that a connection that lingers
+		// without ever authenticating can be dropped instead of occupying memory indefinitely.
+		m_pendingConnections.insert(u);
+		if (handshakeTimeout > std::chrono::seconds(0) && !m_handshakeTimeoutTimer.isActive()) {
+			// Sweep a few times within the deadline, but don't busy-poll for very long deadlines.
+			const std::chrono::milliseconds interval =
+				std::max(std::chrono::milliseconds(1000),
+						 std::min(std::chrono::milliseconds(15000),
+								  std::chrono::duration_cast< std::chrono::milliseconds >(handshakeTimeout) / 2));
+			m_handshakeTimeoutTimer.start(interval);
+		}
+
 		log(u, QString("New connection: %1").arg(addressToString(sock->peerAddress(), sock->peerPort())));
 
 		u->setToS();
@@ -1706,6 +1720,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		QWriteLocker wl(&qrwlVoiceThread);
 
 		qhUsers.remove(u->uiSession);
+		m_pendingConnections.erase(u);
 		removeHostUser(u);
 
 		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6)
@@ -1885,6 +1900,29 @@ void Server::checkTimeout() {
 	qrwlVoiceThread.unlock();
 	for (ServerUser *u : qlClose) {
 		u->rejectConnection(true);
+	}
+}
+
+void Server::checkHandshakeTimeout() {
+	const std::int64_t deadline = std::chrono::duration_cast< std::chrono::milliseconds >(handshakeTimeout).count();
+
+	// Collect first and reject afterwards: rejectConnection() can synchronously trigger
+	// connectionClosed(), which erases from m_pendingConnections and would otherwise invalidate
+	// the iterator we are looping over.
+	std::vector< ServerUser * > toClose;
+	for (ServerUser *u : m_pendingConnections) {
+		if (u->sState != ServerUser::Authenticated && u->activityTime() > deadline) {
+			log(u, "Handshake timeout");
+			toClose.push_back(u);
+		}
+	}
+
+	for (ServerUser *u : toClose) {
+		u->rejectConnection(true);
+	}
+
+	if (m_pendingConnections.empty()) {
+		m_handshakeTimeoutTimer.stop();
 	}
 }
 

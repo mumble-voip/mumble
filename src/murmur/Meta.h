@@ -27,6 +27,7 @@
 #include <QtNetwork/QSslCipher>
 #include <QtNetwork/QSslKey>
 
+#include <chrono>
 #include <memory>
 #include <optional>
 
@@ -41,6 +42,9 @@ public:
 	QList< QHostAddress > qlBind;
 	unsigned short usPort;
 	int iTimeout;
+	/// Maximum time a connection may remain without having authenticated before
+	/// it is dropped. A value <= 0 disables this timeout.
+	std::chrono::seconds handshakeTimeout;
 	int iMaxBandwidth;
 	unsigned int iMaxUsers;
 	unsigned int iMaxUsersPerChannel;

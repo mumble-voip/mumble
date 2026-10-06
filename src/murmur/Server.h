@@ -50,9 +50,11 @@
 #	include <winsock2.h>
 #endif
 
+#include <chrono>
 #include <functional>
 #include <optional>
 #include <span>
+#include <unordered_set>
 #include <vector>
 
 class Zeroconf;
@@ -117,6 +119,7 @@ public:
 	QList< QHostAddress > qlBind;
 	unsigned short usPort;
 	int iTimeout;
+	std::chrono::seconds handshakeTimeout;
 	int iMaxBandwidth;
 	unsigned int iMaxUsers;
 	unsigned int iMaxUsersPerChannel;
@@ -241,6 +244,7 @@ public slots:
 	void sslError(const QList< QSslError > &);
 	void message(Mumble::Protocol::TCPMessageType, const QByteArray &, ServerUser *cCon = nullptr);
 	void checkTimeout();
+	void checkHandshakeTimeout();
 	void tcpTransmitData(QByteArray, unsigned int);
 	void doSync(unsigned int);
 	void encrypted();
@@ -254,6 +258,15 @@ public:
 	QQueue< unsigned int > qqIds;
 	QList< SslServer * > qlServer;
 	QTimer *qtTimeout;
+
+	/// Timer that periodically sweeps m_pendingConnections for connections that
+	/// have not authenticated within handshakeTimeout and drops them.
+	QTimer m_handshakeTimeoutTimer;
+
+	/// Connections that have been accepted but have not yet authenticated. Owned
+	/// by the main thread (never accessed from the voice thread), so access needs
+	/// no qrwlVoiceThread lock.
+	std::unordered_set< ServerUser * > m_pendingConnections;
 
 #ifdef Q_OS_UNIX
 	int aiNotify[2];
