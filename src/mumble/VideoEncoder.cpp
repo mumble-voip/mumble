@@ -338,6 +338,7 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 		encoded.width       = static_cast< quint32 >(m_encoderWidth);
 		encoded.height      = static_cast< quint32 >(m_encoderHeight);
 		encoded.isKeyFrame  = packet.isKeyFrame;
+		encoded.bitrate     = m_backendBitrate;
 
 		if (encoded.isKeyFrame) {
 			// Also serves any request that is currently being held back
@@ -412,6 +413,8 @@ bool VideoEncoder::openBackend(int width, int height, QImage::Format format) {
 			QObject::tr("Screen sharing: No video encoder is available for %1x%2.").arg(width).arg(height));
 		return false;
 	}
+
+	m_backendBitrate = config.bitrate;
 
 	if (m_backend->info().id != m_lastEncoderId || config.bitrate != m_lastBitrate) {
 		m_lastEncoderId = m_backend->info().id;
