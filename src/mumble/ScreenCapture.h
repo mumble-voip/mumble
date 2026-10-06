@@ -12,11 +12,13 @@
 #include <QtCore/QObject>
 #include <QtCore/QTimer>
 #include <cstdint>
+#include <memory>
 
 #ifdef USE_SCREEN_SHARING
 #	include "CaptureSource.h"
 #endif
 
+class FrameGrabber;
 class QThread;
 class VideoEncoder;
 
@@ -38,8 +40,10 @@ Q_DECLARE_METATYPE(EncodedVideoFrame)
 
 /// Captures a selected screen or window at ~15 fps and emits encoded video frames via frameEncoded().
 ///
-/// Capturing happens on the GUI thread, but the captured images are encoded on a separate thread owned by this
-/// object (see VideoEncoder). Hence frameEncoded() is emitted from that thread.
+/// Sources that have to be polled are grabbed on a capture thread owned by this object (see FrameGrabber), unless
+/// there is no grabber for the platform, in which case they are grabbed on the GUI thread. Either way, the captured
+/// images are encoded on a separate thread owned by this object (see VideoEncoder). Hence frameEncoded() is emitted
+/// from that thread.
 ///
 /// On macOS, startCaptureNative() shows the OS-native SCContentSharingPicker and streams
 /// frames via SCStream; captureStarted() / captureAborted() signals report the async outcome.
@@ -99,7 +103,25 @@ private slots:
 
 private:
 #ifdef USE_SCREEN_SHARING
+	/// Grabs a frame with m_grabber. Runs on m_grabThread.
+	void grabFrame();
+	/// Stops the capture the grabber of which failed, unless a different capture has been started since.
+	void onGrabFailed(quint64 generation);
+
 	CaptureSource m_source; ///< Defaults to EntireScreen, screenIndex=0 (primary display).
+
+	QThread *m_grabThread = nullptr;
+	/// Lives on m_grabThread, where it runs m_grabTimer. It is deleted there once the thread has finished.
+	QObject *m_grabContext = nullptr;
+	QTimer *m_grabTimer    = nullptr;
+	/// Whether m_grabThread is grabbing for the current capture
+	bool m_grabbing = false;
+	/// Counts the started captures, so that a failure that is reported late can't stop a later capture
+	quint64 m_captureGeneration = 0;
+
+	// Only used on m_grabThread
+	std::shared_ptr< FrameGrabber > m_grabber;
+	quint64 m_grabberGeneration = 0;
 
 	QThread *m_encoderThread = nullptr;
 	/// Lives on m_encoderThread and is deleted there once the thread has finished.

@@ -919,6 +919,8 @@ if(screen-sharing)
 						"CaptureSource.h"
 						"CaptureSourceLister.h"
 						"CaptureSourceLister.cpp"
+						"FrameGrabber.h"
+						"FrameGrabber.cpp"
 						"ScreenPickerDialog.h"
 						"ScreenPickerDialog.cpp"
 						"ScreenShareReceiver.h"

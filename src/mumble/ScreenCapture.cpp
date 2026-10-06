@@ -9,6 +9,7 @@
 
 #ifdef USE_SCREEN_SHARING
 #	include "CaptureSourceLister.h"
+#	include "FrameGrabber.h"
 #	include "VideoEncoder.h"
 #	include <QtCore/QPointer>
 #	include <QtCore/QThread>
@@ -46,6 +47,18 @@ ScreenCapture::ScreenCapture(QObject *parent) : QObject(parent) {
 	connect(m_encoder, &VideoEncoder::frameEncoded, this, &ScreenCapture::frameEncoded, Qt::DirectConnection);
 	connect(m_encoder, &VideoEncoder::failed, this, &ScreenCapture::onEncoderFailed);
 	m_encoderThread->start();
+
+	// Grabbing a picture can take several milliseconds, which must neither block the GUI nor be held up by it
+	m_grabThread = new QThread(this);
+	m_grabThread->setObjectName(QLatin1String("ScreenGrabber"));
+	m_grabContext = new QObject();
+	m_grabTimer   = new QTimer(m_grabContext);
+	m_grabTimer->setInterval(CAPTURE_INTERVAL_MS);
+	m_grabTimer->setTimerType(Qt::PreciseTimer);
+	connect(m_grabTimer, &QTimer::timeout, m_grabContext, [this]() { grabFrame(); });
+	m_grabContext->moveToThread(m_grabThread);
+	connect(m_grabThread, &QThread::finished, m_grabContext, &QObject::deleteLater);
+	m_grabThread->start();
 #endif
 }
 
@@ -53,6 +66,8 @@ ScreenCapture::~ScreenCapture() {
 	stopCapture();
 
 #ifdef USE_SCREEN_SHARING
+	m_grabThread->quit();
+	m_grabThread->wait();
 	m_encoderThread->quit();
 	m_encoderThread->wait();
 #endif
@@ -70,7 +85,24 @@ void ScreenCapture::startCapture() {
 	m_capturing = true;
 	m_streamClock.start();
 	m_encoder->start(m_streamClock);
-	m_captureTimer->start();
+
+	std::shared_ptr< FrameGrabber > grabber = FrameGrabber::create(m_source);
+	if (!grabber) {
+		// The source can only be grabbed on the GUI thread
+		m_captureTimer->start();
+		return;
+	}
+
+	m_grabbing               = true;
+	const quint64 generation = ++m_captureGeneration;
+	QMetaObject::invokeMethod(
+		m_grabContext,
+		[this, grabber = std::move(grabber), generation]() mutable {
+			m_grabber           = std::move(grabber);
+			m_grabberGeneration = generation;
+			m_grabTimer->start();
+		},
+		Qt::QueuedConnection);
 #endif
 }
 
@@ -82,6 +114,17 @@ void ScreenCapture::stopCapture() {
 	m_capturing = false;
 
 #ifdef USE_SCREEN_SHARING
+	if (m_grabbing) {
+		// Waits for the grabber to be gone, so that no more frames are submitted from here on
+		m_grabbing = false;
+		QMetaObject::invokeMethod(
+			m_grabContext,
+			[this]() {
+				m_grabTimer->stop();
+				m_grabber.reset();
+			},
+			Qt::BlockingQueuedConnection);
+	}
 #	ifdef Q_OS_MAC
 	sckit_stop();
 #	elif defined(HAS_WAYLAND_PORTAL)
@@ -170,6 +213,37 @@ void ScreenCapture::startCaptureNative() {
 #		endif
 }
 #	endif // Q_OS_MAC || HAS_WAYLAND_PORTAL
+
+void ScreenCapture::grabFrame() {
+	if (!m_grabber)
+		return;
+
+	const qint64 captureTime = m_streamClock.nsecsElapsed() / 1000;
+
+	QImage image;
+	switch (m_grabber->grab(image)) {
+		case FrameGrabber::Result::Frame:
+			m_encoder->submitFrame(image, captureTime);
+			break;
+		case FrameGrabber::Result::Unchanged:
+			break;
+		case FrameGrabber::Result::Failed:
+			m_grabTimer->stop();
+			m_grabber.reset();
+			QMetaObject::invokeMethod(
+				this, [this, generation = m_grabberGeneration]() { onGrabFailed(generation); }, Qt::QueuedConnection);
+			break;
+	}
+}
+
+void ScreenCapture::onGrabFailed(quint64 generation) {
+	if (!m_grabbing || generation != m_captureGeneration)
+		return;
+
+	Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed."));
+	stopCapture();
+	emit captureEnded();
+}
 
 #endif // USE_SCREEN_SHARING
 
