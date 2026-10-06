@@ -117,6 +117,8 @@ private:
 	bool m_keyFrameRequested = false;
 	/// Time at which the last key frame was emitted, or -1 if none was yet.
 	qint64 m_lastKeyFrameTime = -1;
+	/// Timestamp of the picture that was to be encoded as a key frame, until its packet came out, or -1
+	qint64 m_forcedKeyFrameTimestamp = -1;
 	/// Fires when a held back key frame request may be served.
 	QTimer *m_keyFrameTimer = nullptr;
 	/// Fires when no frame was encoded for a while, see sendHeartbeat()

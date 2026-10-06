@@ -30,7 +30,7 @@ struct EncoderSpec {
 };
 
 constexpr const char *NVENC_OPTIONS = "preset=p1;tune=ull;zerolatency=1;delay=0;forced-idr=1";
-constexpr const char *AMF_OPTIONS   = "usage=ultralowlatency;quality=speed";
+constexpr const char *AMF_OPTIONS   = "usage=ultralowlatency;quality=speed;forced_idr=1";
 constexpr const char *QSV_OPTIONS   = "preset=veryfast;async_depth=1;low_delay_brc=1;forced_idr=1";
 constexpr const char *VAAPI_OPTIONS = "async_depth=1";
 constexpr const char *MF_OPTIONS    = "scenario=display_remoting;hw_encoding=1";
