@@ -1054,8 +1054,7 @@ void Server::run() {
 							break;
 						}
 						case Mumble::Protocol::UDPMessageType::Video: {
-							Mumble::Protocol::VideoData videoData = m_udpDecoder.getVideoData();
-							processVideoMsg(u, videoData);
+							processVideoMsg(u, m_udpDecoder.getVideoMessage());
 							break;
 						}
 					}
@@ -1200,7 +1199,7 @@ void Server::addListener(QHash< ServerUser *, VolumeAdjustment > &listeners, Ser
 	}
 }
 
-void Server::processVideoMsg(ServerUser *u, const Mumble::Protocol::VideoData &videoData) {
+void Server::processVideoMsg(ServerUser *u, MumbleUDP::Video &videoMsg) {
 	ZoneScoped;
 
 	if (u->sState != ServerUser::Authenticated || !u->bScreenSharing || !u->cChannel)
@@ -1208,20 +1207,10 @@ void Server::processVideoMsg(ServerUser *u, const Mumble::Protocol::VideoData &v
 
 	QByteArray cache;
 
-	MumbleUDP::Video videoMsg;
-
+	// Relay the received message instead of building a new one from the decoded fields, so that fields this server
+	// doesn't know about reach the receivers unchanged.
 	videoMsg.set_sender_session(u->uiSession);
-	videoMsg.set_codec(videoData.codec);
-	videoMsg.set_width(videoData.width);
-	videoMsg.set_height(videoData.height);
-	videoMsg.set_frame_number(videoData.frameNumber);
-	videoMsg.set_fragment_index(videoData.fragmentIndex);
-	videoMsg.set_fragment_count(videoData.fragmentCount);
-	videoMsg.set_is_keyframe(videoData.isKeyFrame);
-	videoMsg.set_timestamp(videoData.timestamp);
 
-	videoMsg.set_video_data(reinterpret_cast< const char * >(videoData.payload.data()),
-							static_cast< int >(videoData.payload.size()));
 	const std::size_t size = videoMsg.ByteSizeLong();
 
 	// The message type comes on top. Receivers drop larger packets, and the server sets the sender's session, so the
@@ -1862,8 +1851,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 					processMsg(u, std::move(audioData), m_tcpAudioReceivers, m_tcpAudioEncoder);
 				}
 			} else if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Video) {
-				Mumble::Protocol::VideoData videoData = m_tcpTunnelDecoder.getVideoData();
-				processVideoMsg(u, videoData);
+				processVideoMsg(u, m_tcpTunnelDecoder.getVideoMessage());
 			}
 		}
 

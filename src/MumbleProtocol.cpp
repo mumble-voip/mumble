@@ -694,6 +694,12 @@ namespace Protocol {
 		return m_videoData;
 	}
 
+	template< Role role > MumbleUDP::Video &UDPDecoder< role >::getVideoMessage() {
+		assert(m_messageType == UDPMessageType::Video);
+
+		return m_videoMessage;
+	}
+
 	template< Role role > AudioData UDPDecoder< role >::getAudioData() const {
 		assert(m_messageType == UDPMessageType::Audio);
 

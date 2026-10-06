@@ -288,6 +288,9 @@ namespace Protocol {
 
 		AudioData getAudioData() const;
 		VideoData getVideoData() const;
+		/// The decoded Video message itself, including any fields this version doesn't know about. The payload of
+		/// getVideoData() points into it, so it stays valid only until the next call to decode().
+		MumbleUDP::Video &getVideoMessage();
 		PingData getPingData() const;
 
 	protected:
