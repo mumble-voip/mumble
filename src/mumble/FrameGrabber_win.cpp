@@ -275,6 +275,107 @@ private:
 	ImagePool m_pool;
 };
 
+#ifndef PW_RENDERFULLCONTENT
+// Available since Windows 8.1
+#	define PW_RENDERFULLCONTENT 0x00000002
+#endif
+
+/// Grabs the client area of a window. PrintWindow() gets the content from the window manager, so this also works
+/// while the window is covered by other windows.
+class GdiWindowGrabber : public FrameGrabber {
+public:
+	explicit GdiWindowGrabber(HWND window) : m_window(window) {}
+
+	~GdiWindowGrabber() override {
+		if (m_bitmap)
+			DeleteObject(m_bitmap);
+		if (m_dc)
+			DeleteDC(m_dc);
+	}
+
+	Result grab(QImage &image) override {
+		if (!IsWindow(m_window))
+			return Result::Failed;
+		// Created here, so that it belongs to the capture thread
+		if (!m_dc && !(m_dc = CreateCompatibleDC(nullptr)))
+			return Result::Failed;
+		if (IsIconic(m_window))
+			return Result::Unchanged;
+		// PrintWindow() waits for the window to draw itself, which a hung application never does
+		if (IsHungAppWindow(m_window))
+			return Result::Unchanged;
+
+		RECT rect = {};
+		if (!GetClientRect(m_window, &rect))
+			return Result::Failed;
+		const int width  = rect.right - rect.left;
+		const int height = rect.bottom - rect.top;
+		if (width <= 0 || height <= 0)
+			return Result::Unchanged;
+
+		if (!ensureBitmap(width, height))
+			return Result::Failed;
+
+		if (!PrintWindow(m_window, m_dc, PW_CLIENTONLY | PW_RENDERFULLCONTENT)) {
+			// Copy from the screen instead, which only works for the parts of the window that are visible
+			HDC windowDc = GetDC(m_window);
+			if (!windowDc)
+				return Result::Unchanged;
+			const bool copied = BitBlt(m_dc, 0, 0, width, height, windowDc, 0, 0, SRCCOPY);
+			ReleaseDC(m_window, windowDc);
+			if (!copied)
+				return Result::Unchanged;
+		}
+		GdiFlush();
+
+		// The bitmap is a top-down 32 bit DIB, i.e. Format_RGB32 in memory without padding
+		image                      = m_pool.get(width, height, QImage::Format_RGB32);
+		const std::size_t rowBytes = static_cast< std::size_t >(width) * 4;
+		for (int y = 0; y < height; ++y)
+			std::memcpy(image.scanLine(y), m_bits + static_cast< std::size_t >(y) * rowBytes, rowBytes);
+
+		return Result::Frame;
+	}
+
+private:
+	bool ensureBitmap(int width, int height) {
+		if (m_bitmap && m_width == width && m_height == height)
+			return true;
+
+		if (m_bitmap) {
+			DeleteObject(m_bitmap);
+			m_bitmap = nullptr;
+		}
+
+		BITMAPINFO info              = {};
+		info.bmiHeader.biSize        = sizeof(info.bmiHeader);
+		info.bmiHeader.biWidth       = width;
+		info.bmiHeader.biHeight      = -height; // top-down
+		info.bmiHeader.biPlanes      = 1;
+		info.bmiHeader.biBitCount    = 32;
+		info.bmiHeader.biCompression = BI_RGB;
+
+		void *bits = nullptr;
+		m_bitmap   = CreateDIBSection(m_dc, &info, DIB_RGB_COLORS, &bits, nullptr, 0);
+		if (!m_bitmap)
+			return false;
+		SelectObject(m_dc, m_bitmap);
+
+		m_bits   = static_cast< const uchar * >(bits);
+		m_width  = width;
+		m_height = height;
+		return true;
+	}
+
+	HWND m_window;
+	HDC m_dc            = nullptr;
+	HBITMAP m_bitmap    = nullptr;
+	const uchar *m_bits = nullptr;
+	int m_width         = 0;
+	int m_height        = 0;
+	ImagePool m_pool;
+};
+
 HMONITOR monitorOf(const QScreen *screen) {
 #if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
 	if (auto *windowsScreen = screen->nativeInterface< QNativeInterface::QWindowsScreen >())
@@ -288,8 +389,18 @@ HMONITOR monitorOf(const QScreen *screen) {
 } // namespace
 
 std::unique_ptr< FrameGrabber > createWindowsFrameGrabber(const CaptureSource &source) {
-	if (source.type != CaptureSource::Type::EntireScreen)
-		return nullptr;
+	if (source.type == CaptureSource::Type::Window) {
+		const HWND window = reinterpret_cast< HWND >(source.nativeWindowId);
+		if (!IsWindow(window))
+			return nullptr;
+		// PrintWindow() waits for the thread of the window to draw it. For our own windows, that is the GUI thread,
+		// which in turn waits for the capture thread when the capture stops. They are grabbed on the GUI thread.
+		DWORD processId = 0;
+		GetWindowThreadProcessId(window, &processId);
+		if (processId == GetCurrentProcessId())
+			return nullptr;
+		return std::make_unique< GdiWindowGrabber >(window);
+	}
 
 	const QList< QScreen * > screens = QGuiApplication::screens();
 	if (source.screenIndex < 0 || source.screenIndex >= screens.size())
