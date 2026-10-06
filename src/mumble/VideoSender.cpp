@@ -23,8 +23,10 @@ static constexpr int MAX_FRAGMENT_BYTES = 900;
 static constexpr double PACING_FACTOR       = 2.5;
 static constexpr double PACING_BYTES_PER_US = PACING_FACTOR * VideoEncoder::BITRATE / 8 / 1'000'000;
 /// Upper limit for how long fragments may wait in the queue. When more is queued than can be sent within that
-/// time at the pacing rate, the rate is raised accordingly.
-static constexpr qint64 MAX_QUEUE_DELAY_US = 250'000;
+/// time at the pacing rate, the rate is raised accordingly. Everything behind a key frame is delayed by as much,
+/// which viewers see as a stutter once it exceeds their playout delay. Since the encoder limits the size of key
+/// frames, sending them faster only means a short burst.
+static constexpr qint64 MAX_QUEUE_DELAY_US = 100'000;
 /// How much may be sent at once after a pause, as time at the pacing rate. This also bounds the burst after the
 /// sender's thread was held up for a moment.
 static constexpr qint64 MAX_BURST_US    = 10'000;
