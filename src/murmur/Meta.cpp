@@ -90,9 +90,10 @@ static HANDLE loadQoS() {
 #endif
 
 MetaParams::MetaParams() {
-	qsPassword = QString();
-	usPort     = DEFAULT_MUMBLE_PORT;
-	iTimeout   = 30;
+	qsPassword       = QString();
+	usPort           = DEFAULT_MUMBLE_PORT;
+	iTimeout         = 30;
+	handshakeTimeout = std::chrono::seconds(10);
 	// This represents the maximum possible bandwidth using 10 ms audio TCP packets with position data
 	// (restricted by the maximum bitrate Opus supports)
 	// 558000 = 510000 (Opus) + 9600 (position) + 38400 (TCP overhead)
@@ -313,10 +314,12 @@ void MetaParams::read(QString fname) {
 		qlBind << QHostAddress(QHostAddress::Any);
 	}
 
-	qsPassword            = typeCheckedFromSettings("serverpassword", qsPassword);
-	usPort                = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
-	iTimeout              = typeCheckedFromSettings("timeout", iTimeout);
-	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
+	qsPassword = typeCheckedFromSettings("serverpassword", qsPassword);
+	usPort     = static_cast< unsigned short >(typeCheckedFromSettings("port", static_cast< uint >(usPort)));
+	iTimeout   = typeCheckedFromSettings("timeout", iTimeout);
+	handshakeTimeout =
+		std::chrono::seconds(typeCheckedFromSettings("handshaketimeout", static_cast< int >(handshakeTimeout.count())));
+	iMaxTextMessageLength      = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength     = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
 	legacyPasswordHash         = typeCheckedFromSettings("legacypasswordhash", legacyPasswordHash);
 	kdfIterations              = typeCheckedFromSettings("kdfiterations", -1);

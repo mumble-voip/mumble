@@ -348,6 +348,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		QWriteLocker wl(&qrwlVoiceThread);
 		qhUsers.insert(uSource->uiSession, uSource);
 		qhHostUsers[uSource->haAddress].insert(uSource);
+		m_pendingConnections.erase(uSource);
 	}
 
 	startThread();
