@@ -201,17 +201,17 @@ static constexpr int SCKIT_FPS = 15;
 	}
 
 	// kCVPixelFormatType_32BGRA on little-endian (Apple Silicon / Intel macOS)
-	// maps to QImage::Format_ARGB32 (stored as 0xAARRGGBB in memory as BB GG RR AA).
-	QImage frame(basePtr, width, height, stride, QImage::Format_ARGB32);
+	// maps to QImage::Format_RGB32 (stored as 0xffRRGGBB in memory as BB GG RR AA). Alpha is ignored either way,
+	// as there is nothing behind the shared picture.
+	QImage frame(basePtr, width, height, stride, QImage::Format_RGB32);
 	// Deep-copy before unlocking the pixel buffer.
-	QImage copy = frame.copy().convertToFormat(QImage::Format_RGBA8888);
+	QImage copy = frame.copy();
 
 	CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
 
-	dispatch_async(dispatch_get_main_queue(), ^{
-		if (self.onFrame)
-			self.onFrame(copy);
-	});
+	// Handed over right here, the encoder takes frames from any thread
+	if (self.onFrame)
+		self.onFrame(copy);
 }
 
 // ---------------------------------------------------------------------------

@@ -15,13 +15,14 @@
 /// Shows the native macOS screen/window picker (SCContentSharingPicker) and, upon selection,
 /// begins delivering captured frames via SCStream.
 ///
-/// All callbacks are guaranteed to be invoked on the Qt/Cocoa main thread.
+/// All callbacks except onFrame are guaranteed to be invoked on the Qt/Cocoa main thread.
 ///
 /// @param onStarted  Called once when the SCStream is successfully running.
 /// @param onCancelled  Called if the user dismisses the picker without choosing a source, or ends the screen
 ///                     share through the system later on (e.g. with the screen sharing item in the menu bar).
 /// @param onError  Called with a description string if stream startup fails or the running stream fails.
-/// @param onFrame  Called for each captured frame (QImage::Format_RGBA8888, ~15 fps).
+/// @param onFrame  Called on the stream's queue for each captured frame (QImage::Format_RGB32), so that frames
+///                 don't have to wait for a busy GUI.
 void sckit_startWithNativePicker(std::function< void() > onStarted, std::function< void() > onCancelled,
 								 std::function< void(QString) > onError, std::function< void(QImage) > onFrame);
 
