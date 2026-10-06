@@ -43,12 +43,14 @@ public:
 	static constexpr int MIN_FRAME_RATE     = 1;
 	static constexpr int MAX_FRAME_RATE     = 60;
 	static constexpr int DEFAULT_FRAME_RATE = 15;
-	/// Target bit rate in bits per second, unless the server's bandwidth limit calls for less
-	static constexpr int DEFAULT_BITRATE = 1'500'000;
+	/// Bit rate in bits per second that is never exceeded, even if the server allows more
+	static constexpr int MAX_BITRATE = 20'000'000;
 
-	/// Returns the bit rate to encode at, in bits per second, for the given bandwidth limit of the server
+	/// Returns the highest bit rate to encode at, in bits per second, for the given bandwidth limit of the server
 	/// (0 if there is none).
 	static int bitrateFor(unsigned int maxBandwidth);
+	/// Returns the bit rate in bits per second that video of the given size and frame rate needs to look good.
+	static int bitrateFor(int width, int height, int frameRate);
 
 	/// Time between two frames at the given frame rate, in microseconds.
 	static qint64 frameInterval(int frameRate);
@@ -79,8 +81,9 @@ public:
 	/// across streams.
 	void setFrameRate(int frameRate);
 
-	/// Sets the target bit rate in bits per second. When streaming, the encoder is opened again with the new bit
-	/// rate, starting with a key frame. The bit rate is kept across streams.
+	/// Sets the highest bit rate in bits per second. The video is encoded at the bit rate its size and frame rate
+	/// need, but at most at this one. When streaming, the encoder is opened again with the new bit rate, starting
+	/// with a key frame. The bit rate is kept across streams.
 	void setBitrate(int bitrate);
 
 signals:
@@ -154,7 +157,8 @@ private:
 	/// IDs of the encoders to use, most preferred first
 	QStringList m_encoderOrder;
 	int m_frameRate = DEFAULT_FRAME_RATE;
-	int m_bitrate   = DEFAULT_BITRATE;
+	/// Highest bit rate to encode at
+	int m_bitrate = MAX_BITRATE;
 	std::unique_ptr< VideoEncoderBackend > m_backend;
 	/// Picture size m_backend was opened for (or tried to)
 	int m_encoderWidth             = 0;
@@ -162,6 +166,8 @@ private:
 	QImage::Format m_encoderFormat = QImage::Format_Invalid;
 	/// The encoder that was used last, so that switching to a different one can be reported
 	QString m_lastEncoderId;
+	/// The bit rate that was used last, so that changes can be reported
+	int m_lastBitrate = 0;
 	/// Encoders that failed to encode a picture during the current stream, which are not opened again
 	QStringList m_failedEncoders;
 };

@@ -100,16 +100,27 @@ void VideoEncoder::setBitrate(int bitrate) {
 		this, [this, bitrate]() { processBitrate(bitrate); }, Qt::QueuedConnection);
 }
 
+/// Bit rates below this one are of no use
+static constexpr int MIN_BITRATE = 50'000;
+
 int VideoEncoder::bitrateFor(unsigned int maxBandwidth) {
 	if (maxBandwidth == 0)
-		return DEFAULT_BITRATE;
+		return MAX_BITRATE;
 
 	// Leave room for the packet overhead and for the encoder overshooting its target for a moment, as the server
-	// drops whatever exceeds the limit. Encoding at a very low bit rate isn't of any use either.
+	// drops whatever exceeds the limit.
 	static constexpr double HEADROOM = 0.8;
-	static constexpr int MIN_BITRATE = 50'000;
-	return static_cast< int >(std::clamp(maxBandwidth * HEADROOM, static_cast< double >(MIN_BITRATE),
-										 static_cast< double >(DEFAULT_BITRATE)));
+	return static_cast< int >(
+		std::clamp(maxBandwidth * HEADROOM, static_cast< double >(MIN_BITRATE), static_cast< double >(MAX_BITRATE)));
+}
+
+int VideoEncoder::bitrateFor(int width, int height, int frameRate) {
+	// Enough for sharp text at 1080p with 15 fps (about 1.5 Mbit/s) with any of the encoders. More frames per second
+	// need proportionally more bits, or every frame gets blurrier.
+	static constexpr double BITS_PER_PIXEL = 0.05;
+	const double bitrate                   = static_cast< double >(width) * height * frameRate * BITS_PER_PIXEL;
+	return static_cast< int >(
+		std::clamp(bitrate, static_cast< double >(MIN_BITRATE), static_cast< double >(MAX_BITRATE)));
 }
 
 qint64 VideoEncoder::now() const {
@@ -140,6 +151,7 @@ void VideoEncoder::processStop() {
 	m_encoderWidth  = 0;
 	m_encoderHeight = 0;
 	m_lastEncoderId.clear();
+	m_lastBitrate = 0;
 	m_failedEncoders.clear();
 }
 
@@ -377,7 +389,7 @@ bool VideoEncoder::openBackend(int width, int height, QImage::Format format) {
 	config.width            = width;
 	config.height           = height;
 	config.inputFormat      = format;
-	config.bitrate          = m_bitrate;
+	config.bitrate          = std::min(m_bitrate, bitrateFor(width, height, m_frameRate));
 	config.fps              = m_frameRate;
 	config.keyFrameInterval = KEY_FRAME_INTERVAL_S * m_frameRate;
 
@@ -401,10 +413,12 @@ bool VideoEncoder::openBackend(int width, int height, QImage::Format format) {
 		return false;
 	}
 
-	if (m_backend->info().id != m_lastEncoderId) {
+	if (m_backend->info().id != m_lastEncoderId || config.bitrate != m_lastBitrate) {
 		m_lastEncoderId = m_backend->info().id;
-		Global::get().l->log(Log::Information,
-							 QObject::tr("Screen sharing: Encoding with %1.").arg(m_backend->info().name));
+		m_lastBitrate   = config.bitrate;
+		Global::get().l->log(Log::Information, QObject::tr("Screen sharing: Encoding with %1 at %2 kbit/s.")
+												   .arg(m_backend->info().name)
+												   .arg(config.bitrate / 1000));
 	}
 
 	// A new encoder starts with a key frame anyway.
