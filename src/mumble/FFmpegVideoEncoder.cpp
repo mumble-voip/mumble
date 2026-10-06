@@ -18,6 +18,10 @@ extern "C" {
 
 namespace {
 
+/// Size of the rate control buffer, as time at the target bit rate. A single frame can't be larger than that.
+/// Encoders don't keep to it exactly, but less would make some of them overshoot even more.
+constexpr double VBV_SECONDS = 0.25;
+
 struct EncoderSpec {
 	/// Name of the encoder in FFmpeg
 	const char *name;
@@ -271,6 +275,13 @@ bool FFmpegVideoEncoder::init(const VideoEncoderConfig &config) {
 	}
 	m_codecCtx->bit_rate = config.bitrate;
 	m_codecCtx->gop_size = config.keyFrameInterval;
+	// Limit how far a single frame may exceed the average. Otherwise key frames of screen content become many
+	// times larger than other frames, which takes so long to send that playback stalls behind each of them.
+	// Within the limit, a key frame starts out blurrier and is sharpened by the following frames.
+	// Equal minimum and maximum rate selects constant bit rate mode, in which libvpx keeps to the buffer size
+	m_codecCtx->rc_min_rate    = config.bitrate;
+	m_codecCtx->rc_max_rate    = config.bitrate;
+	m_codecCtx->rc_buffer_size = static_cast< int >(config.bitrate * VBV_SECONDS);
 	// B-frames add latency, as frames have to wait for later ones
 	m_codecCtx->max_b_frames = 0;
 	if (m_inputFormat == AV_PIX_FMT_NONE) {
@@ -280,6 +291,8 @@ bool FFmpegVideoEncoder::init(const VideoEncoderConfig &config) {
 	}
 
 	applyOptions(m_codecCtx->priv_data, spec->options);
+	// libvpx only limits key frames with this option, as percentage of the average frame size
+	av_opt_set_int(m_codecCtx->priv_data, "max-intra-rate", static_cast< int64_t >(VBV_SECONDS * config.fps * 100), 0);
 
 	if (m_hwDevice) {
 		m_hwFrames = av_hwframe_ctx_alloc(m_hwDevice);
