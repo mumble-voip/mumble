@@ -929,7 +929,13 @@ if(screen-sharing)
 						"VideoEncoder.cpp"
 						"VideoSender.h"
 						"VideoSender.cpp"
+						"VideoWidget.h"
+						"VideoWidget.cpp"
 				)
+
+	# Received video is drawn with OpenGL
+	find_package(Qt6 COMPONENTS OpenGL OpenGLWidgets REQUIRED)
+	target_link_libraries(mumble_client_lib PUBLIC Qt6::OpenGL Qt6::OpenGLWidgets)
 
 	if(WIN32)
 		target_sources(mumble_client_lib PRIVATE

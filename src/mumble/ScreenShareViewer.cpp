@@ -5,6 +5,10 @@
 
 #include "ScreenShareViewer.h"
 
+#ifdef USE_SCREEN_SHARING
+#	include "VideoWidget.h"
+#endif
+
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
 
@@ -13,15 +17,20 @@ ScreenShareViewer::ScreenShareViewer(quint32 senderSession, const QString &sende
 	setWindowTitle(tr("%1's screen").arg(senderName));
 	setAttribute(Qt::WA_DeleteOnClose, false);
 
-	m_imageLabel = new QLabel(this);
-	m_imageLabel->setAlignment(Qt::AlignCenter);
-	m_imageLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	m_imageLabel->setMinimumSize(320, 240);
-	m_imageLabel->setText(tr("Waiting for first frame…"));
+#ifdef USE_SCREEN_SHARING
+	m_videoWidget = new VideoWidget(this);
+	m_videoWidget->setMinimumSize(320, 240);
+	m_videoWidget->setPlaceholderText(tr("Waiting for first frame…"));
+	QWidget *display = m_videoWidget;
+#else
+	QLabel *display = new QLabel(tr("Screen sharing is not supported by this build of Mumble."), this);
+	display->setAlignment(Qt::AlignCenter);
+	display->setMinimumSize(320, 240);
+#endif
 
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	layout->setContentsMargins(0, 0, 0, 0);
-	layout->addWidget(m_imageLabel);
+	layout->addWidget(display);
 
 	resize(800, 600);
 }
@@ -30,33 +39,15 @@ void ScreenShareViewer::showAndRefresh() {
 	show();
 	raise();
 	activateWindow();
-	updateImageDisplay();
-}
-
-void ScreenShareViewer::updateImageDisplay() {
-	if (m_currentFrame.isNull())
-		return;
-
-	QSize areaSize = size();
-	QPixmap scaled = QPixmap::fromImage(m_currentFrame).scaled(areaSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-	m_imageLabel->setPixmap(scaled);
-	m_imageLabel->resize(scaled.size());
-}
-
-void ScreenShareViewer::resizeEvent(QResizeEvent *event) {
-	QDialog::resizeEvent(event);
-	updateImageDisplay();
 }
 
 void ScreenShareViewer::updateFrame(QImage frame) {
 	if (frame.isNull())
 		return;
 
-	m_currentFrame = frame;
-
+#ifdef USE_SCREEN_SHARING
 	// Always update the image data so the viewer shows the latest frame
 	// when the user re-opens it via the context menu.
-	if (isVisible())
-		updateImageDisplay();
+	m_videoWidget->setFrame(frame);
+#endif
 }
