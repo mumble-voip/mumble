@@ -257,9 +257,6 @@ MainWindow::MainWindow(QWidget *p)
 	m_videoSender->moveToThread(m_videoSenderThread);
 	connect(m_videoSenderThread, &QThread::finished, m_videoSender, &QObject::deleteLater);
 	m_videoSenderThread->start();
-
-	// Finding out which video encoders work takes a moment, so do that ahead of time
-	VideoEncoders::startProbing();
 #endif
 }
 
@@ -4251,6 +4248,12 @@ void MainWindow::screenShare() {
 	const bool currentlySharing = Global::get().sc && Global::get().sc->isCapturing();
 
 	if (!currentlySharing) {
+#ifdef USE_SCREEN_SHARING
+		// Finding out which video encoders work takes a moment, so start right away, while the user picks what to
+		// share. This isn't done any earlier, as it opens every encoder including the hardware ones, which costs
+		// time and memory on the GPU that users who never share their screen shouldn't have to spend.
+		VideoEncoders::startProbing();
+#endif
 		if (!Global::get().sc) {
 			Global::get().sc = new ScreenCapture(this);
 #ifdef USE_SCREEN_SHARING

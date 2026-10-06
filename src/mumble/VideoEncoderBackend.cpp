@@ -14,6 +14,7 @@ extern "C" {
 #include <libavutil/log.h>
 }
 
+#include <atomic>
 #include <mutex>
 
 namespace VideoEncoders {
@@ -47,6 +48,11 @@ const std::vector< VideoEncoderInfo > &available() {
 }
 
 void startProbing() {
+	// The result is cached, so probing once is enough
+	static std::atomic_bool s_started = false;
+	if (s_started.exchange(true))
+		return;
+
 	QThread *thread = QThread::create([]() { available(); });
 	thread->setObjectName(QLatin1String("VideoEncoderProbe"));
 	QObject::connect(thread, &QThread::finished, thread, &QObject::deleteLater);

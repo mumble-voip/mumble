@@ -76,6 +76,7 @@ namespace VideoEncoders {
 const std::vector< VideoEncoderInfo > &available();
 
 /// Starts probing the available encoders in the background, so that a later call to available() does not block.
+/// Only the first call does anything.
 void startProbing();
 
 /// Opens the encoder with the given ID, or returns nullptr if that fails.
