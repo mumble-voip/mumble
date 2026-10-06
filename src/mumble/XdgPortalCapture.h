@@ -26,7 +26,8 @@ bool xdg_portal_isNativePickerAvailable();
 /// All callbacks are invoked on the Qt main thread.
 ///
 /// @param onStarted    Called once when the PipeWire stream starts delivering frames.
-/// @param onCancelled  Called if the user dismisses the portal picker without a selection.
+/// @param onCancelled  Called if the user dismisses the portal picker without a selection, or ends the screen
+///                     share through the desktop later on (e.g. with its screen sharing indicator).
 /// @param onError      Called with a description string if the session or stream fails.
 /// @param onFrame      Called for each captured frame (QImage::Format_RGBA8888, ~15 fps).
 void xdg_portal_startCapture(std::function< void() > onStarted, std::function< void() > onCancelled,
