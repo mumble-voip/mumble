@@ -123,6 +123,15 @@ private:
 	std::shared_ptr< FrameGrabber > m_grabber;
 	quint64 m_grabberGeneration = 0;
 
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	/// Hands the frames of a native capture stream to the encoder, from whatever thread they arrive on.
+	struct NativeFrameSink;
+	/// Sink of the native capture stream that was started last, if any
+	std::shared_ptr< NativeFrameSink > m_nativeSink;
+	/// Makes the native capture stream drop its frames from here on.
+	void closeNativeSink();
+#	endif
+
 	QThread *m_encoderThread = nullptr;
 	/// Lives on m_encoderThread and is deleted there once the thread has finished.
 	VideoEncoder *m_encoder = nullptr;

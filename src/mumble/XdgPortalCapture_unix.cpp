@@ -132,19 +132,20 @@ static void pw_on_process(void *userdata) {
 	pixels = static_cast< uint8_t * >(pixels) + offset;
 
 	// The portal provides BGRx (kCVPixelFormatType_32BGRA equivalent on Linux) or RGBx.
-	// BGRx on little-endian matches QImage::Format_ARGB32 memory layout (BB GG RR xx).
+	// BGRx on little-endian matches QImage::Format_RGB32 memory layout (BB GG RR xx). Alpha is ignored either way,
+	// as there is nothing behind the shared picture.
 	QImage::Format fmt;
 	switch (data->info.format) {
 		case SPA_VIDEO_FORMAT_BGRx:
 		case SPA_VIDEO_FORMAT_BGRA:
-			fmt = QImage::Format_ARGB32;
+			fmt = QImage::Format_RGB32;
 			break;
 		case SPA_VIDEO_FORMAT_RGBx:
 		case SPA_VIDEO_FORMAT_RGBA:
 			fmt = QImage::Format_RGBX8888;
 			break;
 		default:
-			fmt = QImage::Format_ARGB32;
+			fmt = QImage::Format_RGB32;
 			break;
 	}
 
@@ -152,17 +153,14 @@ static void pw_on_process(void *userdata) {
 	QImage copy = QImage(static_cast< const uchar * >(pixels), width, height, stride, fmt).copy();
 	pw_stream_queue_buffer(data->stream, buf);
 
-	const QImage rgba = copy.convertToFormat(QImage::Format_RGBA8888);
-
-	// Fire the first-started callback exactly once, then deliver frames.
-	// Both callbacks are dispatched to the Qt main thread.
+	// Fire the first-started callback exactly once on the Qt main thread. Frames are handed over right here, the
+	// encoder takes them from any thread.
 	if (!data->started) {
 		data->started = true;
 		QMetaObject::invokeMethod(
 			qApp, [cb = data->onStarted]() { cb(); }, Qt::QueuedConnection);
 	}
-	QMetaObject::invokeMethod(
-		qApp, [cb = data->onFrame, rgba]() { cb(rgba); }, Qt::QueuedConnection);
+	data->onFrame(std::move(copy));
 }
 
 static void pw_on_stream_state_changed(void *userdata, enum pw_stream_state /*old*/, enum pw_stream_state state,

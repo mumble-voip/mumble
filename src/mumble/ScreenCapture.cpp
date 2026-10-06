@@ -14,6 +14,8 @@
 #	include <QtCore/QPointer>
 #	include <QtCore/QThread>
 #	include <QtGui/QImage>
+
+#	include <mutex>
 #	ifdef Q_OS_MAC
 #		include "SCKitCapture.h"
 #	elif defined(HAS_WAYLAND_PORTAL)
@@ -66,6 +68,10 @@ ScreenCapture::~ScreenCapture() {
 	stopCapture();
 
 #ifdef USE_SCREEN_SHARING
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	// The native picker may still be open, after which frames could come in for the encoder that is deleted below
+	closeNativeSink();
+#	endif
 	m_grabThread->quit();
 	m_grabThread->wait();
 	m_encoderThread->quit();
@@ -130,6 +136,10 @@ void ScreenCapture::stopCapture() {
 #	elif defined(HAS_WAYLAND_PORTAL)
 	xdg_portal_stop();
 #	endif
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	// The stream may deliver a few more frames while it is being stopped
+	closeNativeSink();
+#	endif
 	m_encoder->stop();
 #endif
 }
@@ -152,32 +162,84 @@ void ScreenCapture::setSource(const CaptureSource &source) {
 }
 
 void ScreenCapture::onEncoderFailed() {
-	if (!m_capturing)
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	// Native capture streams start the encoder before they are reported as started
+	const bool nativeStarting = !m_capturing && m_nativeSink;
+#	else
+	const bool nativeStarting = false;
+#	endif
+	if (!m_capturing && !nativeStarting)
 		return;
 
 	Global::get().l->log(Log::Warning, QObject::tr("Screen sharing stopped: The video could not be encoded."));
-	stopCapture();
-	emit captureEnded();
+	if (m_capturing) {
+		stopCapture();
+		emit captureEnded();
+		return;
+	}
+
+#	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+	closeNativeSink();
+#		ifdef Q_OS_MAC
+	sckit_stop();
+#		elif defined(HAS_WAYLAND_PORTAL)
+	xdg_portal_stop();
+#		endif
+	emit captureAborted();
+#	endif
 }
 
 #	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)
+struct ScreenCapture::NativeFrameSink {
+	std::mutex mutex;
+	/// Reset once the capture is stopped, after which frames that still come in are dropped
+	VideoEncoder *encoder = nullptr;
+	QElapsedTimer streamClock;
+
+	void submit(const QImage &frame) {
+		std::lock_guard< std::mutex > lock(mutex);
+		if (encoder)
+			encoder->submitFrame(frame, streamClock.nsecsElapsed() / 1000);
+	}
+};
+
+void ScreenCapture::closeNativeSink() {
+	if (!m_nativeSink)
+		return;
+
+	{
+		std::lock_guard< std::mutex > lock(m_nativeSink->mutex);
+		m_nativeSink->encoder = nullptr;
+	}
+	m_nativeSink.reset();
+}
+
 void ScreenCapture::startCaptureNative() {
 	if (m_capturing)
 		return;
 
-	// Keep a safe pointer — the lambdas below must not capture `this` without guard.
+	// Frames are handed to the encoder on the thread they come in on, so that a busy GUI can't hold them up. Hence
+	// the encoder is started right away, frames may come in before onStarted() runs.
+	closeNativeSink();
+	m_streamClock.start();
+	m_encoder->start(m_streamClock);
+	auto sink         = std::make_shared< NativeFrameSink >();
+	sink->encoder     = m_encoder;
+	sink->streamClock = m_streamClock;
+	m_nativeSink      = sink;
+
+	// Keep a safe pointer — the lambdas below must not capture `this` without guard. They also must not act on a
+	// capture that has been replaced by a later one.
 	QPointer< ScreenCapture > self = this;
 
-	auto onStarted = [self]() {
-		if (!self)
+	auto onStarted = [self, sink]() {
+		if (!self || self->m_nativeSink != sink)
 			return;
 		self->m_capturing = true;
-		self->m_streamClock.start();
-		self->m_encoder->start(self->m_streamClock);
 		emit self->captureStarted();
 	};
-	auto onCancelled = [self]() {
-		if (!self)
+	auto onCancelled = [self, sink]() {
+		if (!self || self->m_nativeSink != sink)
 			return;
 		if (self->m_capturing) {
 			// The user ended the running screen share through the system instead of through Mumble
@@ -185,10 +247,12 @@ void ScreenCapture::startCaptureNative() {
 			emit self->captureEnded();
 			return;
 		}
+		self->closeNativeSink();
+		self->m_encoder->stop();
 		emit self->captureAborted();
 	};
-	auto onError = [self](QString error) {
-		if (!self)
+	auto onError = [self, sink](QString error) {
+		if (!self || self->m_nativeSink != sink)
 			return;
 		Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed: %1").arg(error));
 		if (self->m_capturing) {
@@ -197,14 +261,11 @@ void ScreenCapture::startCaptureNative() {
 			emit self->captureEnded();
 			return;
 		}
+		self->closeNativeSink();
 		self->m_encoder->stop();
 		emit self->captureAborted();
 	};
-	auto onFrame = [self](QImage frame) {
-		if (!self || !self->m_capturing)
-			return;
-		self->m_encoder->submitFrame(frame, self->m_streamClock.nsecsElapsed() / 1000);
-	};
+	auto onFrame = [sink](QImage frame) { sink->submit(frame); };
 
 #		ifdef Q_OS_MAC
 	sckit_startWithNativePicker(std::move(onStarted), std::move(onCancelled), std::move(onError), std::move(onFrame));
