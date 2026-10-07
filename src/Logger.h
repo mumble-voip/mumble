@@ -41,7 +41,8 @@ namespace log {
 		spdlog::error(fmt, std::forward< Args >(args)...);
 	}
 
-	template< typename... Args > static void inline fatal(spdlog::format_string_t< Args... > fmt, Args &&... args) {
+	template< typename... Args >
+	[[noreturn]] static void inline fatal(spdlog::format_string_t< Args... > fmt, Args &&... args) {
 		spdlog::critical(fmt, std::forward< Args >(args)...);
 		std::exit(1);
 	}
