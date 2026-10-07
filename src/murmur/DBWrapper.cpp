@@ -110,7 +110,7 @@ DBWrapper::DBWrapper(const ::mdb::ConnectionParameter &connectionParams)
 	}                                                                         \
 	catch (const ::mdb::Exception &e) {                                       \
 		std::stringstream sstream;                                            \
-		mumble::printExceptionMessage(sstream, e, 1);                         \
+		mumble::printExceptionMessage(sstream, e, 1, false);                  \
 		mumble::log::error("Encountered database error:\n{}", sstream.str()); \
 		throw std::runtime_error("Database error");                           \
 	}
