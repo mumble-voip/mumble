@@ -21,15 +21,22 @@ namespace Mumble {
 #ifndef _WIN32
 namespace {
 
-	void checkPrivateDirectory(const std::filesystem::path &dir) {
+	void checkPrivateDirectory(const std::filesystem::path &dir, bool hasPrivateParent = false) {
 		const std::filesystem::file_status status = std::filesystem::symlink_status(dir);
 		if (std::filesystem::is_symlink(status) || !std::filesystem::is_directory(status)) {
 			throw std::filesystem::filesystem_error("Runtime directory is not a real directory", dir,
 													std::make_error_code(std::errc::not_a_directory));
 		}
-		if ((status.permissions() & std::filesystem::perms::mask) != std::filesystem::perms::owner_all) {
-			throw std::filesystem::filesystem_error("Runtime directory must have permissions 0700", dir,
-													std::make_error_code(std::errc::permission_denied));
+		// A validated 0700 XDG parent supplies privacy for legacy leaves created with
+		// create_directories. Keep owner access required, and keep shared-temp leaves strict.
+		const std::filesystem::perms ignoredPermissions =
+			hasPrivateParent ? std::filesystem::perms::group_all | std::filesystem::perms::others_all
+							 : std::filesystem::perms::none;
+		if ((status.permissions() & std::filesystem::perms::mask & ~ignoredPermissions)
+			!= std::filesystem::perms::owner_all) {
+			throw std::filesystem::filesystem_error(hasPrivateParent ? "Runtime directory must grant owner access"
+																	 : "Runtime directory must have permissions 0700",
+													dir, std::make_error_code(std::errc::permission_denied));
 		}
 
 		// std::filesystem::file_status does not expose the owning user ID.
@@ -68,7 +75,7 @@ namespace {
 		}
 	}
 
-	void ensurePrivateDirectory(const std::filesystem::path &dir) {
+	void ensurePrivateDirectory(const std::filesystem::path &dir, bool hasPrivateParent) {
 		// Unlike std::filesystem::create_directory, mkdir can restrict access from the instant of
 		// creation. Only create the leaf, never system-managed parents such as /run/user/<uid>.
 		if (::mkdir(dir.c_str(), S_IRWXU) == 0) {
@@ -82,7 +89,7 @@ namespace {
 			throw std::filesystem::filesystem_error("Unable to create runtime directory", dir, error);
 		}
 
-		checkPrivateDirectory(dir);
+		checkPrivateDirectory(dir, hasPrivateParent);
 	}
 
 	// Prints the warning message the XDG Base Directory Specification mandates for falling back
@@ -124,7 +131,7 @@ std::filesystem::path getRuntimeDirectory() {
 
 		const std::filesystem::path dir =
 			base / (useXdg ? "info.mumble.Mumble" : "info.mumble.Mumble-" + std::to_string(getuid()));
-		ensurePrivateDirectory(dir);
+		ensurePrivateDirectory(dir, useXdg);
 		if (!useXdg) {
 			warnRuntimeDirFallback(dir);
 		}
