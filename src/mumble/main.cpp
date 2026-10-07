@@ -366,9 +366,9 @@ CLIOptions parseCLI(int argc, char **argv) {
 		app.exit(e, info_stream, error_stream);
 
 		if (e.get_exit_code() != static_cast< int >(CLI::ExitCodes::Success)) {
-			qWarning("%s", error_stream.str().c_str());
+			std::cerr << error_stream.str() << std::endl;
 		} else {
-			qInfo("%s", info_stream.str().c_str());
+			std::cout << info_stream.str() << std::endl;
 		}
 		options.quit     = true;
 		options.exitCode = e.get_exit_code();
