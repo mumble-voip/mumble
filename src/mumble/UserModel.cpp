@@ -695,8 +695,8 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 							if (c->qsDesc.isEmpty()) {
 								c->qsDesc = QString::fromUtf8(Global::get().db->blob(c->qbaDescHash));
 								if (c->qsDesc.isEmpty()) {
-									UserModel *pmModel = const_cast< UserModel * >(this);
-									pmModel->blobRequestType = BlobRequestType::Tooltip;
+									UserModel *pmModel           = const_cast< UserModel * >(this);
+									pmModel->blobRequestType     = BlobRequestType::Tooltip;
 									pmModel->iChannelDescription = static_cast< int >(c->iId);
 
 									MumbleProto::RequestBlob mprb;
@@ -1187,6 +1187,17 @@ void UserModel::setFriendName(ClientUser *p, const QString &name) {
 	emit dataChanged(idx, idx);
 }
 
+void UserModel::showBlobTooltip(const QModelIndex &idx) {
+	const QString text = data(idx, Qt::ToolTipRole).toString();
+	if (bClicked) {
+		QRect r = Global::get().mw->qtvUsers->visualRect(idx);
+		QWhatsThis::showText(Global::get().mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()), text,
+							 Global::get().mw->qtvUsers);
+	} else {
+		QToolTip::showText(QCursor::pos(), text, Global::get().mw->qtvUsers);
+	}
+}
+
 void UserModel::setComment(ClientUser *cu, const QString &comment) {
 	cu->qbaCommentHash = comment.isEmpty() ? QByteArray() : sha1(comment);
 
@@ -1202,14 +1213,7 @@ void UserModel::setComment(ClientUser *cu, const QString &comment) {
 			if (cu->uiSession == uiSessionComment) {
 				uiSessionComment   = 0;
 				item->bCommentSeen = false;
-				if (bClicked) {
-					QRect r = Global::get().mw->qtvUsers->visualRect(index(cu));
-					QWhatsThis::showText(Global::get().mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
-										 data(index(cu, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
-				} else {
-					QToolTip::showText(QCursor::pos(), data(index(cu, 0), Qt::ToolTipRole).toString(),
-									   Global::get().mw->qtvUsers);
-				}
+				showBlobTooltip(index(cu));
 			} else if (cu->uiSession == ~uiSessionComment) {
 				uiSessionComment = 0;
 				if (cu->uiSession == Global::get().uiSession) {
@@ -1270,14 +1274,7 @@ void UserModel::setComment(Channel *c, const QString &comment) {
 				item->bCommentSeen  = false;
 				switch (blobRequestType) {
 					case BlobRequestType::Tooltip:
-						if (bClicked) {
-							QRect r = Global::get().mw->qtvUsers->visualRect(index(c));
-							QWhatsThis::showText(Global::get().mw->qtvUsers->viewport()->mapToGlobal(r.bottomRight()),
-												 data(index(c, 0), Qt::ToolTipRole).toString(), Global::get().mw->qtvUsers);
-						} else {
-							QToolTip::showText(QCursor::pos(), data(index(c, 0), Qt::ToolTipRole).toString(),
-											   Global::get().mw->qtvUsers);
-						}
+						showBlobTooltip(index(c));
 						break;
 					case BlobRequestType::Window:
 						Global::get().mw->cContextChannel = c;

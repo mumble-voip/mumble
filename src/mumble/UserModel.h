@@ -105,6 +105,12 @@ protected:
 	/// 	the parent of the provided item is used directly.
 	void removeChannelListener(ModelItem *item, ModelItem *citem = nullptr);
 
+	/// Shows the tooltip (comment or description) for the item at the given index, either anchored
+	/// to the item (when it was clicked) or at the cursor position (when it was hovered).
+	///
+	/// @param idx The QModelIndex of the item whose tooltip shall be shown
+	void showBlobTooltip(const QModelIndex &idx);
+
 public:
 	UserModel(QObject *parent = 0);
 	~UserModel() Q_DECL_OVERRIDE;
