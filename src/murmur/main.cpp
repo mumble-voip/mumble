@@ -674,7 +674,7 @@ int main(int argc, char **argv) {
 		return res;
 	} catch (const std::exception &e) {
 		std::stringstream sstream;
-		mumble::printExceptionMessage(sstream, e, 2);
+		mumble::printExceptionMessage(sstream, e, 2, false);
 		mumble::log::error("Exiting due to unhandled exception:\n{}", sstream.str());
 		return 1;
 	} catch (...) {
