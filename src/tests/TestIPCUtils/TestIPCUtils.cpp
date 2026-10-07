@@ -49,11 +49,11 @@ struct stat fileStatus(const fs::path &path) {
 	return status;
 }
 
-void requirePrivateDirectory(const fs::path &path) {
+void requireDirectory(const fs::path &path, mode_t expectedMode) {
 	const struct stat status = fileStatus(path);
 	require(S_ISDIR(status.st_mode), "Not a real directory: " + path.string());
 	require(status.st_uid == ::getuid(), "Directory has wrong owner");
-	require((status.st_mode & 07777) == 0700, "Directory permissions are not exactly 0700");
+	require((status.st_mode & 07777) == expectedMode, "Directory permissions changed or are unexpected");
 	require(::access(path.c_str(), W_OK | X_OK) == 0, "Directory is not usable");
 }
 
@@ -69,9 +69,9 @@ bool unchanged(const struct stat &before, const struct stat &after) {
 		   && before.st_uid == after.st_uid && before.st_gid == after.st_gid;
 }
 
-void expectSuccess(const fs::path &expected) {
+void expectSuccess(const fs::path &expected, mode_t expectedMode = 0700) {
 	require(Mumble::getRuntimeDirectory() == expected, "Unexpected runtime directory");
-	requirePrivateDirectory(expected);
+	requireDirectory(expected, expectedMode);
 	require(Mumble::getOverlayPipePath() == expected / "MumbleOverlayPipe", "Unexpected overlay endpoint");
 	require(Mumble::getSocketPath("TestRPC") == expected / "TestRPCSocket", "Unexpected RPC endpoint");
 	require(test_overlay_pipe_path((expected / "MumbleOverlayPipe").c_str()), "C caller received wrong endpoint");
@@ -197,6 +197,28 @@ int main() {
 		require(!fs::exists(tempLeaf(root)), "XDG unexpectedly used the temp fallback");
 	});
 
+	for (const mode_t mask : std::initializer_list< mode_t >{ 0022, 0002, 0000 }) {
+		run("XDG accepts a legacy leaf created under umask " + std::to_string(mask), [=](const fs::path &root) {
+			const fs::path base = root / "xdg";
+			makeDirectory(base);
+			setEnvironment("XDG_RUNTIME_DIR", base.string());
+			const fs::path leaf = base / "info.mumble.Mumble";
+			::umask(mask);
+			// Reproduce the directory creation used by Mumble before private-leaf validation.
+			fs::create_directories(leaf);
+			const mode_t expectedMode = 0777 & ~mask;
+			requireDirectory(leaf, expectedMode);
+			std::ofstream(leaf / "marker") << "preserve me";
+			requireDirectory(base, 0700);
+			const struct stat baseBefore = fileStatus(base);
+			const struct stat before     = fileStatus(leaf);
+			expectSuccess(leaf, expectedMode);
+			require(unchanged(before, fileStatus(leaf)), "Legacy leaf metadata changed");
+			require(unchanged(baseBefore, fileStatus(base)), "Private parent metadata changed");
+			require(fs::exists(leaf / "marker"), "Legacy leaf contents changed");
+		});
+	}
+
 	for (const bool useXdg : { false, true }) {
 		const std::string kind = useXdg ? "XDG" : "temp";
 		run(kind + " creates a private leaf with a permissive umask", [=](const fs::path &root) {
@@ -224,7 +246,10 @@ int main() {
 			require(fs::exists(leaf / "marker"), "Existing leaf contents changed");
 		});
 
-		for (const mode_t mode : std::initializer_list< mode_t >{ 0755, 0701, 0777, 0600, 01700, 02700 }) {
+		const std::initializer_list< mode_t > rejectedModes =
+			useXdg ? std::initializer_list< mode_t >{ 0600, 0500, 0300, 01700, 02700 }
+				   : std::initializer_list< mode_t >{ 0755, 0701, 0775, 0777, 0600, 01700, 02700 };
+		for (const mode_t mode : rejectedModes) {
 			run(kind + " rejects insecure leaf mode " + std::to_string(mode), [=](const fs::path &root) {
 				const fs::path base = useXdg ? root / "xdg" : root / "tmp";
 				if (useXdg) {
