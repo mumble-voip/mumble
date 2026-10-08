@@ -4,9 +4,9 @@
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "ServerApplication.h"
+#include "Logger.h"
 
 #include <exception>
-#include <iostream>
 
 #include <QEvent>
 #include <QObject>
@@ -24,11 +24,9 @@ bool ServerApplication::notify(QObject *receiver, QEvent *event) {
 		handled = QCoreApplication::notify(receiver, event);
 #endif
 	} catch (const std::exception &e) {
-		std::cerr << "Terminating due to exception with message \"" << e.what() << "\"" << std::endl;
-		exit(1);
+		mumble::log::fatal("Terminating due to exception with message \"{}\"", e.what());
 	} catch (...) {
-		std::cerr << "Terminating due to a caught non std::exception" << std::endl;
-		exit(1);
+		mumble::log::fatal("Terminating due to a caught non std::exception");
 	}
 
 	return handled;

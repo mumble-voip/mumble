@@ -8,6 +8,7 @@
 #include "ExceptionUtils.h"
 #include "License.h"
 #include "LogEmitter.h"
+#include "Logger.h"
 #include "Meta.h"
 #include "SSL.h"
 #include "ServerApplication.h"
@@ -39,6 +40,7 @@
 #endif
 
 #include <optional>
+#include <sstream>
 #include <tuple>
 
 #include <CLI/CLI.hpp>
@@ -303,17 +305,17 @@ CLIOptions parseCLI(int argc, char **argv) {
 		app.exit(e, info_stream, error_stream);
 
 		if (e.get_exit_code() != static_cast< int >(CLI::ExitCodes::Success)) {
-			const std::string err  = error_stream.str();
-			const std::string info = info_stream.str();
-
-			if (!err.empty()) {
-				std::cerr << err;
+			std::string msg = error_stream.str();
+			if (!msg.empty() && !info_stream.str().empty()) {
+				msg += "\n";
 			}
-			if (!info.empty()) {
-				std::cerr << info;
+			msg += info_stream.str();
+
+			if (!msg.empty()) {
+				std::cerr << msg << std::endl;
 			}
 		} else {
-			std::cout << info_stream.str();
+			std::cout << info_stream.str() << std::endl;
 		}
 
 		options.quit     = true;
@@ -387,7 +389,7 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qInfo("%s\n", qPrintable(License::license()));
+			std::cout << License::license().toStdString() << std::endl;
 			return 0;
 #endif
 		} else if (cli_options.printAuthors) {
@@ -396,8 +398,8 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qInfo("%s\n",
-				  "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors");
+			std::cout << "For a list of authors, please see https://github.com/mumble-voip/mumble/graphs/contributors"
+					  << std::endl;
 			return 0;
 #endif
 		} else if (cli_options.printThirdPartyLicenses) {
@@ -406,7 +408,7 @@ int main(int argc, char **argv) {
 			ad.exec();
 			return 0;
 #else
-			qInfo("%s", qPrintable(License::printableThirdPartyLicenseInfo()));
+			std::cout << License::printableThirdPartyLicenseInfo().toStdString() << std::endl;
 			return 0;
 #endif
 		}
@@ -671,11 +673,12 @@ int main(int argc, char **argv) {
 
 		return res;
 	} catch (const std::exception &e) {
-		std::cerr << "[ERROR]: Exiting due to unhandled exception:\n";
-		mumble::printExceptionMessage(std::cerr, e, 2);
+		std::stringstream sstream;
+		mumble::printExceptionMessage(sstream, e, 2, false);
+		mumble::log::error("Exiting due to unhandled exception:\n{}", sstream.str());
 		return 1;
 	} catch (...) {
-		std::cerr << "[ERROR]: Caught unknown error (this is a bug, please report it)" << std::endl;
+		mumble::log::error("Caught unknown error (this is a bug, please report it)");
 		return 2;
 	}
 }

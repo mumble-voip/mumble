@@ -45,14 +45,12 @@ static void qtMessageHandler(const QtMsgType type, const QMessageLogContext &, c
 			break;
 		case QtFatalMsg:
 			log::fatal("{}", qPrintable(msg));
-			break;
 	}
 }
 
 void log::addSink(std::shared_ptr< spdlog::sinks::sink > sink) {
 	if (!masterSink) {
 		log::fatal("Attempted to addSink before master sink has been initialized");
-		return;
 	}
 
 	sink->set_pattern("%^<%L>%$%Y-%m-%d %H:%M:%S.%e %v");
