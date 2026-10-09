@@ -671,11 +671,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Сторонние зависимости</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>В зависимости от конфигурации сборки ваша версия Mumble может не зависеть от всех перечисленных элементов</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -3702,15 +3702,15 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить пароль на этом устройстве</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароли можно сохранять только для серверов, добавленных в избранное.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароли можно сохранять только для серверов, добавленных в избранное</translation>
     </message>
 </context>
 <context>
@@ -3908,7 +3908,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;В настоящее время Mumble может использовать в качестве глобальных горячих клавиш только кнопки мыши и модификаторы клавиатуры (Alt, Ctrl, Cmd и т. д.).&lt;/p&gt;&lt;p&gt;Если вам нужна большая гибкость, вы можете добавить Mumble в список доверенных программ доступности в разделе «Конфиденциальность и безопасность» системных настроек вашего Mac. &lt;/p&gt;&lt;p&gt;В «Системных настройках» откройте «Конфиденциальность и безопасность», затем прокрутите список и найдите пункт «Доступность». В заключение добавьте Mumble в список доверенных программ доступности.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -5169,11 +5169,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Задаёт, какая тема должна применяться к пользовательскому интерфейсу Mumble при использовании тёмной темы&lt;/b&gt;&lt;br /&gt;Mumble будет извлекать темы из определённых каталогов и отображать их в этом списке. Выбранная вами тема будет использоваться для настройки внешнего вида Mumble. Сюда входят цвета, значки и прочее.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Светлая тема для оформления пользовательского интерфейса</translation>
     </message>
     <message>
         <source>Dark Theme</source>
@@ -5181,7 +5181,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически устанавливает тему в соответствии с системной темой.</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
@@ -5193,7 +5193,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Устанавливает тему в соответствии с настроенным параметром темной темы</translation>
     </message>
     <message>
         <source>Dark</source>
@@ -5201,7 +5201,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Устанавливает тему в соответствии с настроенным параметром световой темы</translation>
     </message>
     <message>
         <source>Light Theme</source>
@@ -5221,7 +5221,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Это определяет, будет ли Mumble пытаться восстановить геометрию и состояние окна из предыдущих сеансов при запуске.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
@@ -5229,11 +5229,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Следует ли изменять локальную регулировку громкости для выбранного пользователя при прокрутке колесика мыши вверх (увеличить) или вниз (уменьшить) при нажатом элементе управления.</translation>
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL + Прокрутка для изменения громкости выбранного пользователя</translation>
     </message>
 </context>
 <context>
@@ -5280,12 +5280,12 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Включить табло</translation>
+        <translation>Включить оверлей</translation>
     </message>
     <message>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Вкл/выкл табло в игре.</translation>
+        <translation>Переключить оверлей в игре.</translation>
     </message>
     <message>
         <source>Toggle Minimal</source>
@@ -5492,7 +5492,7 @@ The setting only applies for new messages, the already shown ones will retain th
     <message>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Переключает состояние табло в игре.</translation>
+        <translation>Переключает состояние оверлея в игре.</translation>
     </message>
     <message>
         <source>Link Channel</source>
@@ -6284,11 +6284,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Согласно настройкам сервера, имя пользователя %1 некорректно.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>В соответствии с конфигурацией сервера, имя пользователя считается недействительным.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -6796,76 +6796,76 @@ the channel&apos;s context menu.</source>
     <message>
         <source>This will open the server connection dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно подключения к серверу</translation>
     </message>
     <message>
         <source>Disconnect from server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Отключиться от сервера</translation>
+        <translation>Отключиться от сервера</translation>
     </message>
     <message>
         <source>This will disconnect you from the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Это отключит вас от сервера</translation>
     </message>
     <message>
         <source>Open server information</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть информацию о сервере</translation>
     </message>
     <message>
         <source>This will show information about the server connection</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Здесь будет отображена информация о подключении к серверу</translation>
     </message>
     <message>
         <source>Open server tokens</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть серверные токены</translation>
     </message>
     <message>
         <source>This will open the server tokens dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно выбора серверных токенов</translation>
     </message>
     <message>
         <source>Open server user list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть список пользователей сервера</translation>
     </message>
     <message>
         <source>This will open the server user list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно со списком пользователей сервера</translation>
     </message>
     <message>
         <source>Open server ban list</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Открытый список забаненных серверов</translation>
     </message>
     <message>
         <source>This will open the server ban list dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно списка заблокированных серверов</translation>
     </message>
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Переключить приоритетный динамик</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Это позволит включить/отключить приоритетный динамик</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть диалоговое окно записи</translation>
     </message>
     <message>
         <source>This will open the recording dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно записи</translation>
     </message>
     <message>
         <source>Change comment</source>
@@ -6874,7 +6874,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will open the change comment dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно для внесения изменений в комментарии</translation>
     </message>
     <message>
         <source>Change avatar</source>
@@ -6883,7 +6883,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will open your file explorer to change your avatar image on this server</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет проводник файлов, и вы сможете изменить изображение своего аватара на этом сервере</translation>
     </message>
     <message>
         <source>Remove avatar</source>
@@ -6892,16 +6892,16 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will reset your avatar on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Это сбросит ваш аватар на сервере</translation>
     </message>
     <message>
         <source>Register on the server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Зарегистрироваться на сервере</translation>
     </message>
     <message>
         <source>This will register you on the server</source>
-        <translation type="unfinished"></translation>
+        <translation>Это позволит вам зарегистрироваться на сервере</translation>
     </message>
     <message>
         <source>Audio statistics</source>
@@ -6910,7 +6910,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will open the audio statistics dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно статистики звука</translation>
     </message>
     <message>
         <source>Open settings</source>
@@ -6919,16 +6919,16 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will open the settings dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно настроек</translation>
     </message>
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустить мастер настройки звука</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно мастера настройки звука</translation>
     </message>
     <message>
         <source>Start certificate wizard</source>
@@ -6937,34 +6937,34 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно мастера сертификатов</translation>
     </message>
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Переключить режим преобразования текста в речь</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Это позволит включить/отключить функцию преобразования текста в речь</translation>
     </message>
     <message>
         <source>Open about dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть диалоговое окно &quot;О программе&quot;</translation>
     </message>
     <message>
         <source>This will open the about dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>После этого откроется диалоговое окно &quot;О программе&quot;</translation>
     </message>
     <message>
         <source>Open about Qt dialog</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Откройте диалоговое окно &quot;О Qt&quot;</translation>
     </message>
     <message>
         <source>This will open the about Qt dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно &quot;О программе Qt&quot;</translation>
     </message>
     <message>
         <source>Check for update</source>
@@ -6973,7 +6973,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
-        <translation type="unfinished"></translation>
+        <translation>Это проверит, обновлена ли версия Mumble</translation>
     </message>
     <message>
         <source>That sound was the mute cue. It activates when you speak while muted. Would you like to keep it enabled?</source>
@@ -6993,7 +6993,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Список банов</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -7001,35 +7001,35 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Ig&amp;nore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Игнорировать cообщения</translation>
     </message>
     <message>
         <source>&amp;Send Message...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Отправить сообщение...</translation>
     </message>
     <message>
         <source>Set Ni&amp;ckname...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Установить Имя Пользователя...</translation>
     </message>
     <message>
         <source>L&amp;ink</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ссылка</translation>
     </message>
     <message>
         <source>U&amp;nlink All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Разорвать связь со всеми</translation>
     </message>
     <message>
         <source>M&amp;ute Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Заглушить себя</translation>
     </message>
     <message>
         <source>D&amp;eafen Self</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Приглушить Себя</translation>
     </message>
     <message>
         <source>Audio &amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Статистика звука</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -7037,11 +7037,11 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Developer &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Консоль разработчика</translation>
     </message>
     <message>
         <source>Positional &amp;Audio Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Просмотрщик позиционного звука</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -7049,35 +7049,35 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;О программе Qt</translation>
     </message>
     <message>
         <source>Re&amp;gister...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Зарегистрироваться...</translation>
     </message>
     <message>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Зарегистрированные пользователи</translation>
     </message>
     <message>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Токены доступа</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Убрать аватар</translation>
     </message>
     <message>
         <source>Reset Commen&amp;t...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Сбросить комментарий...</translation>
     </message>
     <message>
         <source>Remo&amp;ve Avatar...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Удалить аватар...</translation>
     </message>
     <message>
         <source>Remove the avatar of the selected user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалите аватар выбранного пользователя.</translation>
     </message>
     <message>
         <source>&amp;Join</source>
@@ -7085,19 +7085,19 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Hide When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Скрыть при фильтрации</translation>
     </message>
     <message>
         <source>&amp;Pin When Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Закрепить при фильтрации</translation>
     </message>
     <message>
         <source>Vie&amp;w Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Посмотреть комментарий</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Приоритетный спикер</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
@@ -7105,27 +7105,27 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Listen To Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Слушать канал</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Говорящий интерфейс</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Присоединиться к каналу пользователя</translation>
     </message>
     <message>
         <source>M&amp;ove To Own Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Переход на собственный канал</translation>
     </message>
     <message>
         <source>Moves this user to your current channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перемещает этого пользователя в ваш текущий канал.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Отключить преобразование текста в речь</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
@@ -7133,126 +7133,126 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Filtered channels and users</source>
-        <translation type="unfinished"></translation>
+        <translation>Отфильтрованные каналы и пользователи</translation>
     </message>
     <message>
         <source>Toggle positional audio</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Переключить позиционный звук</translation>
     </message>
     <message>
         <source>This will toggle positional audio on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Это позволит включить / выключить позиционный звук</translation>
     </message>
     <message>
         <source>SSL error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка SSL</translation>
     </message>
     <message>
         <source>Mumble is unable to establish a secure connection to the server. (&quot;%1&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble не удается установить безопасное соединение с сервером. (&quot;%1&quot;)</translation>
     </message>
     <message>
         <source>This could be caused by one of the following scenarios:&lt;ul&gt;&lt;li&gt;Your client and the server use different encryption standards. This could be because you are using a very old client or the server you are connecting to is very old. In the first case, you should update your client and in the second case you should contact the server administrator so that they can update their server.&lt;/li&gt;&lt;li&gt;Either your client or the server is using an old operating system that doesn&apos;t provide up-to-date encryption methods. In this case you should consider updating your OS or contacting the server admin so that they can update theirs.&lt;/li&gt;&lt;li&gt;The server you are connecting to isn&apos;t actually a Mumble server. Please ensure that the used server address really belongs to a Mumble server and not e.g. to a game server.&lt;/li&gt;&lt;li&gt;The port you are connecting to does not belong to a Mumble server but instead is bound to a completely unrelated process on the server-side. Please double-check you have used the correct port.&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Это может быть вызвано одной из следующих причин:&lt;ul&gt;&lt;li&gt;Ваш клиент и сервер используют разные стандарты шифрования. Это может быть связано с тем, что вы используете очень старую версию клиента или сервер, к которому вы подключаетесь, является очень старым. В первом случае вам следует обновить свой клиент, а во втором — связаться с администратором сервера, чтобы он обновил свой сервер.&lt;/li&gt;&lt;li&gt;Либо ваш клиент, либо сервер использует устаревшую операционную систему, которая не поддерживает современные методы шифрования. В этом случае вам следует обновить свою ОС или связаться с администратором сервера, чтобы он обновил свою. &lt;/li&gt;&lt;li&gt;Сервер, к которому вы подключаетесь, на самом деле не является сервером Mumble. Убедитесь, что используемый адрес сервера действительно принадлежит серверу Mumble, а не, например, игровому серверу.&lt;/li&gt;&lt;li&gt;Порт, к которому вы подключаетесь, не принадлежит серверу Mumble, а привязан к совершенно несвязанному процессу на стороне сервера. Пожалуйста, еще раз проверьте, что вы использовали правильный порт.&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вернуться назад</translation>
     </message>
     <message>
         <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Переключает вас на предыдущий канал</translation>
     </message>
     <message>
         <source>Move back</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Вернуться назад</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Это вернёт вас на предыдущий канал</translation>
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Канал, в котором вы находились ранее, больше не существует на этом сервере.</translation>
     </message>
     <message>
         <source>Cycle listener attenuation mode</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Режим ослабления сигнала циклического прослушивания</translation>
     </message>
     <message>
         <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
+        <translation>Это позволит переключаться между различными режимами ослабления сигнала для слушателей канала</translation>
     </message>
     <message>
         <source>Listener attenuation up (+10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Увеличение ослабления звука слушателя (+10%)</translation>
     </message>
     <message>
         <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>Это увеличивает уровень затухания сигнала для слушателей канала на 10 процентных пунктов</translation>
     </message>
     <message>
         <source>Listener attenuation down (-10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Снижение уровня шума у слушателя (-10%)</translation>
     </message>
     <message>
         <source>This decreases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>Это уменьшает затухание для слушателей канала на 10 процентных пунктов</translation>
     </message>
     <message>
         <source>Adaptive Push</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Адаптивный толчок</translation>
     </message>
     <message>
         <source>When using the push-to-talk transmission mode, this will act as the push-to-talk action. Otherwise, it will act as a push-to-mute action.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>При использовании режима передачи «нажми и говори» это будет действовать как действие «нажми и говори». В противном случае это будет действовать как действие «нажми и отключи звук».</translation>
     </message>
     <message>
         <source>Open Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть изображение</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка</translation>
     </message>
     <message>
         <source>Failed to decode image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось расшифровать изображение.</translation>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет редактор форматированного текста для редактирования вашего комментария. Комментарии отображаются отдельно для каждого сервера. Другие пользователи могут прочитать ваш комментарий, наведя курсор на значок комментария в дереве пользователей и каналов.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно записи звука.</translation>
     </message>
     <message>
         <source>This will open the search dialog. It&apos;s used to find channels and users in the current server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Это откроет диалоговое окно поиска. Оно используется для поиска каналов и пользователей на текущем сервере.</translation>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Добавить в избранное</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить текущий сервер в избранное</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Это добавит сервер, к которому вы в данный момент подключены, в избранное и в список известных подключений.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавлен %1 в избранное.</translation>
     </message>
 </context>
 <context>
@@ -7343,59 +7343,59 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished">Графическое представление позиционного моделирования звука</translation>
+        <translation>Графическое представление позиционного моделирования звука</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
-        <translation type="unfinished"></translation>
+        <translation>Это наглядно демонстрирует используемую в данный момент конфигурацию позиционного звука</translation>
     </message>
     <message>
         <source>Listener Z coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Координата Z слушателя</translation>
     </message>
     <message>
         <source>Listener X coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Координата X слушателя</translation>
     </message>
     <message>
         <source>Listener Y coordinate</source>
-        <translation type="unfinished"></translation>
+        <translation>Координата Y слушателя</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished">Время отображения без звука для пользователя (в секундах)</translation>
+        <translation>Время отображения информации пользователем в режиме молчания (в секундах)</translation>
     </message>
     <message>
         <source>Listener azimuth (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Азимут слушателя (в градусах)</translation>
     </message>
     <message>
         <source>Listener elevation (in degrees)</source>
-        <translation type="unfinished"></translation>
+        <translation>Высота звука, с которой слушает слушатель (в градусах)</translation>
     </message>
     <message>
         <source>Context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Контекстная строка</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Используйте кнопку &quot;Установить&quot;, чтобы применить контекстную строку</translation>
     </message>
     <message>
         <source>Apply the context string</source>
-        <translation type="unfinished"></translation>
+        <translation>Примените контекстную строку</translation>
     </message>
     <message>
         <source>Apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Примените строку идентификатора</translation>
     </message>
     <message>
         <source>Identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Строка идентификатора</translation>
     </message>
     <message>
         <source>Use the &quot;set&quot; button to apply the identity string</source>
-        <translation type="unfinished"></translation>
+        <translation>Используйте кнопку &quot;Установить&quot;, чтобы задать строку идентификатора</translation>
     </message>
 </context>
 <context>
@@ -7605,31 +7605,31 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Proxy type</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип прокси</translation>
     </message>
     <message>
         <source>Proxy hostname</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя хоста прокси-сервера</translation>
     </message>
     <message>
         <source>Proxy port</source>
-        <translation type="unfinished"></translation>
+        <translation>Порт прокси-сервера</translation>
     </message>
     <message>
         <source>Proxy username</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя пользователя прокси</translation>
     </message>
     <message>
         <source>Proxy password</source>
-        <translation type="unfinished"></translation>
+        <translation>Пароль прокси-сервера</translation>
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Это приведет к скрытию информации об идентификации клиента.&lt;/b&gt;&lt;p&gt;Клиент не будет идентифицировать себя с помощью сертификата, даже если он задан. Данная опция предназначена в первую очередь для тестирования и не сохраняется.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate information</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрыть информацию о сертификате</translation>
     </message>
 </context>
 <context>
@@ -7656,7 +7656,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation>Невозможно соединиться с табло на %2: %1. Табло будет недоступно.</translation>
+        <translation>Невозможно соединиться с оверлеем на %2: %1. Оверлей будет недоступен.</translation>
     </message>
 </context>
 <context>
@@ -7744,7 +7744,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Overlay</source>
-        <translation>Табло</translation>
+        <translation>Оверлей</translation>
     </message>
     <message>
         <source>Choose executable</source>
@@ -7760,15 +7760,15 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Load Overlay Presets</source>
-        <translation>Загрузить предустановки табло</translation>
+        <translation>Загрузить предустановки оверлея</translation>
     </message>
     <message>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation>Предустановки табло Mumble (*.mumblelay)</translation>
+        <translation>Предустановки оверлея Mumble (*.mumblelay)</translation>
     </message>
     <message>
         <source>Save Overlay Presets</source>
-        <translation>Сохранить предустановки табло</translation>
+        <translation>Сохранить предустановки оверлея</translation>
     </message>
     <message>
         <source>Options</source>
@@ -7776,16 +7776,16 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Enable overlay.</source>
-        <translation>Включить табло.</translation>
+        <translation>Включить оверлей.</translation>
     </message>
     <message>
         <source>Enable Overlay</source>
-        <translation>Включить табло</translation>
+        <translation>Включить оверлей</translation>
     </message>
     <message>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Включает или выключает табло. При включенном табло Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или вы выключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение для включения или выключения табло.</translation>
+        <translation>Включает или выключает оверлей. При включенном оверлее Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или вы выключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение для включения или выключения оверлея.</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -7801,43 +7801,43 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Uninstall Overlay</source>
-        <translation>Удалить табло</translation>
+        <translation>Удалить оверлей</translation>
     </message>
     <message>
         <source>Overlay Installation</source>
-        <translation>Установка табло</translation>
+        <translation>Установка оверлея</translation>
     </message>
     <message>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation>Mumble обнаружил, что поддержка табло не установлена.
+        <translation>Mumble обнаружил, что поддержка оверлея не установлена.
 
-Нажмите на кнопку, чтобы установить табло.</translation>
+Нажмите на кнопку, чтобы установить оверлей.</translation>
     </message>
     <message>
         <source>Install Mumble Overlay</source>
-        <translation>Установить табло Mumble</translation>
+        <translation>Установить оверлей Mumble</translation>
     </message>
     <message>
         <source>Overlay Upgrade</source>
-        <translation>Обновление табло</translation>
+        <translation>Обновление оверлея</translation>
     </message>
     <message>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation>Mumble обнаружил старую версию табло.
+        <translation>Mumble обнаружил старую версию оверлея.
 
 Чтобы обновить эти файлы до их последних версий, нажмите на кнопку.</translation>
     </message>
     <message>
         <source>Upgrade Mumble Overlay</source>
-        <translation>Обновить табло Mumble</translation>
+        <translation>Обновить оверлей Mumble</translation>
     </message>
     <message>
         <source>Display a frame counter in the overlay</source>
-        <translation>Показывать FPS в табло</translation>
+        <translation>Показывать FPS в оверлее</translation>
     </message>
     <message>
         <source>Show FPS counter</source>
@@ -7845,7 +7845,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Load an overlay preset from file</source>
-        <translation>Загрузить предустановки табло из файла</translation>
+        <translation>Загрузить предустановки оверлея из файла</translation>
     </message>
     <message>
         <source>Load…</source>
@@ -7853,7 +7853,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Save your overlay settings to file</source>
-        <translation>Сохранить настройки табло в файл</translation>
+        <translation>Сохранить настройки оверлея в файл</translation>
     </message>
     <message>
         <source>Save…</source>
@@ -7861,11 +7861,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Set the overlay font.</source>
-        <translation>Установить шрифт в табло.</translation>
+        <translation>Установить шрифт в оверлей.</translation>
     </message>
     <message>
         <source>Set the overlay text color.</source>
-        <translation>Установить цвет текста в табло.</translation>
+        <translation>Установить цвет текста в оверлее.</translation>
     </message>
     <message>
         <source>Color</source>
@@ -7885,7 +7885,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation>Отображать в табло часы, показывающие текущее местное время (системное время).</translation>
+        <translation>Отображать в оверлее часы, показывающие текущее местное время (системное время).</translation>
     </message>
     <message>
         <source>Show Clock</source>
@@ -7893,11 +7893,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overlay Exceptions</source>
-        <translation>Исключения табло</translation>
+        <translation>Исключения оверлея</translation>
     </message>
     <message>
         <source>Overlay Exception Mode</source>
-        <translation>Режим исключений табло</translation>
+        <translation>Режим исключений оверлея</translation>
     </message>
     <message>
         <source>Allowed launchers</source>
@@ -8012,7 +8012,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Overlay Editor</source>
-        <translation>Редактор табло</translation>
+        <translation>Редактор оверлея</translation>
     </message>
     <message>
         <source>Zoom level</source>
@@ -8242,27 +8242,27 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>List of plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Список плагинов</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through plugins. Use left and right keys to navigate between single plugin permissions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Используйте клавиши «вверх» и «вниз» для перехода между плагинами. Используйте клавиши «влево» и «вправо» для перехода между отдельными разрешениями плагинов.</translation>
     </message>
     <message>
         <source>Plugin name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название плагина</translation>
     </message>
     <message>
         <source>Plugin enabled checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Флажок &quot;Плагин включен&quot;</translation>
     </message>
     <message>
         <source>Plugin positional audio permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Флажок разрешения на использование позиционного звука в плагине</translation>
     </message>
     <message>
         <source>Plugin keyboard event listen permission checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Флажок проверки прав на обработку событий клавиатуры плагина</translation>
     </message>
     <message>
         <source>checked</source>
@@ -8274,7 +8274,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Недоступно</translation>
     </message>
 </context>
 <context>
@@ -8606,7 +8606,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished">Доступ к микрофону запрещен. Пожалуйста, разрешите Mumble использовать микрофон в «Системнае настройки» -&gt; «Конфиденциальность и безопасность» -&gt; «Микрофон».</translation>
+        <translation>Доступ к микрофону был запрещен. Пожалуйста, разрешите Mumble использовать микрофон, изменив настройки в разделе Системные настройки -&gt; Конфиденциальность и безопасность -&gt; Микрофон.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
@@ -8706,7 +8706,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>This is you</source>
-        <translation type="unfinished"></translation>
+        <translation>Это Вы</translation>
     </message>
     <message>
         <source>friend</source>
@@ -8722,19 +8722,19 @@ You can register them again.</source>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>немой и глухой</translation>
     </message>
     <message>
         <source>muted</source>
-        <translation type="unfinished"></translation>
+        <translation>приглушенный</translation>
     </message>
     <message>
         <source>locally muted</source>
-        <translation type="unfinished"></translation>
+        <translation>локально приглушенный</translation>
     </message>
     <message>
         <source>unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>незаглушенный</translation>
     </message>
     <message>
         <source>recording</source>
@@ -8742,11 +8742,11 @@ You can register them again.</source>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>приоритетный спикер</translation>
     </message>
     <message>
         <source>has a long comment</source>
-        <translation type="unfinished"></translation>
+        <translation>имеет длинный комментарий</translation>
     </message>
     <message>
         <source>text messages ignored</source>
@@ -8754,7 +8754,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>registered</source>
-        <translation type="unfinished"></translation>
+        <translation>зарегистрированный</translation>
     </message>
     <message>
         <source>channel</source>
@@ -8762,31 +8762,31 @@ You can register them again.</source>
     </message>
     <message>
         <source>your channel</source>
-        <translation type="unfinished"></translation>
+        <translation>ваш канал</translation>
     </message>
     <message>
         <source>accessible</source>
-        <translation type="unfinished">доступный</translation>
+        <translation>доступный</translation>
     </message>
     <message>
         <source>inaccessible</source>
-        <translation type="unfinished">недоступный</translation>
+        <translation>недоступный</translation>
     </message>
     <message>
         <source>public</source>
-        <translation type="unfinished"></translation>
+        <translation>публичный</translation>
     </message>
     <message>
         <source>filtered</source>
-        <translation type="unfinished"></translation>
+        <translation>отфильтрованный</translation>
     </message>
     <message>
         <source>pinned</source>
-        <translation type="unfinished"></translation>
+        <translation>закреплено</translation>
     </message>
     <message>
         <source>Listening for input</source>
-        <translation type="unfinished"></translation>
+        <translation>Ожидание ввода данных</translation>
     </message>
     <message>
         <source>Add</source>
@@ -8795,14 +8795,15 @@ You can register them again.</source>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
 See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project repository&lt;/a&gt; for what alternatives there are.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Если вы используете Linux, то, скорее всего, это связано с тем, что вы используете версию из репозитория пакетов вашего дистрибутива, который имеет собственный цикл обновлений.&lt;/p&gt;&lt;p&gt;Если вы хотите всегда иметь самую последнюю версию Mumble, вам следует рассмотреть возможность использования другого способа установки.
+Ознакомьтесь с &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;репозиторием проекта&lt;/a&gt;, чтобы узнать, какие альтернативы существуют.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>ResponsiveImageDialog</name>
     <message>
         <source>Image Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Предпросмотр изображения</translation>
     </message>
 </context>
 <context>
@@ -8954,15 +8955,15 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Search string</source>
-        <translation type="unfinished"></translation>
+        <translation>Поисковая строка</translation>
     </message>
     <message>
         <source>Search results</source>
-        <translation type="unfinished"></translation>
+        <translation>Результаты поиска</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the search results.</source>
-        <translation type="unfinished"></translation>
+        <translation>Используйте клавиши вверх и вниз для навигации по результатам поиска.</translation>
     </message>
 </context>
 <context>
@@ -9132,11 +9133,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>TCP Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры TCP</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
-        <translation type="unfinished">&amp;Посмотреть сертификат</translation>
+        <translation>&amp;Посмотреть сертификат</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9331,11 +9332,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Token List</source>
-        <translation type="unfinished"></translation>
+        <translation>Список токенов</translation>
     </message>
     <message>
         <source>Use the arrow keys to navigate this list of access tokens. The tokens are displayed in plain text.</source>
-        <translation type="unfinished"></translation>
+        <translation>Используйте клавиши со стрелками для навигации по этому списку маркеров доступа. Маркеры отображаются обычным текстом.</translation>
     </message>
 </context>
 <context>
@@ -9401,15 +9402,15 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Search for user</source>
-        <translation type="unfinished"></translation>
+        <translation>Поиск пользователя</translation>
     </message>
     <message>
         <source>Set inactivity filter mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить режим фильтрации бездействия</translation>
     </message>
     <message>
         <source>Filter for inactivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Фильтр по отсутствию активности</translation>
     </message>
 </context>
 <context>
@@ -9563,27 +9564,27 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Details</source>
-        <translation type="unfinished">Подробнее</translation>
+        <translation>Подробнее</translation>
     </message>
     <message>
         <source>to client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>к скользящему среднему клиента</translation>
     </message>
     <message>
         <source>Last X minutes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Последние X минут:</translation>
     </message>
     <message>
         <source>% lost</source>
-        <translation type="unfinished"></translation>
+        <translation>% потеряно</translation>
     </message>
     <message>
         <source>from client rolling average</source>
-        <translation type="unfinished"></translation>
+        <translation>на основе скользящего среднего клиента</translation>
     </message>
     <message>
         <source>% late</source>
-        <translation type="unfinished"></translation>
+        <translation>% задержки</translation>
     </message>
     <message>
         <source>Total:</source>
@@ -9591,11 +9592,11 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Last %1 %2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний %1 %2:</translation>
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">секунды</translation>
+        <translation>секунды</translation>
     </message>
     <message>
         <source>minutes</source>
@@ -9793,15 +9794,15 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Channel will be pinned when filtering is enabled</source>
-        <translation>Канал будет закреплен, если фильтрация включена</translation>
+        <translation>Канал будет зафиксирован когда будет включена фильтрация</translation>
     </message>
     <message>
         <source>Channel Listener</source>
-        <translation type="unfinished"></translation>
+        <translation>Прослушиватель каналов</translation>
     </message>
     <message>
         <source>This channel listener belongs to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот прослушиватель канала принадлежит %1</translation>
     </message>
 </context>
 <context>
@@ -10072,19 +10073,19 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Многоканальный + Транспорт (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
-        <translation type="unfinished"></translation>
+        <translation>Транспорт (JACK, автономный режим)</translation>
     </message>
     <message>
         <source>This field contains the directory path to store any voice recordings in. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>В этом поле указывается путь к папке, в которой будут сохраняться голосовые записи. Нажмите кнопку &quot;Обзор&quot;, чтобы открыть диалоговое окно выбора файла.</translation>
     </message>
     <message>
         <source>This field contains the filename any voice recording is saved as. Various variables can be used to augment the filename. For example %time for the current time.</source>
-        <translation type="unfinished"></translation>
+        <translation>В этом поле указывается имя файла, под которым сохраняется любая голосовая запись. Для дополнения имени файла можно использовать различные переменные. Например, %time — для указания текущего времени.</translation>
     </message>
 </context>
 <context>
