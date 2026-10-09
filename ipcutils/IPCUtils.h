@@ -14,7 +14,7 @@ namespace Mumble {
 
 /// The directory Mumble places its IPC endpoints in. It is created if it doesn't exist yet.
 /// Since on Windows named pipes aren't part of the fs, it returns an empty path.
-/// @throws std::filesystem::filesystem_error if the directory doesn't exist and can't be created.
+/// @throws std::filesystem::filesystem_error if the directory cannot be created or validated.
 std::filesystem::path getRuntimeDirectory();
 
 /// The path (on *nix) or the name (on win) on which Mumble's overlay listens for connections.
