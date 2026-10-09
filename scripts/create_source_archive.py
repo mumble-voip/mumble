@@ -113,8 +113,13 @@ def create_tar_archive(
 def download_rnnoise_model(base_dir: str) -> None:
     """Download and unpack the rnnoise model for the repository."""
     model_version_path = os.path.join(base_dir, "3rdparty/rnnoise-src/model_version")
-    with open(model_version_path, "r", encoding="utf-8") as file:
-        model_version = file.read().strip()
+
+    try:
+        with open(model_version_path, "r", encoding="utf-8") as file:
+            model_version = file.read().strip()
+    except FileNotFoundError:
+        print("RNNoise model_version not found. Assuming we are packaging an older version of RNNoise with bundled model.")
+        return
 
     if re.fullmatch(r"[0-9a-fA-F]{64}", model_version) is None:
         raise ValueError("RNNoise model version must be a SHA-256 digest")
