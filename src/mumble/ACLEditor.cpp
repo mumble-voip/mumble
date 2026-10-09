@@ -662,25 +662,41 @@ void ACLEditor::ACLEnableCheck() {
 		for (ACLGroup *gs : qlGroups) {
 			qcbACLGroup->addItem(gs->qsName);
 		}
+    
+		         if (as->iUserId == -1) {
+            qcbACLUser->clearEditText();
+            qcbACLUser->setToolTip(""); // Clear tooltip when a group is selected
+            bool found = false;
+            for (int i = 0; i < qcbACLGroup->count(); i++) {
+                if (qcbACLGroup->itemText(i) == as->qsGroup) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                qcbACLGroup->addItem(as->qsGroup);
+            }
+            qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
+            qgbACLpermissions->setEnabled(enabled); // Enable permissions for groups
+        } else {
+            qcbACLUser->setEditText(userName(as->iUserId));
+            
+            // Check if the user is registered (iUserId >= 0)
+            if (as->iUserId >= 0) {
+                qcbACLUser->setToolTip(""); // Clear tooltip for registered users
+                qgbACLpermissions->setEnabled(enabled); // Enable permissions
+            } else {
+                // User is NOT registered
+                qcbACLUser->setToolTip(tr("ACLs can only be applied to registered users."));
+                qgbACLpermissions->setEnabled(false); // Disable the permissions checkboxes
+            }
+        }
+	 
 
-		if (as->iUserId == -1) {
-			qcbACLUser->clearEditText();
 
-			bool found = false;
-			for (int i = 0; i < qcbACLGroup->count(); i++) {
-				if (qcbACLGroup->itemText(i) == as->qsGroup) {
-					found = true;
-					break;
-				}
-			}
-			if (!found) {
-				qcbACLGroup->addItem(as->qsGroup);
-			}
 
-			qcbACLGroup->setCurrentIndex(qcbACLGroup->findText(as->qsGroup, Qt::MatchExactly));
-		} else {
-			qcbACLUser->setEditText(userName(as->iUserId));
-		}
+
+
 	}
 	for (QAbstractButton *b : qdbbButtons->buttons()) {
 		QPushButton *qpb = qobject_cast< QPushButton * >(b);
