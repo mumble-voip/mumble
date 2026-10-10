@@ -917,29 +917,29 @@ if(screen-sharing)
 
 	# Shared sources (all platforms)
 	target_sources(mumble_client_lib PRIVATE
-						"CaptureSource.h"
-						"CaptureSourceLister.h"
-						"CaptureSourceLister.cpp"
-						"FrameGrabber.h"
-						"FrameGrabber.cpp"
-						"ScreenPickerDialog.h"
-						"ScreenPickerDialog.cpp"
-						"ScreenShareReceiver.h"
-						"ScreenShareReceiver.cpp"
-						"ScreenShareConfig.h"
-						"ScreenShareConfig.cpp"
-						"ScreenShareConfig.ui"
-						"FFmpegVideoEncoder.h"
-						"FFmpegVideoEncoder.cpp"
-						"VideoEncoder.h"
-						"VideoEncoder.cpp"
-						"VideoEncoderBackend.h"
-						"VideoEncoderBackend.cpp"
-						"VideoSender.h"
-						"VideoSender.cpp"
-						"VideoWidget.h"
-						"VideoWidget.cpp"
-				)
+		"CaptureSource.h"
+		"CaptureSourceLister.h"
+		"CaptureSourceLister.cpp"
+		"FrameGrabber.h"
+		"FrameGrabber.cpp"
+		"ScreenPickerDialog.h"
+		"ScreenPickerDialog.cpp"
+		"ScreenShareReceiver.h"
+		"ScreenShareReceiver.cpp"
+		"ScreenShareConfig.h"
+		"ScreenShareConfig.cpp"
+		"ScreenShareConfig.ui"
+		"FFmpegVideoEncoder.h"
+		"FFmpegVideoEncoder.cpp"
+		"VideoEncoder.h"
+		"VideoEncoder.cpp"
+		"VideoEncoderBackend.h"
+		"VideoEncoderBackend.cpp"
+		"VideoSender.h"
+		"VideoSender.cpp"
+		"VideoWidget.h"
+		"VideoWidget.cpp"
+	)
 
 	# Received video is drawn with OpenGL
 	find_package(Qt6 COMPONENTS OpenGL OpenGLWidgets REQUIRED)
@@ -958,8 +958,8 @@ if(screen-sharing)
 
 		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
 		target_include_directories(mumble_client_lib
-				SYSTEM PUBLIC
-					"${FFMPEG_DIR}/include"
+			SYSTEM PUBLIC
+				"${FFMPEG_DIR}/include"
 		)
 
 		foreach(FFMPEG_LIB IN ITEMS avcodec swscale avutil)
@@ -983,8 +983,8 @@ if(screen-sharing)
 
 		if(APPLE)
 			target_sources(mumble_client_lib PRIVATE
-																"SCKitCapture.h"
-																"SCKitCapture_macx.mm"
+				"SCKitCapture.h"
+				"SCKitCapture_macx.mm"
 			)
 
 			find_library(LIB_COREGRAPHICS CoreGraphics)
