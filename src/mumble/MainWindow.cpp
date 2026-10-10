@@ -4422,9 +4422,10 @@ ScreenShareViewer *MainWindow::screenShareViewer(quint32 senderSession) {
 }
 
 void MainWindow::onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame) {
-	// Frames decoded before the share ended may still arrive afterwards, they must not bring the viewer back
+	// Frames decoded before the share ended or before we unsubscribed may still arrive afterwards. They must not
+	// create a viewer that nobody opens, or show up in one that is opened later.
 	ClientUser *sender = ClientUser::get(senderSession);
-	if (!sender || !sender->bScreenSharing)
+	if (!sender || !sender->bScreenSharing || !m_screenShareSubscriptions.contains(senderSession))
 		return;
 
 	// Always store the latest frame, but never reopen a window the user closed.
