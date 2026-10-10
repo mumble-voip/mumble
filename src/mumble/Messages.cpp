@@ -887,6 +887,11 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	if (msg.has_channel_id() || msg.has_video_capabilities())
 		updateScreenShareEncoderSelection();
 
+	// Whether we may share our screen depends on the permissions in our channel. The server doesn't send them again
+	// for channels whose permissions we know already.
+	if (msg.has_channel_id() && pSelf && pDst == pSelf)
+		updateScreenShareAction();
+
 	// Someone started or stopped sharing their screen, or we or someone else changed channel
 	if (msg.has_screen_sharing() || msg.has_channel_id())
 		updateScreenShareSubscriptions();
