@@ -174,8 +174,11 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 	// (Re-)initialise the encoder when the resolution changes.
 	if (!m_codecCtx || m_encoderWidth != width || m_encoderHeight != height) {
 		destroyEncoder();
-		if (!initEncoder(width, height))
+		if (!initEncoder(width, height)) {
+			processStop();
+			emit failed();
 			return;
+		}
 	}
 
 	// Colour-space conversion: RGBA to YUV420P.

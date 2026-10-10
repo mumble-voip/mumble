@@ -44,6 +44,7 @@ ScreenCapture::ScreenCapture(QObject *parent) : QObject(parent) {
 	m_encoder->moveToThread(m_encoderThread);
 	connect(m_encoderThread, &QThread::finished, m_encoder, &QObject::deleteLater);
 	connect(m_encoder, &VideoEncoder::frameEncoded, this, &ScreenCapture::frameEncoded, Qt::DirectConnection);
+	connect(m_encoder, &VideoEncoder::failed, this, &ScreenCapture::onEncoderFailed);
 	m_encoderThread->start();
 #endif
 }
@@ -105,6 +106,15 @@ void ScreenCapture::requestKeyFrame() {
 
 void ScreenCapture::setSource(const CaptureSource &source) {
 	m_source = source;
+}
+
+void ScreenCapture::onEncoderFailed() {
+	if (!m_capturing)
+		return;
+
+	Global::get().l->log(Log::Warning, QObject::tr("Screen sharing stopped: The video could not be encoded."));
+	stopCapture();
+	emit captureEnded();
 }
 
 #	if defined(Q_OS_MAC) || defined(HAS_WAYLAND_PORTAL)

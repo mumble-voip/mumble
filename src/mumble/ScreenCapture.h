@@ -104,6 +104,8 @@ private:
 	QThread *m_encoderThread = nullptr;
 	/// Lives on m_encoderThread and is deleted there once the thread has finished.
 	VideoEncoder *m_encoder = nullptr;
+	/// Ends the capture once the encoder gave up on it.
+	void onEncoderFailed();
 #endif
 
 	QTimer *m_captureTimer = nullptr;
