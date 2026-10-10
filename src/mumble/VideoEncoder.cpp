@@ -51,11 +51,18 @@ VideoEncoder::~VideoEncoder() {
 }
 
 void VideoEncoder::start(const QElapsedTimer &streamClock) {
+	const quint64 stream = ++m_stream;
 	QMetaObject::invokeMethod(
-		this, [this, streamClock]() { processStart(streamClock); }, Qt::QueuedConnection);
+		this,
+		[this, streamClock, stream]() {
+			m_currentStream = stream;
+			processStart(streamClock);
+		},
+		Qt::QueuedConnection);
 }
 
 void VideoEncoder::stop() {
+	++m_stream;
 	QMetaObject::invokeMethod(
 		this, [this]() { processStop(); }, Qt::QueuedConnection);
 }
@@ -250,7 +257,8 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 			m_keyFrameTimer->stop();
 		}
 
-		emit frameEncoded(encoded);
+		if (m_stream == m_currentStream)
+			emit frameEncoded(encoded);
 		av_packet_unref(m_packet);
 	}
 }

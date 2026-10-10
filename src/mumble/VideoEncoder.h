@@ -18,6 +18,8 @@ extern "C" {
 #include <libswscale/swscale.h>
 }
 
+#include <atomic>
+
 class QTimer;
 
 /// Turns captured images into an encoded video stream.
@@ -89,10 +91,15 @@ private:
 	QMutex m_incomingMutex;
 	QImage m_incomingFrame;
 	qint64 m_incomingCaptureTime = 0;
+	/// Counts the calls to start() and stop(). Unlike m_running, it changes as soon as they are called, so that
+	/// frames that are still being encoded at that point aren't emitted anymore.
+	std::atomic< quint64 > m_stream{ 0 };
 
 	// Everything below is only used on the encoder's thread.
 
 	bool m_running = false;
+	/// Value of m_stream for the stream that is being encoded
+	quint64 m_currentStream = 0;
 	QElapsedTimer m_streamClock;
 	quint64 m_frameNumber = 0;
 	/// Timestamp of the last frame handed to the encoder, used to keep pts strictly increasing.
