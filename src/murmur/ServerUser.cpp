@@ -18,9 +18,14 @@
 #include <algorithm>
 #include <chrono>
 
+/// Enough for a client watching several streams with packet loss and opening or closing their viewers now and then
+static constexpr unsigned int VIDEO_CONTROL_MESSAGE_LIMIT = 10;
+static constexpr unsigned int VIDEO_CONTROL_MESSAGE_BURST = 20;
+
 ServerUser::ServerUser(Server *p, QSslSocket *socket)
 	: Connection(p, socket), ServerUserInfo(), s(nullptr), leakyBucket(p->iMessageLimit, p->iMessageBurst),
-	  m_pluginMessageBucket(p->iPluginMessageLimit, p->iPluginMessageBurst) {
+	  m_pluginMessageBucket(p->iPluginMessageLimit, p->iPluginMessageBurst),
+	  m_videoControlBucket(VIDEO_CONTROL_MESSAGE_LIMIT, VIDEO_CONTROL_MESSAGE_BURST) {
 	sState       = ServerUser::Connected;
 	m_clientType = ClientType::REGULAR;
 	sUdpSocket   = INVALID_SOCKET;

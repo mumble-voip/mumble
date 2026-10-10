@@ -205,6 +205,10 @@ public:
 
 	LeakyBucket leakyBucket;
 	LeakyBucket m_pluginMessageBucket;
+	/// For video subscriptions and key frame requests, which clients send automatically (key frame requests up to
+	/// twice a second per watched stream). Kept apart from leakyBucket so that they don't use up its budget for what
+	/// the user does, and so that a dropped subscription, which the client can't notice, stays unlikely.
+	LeakyBucket m_videoControlBucket;
 
 	/// The frame of each sharing user's video that is currently being tunneled to this user through TCP, and whether
 	/// it is sent or dropped. Only used by the main thread.

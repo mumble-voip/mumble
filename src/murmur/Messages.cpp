@@ -2711,7 +2711,9 @@ void Server::msgVideoKeyFrameRequest(ServerUser *uSource, MumbleProto::VideoKeyF
 
 	// Requests are sent automatically by the client, so they don't count as user activity
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
-	RATELIMIT(uSource);
+	if (uSource->m_videoControlBucket.ratelimit(1)) {
+		return;
+	}
 
 	if (!msg.has_session()) {
 		return;
@@ -2736,7 +2738,9 @@ void Server::msgVideoSubscription(ServerUser *uSource, MumbleProto::VideoSubscri
 	ZoneScoped;
 
 	MSG_SETUP(ServerUser::Authenticated);
-	RATELIMIT(uSource);
+	if (uSource->m_videoControlBucket.ratelimit(1)) {
+		return;
+	}
 
 	// A message without subscribe may come from a newer client that only changes something about its subscription
 	// that this server doesn't know about. Taking it for an unsubscription would end the subscription instead.
