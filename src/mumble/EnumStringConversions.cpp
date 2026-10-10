@@ -133,6 +133,7 @@
 	PROCESS(Log::MsgType, PrivateTextMessage, "PrivateTextMessage")         \
 	PROCESS(Log::MsgType, ChannelListeningAdd, "ChannelListeningAdd")       \
 	PROCESS(Log::MsgType, ChannelListeningRemove, "ChannelListeningRemove") \
+	PROCESS(Log::MsgType, WhisperHold, "WhisperHold")                       \
 	PROCESS(Log::MsgType, PluginMessage, "PluginMessage")
 
 #define OVERLAY_PRESETS_VALUES                                               \
