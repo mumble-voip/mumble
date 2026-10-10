@@ -43,6 +43,11 @@ protected:
 	AudioDeviceID inputDevId{};
 	AudioDeviceID echoOutputDevId{};
 	AudioBufferList buflist{};
+	/// The AudioUnit (auHAL or auVoip) that CoreAudioInput::propertyChange was registered on;
+	/// needed to remove that exact listener in stop().
+	AudioUnit auPropertyListener{};
+	/// Whether CoreAudioInput::deviceChange is currently registered as a system property listener.
+	bool bDeviceListenerRegistered = false;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
 	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
@@ -64,6 +69,10 @@ private:
 protected:
 	/// Hardware Abstraction Layer's AudioOutputUnit, directly interacts with the hardware
 	AudioUnit auHAL{};
+	/// Whether CoreAudioOutput::propertyChange is currently registered as a listener on auHAL.
+	bool bPropertyListenerRegistered = false;
+	/// Whether CoreAudioOutput::deviceChange is currently registered as a system property listener.
+	bool bDeviceListenerRegistered = false;
 	static void propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope,
 							   AudioUnitElement element);
 	static OSStatus deviceChange(AudioObjectID inObjectID, UInt32 inNumberAddresses,
