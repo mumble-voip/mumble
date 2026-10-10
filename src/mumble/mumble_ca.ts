@@ -8413,6 +8413,10 @@ Per actualitzar aquests fitxers a la darrera versió, feu clic al botó de sota.
         <translation>L&apos;actualització del connector &quot;%1&quot; ha fallat a causa de massa redireccions</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>No ha estat possible descarregar l&apos;actualització del connector &quot;%1&quot; des de &quot;%2&quot; (codi d&apos;estat de l&apos;HTTP %3)</translation>
     </message>
