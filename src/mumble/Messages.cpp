@@ -27,6 +27,7 @@
 #include "ChannelListenerManager.h"
 #include "PluginManager.h"
 #include "ProtoUtils.h"
+#include "ScreenShareReceiver.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
 #include "User.h"
@@ -189,6 +190,17 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 
 	Global::get().sh->setServerSynchronized(true);
+
+#ifdef USE_SCREEN_SHARING
+	// The server only relays video to clients that can decode it
+	MumbleProto::UserState mpus;
+	mpus.set_session(Global::get().uiSession);
+	MumbleProto::UserState_VideoCapabilities *capabilities = mpus.mutable_video_capabilities();
+	for (MumbleUDP::Video::Codec codec : ScreenShareReceiver::supportedCodecs()) {
+		capabilities->add_decoders(static_cast< unsigned int >(codec));
+	}
+	Global::get().sh->sendMessage(mpus);
+#endif
 
 	emit serverSynchronized();
 }

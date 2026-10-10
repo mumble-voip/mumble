@@ -45,6 +45,10 @@ public:
 	/// Tear down decoder state for a sender who stopped sharing. May be called from any thread.
 	void resetSender(quint32 senderSession);
 
+	/// The video codecs that can be decoded. This opens a decoder for every codec, so it should not be called
+	/// more often than necessary.
+	static std::vector< MumbleUDP::Video::Codec > supportedCodecs();
+
 signals:
 	void frameDecoded(quint32 senderSession, QImage frame);
 

@@ -24,6 +24,24 @@ static AVCodecID codecIdForProtoCodec(MumbleUDP::Video::Codec c) {
 }
 #endif
 
+std::vector< MumbleUDP::Video::Codec > ScreenShareReceiver::supportedCodecs() {
+	std::vector< MumbleUDP::Video::Codec > codecs;
+#ifdef USE_SCREEN_SHARING
+	for (MumbleUDP::Video::Codec codec : { MumbleUDP::Video::H264 }) {
+		const AVCodec *decoder = avcodec_find_decoder(codecIdForProtoCodec(codec));
+		if (!decoder)
+			continue;
+
+		// Make sure that the decoder can actually be opened
+		AVCodecContext *ctx = avcodec_alloc_context3(decoder);
+		if (ctx && avcodec_open2(ctx, decoder, nullptr) == 0)
+			codecs.push_back(codec);
+		avcodec_free_context(&ctx);
+	}
+#endif
+	return codecs;
+}
+
 ScreenShareReceiver::ScreenShareReceiver(QObject *parent) : QObject(parent) {
 }
 
