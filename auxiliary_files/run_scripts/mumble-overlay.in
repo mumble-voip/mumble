@@ -15,7 +15,7 @@ for libpath in @MUMBLE_INSTALL_ABS_LIBDIR@ /usr/lib /usr/lib/mumble /usr/lib32 /
     for lib in $libpath/lib@MUMBLE_OVERLAY_BINARY_BASENAME@*.so
     do
       case $(file -L "$lib") in
-        *64-bit*) MUMBLE_OVERLAY_PATH_64="$lib" ; echo set ;;
+        *64-bit*) MUMBLE_OVERLAY_PATH_64="$lib" ;;
         *32-bit*) MUMBLE_OVERLAY_PATH_32="$lib" ;;
       esac
     done
