@@ -4214,6 +4214,19 @@ void MainWindow::screenShare() {
 		if (!Global::get().sc) {
 			Global::get().sc = new ScreenCapture(this);
 			connect(Global::get().sc, &ScreenCapture::frameEncoded, this, &MainWindow::sendScreenShareFrame);
+			// The server has to learn about capturing having stopped by itself as well
+			connect(Global::get().sc, &ScreenCapture::captureEnded, this, [this]() {
+				qaScreenShare->setChecked(false);
+
+				ClientUser *self = ClientUser::get(Global::get().uiSession);
+				if (!self || !Global::get().sh)
+					return;
+
+				MumbleProto::UserState mpus;
+				mpus.set_session(self->uiSession);
+				mpus.set_screen_sharing(false);
+				Global::get().sh->sendMessage(mpus);
+			});
 		}
 		Global::get().sc->startCapture();
 		if (!Global::get().sc->isCapturing()) {

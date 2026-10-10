@@ -83,6 +83,7 @@ void ScreenCapture::captureFrame() {
 		// In the future, this should be replaced with dg-desktop-portal
 		Global::get().l->log(Log::Warning, QObject::tr("Screen capture failed: grabWindow returned null. "));
 		stopCapture();
+		emit captureEnded();
 		return;
 	}
 
@@ -94,8 +95,12 @@ void ScreenCapture::captureFrame() {
 	// (Re-)initialise the encoder if this is the first frame or the resolution changed.
 	if (!m_codecCtx || m_encoderWidth != width || m_encoderHeight != height) {
 		destroyEncoder();
-		if (!initEncoder(width, height))
+		if (!initEncoder(width, height)) {
+			// Retrying with the next frame would fail the same way
+			stopCapture();
+			emit captureEnded();
 			return;
+		}
 	}
 
 	// Colour-space conversion: RGBA24 to YUV420P.
