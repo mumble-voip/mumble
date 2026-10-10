@@ -109,6 +109,7 @@ void VideoEncoder::processStop() {
 	m_encoderWidth  = 0;
 	m_encoderHeight = 0;
 	m_lastEncoderId.clear();
+	m_failedEncoders.clear();
 }
 
 void VideoEncoder::processKeyFrameRequest() {
@@ -216,8 +217,16 @@ void VideoEncoder::encodeImage(const QImage &srcImage, qint64 captureTime) {
 
 	std::vector< VideoEncoderBackend::Packet > packets;
 	const bool keyFrame = m_keyFrameRequested;
-	if (!m_backend->encode(image, m_lastPts, keyFrame, packets))
+	if (!m_backend->encode(image, m_lastPts, keyFrame, packets)) {
+		// An encoder that opened may still fail on every picture (e.g. after the GPU was reset), which would leave
+		// the stream without any frames. Continue with the next encoder, which starts with a key frame.
+		m_failedEncoders << m_backend->info().id;
+		m_backend.reset();
+		m_encoderWidth  = 0;
+		m_encoderHeight = 0;
+		forceKeyFrame();
 		return;
+	}
 
 	m_keyFrameRequested = false;
 	if (keyFrame)
@@ -276,6 +285,8 @@ bool VideoEncoder::openBackend(int width, int height) {
 	// The preferred encoder may not support every picture size (e.g. hardware encoders have size limits), so
 	// fall back to the next one in that case.
 	for (const VideoEncoderInfo &info : VideoEncoders::available()) {
+		if (m_failedEncoders.contains(info.id))
+			continue;
 		m_backend = VideoEncoders::create(info.id, config);
 		if (m_backend)
 			break;
