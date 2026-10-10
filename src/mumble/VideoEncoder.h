@@ -62,6 +62,9 @@ public:
 signals:
 	/// Emitted for every successfully encoded frame.
 	void frameEncoded(const EncodedVideoFrame &frame);
+	/// Emitted from the encoder's thread when no encoder could be opened for the stream. The stream has been stopped
+	/// then, as further frames would fail the same way.
+	void failed();
 
 private:
 	void processStart(const QElapsedTimer &streamClock);
