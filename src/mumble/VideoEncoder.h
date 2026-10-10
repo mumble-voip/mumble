@@ -130,6 +130,8 @@ private:
 	int m_encoderHeight = 0;
 	/// The encoder that was used last, so that switching to a different one can be reported
 	QString m_lastEncoderId;
+	/// Encoders that failed to encode a picture during the current stream, which are not opened again
+	QStringList m_failedEncoders;
 };
 
 #endif // MUMBLE_MUMBLE_VIDEOENCODER_H_

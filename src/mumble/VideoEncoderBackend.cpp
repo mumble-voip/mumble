@@ -20,7 +20,8 @@ extern "C" {
 namespace VideoEncoders {
 
 static std::once_flag s_probeOnce;
-static std::vector< VideoEncoderInfo > s_available;
+// Never destroyed, as probing may still be running on its own thread while Mumble exits
+static std::vector< VideoEncoderInfo > &s_available = *new std::vector< VideoEncoderInfo >();
 
 static void probeAll() {
 	// Failing encoders (e.g. for a GPU that isn't there) tend to complain loudly, which is expected here
