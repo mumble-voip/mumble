@@ -76,9 +76,12 @@ void ScreenShareConfig::load(const Settings &r) {
 }
 
 void ScreenShareConfig::save() const {
-	s.screenShareEncoderMode = static_cast< VideoEncoderMode >(qcbEncoderMode->currentData().toInt());
-	if (m_encodersKnown && qcbEncoder->currentIndex() >= 0) {
-		s.screenShareEncoder = qcbEncoder->currentData().toString();
+	const VideoEncoderMode mode = static_cast< VideoEncoderMode >(qcbEncoderMode->currentData().toInt());
+	s.screenShareEncoderMode    = mode;
+	// The list is disabled in the other modes and only shows the first encoder if none was picked
+	const QString pickedEncoder = qcbEncoder->currentData().toString();
+	if (m_encodersKnown && mode == VideoEncoderMode::Manual && !pickedEncoder.isEmpty()) {
+		s.screenShareEncoder = pickedEncoder;
 	} else {
 		s.screenShareEncoder = m_manualEncoder;
 	}
