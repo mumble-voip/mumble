@@ -192,6 +192,12 @@ message UserState {
 		optional float volume_adjustment = 2;
 	}
 
+	message VideoCapabilities {
+		// Video codecs the client can decode, as values of MumbleUDP.Video.Codec. Unknown values have to be
+		// ignored, so that newer codecs can be added.
+		repeated uint32 decoders = 1;
+	}
+
 	// Unique user session ID of the user whose state this is, may change on
 	// reconnect.
 	optional uint32 session = 1;
@@ -245,6 +251,11 @@ message UserState {
 	repeated uint32 listening_channel_remove = 22;
 	// A list of volume adjustments the user has applied to listeners
 	repeated VolumeAdjustment listening_volume_adjustment = 23;
+	// True if the user is currently sharing their screen.
+	optional bool screen_sharing = 24;
+	// The video capabilities of the user's client. Only the client itself may set these for its own user. A
+	// newly sent value replaces the previous one as a whole.
+	optional VideoCapabilities video_capabilities = 25;
 }
 
 // Relays information on the bans. The client may send the BanList message to
@@ -607,6 +618,13 @@ message ServerConfig {
 	optional uint32 max_users = 6;
 	// Whether using Mumble's recording feature is allowed on the server
 	optional bool recording_allowed = 7;
+	// Whether users may share their screen on the server. Servers that support screen sharing always send this field
+	// in the ServerConfig sent while connecting, so its absence there means that the server doesn't relay any video.
+	// A ServerConfig sent later on only contains the fields that changed.
+	optional bool screen_sharing_allowed = 8;
+	// The maximum bandwidth a user's screen share may use, in bits per second, including the headers of the packets
+	// it is sent in. 0 means that there is no limit.
+	optional uint32 max_video_bandwidth = 9;
 }
 
 // Sent by the server to inform the clients of suggested client configuration
@@ -636,4 +654,26 @@ message PluginDataTransmission {
 	// The ID of the sent data. This will be used by plugins to check whether they will
 	// process it or not
 	optional string dataID = 4;
+}
+
+// Sent by a client that receives a user's screen share to ask that user for a new key frame,
+// for example because video data got lost and the stream can't be decoded again until the next key frame.
+// The server forwards the request to the sharing user.
+message VideoKeyFrameRequest {
+	// The session of the user whose screen share a key frame is requested for.
+	optional uint32 session = 1;
+	// The session of the user that requested the key frame. Set by the server when forwarding the request.
+	optional uint32 actor = 2;
+}
+
+// Sent by a client to tell the server whose screen share it wants to receive. As video needs a lot of bandwidth,
+// the server only relays a screen share to the users that subscribed to it. Subscribing to a user who isn't sharing
+// their screen in the same channel has no effect. A subscription ends when either user leaves their channel or the
+// sharing user stops sharing their screen; to receive the user's next screen share, the client has to subscribe again.
+message VideoSubscription {
+	// The session of the user sharing their screen.
+	optional uint32 session = 1;
+	// True to start receiving the screen share, false to stop. Messages without this field are ignored, so that newer
+	// clients can send messages that only change fields older servers don't know.
+	optional bool subscribe = 2;
 }

@@ -364,6 +364,7 @@ void Server::readParams() {
 	iTimeout                           = Meta::mp->iTimeout;
 	handshakeTimeout                   = Meta::mp->handshakeTimeout;
 	iMaxBandwidth                      = Meta::mp->iMaxBandwidth;
+	m_maxVideoBandwidth                = Meta::mp->maxVideoBandwidth;
 	iMaxUsers                          = Meta::mp->iMaxUsers;
 	iMaxUsersPerChannel                = Meta::mp->iMaxUsersPerChannel;
 	iMaxTextMessageLength              = Meta::mp->iMaxTextMessageLength;
@@ -383,6 +384,7 @@ void Server::readParams() {
 	bBonjour                           = Meta::mp->bBonjour;
 	bAllowPing                         = Meta::mp->bAllowPing;
 	allowRecording                     = Meta::mp->allowRecording;
+	allowScreenSharing                 = Meta::mp->allowScreenSharing;
 	rollingStatsWindow                 = Meta::mp->rollingStatsWindow;
 	bCertRequired                      = Meta::mp->bCertRequired;
 	bForceExternalAuth                 = Meta::mp->bForceExternalAuth;
@@ -435,11 +437,13 @@ void Server::readParams() {
 	m_dbWrapper.getConfigurationTo(iServerNum, "port", usPort);
 	m_dbWrapper.getConfigurationTo(iServerNum, "timeout", iTimeout);
 	m_dbWrapper.getConfigurationTo(iServerNum, "bandwidth", iMaxBandwidth);
+	m_dbWrapper.getConfigurationTo(iServerNum, "videobandwidth", m_maxVideoBandwidth);
 	m_dbWrapper.getConfigurationTo(iServerNum, "users", iMaxUsers);
 	m_dbWrapper.getConfigurationTo(iServerNum, "usersperchannel", iMaxUsersPerChannel);
 	m_dbWrapper.getConfigurationTo(iServerNum, "textmessagelength", iMaxTextMessageLength);
 	m_dbWrapper.getConfigurationTo(iServerNum, "imagemessagelength", iMaxImageMessageLength);
 	m_dbWrapper.getConfigurationTo(iServerNum, "allowhtml", bAllowHTML);
+	m_dbWrapper.getConfigurationTo(iServerNum, "allowscreensharing", allowScreenSharing);
 	m_dbWrapper.getConfigurationTo(iServerNum, "defaultchannel", iDefaultChan);
 	m_dbWrapper.getConfigurationTo(iServerNum, "rememberchannel", bRememberChan);
 	m_dbWrapper.getConfigurationTo(iServerNum, "rememberchannelduration", iRememberChanDuration);
@@ -532,6 +536,19 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			mpsc.set_max_bandwidth(static_cast< unsigned int >(length));
 			sendAll(mpsc);
 		}
+	} else if (key == "videobandwidth") {
+		// Anything that isn't a number would be read as 0, which means that there is no limit
+		bool valid             = false;
+		unsigned int bandwidth = v.toUInt(&valid);
+		if (!valid) {
+			bandwidth = Meta::mp->maxVideoBandwidth;
+		}
+		if (bandwidth != m_maxVideoBandwidth) {
+			m_maxVideoBandwidth = bandwidth;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_max_video_bandwidth(bandwidth);
+			sendAll(mpsc);
+		}
 	} else if (key == "users") {
 		unsigned int newmax = i ? static_cast< unsigned int >(i) : Meta::mp->iMaxUsers;
 		if (iMaxUsers == newmax)
@@ -622,7 +639,32 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		bAllowPing = !v.isNull() ? QVariant(v).toBool() : Meta::mp->bAllowPing;
 	else if (key == "allowrecording")
 		allowRecording = !v.isNull() ? QVariant(v).toBool() : Meta::mp->allowRecording;
-	else if (key == "rollingStatsWindow")
+	else if (key == "allowscreensharing") {
+		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp->allowScreenSharing;
+		if (allow != allowScreenSharing) {
+			allowScreenSharing = allow;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_screen_sharing_allowed(allowScreenSharing);
+			sendAll(mpsc);
+
+			if (!allowScreenSharing) {
+				// Ending a screen share takes the voice thread lock, which the caller (e.g. Ice) may be holding right
+				// now, so it is done once the current event has been handled. Until then, the screen shares are
+				// still relayed.
+				QCoreApplication::instance()->postEvent(this, new ExecEvent([this]() {
+															if (allowScreenSharing) {
+																return;
+															}
+
+															for (ServerUser *u : qhUsers) {
+																if (u->bScreenSharing) {
+																	stopScreenSharing(u);
+																}
+															}
+														}));
+			}
+		}
+	} else if (key == "rollingStatsWindow")
 		rollingStatsWindow = i ? static_cast< unsigned int >(i) : Meta::mp->rollingStatsWindow;
 	else if (key == "username")
 		qrUserName =
@@ -1053,6 +1095,10 @@ void Server::run() {
 							}
 							break;
 						}
+						case Mumble::Protocol::UDPMessageType::Video: {
+							processVideoMsg(u, m_udpDecoder.getVideoMessage());
+							break;
+						}
 					}
 				}
 #ifdef Q_OS_UNIX
@@ -1092,7 +1138,7 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 
 	if ((u.aiUdpFlag.loadRelaxed() == 1 || force) && (u.sUdpSocket != INVALID_SOCKET)) {
 #if defined(__LP64__)
-		static std::vector< char > ebuffer;
+		static thread_local std::vector< char > ebuffer;
 		ebuffer.resize(static_cast< std::size_t >(len + 4 + 16));
 		char *buffer = reinterpret_cast< char * >(
 			((reinterpret_cast< quint64 >(ebuffer.data()) + 8) & static_cast< quint64 >(~7)) + 4);
@@ -1192,6 +1238,62 @@ void Server::addListener(QHash< ServerUser *, VolumeAdjustment > &listeners, Ser
 
 	if (it == listeners.end() || it->factor < volumeAdjustment.factor) {
 		listeners[&user] = volumeAdjustment;
+	}
+}
+
+void Server::processVideoMsg(ServerUser *u, MumbleUDP::Video &videoMsg) {
+	ZoneScoped;
+
+	if (u->sState != ServerUser::Authenticated || !u->bScreenSharing || !u->cChannel)
+		return;
+
+	// IP + UDP + Crypt + message type + message. All of the message counts, including the fields this server doesn't
+	// know, as they are relayed as well.
+	const std::size_t ipHeaderSize = (u->saiUdpAddress.ss_family == AF_INET6) ? 40 : 20;
+	if (!u->m_videoBandwidth.allow(videoMsg.frame_number(), ipHeaderSize + 8 + 4 + 1 + videoMsg.ByteSizeLong(),
+								   m_maxVideoBandwidth)) {
+		return;
+	}
+
+	QByteArray cache;
+
+	// Relay the received message instead of building a new one from the decoded fields, so that fields this server
+	// doesn't know about reach the receivers unchanged.
+	videoMsg.set_sender_session(u->uiSession);
+
+	const std::size_t size = videoMsg.ByteSizeLong();
+
+	// The message type comes on top. Receivers drop larger packets, and the server sets the sender's session, so the
+	// relayed fragment can be a few bytes larger than the received one.
+	if (size + 1 > Mumble::Protocol::MAX_UDP_PACKET_SIZE) {
+		return;
+	}
+
+	std::vector< unsigned char > packet(size + 1);
+	packet[0] = static_cast< unsigned char >(Mumble::Protocol::UDPMessageType::Video);
+
+	if (!videoMsg.SerializeToArray(packet.data() + 1, static_cast< int >(size))) {
+		return;
+	}
+
+	const unsigned int codec = static_cast< unsigned int >(videoMsg.codec());
+
+	// Send packet to the users in the channel that are watching the stream
+	for (User *p : u->cChannel->qlUsers) {
+		ServerUser *dst = static_cast< ServerUser * >(p);
+
+		if (dst == u || !dst->m_videoSubscriptions.contains(u->uiSession))
+			continue;
+
+		// Only send video to clients that told us they can decode it. This also leaves out clients that don't
+		// support video at all, which would just drop it.
+		if (!dst->m_videoDecoders
+			|| std::find(dst->m_videoDecoders->begin(), dst->m_videoDecoders->end(), codec)
+				   == dst->m_videoDecoders->end()) {
+			continue;
+		}
+
+		sendMessage(*dst, packet.data(), static_cast< int >(packet.size()), cache);
 	}
 }
 
@@ -1723,6 +1825,11 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 		m_pendingConnections.erase(u);
 		removeHostUser(u);
 
+		// The session may be reused by another user, whose stream nobody subscribed to
+		for (ServerUser *other : qhUsers) {
+			other->m_videoSubscriptions.remove(u->uiSession);
+		}
+
 		quint16 port = (u->saiUdpAddress.ss_family == AF_INET6)
 						   ? (reinterpret_cast< sockaddr_in6 * >(&u->saiUdpAddress)->sin6_port)
 						   : (reinterpret_cast< sockaddr_in * >(&u->saiUdpAddress)->sin_port);
@@ -1756,6 +1863,31 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 	if (qhUsers.isEmpty())
 		stopThread();
+}
+
+/// Removes the fields this server doesn't know from a received message, so that clients can't pass on data to other
+/// clients that the server doesn't understand.
+template< typename Message > static void discardUnknownFields(Message &msg) {
+	msg.DiscardUnknownFields();
+}
+
+/// Key frame requests are forwarded with the fields the server doesn't know, so that newer clients can add information
+/// to them without every server having to be updated first.
+static void discardUnknownFields(MumbleProto::VideoKeyFrameRequest &) {
+}
+
+/// Likewise, video capabilities are relayed with the fields the server doesn't know, so that newer clients can announce
+/// more than the codecs they can decode. The rest of the message is handled like any other.
+static void discardUnknownFields(MumbleProto::UserState &msg) {
+	if (!msg.has_video_capabilities()) {
+		msg.DiscardUnknownFields();
+		return;
+	}
+
+	MumbleProto::UserState_VideoCapabilities capabilities;
+	capabilities.Swap(msg.mutable_video_capabilities());
+	msg.DiscardUnknownFields();
+	msg.mutable_video_capabilities()->Swap(&capabilities);
 }
 
 void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qbaMsg, ServerUser *u) {
@@ -1808,6 +1940,8 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 
 					processMsg(u, std::move(audioData), m_tcpAudioReceivers, m_tcpAudioEncoder);
 				}
+			} else if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Video) {
+				processVideoMsg(u, m_tcpTunnelDecoder.getVideoMessage());
 			}
 		}
 
@@ -1837,6 +1971,8 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 			case Mumble::Protocol::TCPMessageType::PermissionQuery:
 			case Mumble::Protocol::TCPMessageType::UserStats:
 			case Mumble::Protocol::TCPMessageType::RequestBlob:
+			case Mumble::Protocol::TCPMessageType::VideoKeyFrameRequest:
+			case Mumble::Protocol::TCPMessageType::VideoSubscription:
 				break;
 			// In case the user is authenticated as a registered user, a DB update can occur, which is
 			// why we have to block connections from new clients in read-only mode.
@@ -1861,7 +1997,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 		case Mumble::Protocol::TCPMessageType::name: {                                       \
 			MumbleProto::name msg;                                                           \
 			if (msg.ParseFromArray(qbaMsg.constData(), static_cast< int >(qbaMsg.size()))) { \
-				msg.DiscardUnknownFields();                                                  \
+				discardUnknownFields(msg);                                                   \
 				msg##name(u, msg);                                                           \
 			}                                                                                \
 			break;                                                                           \
@@ -1875,7 +2011,7 @@ void Server::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qb
 					printf("== %s:\n", #name);                                               \
 					msg.PrintDebugString();                                                  \
 				}                                                                            \
-				msg.DiscardUnknownFields();                                                  \
+				discardUnknownFields(msg);                                                   \
 				msg##name(u, msg);                                                           \
 			}                                                                                \
 			break;                                                                           \
@@ -1926,9 +2062,41 @@ void Server::checkHandshakeTimeout() {
 	}
 }
 
+/// Video is no longer tunneled to a user while this many bytes are still waiting to be sent to them, which is a bit
+/// more than 100 ms of video at the default video bandwidth limit.
+static constexpr qint64 MAX_QUEUED_TUNNELED_VIDEO_BYTES = 64 * 1024;
+
+/// Whether a packet tunneled to the user through TCP is a video fragment that has to be dropped, because the
+/// connection can't keep up with the video. Otherwise, the video would pile up in the send buffer without limit and
+/// delay voice and everything else sent to the user more and more.
+///
+/// This is decided once per frame, when its first fragment is tunneled, so that a frame either reaches the user
+/// completely or not at all.
+static bool isDroppedTunneledVideo(ServerUser &u, const QByteArray &packet) {
+	// Only packets in the protobuf format start with their message type; video is never sent in any other format
+	if (u.m_version < Mumble::Protocol::PROTOBUF_INTRODUCTION_VERSION || packet.isEmpty()
+		|| static_cast< Mumble::Protocol::UDPMessageType >(packet[0]) != Mumble::Protocol::UDPMessageType::Video) {
+		return false;
+	}
+
+	MumbleUDP::Video video;
+	if (!video.ParseFromArray(packet.constData() + 1, static_cast< int >(packet.size() - 1))) {
+		return true;
+	}
+
+	auto it = u.m_tunneledVideoFrames.find(video.sender_session());
+	if (it == u.m_tunneledVideoFrames.end() || it->frameNumber != video.frame_number()) {
+		const bool send = u.bytesToWrite() <= MAX_QUEUED_TUNNELED_VIDEO_BYTES;
+		it              = u.m_tunneledVideoFrames.insert(video.sender_session(), { video.frame_number(), send });
+	}
+
+	return !it->send;
+}
+
 void Server::tcpTransmitData(QByteArray a, unsigned int id) {
-	Connection *c = qhUsers.value(id);
-	if (c) {
+	ServerUser *u = qhUsers.value(id);
+	if (u && !isDroppedTunneledVideo(*u, a)) {
+		Connection *c = u;
 		QByteArray qba;
 		const auto len = a.size();
 
@@ -2173,6 +2341,19 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 			p->bPrioritySpeaker = false;
 			mpus.set_priority_speaker(p->bPrioritySpeaker);
 		}
+
+		if (p->bScreenSharing
+			&& !ChanACL::hasPermission(static_cast< ServerUser * >(p), c, ChanACL::ScreenShare, nullptr)) {
+			// End the screen share, as it would be shown in a channel the user may not share their screen in
+			p->bScreenSharing = false;
+			mpus.set_screen_sharing(false);
+		}
+
+		// Video is only relayed within a channel, so leaving it ends all subscriptions of and to the user
+		static_cast< ServerUser * >(p)->m_videoSubscriptions.clear();
+		for (ServerUser *u : qhUsers) {
+			u->m_videoSubscriptions.remove(p->uiSession);
+		}
 	}
 
 	clearACLCache(p);
@@ -2189,6 +2370,27 @@ void Server::userEnterChannel(User *p, Channel *c, MumbleProto::UserState &mpus)
 	sendClientPermission(static_cast< ServerUser * >(p), c);
 	if (c->cParent)
 		sendClientPermission(static_cast< ServerUser * >(p), c->cParent);
+}
+
+void Server::stopScreenSharing(ServerUser *u) {
+	if (!u->bScreenSharing)
+		return;
+
+	u->bScreenSharing = false;
+	endVideoSubscriptionsTo(u);
+
+	MumbleProto::UserState mpus;
+	mpus.set_session(u->uiSession);
+	mpus.set_screen_sharing(false);
+	sendAll(mpus);
+}
+
+void Server::endVideoSubscriptionsTo(ServerUser *sharer) {
+	QWriteLocker wl(&qrwlVoiceThread);
+
+	for (ServerUser *u : qhUsers) {
+		u->m_videoSubscriptions.remove(sharer->uiSession);
+	}
 }
 
 bool Server::hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm) {
@@ -2281,6 +2483,7 @@ void Server::flushClientPermissionCache(ServerUser *u, MumbleProto::PermissionQu
 
 void Server::clearACLCache(User *p) {
 	MumbleProto::PermissionQuery mppq;
+	std::vector< ServerUser * > stoppedSharing;
 
 	{
 		QMutexLocker qml(&qmCache);
@@ -2318,6 +2521,17 @@ void Server::clearACLCache(User *p) {
 				mpus.set_suppress(user->bSuppress);
 				sendAll(mpus);
 			}
+
+			// Likewise, end a user's screen share if they may no longer share their screen in their channel
+			if (user->bScreenSharing && !ChanACL::hasPermission(user, user->cChannel, ChanACL::ScreenShare, &acCache)) {
+				user->bScreenSharing = false;
+				stoppedSharing.push_back(user);
+
+				mpus.Clear();
+				mpus.set_session(user->uiSession);
+				mpus.set_screen_sharing(false);
+				sendAll(mpus);
+			}
 		};
 
 		if (p) {
@@ -2327,6 +2541,11 @@ void Server::clearACLCache(User *p) {
 				processingFunction(currentUser);
 			}
 		}
+	}
+
+	// Only done now, as the voice thread lock must not be taken while holding qmCache
+	for (ServerUser *user : stoppedSharing) {
+		endVideoSubscriptionsTo(user);
 	}
 
 	// A change in ACLs means that the user might be able to whisper

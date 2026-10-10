@@ -54,6 +54,78 @@ message Audio {
 }
 
 /**
+ * Sent by a client to stream an encoded video frame fragment to other users in the same channel.
+ * The server relays each fragment to the other users in the sender's channel that subscribed to the stream (see
+ * the VideoSubscription TCP message) and that can decode its codec (see UserState.video_capabilities).
+ * Large frames are split into multiple fragments; receivers reassemble them using
+ * frame_number + fragment_index / fragment_count.
+ *
+ * A stream starts when the user starts sharing their screen and ends when they stop (see UserState.screen_sharing).
+ * Its first frame is a key frame, and so is the first frame after every change of codec or resolution.
+ *
+ * Video is meant to be sent over UDP. Like audio, it is only tunneled through TCP (see the UDPTunnel TCP message)
+ * to and from clients that can't use UDP, as video on the TCP connection delays everything sent after it.
+ *
+ * The server relays fields it doesn't know unchanged, so that newer clients can add fields without having to wait
+ * for the server to be updated.
+ *
+ * Like all UDP packets, a relayed fragment must not exceed 1024 bytes, and the server drops fragments that would. As
+ * the server sets sender_session, senders leave at least 6 bytes of room for it.
+ */
+message Video {
+	// The session of the client that sent this fragment.
+	// When the client sends this to the server the field is ignored; the server always
+	// overwrites it with the authenticated sender's session before forwarding.
+	uint32 sender_session = 1;
+
+	// Codec of video_data. Receivers that can't decode the codec drop the stream. Which codecs a client
+	// can decode is announced in UserState.video_capabilities.
+	enum Codec {
+		// H.264 / AVC: one access unit per frame, in Annex B byte stream format.
+		H264 = 0;
+		// VP8: one compressed frame per frame.
+		VP8 = 1;
+		// VP9: one compressed frame (or superframe) per frame.
+		VP9 = 2;
+		// AV1: one temporal unit per frame, in low overhead bitstream format (sequences of OBUs).
+		AV1 = 3;
+	}
+	Codec codec = 2;
+
+	// Width of the complete video frame in pixels.
+	uint32 width = 3;
+
+	// Height of the complete video frame in pixels.
+	uint32 height = 4;
+
+	// Counter of encoded frames in decode order, incremented by one for every frame of the stream. A gap in this
+	// sequence means that a frame was lost in transit. A server that relays only some of the frames of a stream to a
+	// receiver, leaving out frames that none of the relayed frames depend on, renumbers the frames it relays so that
+	// they stay consecutive for that receiver.
+	uint64 frame_number = 5;
+
+	// Zero-based index of this fragment within the current frame.
+	uint32 fragment_index = 6;
+
+	// Total number of fragments that make up the current frame. At most 4096; receivers drop fragments with a
+	// larger count.
+	uint32 fragment_count = 7;
+
+	// Encoded video bytes for this fragment. Concatenating all fragments of a frame yields one complete encoded
+	// frame, in the format given for the codec in the codec field.
+	bytes video_data = 8;
+
+	// True if this frame is a key frame: it doesn't depend on any earlier frame and contains everything a decoder
+	// needs to start decoding the stream at it. Only meaningful on fragment_index 0.
+	bool is_keyframe = 9;
+
+	// Capture time of this frame in microseconds, measured on the sender's monotonic clock relative
+	// to the start of the stream. All fragments of a frame carry the same value. Receivers use the
+	// difference between timestamps to schedule frames for display; the absolute value has no meaning.
+	uint64 timestamp = 10;
+}
+
+/**
  * Ping message for checking UDP connectivity (and roundtrip ping) and potentially obtaining further server
  * details (e.g. version).
  */

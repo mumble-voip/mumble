@@ -69,6 +69,8 @@ public:
 	void sendMessage(const QByteArray &qbaMsg);
 	void disconnectSocket(bool force = false);
 	void forceFlush();
+	/// Returns the number of bytes that are waiting to be written to the network.
+	qint64 bytesToWrite() const;
 
 	/// Returns the peer's immediate certificate.
 	QSslCertificate peerCertificate() const;

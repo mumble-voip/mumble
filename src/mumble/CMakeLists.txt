@@ -34,6 +34,8 @@ option(portaudio "Build support for PortAudio" ON)
 option(plugin-debug "Build Mumble with debug output for plugin developers." OFF)
 option(plugin-callback-debug "Build Mumble with debug output for plugin callbacks inside of Mumble." OFF)
 
+option(screen-sharing "Build support for screen sharing (requires libavcodec + libswscale with libx264)." ON)
+
 if(WIN32)
 	option(asio "Build support for ASIO audio input." OFF)
 	option(wasapi "Build support for WASAPI." ON)
@@ -218,6 +220,12 @@ set(MUMBLE_SOURCES
 	"RichTextEditor.ui"
 	"Screen.cpp"
 	"Screen.h"
+	"ScreenCapture.cpp"
+	"ScreenCapture.h"
+	"ScreenShareReceiver.cpp"
+	"ScreenShareReceiver.h"
+	"ScreenShareViewer.cpp"
+	"ScreenShareViewer.h"
 	"SearchDialog.cpp"
 	"SearchDialog.h"
 	"SearchDialog.ui"
@@ -278,6 +286,7 @@ set(MUMBLE_SOURCES
 	"UserView.h"
 	"VersionCheck.cpp"
 	"VersionCheck.h"
+	"VideoFrame.h"
 	"ViewCert.cpp"
 	"ViewCert.h"
 	"VoiceRecorder.cpp"
@@ -902,6 +911,131 @@ endif()
 
 if(plugins)
 	add_dependencies(mumble plugins)
+endif()
+
+if(screen-sharing)
+
+	# Shared sources (all platforms)
+	target_sources(mumble_client_lib PRIVATE
+		"CaptureSource.h"
+		"CaptureSourceLister.h"
+		"CaptureSourceLister.cpp"
+		"FrameGrabber.h"
+		"FrameGrabber.cpp"
+		"ScreenPickerDialog.h"
+		"ScreenPickerDialog.cpp"
+		"ScreenShareReceiver.h"
+		"ScreenShareReceiver.cpp"
+		"ScreenShareConfig.h"
+		"ScreenShareConfig.cpp"
+		"ScreenShareConfig.ui"
+		"FFmpegVideoEncoder.h"
+		"FFmpegVideoEncoder.cpp"
+		"VideoEncoder.h"
+		"VideoEncoder.cpp"
+		"VideoEncoderBackend.h"
+		"VideoEncoderBackend.cpp"
+		"VideoSender.h"
+		"VideoSender.cpp"
+		"VideoWidget.h"
+		"VideoWidget.cpp"
+	)
+
+	# Received video is drawn with OpenGL
+	find_package(Qt6 COMPONENTS OpenGL OpenGLWidgets REQUIRED)
+	target_link_libraries(mumble_client_lib PUBLIC Qt6::OpenGL Qt6::OpenGLWidgets)
+
+	if(WIN32)
+		target_sources(mumble_client_lib PRIVATE
+			"CaptureSourceLister_win.cpp"
+			"FrameGrabber_win.cpp"
+		)
+		target_link_libraries(mumble_client_lib PUBLIC d3d11.lib dxgi.lib)
+
+		if(NOT FFMPEG_DIR)
+			set(FFMPEG_DIR "${3RDPARTY_DIR}/ffmpeg")
+		endif()
+
+		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
+		target_include_directories(mumble_client_lib
+			SYSTEM PUBLIC
+				"${FFMPEG_DIR}/include"
+		)
+
+		foreach(FFMPEG_LIB IN ITEMS avcodec swscale avutil)
+			find_library(FFMPEG_${FFMPEG_LIB}_LIBRARY ${FFMPEG_LIB} PATHS "${FFMPEG_DIR}/lib" NO_DEFAULT_PATH REQUIRED)
+			target_link_libraries(mumble_client_lib PUBLIC ${FFMPEG_${FFMPEG_LIB}_LIBRARY})
+		endforeach()
+	else()
+		find_package(PkgConfig REQUIRED)
+		pkg_check_modules(LIBAVCODEC REQUIRED IMPORTED_TARGET libavcodec)
+		pkg_check_modules(LIBSWSCALE REQUIRED IMPORTED_TARGET libswscale)
+		pkg_check_modules(LIBAVUTIL  REQUIRED IMPORTED_TARGET libavutil)
+
+		target_link_libraries(mumble_client_lib PUBLIC
+			PkgConfig::LIBAVCODEC
+			PkgConfig::LIBSWSCALE
+			PkgConfig::LIBAVUTIL
+		)
+
+		target_compile_definitions(mumble_client_lib PUBLIC "USE_SCREEN_SHARING")
+		target_sources(mumble_client_lib PRIVATE "CaptureSourceLister_unix.cpp")
+
+		if(APPLE)
+			target_sources(mumble_client_lib PRIVATE
+				"SCKitCapture.h"
+				"SCKitCapture_macx.mm"
+			)
+
+			find_library(LIB_COREGRAPHICS CoreGraphics)
+			if(LIB_COREGRAPHICS)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_COREGRAPHICS})
+			endif()
+
+			find_library(LIB_SCREENCAPTUREKIT ScreenCaptureKit)
+			if(LIB_SCREENCAPTUREKIT)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_SCREENCAPTUREKIT})
+			endif()
+
+			find_library(LIB_COREMEDIA CoreMedia)
+			if(LIB_COREMEDIA)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_COREMEDIA})
+			endif()
+
+			find_library(LIB_COREVIDEO CoreVideo)
+			if(LIB_COREVIDEO)
+				target_link_libraries(mumble_client_lib PUBLIC ${LIB_COREVIDEO})
+			endif()
+
+		else()
+			if(TARGET X11::X11)
+				target_link_libraries(mumble_client_lib PUBLIC X11::X11)
+				target_compile_definitions(mumble_client_lib PRIVATE "HAS_X11_WINDOW_LIST")
+			endif()
+
+			# Grabs X11 screens and windows without involving the GUI thread
+			pkg_check_modules(XCB_FRAME_GRABBER IMPORTED_TARGET xcb xcb-shm)
+			if(XCB_FRAME_GRABBER_FOUND)
+				target_sources(mumble_client_lib PRIVATE "FrameGrabber_xcb.cpp")
+				target_link_libraries(mumble_client_lib PUBLIC PkgConfig::XCB_FRAME_GRABBER)
+				target_compile_definitions(mumble_client_lib PRIVATE "HAS_XCB_FRAME_GRABBER")
+			endif()
+		endif()
+
+		# Wayland screen capture via xdg-desktop-portal + PipeWire.
+		# Requires Qt D-Bus (already linked when dbus=ON) and libpipewire-0.3.
+		if(dbus)
+			pkg_check_modules(LIBPIPEWIRE_SCREENSHARE IMPORTED_TARGET libpipewire-0.3)
+			if(LIBPIPEWIRE_SCREENSHARE_FOUND)
+				target_sources(mumble_client_lib PRIVATE
+					"XdgPortalCapture.h"
+					"XdgPortalCapture_unix.cpp"
+				)
+				target_link_libraries(mumble_client_lib PUBLIC PkgConfig::LIBPIPEWIRE_SCREENSHARE)
+				target_compile_definitions(mumble_client_lib PRIVATE "HAS_WAYLAND_PORTAL")
+			endif()
+		endif()
+	endif()
 endif()
 
 if(xboxinput)

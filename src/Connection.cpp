@@ -215,6 +215,11 @@ void Connection::forceFlush() {
 	qtsSocket->flush();
 }
 
+qint64 Connection::bytesToWrite() const {
+	// Data that has already been encrypted is held in a separate buffer
+	return qtsSocket->bytesToWrite() + qtsSocket->encryptedBytesToWrite();
+}
+
 void Connection::disconnectSocket(bool force) {
 	if (qtsSocket->state() == QAbstractSocket::UnconnectedState) {
 		emit connectionClosed(QAbstractSocket::UnknownSocketError, QString());

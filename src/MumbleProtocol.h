@@ -21,34 +21,36 @@
  *
  * Warning: Only append to the end. Never insert in between or remove an existing entry.
  */
-#define MUMBLE_ALL_TCP_MESSAGES                         \
-	PROCESS_MUMBLE_TCP_MESSAGE(Version, 0)              \
-	PROCESS_MUMBLE_TCP_MESSAGE(UDPTunnel, 1)            \
-	PROCESS_MUMBLE_TCP_MESSAGE(Authenticate, 2)         \
-	PROCESS_MUMBLE_TCP_MESSAGE(Ping, 3)                 \
-	PROCESS_MUMBLE_TCP_MESSAGE(Reject, 4)               \
-	PROCESS_MUMBLE_TCP_MESSAGE(ServerSync, 5)           \
-	PROCESS_MUMBLE_TCP_MESSAGE(ChannelRemove, 6)        \
-	PROCESS_MUMBLE_TCP_MESSAGE(ChannelState, 7)         \
-	PROCESS_MUMBLE_TCP_MESSAGE(UserRemove, 8)           \
-	PROCESS_MUMBLE_TCP_MESSAGE(UserState, 9)            \
-	PROCESS_MUMBLE_TCP_MESSAGE(BanList, 10)             \
-	PROCESS_MUMBLE_TCP_MESSAGE(TextMessage, 11)         \
-	PROCESS_MUMBLE_TCP_MESSAGE(PermissionDenied, 12)    \
-	PROCESS_MUMBLE_TCP_MESSAGE(ACL, 13)                 \
-	PROCESS_MUMBLE_TCP_MESSAGE(QueryUsers, 14)          \
-	PROCESS_MUMBLE_TCP_MESSAGE(CryptSetup, 15)          \
-	PROCESS_MUMBLE_TCP_MESSAGE(ContextActionModify, 16) \
-	PROCESS_MUMBLE_TCP_MESSAGE(ContextAction, 17)       \
-	PROCESS_MUMBLE_TCP_MESSAGE(UserList, 18)            \
-	PROCESS_MUMBLE_TCP_MESSAGE(VoiceTarget, 19)         \
-	PROCESS_MUMBLE_TCP_MESSAGE(PermissionQuery, 20)     \
-	PROCESS_MUMBLE_TCP_MESSAGE(CodecVersion, 21)        \
-	PROCESS_MUMBLE_TCP_MESSAGE(UserStats, 22)           \
-	PROCESS_MUMBLE_TCP_MESSAGE(RequestBlob, 23)         \
-	PROCESS_MUMBLE_TCP_MESSAGE(ServerConfig, 24)        \
-	PROCESS_MUMBLE_TCP_MESSAGE(SuggestConfig, 25)       \
-	PROCESS_MUMBLE_TCP_MESSAGE(PluginDataTransmission, 26)
+#define MUMBLE_ALL_TCP_MESSAGES                            \
+	PROCESS_MUMBLE_TCP_MESSAGE(Version, 0)                 \
+	PROCESS_MUMBLE_TCP_MESSAGE(UDPTunnel, 1)               \
+	PROCESS_MUMBLE_TCP_MESSAGE(Authenticate, 2)            \
+	PROCESS_MUMBLE_TCP_MESSAGE(Ping, 3)                    \
+	PROCESS_MUMBLE_TCP_MESSAGE(Reject, 4)                  \
+	PROCESS_MUMBLE_TCP_MESSAGE(ServerSync, 5)              \
+	PROCESS_MUMBLE_TCP_MESSAGE(ChannelRemove, 6)           \
+	PROCESS_MUMBLE_TCP_MESSAGE(ChannelState, 7)            \
+	PROCESS_MUMBLE_TCP_MESSAGE(UserRemove, 8)              \
+	PROCESS_MUMBLE_TCP_MESSAGE(UserState, 9)               \
+	PROCESS_MUMBLE_TCP_MESSAGE(BanList, 10)                \
+	PROCESS_MUMBLE_TCP_MESSAGE(TextMessage, 11)            \
+	PROCESS_MUMBLE_TCP_MESSAGE(PermissionDenied, 12)       \
+	PROCESS_MUMBLE_TCP_MESSAGE(ACL, 13)                    \
+	PROCESS_MUMBLE_TCP_MESSAGE(QueryUsers, 14)             \
+	PROCESS_MUMBLE_TCP_MESSAGE(CryptSetup, 15)             \
+	PROCESS_MUMBLE_TCP_MESSAGE(ContextActionModify, 16)    \
+	PROCESS_MUMBLE_TCP_MESSAGE(ContextAction, 17)          \
+	PROCESS_MUMBLE_TCP_MESSAGE(UserList, 18)               \
+	PROCESS_MUMBLE_TCP_MESSAGE(VoiceTarget, 19)            \
+	PROCESS_MUMBLE_TCP_MESSAGE(PermissionQuery, 20)        \
+	PROCESS_MUMBLE_TCP_MESSAGE(CodecVersion, 21)           \
+	PROCESS_MUMBLE_TCP_MESSAGE(UserStats, 22)              \
+	PROCESS_MUMBLE_TCP_MESSAGE(RequestBlob, 23)            \
+	PROCESS_MUMBLE_TCP_MESSAGE(ServerConfig, 24)           \
+	PROCESS_MUMBLE_TCP_MESSAGE(SuggestConfig, 25)          \
+	PROCESS_MUMBLE_TCP_MESSAGE(PluginDataTransmission, 26) \
+	PROCESS_MUMBLE_TCP_MESSAGE(VideoKeyFrameRequest, 27)   \
+	PROCESS_MUMBLE_TCP_MESSAGE(VideoSubscription, 28)
 
 /**
  * "X-macro" for all Mumble Protobuf UDP messages types.
@@ -57,7 +59,8 @@
  */
 #define MUMBLE_ALL_UDP_MESSAGES          \
 	PROCESS_MUMBLE_UDP_MESSAGE(Audio, 0) \
-	PROCESS_MUMBLE_UDP_MESSAGE(Ping, 1)
+	PROCESS_MUMBLE_UDP_MESSAGE(Ping, 1)  \
+	PROCESS_MUMBLE_UDP_MESSAGE(Video, 2)
 
 namespace Mumble {
 namespace Protocol {
@@ -147,6 +150,25 @@ namespace Protocol {
 
 		friend bool operator==(const AudioData &lhs, const AudioData &rhs);
 		friend bool operator!=(const AudioData &lhs, const AudioData &rhs);
+	};
+
+	/// Largest number of fragments a video frame may be split into. Receivers set aside room for all fragments of a
+	/// frame as soon as its first fragment arrives, so the count has to be limited. At up to 900 bytes per fragment,
+	/// this still allows frames of more than 3 MB.
+	constexpr std::uint32_t MAX_VIDEO_FRAGMENTS = 4096;
+
+	/// Carries all fields from a decoded MumbleUDP::Video fragment.
+	struct VideoData {
+		std::uint32_t senderSession  = 0;
+		MumbleUDP::Video_Codec codec = MumbleUDP::Video_Codec_H264;
+		std::uint32_t width          = 0;
+		std::uint32_t height         = 0;
+		std::uint64_t frameNumber    = 0;
+		std::uint32_t fragmentIndex  = 0;
+		std::uint32_t fragmentCount  = 0;
+		std::span< const byte > payload;
+		bool isKeyFrame         = false;
+		std::uint64_t timestamp = 0;
 	};
 
 	struct PingData {
@@ -265,20 +287,27 @@ namespace Protocol {
 		UDPMessageType getMessageType() const;
 
 		AudioData getAudioData() const;
+		VideoData getVideoData() const;
+		/// The decoded Video message itself, including any fields this version doesn't know about. The payload of
+		/// getVideoData() points into it, so it stays valid only until the next call to decode().
+		MumbleUDP::Video &getVideoMessage();
 		PingData getPingData() const;
 
 	protected:
 		std::vector< byte > m_byteBuffer;
 		UDPMessageType m_messageType;
 		AudioData m_audioData = {};
+		VideoData m_videoData = {};
 		PingData m_pingData   = {};
 		MumbleUDP::Ping m_pingMessage;
 		MumbleUDP::Audio m_audioMessage;
+		MumbleUDP::Video m_videoMessage;
 
 		bool decodePing_legacy(const std::span< const byte > data);
 		bool decodePing_protobuf(const std::span< const byte > data);
 		bool decodeAudio_legacy(const std::span< const byte > data, AudioCodec codec);
 		bool decodeAudio_protobuf(const std::span< const byte > data);
+		bool decodeVideo_protobuf(const std::span< const byte > data);
 	};
 
 } // namespace Protocol

@@ -26,6 +26,7 @@
 #include "ProtoUtils.h"
 #include "RichTextEditor.h"
 #include "SSL.h"
+#include "ScreenShareReceiver.h"
 #include "ServerResolver.h"
 #include "ServerResolverRecord.h"
 #include "User.h"
@@ -258,9 +259,6 @@ void ServerHandler::udpReady() {
 		if (!connection)
 			continue;
 
-		if (!csCrypt->isValid())
-			continue;
-
 		if (buflen < 5)
 			continue;
 
@@ -269,15 +267,22 @@ void ServerHandler::udpReady() {
 		// 4 bytes is the overhead of the encryption
 		assert(buffer.size() >= buflen - 4);
 
-		if (!csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(), buflen)) {
-			if (csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
-				if (csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
-					csCrypt->tLastRequest.restart();
-					MumbleProto::CryptSetup mpcs;
-					sendMessage(mpcs);
+		{
+			QMutexLocker qml(&qmUdp);
+
+			if (!csCrypt->isValid())
+				continue;
+
+			if (!csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(), buflen)) {
+				if (csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+					if (csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
+						csCrypt->tLastRequest.restart();
+						MumbleProto::CryptSetup mpcs;
+						sendMessage(mpcs);
+					}
 				}
+				continue;
 			}
-			continue;
 		}
 
 		if (m_udpDecoder.decode(buffer.subspan(0, buflen - 4))) {
@@ -297,6 +302,11 @@ void ServerHandler::udpReady() {
 					handleVoicePacket(audioData);
 					break;
 				};
+				case Mumble::Protocol::UDPMessageType::Video:
+					const Mumble::Protocol::VideoData videoData = m_udpDecoder.getVideoData();
+
+					handleVideoPacket(videoData);
+					break;
 			}
 		}
 	}
@@ -318,10 +328,17 @@ void ServerHandler::handleVoicePacket(const Mumble::Protocol::AudioData &audioDa
 	}
 }
 
-void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) {
-	static std::vector< unsigned char > crypto;
-	crypto.resize(static_cast< std::size_t >(len + 4));
+void ServerHandler::handleVideoPacket(const Mumble::Protocol::VideoData &videoData) {
+	ClientUser *sender = ClientUser::get(videoData.senderSession);
+	if (!sender || !sender->bScreenSharing)
+		return;
 
+	// Forward to the receiver, which reassembles and decodes the frame on its own thread.
+	if (Global::get().screenShareReceiver)
+		Global::get().screenShareReceiver->handleVideoPacket(videoData);
+}
+
+void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) {
 	QMutexLocker qml(&qmUdp);
 
 	if (!qusUdp)
@@ -344,6 +361,9 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 		QApplication::postEvent(this,
 								new ServerHandlerMessageEvent(qba, Mumble::Protocol::TCPMessageType::UDPTunnel, true));
 	} else {
+		static std::vector< unsigned char > crypto;
+		crypto.resize(static_cast< std::size_t >(len + 4));
+
 		if (!csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto.data(),
 							  static_cast< unsigned int >(len))) {
 			return;
@@ -672,15 +692,19 @@ void ServerHandler::sendPingInternal() {
 void ServerHandler::message(Mumble::Protocol::TCPMessageType type, const QByteArray &qbaMsg) {
 	const char *ptr = qbaMsg.constData();
 	if (type == Mumble::Protocol::TCPMessageType::UDPTunnel) {
-		// audio tunneled through tcp.
+		// audio and video tunneled through tcp.
 		// since it could happen that we are receiving udp and tcp messages at the same time (e.g. the server used to
 		// send us packages via TCP but has now switched to UDP again and the first UDP packages arrive at the same time
 		// as the last TCP ones), we want to use a dedicated decoder for this (to make sure there is no concurrent
 		// access to the decoder's internal buffer).
-		if (m_tcpTunnelDecoder.decode(
-				{ reinterpret_cast< const Mumble::Protocol::byte * >(ptr), static_cast< std::size_t >(qbaMsg.size()) })
-			&& m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Audio) {
-			handleVoicePacket(m_tcpTunnelDecoder.getAudioData());
+		if (m_tcpTunnelDecoder.decode({ reinterpret_cast< const Mumble::Protocol::byte * >(ptr),
+										static_cast< std::size_t >(qbaMsg.size()) })) {
+			if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Audio) {
+				handleVoicePacket(m_tcpTunnelDecoder.getAudioData());
+			} else if (m_tcpTunnelDecoder.getMessageType() == Mumble::Protocol::UDPMessageType::Video) {
+				// Only clients that can't use UDP get video through the TCP connection
+				handleVideoPacket(m_tcpTunnelDecoder.getVideoData());
+			}
 		}
 	} else if (type == Mumble::Protocol::TCPMessageType::Ping) {
 		MumbleProto::Ping msg;

@@ -122,6 +122,10 @@ Global::Global(const QString &qsConfigPath) {
 	uiMaxUsers       = 0;
 	recordingAllowed = true;
 
+	screenSharingAllowed   = false;
+	screenSharingSupported = false;
+	maxVideoBandwidth      = 0;
+
 	zeroconf = nullptr;
 	lcd      = nullptr;
 	l        = nullptr;
