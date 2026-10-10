@@ -15,6 +15,7 @@ extern "C" {
 }
 
 #include <atomic>
+#include <cstdarg>
 #include <mutex>
 
 namespace VideoEncoders {
@@ -23,10 +24,21 @@ static std::once_flag s_probeOnce;
 // Never destroyed, as probing may still be running on its own thread while Mumble exits
 static std::vector< VideoEncoderInfo > &s_available = *new std::vector< VideoEncoderInfo >();
 
+/// Set on the thread that probes the encoders while it does so
+static thread_local bool t_probing = false;
+
+static void logCallback(void *avcl, int level, const char *fmt, va_list vl) {
+	// Failing encoders (e.g. for a GPU that isn't there) tend to complain loudly, which is expected while probing
+	if (t_probing && level > AV_LOG_FATAL)
+		return;
+	av_log_default_callback(avcl, level, fmt, vl);
+}
+
 static void probeAll() {
-	// Failing encoders (e.g. for a GPU that isn't there) tend to complain loudly, which is expected here
-	const int logLevel = av_log_get_level();
-	av_log_set_level(AV_LOG_FATAL);
+	// FFmpeg's log level is global, so only messages from this thread are filtered. The callback stays installed,
+	// as other threads may be logging through it at any time.
+	av_log_set_callback(&logCallback);
+	t_probing = true;
 
 	for (const VideoEncoderInfo &info : FFmpegVideoEncoder::candidates()) {
 		if (FFmpegVideoEncoder::probe(info)) {
@@ -34,7 +46,7 @@ static void probeAll() {
 		}
 	}
 
-	av_log_set_level(logLevel);
+	t_probing = false;
 
 	QStringList names;
 	for (const VideoEncoderInfo &info : s_available) {
