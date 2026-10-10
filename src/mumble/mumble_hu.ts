@@ -3018,6 +3018,14 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
         <source>Reset User Content</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This represents the permission to write direct text messages to other users on the server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatbarTextEdit</name>
