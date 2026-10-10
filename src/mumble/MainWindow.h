@@ -130,6 +130,10 @@ public:
 
 	VoiceRecorderDialog *voiceRecorderDialog;
 	QMap< quint32, ScreenShareViewer * > m_screenShareViewers;
+	/// Sessions of the users whose screen share we receive. The server only relays video to subscribers.
+	QSet< quint32 > m_screenShareSubscriptions;
+	void subscribeToScreenShare(quint32 senderSession);
+	void unsubscribeFromScreenShare(quint32 senderSession);
 	/// Thread that Global::get().screenShareReceiver lives on.
 	QThread *m_screenShareThread = nullptr;
 
@@ -479,6 +483,9 @@ public:
 	void sendScreenShareFrame(const EncodedVideoFrame &frame);
 	void onRemoteFrameDecoded(quint32 senderSession, QImage frame);
 	void onRemoteScreenShareStopped(quint32 senderSession);
+	/// Receives the screen shares of everyone in our channel, and forgets about those that the server doesn't
+	/// relay to us anymore, because the sharing user stopped, left or isn't in our channel anymore.
+	void updateScreenShareSubscriptions();
 	void openSelfCommentDialog();
 	void changeServerTexture();
 	void removeServerTexture();

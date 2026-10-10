@@ -4303,7 +4303,57 @@ void MainWindow::onRemoteFrameDecoded(quint32 senderSession, QImage frame) {
 	viewer->updateFrame(frame);
 }
 
+void MainWindow::subscribeToScreenShare(quint32 senderSession) {
+	if (!Global::get().sh || m_screenShareSubscriptions.contains(senderSession))
+		return;
+	m_screenShareSubscriptions.insert(senderSession);
+
+	// Whatever was received before is outdated, decoding has to start over with the next key frame
+	if (Global::get().screenShareReceiver)
+		Global::get().screenShareReceiver->resetSender(senderSession);
+
+	MumbleProto::VideoSubscription mpvs;
+	mpvs.set_session(senderSession);
+	mpvs.set_subscribe(true);
+	Global::get().sh->sendMessage(mpvs);
+}
+
+void MainWindow::unsubscribeFromScreenShare(quint32 senderSession) {
+	if (!m_screenShareSubscriptions.remove(senderSession))
+		return;
+
+	if (Global::get().sh && Global::get().uiSession) {
+		MumbleProto::VideoSubscription mpvs;
+		mpvs.set_session(senderSession);
+		mpvs.set_subscribe(false);
+		Global::get().sh->sendMessage(mpvs);
+	}
+}
+
+void MainWindow::updateScreenShareSubscriptions() {
+	const ClientUser *self = ClientUser::get(Global::get().uiSession);
+
+	for (quint32 senderSession : QSet< quint32 >(m_screenShareSubscriptions)) {
+		const ClientUser *sender = ClientUser::get(senderSession);
+		if (!self || !sender || !sender->bScreenSharing || sender->cChannel != self->cChannel)
+			onRemoteScreenShareStopped(senderSession);
+	}
+
+#ifdef USE_SCREEN_SHARING
+	// Without screen sharing support we can't decode any video, and the server doesn't relay any to us anyway
+	if (!self || !self->cChannel)
+		return;
+
+	for (const User *user : self->cChannel->qlUsers) {
+		if (user != self && user->bScreenSharing)
+			subscribeToScreenShare(user->uiSession);
+	}
+#endif
+}
+
 void MainWindow::onRemoteScreenShareStopped(quint32 senderSession) {
+	unsubscribeFromScreenShare(senderSession);
+
 	if (Global::get().screenShareReceiver)
 		Global::get().screenShareReceiver->resetSender(senderSession);
 

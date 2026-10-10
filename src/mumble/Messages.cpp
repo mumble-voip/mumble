@@ -202,6 +202,9 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	Global::get().sh->sendMessage(mpus);
 #endif
 
+	// Until now, it was unknown which users are in our channel
+	updateScreenShareSubscriptions();
+
 	emit serverSynchronized();
 }
 
@@ -859,6 +862,10 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		pmModel->setCommentHash(pDst, blob(msg.comment_hash()));
 	if (msg.has_comment())
 		pmModel->setComment(pDst, u8(msg.comment()));
+
+	// Someone started or stopped sharing their screen, or we or someone else changed channel
+	if (msg.has_screen_sharing() || msg.has_channel_id())
+		updateScreenShareSubscriptions();
 }
 
 /// This message is being received when a user was removed. This might be because the user disconnected or because
