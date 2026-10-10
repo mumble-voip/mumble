@@ -36,6 +36,13 @@ static constexpr quint64 STREAM_RESTART_FRAMES   = 64;
 static constexpr std::size_t MAX_PENDING_FRAMES = 60;
 static constexpr std::size_t MAX_DECODED_FRAMES = 30;
 
+/// Difference a - b of two points in time. Timestamps come from other clients and may be anything, so all times
+/// wrap around instead of overflowing, and are only compared by the sign of their difference (serial number
+/// arithmetic, as in RTP).
+static qint64 timeDiff(quint64 a, quint64 b) {
+	return static_cast< qint64 >(a - b);
+}
+
 /// Maps the protocol's Codec enum to the corresponding FFmpeg codec ID.
 /// To add support for a new codec: add the proto enum value in MumbleUDP.proto,
 /// then add a case here returning the appropriate AV_CODEC_ID_*.
@@ -147,7 +154,7 @@ void ScreenShareReceiver::processPacket(const VideoPacket &videoData) {
 
 	if (sender.hasNextFrame && frameNum < sender.nextFrame) {
 		const bool restarted = sender.nextFrame - frameNum > STREAM_RESTART_FRAMES
-							   || videoData.timestamp + STREAM_RESTART_THRESHOLD < sender.lastTimestamp;
+							   || timeDiff(sender.lastTimestamp, videoData.timestamp) > STREAM_RESTART_THRESHOLD;
 		if (!restarted) {
 			// Duplicate or straggler of a frame that was already decoded or given up on.
 			return;
@@ -189,7 +196,7 @@ void ScreenShareReceiver::processPacket(const VideoPacket &videoData) {
 	++pf.receivedCount;
 
 	if (pf.isComplete()) {
-		sender.clock.update(static_cast< qint64 >(pf.timestamp), now());
+		sender.clock.update(pf.timestamp, now());
 
 		if (!sender.hasNextFrame) {
 			// First complete frame of this stream. Start at the oldest frame seen so far rather than at this one,
@@ -216,7 +223,7 @@ qint64 ScreenShareReceiver::now() const {
 }
 
 void ScreenShareReceiver::processSender(quint32 session, SenderState &sender) {
-	const qint64 currentTime = now();
+	const quint64 currentTime = static_cast< quint64 >(now());
 
 	// Decode in frame order for as long as the next frame is complete. Frames have to be decoded even if they
 	// end up never being shown, since later frames reference them.
@@ -238,8 +245,7 @@ void ScreenShareReceiver::processSender(quint32 session, SenderState &sender) {
 		if (firstComplete == sender.pending.end())
 			break;
 
-		const bool overdue =
-			sender.clock.displayTime(static_cast< qint64 >(firstComplete->second.timestamp)) <= currentTime;
+		const bool overdue = timeDiff(sender.clock.displayTime(firstComplete->second.timestamp), currentTime) <= 0;
 		if (!overdue && sender.pending.size() < MAX_PENDING_FRAMES)
 			break;
 
@@ -255,8 +261,9 @@ void ScreenShareReceiver::processSender(quint32 session, SenderState &sender) {
 
 	// Show the newest frame that is due. Older due frames were not shown in time and are skipped, which is
 	// how playback catches up after a stall.
-	auto due = std::find_if(sender.decoded.rbegin(), sender.decoded.rend(),
-							[currentTime](const DecodedFrame &frame) { return frame.displayTime <= currentTime; });
+	auto due = std::find_if(sender.decoded.rbegin(), sender.decoded.rend(), [currentTime](const DecodedFrame &frame) {
+		return timeDiff(frame.displayTime, currentTime) <= 0;
+	});
 	if (due != sender.decoded.rend()) {
 		const QImage image = due->image;
 		sender.decoded.erase(sender.decoded.begin(), due.base());
@@ -273,9 +280,9 @@ void ScreenShareReceiver::onTimer() {
 
 void ScreenShareReceiver::scheduleTimer() {
 	bool hasDeadline    = false;
-	qint64 deadline     = 0;
-	const auto consider = [&](qint64 time) {
-		if (!hasDeadline || time < deadline) {
+	quint64 deadline    = 0;
+	const auto consider = [&](quint64 time) {
+		if (!hasDeadline || timeDiff(time, deadline) < 0) {
 			deadline    = time;
 			hasDeadline = true;
 		}
@@ -294,7 +301,7 @@ void ScreenShareReceiver::scheduleTimer() {
 			if (head == sender.pending.end() || !head->second.isComplete()) {
 				for (auto it = sender.pending.upper_bound(sender.nextFrame); it != sender.pending.end(); ++it) {
 					if (it->second.isComplete()) {
-						consider(sender.clock.displayTime(static_cast< qint64 >(it->second.timestamp)));
+						consider(sender.clock.displayTime(it->second.timestamp));
 						break;
 					}
 				}
@@ -307,13 +314,15 @@ void ScreenShareReceiver::scheduleTimer() {
 		return;
 	}
 
-	// Round up, so that we don't wake up just before the deadline
-	const qint64 delayUs = std::max< qint64 >(0, deadline - now());
+	// Deadlines are at most MAX_PLAYOUT_DELAY after the arrival of a frame. Limiting the delay to that keeps it in
+	// range for timestamps that make no sense, too. Round up, so that we don't wake up just before the deadline.
+	const qint64 delayUs =
+		std::clamp(timeDiff(deadline, static_cast< quint64 >(now())), static_cast< qint64 >(0), MAX_PLAYOUT_DELAY);
 	m_timer->start(static_cast< int >((delayUs + 999) / 1000));
 }
 
-void ScreenShareReceiver::PlayoutClock::update(qint64 timestamp, qint64 arrivalTime) {
-	const qint64 transit = arrivalTime - timestamp;
+void ScreenShareReceiver::PlayoutClock::update(quint64 timestamp, qint64 arrivalTime) {
+	const quint64 transit = static_cast< quint64 >(arrivalTime) - timestamp;
 
 	if (!m_valid) {
 		m_valid          = true;
@@ -328,20 +337,24 @@ void ScreenShareReceiver::PlayoutClock::update(qint64 timestamp, qint64 arrivalT
 		m_minTransit     = transit;
 		m_windowStart    = arrivalTime;
 	}
-	m_minTransit = std::min(m_minTransit, transit);
+	if (timeDiff(transit, m_minTransit) < 0)
+		m_minTransit = transit;
 
 	// How much later than the fastest recent frame this one arrived
-	const qint64 delay = transit - std::min(m_minTransit, m_prevMinTransit);
+	const qint64 delay = timeDiff(transit, baseTransit());
 	m_peakDelay        = std::max(std::min(static_cast< double >(delay), m_peakDelay + PEAK_DELAY_MAX_STEP),
                            m_peakDelay * PEAK_DELAY_DECAY);
 }
 
-qint64 ScreenShareReceiver::PlayoutClock::displayTime(qint64 timestamp) const {
-	const qint64 baseTransit = std::min(m_minTransit, m_prevMinTransit);
+quint64 ScreenShareReceiver::PlayoutClock::baseTransit() const {
+	return timeDiff(m_minTransit, m_prevMinTransit) < 0 ? m_minTransit : m_prevMinTransit;
+}
+
+quint64 ScreenShareReceiver::PlayoutClock::displayTime(quint64 timestamp) const {
 	const qint64 bufferDelay = std::clamp(static_cast< qint64 >(std::lround(m_peakDelay)) + PLAYOUT_DELAY_MARGIN,
 										  MIN_PLAYOUT_DELAY, MAX_PLAYOUT_DELAY);
 
-	return timestamp + baseTransit + bufferDelay;
+	return timestamp + baseTransit() + static_cast< quint64 >(bufferDelay);
 }
 
 bool ScreenShareReceiver::ensureDecoder(quint32 session, MumbleUDP::Video::Codec protoCodec) {
@@ -455,9 +468,9 @@ void ScreenShareReceiver::decodeCompleteFrame(quint32 session, SenderState &send
 		int dstStride[1]    = { static_cast< int >(img.bytesPerLine()) };
 		sws_scale(ds.swsCtx, ds.frame->data, ds.frame->linesize, 0, dh, dstData, dstStride);
 
-		const qint64 timestamp = ds.frame->best_effort_timestamp != AV_NOPTS_VALUE
-									 ? ds.frame->best_effort_timestamp
-									 : static_cast< qint64 >(pf.timestamp);
+		const quint64 timestamp = ds.frame->best_effort_timestamp != AV_NOPTS_VALUE
+									  ? static_cast< quint64 >(ds.frame->best_effort_timestamp)
+									  : pf.timestamp;
 
 		sender.decoded.push_back({ sender.clock.displayTime(timestamp), img });
 		if (sender.decoded.size() > MAX_DECODED_FRAMES)

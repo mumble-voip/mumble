@@ -103,22 +103,26 @@ private:
 	class PlayoutClock {
 	public:
 		/// Feeds the arrival time of a completely received frame into the model.
-		void update(qint64 timestamp, qint64 arrivalTime);
-		/// Local time at which the frame with the given capture timestamp should be displayed.
-		qint64 displayTime(qint64 timestamp) const;
+		void update(quint64 timestamp, qint64 arrivalTime);
+		/// Local time at which the frame with the given capture timestamp should be displayed. Like all times
+		/// derived from timestamps, it may have wrapped around and has to be compared by difference.
+		quint64 displayTime(quint64 timestamp) const;
 
 	private:
+		/// The smaller of the minimum transit times of both windows
+		quint64 baseTransit() const;
+
 		bool m_valid = false;
 		/// The base transit time is the minimum over the current and the previous window, so that it can
 		/// follow slow changes (e.g. clock drift or a route change) instead of sticking to an old minimum.
-		qint64 m_windowStart    = 0;
-		qint64 m_minTransit     = 0;
-		qint64 m_prevMinTransit = 0;
-		double m_peakDelay      = 0;
+		qint64 m_windowStart     = 0;
+		quint64 m_minTransit     = 0;
+		quint64 m_prevMinTransit = 0;
+		double m_peakDelay       = 0;
 	};
 
 	struct DecodedFrame {
-		qint64 displayTime = 0;
+		quint64 displayTime = 0;
 		QImage image;
 	};
 
