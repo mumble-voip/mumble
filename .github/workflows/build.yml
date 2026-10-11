@@ -122,7 +122,7 @@ jobs:
       shell: bash
       run: ctest --output-on-failure -C $BUILD_TYPE
 
-    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER && startsWith(matrix.os, 'windows') }}
+    - if: ${{ inputs.SIGN_WINDOWS_INSTALLER && startsWith(matrix.os, 'windows') && matrix.compiler == 'cl' }}
       uses: ./.github/actions/sign-binaries
       with:
           signpath-token: ${{ secrets.SIGNPATH_API_TOKEN }}
