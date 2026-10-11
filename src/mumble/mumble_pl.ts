@@ -5209,11 +5209,11 @@ Ustawienie dotyczy tylko nowych wiadomości, te już pokazane zachowają poprzed
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa, czy Mumble będzie próbował przywrócić geometrię i stan okna z poprzednich sesji podczas uruchamiania.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Przywróć geometrię okna podczas uruchamiania</translation>
     </message>
 </context>
 <context>

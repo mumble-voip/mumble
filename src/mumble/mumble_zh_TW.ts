@@ -361,7 +361,8 @@ This list contains all members that were added to the group by the current chann
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;排除的成員&lt;/b&gt;&lt;br /&gt;
+此列表中的成員將不會從上層頻道繼承群組成員資格。</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
@@ -1032,7 +1033,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation type="unfinished"></translation>
+        <translation>允許低延遲模式</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>

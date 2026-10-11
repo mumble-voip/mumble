@@ -707,14 +707,14 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Una utilitat de veu de codi obert, de baixa latència i d&apos;alta qualitat</translation>
     </message>
 </context>
 <context>
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>buit</translation>
     </message>
 </context>
 <context>
@@ -1641,19 +1641,19 @@ Aquest valor us permet establir el nombre màxim d&apos;usuaris permesos al cana
     </message>
     <message>
         <source>at</source>
-        <translation type="unfinished"></translation>
+        <translation>at</translation>
     </message>
     <message>
         <source>while someone in your channel talks</source>
-        <translation type="unfinished"></translation>
+        <translation>mentre algú del vostre canal parla</translation>
     </message>
     <message>
         <source>always</source>
-        <translation type="unfinished"></translation>
+        <translation>sempre</translation>
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Atenua els oients amb...</translation>
     </message>
 </context>
 <context>
@@ -2314,19 +2314,19 @@ Parlaeu en veu alta, com quan esteu molest o emocionat. Disminuiu el volum del t
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;està blocant l&apos;usuari</translation>
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Entreu la raó</translation>
+        <translation>Indiqueu el motiu</translation>
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloqueu el certificat d&apos;usuari</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloqueu l&apos;IP</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -3608,19 +3608,19 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>També podeu optar per restablir el camí configurat al seu valor predeterminat.</translation>
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea un fitxer</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableix el camí configurat</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Surt sense canvis</translation>
     </message>
 </context>
 <context>
@@ -3641,7 +3641,7 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>La connexió ha fallat</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
@@ -3649,47 +3649,47 @@ Etiqueta del servidor. És el nom que rebrà el servidor serà a la vostra llist
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nom d&apos;usuari triat ja està en ús, si us plau proveu un altre.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de l’usuari</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nom d&apos;usuari seleccionat pertany a un usuari registrat en aquest servidor.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>La contrasenya facilitada no és vàlida per a aquest usuari. Si us plau, intenteu una autenticació basada en un certificat diferent i no indiqueu cap contrasenya.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>El certificat utilitzat no és vàlid per a aquest usuari. Si us plau, indiqueu un altre certificat o bé una contrasenya.</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrassenya</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;usuari:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrasenya:</translation>
     </message>
     <message>
         <source>Change certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Canvi de certificat</translation>
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>La contrasenya del servidor no és vàlida. Esculliu un altre.</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconnecta</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5120,99 +5120,99 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix la configuració de fons TalkingUI.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix el color de fons</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Color que s&apos;utilitza per al fons de la interfície d&apos;usuari.</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Color de fons que, si s&apos;estableix, anul·la el color de fons del tema.</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color del fons</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Trieu un color</translation>
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema fosc per utilitzar per a l&apos;estil de la interfície d&apos;usuari</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Configura quin tema la interfície d&apos;usuari Mumble mostra al tema fosc&lt;/b&gt;&lt;br /&gt;Mumble recollirà temes de certs directoris i els mostra en aquesta llista. El que trieu s’utilitzarà per personalitzar l’aspecte visual de Mumble. Inclou colors, icones i molt més.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema Clar per utilitzar per la interfície d&apos;usuari</translation>
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema fosc</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estableix el tema d&apos;acord amb el tema del sistema.</translation>
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema automàtic basat en el tema del sistema</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Automàtic</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura el tema a la configuració del tema fosc configurat</translation>
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Fosc</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Configura el tema a la configuració del tema clar configurat</translation>
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Tema clar</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Clar</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Obre el directori de temes al gestor de fitxers del sistema</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Obre la carpeta dels temes</translation>
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Controla si a l&apos;arrancada el Mumble intentarà restaurar la geometria de la finestra i l&apos;estat des de les sessions anteriors.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaura la geometria de la finestra a l&apos;arrencada</translation>
     </message>
 </context>
 <context>
@@ -6255,19 +6255,19 @@ El paràmetre només serà per als missatges nous, els que ja s&apos;han mostrat
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Segons la configuració del servidor, el vostre nom d&apos;usuari no és vàlid.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denegat: Segons la configuració del servidor, el nom del canal no és vàlid.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Segons la configuració del servidor, el nom d&apos;usuari %1 no és vàlid.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Segons la configuració del servidor, el nom d&apos;usuari no és vàlid.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -7137,42 +7137,42 @@ al menú contextual del canal.</translation>
     </message>
     <message>
         <source>M&amp;ove back</source>
-        <translation type="unfinished"></translation>
+        <translation>M&amp;ou endarrera</translation>
     </message>
     <message>
         <source>Moves you back to the previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Torna al canal anterior</translation>
     </message>
     <message>
         <source>Move back</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mou endarrera</translation>
     </message>
     <message>
         <source>This will move you back into your previous channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Això us mourà al vostre canal anterior</translation>
     </message>
     <message>
         <source>The channel you have been in previously no longer exists on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>El canal que has estat en aquest servidor ja no existeix.</translation>
     </message>
     <message>
         <source>Cycle listener attenuation mode</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mode cíclic d&apos;atenuació de l&apos;oient</translation>
     </message>
     <message>
         <source>This will cycle through the different attenuation modes for channel listeners</source>
-        <translation type="unfinished"></translation>
+        <translation>Això alternarà els diferents modes d’atenuació dels oients de canal</translation>
     </message>
     <message>
         <source>Listener attenuation up (+10%)</source>
         <comment>Global shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Puja l&apos;atenuació de l&apos;oient (+10%)</translation>
     </message>
     <message>
         <source>This increases the attenuation of channel listeners by 10 percents points</source>
-        <translation type="unfinished"></translation>
+        <translation>Això augmenta l&apos;atenuació dels oients del canal un 10 per cada cent punts</translation>
     </message>
     <message>
         <source>Listener attenuation down (-10%)</source>

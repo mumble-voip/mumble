@@ -5207,11 +5207,11 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu ayar, Mumble&apos;ın başlatıldığında önceki oturumlardaki pencere boyutlarını ve durumunu geri yüklemeye çalışıp çalışmayacağını belirler.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Başlangıçta pencere boyutlarını geri yükle</translation>
     </message>
 </context>
 <context>
@@ -6254,19 +6254,19 @@ Bu ayar sadece yeni mesajlara uygulanır, zaten görüntülenmiş olanlar öncek
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucunun yapılandırmasına göre, kullanıcı adınız geçersiz kabul ediliyor.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucunun yapılandırmasına göre, kanal adı geçersiz kabul ediliyor.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucunun yapılandırmasına göre, %1 kullanıcı adı geçersiz kabul ediliyor.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucunun yapılandırmasına göre, kullanıcı adı geçersiz kabul ediliyor.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>

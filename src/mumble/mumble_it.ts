@@ -5208,11 +5208,11 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Questo controlla se Mumble tenterà di ripristinare la geometria e lo stato della finestra dalla sessione precedente all&apos;avvio.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Ripristina geometria della finestra all&apos;avvio</translation>
     </message>
 </context>
 <context>
@@ -6255,19 +6255,19 @@ Questa impostazione si applica solo ai nuovi messaggi, quelli già mostrati mant
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Secondo la configurazione del server, il tuo nome utente non è considerato valido.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vietato: Secondo la configurazione del server, il nome del canale non è considerato valido.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Secondo la configurazione del server, il nome utente %1 non è considerato valido.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Secondo la configurazione del server, il nome utente non è considerato valido.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>

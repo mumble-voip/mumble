@@ -5207,11 +5207,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>此选项控制 Mumble 在启动时是否尝试从之前的会话中恢复窗口的形状和状态。</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>在启动时恢复窗口形状</translation>
     </message>
 </context>
 <context>

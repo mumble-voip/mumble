@@ -707,14 +707,14 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Открытый инструмент для качественного голосового общения</translation>
     </message>
 </context>
 <context>
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>пусто</translation>
     </message>
 </context>
 <context>
@@ -2314,7 +2314,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation type="unfinished"></translation>
+        <translation>Блокировка пользователя</translation>
     </message>
     <message>
         <source>Enter reason</source>
@@ -2322,15 +2322,15 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокировать сертификат пользователя</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation type="unfinished"></translation>
+        <translation>Заблокировать IP</translation>
     </message>
     <message>
         <source>Ban</source>
-        <translation type="unfinished">Банить</translation>
+        <translation>Заблокировать</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2338,7 +2338,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation type="unfinished">Забанить пользователя %1</translation>
+        <translation>Блокировка пользователя %1</translation>
     </message>
 </context>
 <context>
@@ -3609,19 +3609,19 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>You can also choose to reset the configured path to its default value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы также можете вернуть указанный путь до его значения по умолчанию.</translation>
     </message>
     <message>
         <source>Create File</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать файл</translation>
     </message>
     <message>
         <source>Reset Configured Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Вернуть настроенный путь</translation>
     </message>
     <message>
         <source>Quit Without Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Выйти без изменений</translation>
     </message>
 </context>
 <context>
@@ -3642,7 +3642,7 @@ Label of the server. This is what the server will be named like in your server l
     <name>FailedConnectionDialog</name>
     <message>
         <source>Connection failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Подключение не удалось</translation>
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
@@ -3650,7 +3650,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Указанное имя пользователя уже занято, попробуйте выбрать другое.</translation>
     </message>
     <message>
         <source>Username</source>
@@ -3658,15 +3658,15 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбранное имя пользователя принадлежит зарегистрированному пользователю на этом сервере.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Предоставленный пароль не действителен для этого пользователя. Пожалуйста, попробуйте другую или используйте аутентификацию на основе сертификата, не указывая пароль.</translation>
     </message>
     <message>
         <source>The used certificate is not valid for this user. Please use a different certificate or specify a password to use password-based authentication instead.</source>
-        <translation type="unfinished"></translation>
+        <translation>Используемый сертификат не действителен для этого пользователя. Пожалуйста, используйте другой сертификат или укажите пароль для использования аутентификации на основе пароля.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -3686,7 +3686,7 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>The provided server password is invalid. Please choose a different one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Предоставленный пароль сервера является недействительным. Пожалуйста, выберите другой.</translation>
     </message>
     <message>
         <source>Reconnect</source>
@@ -4597,31 +4597,31 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Log message to console checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывести сообщение в консоль</translation>
     </message>
     <message>
         <source>Display pop-up notification for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Показать всплывающее уведомление для сообщения</translation>
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделить окно для сообщения</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Прочитать сообщение с помощью синтеза речи</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Ограничивать уведомления о сообщениях при большом количестве пользователей</translation>
     </message>
     <message>
         <source>Play sound file for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Воспроизводить звуковой файл при получении сообщения</translation>
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation type="unfinished">Путь к звуковому файлу</translation>
+        <translation>Путь к файлу звука</translation>
     </message>
     <message>
         <source>checked</source>
@@ -5061,7 +5061,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>If this is checked, users will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation type="unfinished"></translation>
+        <translation>Если эта опция отмечена, пользователи всегда будут видны в TalkingUI (независимо от состояния разговора).</translation>
     </message>
     <message>
         <source>Always keep users visible</source>
@@ -5081,11 +5081,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Always on top mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Всегда в режиме поверх</translation>
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим выхода</translation>
     </message>
     <message>
         <source>Channel separator string</source>
@@ -5097,35 +5097,35 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Abbreviation replacement characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Символы замены аббревиатур</translation>
     </message>
     <message>
         <source>Relative font size (in percent)</source>
-        <translation type="unfinished"></translation>
+        <translation>Относительный размер шрифта (в процентах)</translation>
     </message>
     <message>
         <source>Silent user display time (in seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Время отображения без звука для пользователя (в секундах)</translation>
     </message>
     <message>
         <source>Mumble theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Тема Mumble</translation>
     </message>
     <message>
         <source>User search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим поиска пользователей</translation>
     </message>
     <message>
         <source>Channel search action mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим поиска каналов</translation>
     </message>
     <message>
         <source>Clears the TalkingUI background setting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Очищает параметр фона TalkingUI.</translation>
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистить цвет фона</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -5133,27 +5133,27 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет, используемый для фона TalkingUI.</translation>
     </message>
     <message>
         <source>Choose</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать</translation>
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет фона, который при установке заменяет цвет фона темы.</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет фона</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите цвет</translation>
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Темная тема для оформления пользовательского интерфейса</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
@@ -5165,7 +5165,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Dark Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Темная тема</translation>
     </message>
     <message>
         <source>Sets the theme automatically based on the system theme.</source>
@@ -5173,11 +5173,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Automatic theme based on system theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматическая тема в соответствии с системной</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Авто</translation>
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
@@ -5185,7 +5185,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Темная</translation>
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
@@ -5193,19 +5193,19 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Light Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Светлая тема</translation>
     </message>
     <message>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Светлая</translation>
     </message>
     <message>
         <source>Open the themes directory in the systems file manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть папку с темами в системном файловом менеджере</translation>
     </message>
     <message>
         <source>Open Themes Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть папку с темами</translation>
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
@@ -5213,7 +5213,7 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Восстановить размер и положения окна при запуске</translation>
     </message>
 </context>
 <context>
@@ -6256,11 +6256,11 @@ The setting only applies for new messages, the already shown ones will retain th
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Согласно настройкам сервера, ваше имя пользователя считается некорректным.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отказано: Согласно настройкам сервера, название канала некорректно.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
@@ -6766,12 +6766,12 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Channel &amp;Filter</source>
-        <translation>Канал &amp;Фильтр</translation>
+        <translation>Канал и фильтр</translation>
     </message>
     <message>
         <source>Connect to a server</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Подключиться к серверу</translation>
     </message>
     <message>
         <source>This will open the server connection dialog</source>
@@ -6913,7 +6913,7 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Start certificate wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Запустить мастер сертификатов</translation>
     </message>
     <message>
         <source>This will open the certificate wizard dialog</source>
@@ -6949,7 +6949,7 @@ the channel&apos;s context menu.</source>
     <message>
         <source>Check for update</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Проверить наличие обновлений</translation>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
@@ -6969,7 +6969,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Enter chat message</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите сообщение в чат</translation>
     </message>
     <message>
         <source>&amp;Ban List</source>
@@ -8730,7 +8730,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>text messages ignored</source>
-        <translation type="unfinished"></translation>
+        <translation>текстовые сообщения игнорируются</translation>
     </message>
     <message>
         <source>registered</source>
@@ -9326,7 +9326,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Hide</source>
-        <translation type="unfinished"></translation>
+        <translation>Скрыть</translation>
     </message>
 </context>
 <context>
