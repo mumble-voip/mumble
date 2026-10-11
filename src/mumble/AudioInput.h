@@ -246,6 +246,8 @@ protected:
 	Resynchronizer resync;
 	std::vector< short > opusBuffer;
 
+	void micGone();
+
 	void encodeAudioFrame(AudioChunk chunk);
 	void addMic(const void *data, unsigned int nsamp);
 	void addEcho(const void *data, unsigned int nsamp);
