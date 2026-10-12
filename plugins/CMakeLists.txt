@@ -71,6 +71,7 @@ if(WIN32 OR (UNIX AND CMAKE_SYSTEM_NAME STREQUAL "Linux"))
 		"lol"
 		"lotro"
 		"ql"
+		"remnant2"
 		"rl"
 		"se"
 		"sr"
