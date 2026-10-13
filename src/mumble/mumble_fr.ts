@@ -8413,6 +8413,10 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>La mise à jour du plug-in « %1 » a échoué en raison d&apos;un trop grand nombre de redirections</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>Impossible de télécharger la mise à jour du plug-in « %1 » depuis « %2 » (code d&apos;état HTTP %3)</translation>
     </message>

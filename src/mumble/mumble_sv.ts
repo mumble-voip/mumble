@@ -8413,6 +8413,10 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>Uppdateringen av insticksmodulen ”%1” misslyckades på grund av för många omdirigeringar</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>Det gick inte att hämta uppdateringen för insticksmodulen ”%1” från ”%2” (HTTP-statuskod %3)</translation>
     </message>

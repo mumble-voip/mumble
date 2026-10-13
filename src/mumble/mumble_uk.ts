@@ -8414,6 +8414,10 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Не вдалося оновити плагін &quot;%1&quot; через забагато перенаправлень</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>Не вдалося завантажити оновлення плагіна для &quot;%1&quot; з &quot;%2&quot; (статус HTTP</translation>
     </message>

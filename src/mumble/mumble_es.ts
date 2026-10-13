@@ -8414,6 +8414,10 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
         <translation>La actualización del plugin &quot;%1&quot; ha fallado porque se produjeron demasiados redireccionamientos</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>No se ha podido descargar la actualización para &quot;%1&quot; desde &quot;%2&quot; (Código de estado HTTP %3)</translation>
     </message>

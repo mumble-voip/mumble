@@ -8413,6 +8413,10 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <translation>Die Aktualisierung des Plugins „%1“ schlug aufgrund zu vieler Weiterleitungen fehl</translation>
     </message>
     <message>
+        <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
         <translation>Die Aktualisierung für das Plugin „%1“ konnte von „%2“ nicht heruntergeladen werden (HTTP-Status-Code: %3)</translation>
     </message>
