@@ -170,6 +170,7 @@ private slots:
 	void indices();
 	void triggers();
 	void dataTypes();
+	void dataTypeFromSQLRepresentation();
 	void keyValueTable();
 	void unicode();
 	void fetchMinimumFreeID();
@@ -851,6 +852,23 @@ void DatabaseTest::dataTypes() {
 	}
 
 	MUMBLE_END_TEST_CASE
+}
+
+// fromSQLRepresentation must funnel std::stoull parse failures (including the
+// std::out_of_range from an oversized size) into UnknownDataTypeException, which is
+// the exception type Table::importFromJSON expects.
+void DatabaseTest::dataTypeFromSQLRepresentation() {
+	// An oversized size overflows unsigned long long (std::out_of_range); a
+	// non-numeric size is std::invalid_argument. Both must surface as
+	// UnknownDataTypeException, not leak as a raw std exception.
+	QVERIFY_THROWS_EXCEPTION(UnknownDataTypeException,
+							 DataType::fromSQLRepresentation("VARCHAR(99999999999999999999)"));
+	QVERIFY_THROWS_EXCEPTION(UnknownDataTypeException, DataType::fromSQLRepresentation("VARCHAR(abc)"));
+
+	// A well-formed sized type must still parse correctly.
+	DataType type = DataType::fromSQLRepresentation("VARCHAR(255)");
+	QVERIFY(type == DataType::VarChar);
+	QCOMPARE(type.getSize(), static_cast< std::size_t >(255));
 }
 
 // This test ensures that our KeyValueTable helper class actually works as expected
