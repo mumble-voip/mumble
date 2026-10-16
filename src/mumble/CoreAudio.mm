@@ -13,6 +13,8 @@
 #include <sstream>
 #include "CoreAudio.h"
 
+#include <QtCore/QCoreApplication>
+
 namespace {
 extern "C" {
 // The dirty hack used to disable the "compulsory" ducking offered by VoiceProcessingAU.
@@ -33,6 +35,41 @@ void UndoDucking(AudioDeviceID output_device_id) {
     }
 }
 }
+
+namespace {
+// Shared between the add and remove calls for the default device listeners so the
+// selector, scope and element used to register can never drift from the ones used to
+// unregister.
+const AudioObjectPropertyAddress kInputDeviceAddress = {
+	kAudioHardwarePropertyDefaultInputDevice,
+	kAudioObjectPropertyScopeGlobal,
+	kAudioObjectPropertyElementMain
+};
+const AudioObjectPropertyAddress kOutputDeviceAddress = {
+	kAudioHardwarePropertyDefaultOutputDevice,
+	kAudioObjectPropertyScopeGlobal,
+	kAudioObjectPropertyElementMain
+};
+
+void restartInput() {
+	Audio::stopInput();
+	Audio::startInput();
+}
+
+void restartOutput() {
+	Audio::stopOutput();
+	Audio::startOutput();
+}
+
+// Permission can be granted before an input instance exists, so this request belongs to the application.
+AudioRestart s_permissionRestart;
+
+void schedulePermissionRestart() {
+	if (QCoreApplication *app = QCoreApplication::instance()) {
+		s_permissionRestart.schedule(*app, restartInput);
+	}
+}
+} // namespace
 
 
 namespace core_audio_utils {
@@ -390,6 +427,16 @@ static void LogAUStreamDescription(AudioUnit au) {
 	} \
 } \
 
+// Same as CHECK_WARN, but also logs the OSStatus so failures (e.g. property
+// listener (de)registration) are actually diagnosable from the log.
+#define CHECK_WARN_STATUS(statement, warning_msg) \
+{ \
+	OSStatus _err = statement; \
+	if (_err != noErr) { \
+		qWarning("%s (OSStatus %d)", warning_msg, static_cast< int >(_err)); \
+	} \
+} \
+
 class CoreAudioInit : public DeferInit {
 	CoreAudioInputRegistrar *cairReg;
 	CoreAudioOutputRegistrar *caorReg;
@@ -502,8 +549,9 @@ bool CoreAudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
 			qWarning("CoreAudioInput: Mumble hasn't asked the user for microphone access. Asking for it now.");
 			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler: ^(BOOL _granted) {
 				if (_granted) {
-					Audio::stopInput();
-					Audio::startInput();
+					// This handler runs on an arbitrary dispatch queue, not the main thread; post
+					// the restart there instead of calling Audio::stopInput()/startInput() directly.
+					schedulePermissionRestart();
 				} else {
 					qWarning("CoreAudioInput: Microphone access denied by user.");
 				}
@@ -809,16 +857,21 @@ void CoreAudioInput::run() {
 	err = AudioUnitAddPropertyListener(auFinal, kAudioUnitProperty_StreamFormat, CoreAudioInput::propertyChange, this);
 	if (err != noErr) {
 		qWarning("CoreAudioInput: Unable to create input property change listener for AUHAL. Unable to listen to property change "
-				 "events.");
+				 "events. (OSStatus %d)", static_cast< int >(err));
+	} else {
+		// Remember which AudioUnit this listener was registered on so stop() can remove the exact
+		// same registration later; an unremoved listener keeps firing into a destroyed object.
+		auPropertyListener = auFinal;
 	}
 
-	AudioObjectPropertyAddress inputDeviceAddress = {
-		kAudioHardwarePropertyDefaultInputDevice,
-		kAudioObjectPropertyScopeGlobal,
-		kAudioObjectPropertyElementMain
-	};
-	CHECK_WARN(AudioObjectAddPropertyListener(kAudioObjectSystemObject, &inputDeviceAddress, CoreAudioInput::deviceChange, this),
-			   "CoreAudioInput: Unable to create input device change listener. Unable to listen to device changes.");
+	err = AudioObjectAddPropertyListener(kAudioObjectSystemObject, &kInputDeviceAddress,
+										  CoreAudioInput::deviceChange, this);
+	if (err != noErr) {
+		qWarning("CoreAudioInput: Unable to create input device change listener. Unable to listen to device "
+				 "changes. (OSStatus %d)", static_cast< int >(err));
+	} else {
+		bDeviceListenerRegistered = true;
+	}
 
 	buflist.mNumberBuffers = 1;
 	AudioBuffer *b         = buflist.mBuffers;
@@ -839,6 +892,24 @@ void CoreAudioInput::run() {
 void CoreAudioInput::stop() {
 	bRunning = false;
 
+	// Remove our listeners before the AudioUnits are torn down; a listener left registered
+	// would go on calling into this (possibly already destroyed) object. Registration can
+	// fail, and run() can return early without registering every listener, so the flags and
+	// the stored AudioUnit make sure we only remove what was actually registered.
+	if (auPropertyListener) {
+		CHECK_WARN_STATUS(AudioUnitRemovePropertyListenerWithUserData(auPropertyListener, kAudioUnitProperty_StreamFormat,
+		                                                               CoreAudioInput::propertyChange, this),
+		                   "CoreAudioInput: Unable to remove input property change listener.");
+		auPropertyListener = nullptr;
+	}
+
+	if (bDeviceListenerRegistered) {
+		CHECK_WARN_STATUS(AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &kInputDeviceAddress,
+		                                                     CoreAudioInput::deviceChange, this),
+		                   "CoreAudioInput: Unable to remove input device change listener.");
+		bDeviceListenerRegistered = false;
+	}
+
 	if (auHAL) {
 		CHECK_WARN(AudioOutputUnitStop(auHAL),
 		           "CoreAudioInput: Unable to stop AudioUnit.");
@@ -858,8 +929,10 @@ void CoreAudioInput::stop() {
 	}
 
 	AudioBuffer *b = buflist.mBuffers;
-	if (b && b->mData)
+	if (b && b->mData) {
 		free(b->mData);
+		b->mData = nullptr;
+	}
 
 	qWarning("CoreAudioInput: Shutting down.");
 }
@@ -904,8 +977,10 @@ void CoreAudioInput::propertyChange(void *udata, AudioUnit auHAL, AudioUnitPrope
 	if (!o->bRunning) { return; }
 	if (prop == kAudioUnitProperty_StreamFormat) {
 		qWarning("CoreAudioInput: Stream format change detected. Restarting AudioInput.");
-		Audio::stopInput();
-		Audio::startInput();
+		// Do not call Audio::stopInput()/startInput() directly here: this callback runs on a
+		// CoreAudio notification thread, and stopInput() busy-waits for other threads to
+		// release this object, which would spin that thread. Defer to the main thread instead.
+		o->m_restart.schedule(*o, restartInput);
 	} else {
 		qWarning("CoreAudioInput: Unexpected property changed event received.");
 	}
@@ -921,8 +996,8 @@ OSStatus CoreAudioInput::deviceChange(AudioObjectID inObjectID, UInt32 inNumberA
 	if (!o->bRunning) return noErr;
 
 	qWarning("CoreAudioInput: Input device change detected. Restarting AudioInput.");
-	Audio::stopInput();
-	Audio::startInput();
+	// See the comment in propertyChange(): the restart must happen on the main thread, not here.
+	o->m_restart.schedule(*o, restartInput);
 
 	return noErr;
 }
@@ -1026,16 +1101,22 @@ void CoreAudioOutput::run() {
 	core_audio_utils::LogAUStreamDescription(auHAL);
 #endif
 
-	CHECK_WARN(AudioUnitAddPropertyListener(auHAL, kAudioUnitProperty_StreamFormat, CoreAudioOutput::propertyChange, this),
-	           "CoreAudioOutput: Unable to create output property change listener. Unable to listen to property changes.");
+	err = AudioUnitAddPropertyListener(auHAL, kAudioUnitProperty_StreamFormat, CoreAudioOutput::propertyChange, this);
+	if (err != noErr) {
+		qWarning("CoreAudioOutput: Unable to create output property change listener. Unable to listen to property changes. "
+				 "(OSStatus %d)", static_cast< int >(err));
+	} else {
+		bPropertyListenerRegistered = true;
+	}
 
-	AudioObjectPropertyAddress outputDeviceAddress = {
-		kAudioHardwarePropertyDefaultOutputDevice,
-		kAudioObjectPropertyScopeGlobal,
-		kAudioObjectPropertyElementMain
-	};
-	CHECK_WARN(AudioObjectAddPropertyListener(kAudioObjectSystemObject, &outputDeviceAddress, CoreAudioOutput::deviceChange, this),
-			   "CoreAudioOutput: Unable to create output device change listener. Unable to listen to device changes.");
+	err = AudioObjectAddPropertyListener(kAudioObjectSystemObject, &kOutputDeviceAddress,
+										  CoreAudioOutput::deviceChange, this);
+	if (err != noErr) {
+		qWarning("CoreAudioOutput: Unable to create output device change listener. Unable to listen to device "
+				 "changes. (OSStatus %d)", static_cast< int >(err));
+	} else {
+		bDeviceListenerRegistered = true;
+	}
 
 	AURenderCallbackStruct cb;
 	cb.inputProc       = CoreAudioOutput::outputCallback;
@@ -1068,6 +1149,22 @@ void CoreAudioOutput::run() {
 
 void CoreAudioOutput::stop() {
 	bRunning = false;
+
+	// Remove our listeners before auHAL is stopped and uninitialized; see the matching
+	// comment in CoreAudioInput::stop() for why this must happen and why removal is guarded.
+	if (bPropertyListenerRegistered) {
+		CHECK_WARN_STATUS(AudioUnitRemovePropertyListenerWithUserData(auHAL, kAudioUnitProperty_StreamFormat,
+		                                                               CoreAudioOutput::propertyChange, this),
+		                   "CoreAudioOutput: Unable to remove output property change listener.");
+		bPropertyListenerRegistered = false;
+	}
+
+	if (bDeviceListenerRegistered) {
+		CHECK_WARN_STATUS(AudioObjectRemovePropertyListener(kAudioObjectSystemObject, &kOutputDeviceAddress,
+		                                                     CoreAudioOutput::deviceChange, this),
+		                   "CoreAudioOutput: Unable to remove output device change listener.");
+		bDeviceListenerRegistered = false;
+	}
 
 	if (auHAL) {
 		CHECK_WARN(AudioOutputUnitStop(auHAL),
@@ -1121,9 +1218,14 @@ void CoreAudioOutput::propertyChange(void *udata, AudioUnit auHAL, AudioUnitProp
 
 	if (prop == kAudioUnitProperty_StreamFormat) {
 		qWarning("CoreAudioOutput: Stream format change detected. Restarting AudioOutput.");
-		o->stop();
-		Audio::stopOutput();
-		Audio::startOutput();
+		// Silence the output immediately: outputCallback() checks bRunning and returns silence
+		// once it is false, so mixing in the stale format stops right away. Do not call
+		// o->stop()/Audio::stopOutput()/startOutput() directly here, though: this callback runs
+		// on a CoreAudio notification thread, and stopOutput() busy-waits for other threads to
+		// release this object, which would spin that thread. The actual restart is deferred to
+		// the main thread instead; o->stop() will run as part of Audio::stopOutput() there.
+		o->bRunning = false;
+		o->m_restart.schedule(*o, restartOutput);
 	} else {
 		qWarning("CoreAudioOutput: Unexpected property changed event received.");
 	}
@@ -1139,8 +1241,8 @@ OSStatus CoreAudioOutput::deviceChange(AudioObjectID inObjectID, UInt32 inNumber
 	if (!o->bRunning) return noErr;
 
 	qWarning("CoreAudioOutput: Output device change detected. Restarting AudioOutput.");
-	Audio::stopOutput();
-	Audio::startOutput();
+	// See the comment in propertyChange(): the restart must happen on the main thread, not here.
+	o->m_restart.schedule(*o, restartOutput);
 
 	return noErr;
 }
