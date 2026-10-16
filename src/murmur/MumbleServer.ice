@@ -515,6 +515,12 @@ module MumbleServer
 		 */
 		void setAuthenticator(ServerAuthenticator *auth) throws ServerBootedException, InvalidCallbackException, InvalidSecretException, ReadOnlyModeException;
 
+		/** Remove any external authenticator previously registered via {@link setAuthenticator}.
+		 *  After this call, authentications are handled by the server's built-in authentication again.
+		 *  It is not an error to call this when no authenticator is set.
+		 */
+		idempotent void removeAuthenticator() throws ServerBootedException, InvalidSecretException, ReadOnlyModeException;
+
 		/** Retrieve configuration item.
 		 * @param key Configuration key.
 		 * @return Configuration value. If this is empty, see {@link Meta.getDefaultConf}
