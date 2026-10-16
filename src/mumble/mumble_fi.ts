@@ -671,7 +671,7 @@ Tämän numeron ollessa suurempi kuin nolla kanava sallii enintään numeron suu
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolmannen osapuolen riippuvuudet</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
@@ -3701,7 +3701,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Tallenna salasana tälle laitteelle</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
@@ -5232,7 +5232,7 @@ Tämä vaikuttaa vain uusiin viesteihin, vanhojen viestien aikaleima ei muutu.</
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL + vieritys muuttaa valitun käyttäjän äänenvoimakkuutta</translation>
     </message>
 </context>
 <context>
