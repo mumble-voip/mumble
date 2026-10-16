@@ -671,7 +671,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Abhängigkeiten von Drittanbietern</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
