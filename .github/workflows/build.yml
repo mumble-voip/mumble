@@ -37,11 +37,17 @@ jobs:
             fetch-depth: 1
       - id: fetch
         shell: bash
+        env:
+          BUILD_NUMBER_TOKEN: ${{ secrets.BUILD_NUMBER_TOKEN }}
         run: |
           build_version="$("${{ github.workspace }}/scripts/mumble-version.py")"
-          build_number="$("${{ github.workspace }}/scripts/mumble-build-number.py" \
-            --commit "${{ github.sha }}" --version "${build_version}" \
-            --password "${{ secrets.BUILD_NUMBER_TOKEN }}" --default 0)"
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            build_number=0
+          else
+            build_number="$("${{ github.workspace }}/scripts/mumble-build-number.py" \
+              --commit "${{ github.sha }}" --version "${build_version}" \
+              --password "$BUILD_NUMBER_TOKEN")"
+          fi
           echo "Build Number: ${build_version}.${build_number}"
           echo "build_number=${build_number}" >> "$GITHUB_OUTPUT"
 
