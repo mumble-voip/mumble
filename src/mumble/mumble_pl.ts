@@ -8415,7 +8415,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij przycisk poniżej.</transla
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktualizacja wtyczki „%1” nie powiodła się, ponieważ nastąpiło przekierowanie na adres URL inny niż HTTPS (%2)</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>

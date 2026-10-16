@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Adicionar canal</translation>
+        <translation>Adicionar um canal no Mumble</translation>
     </message>
     <message>
         <source>Default server value</source>
@@ -29,11 +29,11 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>Falhou: canal inválido</translation>
+        <translation>Ocorreu uma falha porque o canal não é válido</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - Editar %1</translation>
+        <translation>Editar o %1 no Mumble</translation>
     </message>
     <message>
         <source>ID: %1</source>
@@ -41,19 +41,19 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Concede o privilégio %1. Se um privilégio é ambos permitido e negado, ele é negado.&lt;br /&gt;%2</translation>
+        <translation>Esta opção permite conceder o privilégio ao %1. Se um privilégio for simultaneamente permitido e negado, ele será negado.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation>O canal deve possuir um nome</translation>
+        <translation>O canal tem que ter um nome</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Revoga o privilégio %1. Se um privilégio é ambos permitido e negado, ele é negado.&lt;br /&gt;%2</translation>
+        <translation>Esta opção permite revogar o privilégio do %1. Se um privilégio for simultaneamente permitido e negado, ele será negado.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Diálogo</translation>
+        <translation>Caixa de diálogo</translation>
     </message>
     <message>
         <source>Name</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Insira o nome do canal aqui.</translation>
+        <translation>Insira aqui o nome do canal.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,11 +73,11 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Insira a senha do canal aqui.</translation>
+        <translation>Insira aqui a senha do canal.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation>Marque para criar um canal temporário.</translation>
+        <translation>Selecione esta opção para criar um canal temporário.</translation>
     </message>
     <message>
         <source>Temporary</source>
@@ -88,8 +88,8 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Posição&lt;/b&gt;&lt;br/&gt;
-Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvore. Um canal com um valor de &lt;i&gt;Posição&lt;/i&gt; maior será sempre colocado abaixo daqueles com um valor de posição menor e vice-versa. Se o valor de &lt;i&gt;Posição&lt;/i&gt; dos canais é igual, eles são dispostos alfabeticamente pelos seus nomes.</translation>
+        <translation type="unfinished">&lt;b&gt;Posição&lt;/b&gt;&lt;br/&gt;
+Este valor permite modificar a forma como o Mumble organiza os canais na estrutura em árvore. Um canal com um valor maior da ‘&lt;i&gt;Posição&lt;/i&gt;’ sempre será posicionado abaixo dos canais que tiverem um valor menor da ‘&lt;i&gt;Posição&lt;/i&gt;’ e vice-versa. Se o valor da ‘&lt;i&gt;Posição&lt;/i&gt;’ de dois ou mais canais forem iguais, os canais serão dispostos alfabeticamente pelos seus nomes.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -105,19 +105,19 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>List of groups</source>
-        <translation>Lista de grupos</translation>
+        <translation>Lista dos grupos</translation>
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation>Exclui o grupo selecionado</translation>
+        <translation>Remover o grupo que foi selecionado</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Excluir</translation>
+        <translation>Remover</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation>Herdar membros de grupo do pai</translation>
+        <translation>Herdar os membros do grupo pai</translation>
     </message>
     <message>
         <source>Inherit</source>
@@ -125,7 +125,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Tornar o grupo herdável para subcanais</translation>
+        <translation>Tornar o grupo herdável por subcanais</translation>
     </message>
     <message>
         <source>Inheritable</source>
@@ -149,11 +149,11 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Add member to group</source>
-        <translation>Adicionar membro ao grupo</translation>
+        <translation>Adicionar um membro ao grupo</translation>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation>Remover membro do grupo</translation>
+        <translation>Remover um membro do grupo</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -165,23 +165,23 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation>Herdar LCA do pai?</translation>
+        <translation>Você quer herdar o LCA do pai?</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Ajusta se a LCA acima na cadeia de canais pai se aplica a este objeto ou não. Apenas se herdarão entradas que estiverem marcadas no pai para &quot;Aplicada a subcanais&quot;.</translation>
+        <translation>Esta opção permite ajustar os LCAs acima na cadeia dos canais pai se serão são aplicadas a este objeto ou não. Apenas as entradas que estiverem selecionadas no pai como ‘Aplicada nos subcanais’ serão herdadas.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation>Herdar LCAs</translation>
+        <translation>Herdar os LCAs</translation>
     </message>
     <message>
         <source>Move entry up</source>
-        <translation>Mover entrada para cima</translation>
+        <translation>Mover a entrada para cima</translation>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Move a entrada para cima na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas de usuários. Não se pode mover uma entrada acima de uma entrada herdada, se realmente precisar fazer isto, você terá que duplicar a entrada herdada.</translation>
+        <translation>Esta opção permite mover a entrada para cima na lista. Como as entradas são avaliadas em ordem, isto pode modificar as permissões efetivas dos usuários. Não é possível mover uma entrada para cima de uma entrada que foi herdada, se realmente quiser fazer isto, você terá que duplicar a entrada que foi herdada.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -189,11 +189,11 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Move entry down</source>
-        <translation>Mover entrada para baixo</translation>
+        <translation>Mover a entrada para baixo</translation>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Move a entrada para baixo na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas de usuários.</translation>
+        <translation>Esta opção permite mover a entrada para baixo na lista. Como as entradas são avaliadas em ordem, isto pode modificar as permissões efetivas dos usuários.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
@@ -201,11 +201,11 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Add new entry</source>
-        <translation>Adicionar nova entrada</translation>
+        <translation>Adicionar uma nova entrada</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Adiciona uma nova entrada, inicialmente estabelecida sem permissões e aplicada em tudo.</translation>
+        <translation>Esta opção permite adicionar uma nova entrada, inicialmente é estabelecida sem as permissões e aplicável a todos.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -213,15 +213,15 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Remove entry</source>
-        <translation>Excluir entrada</translation>
+        <translation>Excluir a entrada</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation>Exclui a entrada selecionada.</translation>
+        <translation>Esta opção permite excluir a entrada que foi selecionada.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Excluir</translation>
+        <translation>&amp;Remover</translation>
     </message>
     <message>
         <source>Context</source>
@@ -234,7 +234,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Faz com que a entrada seja aplicada a esse canal.</translation>
+        <translation>Esta opção permite que a entrada seja aplicada a este canal.</translation>
     </message>
     <message>
         <source>Applies to this channel</source>
@@ -246,13 +246,13 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Add new group</source>
-        <translation>Adicionar novo grupo</translation>
+        <translation>Adicionar um novo grupo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
         <translation>&lt;b&gt;Adicionar&lt;/b&gt;&lt;br/&gt;
-Adiciona um grupo novo.</translation>
+Esta opção permite adicionar um grupo novo.</translation>
     </message>
     <message>
         <source>Inherited members</source>
@@ -260,23 +260,23 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Contém a lista dos membros adicionados ao grupo por este canal.</translation>
+        <translation>Contém a lista dos membros que foram adicionados no grupo por este canal.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Contém uma lista de membros cuja associação de grupo não será herdada do canal pai.</translation>
+        <translation>Contém uma lista dos membros cuja a associação ao grupo não será herdada do canal pai.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Contém a lista de membros herdados por outros canais.</translation>
+        <translation>Contém a lista dos membros que foram herdados por outros canais.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Digite o nome de uma usuária que você quer adicionar ao grupo e clique em Adicionar.</translation>
+        <translation>Digite o nome de um usuário que você quer adicionar ao grupo e clique na opção ‘Adicionar’.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Digite o nome de uma usuária que deseja eliminar do grupo e clique em Adicionar.</translation>
+        <translation>Digite o nome de um usuário que você quer remover do grupo e clique na opção ‘Adicionar’.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -288,11 +288,11 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Faz com que a entrada seja aplicada aos subcanais deste canal.</translation>
+        <translation>Esta opção permite que a entrada seja aplicada nos subcanais deste canal.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation>Aplicada a subcanais</translation>
+        <translation>Aplicada nos subcanais</translation>
     </message>
     <message>
         <source>Permissions</source>
@@ -300,7 +300,7 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>User/Group</source>
-        <translation>Usuária/Grupo</translation>
+        <translation>Usuário/Grupo</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
@@ -308,7 +308,7 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>User ID</source>
-        <translation>ID de usuário</translation>
+        <translation>ID do usuário</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
@@ -316,7 +316,7 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Controla a qual usuária essa entrada é aplicada. Apenas digite o nome de usuária e pressione enter para buscar um resultado no servidor.</translation>
+        <translation>Esta opção permite controlar a qual usuário esta entrada é aplicada. Apenas digite o nome do usuário e pressione a tecla ‘Enter’ para buscar um resultado no servidor.</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -324,73 +324,73 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br /&gt;Especifique o nome do canal neste campo. O nome deve cumprir as restrições impostas pelo servidor ao qual está conectado.</translation>
+        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br /&gt;Esta opção permite especificar o nome do canal neste campo. O nome deve cumprir as restrições impostas pelo servidor ao qual está conectado.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Temporário&lt;/b&gt;&lt;br /&gt;
-Quando marcado o canal criado será marcado como temporário. Isto significa que quando a última usuária sair dele, ele será automaticamente eliminado pelo servidor.</translation>
+Se esta opção estiver selecionada, o canal que foi criado será definido como temporário. Isto significa que, quando o último usuário sair dele, ele será automaticamente excluído pelo servidor.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Grupo&lt;/b&gt;&lt;br /&gt;
-Estes são todos grupos atualmente definidos para o canal. Para criar um novo grupo, apenas digite o nome e pressione enter.</translation>
+Estes são todos os grupos que atualmente foram definidos para o canal. Para criar um novo grupo, apenas digite o nome e pressione a tecla ‘Enter’.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Eliminar&lt;/b&gt;&lt;br /&gt;Isto eliminar o grupo selecionado atualmente. Se o grupo foi herdado, ele não será eliminado da lista, mas toda informação local sobre o grupo será limpa.</translation>
+        <translation>&lt;b&gt;Remover&lt;/b&gt;&lt;br /&gt;Esta opção permite remover o grupo que foi selecionado. Se o grupo foi herdado, ele não será removido da lista, mas todas as informações locais sobre o grupo serão apagadas.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Herdar&lt;/b&gt;&lt;br /&gt;Isto herda todos membros no grupo do pai, se o grupo está marcado como &lt;i&gt;Herdável&lt;/i&gt; no canal pai.</translation>
+        <translation>&lt;b&gt;Herdar&lt;/b&gt;&lt;br /&gt;Esta opção permite herdar todos membros do grupo a partir do canal pai, se o grupo estiver identificado como ‘&lt;i&gt;Herdável&lt;/i&gt;’ no canal pai.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Herdável&lt;/b&gt;&lt;br /&gt;Isto torna o grupo herdável para subcanais. Se o grupo é não-herdável, subcanais ainda podem criar um novo grupo com o mesmo nome.</translation>
+        <translation>&lt;b&gt;Herdável&lt;/b&gt;&lt;br /&gt;Esta opção permite tornar o grupo herdável para os subcanais. Se o grupo não for herdável, os subcanais ainda poderão criar um novo grupo com o mesmo nome.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Herdado&lt;/b&gt;&lt;br /&gt;Isto indica que o grupo foi herdado do canal pai. Você não pode editar esta marcação, ela é apenas informativa.</translation>
+        <translation>&lt;b&gt;Herdado&lt;/b&gt;&lt;br /&gt;Esta opção permite indicar que o grupo foi herdado do canal pai. Você não pode editar esta identificação, ela serve apenas para fins informativos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Membros&lt;/b&gt;&lt;br /&gt;
-Esta lista contém todos os membros que foram adicionados ao grupo pelo canal atual. Lembre-se que isto não inclui membros herdados por níveis mais altos na árvore de canais. Estes podem ser encontrados na lista &lt;i&gt;Membros herdados&lt;/i&gt;. Para evitar que esta lista seja herdada por canais de níveis mais baixos, desmarque a opção &lt;i&gt;Herdável&lt;/i&gt; ou adicione manualmente os membros à lista &lt;i&gt;Membros ignorados&lt;/i&gt;.</translation>
+Esta lista contém todos os membros que foram adicionados ao grupo pelo canal atual. Lembre-se de que, esta opção não inclui os membros que foram herdados por níveis mais altos na árvore dos canais. Estes podem ser encontrados na lista dos ‘&lt;i&gt;Membros herdados&lt;/i&gt;’. Para evitar que esta lista seja herdada por canais de níveis mais baixos, desselecione a opção ‘&lt;i&gt;Herdável&lt;/i&gt;’ ou adicione manualmente os membros à lista dos ‘&lt;i&gt;Membros ignorados&lt;/i&gt;’.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
         <translation>&lt;b&gt;Membros ignorados&lt;/b&gt;&lt;br /&gt;
-Contém uma lista de membros cuja associação de grupo não será herdada do canal pai.</translation>
+Contém uma lista dos membros cuja a associação do grupo não será herdada do canal pai.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
         <translation>&lt;b&gt;Membros herdados&lt;/b&gt;&lt;br /&gt;
-Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&lt;/i&gt; para evitar a herança de canais de níveis mais altos.</translation>
+Contém a lista dos membros que foram herdados pelo canal atual. Desselecione a opção ‘&lt;i&gt;Herdar&lt;/i&gt;’ para impedir a herança dos canais dos níveis mais altos.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Isto controla a qual grupo de usuários esta entrada é aplicada.&lt;br /&gt;Perceba que o grupo é avaliado no contexto do canal no qual a entrada é usada. Por exemplo, a LCA padrão no canal Raiz fornece permissão de &lt;i&gt;Escrita&lt;/i&gt; para o grupo &lt;i&gt;admin&lt;/i&gt;. Esta entrada, se herdada por um canal, fornecerá ao usuário permissões de escrita se ele pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; naquele canal, mesmo se ele não pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; no canal onde a LCA foi originada.&lt;br /&gt;Se um nome de grupo começa com &apos;!&apos;, sua associação é negada, e se ele inicia com &apos;~&apos;, ele é avaliado no canal onde a LCA foi definida, e não no canal onde a LCA está efetivamente ativa.&lt;br /&gt;Se um nome de grupo começa com &apos;#&apos;, ele é interpretado como uma credencial de acesso. Usuários devem ter digitado seja o que for que siga o &apos;#&apos; nas suas listas de chaves de acesso, para coincidir com a entrada. Isso pode ser usado para acessos ao canal utilizando senha para usuários não autenticadas, de maneira muito simples.&lt;br /&gt;Se um nome de grupo começa com &apos;$&apos;, ele só vai coincidir usuários cujo hash de certificado coincidir o que está depois do &apos;$&apos;.&lt;br /&gt;Alguns grupos predefinidos especiais são:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Todos vão coincidir.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Todos os usuários autenticados vão coincidir.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Usuário atualmente em um subcanal com um mínimo &lt;i&gt;a&lt;/i&gt; de pais comuns, e entre &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canais abaixo na cadeia. Veja o site para mais documentação sobre este último.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Usuários atualmente neste canal vão coincidir (conveniência para &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Usuários fora deste canal coincidirão (conveniência para &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note que uma entrada aplica para um usuário ou grupo, mas não ambos.</translation>
+        <translation>Esta opção permite controlar em qual grupo dos usuários esta entrada será aplicada.&lt;br /&gt;Observe que o grupo é avaliado no contexto do canal no qual a entrada é utilizada. Por exemplo, o LCA padrão no canal raiz concede a permissão de ‘&lt;i&gt;escrita&lt;/i&gt;’ no grupo do ‘&lt;i&gt;administrador&lt;/i&gt;’. Se esta entrada for herdada por um canal, ela concederá ao usuário as permissões de escrita se ele pertencer ao grupo do ‘&lt;i&gt;administrador&lt;/i&gt;’ naquele canal, mesmo se ele não pertencer ao grupo do ‘&lt;i&gt;administrador&lt;/i&gt;’ no canal onde o LCA foi originado.&lt;br /&gt;Se o nome de um grupo começar com o ponto de exclamação ‘ ! ’, a sua associação é negada, e se o nome começar com o til ‘ ~ ’, ele é avaliado no canal onde o LCA foi definido, e não no canal onde o LCA está efetivamente ativo.&lt;br /&gt;Se o nome de um grupo começar com o octótropo ‘ # ’, ele é interpretado como uma credencial de acesso. Para coincidir com a entrada, os usuários devem ter digitado no texto o octótropo ‘ # ’ nas suas listas das chaves de acesso. Esta opção pode ser utilizada para permitir o acesso ao canal utilizando uma senha para os usuários que não são autenticados.&lt;br /&gt;Se o nome de um grupo começar com o cifrão ‘ $ ’, ele só vai coincidir com os usuários cujo identificador do certificado coincidir com o que está depois do cifrão ‘ $ ’.&lt;br /&gt;Alguns grupos são predefinidos como sendo especiais:&lt;br /&gt;A opção ‘&lt;b&gt;all&lt;/b&gt;’, onde todos irão coincidir.&lt;br /&gt;A opção ‘&lt;b&gt;auth&lt;/b&gt;’, onde todos os usuários autenticados irão coincidir.&lt;br /&gt;A opção ‘&lt;b&gt;sub,a,b,c&lt;/b&gt;’, onde o usuário atualmente em um subcanal com um mínimo ‘&lt;i&gt;a&lt;/i&gt;’ do pai em comum e entre o ‘&lt;i&gt;b&lt;/i&gt;’ e o ‘&lt;i&gt;c&lt;/i&gt;’ nos de níveis mais baixos na hierarquia dos canais. Por favor, consulte a página da documentação sobre esta última opção.&lt;br /&gt;A opção ‘&lt;b&gt;in&lt;/b&gt;’, onde os usuários que atualmente estão neste canal irão coincidir (é uma forma abreviada para o ‘&lt;i&gt;sub,0,0,0&lt;/i&gt;’).&lt;br /&gt;A opção ‘&lt;b&gt;out&lt;/b&gt;’, onde os usuários que estão fora deste canal irão coincidir (é uma forma abreviada para o ‘&lt;i&gt;!sub,0,0,0&lt;/i&gt;’).&lt;br /&gt;Observe que uma entrada aplica para um usuário ou para um grupo, mas não a ambos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Senha&lt;/b&gt;&lt;br /&gt;Este campo permite que você especifique e mude facilmente a senha de um canal. Ela usa o recurso de credenciais de acesso do Mumble nos bastidores. Use LCAs e grupos se você precisa de um controle de acesso mais poderoso e detalhado.</translation>
+        <translation>&lt;b&gt;Senha&lt;/b&gt;&lt;br /&gt;Este campo permite especificar e modificar facilmente a senha de um canal. Ele utiliza o recurso das credenciais de acesso do Mumble em segundo plano. Utilize os LCAs e os grupos se você precisar de um controle de acesso mais poderoso e detalhado.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Isto mostra todas entradas ativas neste canal, Entradas herdadas de canais pai será mostradas em itálico.&lt;br /&gt;LCAs são avaliadas de cima para baixo, significando que a prioridade aumenta ao se ir para baixo na lista.</translation>
+        <translation>Esta opção permite exibir todas as entradas que estão ativas neste canal. As entradas que foram herdadas dos canais pai serão exibidas com a formatação em itálico.&lt;br /&gt;Os LCAs são avaliados de cima para baixo, o que significa que a prioridade aumenta à medida que se desce na lista.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation>ID do canal.</translation>
+        <translation>Identificador do canal.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation>Máximo de Usuários</translation>
+        <translation>Número máximo de usuários</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
@@ -399,12 +399,12 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation>&lt;b&gt;Máximo de Usuários&lt;/b&gt;&lt;br /&gt;
-Este valor permite que você especifique o número máximo de usuários permitidos no canal. Se o valor for acima de zero, apenas aquele número máximo de usuários será permitido entrar no canal. Se o valor é zero, o número máximo de usuários no canal é definido pelo limite padrão do servidor.</translation>
+        <translation>&lt;b&gt;Número máximo de usuários&lt;/b&gt;&lt;br /&gt;
+Este valor permite especificar o número máximo de usuários que são permitidos no canal. Se o valor for maior do que zero ( 0 ), apenas esta quantidade de usuários será permitida entrar no canal. Se o valor for zero ( 0 ), o número máximo de usuários no canal será definido pelo limite padrão do servidor.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation>Esse é o critério de ordenação para o canal.</translation>
+        <translation>Este é o critério de organização do canal.</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -428,7 +428,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation>Lista de entradas LCA</translation>
+        <translation>Lista das entradas do LCA</translation>
     </message>
     <message>
         <source>Channel position</source>
@@ -436,7 +436,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation>Máximo de usuários no canal</translation>
+        <translation>Número máximo de usuários no canal</translation>
     </message>
     <message>
         <source>Channel description</source>
@@ -444,19 +444,19 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Select member to add</source>
-        <translation>Selecione membro para adicionar</translation>
+        <translation>Selecione um membro para ser adicionado</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation>Membros do grupo excluídos</translation>
+        <translation>Membros do grupo que foram excluídos</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation>Selecione membro para remover</translation>
+        <translation>Selecione um membro para ser removido</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation>Lista de entradas da lista de controle de acesso</translation>
+        <translation>Lista das entradas da lista do controle de acesso</translation>
     </message>
     <message>
         <source>Select group</source>
@@ -464,7 +464,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation>Seleciona um grupo ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
+        <translation>Esta opção permite selecionar um grupo ao qual esta entrada do LCA se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>Select user</source>
@@ -472,44 +472,44 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation>Seleciona um usuário ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
+        <translation>Esta opção permite selecionar um usuário ao qual esta entrada do LCA se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation>Lista de permissões disponíveis</translation>
+        <translation>Lista das permissões que estão disponíveis</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Placa ALSA padrão</translation>
+        <translation>Placa padrão do ALSA</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Falha ao abrir a entrada ALSA escolhida: %1</translation>
+        <translation>Ocorreu uma falha ao abrir a entrada do ALSA %1 que foi selecionada</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioOutput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Placa ALSA padrão</translation>
+        <translation>Placa padrão do ALSA</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Abrir a Saída ALSA escolhida falhou: %1</translation>
+        <translation>Ocorreu uma falha ao abrir a saída do ALSA %1 que foi selecionada</translation>
     </message>
 </context>
 <context>
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation>Ocorreu um erro ao obter o nome (longname) da placa de som: %1</translation>
+        <translation>Ocorreu uma falha ao tentar obter o nome completo da placa de som %1</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation>Falha ao obter o nome da placa de som: %1</translation>
+        <translation>Ocorreu uma falha ao tentar obter o nome da placa de som %1</translation>
     </message>
 </context>
 <context>
@@ -521,15 +521,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>Buffer de amostra %1 → %2, com resolução de amostra de%3 (%4 preferencialmente) em %5 Hz</translation>
+        <translation>O ‘buffer’ da amostra %1 -&gt; %2, com a resolução da amostra de %3 (%4 preferencialmente) em %5 Hz</translation>
     </message>
     <message>
         <source>ASIO Initialization failed: %1</source>
-        <translation>Falha na inicialização de ASIO: %1</translation>
+        <translation>Ocorreu uma falha na inicialização do ASIO %1</translation>
     </message>
     <message>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>Falha ao instanciar o controlador ASIO</translation>
+        <translation>Ocorreu uma falha ao tentar instanciar o controlador do ASIO</translation>
     </message>
     <message>
         <source>ASIO</source>
@@ -537,7 +537,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Escolha de dispositivo</translation>
+        <translation>Escolha o dispositivo</translation>
     </message>
     <message>
         <source>Device</source>
@@ -545,19 +545,19 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation>Dispositivo a usar como microfone</translation>
+        <translation>Dispositivo a ser utilizado como microfone</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Escolha qual dispositivo consultar. Você precisará realmente consultar o dispositivo e, selecionar quais canais usar.</translation>
+        <translation>Esta opção permite escolher qual dispositivo será consultado. Você ainda precisará consultar o dispositivo e selecionar quais canais que serão utilizados.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation>Consultar o dispositivo selecionado</translation>
+        <translation>Consultar o dispositivo que foi selecionado</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Consulta o dispositivo selecionado em busca de canais. Perceba que muitos controladores ASIO são extremamente defeituosos, e consultá-los pode travar o aplicativo ou o sistema.</translation>
+        <translation>Esta opção permite consultar o dispositivo que foi selecionado na busca dos canais. Observe que a maioria dos controladores ASIO são extremamente defeituosos e ao consultá-los pode causar o travamento do programa ou o sistema operacional.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
@@ -565,11 +565,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation>Configure o dispositivo selecionado</translation>
+        <translation>Configurar o dispositivo que foi selecionado</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Configura o dispositivo selecionado. Perceba que muitos controladores ASIO são extremamente defeituosos, e consultá-los pode travar o aplicativo ou o sistema.</translation>
+        <translation>Esta opção permite configurar o dispositivo que foi selecionado. Observe que a maioria dos controladores ASIO são extremamente defeituosos e ao consultá-los pode causar o travamento do programa ou o sistema operacional.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
@@ -589,11 +589,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Configura os canais de entrada para ASIO. Tenha certeza de selecionar pelo menos um canal como microfone e alto-falante. &lt;i&gt;Microfone&lt;/i&gt; deve ser onde seu microfone está conectado, e &lt;i&gt;Alto-falante&lt;/i&gt; deve ser um canal que mostra &apos;&lt;i&gt;O que você ouve&lt;/i&gt;&apos;.&lt;br /&gt;Por exemplo, na Audigy 2 ZS, uma boa seleção para Microfone seria &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; enquanto Alto-falante seria &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; e &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
+        <translation type="unfinished">Esta opção permite configurar os canais de entrada para o ASIO. Certifique-se de selecionar pelo menos um canal como microfone e um outro canal como alto-falante. A opção do ‘&lt;i&gt;Microfone&lt;/i&gt;’ deve ser o canal onde o seu microfone está conectado, enquanto que a opção do ‘&lt;i&gt;Alto-falante&lt;/i&gt;’ deve ser o canal onde a sua caixa de som ou fone de ouvido está conectado ou (o som que é reproduzido no sistema operacional’.&lt;br /&gt;Por exemplo, na placa de som ‘Audigy 2 ZS’, uma boa escolha para o microfone seria o ‘&lt;i&gt;Mic L&lt;/i&gt;’, enquanto que uma boa escolha para o alto-falante seria o ‘&lt;i&gt;Mix L&lt;/i&gt;’ e o ‘&lt;i&gt;Mix R&lt;/i&gt;’.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
-        <translation>Configurar canais de entrada</translation>
+        <translation>Configurar os canais de entrada</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -613,7 +613,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Unused</source>
-        <translation>Não usado</translation>
+        <translation>Não utilizados</translation>
     </message>
     <message>
         <source>Speakers</source>
@@ -621,46 +621,46 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>List of microphones</source>
-        <translation>Lista de microfones</translation>
+        <translation>Lista dos microfones</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation>Lista de alto-falantes</translation>
+        <translation>Lista dos alto-falantes</translation>
     </message>
     <message>
         <source>Device list</source>
-        <translation>Lista de dispositivos</translation>
+        <translation>Lista dos dispositivos</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation>Mover da lista de não utilizados para a de microfones</translation>
+        <translation>Mover da ‘lista dos dispositivos que não são utilizados’ para a ‘lista dos microfones’</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation>Mover da lista de microfones para a de não utilizados</translation>
+        <translation>Mover da ‘lista dos microfones’ para a ‘lista dos dispositivos que não são utilizados’</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation>Dispositivos não utilizados</translation>
+        <translation>Lista dos dispositivos que não são utilizados</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation>Mover da lista de não utilizados para a de alto-falantes</translation>
+        <translation>Mover da ‘lista dos dispositivos que não são utilizados’ para a ‘lista dos alto-falantes’</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation>Mover da lista de alto-falantes para a de não utilizados</translation>
+        <translation>Mover da ‘lista dos alto-falantes’ para a ‘lista dos dispositivos que não são utilizados’</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation>Você deve selecionar ao menos uma fonte de microfone e uma de alto-falante para usar ASIO.</translation>
+        <translation>Você tem que selecionar ao menos um microfone e um alto-falante para utilizar o ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Falha ao abrir o dispositivo ASIO. Nenhuma entrada será feita.</translation>
+        <translation>Ocorreu uma falha ao tentar abrir o dispositivo ASIO que foi selecionado. Por isso, nenhuma entrada será processada.</translation>
     </message>
 </context>
 <context>
@@ -671,11 +671,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Dependências de terceiros</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Dependendo das configurações da compilação do Mumble que você estiver utilizando, a sua versão pode não depender de todos os itens que estão listados abaixo</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -691,7 +691,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation>Licenças de &amp;Terceiros</translation>
+        <translation>Licenças de &amp;terceiros</translation>
     </message>
     <message>
         <source>OK</source>
@@ -707,11 +707,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation>Para uma lista de autores, veja &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
+        <translation>Para consultar a lista dos autores, por favor, acesse a página &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation>Um programa código aberto, de baixa latência e alta qualidade para bate-papo por voz</translation>
+        <translation>O Mumble é um programa de código aberto, de baixa latência e de alta qualidade que serve para o bate-papo por voz entre duas pessoas</translation>
     </message>
 </context>
 <context>
@@ -737,11 +737,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation>Dispositivo para entrada de áudio</translation>
+        <translation>Dispositivo para entrada do áudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Este é o dispositivo de entrada a ser usado para áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o dispositivo de entrada a ser utilizado para o áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
@@ -753,39 +753,39 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation>Quando transmitir sua fala</translation>
+        <translation>Quando for transmitir a sua fala</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Define quando sua fala deve ser transmitida.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Contínua&lt;/i&gt; - Todo o tempo&lt;br /&gt;&lt;i&gt;Atividade vocal&lt;/i&gt; - Quando você fala claramente.&lt;br /&gt;&lt;i&gt;Pressionar Para Falar&lt;/i&gt; - Quando você pressionar a tecla de atalho escolhida em &lt;i&gt;Atalhos&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir quando a sua fala deve ser transmitida durante a conversa.&lt;/b&gt;&lt;br /&gt;A opção ‘&lt;i&gt;Transmissão contínua&lt;/i&gt;’, onde a transmissão da sua fala ocorre o tempo todo.&lt;br /&gt;A opção ‘&lt;i&gt;Ativação por voz&lt;/i&gt;’, onde a transmissão da sua fala ocorre quando você fala perto do microfone.&lt;br /&gt;A opção ‘&lt;i&gt;Pressionar a tecla para falar&lt;/i&gt;’, onde a transmissão da sua fala ocorre quando você pressionar a tecla de atalho que você definiu na opção dos ‘&lt;i&gt;Atalhos&lt;/i&gt;’.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
-        <translation>Tempo para DuploPressionar</translation>
+        <translation>Intervalo de tempo para pressionar duas vezes a tecla</translation>
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Se pressionar a tecla PPF duas vezes neste tempo ela ficará travada.</translation>
+        <translation>Se você ‘Pressionar a tecla para falar’ duas vezes neste intervalo de tempo, esta tecla será travada.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Tempo para DuploPressionar&lt;/b&gt;&lt;br /&gt;Se você pressionar a tecla para falar duas vezes durante o intervalo de tempo configurado ela ficará travada. O Mumble continuará transmitindo até que você pressione-a uma vez mais para destravar o PPF de novo.</translation>
+        <translation>&lt;b&gt;Intervalo de tempo para pressionar duas vezes a tecla&lt;/b&gt;&lt;br /&gt;Se você ‘Pressionar a tecla para falar’ duas vezes durante o intervalo de tempo que foi configurado, a tecla ficará travada. O Mumble continuará transmitindo até você ‘Pressionar a tecla para falar’ uma vez para destravá-la e assim o microfone irá captar novamente a sua fala.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation>Resetar notificação de áudio para padrão</translation>
+        <translation>Redefinir para o padrão a notificação de áudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Resetar&lt;/b&gt;&lt;br/&gt;Reseta os caminhos para os arquivos para os padrões.</translation>
+        <translation>&lt;b&gt;Redefinir&lt;/b&gt;&lt;br/&gt;Esta opção permite redefinir para o padrão os caminhos dos arquivos.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation>Procurar por um arquivo de áudio para Ativo</translation>
+        <translation>Procurar por um arquivo de áudio ativo</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation>Procurar por um arquivo de áudio para Inativo</translation>
+        <translation>Procurar por um arquivo de áudio inativo</translation>
     </message>
     <message>
         <source>Off</source>
@@ -797,7 +797,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Use SNR based speech detection</source>
-        <translation>Usar detecção de áudio baseada em SNR</translation>
+        <translation>Utilizar a detecção da fala baseada na relação entre o sinal e o ruído do microfone</translation>
     </message>
     <message>
         <source>Signal to Noise</source>
@@ -805,7 +805,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Configura a detecção de fala para usar Amplitude.&lt;/b&gt;&lt;br /&gt;Neste modo, a força bruta do sinal de entrada é usado para detectar fala.</translation>
+        <translation>&lt;b&gt;Esta opção permite configurar a detecção da fala para utilizar a ‘Amplitude’.&lt;/b&gt;&lt;br /&gt;Neste modo, a intensidade da força bruta do sinal da entrada é utilizada para detectar a fala.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -817,7 +817,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
-        <translation>Quanto tempo continuar a transmissão após silêncio</translation>
+        <translation>Por quanto tempo deve continuar transmitindo após um período de silêncio</translation>
     </message>
     <message>
         <source>Silence Below</source>
@@ -825,7 +825,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Estabelece os gatilhos para a detecção de voz.&lt;/b&gt;&lt;br /&gt;Use isto junto com a janela de Estatísticas de Áudio para afinar manualmente os valores para o gatilho de detecção de voz. Valores de entrada baixo de &quot;Silêncio abaixo&quot; sempre contam como silêncio. Valores acima de &quot;Fala acima&quot; sempre contam como voz. Valores entre ambos contam como voz se você já está falando, mas não levam a uma nova detecção.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir os valores do gatilho para a detecção da voz.&lt;/b&gt;&lt;br /&gt;Utilize este recurso em conjunto com a janela das ‘Estatísticas de Áudio’ para ajustar manualmente os valores do gatilho para a detecção da voz. Os valores da entrada ‘Silêncio abaixo’ são sempre considerados ‘silêncio’. Os valores da entrada ‘Fala acima’ são sempre considerados voz ou fala. Os valores situados entre estes dois limites serão contabilizados como voz caso você já esteja falando, mas não acionarão uma nova detecção.</translation>
     </message>
     <message>
         <source>Speech Above</source>
@@ -833,7 +833,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Signal values above this count as voice</source>
-        <translation>Sinal acima disto conta como voz</translation>
+        <translation>Os valores do sinal acima disso são considerados como voz</translation>
     </message>
     <message>
         <source>Compression</source>
@@ -845,11 +845,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Qualidade da compressão (pico de banda)</translation>
+        <translation>Qualidade da compressão (pico da largura de banda)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;Configura a qualidade da compressão.&lt;/b&gt;&lt;br /&gt;Determina quanta banda o Mumble pode usar para transmissão de áudio.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir a qualidade da compressão.&lt;/b&gt;&lt;br /&gt;Ou seja, determina quanto da largura de banda que o Mumble tem permissão para utilizar o áudio da saída.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -857,35 +857,35 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
-        <translation>Quantos quadros de áudio para enviar por pacote</translation>
+        <translation>Quantos quadros de áudio devem ser enviados em cada pacote</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;Seleciona quantos quadros de áudio devem ser colocados em um pacote.&lt;/b&gt;&lt;br /&gt;Aumentar isto também aumentará a latência para sua voz, reduzindo as exigências de banda.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir quantos quadros de áudio devem ser incluídos em um pacote.&lt;/b&gt;&lt;br /&gt;Se você aumentar este valor também aumentará a latência da sua voz, mas também reduzirá as exigências da largura de banda.</translation>
     </message>
     <message>
         <source>Audio Processing</source>
-        <translation>Processamento de áudio</translation>
+        <translation>Processamento do áudio</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation>Supressão de ruídos</translation>
+        <translation>Supressão dos ruídos</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Configura a quantia de supressão de ruído aplicada.&lt;/b&gt;&lt;br /&gt;Quão maior este valor, mais agressivamente o ruído estacionário será suprimido.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir o nível da supressão dos ruídos a ser aplicado.&lt;/b&gt;&lt;br /&gt;Ou seja, quanto maior for o valor, mais agressivamente o ruído estacionário será suprimido.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation>Amplificação máxima do som de entrada</translation>
+        <translation>Amplificação máxima do som da entrada</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Amplificação máxima da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble normaliza o volume de entrada antes da compressão, e isso configura o quanto ele pode amplificar.&lt;br /&gt;O nível real é continuamente atualizado baseado no seu padrão atual de fala mas, nunca passará do nível aqui especificado.&lt;br /&gt;Se o nível da &lt;i&gt;Altura do microfone&lt;/i&gt; das estatísticas de áudio tende a ficar perto dos 100%, você provavelmente quer configurar o valor aqui para 2.0 ou algo parecido mas se, como a maioria das pessoas, você é incapaz de chegar aos 100%, configure o valor muito mais alto.&lt;br /&gt;Idealmente, configure de modo que &lt;i&gt;Altura do microfone * Fator de Amplificação &gt;= 100&lt;/i&gt;, mesmo quando você está falando baixo.&lt;br /&gt;&lt;br /&gt;Note que não há dano em configurar o valor aqui para o máximo, mas o Mumble começará a transmitir outras conversas se você deixá-lo auto-afinado para tal nível.</translation>
+        <translation>&lt;b&gt;Amplificação máxima do som da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble tenta normalizar o volume da entrada antes de realizar a compressão e esta opção permite definir o limite máximo da amplificação.&lt;br /&gt;O nível real é continuamente atualizado com base no padrão atual da sua fala, mas nunca ultrapassará o valor do nível que foi especificado nesta opção.&lt;br /&gt;Se o nível da ‘&lt;i&gt;Intensidade do microfone&lt;/i&gt;’ nas ‘Estatísticas do áudio’ ficar próximo do 100%, você poderá definir este valor aqui para aproximadamente 2.0. Caso contrário, como acontece com a maioria das pessoas, que não consegue atingir o 100%, pode definir o valor muito mais alto.&lt;br /&gt;O ideal é definir o valor de modo que a ‘&lt;i&gt;Intensidade do microfone&lt;/i&gt;’ para o fator de amplificação que seja maior ou igual a 100, mesmo quando você estiver falando muito baixo.&lt;br /&gt;&lt;br /&gt;Vale ressaltar que não há problema em definir o valor aqui para o máximo. No entanto, se você permitir que o Mumble faça o ajuste automático para este nível, o Mumble poderá captar outras conversas que estiverem acontecendo ao seu redor.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation>Probabilidade atual de detecção da fala</translation>
+        <translation>Probabilidade atual da detecção da fala</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
@@ -913,7 +913,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
-        <translation>Usar Amplitude baseada na detecção de fala</translation>
+        <translation>Utilizar a detecção da fala baseada na amplitude</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
@@ -1097,7 +1097,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Pressionar para Falar</translation>
+        <translation>Pressionar uma tecla para falar</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
@@ -1109,7 +1109,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Atividade de Voz</translation>
+        <translation>Ativação por voz</translation>
     </message>
     <message>
         <source>Input backend for audio</source>
@@ -1129,11 +1129,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation>Limite de bloqueio do Pressione para Falar</translation>
+        <translation>Limite de bloqueio da opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation>Alterna entre os modos Contínuo e Pressione para Falar ao tocar duas vezes nesse período de tempo</translation>
+        <translation>Alterna entre os modos ‘Transmissão contínua’ e ‘Pressionar uma tecla para falar’ ao tocar duas vezes nesse período de tempo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
@@ -1141,7 +1141,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation>Limite de espera do Pressione para Falar</translation>
+        <translation>Limite do tempo de espera da opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
@@ -1248,15 +1248,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation>Contínuo</translation>
+        <translation>Transmissão contínua</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Atividade de Voz</translation>
+        <translation>Ativação por voz</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Pressione para Falar</translation>
+        <translation>Pressionar uma tecla para falar</translation>
     </message>
     <message>
         <source>Audio Input</source>
@@ -1735,7 +1735,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Audio Statistics</source>
-        <translation>Estatísticas de Áudio</translation>
+        <translation>Estatísticas do áudio</translation>
     </message>
     <message>
         <source>Input Levels</source>
@@ -2064,7 +2064,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Voice Activity Detection</source>
-        <translation>Detecção de Atividade de Voz</translation>
+        <translation>Detecção da ativação por voz</translation>
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
@@ -2101,7 +2101,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation>Pressionar para Falar:</translation>
+        <translation>Pressionar uma tecla para falar:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
@@ -2283,7 +2283,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation>Nível de detecção de atividade de voz</translation>
+        <translation>Nível de detecção da ativação por voz</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
@@ -2291,7 +2291,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Pressione para falar</translation>
+        <translation>Pressionar uma tecla para falar</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -2299,7 +2299,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation>Definir atalho do Pressione para Falar</translation>
+        <translation>Definir a tecla de atalho da opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
@@ -3161,7 +3161,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation>Padrões (Todas)</translation>
+        <translation>Padrões (Todos)</translation>
     </message>
 </context>
 <context>
@@ -3256,7 +3256,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Show All</source>
-        <translation>Exibir Tudo</translation>
+        <translation>Exibir tudo</translation>
     </message>
     <message>
         <source>Show Populated</source>
@@ -3268,7 +3268,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>All</source>
-        <translation>Tud</translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -5244,7 +5244,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Pressionar-para-Falar</translation>
+        <translation>Pressionar-uma-tecla-para-falar</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
@@ -5399,7 +5399,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Transmit Mode set to Continuous</source>
-        <translation>Modo de Transmissão ajustado para Contínuo</translation>
+        <translation>O modo da transmissão foi modificado para ‘Transmissão contínua’</translation>
     </message>
     <message>
         <source>Register yourself as %1</source>
@@ -5506,12 +5506,12 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Definir o modo de transmissão para Pressionar-para-Falar</translation>
+        <translation>Definir o modo de transmissão para a opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation>Definir modo de transmissão para contínuo</translation>
+        <translation>Definir o modo para a ‘Transmissão contínua’</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
@@ -5535,15 +5535,15 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Continuous</source>
-        <translation>Contínuo</translation>
+        <translation>Transmissão contínua</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Atividade de Voz</translation>
+        <translation>Ativação por voz</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation>Pressionar-para-Falar</translation>
+        <translation>Pressionar-uma-tecla-para-falar</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5567,11 +5567,11 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation>Modo de transmissão ajustado para Atividade de Voz</translation>
+        <translation>O modo da transmissão foi modificado para a ‘Ativação por voz’</translation>
     </message>
     <message>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation>Modo de transmissão ajustado para Pressionar-para-Falar</translation>
+        <translation>O modo da transmissão foi modificado para a opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
