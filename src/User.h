@@ -30,6 +30,7 @@ public:
 	bool bSelfMute, bSelfDeaf;
 	bool bPrioritySpeaker;
 	bool bRecording;
+	bool bScreenSharing;
 	Channel *cChannel;
 	QByteArray qbaTexture;
 	QByteArray qbaTextureHash;

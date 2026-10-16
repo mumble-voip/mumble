@@ -23,6 +23,8 @@ class ServerHandler;
 class AudioInput;
 class AudioOutput;
 class Database;
+class ScreenCapture;
+class ScreenShareReceiver;
 class Log;
 class PluginManager;
 class QSettings;
@@ -54,6 +56,8 @@ public:
 	std::shared_ptr< ServerHandler > sh;
 	std::shared_ptr< AudioInput > ai;
 	std::shared_ptr< AudioOutput > ao;
+	ScreenCapture *sc                        = nullptr;
+	ScreenShareReceiver *screenShareReceiver = nullptr;
 	/**
 	 * @remark Must only be accessed from the main event loop
 	 */
@@ -104,6 +108,12 @@ public:
 	unsigned int uiImageLength;
 	unsigned int uiMaxUsers;
 	bool recordingAllowed;
+	/// Whether the server lets us share our screen. Servers that don't support screen sharing never allow it.
+	bool screenSharingAllowed;
+	/// Whether the server supports screen sharing, whether it is allowed or not
+	bool screenSharingSupported;
+	/// The server's limit for the bandwidth of our screen share in bits per second, 0 if there is none
+	unsigned int maxVideoBandwidth;
 	bool bQuit;
 	QString windowTitlePostfix;
 	bool bDebugDumpInput;
