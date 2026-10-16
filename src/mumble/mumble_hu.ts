@@ -88,7 +88,7 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished">&lt;b&gt;Sorrend&lt;b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Sorrend&lt;/b&gt;&lt;br/&gt;
 Ezzel az értékkel módosíthatja azt a sorrendet, ahogy a Mumble egy faszerkezetbe elrendezi a csatornákat. Egy magasabb &lt;i&gt;Sorrend&lt;/i&gt; értékkel rendelkező csatorna mindig lejjebb lesz elhelyezve, mint az alacsonyabb értékkel rendelkezők. Ha a &lt;i&gt;Sorrend&lt;/i&gt; értéke egyforma két csatornánál, akkor az abc sorrendbe kerülnek a nevük alapján.</translation>
     </message>
     <message>
@@ -362,7 +362,8 @@ This list contains all members that were added to the group by the current chann
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Kizárt tagok&lt;/b&gt;&lt;br /&gt;
+Azoknak a tagoknak listája, akik nem örökölnek csoporttagságot felsőbb szintű csatornából.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
@@ -472,7 +473,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>A rendelkezésre álló jogosultságok listája</translation>
     </message>
 </context>
 <context>
@@ -625,34 +626,34 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Device list</source>
-        <translation type="unfinished"></translation>
+        <translation>Eszközlista</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation type="unfinished"></translation>
+        <translation>Áthelyezés a „Használaton kívül” listáról a „Mikrofonok&quot; listára</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Áthelyezés a „Mikrofonok&quot; listáról a „Használaton kívül” listára</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation type="unfinished"></translation>
+        <translation>A nem használt eszközök listája</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation type="unfinished"></translation>
+        <translation>Áthelyezés a „Nem használt” listáról a „Hangszórók” listára</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation type="unfinished"></translation>
+        <translation>Áthelyezés a &quot;Hangszórók&quot; listájáról a „Használaton kívül” listára</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation>Az ASIO meghajtó használatához legalább egy kimeneti és egy bemeteni eszköz beállítása szükséges.</translation>
+        <translation>Az ASIO meghajtó használatához legalább egy kimeneti és egy bemeneti eszköz beállítása szükséges.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
@@ -667,11 +668,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Felhasznált szoftverek</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>A verziókonfigurációtól függően előfordulhat, hogy a Mumble nem függ az összes felsorolt tételtől</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -687,7 +688,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation>&amp;Felhasznált szoftverek</translation>
+        <translation>&amp;Felhasznált szoftverek licencei</translation>
     </message>
     <message>
         <source>OK</source>
@@ -703,18 +704,18 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>A szerzők listáját lásd a &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt; oldalon.</translation>
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy nyílt forráskódú, alacsony késleltetésű, kiváló minőségű hangcsevegő program</translation>
     </message>
 </context>
 <context>
     <name>AccessibleQGroupBox</name>
     <message>
         <source>empty</source>
-        <translation type="unfinished"></translation>
+        <translation>üres</translation>
     </message>
 </context>
 <context>
@@ -753,7 +754,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Beállítja, hogy mikor kell küldeni a beszédet.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Folyamatosan&lt;/i&gt; - Mindig küldi.&lt;br /&gt;&lt;i&gt;Beszéd érzékelése&lt;/i&gt; - Amikor egyértelmüen beszél.&lt;br /&gt;&lt;i&gt;Beszédhez-nyomd&lt;/i&gt; - Amikor nyomva tartja a &lt;i&gt;Gyorsbillentyük&lt;/i&gt;alatt beállított billentyűt.</translation>
+        <translation>&lt;b&gt;Beállítja, hogy mikor kell küldeni a beszédet.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Folyamatosan&lt;/i&gt; - Mindig küldi&lt;br /&gt;&lt;i&gt;Beszéd érzékelése&lt;/i&gt; - Amikor egyértelműen beszél.&lt;br /&gt;&lt;i&gt;Beszédhez-nyomd&lt;/i&gt; - Amikor nyomva tartja a &lt;i&gt;Gyorsbillentyűk&lt;/i&gt; alatt beállított billentyűt.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -761,11 +762,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Zárolja a PTT billentyűt, ha a megadott időn belül kétszer leüti.</translation>
+        <translation>Ha ezen az időn belül kétszer meg nyomod a gombos aktiválást(push to talk), az zárolódik.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Dupla leütés&lt;/b&gt;&lt;br /&gt;Zárolja a PTT billentyűt, ha a beállított időn belül kétszer leüti. A Mumble addig fogja sugározni az ön hangját, amíg mégegyszer meg nem nyomja a PTT billentyűt a kioldáshoz.</translation>
+        <translation>&lt;b&gt;Dupla aktiválás&lt;/b&gt;&lt;br /&gt;Ha a beállított időn belül kétszer meg nyomod a gombos aktiválást(push to talk), az zárolódik. A Mumble addig folytatja az adást, amíg újra meg nem nyomod a zárolás feloldásához.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
@@ -773,7 +774,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished">&lt;b&gt;Alapértelmezett&lt;/&gt;&lt;br /&gt;A fájlok elérési útját az alapértelmezettre állítja.</translation>
+        <translation>&lt;b&gt;Alapértelmezett&lt;/b&gt;&lt;br/&gt;A fájlok elérési útját az alapértelmezett értékre állítja.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
@@ -845,15 +846,15 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished">&lt;b&gt;Beállítja a tömörítés minőségét.&lt;b/&gt;Meghatározza a Mumble által hangküldésre használható sávszélességet.</translation>
+        <translation>&lt;b&gt;Beállítja a tömörítés minőségét.&lt;/b&gt;&lt;br /&gt;Meghatározza a Mumble által hangküldésre használható sávszélességet.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
-        <translation>Csomagonkénti hang</translation>
+        <translation>Hang időtartama csomagonként</translation>
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
-        <translation>Mennyi hangminta küldhető egy csomagban</translation>
+        <translation>Hangminta időtartama a szervernek küldött csomagonként</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
@@ -893,7 +894,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished">&lt;b&gt;Jel-zaj viszonyon alapuló beszédérzékelést állít be.&lt;/b&gt;Ebben a módban a bemenetet a jel tisztasága szempontjából elemzi és a jel tisztasága fogja kiváltani a beszéd érzékelését.</translation>
+        <translation>&lt;b&gt;Jel-zaj viszonyon alapuló beszédérzékelést állít be.&lt;/b&gt;&lt;br /&gt;Ebben a módban a bemenetet a jel tisztasága szempontjából elemzi és a jel tisztasága fogja kiváltani a beszéd érzékelését.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
@@ -949,7 +950,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Megjelenít egy mindig előtérben levő ablakot egy beszéd nyomógombbal.</translation>
+        <translation>Megjelenít egy mindig előtérben levő ablakot egy beszéd nyomógombbal</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
@@ -961,19 +962,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Hang átvitel megkezdésekor lejátszódik</translation>
     </message>
     <message>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Hang átvitel leállásakor lejátszódik</translation>
     </message>
     <message>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tartási idő</translation>
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>A mikrofon nyitva maradási ideje a Gombos aktiválás(push to talk) után</translation>
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
@@ -1013,19 +1014,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation type="unfinished"></translation>
+        <translation>A várakozási állapot bármely billentyűleütéssel vagy egérgomb-nyomással megszűnik</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation type="unfinished"></translation>
+        <translation>A várakozási állapot visszavonása tevékenység esetén</translation>
     </message>
     <message>
         <source>Audio input</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangbemenet</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ez az audióhoz használandó bevitelmódszer.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
@@ -1033,7 +1034,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha be van jelölve, a Mumble bekapcsolja az Opus alacsony késleltetésű módját, ha a minőség &lt;b&gt;64 kbit/s&lt;/b&gt;-ra vagy magasabbra van állítva. Az alacsony késleltetésű mód &lt;b&gt;~15 milliszekundummal&lt;/b&gt; csökkenti a késleltetést oda-vissza. Ehhez a módhoz a zenei és a VOIP módokhoz képest magasabb bitráta szükséges lehet az azonos minőség fenntartásához.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
@@ -1041,35 +1042,35 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne használjon zajszűrést.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zajszűréshez használja a Speex által biztosított algoritmust.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zajszűréshez használja a RNNoise által biztosított algoritmust.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation type="unfinished"></translation>
+        <translation>A zajszűréshez használja a Speex és az RNNoise kombinációját.</translation>
     </message>
     <message>
         <source>Both</source>
-        <translation type="unfinished"></translation>
+        <translation>Mindkettő</translation>
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezzel állítható be, hogy a Speex milyen mértékben csökkenti a zajt.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Speex-zajszűrés erőssége</translation>
     </message>
     <message>
         <source>Mute cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Némítás hangjel</translation>
     </message>
     <message>
         <source>Br&amp;owse...</source>
@@ -1081,19 +1082,19 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangjelzés ... beviteli módszer használata esetén</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangjelzés a Gombos aktiválás(push to talk) funkcióval történő adás megkezdésekor vagy leállításakor</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Ez engedélyezi az adáshoz kapcsolódó hangjelzéseket a Gombos aktiválás(push to talk) funkció használata során.&lt;/b&gt;&lt;br /&gt;Ha ezt beállítod, rövid hangjelzés hallható az adás megkezdésekor és befejezésekor.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation type="unfinished">Beszédhez-nyomd</translation>
+        <translation>Gombos aktiválás(push to talk)</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
@@ -2257,7 +2258,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble pozícióalapú hangrendszer lehetővé teszi a felhasználók számára, hogy hangjuk relatív helyzetét összekapcsolják harmadik féltől származó alkalmazásokkal, például játékokkal.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
@@ -10077,7 +10078,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation>Hozzáférés megtagadva. Kérem, ellenőrizze, hogy az operációs-rendszere engedélyezi-e a Mumble számára a mikrofonhoz való hozzáférést!</translation>
+        <translation>Hozzáférés megtagadva. Ellenőrizze, hogy az operációs-rendszere engedélyezi-e a Mumble számára a mikrofonhoz való hozzáférést.</translation>
     </message>
 </context>
 <context>
@@ -10091,11 +10092,11 @@ Please contact your server administrator for further information.</source>
     <name>qwPTTButtonWidget</name>
     <message>
         <source>Mumble PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble Gombos aktiválás</translation>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Nyomd a beszédhez</translation>
+        <translation>Gombos aktiválás(push to talk)</translation>
     </message>
 </context>
 </TS>
