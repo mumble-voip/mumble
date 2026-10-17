@@ -290,6 +290,69 @@ message TextMessage {
 	required string message = 5;
 }
 
+message ChatHistoryRequest {
+	// What kind of history the client is requesting.
+	enum Scope {
+		Channel = 0;
+		Direct = 1;
+	}
+
+	optional Scope scope = 1 [default = Channel];
+
+	// Used for channel history.
+	optional uint32 channel_id = 2;
+
+	// Used for direct/user history.
+	optional uint32 user_id = 3;
+
+	// Used for direct/session history, especially for unregistered users.
+	optional uint32 session = 4;
+
+	// Pagination cursor. If set, the server should return messages older than this id.
+	optional uint64 before_message_id = 5;
+
+	// Maximum number of messages requested.
+	optional uint32 limit = 6 [default = 50];
+}
+
+message ChatHistoryMessage {
+	// Stable server-side id of the stored message.
+	optional uint64 message_id = 1;
+
+	// Sender information.
+	optional uint32 actor_session = 2;
+	optional uint32 actor_user_id = 3;
+	optional string actor_name = 4;
+
+	// Original target information.
+	optional uint32 channel_id = 5;
+	repeated uint32 session = 6;
+	repeated uint32 user_id = 7;
+
+	// Unix timestamp in milliseconds.
+	optional uint64 timestamp_ms = 8;
+
+	// Message body. Same format expectations as TextMessage.
+	optional string message = 9;
+}
+
+message ChatHistoryChunk {
+	repeated ChatHistoryMessage messages = 1;
+
+	// Whether the server has older messages available for this query.
+	optional bool has_more = 2 [default = false];
+
+	// Echo of the request scope/target.
+	optional ChatHistoryRequest.Scope scope = 3 [default = Channel];
+	optional uint32 channel_id = 4;
+	optional uint32 user_id = 5;
+	optional uint32 session = 6;
+
+	// Useful cursors for the client.
+	optional uint64 oldest_message_id = 7;
+	optional uint64 newest_message_id = 8;
+}
+
 message PermissionDenied {
 	enum DenyType {
 		// Operation denied for other reason, see reason field.
