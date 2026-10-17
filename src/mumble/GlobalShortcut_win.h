@@ -14,6 +14,7 @@
 
 #include <condition_variable>
 #include <memory>
+#include <mutex>
 #include <span>
 #include <string>
 #include <unordered_map>
@@ -116,6 +117,7 @@ protected:
 	void processMsgMouse(const MsgMouse &msg);
 	void processOther();
 
+	std::mutex m_queueMutex;
 	std::condition_variable m_condVar;
 
 	moodycamel::ReaderWriterQueue< std::unique_ptr< MsgRaw > > m_msgQueue;

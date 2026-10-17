@@ -316,7 +316,10 @@ GlobalShortcutWin::GlobalShortcutWin()
 }
 
 GlobalShortcutWin::~GlobalShortcutWin() {
-	requestInterruption();
+	{
+		std::lock_guard< std::mutex > lock(m_queueMutex);
+		requestInterruption();
+	}
 	m_condVar.notify_all();
 	wait();
 }
@@ -350,6 +353,9 @@ void GlobalShortcutWin::run() {
 #endif
 	// Wait for MainWindow's constructor to finish, so that we can get the window's handle.
 	while (!mumble_mw_hwnd) {
+		if (isInterruptionRequested()) {
+			return;
+		}
 		yieldCurrentThread();
 	}
 
@@ -385,11 +391,15 @@ void GlobalShortcutWin::run() {
 		qWarning("GlobalShortcutWindows: RegisterRawInputDevices() failed with error %u!", GetLastError());
 	}
 
-	std::mutex mutex;
-	std::unique_lock< decltype(mutex) > lock(mutex);
+	while (!isInterruptionRequested()) {
+		{
+			std::unique_lock< std::mutex > lock(m_queueMutex);
+			m_condVar.wait(lock, [this] { return isInterruptionRequested() || m_msgQueue.peek() != nullptr; });
+		}
 
-	do {
-		m_condVar.wait(lock);
+		if (isInterruptionRequested()) {
+			break;
+		}
 
 		if (bNeedRemap) {
 			remap();
@@ -413,7 +423,7 @@ void GlobalShortcutWin::run() {
 
 			m_msgQueue.pop();
 		}
-	} while (!isInterruptionRequested());
+	}
 }
 
 bool GlobalShortcutWin::isRateLimited(HANDLE device) {
@@ -440,7 +450,11 @@ bool GlobalShortcutWin::isRateLimited(HANDLE device) {
 }
 
 void GlobalShortcutWin::tryPlaceEvent(HANDLE device, bool rawhid, std::unique_ptr< MsgRaw > &&event) {
-	const bool enqueued = m_msgQueue.try_emplace(std::move(event));
+	bool enqueued = false;
+	{
+		std::lock_guard< std::mutex > lock(m_queueMutex);
+		enqueued = m_msgQueue.try_emplace(std::move(event));
+	}
 	if (!enqueued) {
 		qWarning() << "GlobalShortcutWin: Failed to enqueue input event - queue full?";
 
