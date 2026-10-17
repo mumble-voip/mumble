@@ -56,7 +56,7 @@ public slots:
 protected:
 	class MsgRaw {
 	public:
-		enum Type : uint8_t { Hid, Keyboard, Mouse };
+		enum Type : uint8_t { Hid, Keyboard, Mouse, DeviceRemoved };
 
 		constexpr Type type() { return m_type; };
 
@@ -100,6 +100,13 @@ protected:
 		USHORT buttonFlags;
 	};
 
+	class MsgDeviceRemoved : public MsgRaw {
+	public:
+		explicit MsgDeviceRemoved(HANDLE deviceHandle) : MsgRaw(DeviceRemoved), deviceHandle(deviceHandle) {}
+
+		HANDLE deviceHandle;
+	};
+
 	struct Device {
 		std::string name;
 		std::string prefix;
@@ -115,6 +122,7 @@ protected:
 	void processMsgHid(MsgHid &msg);
 	void processMsgKeyboard(MsgKeyboard &msg);
 	void processMsgMouse(const MsgMouse &msg);
+	void processDeviceRemoved(HANDLE deviceHandle);
 	void processOther();
 
 	std::mutex m_queueMutex;

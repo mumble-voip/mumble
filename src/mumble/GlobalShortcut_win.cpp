@@ -419,6 +419,9 @@ void GlobalShortcutWin::run() {
 				case MsgRaw::Mouse:
 					processMsgMouse(static_cast< MsgMouse & >(*msg));
 					break;
+				case MsgRaw::DeviceRemoved:
+					processDeviceRemoved(static_cast< MsgDeviceRemoved & >(*msg).deviceHandle);
+					break;
 			}
 
 			m_msgQueue.pop();
@@ -735,6 +738,21 @@ GlobalShortcutWin::DeviceMap::iterator GlobalShortcutWin::addDevice(const HANDLE
 }
 
 void GlobalShortcutWin::deviceRemoved(const HANDLE deviceHandle) {
+	bool enqueued = false;
+	{
+		std::lock_guard< std::mutex > lock(m_queueMutex);
+		// Removal notifications must not be dropped just because the input queue is full.
+		enqueued = m_msgQueue.enqueue(std::make_unique< MsgDeviceRemoved >(deviceHandle));
+	}
+	if (!enqueued) {
+		qWarning("GlobalShortcutWin: Failed to enqueue device removal");
+	}
+	m_throttleCounter.erase(deviceHandle);
+	m_throttleThreshold.erase(deviceHandle);
+	m_condVar.notify_all();
+}
+
+void GlobalShortcutWin::processDeviceRemoved(HANDLE deviceHandle) {
 	const auto iter = m_devices.find(deviceHandle);
 	if (iter == m_devices.cend()) {
 		return;
