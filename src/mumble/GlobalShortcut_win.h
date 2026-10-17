@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_WIN_H_
 #define MUMBLE_MUMBLE_GLOBALSHORTCUT_WIN_H_
 
+#include "win.h"
 #include "GlobalShortcut.h"
 
 #ifdef USE_XBOXINPUT
@@ -48,7 +49,11 @@ public:
 	ButtonInfo buttonInfo(const QVariant &button) override;
 	void run() override;
 
+#ifdef USE_XBOXINPUT
+	explicit GlobalShortcutWin(std::unique_ptr< XboxInput > xboxInput = nullptr);
+#else
 	GlobalShortcutWin();
+#endif
 	~GlobalShortcutWin() override;
 public slots:
 	void deviceRemoved(const HANDLE deviceHandle);
@@ -134,14 +139,8 @@ protected:
 	DeviceMap m_devices;
 #ifdef USE_XBOXINPUT
 	std::unique_ptr< XboxInput > m_xinput;
-	/// Holds the number of XInput devices available on the system.
-	/// It is filled out by addDevice().
-	uint8_t m_xinputDevices;
-	/// Holds the last packet number that was processed.
-	/// Any new data queried for a device is only valid
-	/// if the packet number is different than last time we queried it.
-	uint32_t m_xinputLastPacket[XBOXINPUT_MAX_DEVICES];
 
+	void processXboxInput();
 	static bool xinputIsPressed(const uint8_t bit, const XboxInputState &state);
 #endif
 #ifdef USE_GKEY

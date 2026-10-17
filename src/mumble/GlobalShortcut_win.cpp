@@ -16,9 +16,11 @@
 
 #include "win.h"
 
+#include <chrono>
 #include <iomanip>
 #include <mutex>
 #include <sstream>
+#include <utility>
 
 #include <QUuid>
 
@@ -302,11 +304,12 @@ QList< Shortcut > GlobalShortcutWin::migrateSettings(const QList< Shortcut > &ol
 	return newShortcuts;
 }
 
+#ifdef USE_XBOXINPUT
+GlobalShortcutWin::GlobalShortcutWin(std::unique_ptr< XboxInput > xboxInput)
+	: m_msgQueue(GlobalShortcutWin::QUEUE_CAPACITY), m_xinput(std::move(xboxInput))
+#else
 GlobalShortcutWin::GlobalShortcutWin()
 	: m_msgQueue(GlobalShortcutWin::QUEUE_CAPACITY)
-#ifdef USE_XBOXINPUT
-	  ,
-	  m_xinputDevices(0), m_xinputLastPacket()
 #endif
 {
 	// Register the MetaTypes if they have not already been registered (e.g in Settings)
@@ -330,11 +333,15 @@ void GlobalShortcutWin::run() {
 		static_assert(std::numeric_limits< uint8_t >::max() >= XBOXINPUT_MAX_DEVICES,
 					  "Higher XBOXINPUT_MAX_DEVICES than anticipated.");
 
-		m_xinput = std::make_unique< XboxInput >();
+		if (!m_xinput) {
+			m_xinput = std::make_unique< XboxInput >();
+		}
 		if (!m_xinput->isValid()) {
 			qWarning("GlobalShortcutWin: Failed to initialize XboxInput!");
 			m_xinput.reset();
 		}
+	} else {
+		m_xinput.reset();
 	}
 #endif
 #ifdef USE_GKEY
@@ -391,10 +398,23 @@ void GlobalShortcutWin::run() {
 		qWarning("GlobalShortcutWindows: RegisterRawInputDevices() failed with error %u!", GetLastError());
 	}
 
+	bool pollXInput = false;
+#ifdef USE_XBOXINPUT
+	pollXInput = static_cast< bool >(m_xinput);
+#endif
+	constexpr std::chrono::milliseconds pollInterval(20);
+	std::chrono::steady_clock::time_point nextPoll = std::chrono::steady_clock::now();
+
 	while (!isInterruptionRequested()) {
 		{
 			std::unique_lock< std::mutex > lock(m_queueMutex);
-			m_condVar.wait(lock, [this] { return isInterruptionRequested() || m_msgQueue.peek() != nullptr; });
+			const auto ready = [this] { return isInterruptionRequested() || m_msgQueue.peek() != nullptr; };
+			if (pollXInput) {
+				// XInput must observe disconnects even when no more raw input arrives.
+				m_condVar.wait_until(lock, nextPoll, ready);
+			} else {
+				m_condVar.wait(lock, ready);
+			}
 		}
 
 		if (isInterruptionRequested()) {
@@ -405,7 +425,12 @@ void GlobalShortcutWin::run() {
 			remap();
 		}
 
-		while (const std::unique_ptr< MsgRaw > *item = m_msgQueue.peek()) {
+		// A busy HID device must not starve polling of the other input sources.
+		for (size_t processed = 0; processed < QUEUE_CAPACITY; ++processed) {
+			const std::unique_ptr< MsgRaw > *item = m_msgQueue.peek();
+			if (!item) {
+				break;
+			}
 			const std::unique_ptr< MsgRaw > &msg = *item;
 
 			switch (msg->type()) {
@@ -425,6 +450,13 @@ void GlobalShortcutWin::run() {
 			}
 
 			m_msgQueue.pop();
+		}
+
+		if (pollXInput && std::chrono::steady_clock::now() >= nextPoll) {
+#ifdef USE_XBOXINPUT
+			processXboxInput();
+#endif
+			nextPoll = std::chrono::steady_clock::now() + pollInterval;
 		}
 	}
 }
@@ -728,10 +760,6 @@ GlobalShortcutWin::DeviceMap::iterator GlobalShortcutWin::addDevice(const HANDLE
 	device.usageRange.second = buttonCaps[0].Range.UsageMax;
 	device.buttons.resize(device.usageRange.second - device.usageRange.first + 1);
 
-	if (device.xinput) {
-		++m_xinputDevices;
-	}
-
 	qInfo("GlobalShortcutWin: \"%s\" added", device.name.c_str());
 
 	return m_devices.insert({ deviceHandle, device }).first;
@@ -759,10 +787,6 @@ void GlobalShortcutWin::processDeviceRemoved(HANDLE deviceHandle) {
 	}
 
 	const auto &device = (*iter).second;
-	if (device.xinput) {
-		--m_xinputDevices;
-	}
-
 	qInfo("GlobalShortcutWin: \"%s\" removed", device.name.c_str());
 
 	m_devices.erase(iter);
@@ -794,19 +818,11 @@ bool GlobalShortcutWin::xinputIsPressed(const uint8_t bit, const XboxInputState 
 			return state.buttons & (1 << bit);
 	}
 }
-#endif
-void GlobalShortcutWin::processOther() {
-#ifdef USE_XBOXINPUT
-	if (m_xinput && m_xinputDevices > 0) {
+void GlobalShortcutWin::processXboxInput() {
+	if (m_xinput) {
 		for (uint8_t i = 0; i < XBOXINPUT_MAX_DEVICES; ++i) {
 			XboxInputState state;
-			if (m_xinput->GetState(i, &state) != ERROR_SUCCESS) {
-				continue;
-			}
-
-			// Skip the result of GetState() if the packet number hasn't changed,
-			// or if we're at the first packet.
-			if (m_xinputLastPacket[i] != 0 && state.packetNumber == m_xinputLastPacket[i]) {
+			if (!m_xinput->poll(i, state)) {
 				continue;
 			}
 
@@ -817,11 +833,11 @@ void GlobalShortcutWin::processOther() {
 				input.code = j;
 				handleButton(QVariant::fromValue(input), xinputIsPressed(j, state));
 			}
-
-			m_xinputLastPacket[i] = state.packetNumber;
 		}
 	}
+}
 #endif
+void GlobalShortcutWin::processOther() {
 #ifdef USE_GKEY
 	if (m_gkey) {
 		InputGkey input = {};
