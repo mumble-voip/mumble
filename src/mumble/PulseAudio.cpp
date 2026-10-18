@@ -200,7 +200,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	PulseAudioInput *pai  = dynamic_cast< PulseAudioInput * >(raw_ai);
 	PulseAudioOutput *pao = dynamic_cast< PulseAudioOutput * >(raw_ao);
 
-	if (raw_ao) {
+	if (raw_ao || pasOutput) {
 		QString odev        = outputDevice();
 		pa_stream_state ost = pasOutput ? m_pulseAudio.stream_get_state(pasOutput) : PA_STREAM_TERMINATED;
 		bool do_stop        = false;
@@ -213,6 +213,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 				case PA_STREAM_TERMINATED: {
 					if (pasOutput)
 						m_pulseAudio.stream_unref(pasOutput);
+					m_outputDisconnectPending = false;
 
 					pa_sample_spec pss = qhSpecMap.value(odev);
 					pa_channel_map pcm = qhChanMap.value(odev);
@@ -244,9 +245,13 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			}
 		}
 		if (do_stop) {
-			qWarning("PulseAudio: Stopping output");
-			m_pulseAudio.stream_disconnect(pasOutput);
-			iSinkId = -1;
+			if (!m_outputDisconnectPending) {
+				qWarning("PulseAudio: Stopping output");
+				if (m_pulseAudio.stream_disconnect(pasOutput) == 0) {
+					m_outputDisconnectPending = true;
+				}
+				iSinkId = -1;
+			}
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting output: %s", qPrintable(odev));
 			pa_buffer_attr buff;
@@ -475,8 +480,13 @@ void PulseAudioSystem::sink_info_callback(pa_context *, const pa_sink_info *i, i
 void PulseAudioSystem::write_stream_callback(pa_stream *s, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast< PulseAudioSystem * >(userdata);
 	const auto &pa        = pas->m_pulseAudio;
+	const pa_stream_state_t state = pa.stream_get_state(s);
 
-	switch (pa.stream_get_state(s)) {
+	if ((state == PA_STREAM_TERMINATED) || (state == PA_STREAM_FAILED)) {
+		pas->m_outputDisconnectPending = false;
+	}
+
+	switch (state) {
 		case PA_STREAM_FAILED:
 			qWarning("PulseAudio: Stream error: %s", pa.strerror(pa.context_errno(pa.stream_get_context(s))));
 			break;

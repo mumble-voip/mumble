@@ -131,6 +131,7 @@ protected:
 	PulseAudio m_pulseAudio;
 	pa_context *pacContext;
 	pa_stream *pasInput, *pasOutput, *pasSpeaker;
+	bool m_outputDisconnectPending = false;
 	pa_threaded_mainloop *pam;
 	pa_defer_event *pade;
 
