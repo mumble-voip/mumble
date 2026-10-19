@@ -461,6 +461,7 @@ const Log::MsgType Log::msgOrder[] = { DebugInfo,
 									   PermissionDenied,
 									   TextMessage,
 									   PrivateTextMessage,
+									   WhisperHold,
 									   PluginMessage };
 
 const char *Log::msgNames[] = { QT_TRANSLATE_NOOP("Log", "Debug"),
@@ -494,6 +495,7 @@ const char *Log::msgNames[] = { QT_TRANSLATE_NOOP("Log", "Debug"),
 								QT_TRANSLATE_NOOP("Log", "Private text message"),
 								QT_TRANSLATE_NOOP("Log", "User started listening to channel"),
 								QT_TRANSLATE_NOOP("Log", "User stopped listening to channel"),
+								QT_TRANSLATE_NOOP("Log", "Whisper hold changed"),
 								QT_TRANSLATE_NOOP("Log", "Plugin message") };
 
 QString Log::msgName(MsgType t) const {
@@ -868,6 +870,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 					case ChannelLeaveDisconnect:
 					case ChannelListeningAdd:
 					case ChannelListeningRemove:
+					case WhisperHold:
 					case PluginMessage:
 						msgIcon = QSystemTrayIcon::Information;
 						break;

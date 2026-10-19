@@ -4183,6 +4183,10 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Whisper hold changed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Plugin message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5937,6 +5941,21 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Whisper Hold</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hold voice activation or continuous transmission on the configured Whisper/Shout target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This latches or unlatches the configured Whisper/Shout target while using voice activation or continuous transmission. Pressing a different Whisper Hold shortcut switches transmission to that target.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&amp;Window</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6013,6 +6032,10 @@ the channel&apos;s context menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Whisper hold cleared: Push-to-Talk enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Transmit Mode set to Continuous</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6058,6 +6081,14 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Reconnecting.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper held to: %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6872,6 +6903,10 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>This will check if mumble is up to date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whisper hold cleared: Shortcuts changed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
