@@ -52,10 +52,6 @@
 
 using namespace mumble;
 
-#ifdef Q_OS_UNIX
-static UnixMurmur *unixMurmur = nullptr;
-#endif
-
 extern Meta *meta;
 
 static QStringList qlErrors;
@@ -284,7 +280,6 @@ int main(int argc, char **argv) {
 		EnvUtils::setenv(QLatin1String("AVAHI_COMPAT_NOWARN"), QLatin1String("1"));
 #	endif
 		UnixMurmur unixhandler;
-		unixMurmur = &unixhandler;
 		unixhandler.initialcap();
 #endif
 		a.setApplicationName("Murmur");
