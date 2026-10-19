@@ -186,12 +186,12 @@ bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, un
 				if (++decrypt_iv[i])
 					break;
 		} else {
-			return false;
+			return recoverFromPacketLoss(source, dst, plain_length);
 		}
 
 		if (decrypt_history[decrypt_iv[0]] == decrypt_iv[1]) {
 			memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
-			return false;
+			return recoverFromPacketLoss(source, dst, plain_length);
 		}
 	}
 
@@ -199,7 +199,7 @@ bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, un
 
 	if (!ocb_success || memcmp(tag, source + 1, 3) != 0) {
 		memcpy(decrypt_iv, saveiv, AES_BLOCK_SIZE);
-		return false;
+		return recoverFromPacketLoss(source, dst, plain_length);
 	}
 	decrypt_history[decrypt_iv[0]] = decrypt_iv[1];
 
@@ -223,6 +223,57 @@ bool CryptStateOCB2::decrypt(const unsigned char *source, unsigned char *dst, un
 	updateRollingStats();
 	tLastGood.restart();
 	return true;
+}
+
+/// Adds amount to the given IV, treating it as a little-endian number (the same way decrypt() increments it)
+static void addToIV(unsigned char *iv, unsigned int amount) {
+	for (int i = 0; i < AES_BLOCK_SIZE && amount > 0; i++) {
+		amount += iv[i];
+		iv[i] = static_cast< unsigned char >(amount & 0xFF);
+		amount >>= 8;
+	}
+}
+
+bool CryptStateOCB2::recoverFromPacketLoss(const unsigned char *source, unsigned char *dst, unsigned int plain_length) {
+	// Every packet only carries the least significant byte of its IV, so decrypt() has to guess the rest. It assumes
+	// that the packet is at most 128 packets ahead of the last one, which no longer holds after a longer burst of
+	// packet loss (e.g. a short network outage while several users are talking). Without this, every following
+	// packet would be rejected until the IVs get resynchronized, interrupting the audio for several seconds (#4988).
+	// Since the authentication tag tells us whether we guessed right, we can simply try the candidates further ahead.
+	unsigned char iv[AES_BLOCK_SIZE];
+	unsigned char tag[AES_BLOCK_SIZE];
+
+	// The smallest number of packets the sender might be ahead that is consistent with the transmitted IV byte.
+	// Distances below 128 have already been tried by decrypt(), so skip ahead to the next candidate. A distance of
+	// exactly 128 has only been tried if the least significant byte didn't wrap around (otherwise decrypt() sees it as
+	// 128 packets behind), so it must be tried here.
+	unsigned int distance = static_cast< unsigned char >(source[0] - decrypt_iv[0]);
+	if (distance < 128)
+		distance += 256;
+
+	for (; distance <= MAX_RECOVERABLE_PACKET_LOSS + 1; distance += 256) {
+		memcpy(iv, decrypt_iv, AES_BLOCK_SIZE);
+		addToIV(iv, distance);
+
+		// Replay protection
+		if (decrypt_history[iv[0]] == iv[1])
+			continue;
+
+		if (!ocb_decrypt(source + 4, dst, plain_length, iv, tag) || memcmp(tag, source + 1, 3) != 0)
+			continue;
+
+		memcpy(decrypt_iv, iv, AES_BLOCK_SIZE);
+		decrypt_history[decrypt_iv[0]] = decrypt_iv[1];
+
+		m_statsLocal.good++;
+		m_statsLocal.lost += distance - 1;
+
+		updateRollingStats();
+		tLastGood.restart();
+		return true;
+	}
+
+	return false;
 }
 
 #if defined(__LP64__)

@@ -17,6 +17,11 @@
 
 class CryptStateOCB2 : public CryptState {
 public:
+	/// The largest number of consecutive lost packets that decrypt() can recover from on its own. Beyond this, the
+	/// decrypt IV stays out of sync until the IVs are explicitly resynchronized (which only happens after 5 seconds
+	/// without a successfully decrypted packet).
+	static constexpr unsigned int MAX_RECOVERABLE_PACKET_LOSS = 1024;
+
 	CryptStateOCB2();
 	~CryptStateOCB2() noexcept override;
 
@@ -39,6 +44,17 @@ public:
 					 unsigned char *tag);
 
 private:
+	/// Called when decrypt() rejects a packet. Assumes that more than 128 packets have been lost since the last one
+	/// that was received and tries all IVs up to MAX_RECOVERABLE_PACKET_LOSS packets ahead whose least significant
+	/// byte matches the one transmitted in the packet. On success, the packet is decrypted into dst and the decrypt IV
+	/// is moved forward to the IV that worked.
+	///
+	/// @param source The encrypted packet (including the 4-byte header)
+	/// @param dst The buffer to write the decrypted data to
+	/// @param plain_length The length of the decrypted data
+	/// @returns Whether the packet could be decrypted
+	bool recoverFromPacketLoss(const unsigned char *source, unsigned char *dst, unsigned int plain_length);
+
 	unsigned char raw_key[AES_KEY_SIZE_BYTES];
 	unsigned char encrypt_iv[AES_BLOCK_SIZE];
 	unsigned char decrypt_iv[AES_BLOCK_SIZE];
