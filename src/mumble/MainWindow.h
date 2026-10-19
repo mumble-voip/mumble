@@ -19,7 +19,7 @@
 #include "QtUtils.h"
 #include "Usage.h"
 #include "UserLocalNicknameDialog.h"
-
+#include "TextMessage.h"
 #include <memory>
 #include <optional>
 #include <stack>
@@ -139,7 +139,7 @@ public:
 
 	QPointer< Channel > cContextChannel;
 	QPointer< ClientUser > cuContextUser;
-
+	QPointer< TextMessage > messageBoxPointer;
 	QPoint qpContextPosition;
 
 	void recheckTTS();
@@ -153,7 +153,7 @@ public:
 
 	void loadState(bool minimalView);
 	void storeState(bool minimalView);
-
+	void updateTextBoxSend();
 	void updateChatBar();
 	void openTextMessageDialog(ClientUser *p);
 	void openUserLocalNicknameDialog(const ClientUser &p);
