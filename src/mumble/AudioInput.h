@@ -184,12 +184,16 @@ private:
 
 	unsigned int iMicFilled, iEchoFilled;
 	inMixerFunc imfMic, imfEcho;
-	inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask);
+	inMixerFunc chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 mask, unsigned int outChannels);
 	void resetAudioProcessor();
 
 	OpusEncoder *opusState;
 #ifdef USE_RNNOISE
+	/// Denoiser state for the mono signal, respectively the left channel when
+	/// transmitting in stereo
 	DenoiseState *denoiseState;
+	/// Denoiser state for the right channel, only allocated when transmitting in stereo
+	DenoiseState *denoiseStateR;
 #endif
 	bool selectCodec();
 	void selectNoiseCancel();
@@ -220,6 +224,11 @@ protected:
 	SampleFormat eMicFormat, eEchoFormat;
 
 	unsigned int iMicChannels, iEchoChannels;
+	/// Number of channels the microphone signal is mixed down to and encoded
+	/// with (2 if stereo input is enabled, 1 otherwise). The mic frame buffers
+	/// (pfMicInput, the chunks handed to encodeAudioFrame, opusBuffer) hold
+	/// iFrameSize * m_transmitChannels interleaved samples per 10 ms frame.
+	unsigned int m_transmitChannels;
 	unsigned int iMicFreq, iEchoFreq;
 	unsigned int iMicLength, iEchoLength;
 	unsigned int iMicSampleSize, iEchoSampleSize;

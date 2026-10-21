@@ -324,6 +324,10 @@ PipeWireInput::PipeWireInput() {
 	}
 
 	iMicChannels = Global::get().s.pipeWireInput;
+	if (Global::get().s.bStereoInput && iMicChannels < 2) {
+		// Stereo transmission needs both the front-left and front-right channel
+		iMicChannels = 2;
+	}
 
 	constexpr uint32_t CHANNELS[]{
 		SPEAKER_FRONT_LEFT,
@@ -358,7 +362,8 @@ void PipeWireInput::processCallback(void *param) {
 		return;
 	}
 
-	pwi->addMic(data.data, static_cast< unsigned int >(data.chunk->size / sizeof(float)));
+	// addMic() expects the number of frames (samples per channel)
+	pwi->addMic(data.data, static_cast< unsigned int >(data.chunk->size / sizeof(float)) / pwi->iMicChannels);
 
 	pwi->m_engine->queueBuffer(buffer);
 }

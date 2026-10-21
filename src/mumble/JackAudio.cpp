@@ -675,7 +675,7 @@ void JackAudioSystem::shutdownCallback(void *) {
 	jas->users  = 0;
 }
 
-JackAudioInput::JackAudioInput() : port(nullptr), buffer(nullptr) {
+JackAudioInput::JackAudioInput() : port(nullptr), portR(nullptr), buffer(nullptr) {
 	bReady = activate();
 }
 
@@ -700,7 +700,9 @@ bool JackAudioInput::isReady() {
 bool JackAudioInput::allocBuffer(const jack_nframes_t frames) {
 	QMutexLocker lock(&qmWait);
 
-	bufferSize = frames * sizeof(jack_default_audio_sample_t);
+	bufferSize = frames * iMicChannels * sizeof(jack_default_audio_sample_t);
+
+	interleaveBuffer.resize(iMicChannels > 1 ? frames * iMicChannels : 0);
 
 	if (buffer) {
 		jas->ringbufferFree(buffer);
@@ -725,7 +727,7 @@ bool JackAudioInput::activate() {
 	}
 
 	eMicFormat   = SampleFloat;
-	iMicChannels = 1;
+	iMicChannels = Global::get().s.bStereoInput ? 2 : 1;
 	iMicFreq     = jas->sampleRate();
 
 	initializeMixer();
@@ -761,10 +763,19 @@ bool JackAudioInput::registerPorts() {
 
 	QMutexLocker lock(&qmWait);
 
-	port = jas->registerPort("input", JackPortIsInput);
-	if (!port) {
-		qWarning("JackAudioInput: unable to register port");
-		return false;
+	if (iMicChannels > 1) {
+		port  = jas->registerPort("input_1", JackPortIsInput);
+		portR = jas->registerPort("input_2", JackPortIsInput);
+		if (!port || !portR) {
+			qWarning("JackAudioInput: unable to register ports");
+			return false;
+		}
+	} else {
+		port = jas->registerPort("input", JackPortIsInput);
+		if (!port) {
+			qWarning("JackAudioInput: unable to register port");
+			return false;
+		}
 	}
 
 	return true;
@@ -773,18 +784,29 @@ bool JackAudioInput::registerPorts() {
 bool JackAudioInput::unregisterPorts() {
 	QMutexLocker lock(&qmWait);
 
-	if (!port) {
+	if (!port && !portR) {
 		return false;
 	}
 
-	if (!jas->unregisterPort(port)) {
-		qWarning("JackAudioInput: unable to unregister port");
-		return false;
+	bool ok = true;
+
+	if (port) {
+		if (!jas->unregisterPort(port)) {
+			qWarning("JackAudioInput: unable to unregister port");
+			ok = false;
+		}
+		port = nullptr;
 	}
 
-	port = nullptr;
+	if (portR) {
+		if (!jas->unregisterPort(portR)) {
+			qWarning("JackAudioInput: unable to unregister port");
+			ok = false;
+		}
+		portR = nullptr;
+	}
 
-	return true;
+	return ok;
 }
 
 void JackAudioInput::connectPorts() {
@@ -796,10 +818,17 @@ void JackAudioInput::connectPorts() {
 		return;
 	}
 
+	// Connect the first physical capture port to the left (or mono) channel and,
+	// when transmitting in stereo, the second one to the right channel
 	const JackPorts outputPorts = jas->getPhysicalPorts(JackPortIsOutput);
+	jack_port_t *target         = port;
 	for (auto outputPort : outputPorts) {
-		if (jas->connectPort(outputPort, port)) {
-			break;
+		if (jas->connectPort(outputPort, target)) {
+			if (target == port && portR) {
+				target = portR;
+			} else {
+				break;
+			}
 		}
 	}
 }
@@ -807,16 +836,19 @@ void JackAudioInput::connectPorts() {
 bool JackAudioInput::disconnectPorts() {
 	QMutexLocker lock(&qmWait);
 
-	if (!port) {
-		return true;
-	}
+	bool ok = true;
 
-	if (!jas->disconnectPort(port)) {
+	if (port && !jas->disconnectPort(port)) {
 		qWarning("JackAudioInput: unable to disconnect port");
-		return false;
+		ok = false;
 	}
 
-	return true;
+	if (portR && !jas->disconnectPort(portR)) {
+		qWarning("JackAudioInput: unable to disconnect port");
+		ok = false;
+	}
+
+	return ok;
 }
 
 bool JackAudioInput::process(const jack_nframes_t frames) {
@@ -824,17 +856,34 @@ bool JackAudioInput::process(const jack_nframes_t frames) {
 		return true;
 	}
 
-	const auto portBuffer = jas->getPortBuffer(port, frames);
+	const auto portBuffer  = jas->getPortBuffer(port, frames);
+	const auto portBufferR = portR ? jas->getPortBuffer(portR, frames) : nullptr;
 
 	qsSleep.release(1);
 
-	if (!portBuffer || !buffer) {
+	if (!portBuffer || !buffer || (portR && !portBufferR)) {
 		return false;
 	}
 
-	// Ringbuffer will not exceed capacity, just drop the frames.
-	// Since the consumer drains it fully every time, this should never be a problem.
-	jas->ringbufferWrite(buffer, frames * sizeof(jack_default_audio_sample_t), portBuffer);
+	if (portR) {
+		// Interleave the two channels ([LRLR...]) before handing them to the ringbuffer
+		const auto left  = reinterpret_cast< const jack_default_audio_sample_t * >(portBuffer);
+		const auto right = reinterpret_cast< const jack_default_audio_sample_t * >(portBufferR);
+
+		const jack_nframes_t n = qMin(frames, static_cast< jack_nframes_t >(interleaveBuffer.size() / 2));
+		for (jack_nframes_t i = 0; i < n; ++i) {
+			interleaveBuffer[2 * i]     = left[i];
+			interleaveBuffer[2 * i + 1] = right[i];
+		}
+
+		// Ringbuffer will not exceed capacity, just drop the frames.
+		// Since the consumer drains it fully every time, this should never be a problem.
+		jas->ringbufferWrite(buffer, n * 2 * sizeof(jack_default_audio_sample_t), interleaveBuffer.data());
+	} else {
+		// Ringbuffer will not exceed capacity, just drop the frames.
+		// Since the consumer drains it fully every time, this should never be a problem.
+		jas->ringbufferWrite(buffer, frames * sizeof(jack_default_audio_sample_t), portBuffer);
+	}
 
 	return true;
 }
@@ -859,7 +908,8 @@ void JackAudioInput::run() {
 
 		while (const auto bytes = qMin(jas->ringbufferReadSpace(buffer), bufferSize)) {
 			jas->ringbufferRead(buffer, bytes, sampleBuffer.get());
-			addMic(sampleBuffer.get(), static_cast< unsigned int >(bytes / sizeof(jack_default_audio_sample_t)));
+			addMic(sampleBuffer.get(),
+				   static_cast< unsigned int >(bytes / (sizeof(jack_default_audio_sample_t) * iMicChannels)));
 		}
 
 		qmWait.unlock();

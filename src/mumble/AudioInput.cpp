@@ -216,7 +216,9 @@ bool AudioInputRegistrar::isMicrophoneAccessDeniedByOS() {
 }
 
 AudioInput::AudioInput()
-	: opusBuffer(static_cast< std::size_t >(Global::get().s.iFramesPerPacket * (SAMPLE_RATE / 100))) {
+	: m_transmitChannels(Global::get().s.bStereoInput ? 2 : 1),
+	  opusBuffer(static_cast< std::size_t >(Global::get().s.iFramesPerPacket * (SAMPLE_RATE / 100))
+				 * (Global::get().s.bStereoInput ? 2 : 1)) {
 	bDebugDumpInput         = Global::get().bDebugDumpInput;
 	resync.bDebugPrintQueue = Global::get().bDebugPrintQueue;
 	if (bDebugDumpInput) {
@@ -234,21 +236,29 @@ AudioInput::AudioInput()
 	activityState = ActivityStateActive;
 	opusState     = nullptr;
 
+	const int channels = static_cast< int >(m_transmitChannels);
 	if (bAllowLowDelay && iAudioQuality >= 64000) { // > 64 kbit/s bitrate and low delay allowed
-		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_RESTRICTED_LOWDELAY, nullptr);
+		opusState = opus_encoder_create(SAMPLE_RATE, channels, OPUS_APPLICATION_RESTRICTED_LOWDELAY, nullptr);
 		qWarning("AudioInput: Opus encoder set for low delay");
 	} else if (iAudioQuality >= 32000) { // > 32 kbit/s bitrate
-		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_AUDIO, nullptr);
+		opusState = opus_encoder_create(SAMPLE_RATE, channels, OPUS_APPLICATION_AUDIO, nullptr);
 		qWarning("AudioInput: Opus encoder set for high quality speech");
 	} else {
-		opusState = opus_encoder_create(SAMPLE_RATE, 1, OPUS_APPLICATION_VOIP, nullptr);
+		opusState = opus_encoder_create(SAMPLE_RATE, channels, OPUS_APPLICATION_VOIP, nullptr);
 		qWarning("AudioInput: Opus encoder set for low quality speech");
+	}
+
+	if (m_transmitChannels > 1) {
+		qWarning("AudioInput: Transmitting in stereo");
 	}
 
 	opus_encoder_ctl(opusState, OPUS_SET_VBR(0)); // CBR
 
 #ifdef USE_RNNOISE
 	denoiseState = rnnoise_create(nullptr);
+	// When transmitting in stereo each channel is denoised separately, which
+	// requires a second state
+	denoiseStateR = (m_transmitChannels > 1) ? rnnoise_create(nullptr) : nullptr;
 #endif
 
 	qWarning("AudioInput: %d bits/s, %d hz, %d sample", iAudioQuality, iSampleRate, iFrameSize);
@@ -304,6 +314,9 @@ AudioInput::~AudioInput() {
 #ifdef USE_RNNOISE
 	if (denoiseState) {
 		rnnoise_destroy(denoiseState);
+	}
+	if (denoiseStateR) {
+		rnnoise_destroy(denoiseStateR);
 	}
 #endif
 
@@ -403,6 +416,56 @@ static void inMixerShortMask(float *RESTRICT buffer, const void *RESTRICT ipt, u
 	}
 }
 
+/**
+ * Determine which input channels feed the left and right output channel when
+ * mixing down to stereo: the first two channels enabled in the mask are used.
+ * If only one channel is available (or enabled), it is used for both sides.
+ */
+static void stereoSourceChannels(unsigned int N, quint64 mask, unsigned int &leftChan, unsigned int &rightChan) {
+	unsigned int chosen[2];
+	unsigned int found = 0;
+	for (unsigned int j = 0; j < N && found < 2; ++j) {
+		if (mask & (1ULL << j)) {
+			chosen[found++] = j;
+		}
+	}
+	if (found == 0) {
+		chosen[0] = 0;
+		chosen[1] = (N > 1) ? 1 : 0;
+	} else if (found == 1) {
+		chosen[1] = chosen[0];
+	}
+	leftChan  = chosen[0];
+	rightChan = chosen[1];
+}
+
+static void inMixerStereoFloat(float *RESTRICT buffer, const void *RESTRICT ipt, unsigned int nsamp, unsigned int N,
+							   quint64 mask) {
+	const float *RESTRICT input = reinterpret_cast< const float * >(ipt);
+
+	unsigned int leftChan, rightChan;
+	stereoSourceChannels(N, mask, leftChan, rightChan);
+
+	for (unsigned int i = 0; i < nsamp; ++i) {
+		buffer[2 * i]     = input[i * N + leftChan];
+		buffer[2 * i + 1] = input[i * N + rightChan];
+	}
+}
+
+static void inMixerStereoShort(float *RESTRICT buffer, const void *RESTRICT ipt, unsigned int nsamp, unsigned int N,
+							   quint64 mask) {
+	const short *RESTRICT input = reinterpret_cast< const short * >(ipt);
+	const float m               = 1.0f / 32768.f;
+
+	unsigned int leftChan, rightChan;
+	stereoSourceChannels(N, mask, leftChan, rightChan);
+
+	for (unsigned int i = 0; i < nsamp; ++i) {
+		buffer[2 * i]     = static_cast< float >(input[i * N + leftChan]) * m;
+		buffer[2 * i + 1] = static_cast< float >(input[i * N + rightChan]) * m;
+	}
+}
+
 IN_MIXER_FLOAT(1)
 IN_MIXER_FLOAT(2)
 IN_MIXER_FLOAT(3)
@@ -426,8 +489,20 @@ IN_MIXER_SHORT(N)
 #undef IN_MIXER_FLOAT
 #undef IN_MIXER_SHORT
 
-AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 chanmask) {
+AudioInput::inMixerFunc AudioInput::chooseMixer(const unsigned int nchan, SampleFormat sf, quint64 chanmask,
+												unsigned int outChannels) {
 	inMixerFunc r = nullptr;
+
+	if (outChannels == 2) {
+		// Stereo output: instead of mixing all (masked) input channels down to
+		// mono, pass the first two of them through as left and right channel.
+		if (sf == SampleFloat) {
+			r = inMixerStereoFloat;
+		} else if (sf == SampleShort) {
+			r = inMixerStereoShort;
+		}
+		return r;
+	}
 
 	if (chanmask != 0xffffffffffffffffULL) {
 		if (sf == SampleFloat) {
@@ -509,15 +584,17 @@ void AudioInput::initializeMixer() {
 		speex_resampler_destroy(srsMic);
 	if (srsEcho)
 		speex_resampler_destroy(srsEcho);
+	srsMic  = nullptr;
+	srsEcho = nullptr;
 	delete[] pfMicInput;
 	delete[] pfEchoInput;
 
 	if (iMicFreq != iSampleRate)
-		srsMic = speex_resampler_init(1, iMicFreq, iSampleRate, 3, &err);
+		srsMic = speex_resampler_init(m_transmitChannels, iMicFreq, iSampleRate, 3, &err);
 
 	iMicLength = (iFrameSize * iMicFreq) / iSampleRate;
 
-	pfMicInput = new float[iMicLength];
+	pfMicInput = new float[iMicLength * m_transmitChannels];
 
 	if (iEchoChannels > 0) {
 		bEchoMulti = (Global::get().s.echoOption == EchoCancelOptionID::SPEEX_MULTICHANNEL);
@@ -528,7 +605,6 @@ void AudioInput::initializeMixer() {
 		iEchoFrameSize = bEchoMulti ? iFrameSize * iEchoChannels : iFrameSize;
 		pfEchoInput    = new float[iEchoMCLength];
 	} else {
-		srsEcho     = nullptr;
 		pfEchoInput = nullptr;
 	}
 
@@ -537,8 +613,10 @@ void AudioInput::initializeMixer() {
 	// There is no channel mask setting for the echo canceller, so allow all channels.
 	uiEchoChannelMask = 0xffffffffffffffffULL;
 
-	imfMic  = chooseMixer(iMicChannels, eMicFormat, uiMicChannelMask);
-	imfEcho = chooseMixer(iEchoChannels, eEchoFormat, uiEchoChannelMask);
+	imfMic = chooseMixer(iMicChannels, eMicFormat, uiMicChannelMask, m_transmitChannels);
+	// The echo reference is always mixed down to mono (unless bEchoMulti is set,
+	// in which case the mixer is bypassed altogether).
+	imfEcho = chooseMixer(iEchoChannels, eEchoFormat, uiEchoChannelMask, 1);
 
 	iMicSampleSize =
 		static_cast< unsigned int >(iMicChannels * ((eMicFormat == SampleFloat) ? sizeof(float) : sizeof(short)));
@@ -547,20 +625,24 @@ void AudioInput::initializeMixer() {
 
 	bResetProcessor = true;
 
-	qWarning("AudioInput: Initialized mixer for %d channel %d hz mic and %d channel %d hz echo", iMicChannels, iMicFreq,
-			 iEchoChannels, iEchoFreq);
+	qWarning(
+		"AudioInput: Initialized mixer for %d channel %d hz mic and %d channel %d hz echo, transmitting %d channel",
+		iMicChannels, iMicFreq, iEchoChannels, iEchoFreq, m_transmitChannels);
 	if (uiMicChannelMask != 0xffffffffffffffffULL) {
 		qWarning("AudioInput: using mic channel mask 0x%llx", static_cast< unsigned long long >(uiMicChannelMask));
 	}
 }
 
 void AudioInput::addMic(const void *data, unsigned int nsamp) {
+	// Interleaved samples per output frame (a frame is iFrameSize samples per transmitted channel)
+	const unsigned int frameSamples = static_cast< unsigned int >(iFrameSize) * m_transmitChannels;
+
 	while (nsamp > 0) {
 		// Make sure we don't overrun the frame buffer
 		const unsigned int left = qMin(nsamp, iMicLength - iMicFilled);
 
 		// Append mix into pfMicInput frame buffer (converts 16bit pcm->float if necessary)
-		imfMic(pfMicInput + iMicFilled, data, left, iMicChannels, uiMicChannelMask);
+		imfMic(pfMicInput + iMicFilled * m_transmitChannels, data, left, iMicChannels, uiMicChannelMask);
 
 		iMicFilled += left;
 		nsamp -= left;
@@ -578,22 +660,25 @@ void AudioInput::addMic(const void *data, unsigned int nsamp) {
 			iMicFilled = 0;
 
 			// If needed resample frame
-			float *pfOutput = srsMic ? (float *) alloca(iFrameSize * sizeof(float)) : nullptr;
+			float *pfOutput = srsMic ? (float *) alloca(frameSamples * sizeof(float)) : nullptr;
 			float *ptr      = srsMic ? pfOutput : pfMicInput;
 
 			if (srsMic) {
 				spx_uint32_t inlen  = iMicLength;
 				spx_uint32_t outlen = iFrameSize;
-				speex_resampler_process_float(srsMic, 0, pfMicInput, &inlen, pfOutput, &outlen);
+				if (m_transmitChannels == 1)
+					speex_resampler_process_float(srsMic, 0, pfMicInput, &inlen, pfOutput, &outlen);
+				else
+					speex_resampler_process_interleaved_float(srsMic, pfMicInput, &inlen, pfOutput, &outlen);
 			}
 
 			// If echo cancellation is enabled the pointer ends up in the resynchronizer queue
 			// and may need to outlive this function's frame
-			short *psMic = iEchoChannels > 0 ? new short[iFrameSize] : (short *) alloca(iFrameSize * sizeof(short));
+			short *psMic = iEchoChannels > 0 ? new short[frameSamples] : (short *) alloca(frameSamples * sizeof(short));
 
 			// Convert float to 16bit PCM
 			const float mul = 32768.f;
-			for (int j = 0; j < iFrameSize; ++j)
+			for (unsigned int j = 0; j < frameSamples; ++j)
 				psMic[j] = static_cast< short >(qBound(-32768.f, (ptr[j] * mul), 32767.f));
 
 			// If we have echo cancellation enabled...
@@ -776,7 +861,7 @@ void AudioInput::resetAudioProcessor() {
 		m_preprocessor.setNoiseSuppress(Global::get().s.iSpeexNoiseCancelStrength);
 	}
 
-	if (iEchoChannels > 0) {
+	if (iEchoChannels > 0 && m_transmitChannels == 1) {
 		int filterSize = iFrameSize * (10 + resync.getNominalLag());
 		sesEcho =
 			speex_echo_state_init_mc(iFrameSize, filterSize, 1, bEchoMulti ? static_cast< int >(iEchoChannels) : 1);
@@ -786,6 +871,9 @@ void AudioInput::resetAudioProcessor() {
 
 		qWarning("AudioInput: ECHO CANCELLER ACTIVE");
 	} else {
+		if (iEchoChannels > 0) {
+			qWarning("AudioInput: Echo cancellation is not available when transmitting in stereo");
+		}
 		sesEcho = nullptr;
 	}
 
@@ -814,15 +902,30 @@ bool AudioInput::selectCodec() {
 void AudioInput::selectNoiseCancel() {
 	noiseCancel = Global::get().s.noiseCancelMode;
 
+	if (m_transmitChannels > 1) {
+		// In stereo mode the Speex preprocessor only runs on the mono analysis downmix
+		// (for voice activity detection), so its noise suppression cannot be applied to
+		// the transmitted signal. RNNoise however is run on each channel separately and
+		// thus remains available.
+		if (noiseCancel == Settings::NoiseCancelSpeex) {
+			qInfo("AudioInput: Speex noise suppression is not available when transmitting in stereo");
+			noiseCancel = Settings::NoiseCancelOff;
+		} else if (noiseCancel == Settings::NoiseCancelBoth) {
+			qInfo("AudioInput: Speex noise suppression is not available when transmitting in stereo, "
+				  "using RNNoise only");
+			noiseCancel = Settings::NoiseCancelRNN;
+		}
+	}
+
 	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
 #ifdef USE_RNNOISE
-		if (!denoiseState || iFrameSize != 480) {
+		if (!denoiseState || (m_transmitChannels > 1 && !denoiseStateR) || iFrameSize != 480) {
 			qInfo("AudioInput: Ignoring request to enable RNNoise 0.2: internal error");
-			noiseCancel = Settings::NoiseCancelSpeex;
+			noiseCancel = (m_transmitChannels > 1) ? Settings::NoiseCancelOff : Settings::NoiseCancelSpeex;
 		}
 #else
 		qInfo("AudioInput: Ignoring request to enable RNNoise 0.2: Mumble was built without support for it");
-		noiseCancel = Settings::NoiseCancelSpeex;
+		noiseCancel = (m_transmitChannels > 1) ? Settings::NoiseCancelOff : Settings::NoiseCancelSpeex;
 #endif
 	}
 
@@ -846,6 +949,8 @@ void AudioInput::selectNoiseCancel() {
 	m_preprocessor.setDenoise(preprocessorDenoise);
 }
 
+/// \param source interleaved PCM data, holding size * m_transmitChannels samples
+/// \param size number of samples per channel
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer) {
 	int len;
 	const int tenMsFrameCount = (size / iFrameSize);
@@ -890,13 +995,16 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	if (!bRunning)
 		return;
 
+	// Interleaved samples in a transmitted frame (iFrameSize samples per channel)
+	const unsigned int frameSamples = static_cast< unsigned int >(iFrameSize) * m_transmitChannels;
+
 	sum = 1.0f;
 	max = 1;
-	for (unsigned int i = 0; i < iFrameSize; i++) {
+	for (unsigned int i = 0; i < frameSamples; i++) {
 		sum += static_cast< float >(chunk.mic[i] * chunk.mic[i]);
 		max = std::max(static_cast< short >(abs(chunk.mic[i])), max);
 	}
-	dPeakMic = qMax(20.0f * log10f(sqrtf(sum / static_cast< float >(iFrameSize)) / 32768.0f), -96.0f);
+	dPeakMic = qMax(20.0f * log10f(sqrtf(sum / static_cast< float >(frameSamples)) / 32768.0f), -96.0f);
 	dMaxMic  = max;
 
 	if (chunk.speaker && (iEchoChannels > 0)) {
@@ -920,6 +1028,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	short psClean[iFrameSize];
 	if (sesEcho && chunk.speaker) {
+		// Echo cancellation is only ever active for mono transmission
 		speex_echo_cancellation(sesEcho, chunk.mic, chunk.speaker, psClean);
 		psSource = psClean;
 	} else {
@@ -929,35 +1038,69 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 #ifdef USE_RNNOISE
 	// At the time of writing this code, RNNoise only supports a sample rate of 48000 Hz.
 	if (noiseCancel == Settings::NoiseCancelRNN || noiseCancel == Settings::NoiseCancelBoth) {
-		float denoiseFrames[480];
-		for (unsigned int i = 0; i < 480; i++) {
-			denoiseFrames[i] = psSource[i];
-		}
+		if (m_transmitChannels == 1) {
+			float denoiseFrames[480];
+			for (unsigned int i = 0; i < 480; i++) {
+				denoiseFrames[i] = psSource[i];
+			}
 
-		rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
+			rnnoise_process_frame(denoiseState, denoiseFrames, denoiseFrames);
 
-		for (unsigned int i = 0; i < 480; i++) {
-			psSource[i] = clampFloatSample(denoiseFrames[i]);
+			for (unsigned int i = 0; i < 480; i++) {
+				psSource[i] = clampFloatSample(denoiseFrames[i]);
+			}
+		} else {
+			// RNNoise only operates on mono signals, so denoise the left and right
+			// channel separately, each with its own state
+			float denoiseFramesL[480];
+			float denoiseFramesR[480];
+			for (unsigned int i = 0; i < 480; i++) {
+				denoiseFramesL[i] = psSource[2 * i];
+				denoiseFramesR[i] = psSource[2 * i + 1];
+			}
+
+			rnnoise_process_frame(denoiseState, denoiseFramesL, denoiseFramesL);
+			rnnoise_process_frame(denoiseStateR, denoiseFramesR, denoiseFramesR);
+
+			for (unsigned int i = 0; i < 480; i++) {
+				psSource[2 * i]     = clampFloatSample(denoiseFramesL[i]);
+				psSource[2 * i + 1] = clampFloatSample(denoiseFramesR[i]);
+			}
 		}
 	}
 #endif
 
-	m_preprocessor.run(*psSource);
+	// The Speex preprocessor can only handle mono signals. When transmitting in
+	// stereo, the (possibly denoised) signal is left untouched and the
+	// preprocessor merely analyzes a mono downmix, so that voice activity
+	// detection and the input level meters keep working.
+	short psMono[iFrameSize];
+	short *psAnalyze = psSource;
+	if (m_transmitChannels > 1) {
+		for (int i = 0; i < iFrameSize; ++i) {
+			psMono[i] = static_cast< short >(
+				(static_cast< int >(psSource[2 * i]) + static_cast< int >(psSource[2 * i + 1])) / 2);
+		}
+		psAnalyze = psMono;
+	}
+
+	m_preprocessor.run(*psAnalyze);
 
 	sum = 1.0f;
 	for (unsigned int i = 0; i < iFrameSize; i++)
-		sum += static_cast< float >(psSource[i] * psSource[i]);
+		sum += static_cast< float >(psAnalyze[i] * psAnalyze[i]);
 	float micLevel = sqrtf(sum / static_cast< float >(iFrameSize));
 	dPeakSignal    = qMax(20.0f * log10f(micLevel / 32768.0f), -96.0f);
 
 	if (bDebugDumpInput) {
-		outMic.write(reinterpret_cast< const char * >(chunk.mic), iFrameSize * sizeof(short));
+		outMic.write(reinterpret_cast< const char * >(chunk.mic),
+					 static_cast< std::streamsize >(frameSamples * sizeof(short)));
 		if (chunk.speaker) {
 			outSpeaker.write(reinterpret_cast< const char * >(chunk.speaker),
 							 static_cast< std::streamsize >(iEchoFrameSize * sizeof(short)));
 		}
 		outProcessed.write(reinterpret_cast< const char * >(psSource),
-						   static_cast< std::streamsize >(iFrameSize * sizeof(short)));
+						   static_cast< std::streamsize >(frameSamples * sizeof(short)));
 	}
 
 	fSpeechProb = static_cast< float >(m_preprocessor.getSpeechProb()) / 100.0f;
@@ -1108,9 +1251,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 	// encodeOpusFrame() clamps the bitrate such that the encoded packet always fits into this buffer
 	EncodingOutputBuffer buffer;
 
-	assert(iFrameSize % iMicChannels == 0);
-	const unsigned int samplesPerChannel = iFrameSize / iMicChannels;
-	emit audioInputEncountered(psSource, samplesPerChannel, iMicChannels, SAMPLE_RATE, bIsSpeech);
+	emit audioInputEncountered(psSource, static_cast< unsigned int >(iFrameSize), m_transmitChannels, SAMPLE_RATE,
+							   bIsSpeech);
 
 	int len = 0;
 
@@ -1122,7 +1264,7 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	// Encode via Opus
 	encoded = false;
-	opusBuffer.insert(opusBuffer.end(), psSource, psSource + iFrameSize);
+	opusBuffer.insert(opusBuffer.end(), psSource, psSource + frameSamples);
 	++iBufferedFrames;
 
 	if (!bIsSpeech || iBufferedFrames >= iAudioFrames) {
@@ -1132,7 +1274,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 			// a codec configuration switch by suddenly using a wildly different
 			// framecount per packet.
 			const int missingFrames = iAudioFrames - iBufferedFrames;
-			opusBuffer.insert(opusBuffer.end(), static_cast< std::size_t >(iFrameSize * missingFrames), 0);
+			opusBuffer.insert(opusBuffer.end(),
+							  static_cast< std::size_t >(iFrameSize * missingFrames) * m_transmitChannels, 0);
 			iBufferedFrames += missingFrames;
 			iFrameCounter += missingFrames;
 		}

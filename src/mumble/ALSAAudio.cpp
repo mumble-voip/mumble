@@ -315,7 +315,8 @@ void ALSAAudioInput::run() {
 
 	int err = 0;
 
-	unsigned int iChannels = 1;
+	// For stereo transmission capture both channels (interleaved stereo is left, right)
+	unsigned int iChannels = Global::get().s.bStereoInput ? 2 : 1;
 
 	qWarning("ALSAAudioInput: Initing audiocapture %s.", device_name.data());
 

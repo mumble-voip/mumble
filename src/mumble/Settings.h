@@ -265,9 +265,13 @@ struct Settings {
 	int iMinLoudness      = 1000;
 	/// Actual mic hold time is (iVoiceHold / 100) seconds, where iVoiceHold is specified in 'frames',
 	/// each of which is has a size of iFrameSize (see AudioInput.h)
-	int iVoiceHold                  = 20;
-	int iJitterBufferSize           = 1;
-	bool bAllowLowDelay             = true;
+	int iVoiceHold        = 20;
+	int iJitterBufferSize = 1;
+	bool bAllowLowDelay   = true;
+	/// If true, the microphone input is transmitted with two channels (stereo) instead of
+	/// being mixed down to mono. Echo cancellation and noise suppression are unavailable
+	/// in this mode.
+	bool bStereoInput               = false;
 	NoiseCancel noiseCancelMode     = NoiseCancelSpeex;
 	int iSpeexNoiseCancelStrength   = -30;
 	quint64 uiAudioInputChannelMask = 0xffffffffffffffffULL;

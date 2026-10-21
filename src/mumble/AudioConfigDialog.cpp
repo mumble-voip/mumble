@@ -137,8 +137,10 @@ void AudioInputDialog::load(const Settings &r) {
 	loadCheckBox(qcbEnableCueVAD, r.audioCueEnabledVAD);
 	updateAudioCueEnabled();
 	loadCheckBox(qcbMuteCue, r.bTxMuteCue);
-	loadSlider(qsQuality, r.iQuality);
 	loadCheckBox(qcbAllowLowDelay, r.bAllowLowDelay);
+	loadCheckBox(qcbStereoInput, r.bStereoInput);
+	updateQualitySliderMax();
+	loadSlider(qsQuality, r.iQuality);
 	if (r.iSpeexNoiseCancelStrength != 0) {
 		loadSlider(qsSpeexNoiseSupStrength, -r.iSpeexNoiseCancelStrength);
 	} else {
@@ -228,6 +230,7 @@ void AudioInputDialog::verifyMicrophonePermission() {
 void AudioInputDialog::save() const {
 	s.iQuality                  = qsQuality->value();
 	s.bAllowLowDelay            = qcbAllowLowDelay->isChecked();
+	s.bStereoInput              = qcbStereoInput->isChecked();
 	s.iSpeexNoiseCancelStrength = (qsSpeexNoiseSupStrength->value() == 14) ? 0 : -qsSpeexNoiseSupStrength->value();
 
 	if (qrbNoiseSupDeactivated->isChecked()) {
@@ -491,6 +494,21 @@ void AudioInputDialog::on_qpbPushClickReset_clicked() {
 	qlePushClickPathOff->setText(Settings::cqsDefaultPushClickOff);
 }
 
+void AudioInputDialog::on_qcbStereoInput_clicked() {
+	updateQualitySliderMax();
+	updateBitrate();
+	updateEchoEnableState();
+}
+
+void AudioInputDialog::updateQualitySliderMax() {
+	// The quality cap is dictated by the maximum packet size the protocol allows:
+	// mono is capped such that even 40 ms packets fit, while stereo may go up to
+	// twice that (which still fits as long as no more than 20 ms are put into a
+	// single packet - beyond that, the client clamps the effective bitrate).
+	qsQuality->setMaximum(qcbStereoInput->isChecked() ? ::AudioInput::maxPayloadBitrate(2)
+													  : ::AudioInput::maxPayloadBitrate(4));
+}
+
 void AudioInputDialog::on_qcbTransmit_currentIndexChanged(int v) {
 	switch (v) {
 		case 0:
@@ -579,6 +597,13 @@ void AudioInputDialog::updateEchoEnableState() {
 										"combination \"%1\" (in) and \"%2\" (out).")
 								.arg(air->name)
 								.arg(outputInterface));
+	}
+
+	if (qcbStereoInput->isChecked()) {
+		// Echo cancellation only works on mono input. Keep the user's stored choice
+		// intact, but make clear that it won't be in effect while transmitting in stereo.
+		qcbEcho->setEnabled(false);
+		qcbEcho->setToolTip(QObject::tr("Echo cancellation is not available when transmitting in stereo."));
 	}
 }
 

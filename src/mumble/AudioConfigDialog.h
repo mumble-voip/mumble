@@ -17,6 +17,7 @@ private:
 	Q_DISABLE_COPY(AudioInputDialog)
 
 	void updateAudioCueEnabled();
+	void updateQualitySliderMax();
 
 protected:
 	QTimer *qtTick;
@@ -62,6 +63,7 @@ public slots:
 	void on_qsTransmitMax_valueChanged();
 	void on_qsSpeexNoiseSupStrength_valueChanged(int v);
 	void on_qcbTransmit_currentIndexChanged(int v);
+	void on_qcbStereoInput_clicked();
 	void on_qcbSystem_currentIndexChanged(int);
 	void on_Tick_timeout();
 	void on_qcbIdleAction_currentIndexChanged(int v);

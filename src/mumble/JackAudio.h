@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_JACKAUDIO_H_
 
 #include <map>
+#include <vector>
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
@@ -136,8 +137,14 @@ protected:
 	QMutex qmWait;
 	QSemaphore qsSleep;
 	jack_port_t *port;
+	/// Right channel port, only registered when transmitting in stereo
+	jack_port_t *portR;
 	jack_ringbuffer_t *buffer;
 	size_t bufferSize;
+	/// Scratch buffer used by process() to interleave the two channels when
+	/// transmitting in stereo. (Re)sized by allocBuffer(), which JACK never
+	/// calls concurrently with process().
+	std::vector< jack_default_audio_sample_t > interleaveBuffer;
 
 public:
 	bool isReady();

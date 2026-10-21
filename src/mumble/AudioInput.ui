@@ -597,7 +597,20 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="3">
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbStereoInput">
+        <property name="toolTip">
+         <string>Transmit audio with two channels (stereo) instead of mixing the input down to mono. Echo cancellation and Speex noise suppression are not available in stereo mode (RNNoise remains available).</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;If checked, Mumble will encode and transmit your audio in stereo.&lt;/b&gt;&lt;br /&gt;The first two channels of the input device are used as the left and right channel (a mono input is sent to both channels). Note that echo cancellation and Speex noise suppression are not available in stereo mode (RNNoise remains available), and that stereo audio may require a higher quality setting for comparable fidelity.</string>
+        </property>
+        <property name="text">
+         <string>Transmit in stereo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="3">
        <widget class="QLabel" name="qlBitrate">
         <property name="font">
          <font>
@@ -1184,6 +1197,7 @@
   <tabstop>qcbPushWindow</tabstop>
   <tabstop>qsFrames</tabstop>
   <tabstop>qcbAllowLowDelay</tabstop>
+  <tabstop>qcbStereoInput</tabstop>
   <tabstop>qsAmp</tabstop>
   <tabstop>qcbEcho</tabstop>
   <tabstop>qrbNoiseSupDeactivated</tabstop>

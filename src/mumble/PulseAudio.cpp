@@ -285,8 +285,10 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					pa_sample_spec pss = qhSpecMap.value(idev);
 					if ((pss.format != PA_SAMPLE_FLOAT32NE) && (pss.format != PA_SAMPLE_S16NE))
 						pss.format = PA_SAMPLE_FLOAT32NE;
-					pss.rate     = SAMPLE_RATE;
-					pss.channels = 1;
+					pss.rate = SAMPLE_RATE;
+					// For stereo transmission capture both channels; the default channel
+					// map for two channels is front-left, front-right.
+					pss.channels = Global::get().s.bStereoInput ? 2 : 1;
 
 					pasInput = m_pulseAudio.stream_new(pacContext, "Microphone", &pss, nullptr);
 					m_pulseAudio.stream_set_state_callback(pasInput, read_stream_callback, this);
@@ -297,7 +299,14 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 					do_start = true;
 					break;
 				case PA_STREAM_READY: {
+					const pa_sample_spec *pss    = m_pulseAudio.stream_get_sample_spec(pasInput);
+					const uint8_t wantedChannels = Global::get().s.bStereoInput ? 2 : 1;
 					if (idev != qsInputCache) {
+						do_stop = true;
+					} else if (pss && pss->channels != wantedChannels) {
+						// The stereo input setting was toggled; the stream survives audio
+						// restarts and thus has to be torn down explicitly so that it gets
+						// recreated with the new channel count.
 						do_stop = true;
 					}
 					break;
