@@ -194,7 +194,20 @@ private:
 	bool selectCodec();
 	void selectNoiseCancel();
 
-	using EncodingOutputBuffer = std::array< unsigned char, 960 >;
+public:
+	/// Maximum size in bytes of the encoded payload of a single audio packet.
+	/// Sized such that a full packet - including the protocol overhead - always
+	/// stays below Mumble::Protocol::MAX_UDP_PACKET_SIZE.
+	static constexpr unsigned int MAX_PACKET_PAYLOAD = 960;
+
+	/// \return the maximum encoder bitrate (bit/s) such that a packet containing
+	/// framesPerPacket 10 ms frames still fits into MAX_PACKET_PAYLOAD bytes
+	static constexpr int maxPayloadBitrate(int framesPerPacket) {
+		return static_cast< int >(MAX_PACKET_PAYLOAD) * 8 * 100 / framesPerPacket;
+	}
+
+private:
+	using EncodingOutputBuffer = std::array< unsigned char, MAX_PACKET_PAYLOAD >;
 
 	int encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer);
 

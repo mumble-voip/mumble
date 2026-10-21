@@ -361,7 +361,11 @@ void AudioInputDialog::updateBitrate() {
 
 	int audiorate, overhead, posrate;
 
-	audiorate = q;
+	// Convert the slider position to the number of 10 ms frames per packet and
+	// account for the bitrate clamp that keeps a packet within the maximum size
+	// allowed by the protocol
+	const int framesPerPacket = (p == 1) ? 1 : (p - 1) * 2;
+	audiorate                 = qMin(q, ::AudioInput::maxPayloadBitrate(framesPerPacket));
 
 	// 50 packets, in bits, IP + UDP + Crypt + type + seq + frameheader
 	overhead = 100 * 8 * (20 + 8 + 4 + 1 + 2 + p);

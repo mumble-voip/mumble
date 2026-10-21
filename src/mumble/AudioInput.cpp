@@ -848,16 +848,27 @@ void AudioInput::selectNoiseCancel() {
 
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer &buffer) {
 	int len;
+	const int tenMsFrameCount = (size / iFrameSize);
+
+	// With CBR, a packet of N 10 ms frames encoded at bitrate b takes b * N / (100 * 8)
+	// bytes. Cap the bitrate such that the encoded packet always fits into the output
+	// buffer (and thereby into the maximum packet size allowed by the protocol).
+	const int bitrate = std::min(iAudioQuality, maxPayloadBitrate(tenMsFrameCount));
+
 	if (bResetEncoder) {
 		opus_encoder_ctl(opusState, OPUS_RESET_STATE, nullptr);
 		bResetEncoder = false;
+
+		if (bitrate < iAudioQuality) {
+			qWarning("AudioInput: Bitrate clamped from %d to %d bit/s so that %d frames fit into one packet",
+					 iAudioQuality, bitrate, tenMsFrameCount);
+		}
 	}
 
-	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
+	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(bitrate));
 
-	len = opus_encode(opusState, source, size, &buffer[0], static_cast< opus_int32 >(buffer.size()));
-	const int tenMsFrameCount = (size / iFrameSize);
-	iBitrate                  = (len * 100 * 8) / tenMsFrameCount;
+	len      = opus_encode(opusState, source, size, &buffer[0], static_cast< opus_int32 >(buffer.size()));
+	iBitrate = (len * 100 * 8) / tenMsFrameCount;
 	return len;
 }
 
@@ -1094,8 +1105,8 @@ void AudioInput::encodeAudioFrame(AudioChunk chunk) {
 
 	tIdle.restart();
 
+	// encodeOpusFrame() clamps the bitrate such that the encoded packet always fits into this buffer
 	EncodingOutputBuffer buffer;
-	Q_ASSERT(buffer.size() >= static_cast< size_t >(iAudioQuality / 100 * iAudioFrames / 8));
 
 	assert(iFrameSize % iMicChannels == 0);
 	const unsigned int samplesPerChannel = iFrameSize / iMicChannels;
