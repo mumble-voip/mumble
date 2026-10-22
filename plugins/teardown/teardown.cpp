@@ -3,10 +3,6 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
-#define MUMBLE_PLUGIN_API_MINOR_MACRO 0
-#define MUMBLE_PLUGIN_API_PATCH_MACRO 0
-
 #include "ProcessWindows.h"
 #include "MumblePlugin.h"
 
@@ -16,16 +12,11 @@
 #include <memory>
 
 struct Vec3 {
-	float x;
-	float y;
-	float z;
+	float x, y, z;
 };
 
 struct Quat {
-	float x;
-	float y;
-	float z;
-	float w;
+	float x, y, z, w;
 };
 
 /* teardown's coordinate system is as such:
@@ -38,31 +29,33 @@ struct Quat {
  * top of the screen is north.
  *
  * I think this makes it a right-handed coordinate system?
- * whereas mumble is left-handed */
+ * whereas mumble is left-handed.
+ *
+ * The player position is at offset 0x58 in some structure.
+ * The camera position was at offset 0x1cc in the same structure, but moved by
+ * four bytes to 0x1d0 at around the September 2026 update.
+ *
+ * The player quaternion flops around when the player is seated in a vehicle,
+ * unfortunately.
+ *
+ * But I am happy with the position information. When in a lift vehicle, for
+ * example, your body is in the upper part that moves vertically, and playerPos
+ * will report that position consistently in both first and third person
+ * perspectives. That is what we want because other players will always see you
+ * on the upper/vertical part of the lift, so your voice should always come
+ * from there.
+ *
+ * The camera structure seems to be accurate in first-person, third-person, in
+ * a vehicle, and in the bird's eye view when hitting tab. */
 struct TeardownPositional {
-	/* This information isn't perfect, the quaternion flops around when the
-	 * player is seated in a vehicle. But the position is pretty good! When
-	 * in a lift vehicle, for example, your body is in the upper part that
-	 * moves vertically, and playerPos will report that position
-	 * consistently in both first and third person perspectives. That is
-	 * what we want because other players will always see you on the
-	 * upper/vertical part of the lift, so your voice should always come
-	 * from there. */
-	Vec3 playerPos; /* 0x58 */
-	Quat playerRot;
-	/* There is a third-person camera position and quaternion immediately
-	 * after the player above, but it doesn't work right when you get into
-	 * a vehicle. At 0x1cc there is a more accurate camera structure that
-	 * works in first-person, third-person, in a vehicle, and in the bird's
-	 * eye view when hitting tab. */
-	uint8_t _[0x158];
-	Vec3 cameraPos; /* 0x1cc */
-	Quat cameraRot;
+	Vec3 position;
+	Quat rotation;
 };
 
 struct TeardownAttachment {
 	ProcessWindows proc;
 	procptr_t start;
+	uint32_t cameraOffset;
 };
 
 const uint8_t TEARDOWN_NO_MP      = 0;
@@ -207,26 +200,39 @@ uint8_t mumble_initPositionalData(const char *const *programNames, const uint64_
 			continue;
 		}
 
-		/*  mov rax,qword ptr ds:[?? ?? ?? ??]
-		 *  mov r8d,dword ptr ds:[rcx+8]
-		 *  mov rdx,qword ptr ds:[rax+38] */
+		/* We read two pieces of information here, the offset to the
+		 * start of the pointer chain, and the struct offset to the
+		 * camera position. The camera position offset changed from
+		 * 0x1cc to 0x1d0 some time around multiplayer greenwash
+		 * gambit dlc update. Between [1] and [2]. So I'm trying to
+		 * read the offset from the instructions here so it works on
+		 * both versions and hoping it won't break again in the next
+		 * update. (Tested with exe version 2.0.4 and 2.1.0 as
+		 * indicated by text in bottom-right of screen at main menu.)
+		 *
+		 * [1] 23 June 2026 (manifest id 6139167836044581106)
+		 * [2] 14 September 2026 (manifest id 7308486543230138149)
+		 *
+		 * 48:8B05 ? ? ? ?   | mov rax,qword ptr ds:[????]
+		 * 48:8B48 60        | mov rcx,qword ptr ds:[rax+60]
+		 * F2:0F1081 ? ? ? ? | movsd xmm0,qword ptr ds:[rcx+????] */
 		// clang-format off
 		const std::vector< uint8_t > pattern = {
-			0x48, 0x8B, 0x05, '?',  '?', '?', '?',
-			0x44, 0x8B, 0x41, 0x08,
-			0x48, 0x8B, 0x50, 0x38,
+			0x48, 0x8B, 0x05, '?', '?', '?', '?',
+			0x48, 0x8B, 0x48, 0x60,
+			0xF2, 0x0F, 0x10, 0x81,
 		};
-
-		procptr_t addr, ok;
-
-		if (   !(addr = proc.findPattern(pattern, iter->second))
-		    || !(addr = proc.peekRIP(addr + 0x3))
-		    || !(proc.peek(addr, ok))) {
+		procptr_t start;
+		uint32_t  cameraOffset;
+		if (   !(start = proc.findPattern(pattern, iter->second))
+		    || !(proc.peek(start + 0xf, cameraOffset))
+		    || !(start = proc.peekRIP(start + 0x3))
+		    || !(proc.peek< procptr_t >(start))) {
 			continue;
 		}
 		// clang-format on
 
-		TeardownAttachment a = { std::move(proc), addr };
+		TeardownAttachment a = { std::move(proc), start, cameraOffset };
 		handle               = std::make_unique< TeardownAttachment >(std::move(a));
 
 		return MUMBLE_PDEC_OK;
@@ -243,18 +249,20 @@ static bool readState(const ProcessWindows &proc, procptr_t p, uint8_t &out) {
 	// clang-format on
 }
 
-static bool readPositional(const ProcessWindows &proc, procptr_t p, TeardownPositional &out) {
+static bool readPositional(const ProcessWindows &proc, procptr_t p, uint32_t cameraOffset, TeardownPositional &player,
+						   TeardownPositional &camera) {
 	// clang-format off
 	return (p = proc.peekPtr(p))
 	    && (p = proc.peekPtr(p + 0x60))
-	    && (proc.peek(p + 0x58, out));
+	    && (proc.peek(p + 0x58, player))
+	    && (proc.peek(p + cameraOffset, camera));
 	// clang-format on
 }
 
 bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avatarAxis, float *cameraPos,
 								float *cameraDir, float *cameraAxis, const char **contextPtr,
 								const char **identityPtr) {
-	TeardownPositional td;
+	TeardownPositional player, camera;
 	uint8_t state;
 
 	*contextPtr  = "";
@@ -284,7 +292,7 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 		}
 	}
 
-	if (!readPositional(handle->proc, handle->start, td)) {
+	if (!readPositional(handle->proc, handle->start, handle->cameraOffset, player, camera)) {
 		return false;
 	}
 
@@ -295,17 +303,17 @@ bool mumble_fetchPositionalData(float *avatarPos, float *avatarDir, float *avata
 	 * the game at their game positions. */
 	*contextPtr = "tearing it down with your buddies";
 
-	const Vec3 playerFw = teardown_forward(td.playerRot);
-	const Vec3 playerUp = teardown_up(td.playerRot);
+	const Vec3 playerFw = teardown_forward(player.rotation);
+	const Vec3 playerUp = teardown_up(player.rotation);
 
-	to_mumble_coordinates(td.playerPos, avatarPos);
+	to_mumble_coordinates(player.position, avatarPos);
 	to_mumble_coordinates(playerFw, avatarDir);
 	to_mumble_coordinates(playerUp, avatarAxis);
 
-	const Vec3 cameraFw = teardown_forward(td.cameraRot);
-	const Vec3 cameraUp = teardown_up(td.cameraRot);
+	const Vec3 cameraFw = teardown_forward(camera.rotation);
+	const Vec3 cameraUp = teardown_up(camera.rotation);
 
-	to_mumble_coordinates(td.cameraPos, cameraPos);
+	to_mumble_coordinates(camera.position, cameraPos);
 	to_mumble_coordinates(cameraFw, cameraDir);
 	to_mumble_coordinates(cameraUp, cameraAxis);
 
