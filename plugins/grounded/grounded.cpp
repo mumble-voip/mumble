@@ -75,7 +75,7 @@ MumbleStringWrapper mumble_getDescription() {
 }
 
 MumbleStringWrapper mumble_getAuthor() {
-	static const char author[] = "MumbleDevelopers";
+	static const char author[] = "sqwishy <somebody@froghat.ca>";
 
 	MumbleStringWrapper wrapper;
 	wrapper.data           = author;
