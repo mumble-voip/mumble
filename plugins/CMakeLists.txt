@@ -76,6 +76,7 @@ if(WIN32 OR (UNIX AND CMAKE_SYSTEM_NAME STREQUAL "Linux"))
 		"se"
 		"sr"
 		"sto"
+		"teardown"
 		"tf2"
 		"ut2004"
 		"ut3"
