@@ -74,6 +74,7 @@ public class ClientInstaller : MumbleInstall {
 			"lol.dll",
 			"lotro.dll",
 			"ql.dll",
+			"remnant2.dll",
 			"rl.dll",
 			"se.dll",
 			"sr.dll",
