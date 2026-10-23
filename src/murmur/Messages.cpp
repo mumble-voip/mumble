@@ -545,6 +545,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 			mpus.set_priority_speaker(true);
 		if (u->bRecording)
 			mpus.set_recording(true);
+		if (u->bScreenSharing)
+			mpus.set_screen_sharing(true);
+		if (u->m_videoCapabilities)
+			*mpus.mutable_video_capabilities() = *u->m_videoCapabilities;
 		if (u->bSelfDeaf)
 			mpus.set_self_deaf(true);
 		else if (u->bSelfMute)
@@ -627,6 +631,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpsc.set_image_message_length(static_cast< unsigned int >(iMaxImageMessageLength));
 	mpsc.set_max_users(static_cast< unsigned int >(iMaxUsers));
 	mpsc.set_recording_allowed(allowRecording);
+	mpsc.set_screen_sharing_allowed(allowScreenSharing);
+	mpsc.set_max_video_bandwidth(m_maxVideoBandwidth);
 	sendMessage(uSource, mpsc);
 
 	MumbleProto::SuggestConfig mpsug;
@@ -972,9 +978,32 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	// Prevent self-targeting state changes from being applied to others
 	if ((pDstServerUser != uSource)
 		&& (msg.has_self_deaf() || msg.has_self_mute() || msg.has_plugin_context() || msg.has_plugin_identity()
-			|| msg.has_recording() || msg.listening_channel_add_size() > 0
-			|| msg.listening_channel_remove_size() > 0)) {
+			|| msg.has_recording() || msg.has_screen_sharing() || msg.has_video_capabilities()
+			|| msg.listening_channel_add_size() > 0 || msg.listening_channel_remove_size() > 0)) {
 		return;
+	}
+
+	if (msg.has_screen_sharing() && msg.screen_sharing() && !pDstServerUser->bScreenSharing) {
+		bool allowed = true;
+		if (!allowScreenSharing) {
+			MumbleProto::PermissionDenied mppd;
+			mppd.set_type(MumbleProto::PermissionDenied_DenyType_Text);
+			mppd.set_reason(u8(QLatin1String("Screen sharing is not allowed on this server")));
+			sendMessage(uSource, mppd);
+			allowed = false;
+		} else if (!hasPermission(pDstServerUser, pDstServerUser->cChannel, ChanACL::ScreenShare)) {
+			PERM_DENIED(pDstServerUser, pDstServerUser->cChannel, ChanACL::ScreenShare);
+			allowed = false;
+		}
+
+		if (!allowed) {
+			// The client may already have started sharing, so tell it that it isn't
+			MumbleProto::UserState mpus;
+			mpus.set_session(uSource->uiSession);
+			mpus.set_screen_sharing(false);
+			sendMessage(uSource, mpus);
+			return;
+		}
 	}
 
 	/*
@@ -1102,6 +1131,70 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 		sendAll(mptm, Version::fromComponents(1, 2, 3), Version::CompareMode::LessThan);
 
 		bBroadcast = true;
+	}
+
+	if (msg.has_screen_sharing() && (pDstServerUser->bScreenSharing != msg.screen_sharing())) {
+		assert(uSource == pDstServerUser);
+
+		pDstServerUser->bScreenSharing = msg.screen_sharing();
+		if (!pDstServerUser->bScreenSharing) {
+			endVideoSubscriptionsTo(pDstServerUser);
+		}
+
+		MumbleProto::TextMessage mptm;
+		mptm.add_tree_id(0);
+		if (pDstServerUser->bScreenSharing) {
+			mptm.set_message(
+				u8(QString(QLatin1String("User '%1' started screen sharing")).arg(pDstServerUser->qsName)));
+		} else {
+			mptm.set_message(
+				u8(QString(QLatin1String("User '%1' stopped screen sharing")).arg(pDstServerUser->qsName)));
+		}
+		sendAll(mptm, Version::fromComponents(1, 2, 3), Version::CompareMode::LessThan);
+
+		bBroadcast = true;
+	}
+
+	if (msg.has_video_capabilities()) {
+		assert(uSource == pDstServerUser);
+
+		// Drop duplicates and limit the size, as the list is stored and relayed to every client
+		static constexpr std::size_t MAX_VIDEO_DECODERS = 32;
+		std::vector< unsigned int > decoders;
+		for (unsigned int codec : msg.video_capabilities().decoders()) {
+			if (decoders.size() < MAX_VIDEO_DECODERS
+				&& std::find(decoders.begin(), decoders.end(), codec) == decoders.end()) {
+				decoders.push_back(codec);
+			}
+		}
+
+		// Relay the cleaned up list. An empty list still has to be sent, so the field has to be set either way.
+		MumbleProto::UserState_VideoCapabilities *capabilities = msg.mutable_video_capabilities();
+		capabilities->clear_decoders();
+		for (unsigned int codec : decoders) {
+			capabilities->add_decoders(codec);
+		}
+
+		// Fields this server doesn't know are kept, so that newer clients can announce more than the codecs they can
+		// decode. As they are stored as well, they may only take up so much space.
+		static constexpr std::size_t MAX_VIDEO_CAPABILITIES_BYTES = 1024;
+		if (capabilities->ByteSizeLong() > MAX_VIDEO_CAPABILITIES_BYTES) {
+			capabilities->DiscardUnknownFields();
+		}
+
+		if (!pDstServerUser->m_videoCapabilities
+			|| pDstServerUser->m_videoCapabilities->SerializeAsString() != capabilities->SerializeAsString()) {
+			pDstServerUser->m_videoCapabilities = *capabilities;
+			{
+				// The list is used by the voice thread when relaying video
+				QWriteLocker wl(&qrwlVoiceThread);
+				pDstServerUser->m_videoDecoders = decoders;
+			}
+
+			bBroadcast = true;
+		} else {
+			msg.clear_video_capabilities();
+		}
 	}
 
 	if (msg.has_channel_id()) {
@@ -2610,6 +2703,66 @@ void Server::msgPluginDataTransmission(ServerUser *uSource, MumbleProto::PluginD
 			// We can simply redirect the message we have received to the clients
 			sendMessage(receiver, msg);
 		}
+	}
+}
+
+void Server::msgVideoKeyFrameRequest(ServerUser *uSource, MumbleProto::VideoKeyFrameRequest &msg) {
+	ZoneScoped;
+
+	// Requests are sent automatically by the client, so they don't count as user activity
+	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
+	if (uSource->m_videoControlBucket.ratelimit(1)) {
+		return;
+	}
+
+	if (!msg.has_session()) {
+		return;
+	}
+
+	ServerUser *target = qhUsers.value(msg.session());
+
+	// Video is only relayed to the users in the sender's channel that subscribed to the stream (see
+	// processVideoMsg()), so nobody else has a stream to request a key frame for.
+	if (!target || target == uSource || target->sState != ServerUser::Authenticated || !target->bScreenSharing
+		|| target->cChannel != uSource->cChannel || !uSource->m_videoSubscriptions.contains(target->uiSession)) {
+		return;
+	}
+
+	// Always set the requester's session ourselves, so that it can't be spoofed
+	msg.set_actor(uSource->uiSession);
+
+	sendMessage(target, msg);
+}
+
+void Server::msgVideoSubscription(ServerUser *uSource, MumbleProto::VideoSubscription &msg) {
+	ZoneScoped;
+
+	MSG_SETUP(ServerUser::Authenticated);
+	if (uSource->m_videoControlBucket.ratelimit(1)) {
+		return;
+	}
+
+	// A message without subscribe may come from a newer client that only changes something about its subscription
+	// that this server doesn't know about. Taking it for an unsubscription would end the subscription instead.
+	if (!msg.has_session() || !msg.has_subscribe()) {
+		return;
+	}
+
+	if (msg.subscribe()) {
+		ServerUser *target = qhUsers.value(msg.session());
+
+		// Video is only relayed within a channel, and subscriptions end when either user leaves it or the
+		// target stops sharing, so subscribing to anyone else would never have any effect.
+		if (!target || target == uSource || target->sState != ServerUser::Authenticated || !target->bScreenSharing
+			|| target->cChannel != uSource->cChannel) {
+			return;
+		}
+
+		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->m_videoSubscriptions.insert(target->uiSession);
+	} else {
+		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->m_videoSubscriptions.remove(msg.session());
 	}
 }
 

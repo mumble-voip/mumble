@@ -6,8 +6,11 @@
 #ifndef MUMBLE_MUMBLE_MAINWINDOW_H_
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
+#include <QtCore/QMap>
 #include <QtCore/QPointer>
+#include <QtCore/QThread>
 #include <QtCore/QtGlobal>
+#include <QtGui/QImage>
 #include <QtNetwork/QAbstractSocket>
 #include <QtWidgets/QMainWindow>
 
@@ -19,6 +22,7 @@
 #include "QtUtils.h"
 #include "Usage.h"
 #include "UserLocalNicknameDialog.h"
+#include "VideoFrame.h"
 
 #include <memory>
 #include <optional>
@@ -33,6 +37,8 @@ class ACLEditor;
 class BanEditor;
 class UserEdit;
 class ServerHandler;
+class ScreenShareViewer;
+class VideoSender;
 class GlobalShortcut;
 class TextToSpeech;
 class UserModel;
@@ -124,6 +130,21 @@ public:
 	Tokens *tokenEdit;
 
 	VoiceRecorderDialog *voiceRecorderDialog;
+	QMap< quint32, ScreenShareViewer * > m_screenShareViewers;
+	/// Sessions of the users whose screen share we receive, i.e. whose viewer is open. The server only relays
+	/// video to subscribers.
+	QSet< quint32 > m_screenShareSubscriptions;
+	/// Returns the viewer for the given user's screen share, creating it if necessary.
+	ScreenShareViewer *screenShareViewer(quint32 senderSession);
+	void subscribeToScreenShare(quint32 senderSession);
+	void unsubscribeFromScreenShare(quint32 senderSession);
+	/// Thread that Global::get().screenShareReceiver lives on.
+	QThread *m_screenShareThread = nullptr;
+	/// Whether the system's screen picker is open, i.e. a screen share is about to start.
+	bool m_screenSharePickerOpen = false;
+	/// Sends our own screen share stream. Lives on m_videoSenderThread and is deleted there once it has finished.
+	VideoSender *m_videoSender   = nullptr;
+	QThread *m_videoSenderThread = nullptr;
 
 	MumbleProto::Reject_RejectType rtLast;
 	bool bRetryServer;
@@ -269,6 +290,7 @@ public slots:
 	void on_qaUserTextMessage_triggered();
 	void on_qaUserRegister_triggered();
 	void on_qaUserInformation_triggered();
+	void on_qaUserViewScreenShare_triggered();
 	void on_qaUserFriendAdd_triggered();
 	void on_qaUserFriendRemove_triggered();
 	void on_qaUserFriendUpdate_triggered();
@@ -291,6 +313,7 @@ public slots:
 	void on_qaAudioMute_triggered();
 	void on_qaAudioDeaf_triggered();
 	void on_qaRecording_triggered();
+	void on_qaScreenShare_triggered();
 	void on_qaAudioTTS_triggered();
 	void on_qaAudioUnlink_triggered();
 	void on_qaAudioStats_triggered();
@@ -466,6 +489,24 @@ public:
 	void openServerBanListDialog();
 	void toggleSelfPrioritySpeaker();
 	void recording();
+	void screenShare();
+	/// Stops capturing and sending our screen, without telling the server.
+	void stopScreenShareCapture();
+	/// Enables the screen share action if we may share our screen, and always while we do.
+	void updateScreenShareAction();
+	/// Makes our screen share keep to the server's bandwidth limit.
+	void updateScreenShareBitrate();
+	void onRemoteFrameDecoded(quint32 senderSession, VideoFrame frame);
+	void requestScreenShareKeyFrame(quint32 senderSession);
+	/// Tells the screen capture what to base the choice of the video encoder on, i.e. the settings and the codecs
+	/// the users in our channel can decode. Has to be called whenever any of these changes.
+	void updateScreenShareEncoderSelection();
+	/// Applies the frame rate from the settings to the screen capture.
+	void updateScreenShareFrameRate();
+	void onRemoteScreenShareStopped(quint32 senderSession);
+	/// Closes the viewers of the screen shares that the server doesn't relay to us anymore, because we or the
+	/// sharing user changed channel or the sharing user left.
+	void updateScreenShareSubscriptions();
 	void openSelfCommentDialog();
 	void changeServerTexture();
 	void removeServerTexture();
