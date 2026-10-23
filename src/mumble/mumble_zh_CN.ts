@@ -8413,7 +8413,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>更新插件“%1”失败，因为被重定向到非 HTTPS URL（%2）</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
