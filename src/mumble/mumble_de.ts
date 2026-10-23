@@ -671,11 +671,11 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Abhängigkeiten von Drittanbietern</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Je nach Build-Konfiguration ist Ihre Version von Mumble möglicherweise nicht von allen aufgelisteten Einträgen abhängig</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -1264,7 +1264,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Zugriff auf das Mikrofon wurde verweigert. Bitte erlaube den Mikrofon-Zugriff in den Systemeinstellungen unter Datenschutz und Sicherheit -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1657,7 +1657,7 @@ Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuhörer-Lautstärke abschwächen um...</translation>
     </message>
 </context>
 <context>
@@ -3701,15 +3701,15 @@ Dies ist die Bezeichnung des Servers wie sie in den Favoriten erscheint und kann
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort auf diesem Gerät speichern</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwörter können nur für Server in Ihren Favoriten gespeichert werden.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwörter können nur für Server in Ihren Favoriten gespeichert werden</translation>
     </message>
 </context>
 <context>
@@ -5164,15 +5164,15 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Dunkles Design für die Benutzeroberfläche</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Legt fest, welches Theme Mumble nutzt, wenn die dunkle Benutzeroberfläche ausgewählt ist&lt;/b&gt;&lt;br /&gt;Mumble sucht selbstständig Themes innerhalb bestimmter Ordner und zeigt sie in der Liste an. Das ausgewählte Design wird genutzt um das Aussehen der Benutzeroberfläche von Mumble anzupassen, einschließlich Farben, Icons und Weiterem.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Helles Design für die Benutzeroberfläche</translation>
     </message>
     <message>
         <source>Dark Theme</source>
@@ -5192,7 +5192,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Sets the theme to the configured dark theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Setzt das Theme auf das festgelegte dunkle Design</translation>
     </message>
     <message>
         <source>Dark</source>
@@ -5200,7 +5200,7 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>Sets the theme to the configured light theme setting</source>
-        <translation type="unfinished"></translation>
+        <translation>Setzt das Theme auf das festgelegte helle Design</translation>
     </message>
     <message>
         <source>Light Theme</source>
@@ -5220,19 +5220,19 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>This controls whether Mumble will try to restore the window geometry and state from previous sessions on startup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt fest, ob Mumble beim Start versucht, Fenstergröße und -zustand der vorherigen Sitzung wiederherzustellen.</translation>
     </message>
     <message>
         <source>Restore window geometry on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenstergröße beim Start wiederherstellen</translation>
     </message>
     <message>
         <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt fest, ob die lokale Lautstärke des ausgewählten Benutzers geändert werden soll, wenn das Mausrad vor ( Lautstärke erhöhen) oder zurück (Lautstärke verringern) gedreht wird, während Strg gedrückt wird.</translation>
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Strg + Mausrad, um die Lautstärke des ausgewählten Nutzers zu ändern</translation>
     </message>
 </context>
 <context>
@@ -6275,19 +6275,19 @@ Die Einstellung gilt nur für neue Nachrichten, die bereits angezeigten behalten
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ihr Benutzername ist laut der Serverkonfiguration ungültig.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verweigert: Der Kanalname ist laut der Serverkonfiguration ungültig.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Benutzername %1 ist laut der Serverkonfiguration ungültig.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Benutzername ist laut der Serverkonfiguration ungültig.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -7243,15 +7243,15 @@ des Kanals auswählen.</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuellen Server zu Favoriten hinzufügen</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fügt den Server, mit dem sie aktuell verbunden sind, den gespeicherten Verbindungen als Favorit hinzu.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 wurde zu Favoriten hinzugefügt.</translation>
     </message>
 </context>
 <context>
@@ -8414,7 +8414,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Update für Plugin &quot;%1&quot; ist fehlgeschlagen, da es auf eine nicht-HTTPS-Url weiterleitet (%2)</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
@@ -8609,7 +8609,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Zugriff auf das Mikrofon wurde verweigert. Bitte erlaube Mumble den Mikrofon-Zugriff in den Systemeinstellungen unter Datenschutz und Sicherheit -&gt; Mikrofon.</translation>
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>

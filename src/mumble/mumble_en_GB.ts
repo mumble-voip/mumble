@@ -671,11 +671,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Third-party Dependencies</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -1264,7 +1264,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -3701,15 +3701,15 @@ Label of the server. This is what the server will be named like in your server l
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Save password on this device</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwords can only be saved for servers in your favourites.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwords can only be saved for servers in your favourites</translation>
     </message>
 </context>
 <context>
@@ -3907,7 +3907,7 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
@@ -4012,70 +4012,70 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
     </message>
     <message>
         <source>Shout to linked channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Shout to linked channels</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutWin</name>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished">Mouse</translation>
+        <translation>Mouse</translation>
     </message>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished">Keyboard</translation>
+        <translation>Keyboard</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutX</name>
     <message>
         <source>Keyboard</source>
-        <translation type="unfinished">Keyboard</translation>
+        <translation>Keyboard</translation>
     </message>
     <message>
         <source>Mouse</source>
-        <translation type="unfinished">Mouse</translation>
+        <translation>Mouse</translation>
     </message>
 </context>
 <context>
     <name>JackAudioSystem</name>
     <message>
         <source>Hardware Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Hardware Ports</translation>
     </message>
     <message>
         <source>Mono</source>
-        <translation type="unfinished"></translation>
+        <translation>Mono</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Stereo</translation>
     </message>
 </context>
 <context>
     <name>LCD</name>
     <message>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Not connected</translation>
     </message>
 </context>
 <context>
     <name>LCDConfig</name>
     <message>
         <source>Enable this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable this device</translation>
     </message>
     <message>
         <source>LCD</source>
-        <translation type="unfinished"></translation>
+        <translation>LCD</translation>
     </message>
     <message>
         <source>Devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Devices</translation>
     </message>
     <message>
         <source>Name</source>
@@ -4088,7 +4088,12 @@ Without this option enabled, using Mumble&apos;s global shortcuts in privileged 
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;This is the list of available LCD devices on your system.  It lists devices by name, but also includes the size of the display. Mumble supports outputting to several LCD devices at a time.&lt;/p&gt;
+&lt;h3&gt;Size:&lt;/h3&gt;
+&lt;p&gt;
+This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
+&lt;h3&gt;Enabled:&lt;/h3&gt;
+&lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Size</source>
@@ -4096,15 +4101,15 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Enabled</translation>
     </message>
     <message>
         <source>Views</source>
-        <translation type="unfinished"></translation>
+        <translation>Views</translation>
     </message>
     <message>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimum Column Width</translation>
     </message>
     <message>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
@@ -4116,102 +4121,102 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"></translation>
+        <translation>This setting decides the width of column splitter.</translation>
     </message>
     <message>
         <source>Splitter Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Splitter Width</translation>
     </message>
     <message>
         <source>Minimum column width</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimum column width</translation>
     </message>
     <message>
         <source>Splitter width</source>
-        <translation type="unfinished"></translation>
+        <translation>Splitter width</translation>
     </message>
 </context>
 <context>
     <name>Log</name>
     <message>
         <source>Debug</source>
-        <translation type="unfinished"></translation>
+        <translation>Debug</translation>
     </message>
     <message>
         <source>Critical</source>
-        <translation type="unfinished"></translation>
+        <translation>Critical</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Warning</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information</translation>
     </message>
     <message>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Other self-muted/deafened</translation>
     </message>
     <message>
         <source>User recording state changed</source>
-        <translation type="unfinished"></translation>
+        <translation>User recording state changed</translation>
     </message>
     <message>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>User kicked (you or by you)</translation>
     </message>
     <message>
         <source>User kicked</source>
-        <translation type="unfinished"></translation>
+        <translation>User kicked</translation>
     </message>
     <message>
         <source>You self-muted</source>
-        <translation type="unfinished"></translation>
+        <translation>You self-muted</translation>
     </message>
     <message>
         <source>User muted (you)</source>
-        <translation type="unfinished"></translation>
+        <translation>User muted (you)</translation>
     </message>
     <message>
         <source>User muted (by you)</source>
-        <translation type="unfinished"></translation>
+        <translation>User muted (by you)</translation>
     </message>
     <message>
         <source>User muted (other)</source>
-        <translation type="unfinished"></translation>
+        <translation>User muted (other)</translation>
     </message>
     <message>
         <source>You self-unmuted</source>
-        <translation type="unfinished"></translation>
+        <translation>You self-unmuted</translation>
     </message>
     <message>
         <source>You self-deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>You self-deafened</translation>
     </message>
     <message>
         <source>You self-undeafened</source>
-        <translation type="unfinished"></translation>
+        <translation>You self-undeafened</translation>
     </message>
     <message>
         <source>User renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>User renamed</translation>
     </message>
     <message>
         <source>User connected and entered channel</source>
-        <translation type="unfinished"></translation>
+        <translation>User connected and entered channel</translation>
     </message>
     <message>
         <source>User left channel and disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>User left channel and disconnected</translation>
     </message>
     <message>
         <source>Private text message</source>
-        <translation type="unfinished"></translation>
+        <translation>Private text message</translation>
     </message>
     <message>
         <source>the server</source>
-        <translation type="unfinished"></translation>
+        <translation>the server</translation>
     </message>
     <message>
         <source>[[ Invalid size ]]</source>
@@ -4219,80 +4224,81 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"></translation>
+        <translation>[[ Text object too large to display ]]</translation>
     </message>
     <message>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>[Date changed to %1]
+</translation>
     </message>
     <message>
         <source>link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>link to %1</translation>
     </message>
     <message>
         <source>FTP link to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>FTP link to %1</translation>
     </message>
     <message>
         <source>player link</source>
-        <translation type="unfinished"></translation>
+        <translation>player link</translation>
     </message>
     <message>
         <source>channel link</source>
-        <translation type="unfinished"></translation>
+        <translation>channel link</translation>
     </message>
     <message>
         <source>%1 link</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 link</translation>
     </message>
     <message>
         <source>Server connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Server connected</translation>
     </message>
     <message>
         <source>Server disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Server disconnected</translation>
     </message>
     <message>
         <source>User joined server</source>
-        <translation type="unfinished"></translation>
+        <translation>User joined server</translation>
     </message>
     <message>
         <source>User left server</source>
-        <translation type="unfinished"></translation>
+        <translation>User left server</translation>
     </message>
     <message>
         <source>User joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>User joined channel</translation>
     </message>
     <message>
         <source>User left channel</source>
-        <translation type="unfinished"></translation>
+        <translation>User left channel</translation>
     </message>
     <message>
         <source>Permission denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Permission denied</translation>
     </message>
     <message>
         <source>Text message</source>
-        <translation type="unfinished">Text message</translation>
+        <translation>Text message</translation>
     </message>
     <message>
         <source>You joined channel</source>
-        <translation type="unfinished"></translation>
+        <translation>You joined channel</translation>
     </message>
     <message>
         <source>You joined channel (moved)</source>
-        <translation type="unfinished"></translation>
+        <translation>You joined channel (moved)</translation>
     </message>
     <message>
         <source>User started listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>User started listening to channel</translation>
     </message>
     <message>
         <source>User stopped listening to channel</source>
-        <translation type="unfinished"></translation>
+        <translation>User stopped listening to channel</translation>
     </message>
     <message>
         <source>Plugin message</source>
@@ -4300,34 +4306,34 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>[embedded content]</source>
-        <translation type="unfinished"></translation>
+        <translation>[embedded content]</translation>
     </message>
 </context>
 <context>
     <name>LogConfig</name>
     <message>
         <source>Toggle console for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Toggle console for %1 events</translation>
     </message>
     <message>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Toggle pop-up notifications for %1 events</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Toggle Text-To-Speech for %1 events</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Click here to toggle sound notification for %1 events</translation>
     </message>
     <message>
         <source>Toggle window highlight (if not active) for %1 events</source>
-        <translation type="unfinished"></translation>
+        <translation>Toggle window highlight (if not active) for %1 events</translation>
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation type="unfinished"></translation>
+        <translation>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</translation>
     </message>
     <message>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
@@ -4344,7 +4350,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</translation>
     </message>
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
@@ -4358,59 +4364,59 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Messages</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Message</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Console</translation>
     </message>
     <message>
         <source>Notification</source>
-        <translation type="unfinished"></translation>
+        <translation>Notification</translation>
     </message>
     <message>
         <source>Text-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Text-To-Speech</translation>
     </message>
     <message>
         <source>Soundfile</source>
-        <translation type="unfinished"></translation>
+        <translation>Soundfile</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Path</translation>
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Text To Speech</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume of Text-To-Speech Engine</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Length threshold</translation>
     </message>
     <message>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation type="unfinished"></translation>
+        <translation>Message length threshold for Text-To-Speech Engine</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</translation>
     </message>
     <message>
         <source> Characters</source>
-        <translation type="unfinished"></translation>
+        <translation> Characters</translation>
     </message>
     <message>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
@@ -4418,51 +4424,51 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <source>Only accept whispers from friends</source>
-        <translation type="unfinished"></translation>
+        <translation>Only accept whispers from friends</translation>
     </message>
     <message>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>If enabled text messages you send will be read back to you with TTS</translation>
     </message>
     <message>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Read back own messages</translation>
     </message>
     <message>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Chat Log</translation>
     </message>
     <message>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximum chat length</translation>
     </message>
     <message>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>Unlimited</translation>
     </message>
     <message>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation> Lines</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation type="unfinished"></translation>
+        <translation>Highlight</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message scope.</source>
-        <translation type="unfinished"></translation>
+        <translation>If enabled, TTS will not dictate the message scope.</translation>
     </message>
     <message>
         <source>Omit Message Scope</source>
-        <translation type="unfinished"></translation>
+        <translation>Omit Message Scope</translation>
     </message>
     <message>
         <source>If enabled, TTS will not dictate the message author.</source>
-        <translation type="unfinished"></translation>
+        <translation>If enabled, TTS will not dictate the message author.</translation>
     </message>
     <message>
         <source>Omit Message Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Omit Message Author</translation>
     </message>
     <message>
         <source>If checked the time at the beginning of a message will be displayed in the 24-hour format.
@@ -4474,55 +4480,55 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Use 24-hour clock</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
-        <translation type="unfinished"></translation>
+        <translation>How far individual messages are spaced out from one another.</translation>
     </message>
     <message>
         <source>Message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Message margins</translation>
     </message>
     <message>
         <source>Chat message margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Chat message margins</translation>
     </message>
     <message>
         <source>Limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Misc.</translation>
     </message>
     <message>
         <source>Number of users that will trigger message limiting functionality.</source>
-        <translation type="unfinished"></translation>
+        <translation>Number of users that will trigger message limiting functionality.</translation>
     </message>
     <message>
         <source>users on the server.</source>
-        <translation type="unfinished"></translation>
+        <translation>users on the server.</translation>
     </message>
     <message>
         <source>Limit notifications when there are more than</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit notifications when there are more than</translation>
     </message>
     <message>
         <source>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Click here to toggle message limiting for all events - If using this option be sure to change the user limit below.</translation>
     </message>
     <message>
         <source>Toggle message limiting behavior for %1 events </source>
-        <translation type="unfinished"></translation>
+        <translation>Toggle message limiting behaviour for %1 events </translation>
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Click to enable Text-to-Speech</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable Text-to-Speech</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -4530,150 +4536,150 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Message Volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Message Volume</translation>
     </message>
     <message>
         <source>Volume adjustment for audio cues</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume adjustment for audio cues</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This is the volume adjustment for audio cues.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"></translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Text-to-Speech volume</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Notification volume adjustment</translation>
     </message>
     <message>
         <source>Volume adjustment for notification sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume adjustment for notification sounds</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This is the volume adjustment for notification sounds.&lt;/b&gt;&lt;br /&gt;A value of 0 dB means no change to the sound sample.</translation>
     </message>
     <message>
         <source>Audio cue volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio cue volume adjustment</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Notification sound volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Notification sound volume adjustment</translation>
     </message>
     <message>
         <source>Log message types and actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Log message types and actions</translation>
     </message>
     <message>
         <source>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use up and down keys to navigate through the message types. Use left and right keys to navigate between notification possibilities for a single message type.</translation>
     </message>
     <message>
         <source>Set length threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Set length threshold</translation>
     </message>
     <message>
         <source>Text to speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Text to speech volume</translation>
     </message>
     <message>
         <source>Maximum chat log length</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximum chat log length</translation>
     </message>
     <message>
         <source>User limit for notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>User limit for notifications</translation>
     </message>
     <message>
         <source>Message type</source>
-        <translation type="unfinished"></translation>
+        <translation>Message type</translation>
     </message>
     <message>
         <source>Log message to console checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Log message to console checkbox</translation>
     </message>
     <message>
         <source>Display pop-up notification for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Display pop-up notification for message checkbox</translation>
     </message>
     <message>
         <source>Highlight window for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Highlight window for message checkbox</translation>
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Read message using text to speech checkbox</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Limit message notification if user count is high checkbox</translation>
     </message>
     <message>
         <source>Play sound file for message checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Play sound file for message checkbox</translation>
     </message>
     <message>
         <source>Path to sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Path to sound file</translation>
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished">checked</translation>
+        <translation>checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished">unchecked</translation>
+        <translation>unchecked</translation>
     </message>
     <message>
         <source>decibels</source>
-        <translation type="unfinished">decibels</translation>
+        <translation>decibels</translation>
     </message>
 </context>
 <context>
     <name>LookConfig</name>
     <message>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation>System default</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation>None</translation>
     </message>
     <message>
         <source>Only with users</source>
-        <translation type="unfinished"></translation>
+        <translation>Only with users</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">All</translation>
+        <translation>All</translation>
     </message>
     <message>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Ask</translation>
     </message>
     <message>
         <source>Do Nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Do Nothing</translation>
     </message>
     <message>
         <source>Move</source>
-        <translation type="unfinished">Move</translation>
+        <translation>Move</translation>
     </message>
     <message>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>User Interface</translation>
     </message>
     <message>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
@@ -4681,59 +4687,59 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished"></translation>
+        <translation>List users above subchannels (requires restart).</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</translation>
     </message>
     <message>
         <source>Users above Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Users above Channels</translation>
     </message>
     <message>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Show number of users in each channel</translation>
     </message>
     <message>
         <source>Show channel user count</source>
-        <translation type="unfinished"></translation>
+        <translation>Show channel user count</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Language</translation>
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Language to use (requires restart)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</translation>
     </message>
     <message>
         <source>Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation>Look and Feel</translation>
     </message>
     <message>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout</translation>
     </message>
     <message>
         <source>Classic</source>
-        <translation type="unfinished"></translation>
+        <translation>Classic</translation>
     </message>
     <message>
         <source>Stacked</source>
-        <translation type="unfinished"></translation>
+        <translation>Stacked</translation>
     </message>
     <message>
         <source>Hybrid</source>
-        <translation type="unfinished"></translation>
+        <translation>Hybrid</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Custom</translation>
+        <translation>Custom</translation>
     </message>
     <message>
         <source>This changes the behavior when moving channels.</source>
@@ -4746,19 +4752,19 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Expand</source>
-        <translation type="unfinished"></translation>
+        <translation>Expand</translation>
     </message>
     <message>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"></translation>
+        <translation>When to automatically expand channels</translation>
     </message>
     <message>
         <source>Channel Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel Dragging</translation>
     </message>
     <message>
         <source>Always On Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Always On Top</translation>
     </message>
     <message>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
@@ -4774,39 +4780,39 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"></translation>
+        <translation>This setting controls when the application will be always on top.</translation>
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Never</translation>
     </message>
     <message>
         <source>Always</source>
-        <translation type="unfinished"></translation>
+        <translation>Always</translation>
     </message>
     <message>
         <source>In minimal view</source>
-        <translation type="unfinished"></translation>
+        <translation>In minimal view</translation>
     </message>
     <message>
         <source>In normal view</source>
-        <translation type="unfinished"></translation>
+        <translation>In normal view</translation>
     </message>
     <message>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Displays talking status in system tray</translation>
     </message>
     <message>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Show talking status in tray icon</translation>
     </message>
     <message>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"></translation>
+        <translation>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</translation>
     </message>
     <message>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Show context menu in menu bar</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
@@ -4818,35 +4824,35 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Application</translation>
     </message>
     <message>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"></translation>
+        <translation>Adds user and channel context menus into the menu bar</translation>
     </message>
     <message>
         <source>Tray Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Tray Icon</translation>
     </message>
     <message>
         <source>Channel Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel Tree</translation>
     </message>
     <message>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Use selected item as the chat bar target</translation>
     </message>
     <message>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Filter automatically hides empty channels</translation>
     </message>
     <message>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Show transmit mode dropdown in toolbar</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Theme</translation>
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
@@ -4854,43 +4860,43 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>User Dragging</source>
-        <translation type="unfinished"></translation>
+        <translation>User Dragging</translation>
     </message>
     <message>
         <source>This changes the behavior when moving users.</source>
-        <translation type="unfinished"></translation>
+        <translation>This changes the behaviour when moving users.</translation>
     </message>
     <message>
         <source>This sets the behavior of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>This sets the behaviour of user drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the user without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the user.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Enable Developer menu&lt;/b&gt;&lt;br /&gt;This enables the &quot;Developer&quot;-menu in Mumble. This menu is used for developer-specific features, such as the Developer Console.</translation>
     </message>
     <message>
         <source>Enable Developer menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Enable Developer menu</translation>
     </message>
     <message>
         <source>When in custom layout mode, checking this disables rearranging.</source>
-        <translation type="unfinished"></translation>
+        <translation>When in custom layout mode, checking this disables rearranging.</translation>
     </message>
     <message>
         <source>Lock layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Lock layout</translation>
     </message>
     <message>
         <source>Talking UI</source>
-        <translation type="unfinished"></translation>
+        <translation>Talking UI</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
-        <translation type="unfinished"></translation>
+        <translation>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</translation>
     </message>
     <message>
         <source>Remove silent user after</source>
-        <translation type="unfinished"></translation>
+        <translation>Remove silent user after</translation>
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
@@ -4898,59 +4904,59 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Always keep local user visible</source>
-        <translation type="unfinished"></translation>
+        <translation>Always keep local user visible</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the beginning of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>How many characters from the original name to display at the beginning of an abbreviated name.</translation>
     </message>
     <message>
         <source>String to separate a channel name from its parent&apos;s.</source>
-        <translation type="unfinished"></translation>
+        <translation>String to separate a channel name from its parent&apos;s.</translation>
     </message>
     <message>
         <source>Channel separator</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel separator</translation>
     </message>
     <message>
         <source>Abbreviated prefix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbreviated prefix characters</translation>
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation type="unfinished"></translation>
+        <translation>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
-        <translation type="unfinished"></translation>
+        <translation>How many characters from the original name to display at the end of an abbreviated name.</translation>
     </message>
     <message>
         <source>Abbreviated postfix characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbreviated postfix characters</translation>
     </message>
     <message>
         <source>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</source>
-        <translation type="unfinished"></translation>
+        <translation>Whether to also allow abbreviating the current channel of a user (instead of only its parent channels).</translation>
     </message>
     <message>
         <source>Abbreviate current channel name</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbreviate current channel name</translation>
     </message>
     <message>
         <source>Channel hierarchy depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Channel hierarchy depth</translation>
     </message>
     <message>
         <source>Abbreviation replacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbreviation replacement</translation>
     </message>
     <message>
         <source>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</source>
-        <translation type="unfinished"></translation>
+        <translation>Whether the channel (hierarchy) name should be abbreviated, if it exceeds the specified maximum length.</translation>
     </message>
     <message>
         <source>Abbreviate channel names</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbreviate channel names</translation>
     </message>
     <message>
         <source>The preferred maximum length of a channel (hierarchy) name in the Talking UI. Note that this is not a hard limit though.</source>
@@ -5010,7 +5016,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Search</translation>
+        <translation>Search</translation>
     </message>
     <message>
         <source>The action to perform when a user is activated (via double-click or enter) in the search dialog.</source>
@@ -5030,15 +5036,15 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Quit Behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Quit Behaviour</translation>
     </message>
     <message>
         <source>This setting controls the behavior of clicking on the X in the top right corner.</source>
-        <translation type="unfinished"></translation>
+        <translation>This setting controls the behaviour of clicking on the X in the top right corner.</translation>
     </message>
     <message>
         <source>This setting controls the behavior when closing Mumble. You can choose between being asked for confirmation, minimize instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</source>
-        <translation type="unfinished"></translation>
+        <translation>This setting controls the behaviour when closing Mumble. You can choose between being asked for confirmation, minimise instead if closing or just closing without any additional prompt. Optionally, the first two options can only apply when you are currently connected to a server (in that case, Mumble will quit without asking, when not connected to any server).</translation>
     </message>
     <message>
         <source>Always Ask</source>
@@ -5050,11 +5056,11 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Always Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Always Minimise</translation>
     </message>
     <message>
         <source>Minimize when connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimise when connected</translation>
     </message>
     <message>
         <source>Always Quit</source>
@@ -5090,7 +5096,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Quit behavior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Quit behaviour mode</translation>
     </message>
     <message>
         <source>Channel separator string</source>
@@ -5130,15 +5136,15 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Clear Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Clear Background Colour</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Clear</translation>
+        <translation>Clear</translation>
     </message>
     <message>
         <source>Color that gets used for the background of the talkingUI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Colour that gets used for the background of the talkingUI.</translation>
     </message>
     <message>
         <source>Choose</source>
@@ -5146,15 +5152,15 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Background color that, if set, overrides the theme background color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Background colour that, if set, overrides the theme background colour.</translation>
     </message>
     <message>
         <source>Background Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Background Colour</translation>
     </message>
     <message>
         <source>Choose a Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose a Colour</translation>
     </message>
     <message>
         <source>Dark theme to use to style the user interface</source>
@@ -5162,7 +5168,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Configures which theme the Mumble user interface should be styled with when it’s in the Dark theme&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customise the visual appearance of Mumble. This includes colours, icons and more.</translation>
     </message>
     <message>
         <source>Light theme to use to style the user interface</source>
@@ -5353,11 +5359,11 @@ This setting only applies to new messages; existing messages keep the previous t
     <message>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Not connected&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Clear</translation>
+        <translation>Clear</translation>
     </message>
     <message>
         <source>Opening URL %1</source>
@@ -5377,11 +5383,11 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Connecting to %1</source>
-        <translation type="unfinished">Connecting to %1</translation>
+        <translation>Connecting to %1</translation>
     </message>
     <message>
         <source>Enter username</source>
-        <translation type="unfinished">Enter username</translation>
+        <translation>Enter username</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -5446,12 +5452,12 @@ This setting only applies to new messages; existing messages keep the previous t
     <message>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</translation>
     </message>
     <message>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user &apos;%1&apos; here</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</translation>
     </message>
     <message>
         <source>Choose image file</source>
@@ -5529,11 +5535,11 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Continuous</source>
-        <translation type="unfinished">Continuous</translation>
+        <translation>Continuous</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation type="unfinished">Voice Activity</translation>
+        <translation>Voice Activity</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
@@ -5541,7 +5547,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <source>Save Image As...</source>
@@ -5573,7 +5579,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Enter reason</source>
-        <translation type="unfinished">Enter reason</translation>
+        <translation>Enter reason</translation>
     </message>
     <message>
         <source>Sending message to %1</source>
@@ -5710,7 +5716,7 @@ This setting only applies to new messages; existing messages keep the previous t
     </message>
     <message>
         <source>Exits the application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exits the application.</translation>
     </message>
     <message>
         <source>Ctrl+Q</source>
@@ -6302,7 +6308,7 @@ This setting only applies to new messages; existing messages keep the previous t
     <message>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">Server</translation>
+        <translation>Server</translation>
     </message>
     <message>
         <source>The server requests minimum client version %1</source>
@@ -6546,7 +6552,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Edit...</translation>
+        <translation>&amp;Edit...</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
@@ -6766,7 +6772,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Are you sure you want to close Mumble? Perhaps you prefer to minimize it instead?</source>
-        <translation type="unfinished"></translation>
+        <translation>Are you sure you want to close Mumble? Perhaps you prefer to minimise it instead?</translation>
     </message>
     <message>
         <source>Remember this setting</source>
@@ -7228,19 +7234,19 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Add as &amp;Favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Add as &amp;Favourite</translation>
     </message>
     <message>
         <source>Add current server as favorite</source>
-        <translation type="unfinished"></translation>
+        <translation>Add current server as favourite</translation>
     </message>
     <message>
         <source>This adds the server you are currently connected to as favorite to the known connections.</source>
-        <translation type="unfinished"></translation>
+        <translation>This adds the server you are currently connected to as favourite to the known connections.</translation>
     </message>
     <message>
         <source>Added %1 to favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Added %1 to favourites.</translation>
     </message>
 </context>
 <context>
@@ -7331,7 +7337,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation type="unfinished">Graphical positional audio simulation view</translation>
+        <translation>Graphical positional audio simulation view</translation>
     </message>
     <message>
         <source>This visually represents the positional audio configuration that is currently being used</source>
@@ -7479,7 +7485,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Port</source>
-        <translation type="unfinished">Port</translation>
+        <translation>Port</translation>
     </message>
     <message>
         <source>Port number of the proxy</source>
@@ -7491,7 +7497,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Username</translation>
+        <translation>Username</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
@@ -7543,7 +7549,7 @@ the channel&apos;s context menu.</source>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished">Submit anonymous statistics to the Mumble project</translation>
+        <translation>Submit anonymous statistics to the Mumble project</translation>
     </message>
     <message>
         <source>Submit anonymous statistics</source>
@@ -7631,7 +7637,7 @@ Prevents the client from sending potentially identifying information about the o
     </message>
     <message>
         <source>Whisper</source>
-        <translation type="unfinished">Whisper</translation>
+        <translation>Whisper</translation>
     </message>
     <message>
         <source>Shout</source>
@@ -7650,7 +7656,7 @@ Prevents the client from sending potentially identifying information about the o
     <name>OverlayClient</name>
     <message>
         <source>Filter</source>
-        <translation type="unfinished">Filter</translation>
+        <translation>Filter</translation>
     </message>
     <message>
         <source>Only talking</source>
@@ -7967,7 +7973,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Username</source>
-        <translation type="unfinished">Username</translation>
+        <translation>Username</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -8169,7 +8175,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished">Enable</translation>
+        <translation>Enable</translation>
     </message>
     <message>
         <source>PA</source>
@@ -8249,11 +8255,11 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>checked</source>
-        <translation type="unfinished">checked</translation>
+        <translation>checked</translation>
     </message>
     <message>
         <source>unchecked</source>
-        <translation type="unfinished">unchecked</translation>
+        <translation>unchecked</translation>
     </message>
     <message>
         <source>Not available</source>
@@ -8509,7 +8515,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Local Mute</source>
-        <translation type="unfinished">Local Mute</translation>
+        <translation>Local Mute</translation>
     </message>
     <message>
         <source>Ignore Messages</source>
@@ -8601,7 +8607,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Disabled</translation>
+        <translation>Disabled</translation>
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
@@ -8775,7 +8781,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished">Add</translation>
+        <translation>Add</translation>
     </message>
     <message>
         <source>&lt;p&gt;If you&apos;re using Linux this is most likely because you are using a version from your distribution&apos;s package repository that have their own update cycles.&lt;/p&gt;&lt;p&gt;If you want to always have the most recent Mumble version, you should consider using a different method of installation.
@@ -8876,7 +8882,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>Search::SearchDialog</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation>None</translation>
     </message>
     <message>
         <source>Join</source>
@@ -8887,7 +8893,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>SearchDialog</name>
     <message>
         <source>Search</source>
-        <translation type="unfinished">Search</translation>
+        <translation>Search</translation>
     </message>
     <message>
         <source>Enter search String...</source>
@@ -9093,7 +9099,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Unknown</translation>
+        <translation>Unknown</translation>
     </message>
     <message>
         <source>Whether the connection supports perfect forward secrecy (PFS).</source>
@@ -9147,7 +9153,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     <name>ShortcutActionWidget</name>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">Unassigned</translation>
+        <translation>Unassigned</translation>
     </message>
 </context>
 <context>
@@ -9166,11 +9172,11 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Unassigned</source>
-        <translation type="unfinished">Unassigned</translation>
+        <translation>Unassigned</translation>
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation type="unfinished">No buttons assigned</translation>
+        <translation>No buttons assigned</translation>
     </message>
     <message>
         <source>Press to show button combination</source>
@@ -9237,7 +9243,7 @@ See &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;the project 
     </message>
     <message>
         <source>Current selection</source>
-        <translation type="unfinished">Current selection</translation>
+        <translation>Current selection</translation>
     </message>
 </context>
 <context>
@@ -9350,7 +9356,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation type="unfinished">Who are you looking for?</translation>
+        <translation>Who are you looking for?</translation>
     </message>
     <message>
         <source>Days</source>
@@ -9408,7 +9414,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished">Version</translation>
+        <translation>Version</translation>
     </message>
     <message>
         <source>OS</source>
@@ -9420,7 +9426,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>IP Address</source>
-        <translation type="unfinished">IP Address</translation>
+        <translation>IP Address</translation>
     </message>
     <message>
         <source>Ping Statistics</source>
@@ -9525,17 +9531,17 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">%1 kbit/s</translation>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">Bandwidth</translation>
+        <translation>Bandwidth</translation>
     </message>
     <message>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">Bandwidth</translation>
+        <translation>Bandwidth</translation>
     </message>
     <message>
         <source>Ping deviation</source>
@@ -9579,7 +9585,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>seconds</source>
-        <translation type="unfinished">seconds</translation>
+        <translation>seconds</translation>
     </message>
     <message>
         <source>minutes</source>
@@ -9990,7 +9996,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation type="unfinished">&amp;Browse...</translation>
+        <translation>&amp;Browse...</translation>
     </message>
     <message>
         <source>Valid variables are:</source>
@@ -10085,7 +10091,7 @@ Please contact your server administrator for further information.</source>
     <name>WASAPIInput</name>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation type="unfinished">Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</translation>
+        <translation>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</translation>
     </message>
 </context>
 <context>
@@ -10103,7 +10109,7 @@ Please contact your server administrator for further information.</source>
     </message>
     <message>
         <source>Push to talk</source>
-        <translation type="unfinished">Push to talk</translation>
+        <translation>Push to talk</translation>
     </message>
 </context>
 </TS>

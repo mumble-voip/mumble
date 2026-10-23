@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Adicionar canal</translation>
+        <translation>Adicionar um canal no Mumble</translation>
     </message>
     <message>
         <source>Default server value</source>
@@ -29,11 +29,11 @@
     </message>
     <message>
         <source>Failed: Invalid channel</source>
-        <translation>Falhou: canal inválido</translation>
+        <translation>Ocorreu uma falha porque o canal não é válido</translation>
     </message>
     <message>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - Editar %1</translation>
+        <translation>Editar o %1 no Mumble</translation>
     </message>
     <message>
         <source>ID: %1</source>
@@ -41,19 +41,19 @@
     </message>
     <message>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Concede o privilégio %1. Se um privilégio é ambos permitido e negado, ele é negado.&lt;br /&gt;%2</translation>
+        <translation>Esta opção permite conceder o privilégio ao ‘%1’. Se um privilégio for simultaneamente permitido e negado, ele será negado.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Channel must have a name</source>
-        <translation>O canal deve possuir um nome</translation>
+        <translation>O canal tem que ter um nome</translation>
     </message>
     <message>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Revoga o privilégio %1. Se um privilégio é ambos permitido e negado, ele é negado.&lt;br /&gt;%2</translation>
+        <translation>Esta opção permite revogar o privilégio do ‘%1’. Se um privilégio for simultaneamente permitido e negado, ele será negado.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <source>Dialog</source>
-        <translation>Diálogo</translation>
+        <translation>Caixa de diálogo</translation>
     </message>
     <message>
         <source>Name</source>
@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>Enter the channel name here.</source>
-        <translation>Insira o nome do canal aqui.</translation>
+        <translation>Insira aqui o nome do canal.</translation>
     </message>
     <message>
         <source>Description</source>
@@ -73,11 +73,11 @@
     </message>
     <message>
         <source>Enter the channel password here.</source>
-        <translation>Insira a senha do canal aqui.</translation>
+        <translation>Insira aqui a senha do canal.</translation>
     </message>
     <message>
         <source>Check to create a temporary channel.</source>
-        <translation>Marque para criar um canal temporário.</translation>
+        <translation>Selecione esta opção para criar um canal temporário.</translation>
     </message>
     <message>
         <source>Temporary</source>
@@ -88,8 +88,8 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Posição&lt;/b&gt;&lt;br/&gt;
-Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvore. Um canal com um valor de &lt;i&gt;Posição&lt;/i&gt; maior será sempre colocado abaixo daqueles com um valor de posição menor e vice-versa. Se o valor de &lt;i&gt;Posição&lt;/i&gt; dos canais é igual, eles são dispostos alfabeticamente pelos seus nomes.</translation>
+        <translation type="unfinished">&lt;b&gt;Posição&lt;/b&gt;&lt;br/&gt;
+Este valor permite modificar a forma como o Mumble organiza os canais na estrutura em árvore. Um canal com um valor maior da ‘&lt;i&gt;Posição&lt;/i&gt;’ sempre será posicionado abaixo dos canais que tiverem um valor menor da ‘&lt;i&gt;Posição&lt;/i&gt;’ e vice-versa. Se o valor da ‘&lt;i&gt;Posição&lt;/i&gt;’ de dois ou mais canais forem iguais, os canais serão dispostos alfabeticamente pelos seus nomes.</translation>
     </message>
     <message>
         <source>Position</source>
@@ -105,19 +105,19 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>List of groups</source>
-        <translation>Lista de grupos</translation>
+        <translation>Lista dos grupos</translation>
     </message>
     <message>
         <source>Remove selected group</source>
-        <translation>Exclui o grupo selecionado</translation>
+        <translation>Remover o grupo que foi selecionado</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Excluir</translation>
+        <translation>Remover</translation>
     </message>
     <message>
         <source>Inherit group members from parent</source>
-        <translation>Herdar membros de grupo do pai</translation>
+        <translation>Herdar os membros do grupo pai</translation>
     </message>
     <message>
         <source>Inherit</source>
@@ -125,7 +125,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Tornar o grupo herdável para subcanais</translation>
+        <translation>Tornar o grupo herdável por subcanais</translation>
     </message>
     <message>
         <source>Inheritable</source>
@@ -149,11 +149,11 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Add member to group</source>
-        <translation>Adicionar membro ao grupo</translation>
+        <translation>Adicionar um membro ao grupo</translation>
     </message>
     <message>
         <source>Remove member from group</source>
-        <translation>Remover membro do grupo</translation>
+        <translation>Remover um membro do grupo</translation>
     </message>
     <message>
         <source>&amp;ACL</source>
@@ -165,23 +165,23 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Inherit ACL of parent?</source>
-        <translation>Herdar LCA do pai?</translation>
+        <translation>Você quer herdar o LCA do pai?</translation>
     </message>
     <message>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Ajusta se a LCA acima na cadeia de canais pai se aplica a este objeto ou não. Apenas se herdarão entradas que estiverem marcadas no pai para &quot;Aplicada a subcanais&quot;.</translation>
+        <translation>Esta opção permite ajustar os LCAs acima na cadeia dos canais pai se serão são aplicadas a este objeto ou não. Apenas as entradas que estiverem selecionadas no pai como ‘Aplicada nos subcanais’ serão herdadas.</translation>
     </message>
     <message>
         <source>Inherit ACLs</source>
-        <translation>Herdar LCAs</translation>
+        <translation>Herdar os LCAs</translation>
     </message>
     <message>
         <source>Move entry up</source>
-        <translation>Mover entrada para cima</translation>
+        <translation>Mover a entrada para cima</translation>
     </message>
     <message>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Move a entrada para cima na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas de usuários. Não se pode mover uma entrada acima de uma entrada herdada, se realmente precisar fazer isto, você terá que duplicar a entrada herdada.</translation>
+        <translation>Esta opção permite mover a entrada para cima na lista. Como as entradas são avaliadas em ordem, isto pode modificar as permissões efetivas dos usuários. Não é possível mover uma entrada para cima de uma entrada que foi herdada, se realmente quiser fazer isto, você terá que duplicar a entrada que foi herdada.</translation>
     </message>
     <message>
         <source>&amp;Up</source>
@@ -189,11 +189,11 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Move entry down</source>
-        <translation>Mover entrada para baixo</translation>
+        <translation>Mover a entrada para baixo</translation>
     </message>
     <message>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Move a entrada para baixo na lista. Já que as entradas são avaliadas em ordem, isto pode mudar as permissões efetivas de usuários.</translation>
+        <translation>Esta opção permite mover a entrada para baixo na lista. Como as entradas são avaliadas em ordem, isto pode modificar as permissões efetivas dos usuários.</translation>
     </message>
     <message>
         <source>&amp;Down</source>
@@ -201,11 +201,11 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Add new entry</source>
-        <translation>Adicionar nova entrada</translation>
+        <translation>Adicionar uma nova entrada</translation>
     </message>
     <message>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Adiciona uma nova entrada, inicialmente estabelecida sem permissões e aplicada em tudo.</translation>
+        <translation>Esta opção permite adicionar uma nova entrada, inicialmente é estabelecida sem as permissões e aplicável a todos.</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -213,15 +213,15 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Remove entry</source>
-        <translation>Excluir entrada</translation>
+        <translation>Excluir a entrada</translation>
     </message>
     <message>
         <source>This removes the currently selected entry.</source>
-        <translation>Exclui a entrada selecionada.</translation>
+        <translation>Esta opção permite excluir a entrada que foi selecionada.</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Excluir</translation>
+        <translation>&amp;Remover</translation>
     </message>
     <message>
         <source>Context</source>
@@ -234,7 +234,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Faz com que a entrada seja aplicada a esse canal.</translation>
+        <translation>Esta opção permite que a entrada seja aplicada a este canal.</translation>
     </message>
     <message>
         <source>Applies to this channel</source>
@@ -246,13 +246,13 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     </message>
     <message>
         <source>Add new group</source>
-        <translation>Adicionar novo grupo</translation>
+        <translation>Adicionar um novo grupo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
         <translation>&lt;b&gt;Adicionar&lt;/b&gt;&lt;br/&gt;
-Adiciona um grupo novo.</translation>
+Esta opção permite adicionar um grupo novo.</translation>
     </message>
     <message>
         <source>Inherited members</source>
@@ -260,23 +260,23 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Contém a lista dos membros adicionados ao grupo por este canal.</translation>
+        <translation>Contém a lista dos membros que foram adicionados no grupo por este canal.</translation>
     </message>
     <message>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Contém uma lista de membros cuja associação de grupo não será herdada do canal pai.</translation>
+        <translation>Contém uma lista dos membros cuja a associação ao grupo não será herdada do canal pai.</translation>
     </message>
     <message>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Contém a lista de membros herdados por outros canais.</translation>
+        <translation>Contém a lista dos membros que foram herdados por outros canais.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Digite o nome de uma usuária que você quer adicionar ao grupo e clique em Adicionar.</translation>
+        <translation>Digite o nome de um usuário que você quer adicionar ao grupo e clique na opção ‘Adicionar’.</translation>
     </message>
     <message>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Digite o nome de uma usuária que deseja eliminar do grupo e clique em Adicionar.</translation>
+        <translation>Digite o nome de um usuário que você quer remover do grupo e clique na opção ‘Adicionar’.</translation>
     </message>
     <message>
         <source>Exclude</source>
@@ -288,11 +288,11 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Faz com que a entrada seja aplicada aos subcanais deste canal.</translation>
+        <translation>Esta opção permite que a entrada seja aplicada nos subcanais deste canal.</translation>
     </message>
     <message>
         <source>Applies to sub-channels</source>
-        <translation>Aplicada a subcanais</translation>
+        <translation>Aplicada nos subcanais</translation>
     </message>
     <message>
         <source>Permissions</source>
@@ -300,7 +300,7 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>User/Group</source>
-        <translation>Usuária/Grupo</translation>
+        <translation>Usuário/Grupo</translation>
     </message>
     <message>
         <source>Group this entry applies to</source>
@@ -308,7 +308,7 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>User ID</source>
-        <translation>ID de usuário</translation>
+        <translation>ID do usuário</translation>
     </message>
     <message>
         <source>User this entry applies to</source>
@@ -316,7 +316,7 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Controla a qual usuária essa entrada é aplicada. Apenas digite o nome de usuária e pressione enter para buscar um resultado no servidor.</translation>
+        <translation>Esta opção permite controlar a qual usuário esta entrada é aplicada. Apenas digite o nome do usuário e pressione a tecla ‘Enter’ para buscar um resultado no servidor.</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -324,73 +324,73 @@ Adiciona um grupo novo.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br /&gt;Especifique o nome do canal neste campo. O nome deve cumprir as restrições impostas pelo servidor ao qual está conectado.</translation>
+        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br /&gt;Esta opção permite especificar o nome do canal neste campo. O nome deve cumprir as restrições impostas pelo servidor ao qual está conectado.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Temporário&lt;/b&gt;&lt;br /&gt;
-Quando marcado o canal criado será marcado como temporário. Isto significa que quando a última usuária sair dele, ele será automaticamente eliminado pelo servidor.</translation>
+Se esta opção estiver selecionada, o canal que foi criado será definido como temporário. Isto significa que, quando o último usuário sair dele, ele será automaticamente excluído pelo servidor.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Grupo&lt;/b&gt;&lt;br /&gt;
-Estes são todos grupos atualmente definidos para o canal. Para criar um novo grupo, apenas digite o nome e pressione enter.</translation>
+Estes são todos os grupos que atualmente foram definidos para o canal. Para criar um novo grupo, apenas digite o nome e pressione a tecla ‘Enter’.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Eliminar&lt;/b&gt;&lt;br /&gt;Isto eliminar o grupo selecionado atualmente. Se o grupo foi herdado, ele não será eliminado da lista, mas toda informação local sobre o grupo será limpa.</translation>
+        <translation>&lt;b&gt;Remover&lt;/b&gt;&lt;br /&gt;Esta opção permite remover o grupo que foi selecionado. Se o grupo foi herdado, ele não será removido da lista, mas todas as informações locais sobre o grupo serão apagadas.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Herdar&lt;/b&gt;&lt;br /&gt;Isto herda todos membros no grupo do pai, se o grupo está marcado como &lt;i&gt;Herdável&lt;/i&gt; no canal pai.</translation>
+        <translation>&lt;b&gt;Herdar&lt;/b&gt;&lt;br /&gt;Esta opção permite herdar todos membros do grupo a partir do canal pai, se o grupo estiver identificado como ‘&lt;i&gt;Herdável&lt;/i&gt;’ no canal pai.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Herdável&lt;/b&gt;&lt;br /&gt;Isto torna o grupo herdável para subcanais. Se o grupo é não-herdável, subcanais ainda podem criar um novo grupo com o mesmo nome.</translation>
+        <translation>&lt;b&gt;Herdável&lt;/b&gt;&lt;br /&gt;Esta opção permite tornar o grupo herdável para os subcanais. Se o grupo não for herdável, os subcanais ainda poderão criar um novo grupo com o mesmo nome.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Herdado&lt;/b&gt;&lt;br /&gt;Isto indica que o grupo foi herdado do canal pai. Você não pode editar esta marcação, ela é apenas informativa.</translation>
+        <translation>&lt;b&gt;Herdado&lt;/b&gt;&lt;br /&gt;Esta opção permite indicar que o grupo foi herdado do canal pai. Você não pode editar esta identificação, ela serve apenas para fins informativos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Membros&lt;/b&gt;&lt;br /&gt;
-Esta lista contém todos os membros que foram adicionados ao grupo pelo canal atual. Lembre-se que isto não inclui membros herdados por níveis mais altos na árvore de canais. Estes podem ser encontrados na lista &lt;i&gt;Membros herdados&lt;/i&gt;. Para evitar que esta lista seja herdada por canais de níveis mais baixos, desmarque a opção &lt;i&gt;Herdável&lt;/i&gt; ou adicione manualmente os membros à lista &lt;i&gt;Membros ignorados&lt;/i&gt;.</translation>
+Esta lista contém todos os membros que foram adicionados ao grupo pelo canal atual. Lembre-se de que, esta opção não inclui os membros que foram herdados por níveis mais altos na árvore dos canais. Estes podem ser encontrados na lista dos ‘&lt;i&gt;Membros herdados&lt;/i&gt;’. Para evitar que esta lista seja herdada por canais de níveis mais baixos, desselecione a opção ‘&lt;i&gt;Herdável&lt;/i&gt;’ ou adicione manualmente os membros à lista dos ‘&lt;i&gt;Membros ignorados&lt;/i&gt;’.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
         <translation>&lt;b&gt;Membros ignorados&lt;/b&gt;&lt;br /&gt;
-Contém uma lista de membros cuja associação de grupo não será herdada do canal pai.</translation>
+Contém uma lista dos membros cuja a associação do grupo não será herdada do canal pai.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
         <translation>&lt;b&gt;Membros herdados&lt;/b&gt;&lt;br /&gt;
-Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&lt;/i&gt; para evitar a herança de canais de níveis mais altos.</translation>
+Contém a lista dos membros que foram herdados pelo canal atual. Desselecione a opção ‘&lt;i&gt;Herdar&lt;/i&gt;’ para impedir a herança dos canais dos níveis mais altos.</translation>
     </message>
     <message>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Isto controla a qual grupo de usuários esta entrada é aplicada.&lt;br /&gt;Perceba que o grupo é avaliado no contexto do canal no qual a entrada é usada. Por exemplo, a LCA padrão no canal Raiz fornece permissão de &lt;i&gt;Escrita&lt;/i&gt; para o grupo &lt;i&gt;admin&lt;/i&gt;. Esta entrada, se herdada por um canal, fornecerá ao usuário permissões de escrita se ele pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; naquele canal, mesmo se ele não pertencer ao grupo &lt;i&gt;admin&lt;/i&gt; no canal onde a LCA foi originada.&lt;br /&gt;Se um nome de grupo começa com &apos;!&apos;, sua associação é negada, e se ele inicia com &apos;~&apos;, ele é avaliado no canal onde a LCA foi definida, e não no canal onde a LCA está efetivamente ativa.&lt;br /&gt;Se um nome de grupo começa com &apos;#&apos;, ele é interpretado como uma credencial de acesso. Usuários devem ter digitado seja o que for que siga o &apos;#&apos; nas suas listas de chaves de acesso, para coincidir com a entrada. Isso pode ser usado para acessos ao canal utilizando senha para usuários não autenticadas, de maneira muito simples.&lt;br /&gt;Se um nome de grupo começa com &apos;$&apos;, ele só vai coincidir usuários cujo hash de certificado coincidir o que está depois do &apos;$&apos;.&lt;br /&gt;Alguns grupos predefinidos especiais são:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Todos vão coincidir.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Todos os usuários autenticados vão coincidir.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Usuário atualmente em um subcanal com um mínimo &lt;i&gt;a&lt;/i&gt; de pais comuns, e entre &lt;i&gt;b&lt;/i&gt; e &lt;i&gt;c&lt;/i&gt; canais abaixo na cadeia. Veja o site para mais documentação sobre este último.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Usuários atualmente neste canal vão coincidir (conveniência para &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Usuários fora deste canal coincidirão (conveniência para &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note que uma entrada aplica para um usuário ou grupo, mas não ambos.</translation>
+        <translation>Esta opção permite controlar em qual grupo dos usuários esta entrada será aplicada.&lt;br /&gt;Observe que o grupo é avaliado no contexto do canal no qual a entrada é utilizada. Por exemplo, o LCA padrão no canal raiz concede a permissão de ‘&lt;i&gt;escrita&lt;/i&gt;’ no grupo do ‘&lt;i&gt;administrador&lt;/i&gt;’. Se esta entrada for herdada por um canal, ela concederá ao usuário as permissões de escrita se ele pertencer ao grupo do ‘&lt;i&gt;administrador&lt;/i&gt;’ naquele canal, mesmo se ele não pertencer ao grupo do ‘&lt;i&gt;administrador&lt;/i&gt;’ no canal onde o LCA foi originado.&lt;br /&gt;Se o nome de um grupo começar com o ponto de exclamação ‘ ! ’, a sua associação é negada, e se o nome começar com o til ‘ ~ ’, ele é avaliado no canal onde o LCA foi definido, e não no canal onde o LCA está efetivamente ativo.&lt;br /&gt;Se o nome de um grupo começar com o octótropo ‘ # ’, ele é interpretado como uma credencial de acesso. Para coincidir com a entrada, os usuários devem ter digitado no texto o octótropo ‘ # ’ nas suas listas das chaves de acesso. Esta opção pode ser utilizada para permitir o acesso ao canal utilizando uma senha para os usuários que não são autenticados.&lt;br /&gt;Se o nome de um grupo começar com o cifrão ‘ $ ’, ele só vai coincidir com os usuários cujo identificador do certificado coincidir com o que está depois do cifrão ‘ $ ’.&lt;br /&gt;Alguns grupos são predefinidos como sendo especiais:&lt;br /&gt;A opção ‘&lt;b&gt;all&lt;/b&gt;’, onde todos irão coincidir.&lt;br /&gt;A opção ‘&lt;b&gt;auth&lt;/b&gt;’, onde todos os usuários autenticados irão coincidir.&lt;br /&gt;A opção ‘&lt;b&gt;sub,a,b,c&lt;/b&gt;’, onde o usuário atualmente em um subcanal com um mínimo ‘&lt;i&gt;a&lt;/i&gt;’ do pai em comum e entre o ‘&lt;i&gt;b&lt;/i&gt;’ e o ‘&lt;i&gt;c&lt;/i&gt;’ nos de níveis mais baixos na hierarquia dos canais. Por favor, consulte a página da documentação sobre esta última opção.&lt;br /&gt;A opção ‘&lt;b&gt;in&lt;/b&gt;’, onde os usuários que atualmente estão neste canal irão coincidir (é uma forma abreviada para o ‘&lt;i&gt;sub,0,0,0&lt;/i&gt;’).&lt;br /&gt;A opção ‘&lt;b&gt;out&lt;/b&gt;’, onde os usuários que estão fora deste canal irão coincidir (é uma forma abreviada para o ‘&lt;i&gt;!sub,0,0,0&lt;/i&gt;’).&lt;br /&gt;Observe que uma entrada aplica para um usuário ou para um grupo, mas não a ambos.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Senha&lt;/b&gt;&lt;br /&gt;Este campo permite que você especifique e mude facilmente a senha de um canal. Ela usa o recurso de credenciais de acesso do Mumble nos bastidores. Use LCAs e grupos se você precisa de um controle de acesso mais poderoso e detalhado.</translation>
+        <translation>&lt;b&gt;Senha&lt;/b&gt;&lt;br /&gt;Este campo permite especificar e modificar facilmente a senha de um canal. Ele utiliza o recurso das credenciais de acesso do Mumble em segundo plano. Utilize os LCAs e os grupos se você precisar de um controle de acesso mais poderoso e detalhado.</translation>
     </message>
     <message>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Isto mostra todas entradas ativas neste canal, Entradas herdadas de canais pai será mostradas em itálico.&lt;br /&gt;LCAs são avaliadas de cima para baixo, significando que a prioridade aumenta ao se ir para baixo na lista.</translation>
+        <translation>Esta opção permite exibir todas as entradas que estão ativas neste canal. As entradas que foram herdadas dos canais pai serão exibidas com a formatação em itálico.&lt;br /&gt;Os LCAs são avaliados de cima para baixo, o que significa que a prioridade aumenta à medida que se desce na lista.</translation>
     </message>
     <message>
         <source>ID of the channel.</source>
-        <translation>ID do canal.</translation>
+        <translation>Identificador do canal.</translation>
     </message>
     <message>
         <source>Maximum Users</source>
-        <translation>Máximo de Usuários</translation>
+        <translation>Número máximo de usuários</translation>
     </message>
     <message>
         <source>Maximum number of users allowed in the channel</source>
@@ -399,12 +399,12 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation>&lt;b&gt;Máximo de Usuários&lt;/b&gt;&lt;br /&gt;
-Este valor permite que você especifique o número máximo de usuários permitidos no canal. Se o valor for acima de zero, apenas aquele número máximo de usuários será permitido entrar no canal. Se o valor é zero, o número máximo de usuários no canal é definido pelo limite padrão do servidor.</translation>
+        <translation>&lt;b&gt;Número máximo de usuários&lt;/b&gt;&lt;br /&gt;
+Este valor permite especificar o número máximo de usuários que são permitidos no canal. Se o valor for maior do que zero ( 0 ), apenas esta quantidade de usuários será permitida entrar no canal. Se o valor for zero ( 0 ), o número máximo de usuários no canal será definido pelo limite padrão do servidor.</translation>
     </message>
     <message>
         <source>This is the sort order for the channel.</source>
-        <translation>Esse é o critério de ordenação para o canal.</translation>
+        <translation>Este é o critério de organização do canal.</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -428,7 +428,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>List of ACL entries</source>
-        <translation>Lista de entradas LCA</translation>
+        <translation>Lista das entradas do LCA</translation>
     </message>
     <message>
         <source>Channel position</source>
@@ -436,7 +436,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Channel maximum users</source>
-        <translation>Máximo de usuários no canal</translation>
+        <translation>Número máximo de usuários no canal</translation>
     </message>
     <message>
         <source>Channel description</source>
@@ -444,19 +444,19 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Select member to add</source>
-        <translation>Selecione membro para adicionar</translation>
+        <translation>Selecione um membro para ser adicionado</translation>
     </message>
     <message>
         <source>Excluded group members</source>
-        <translation>Membros do grupo excluídos</translation>
+        <translation>Membros do grupo que foram excluídos</translation>
     </message>
     <message>
         <source>Select member to remove</source>
-        <translation>Selecione membro para remover</translation>
+        <translation>Selecione um membro para ser removido</translation>
     </message>
     <message>
         <source>List of access control list entries</source>
-        <translation>Lista de entradas da lista de controle de acesso</translation>
+        <translation>Lista das entradas da lista do controle de acesso</translation>
     </message>
     <message>
         <source>Select group</source>
@@ -464,7 +464,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Selects a group this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation>Seleciona um grupo ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
+        <translation>Esta opção permite selecionar um grupo ao qual esta entrada do LCA se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>Select user</source>
@@ -472,44 +472,44 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Selects a user this ACL entry applies to. Selecting a group and selecting a user are mutually exclusive.</source>
-        <translation>Seleciona um usuário ao qual esta entrada ACL se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
+        <translation>Esta opção permite selecionar um usuário ao qual esta entrada do LCA se aplica. A seleção de um grupo e a seleção de um usuário são mutuamente exclusivas.</translation>
     </message>
     <message>
         <source>List of available permissions</source>
-        <translation>Lista de permissões disponíveis</translation>
+        <translation>Lista das permissões que estão disponíveis</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Placa ALSA padrão</translation>
+        <translation>Placa padrão do ALSA</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Falha ao abrir a entrada ALSA escolhida: %1</translation>
+        <translation>Ocorreu uma falha ao abrir a entrada do ALSA ‘%1’ que foi selecionada</translation>
     </message>
 </context>
 <context>
     <name>ALSAAudioOutput</name>
     <message>
         <source>Default ALSA Card</source>
-        <translation>Placa ALSA padrão</translation>
+        <translation>Placa padrão do ALSA</translation>
     </message>
     <message>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Abrir a Saída ALSA escolhida falhou: %1</translation>
+        <translation>Ocorreu uma falha ao abrir a saída do ALSA ‘%1’ que foi selecionada</translation>
     </message>
 </context>
 <context>
     <name>ALSAEnumerator</name>
     <message>
         <source>Getting name (longname) of the sound card failed: %1</source>
-        <translation>Ocorreu um erro ao obter o nome (longname) da placa de som: %1</translation>
+        <translation>Ocorreu uma falha ao tentar obter o nome completo da placa de som ‘%1’</translation>
     </message>
     <message>
         <source>Getting name of the sound card failed: %1</source>
-        <translation>Falha ao obter o nome da placa de som: %1</translation>
+        <translation>Ocorreu uma falha ao tentar obter o nome da placa de som ‘%1’</translation>
     </message>
 </context>
 <context>
@@ -521,15 +521,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>Buffer de amostra %1 → %2, com resolução de amostra de%3 (%4 preferencialmente) em %5 Hz</translation>
+        <translation>O ‘buffer’ da amostra ‘%1’ -&gt; ‘%2’, com a resolução da amostra de ‘%3’ (onde ‘%4’ é preferencial) em %5 Hz</translation>
     </message>
     <message>
         <source>ASIO Initialization failed: %1</source>
-        <translation>Falha na inicialização de ASIO: %1</translation>
+        <translation>Ocorreu uma falha na inicialização do ASIO ‘%1’</translation>
     </message>
     <message>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>Falha ao instanciar o controlador ASIO</translation>
+        <translation>Ocorreu uma falha ao tentar instanciar o controlador do ASIO</translation>
     </message>
     <message>
         <source>ASIO</source>
@@ -537,7 +537,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Escolha de dispositivo</translation>
+        <translation>Escolha o dispositivo</translation>
     </message>
     <message>
         <source>Device</source>
@@ -545,19 +545,19 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Device to use for microphone</source>
-        <translation>Dispositivo a usar como microfone</translation>
+        <translation>Dispositivo a ser utilizado como microfone</translation>
     </message>
     <message>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Escolha qual dispositivo consultar. Você precisará realmente consultar o dispositivo e, selecionar quais canais usar.</translation>
+        <translation>Esta opção permite escolher qual dispositivo será consultado. Você ainda precisará consultar o dispositivo e selecionar quais canais que serão utilizados.</translation>
     </message>
     <message>
         <source>Query selected device</source>
-        <translation>Consultar o dispositivo selecionado</translation>
+        <translation>Consultar o dispositivo que foi selecionado</translation>
     </message>
     <message>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Consulta o dispositivo selecionado em busca de canais. Perceba que muitos controladores ASIO são extremamente defeituosos, e consultá-los pode travar o aplicativo ou o sistema.</translation>
+        <translation>Esta opção permite consultar o dispositivo que foi selecionado na busca dos canais. Observe que a maioria dos controladores ASIO são extremamente defeituosos e ao consultá-los pode causar o travamento do programa ou o sistema operacional.</translation>
     </message>
     <message>
         <source>&amp;Query</source>
@@ -565,11 +565,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Configure selected device</source>
-        <translation>Configure o dispositivo selecionado</translation>
+        <translation>Configurar o dispositivo que foi selecionado</translation>
     </message>
     <message>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Configura o dispositivo selecionado. Perceba que muitos controladores ASIO são extremamente defeituosos, e consultá-los pode travar o aplicativo ou o sistema.</translation>
+        <translation>Esta opção permite configurar o dispositivo que foi selecionado. Observe que a maioria dos controladores ASIO são extremamente defeituosos e ao consultá-los pode causar o travamento do programa ou o sistema operacional.</translation>
     </message>
     <message>
         <source>&amp;Configure</source>
@@ -585,15 +585,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Buffer size</source>
-        <translation>Tamanho do buffer</translation>
+        <translation>Tamanho do ‘buffer’</translation>
     </message>
     <message>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Configura os canais de entrada para ASIO. Tenha certeza de selecionar pelo menos um canal como microfone e alto-falante. &lt;i&gt;Microfone&lt;/i&gt; deve ser onde seu microfone está conectado, e &lt;i&gt;Alto-falante&lt;/i&gt; deve ser um canal que mostra &apos;&lt;i&gt;O que você ouve&lt;/i&gt;&apos;.&lt;br /&gt;Por exemplo, na Audigy 2 ZS, uma boa seleção para Microfone seria &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; enquanto Alto-falante seria &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; e &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
+        <translation type="unfinished">Esta opção permite configurar os canais de entrada para o ASIO. Certifique-se de selecionar pelo menos um canal como microfone e um outro canal como alto-falante. A opção do ‘&lt;i&gt;Microfone&lt;/i&gt;’ deve ser o canal onde o seu microfone está conectado, enquanto que a opção do ‘&lt;i&gt;Alto-falante&lt;/i&gt;’ deve ser o canal onde a sua caixa de som ou fone de ouvido está conectado ou (o som que é reproduzido no sistema operacional’.&lt;br /&gt;Por exemplo, na placa de som ‘Audigy 2 ZS’, uma boa escolha para o microfone seria o ‘&lt;i&gt;Mic L&lt;/i&gt;’, enquanto que uma boa escolha para o alto-falante seria o ‘&lt;i&gt;Mix L&lt;/i&gt;’ e o ‘&lt;i&gt;Mix R&lt;/i&gt;’.</translation>
     </message>
     <message>
         <source>Configure input channels</source>
-        <translation>Configurar canais de entrada</translation>
+        <translation>Configurar os canais de entrada</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -613,7 +613,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Unused</source>
-        <translation>Não usado</translation>
+        <translation>Não utilizados</translation>
     </message>
     <message>
         <source>Speakers</source>
@@ -621,46 +621,46 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>List of microphones</source>
-        <translation>Lista de microfones</translation>
+        <translation>Lista dos microfones</translation>
     </message>
     <message>
         <source>List of speakers</source>
-        <translation>Lista de alto-falantes</translation>
+        <translation>Lista dos alto-falantes</translation>
     </message>
     <message>
         <source>Device list</source>
-        <translation>Lista de dispositivos</translation>
+        <translation>Lista dos dispositivos</translation>
     </message>
     <message>
         <source>Move from unused to microphone list</source>
-        <translation>Mover da lista de não utilizados para a de microfones</translation>
+        <translation>Mover da ‘lista dos dispositivos que não são utilizados’ para a ‘lista dos microfones’</translation>
     </message>
     <message>
         <source>Move from microphone to unused list</source>
-        <translation>Mover da lista de microfones para a de não utilizados</translation>
+        <translation>Mover da ‘lista dos microfones’ para a ‘lista dos dispositivos que não são utilizados’</translation>
     </message>
     <message>
         <source>List of unused devices</source>
-        <translation>Dispositivos não utilizados</translation>
+        <translation>Lista dos dispositivos que não são utilizados</translation>
     </message>
     <message>
         <source>Move from unused to speakers list</source>
-        <translation>Mover da lista de não utilizados para a de alto-falantes</translation>
+        <translation>Mover da ‘lista dos dispositivos que não são utilizados’ para a ‘lista dos alto-falantes’</translation>
     </message>
     <message>
         <source>Move from speakers to unused list</source>
-        <translation>Mover da lista de alto-falantes para a de não utilizados</translation>
+        <translation>Mover da ‘lista dos alto-falantes’ para a ‘lista dos dispositivos que não são utilizados’</translation>
     </message>
 </context>
 <context>
     <name>ASIOInput</name>
     <message>
         <source>You need to select at least one microphone and one speaker source to use ASIO.</source>
-        <translation>Você deve selecionar ao menos uma fonte de microfone e uma de alto-falante para usar ASIO.</translation>
+        <translation>Você tem que selecionar ao menos um microfone e um alto-falante para utilizar o ASIO.</translation>
     </message>
     <message>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Falha ao abrir o dispositivo ASIO. Nenhuma entrada será feita.</translation>
+        <translation>Ocorreu uma falha ao tentar abrir o dispositivo ASIO que foi selecionado. Por isso, nenhuma entrada será processada.</translation>
     </message>
 </context>
 <context>
@@ -671,11 +671,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Dependências de terceiros</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Dependendo das configurações da compilação do Mumble que você estiver utilizando, a sua versão pode não depender de todos os itens que estão listados abaixo</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -691,7 +691,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&amp;Third-Party Licenses</source>
-        <translation>Licenças de &amp;Terceiros</translation>
+        <translation>Licenças de &amp;terceiros</translation>
     </message>
     <message>
         <source>OK</source>
@@ -707,11 +707,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>For a list of authors, please see &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</source>
-        <translation>Para uma lista de autores, veja &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
+        <translation>Para consultar a lista dos autores, por favor, acesse a página &lt;a href=&quot;https://github.com/mumble-voip/mumble/graphs/contributors&quot;&gt;https://github.com/mumble-voip/mumble/graphs/contributors&lt;/a&gt;</translation>
     </message>
     <message>
         <source>An Open Source, low-latency, high quality voice-chat utility</source>
-        <translation>Um programa código aberto, de baixa latência e alta qualidade para bate-papo por voz</translation>
+        <translation>O Mumble é um programa de código aberto, de baixa latência e de alta qualidade que serve para o bate-papo por voz entre duas pessoas</translation>
     </message>
 </context>
 <context>
@@ -737,11 +737,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Input device for audio</source>
-        <translation>Dispositivo para entrada de áudio</translation>
+        <translation>Dispositivo para entrada do áudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Este é o dispositivo de entrada a ser usado para áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o dispositivo de entrada a ser utilizado para o áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Transmission</source>
@@ -753,39 +753,39 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>When to transmit your speech</source>
-        <translation>Quando transmitir sua fala</translation>
+        <translation>Quando for transmitir a sua fala</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Define quando sua fala deve ser transmitida.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Contínua&lt;/i&gt; - Todo o tempo&lt;br /&gt;&lt;i&gt;Atividade vocal&lt;/i&gt; - Quando você fala claramente.&lt;br /&gt;&lt;i&gt;Pressionar Para Falar&lt;/i&gt; - Quando você pressionar a tecla de atalho escolhida em &lt;i&gt;Atalhos&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir quando a sua fala deve ser transmitida durante a conversa.&lt;/b&gt;&lt;br /&gt;A opção ‘&lt;i&gt;Transmissão contínua&lt;/i&gt;’, onde a transmissão da sua fala ocorre o tempo todo.&lt;br /&gt;A opção ‘&lt;i&gt;Ativação por voz&lt;/i&gt;’, onde a transmissão da sua fala ocorre quando você fala perto do microfone.&lt;br /&gt;A opção ‘&lt;i&gt;Pressionar a tecla para falar&lt;/i&gt;’, onde a transmissão da sua fala ocorre quando você pressionar a tecla de atalho que você definiu na opção dos ‘&lt;i&gt;Atalhos&lt;/i&gt;’.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
-        <translation>Tempo para DuploPressionar</translation>
+        <translation>Intervalo de tempo para pressionar duas vezes a tecla</translation>
     </message>
     <message>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Se pressionar a tecla PPF duas vezes neste tempo ela ficará travada.</translation>
+        <translation>Se você ‘Pressionar a tecla para falar’ duas vezes neste intervalo de tempo, esta tecla será travada.</translation>
     </message>
     <message>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Tempo para DuploPressionar&lt;/b&gt;&lt;br /&gt;Se você pressionar a tecla para falar duas vezes durante o intervalo de tempo configurado ela ficará travada. O Mumble continuará transmitindo até que você pressione-a uma vez mais para destravar o PPF de novo.</translation>
+        <translation>&lt;b&gt;Intervalo de tempo para pressionar duas vezes a tecla&lt;/b&gt;&lt;br /&gt;Se você ‘Pressionar a tecla para falar’ duas vezes durante o intervalo de tempo que foi configurado, a tecla ficará travada. O Mumble continuará transmitindo até você ‘Pressionar a tecla para falar’ uma vez para destravá-la e assim o microfone irá captar novamente a sua fala.</translation>
     </message>
     <message>
         <source>Reset audio cue to default</source>
-        <translation>Resetar notificação de áudio para padrão</translation>
+        <translation>Redefinir para o padrão a notificação de áudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Resetar&lt;/b&gt;&lt;br/&gt;Reseta os caminhos para os arquivos para os padrões.</translation>
+        <translation>&lt;b&gt;Redefinir&lt;/b&gt;&lt;br/&gt;Esta opção permite redefinir para o padrão os caminhos dos arquivos.</translation>
     </message>
     <message>
         <source>Browse for on audio file</source>
-        <translation>Procurar por um arquivo de áudio para Ativo</translation>
+        <translation>Procurar por um arquivo de áudio ativo</translation>
     </message>
     <message>
         <source>Browse for off audio file</source>
-        <translation>Procurar por um arquivo de áudio para Inativo</translation>
+        <translation>Procurar por um arquivo de áudio inativo</translation>
     </message>
     <message>
         <source>Off</source>
@@ -797,7 +797,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Use SNR based speech detection</source>
-        <translation>Usar detecção de áudio baseada em SNR</translation>
+        <translation>Utilizar a detecção da fala baseada na relação entre o sinal e o ruído do microfone</translation>
     </message>
     <message>
         <source>Signal to Noise</source>
@@ -805,7 +805,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Configura a detecção de fala para usar Amplitude.&lt;/b&gt;&lt;br /&gt;Neste modo, a força bruta do sinal de entrada é usado para detectar fala.</translation>
+        <translation>&lt;b&gt;Esta opção permite configurar a detecção da fala para utilizar a ‘Amplitude’.&lt;/b&gt;&lt;br /&gt;Neste modo, a intensidade da força bruta do sinal da entrada é utilizada para detectar a fala.</translation>
     </message>
     <message>
         <source>Amplitude</source>
@@ -813,27 +813,27 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Voice &amp;Hold</source>
-        <translation>&amp;Persistência de voz</translation>
+        <translation>Persistência da &amp;voz</translation>
     </message>
     <message>
         <source>How long to keep transmitting after silence</source>
-        <translation>Quanto tempo continuar a transmissão após silêncio</translation>
+        <translation>Por quanto tempo deve continuar transmitindo após um período de silêncio</translation>
     </message>
     <message>
         <source>Silence Below</source>
-        <translation>Silêncio abaixo</translation>
+        <translation>Silêncio em um nível inferior</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Estabelece os gatilhos para a detecção de voz.&lt;/b&gt;&lt;br /&gt;Use isto junto com a janela de Estatísticas de Áudio para afinar manualmente os valores para o gatilho de detecção de voz. Valores de entrada baixo de &quot;Silêncio abaixo&quot; sempre contam como silêncio. Valores acima de &quot;Fala acima&quot; sempre contam como voz. Valores entre ambos contam como voz se você já está falando, mas não levam a uma nova detecção.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir os valores do gatilho para a detecção da voz.&lt;/b&gt;&lt;br /&gt;Utilize este recurso em conjunto com a janela das ‘Estatísticas de áudio’ para ajustar manualmente os valores do gatilho para a detecção da voz. Os valores da entrada ‘Silêncio em um nível inferior’ são sempre considerados ‘silêncio’. Os valores da entrada ‘Fala em um nível superior’ são sempre considerados voz ou fala. Os valores situados entre estes dois limites serão contabilizados como voz caso você já esteja falando, mas não acionarão uma nova detecção.</translation>
     </message>
     <message>
         <source>Speech Above</source>
-        <translation>Fala acima</translation>
+        <translation>Fala em um nível superior</translation>
     </message>
     <message>
         <source>Signal values above this count as voice</source>
-        <translation>Sinal acima disto conta como voz</translation>
+        <translation>Os valores do sinal acima disso são considerados como voz</translation>
     </message>
     <message>
         <source>Compression</source>
@@ -845,11 +845,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Qualidade da compressão (pico de banda)</translation>
+        <translation>Qualidade da compressão (pico da largura de banda)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;Configura a qualidade da compressão.&lt;/b&gt;&lt;br /&gt;Determina quanta banda o Mumble pode usar para transmissão de áudio.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir a qualidade da compressão.&lt;/b&gt;&lt;br /&gt;Ou seja, determina quanto da largura de banda que o Mumble tem permissão para utilizar o áudio da saída.</translation>
     </message>
     <message>
         <source>Audio per packet</source>
@@ -857,39 +857,39 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>How many audio frames to send per packet</source>
-        <translation>Quantos quadros de áudio para enviar por pacote</translation>
+        <translation>Quantos quadros de áudio devem ser enviados em cada pacote</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;Seleciona quantos quadros de áudio devem ser colocados em um pacote.&lt;/b&gt;&lt;br /&gt;Aumentar isto também aumentará a latência para sua voz, reduzindo as exigências de banda.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir quantos quadros de áudio devem ser incluídos em um pacote.&lt;/b&gt;&lt;br /&gt;Se você aumentar este valor também aumentará a latência da sua voz, mas também irá diminuir as exigências da largura de banda.</translation>
     </message>
     <message>
         <source>Audio Processing</source>
-        <translation>Processamento de áudio</translation>
+        <translation>Processamento do áudio</translation>
     </message>
     <message>
         <source>Noise suppression</source>
-        <translation>Supressão de ruídos</translation>
+        <translation>Supressão dos ruídos</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Configura a quantia de supressão de ruído aplicada.&lt;/b&gt;&lt;br /&gt;Quão maior este valor, mais agressivamente o ruído estacionário será suprimido.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir o nível da supressão dos ruídos a ser aplicado.&lt;/b&gt;&lt;br /&gt;Ou seja, quanto maior for o valor, mais agressivamente o ruído estacionário será suprimido.</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation>Amplificação máxima do som de entrada</translation>
+        <translation>Amplificação máxima do som da entrada</translation>
     </message>
     <message>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Amplificação máxima da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble normaliza o volume de entrada antes da compressão, e isso configura o quanto ele pode amplificar.&lt;br /&gt;O nível real é continuamente atualizado baseado no seu padrão atual de fala mas, nunca passará do nível aqui especificado.&lt;br /&gt;Se o nível da &lt;i&gt;Altura do microfone&lt;/i&gt; das estatísticas de áudio tende a ficar perto dos 100%, você provavelmente quer configurar o valor aqui para 2.0 ou algo parecido mas se, como a maioria das pessoas, você é incapaz de chegar aos 100%, configure o valor muito mais alto.&lt;br /&gt;Idealmente, configure de modo que &lt;i&gt;Altura do microfone * Fator de Amplificação &gt;= 100&lt;/i&gt;, mesmo quando você está falando baixo.&lt;br /&gt;&lt;br /&gt;Note que não há dano em configurar o valor aqui para o máximo, mas o Mumble começará a transmitir outras conversas se você deixá-lo auto-afinado para tal nível.</translation>
+        <translation>&lt;b&gt;Amplificação máxima do som da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble tenta normalizar o volume da entrada antes de realizar a compressão e esta opção permite definir o limite máximo da amplificação.&lt;br /&gt;O nível real é continuamente atualizado com base no padrão atual da sua fala, mas nunca ultrapassará o valor do nível que foi especificado nesta opção.&lt;br /&gt;Se o nível da ‘&lt;i&gt;Intensidade do microfone&lt;/i&gt;’ nas ‘Estatísticas do áudio’ ficar próximo do 100%, você poderá definir este valor aqui para aproximadamente 2.0. Caso contrário, como acontece com a maioria das pessoas, que não consegue atingir o 100%, pode definir o valor muito mais alto.&lt;br /&gt;O ideal é definir o valor de modo que a ‘&lt;i&gt;Intensidade do microfone&lt;/i&gt;’ para o fator de amplificação que seja maior ou igual a 100, mesmo quando você estiver falando muito baixo.&lt;br /&gt;&lt;br /&gt;Vale ressaltar que não há problema em definir o valor aqui para o máximo. No entanto, se você permitir que o Mumble faça o ajuste automático para este nível, o Mumble poderá captar outras conversas que estiverem acontecendo ao seu redor.</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation>Probabilidade atual de detecção da fala</translation>
+        <translation>Probabilidade atual da detecção da fala</translation>
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Ativar isto vai cancelar o eco de seus alto-falantes. Misto tem pouco impacto no uso de CPU, mas só funciona direito se seus alto-falantes são igualmente altos e equidistantes do microfone. Anulação multicanal de eco fornece uma anulação muito melhor, mas a um custo de CPU maior.</translation>
+        <translation>Se você ativar este recurso irá eliminar o eco dos seus alto-falantes. O modo ‘misto’ exige pouco processamento, mas só funciona adequadamente se os seus alto-falantes estiverem com o mesmo volume em cada uma das caixas de som e equidistantes do microfone. O cancelamento do eco no multicanal oferece um resultado muito melhor, porém com um custo maior de processamento.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -897,27 +897,27 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Configura a detecção de fala usada na taxa de Sinal para Ruído.&lt;/b&gt;&lt;br /&gt;Nesse modo, a entrada é analisada em busca de algo lembrando um sinal limpo, e a clareza deste sinal é usada para ativar a detecção de fala.</translation>
+        <translation>&lt;b&gt;Esta opção permite configurar a detecção da fala para utilizar a relação do sinal/ruído.&lt;/b&gt;&lt;br /&gt;Neste modo, o sinal da entrada é analisado em busca de algo que se assemelhe a um sinal limpo e a clareza deste sinal é utilizada para ativar a detecção da fala.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Mostra as configurações atuais de detecção de fala.&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações no diálogo de Configurações ou no Assistente de Áudio.</translation>
+        <translation>&lt;b&gt;Esta opção permite exibir as configurações atuais da detecção da fala.&lt;/b&gt;&lt;br /&gt;Você pode modificar as configurações na janela das ‘Configurações’ ou no ‘Assistente do áudio’.</translation>
     </message>
     <message>
         <source>Signal values below this count as silence</source>
-        <translation>Valores de sinal abaixo disto contam como silêncio</translation>
+        <translation>Os valores do sinal abaixo do que foi especificado serão considerados como silêncio</translation>
     </message>
     <message>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation>Banda máxima usada para enviar áudio</translation>
+        <translation>Largura de banda máxima a ser utilizada para enviar o áudio</translation>
     </message>
     <message>
         <source>Use Amplitude based speech detection</source>
-        <translation>Usar Amplitude baseada na detecção de fala</translation>
+        <translation>Utilizar a detecção da fala baseada na amplitude</translation>
     </message>
     <message>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Seleciona por quanto tempo após uma perceptível parada na fala a transmissão deve continuar.&lt;/b&gt;&lt;br /&gt;Configure isso mais alto se sua voz quebra durante sua fala (percebido pelo ícone de voz piscando rapidamente ao lado do seu nome).</translation>
+        <translation>&lt;b&gt;Esta opção permite definir por quanto tempo após uma perceptível parada na fala durante a transmissão deve continuar.&lt;/b&gt;&lt;br /&gt;Aumente este valor caso a sua voz apresente falhas durante a fala (um ícone da voz pisca rapidamente ao lado do seu nome indicando a falha).</translation>
     </message>
     <message>
         <source>Exclusive mode</source>
@@ -925,7 +925,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Abre o dispositivo em modo exclusivo.&lt;/b&gt;&lt;br /&gt;Nenhum outro aplicativo será capaz de utilizá-lo.</translation>
+        <translation>&lt;b&gt;Esta opção permite abrir o dispositivo no modo exclusivo.&lt;/b&gt;&lt;br /&gt;Nenhum outro programa será capaz de utilizar o dispositivo.</translation>
     </message>
     <message>
         <source>Exclusive</source>
@@ -933,31 +933,31 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>R&amp;eset</source>
-        <translation>R&amp;esetar</translation>
+        <translation>R&amp;edefinir</translation>
     </message>
     <message>
         <source>&amp;Browse...</source>
-        <translation>&amp;Procurar...</translation>
+        <translation>Pro&amp;curar...</translation>
     </message>
     <message>
         <source>B&amp;rowse...</source>
-        <translation>N&amp;avegar...</translation>
+        <translation>P&amp;rocurar...</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>&amp;Visualizar</translation>
+        <translation>Vis&amp;ualizar</translation>
     </message>
     <message>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;Prever&lt;/b&gt;&lt;br/&gt;Toca o som padrão &lt;i&gt;Ativo&lt;/i&gt; seguido do som &lt;i&gt;Inativo&lt;/i&gt; atual.</translation>
+        <translation>&lt;b&gt;Visualizar ou Pré-visualização&lt;/b&gt;&lt;br/&gt;Esta opção permite reproduzir ou tocar o som padrão atual do estado &lt;i&gt;Ativo&lt;/i&gt; seguido do som do estado &lt;i&gt;Inativo&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Mostra uma janela sempre no topo com um botão de pressionar para falar nela</translation>
+        <translation>Exibir uma janela sempre na posição superior com um botão que serve para ‘Pressionar para falar’</translation>
     </message>
     <message>
         <source>Display push to talk window</source>
-        <translation>Mostrar janela pressionar para falar</translation>
+        <translation>Exibir a janela para pressionar para falar</translation>
     </message>
     <message>
         <source>Misc</source>
@@ -965,31 +965,31 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Gets played when starting to transmit</source>
-        <translation>É usado no começo da transmissão</translation>
+        <translation>É utilizado no início da transmissão</translation>
     </message>
     <message>
         <source>Gets played when stopping to transmit</source>
-        <translation>É usado no final da transmissão</translation>
+        <translation>É utilizado no final da transmissão</translation>
     </message>
     <message>
         <source>Hold Time</source>
-        <translation>Tempo Mantido</translation>
+        <translation>Tempo de espera</translation>
     </message>
     <message>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>Tempo que o microfone fica aberto após a tecla PPF ser solta</translation>
+        <translation>Tempo que o microfone permanece aberto após soltar a tecla que serve para falar</translation>
     </message>
     <message>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>A largura máxima de banda do servidor é apenas %1 kbit/s. Qualidade de áudio ajustada para %2 kbit/s (%3 ms)</translation>
+        <translation>A largura de banda máxima da rede do servidor é de apenas %1 kbit/s. A qualidade do áudio foi ajustada automaticamente para %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <source>Max. Amplification</source>
-        <translation>Amplificação Máxima</translation>
+        <translation>Amplificação máxima</translation>
     </message>
     <message>
         <source>Idle action</source>
-        <translation>Ação ociosa</translation>
+        <translation>Ação de inatividade</translation>
     </message>
     <message>
         <source>minutes do</source>
@@ -1013,15 +1013,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Echo Cancellation</source>
-        <translation>Atenuação de Eco</translation>
+        <translation>Atenuação do eco</translation>
     </message>
     <message>
         <source>The idle action will be reversed upon any key or mouse button input</source>
-        <translation>A ação ausente será revertida por qualquer modificação de mouse ou teclas</translation>
+        <translation>A ação de inatividade será revertida mediante qualquer entrada via teclado ou com clique do botão esquerdo</translation>
     </message>
     <message>
         <source>Undo Idle action upon activity</source>
-        <translation>Desfazer ação de Ausência quando houver atividade</translation>
+        <translation>Desfazer ação de inatividade quando detectar qualquer atividade</translation>
     </message>
     <message>
         <source>Audio input</source>
@@ -1029,35 +1029,35 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Este é o dispositivo de entrada a ser usado para áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o dispositivo de entrada a ser utilizado para o áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kb/s&lt;/b&gt; or higher. </source>
-        <translation>Ative o modo de baixa latência do Opus quando a qualidade estiver definida para &lt;b&gt;64 kb/s&lt;/b&gt; ou superior. </translation>
+        <translation>Ativar o modo de baixa latência do Opus quando a qualidade estiver definida como ‘&lt;b&gt;64 kb/s&lt;/b&gt;’ ou superior. </translation>
     </message>
     <message>
         <source>If checked, Mumble will enable Opus&apos; low-delay mode when the quality is set to &lt;b&gt;64 kbit/s&lt;/b&gt; or higher. Low-delay mode decreases latency by &lt;b&gt;~15 milliseconds&lt;/b&gt; in the round trip. This mode may require an higher bitrate to preserve the same quality, in comparison with the music and VOIP modes.</source>
-        <translation>Se marcado, o Mumble ativará o modo Opus de baixa-latência quando a qualidade é definida para &lt;b&gt;64 kbit/s&lt;/b&gt; ou superior. O modo de baixa-latência reduz o atraso em &lt;b&gt;~15 milisegundos&lt;/b&gt; na viagem de ida e volta. Esse modo exigirá uma taxa de bits maior para preservar a mesma qualidade, em comparação com os modos VOIP e música.</translation>
+        <translation>Se esta opção estiver selecionada, o Mumble ativará o modo de baixa latência do Opus quando a qualidade for definida como ‘&lt;b&gt;64 kbit/s&lt;/b&gt;’ ou superior. O modo de baixa latência reduz o atraso em aproximadamente ‘&lt;b&gt;15 milisegundos&lt;/b&gt;’ no tempo de ida e volta. Este modo exigirá uma taxa de bits maior para preservar a mesma qualidade, em comparação com os modos VOIP e música.</translation>
     </message>
     <message>
         <source>Allow low delay mode</source>
-        <translation>Permitir modo de baixa latência</translation>
+        <translation>Permitir o modo de baixa latência</translation>
     </message>
     <message>
         <source>Don&apos;t use noise suppression.</source>
-        <translation>Não usar supressão de ruídos de fundo.</translation>
+        <translation>Não utilizar a supressão dos ruídos de fundo.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by Speex.</source>
-        <translation>Usar o algoritmo de supressão de ruídos de fundo fornecido pela Speex.</translation>
+        <translation>Utilizar o algoritmo de supressão dos ruídos de fundo que é fornecido pelo Speex.</translation>
     </message>
     <message>
         <source>Use the noise suppression algorithm provided by RNNoise.</source>
-        <translation>Usar o algoritmo de supressão de ruídos de fundo fornecido pela RNNoise.</translation>
+        <translation>Utilizar o algoritmo de supressão dos ruídos de fundo que é fornecido pelo RNNoise.</translation>
     </message>
     <message>
         <source>Use a combination of Speex and RNNoise to do noise suppression.</source>
-        <translation>Usar uma combinação de Speex and RNNoise para suprimir ruído.</translation>
+        <translation>Utilizar uma combinação entre o Speex e o RNNoise para realizar a supressão do ruído.</translation>
     </message>
     <message>
         <source>Both</source>
@@ -1065,11 +1065,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>This controls the amount by which Speex will suppress noise.</source>
-        <translation>Isso controla o quanto Speex suprimirá ruído.</translation>
+        <translation>Esta opção permite controlar a intensidade com que o Speex irá suprimir o ruído.</translation>
     </message>
     <message>
         <source>Speex suppression strength</source>
-        <translation>Intensidade da supressão Speex</translation>
+        <translation>Intensidade da supressão do Speex</translation>
     </message>
     <message>
         <source>Mute cue</source>
@@ -1077,51 +1077,51 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Br&amp;owse...</source>
-        <translation>Navegar...</translation>
+        <translation>Pr&amp;ocurar...</translation>
     </message>
     <message>
         <source>Pre&amp;view</source>
-        <translation>Pré-visualizar</translation>
+        <translation>&amp;Visualizar</translation>
     </message>
     <message>
         <source>Audio cue when using...</source>
-        <translation>Emitir sinal sonoro ao usar...</translation>
+        <translation>Emitir o sinal sonoro ao utilizar...</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Push To Talk</source>
-        <translation>Sinal sonoro ao iniciar ou parar de transmitir usando Pressione para Falar</translation>
+        <translation>Emitir o sinal sonoro ao iniciar ou parar a transmissão quando estiver utilizando o recurso que serve para ‘Pressionar a tecla para falar’</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Push To Talk.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Ativa a transmissão de sinais sonoros ao usar Pressione para Falar.&lt;/b&gt;&lt;br /&gt;Habilitar essa opção reproduzirá um curto bipe de áudio quando você iniciar ou parar de transmitir.</translation>
+        <translation>&lt;b&gt;Esta opção permite ativar a emissão dos sinais sonoros da transmissão de ao utilizar o recurso que serve para ‘Pressionar a tecla para falar’&lt;/b&gt;&lt;br /&gt;Ao ativar esta opção, você ouvirá um breve sinal sonoro ao iniciar e ao parar a transmissão.</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Pressionar para Falar</translation>
+        <translation>Pressionar uma tecla para falar</translation>
     </message>
     <message>
         <source>Audible audio cue when starting or stopping to transmit using Voice Activity</source>
-        <translation>Sinal sonoro ao iniciar ou parar de transmitir usando Atividade de Voz</translation>
+        <translation>Um sinal sonoro será emitido ao iniciar ou parar a transmissão ao utilizar a opção da ‘Ativação por voz’</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables transmission audio cues when using Voice Activity.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Ativa a transmissão de sinais sonoros ao usar Atividade de Voz.&lt;/b&gt;&lt;br /&gt;Habilitar essa opção reproduzirá um curto bipe de áudio quando você iniciar ou parar de transmitir.</translation>
+        <translation>&lt;b&gt;Esta opção permite ativar os sinais sonoros na transmissão quando você utilizar a opção da ‘Ativação por voz’.&lt;/b&gt;&lt;br /&gt;Ao ativar essa opção, você ouvirá um breve sinal sonoro ao iniciar ou parar uma transmissão.</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Atividade de Voz</translation>
+        <translation>Ativação por voz</translation>
     </message>
     <message>
         <source>Input backend for audio</source>
-        <translation>Back-end de entrada para áudio</translation>
+        <translation>Infraestrutura de entrada do áudio</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation>Sistema de entrada de áudio</translation>
+        <translation>Sistema de entrada do áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation>Dispositivo de entrada de áudio</translation>
+        <translation>Dispositivo de entrada do áudio</translation>
     </message>
     <message>
         <source>Transmission mode</source>
@@ -1129,55 +1129,55 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Push to talk lock threshold</source>
-        <translation>Limite de bloqueio do Pressione para Falar</translation>
+        <translation>Limite da trava da opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>Switch between push to talk and continuous mode by double tapping in this time frame</source>
-        <translation>Alterna entre os modos Contínuo e Pressione para Falar ao tocar duas vezes nesse período de tempo</translation>
+        <translation>Esta opção permite alternar entre os modos da ‘Transmissão contínua’ e de ‘Pressionar uma tecla para falar’ ao pressionar duas vezes dentro deste intervalo de tempo</translation>
     </message>
     <message>
         <source>&lt;b&gt;Voice hold Time&lt;/b&gt;&lt;br /&gt;After you release the push-to-talk key Mumble will keep transmitting for the selected amount of time.</source>
-        <translation>&lt;b&gt;Tempo de espera de voz&lt;/b&gt;&lt;br /&gt;Após soltar a tecla de Pressione para Falar, o Mumble continuará transmitindo pela quantidade de tempo definida.</translation>
+        <translation>&lt;b&gt;Tempo de espera da voz&lt;/b&gt;&lt;br /&gt;Esta opção está associada ao modo que serve para ‘Pressionar a tecla para falar’, após você soltar a tecla que serve para falar, o Mumble continuará transmitindo pelo período de tempo (quantidade) que foi definido nesta opção.</translation>
     </message>
     <message>
         <source>Push to talk hold threshold</source>
-        <translation>Limite de espera do Pressione para Falar</translation>
+        <translation>Limite do tempo de espera da ação de ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>Extend push to talk send time after the key is released by this amount of time</source>
-        <translation>Estende o tempo de envio do Pressione para Falar após essa tecla ser liberada por esse período de tempo</translation>
+        <translation>Esta opção permite aumentar o tempo do envio após soltar a tecla que serve para falar por este período de tempo</translation>
     </message>
     <message>
         <source>Voice hold time</source>
-        <translation>Tempo de espera de voz</translation>
+        <translation>Tempo de espera da voz</translation>
     </message>
     <message>
         <source>Silence below threshold</source>
-        <translation>Silêncio abaixo do limite</translation>
+        <translation>Limite do silêncio em um nível inferior</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal silence</source>
-        <translation>Define o limite de quando o Mumble vai considerar definitivamente um sinal de silêncio</translation>
+        <translation>Esta opção permite definir o limite a partir do qual o Mumble irá considerar, de forma definitiva, que um determinado sinal é um silêncio</translation>
     </message>
     <message>
         <source>Speech above threshold</source>
-        <translation>Fala acima do limite</translation>
+        <translation>Limite da fala em um nível superior</translation>
     </message>
     <message>
         <source>This sets the threshold when Mumble will definitively consider a signal speech</source>
-        <translation>Define o limite de quando o Mumble vai considerar definitivamente um sinal de fala</translation>
+        <translation>Esta opção permite definir o limite a partir do qual o Mumble irá considerar, de forma definitiva, que um determinado sinal é uma fala</translation>
     </message>
     <message>
         <source>This sets how much speech is packed into a single network package</source>
-        <translation>Define a quantidade de fala empacotada em um único pacote de rede</translation>
+        <translation>Esta opção permite definir a quantidade da fala que será empacotada em um único pacote a ser enviado na rede</translation>
     </message>
     <message>
         <source>Audio compression quality</source>
-        <translation>Qualidade de compressão de áudio</translation>
+        <translation>Qualidade da compressão do áudio</translation>
     </message>
     <message>
         <source>This sets the target compression bitrate</source>
-        <translation>Define a taxa de compressão de bits desejada</translation>
+        <translation>Esta opção permite definir a taxa de compressão de bits que você quer utilizar</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -1185,15 +1185,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation>A fala é dinamicamente amplificada até, no máximo, nesta quantidade</translation>
+        <translation>A fala é amplificada dinamicamente até, no máximo, nesta quantidade</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
-        <translation>Nível de supressão de ruído</translation>
+        <translation>Intensidade da supressão do ruído</translation>
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation>Modo de cancelamento de eco</translation>
+        <translation>Modo de cancelamento do eco</translation>
     </message>
     <message>
         <source>Path to audio file</source>
@@ -1201,39 +1201,39 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Path to audio cue file when stopping to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation>Caminho para o arquivo de sinal sonoro ao parar de falar. Use o botão &quot;Navegar&quot; para abrir a janela de seleção de arquivo.</translation>
+        <translation>O caminho onde está armazenado o arquivo de áudio do sinal sonoro ao parar de falar. Utilize o botão ‘Procurar’ para abrir a janela que permite selecionar o arquivo.</translation>
     </message>
     <message>
         <source>Idle action time threshold (in minutes)</source>
-        <translation>Limite de tempo de inatividade (em minutos)</translation>
+        <translation>Limite do tempo de inatividade (em minutos)</translation>
     </message>
     <message>
         <source>Select what to do when being idle for a configurable amount of time. Default: nothing</source>
-        <translation>Selecione o que fazer quando estiver ausente por um período de tempo configurável. Padrão: nada</translation>
+        <translation>Selecione o que fazer quando estiver ausente após um período de inatividade por um período de tempo que pode ser configurado. O padrão é não fazer ‘nada’</translation>
     </message>
     <message>
         <source>Gets played when you are trying to speak while being muted</source>
-        <translation>É reproduzido quando você tentar falar enquanto estiver silenciado</translation>
+        <translation>É reproduzido quando você tenta falar estando com o microfone silenciado</translation>
     </message>
     <message>
         <source>Path to mute cue file. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation>Caminho para o arquivo de sinal de silêncio. Use o botão &quot;Navegar&quot; para abrir a janela de seleção de arquivo.</translation>
+        <translation>O caminho onde está armazenado o arquivo de áudio do sinal de indicação do estado mudo ou em silêncio. Utilize o botão ‘Procurar’ para abrir a janela que permite selecionar o arquivo.</translation>
     </message>
     <message>
         <source>Browse for mute cue audio file</source>
-        <translation>Navegar por arquivo de sinal de silêncio</translation>
+        <translation>Procurar por um arquivo de áudio para o sinal de silêncio</translation>
     </message>
     <message>
         <source>Path to audio cue file when starting to speak. Use the &quot;browse&quot; button to open a file dialog.</source>
-        <translation>Caminho para o arquivo de sinal sonoro ao começar a falar. Use o botão &quot;Navegar&quot; para abrir a janela de seleção de arquivo.</translation>
+        <translation>O caminho onde está armazenado o arquivo de áudio do sinal sonoro ao começar a falar. Utilize o botão ‘Procurar’ para abrir a janela que permite selecionar o arquivo.</translation>
     </message>
     <message>
         <source>Preview the mute cue</source>
-        <translation>Visualizar o sinal de silêncio</translation>
+        <translation>Visualizar o comando do sinal de silêncio</translation>
     </message>
     <message>
         <source>The mute cue is an audio sample which plays when you are trying to speak while being muted</source>
-        <translation>O sinal de silêncio é uma amostra sonora que é reproduzida quando você tenta falar estando silenciado</translation>
+        <translation>O sinal de silêncio é uma amostra sonora que é reproduzida quando você tenta falar enquanto está com o microfone silenciado ou mudo</translation>
     </message>
     <message>
         <source>Preview both audio cues</source>
@@ -1241,30 +1241,30 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Isso mostra a largura de banda máxima de saída utilizada.&lt;/b&gt;&lt;br /&gt;Isso mostra a quantidade máxima de largura de banda enviada a partir da sua máquina. A taxa de bits de áudio é a taxa máxima de bits apenas para os dados de áudio. Posição é a taxa de bits usada para informações posicionais. Sobrecarga é nossa estruturação e os cabeçalhos de pacotes (IP e UDP representam 75% dessa sobrecarga).</translation>
+        <translation>&lt;b&gt;Esta opção permite exibir a largura de banda máxima que é utilizada na saída.&lt;/b&gt;&lt;br /&gt;Permite exibir também a quantidade máxima da largura de banda que é enviada a partir da sua máquina. A taxa de bits do áudio refere-se à taxa máxima de bits apenas para os dados do áudio. A posição corresponde à taxa de bits que é utilizada para as informações de posicionamento. A sobrecarga refere-se a nossa estruturação e aos cabeçalhos dos pacotes de IP (onde o IP e o UDP representam 75% desta sobrecarga).</translation>
     </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
     <message>
         <source>Continuous</source>
-        <translation>Contínuo</translation>
+        <translation>Transmissão contínua</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Atividade de Voz</translation>
+        <translation>Ativação por voz</translation>
     </message>
     <message>
         <source>Push To Talk</source>
-        <translation>Pressione para Falar</translation>
+        <translation>Pressionar uma tecla para falar</translation>
     </message>
     <message>
         <source>Audio Input</source>
-        <translation>Entrada de Áudio</translation>
+        <translation>Entrada de áudio</translation>
     </message>
     <message>
         <source>Access to the microphone was denied. Please allow Mumble to use the microphone by changing the settings in System Settings -&gt; Privacy &amp; Security -&gt; Microphone.</source>
-        <translation type="unfinished"></translation>
+        <translation>O acesso ao microfone foi negado. Por favor, permita que o Mumble utilize o microfone modificando as configurações nas opções dos Ajustes do sistema -&gt; Privacidade e segurança -&gt; Microfone.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1292,7 +1292,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Access to the microphone was denied. Please check that your operating system&apos;s microphone settings allow Mumble to use the microphone.</source>
-        <translation>O acesso ao microfone foi negado. Por favor, verifique se as configurações de microfone do seu sistema operacional estão permitindo que ele seja utilizado pelo Mumble.</translation>
+        <translation>O acesso ao microfone foi negado. Por favor, verifique se as configurações do microfone do seu sistema operacional estão permitindo que ele seja utilizado pelo Mumble.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -1300,7 +1300,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation>Desativar cancelamento de eco.</translation>
+        <translation>Desativar o cancelamento do eco.</translation>
     </message>
     <message>
         <source>milliseconds</source>
@@ -1331,7 +1331,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation>Método de saída para Áudio</translation>
+        <translation>Método de saída do áudio</translation>
     </message>
     <message>
         <source>Device</source>
@@ -1339,43 +1339,43 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Output device for audio</source>
-        <translation>Dispositivo de saída para áudio</translation>
+        <translation>Dispositivo de saída do áudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Este é o dispositivo de saída para usar para o áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o dispositivo de saída para ser utilizado para o áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>Áudio Posicional</translation>
+        <translation>Áudio posicional</translation>
     </message>
     <message>
         <source>Audio Output</source>
-        <translation>Saída de Áudio</translation>
+        <translation>Saída de áudio</translation>
     </message>
     <message>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Oscilação de &amp;Buffer Padrão</translation>
+        <translation>Oscilação do ‘&amp;buffer’ padrão</translation>
     </message>
     <message>
         <source>Safety margin for jitter buffer</source>
-        <translation>Margem de segurança para o buffer jitter</translation>
+        <translation>Margem de segurança da oscilação do ‘buffer’</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Isto configura a margem mínima de segurança para o buffer jitter.&lt;/b&gt;&lt;br /&gt;Todo áudio recebido é armazenado em buffer, e o buffer jitter busca continuamente empurrar o buffer para o tamanho mínimo suportado pela sua rede, diminuindo a latência. Configure o tamanho do buffer para o menor possível. Se o começo das frases recebidas é muito irregular, aumente esse valor.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir a margem mínima de segurança para as oscilações do ‘buffer’.&lt;/b&gt;&lt;br /&gt;Todo áudio recebido é armazenado em um ‘buffer’ (é uma área temporária da memória utilizada para guardar os dados enquanto eles são transferidos entre dois componentes ou dois programas que funcionam em velocidades diferentes), o sistema operacional tenta manter este buffer no nível mínimo que seja suportado pela sua rede, de modo que a latência seja a menor possível. Configure o tamanho do ‘buffer’ para o menor possível. Se o início das frases que você ouve apresentar muita instabilidade ou oscilações, então, aumente o valor ‘buffer’.</translation>
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Configura a distância mínima para cálculos de som. O volume da fala dos usuários não irá diminuir antes de, no mínimo, esta distância de você.</translation>
+        <translation>Esta opção permite definir a distância mínima para os cálculos do som. O volume da fala de outros usuários não irá diminuir até que eles estejam, pelo menos, a esta distância de você.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Configura a distância máxima para cálculos de som. Quando além desta distância, o volume de fala de outros usuários não vai diminuir nada a mais.</translation>
+        <translation>Esta opção permite definir a distância máxima para os cálculos do som. A partir dessa distância, o volume da voz dos outros usuários não irá diminuir mais.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Configura os métodos de teste de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Nenhum&lt;/i&gt; - Retorno desativado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula um servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Pede retorno do servidor.&lt;br /&gt;Por favor note que quando o retorno está ativo, nenhuma outra usuária ouvirá sua voz. Esta configuração não é salva ao finalizar o programa.</translation>
+        <translation>&lt;b&gt;Esta opção permite ativar os métodos de testes do retorno.&lt;/b&gt;&lt;br /&gt;A opção ‘&lt;i&gt;Nenhum&lt;/i&gt;’, serve para desativar o retorno&lt;br /&gt;. A opção ‘&lt;i&gt;Local&lt;/i&gt;’, emula um servidor local.&lt;br /&gt;A opção ‘&lt;i&gt;Servidor&lt;/i&gt;’, solicita o retorno ao servidor.&lt;br /&gt;Por favor, observe que quando o retorno está ativado, nenhum outro usuário ouvirá a sua voz. Esta configuração não é salva ao finalizar o programa.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1383,24 +1383,24 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation>Volume para fala recebida</translation>
+        <translation>Volume da fala que é recebida</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;b&gt;Configura o volume da fala recebida.&lt;/b&gt;&lt;br /&gt;Note que se você aumentar isso além de 100%, o áudio será distorcido.</translation>
+        <translation>&lt;b&gt;Esta opção permite configurar o volume da fala que é recebida.&lt;/b&gt;&lt;br /&gt;Observe que, se você aumentar este valor para além de 100%, o áudio ficará distorcido.</translation>
     </message>
     <message>
         <source>Output Delay</source>
-        <translation>Atraso de Saída</translation>
+        <translation>Atraso na saída</translation>
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation>Quantia de dados a armazenar em buffer</translation>
+        <translation>Quantidade de dados a serem armazenados no ‘buffer’</translation>
     </message>
     <message>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation>Os &quot;alto-falantes&quot; conectados são na realidade fones de ouvido</translation>
+        <translation>Os ‘alto-falantes’ que estão conectados são, na verdade, fones de ouvido</translation>
     </message>
     <message>
         <source>Bloom</source>
@@ -1408,19 +1408,19 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Factor for sound volume increase</source>
-        <translation>Fator para aumento do volume</translation>
+        <translation>Fator do aumento do volume</translation>
     </message>
     <message>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation>Quanto o volume deve aumentar para fontes que estão realmente próximas?</translation>
+        <translation>Quanto que o volume do som deve aumentar para as fontes que estão muito próximas?</translation>
     </message>
     <message>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation>Marcar isto indica que você não tem alto-falantes conectados, apenas fones de ouvido. Isso é importante, já que alto-falantes geralmente ficam na sua frente, enquanto que fones de ouvido ficam diretamente à sua esquerda/direita.</translation>
+        <translation>Se esta opção for selecionada, indicará que você não tem os alto-falantes conectados e que tem apenas os fones de ouvido conectados. Este detalhe é importante, porque os alto-falantes geralmente ficam dispostos na sua frente, enquanto que os fones de ouvido ficam diretamente no seu ouvido esquerdo e direito.</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Configura a quantia de dados a pré-armazenar no buffer de saída. Experimente com valores diferentes e configure para o menor valor que não causa irregularidades repentinas no som.</translation>
+        <translation>Esta opção permite definir a quantidade dos dados a serem pré-armazenados no ‘buffer’ da saída. Experimente diferentes valores e escolha para o menor valor que não cause instabilidade ou oscilações repentinas no som.</translation>
     </message>
     <message>
         <source>Headphones</source>
@@ -1428,15 +1428,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Minimum Distance</source>
-        <translation>Distância Mínima</translation>
+        <translation>Distância mínima</translation>
     </message>
     <message>
         <source>Maximum Distance</source>
-        <translation>Distância Máxima</translation>
+        <translation>Distância máxima</translation>
     </message>
     <message>
         <source>Minimum Volume</source>
-        <translation>Mínimo volume</translation>
+        <translation>Volume mínimo</translation>
     </message>
     <message>
         <source>What should the volume be at the maximum distance?</source>
@@ -1444,32 +1444,32 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Loopback Test</source>
-        <translation>Teste de Retorno</translation>
+        <translation>Teste do retorno</translation>
     </message>
     <message>
         <source>Delay Variance</source>
-        <translation>Variação do Atraso</translation>
+        <translation>Variação do atraso</translation>
     </message>
     <message>
         <source>Variance in packet latency</source>
-        <translation>Variação na latência do pacote</translation>
+        <translation>Variação na latência dos pacotes</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;Configura a variação da latência de pacote para o teste de retorno.&lt;/b&gt;&lt;br /&gt;A maior parte dos caminhos de áudio contêm alguma latência variável. Isso permite que você configure a latência para o modo de teste de retorno. Por exemplo, se você escolher 15ms, isso vai emular uma rede com ping de 20-35ms ou uma com 80-95ms de latência. A maioria das redes domésticas têm uma variação de cerca de 5ms.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir a variação da latência dos pacote para os testes do retorno.&lt;/b&gt;&lt;br /&gt;A maior parte dos caminhos do áudio contêm alguma latência variável. Este parâmetro permite definir a latência para o modo de teste do retorno. Por exemplo, se você escolher 15ms, o sistema operacional irá emular uma rede com a latência do ping entre 20 e 35ms ou uma uma rede com a latência do ping entre 80 e 95ms. A maioria das conexões de rede domésticas têm uma variação de cerca de 5ms.</translation>
     </message>
     <message>
         <source>Packet Loss</source>
-        <translation>Perda de Pacotes</translation>
+        <translation>Perda dos pacotes</translation>
     </message>
     <message>
         <source>Packet loss for loopback mode</source>
-        <translation>Perda de pacotes para o modo de retorno</translation>
+        <translation>Perda dos pacotes no modo do retorno</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;Configura a perda de pacotes para o modo de retorno.&lt;/b&gt;&lt;br /&gt;Esta vai ser a taxa de pacotes perdidos. A menos que a sua banda de saída esteja sobrecarregada ou se há algo de errado com a sua conexão de rede, isso será 0%</translation>
+        <translation>&lt;b&gt;Esta opção permite definir a perda dos pacotes para o modo do retorno.&lt;/b&gt;&lt;br /&gt;Este valor vai corresponde à proporção dos pacotes que são perdidos. A menos que a sua largura de banda da saída esteja sobrecarregada ou haja algum problema com a sua conexão de rede, este valor será igual a 0%</translation>
     </message>
     <message>
         <source>&amp;Loopback</source>
@@ -1477,39 +1477,39 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Desired loopback mode</source>
-        <translation>Modo de retorno desejado</translation>
+        <translation>Modo do retorno que você quer</translation>
     </message>
     <message>
         <source>Attenuate applications by...</source>
-        <translation>Atenuar aplicativos em...</translation>
+        <translation>Atenuar os programas por meio de...</translation>
     </message>
     <message>
         <source>Attenuation of other applications during speech</source>
-        <translation>Atenuação de outros programas durante a fala</translation>
+        <translation>Atenuação dos outros programas durante a fala</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;Atenuar volume dos outros programas durante a fala&lt;/b&gt;&lt;br /&gt;O Mumble suporta a diminuição do volume de outros programas durante a entrada/saída de fala. Configura a atenuação de outros programas quando ativo.</translation>
+        <translation>&lt;b&gt;Atenuar volume dos outros programas durante a fala&lt;/b&gt;&lt;br /&gt;O Mumble permite diminuir o volume dos outros programas durante a fala (seja ao falar ou ao ouvir a fala de outra pessoa). Se esta opção for ativada, permite definir o nível da atenuação que é aplicado aos outros programas.</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation>Se marcado o Mumble diminui o volume de outros programas enquanto outros usuários falam</translation>
+        <translation>Se esta opção for selecionada, o Mumble diminui o volume dos outros programas enquanto as outros pessoas falam</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Atenuar aplicativos enquanto outros usuários falam&lt;/b&gt;&lt;br /&gt;O Mumble suporta a diminuição do volume de outros programas durante a entrada e saída de fala. Isto faz com que o Mumble ative o recurso enquanto outros falam com você.</translation>
+        <translation>&lt;b&gt;Atenuar o volume dos outros programas enquanto as outras pessoas falam&lt;/b&gt;&lt;br /&gt;O Mumble permite diminuir o volume dos outros programas durante a fala (seja ao falar ou ao ouvir a fala de outra pessoa). Esta opção faz com que o Mumble ative o recurso enquanto as outras pessoas falam com você.</translation>
     </message>
     <message>
         <source>while other users talk</source>
-        <translation>enquanto outros falam</translation>
+        <translation>enquanto as outras pessoas falam</translation>
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>Se marcado o Mumble diminui o volume de outros aplicativos enquanto você fala</translation>
+        <translation>Se esta opção for selecionada, o Mumble diminui o volume dos outros programas enquanto você fala</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;b&gt;Atenuar aplicativos enquanto você fala&lt;/b&gt;&lt;br /&gt;Mumble suporta a diminuição do volume de outros programas durante o recebimento ou envio de fala. Isto faz com que o mumble ative o recurso enquanto você fala.</translation>
+        <translation>&lt;b&gt;Atenuar o volume dos outros programas enquanto você fala&lt;/b&gt;&lt;br /&gt;O Mumble permite diminuir o volume dos outros programas durante a fala (seja ao falar ou ao ouvir a fala de outra pessoa). Esta opção faz com que o Mumble ative o recurso enquanto você fala com outra pessoa.</translation>
     </message>
     <message>
         <source>while you talk</source>
@@ -1517,11 +1517,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Exclusive mode, not recommended.</source>
-        <translation>Modo exclusivo, não recomendado.</translation>
+        <translation>Este é um modo exclusivo e não é recomendado ser utilizado.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Isso abre o dispositivo em modo exclusivo.&lt;/b&gt;&lt;br /&gt;Nenhum outro aplicativo poderá usar o dispositivo.</translation>
+        <translation>&lt;b&gt;Esta opção permite iniciar o dispositivo no modo exclusivo.&lt;/b&gt;&lt;br /&gt;Nenhum outro programa poderá utilizar o dispositivo enquanto esta opção estiver ativada.</translation>
     </message>
     <message>
         <source>Exclusive</source>
@@ -1529,47 +1529,47 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Se marcado o Mumble diminui o volume das outros usuários enquanto você fala se você tiver status de &quot;Falante Prioritário&quot;.</translation>
+        <translation>Se esta opção for selecionada, o Mumble diminui o volume dos outros usuários enquanto você fala, caso você esteja na condição de ‘Falante prioritário’.</translation>
     </message>
     <message>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation>Se marcada, o Mumble irá atenuar apenas aplicações que estão usando a mesma fonte de saída do Mumble</translation>
+        <translation>Se esta opção for selecionada, o Mumble irá atenuar apenas os programas que estiverem utilizando a mesma fonte da saída do Mumble</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation>&lt;b&gt;Atenuar apenas aplicativos que usam a mesma saída que o Mumble&lt;/b&gt;&lt;br /&gt;Se marcado, aplicativos que usam uma saída diferente da do Mumble não serão atenuados.</translation>
+        <translation>&lt;b&gt;Atenuar apenas os programas que utilizam a mesma saída que o Mumble&lt;/b&gt;&lt;br /&gt;Se esta opção estiver selecionada, os programas que utilizam uma saída diferente da saída do Mumble não serão atenuados.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
-        <translation>Atenuar apenas aplicações usando o mesmo dispositivo de saída</translation>
+        <translation>Atenuar apenas os programas que utilizam o mesmo dispositivo de saída</translation>
     </message>
     <message>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation>Se marcado, os módulos de retorno do PulseAudio serão atenuados</translation>
+        <translation>Se esta opção for selecionada, os módulos do retorno do servidor de áudio PulseAudio serão atenuados</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation>&lt;b&gt;Atenuar módulos de retorno do PulseAudio&lt;/b&gt;&lt;br /&gt;Se módulos de retorno estão ligados aos dispositivos/destinos de saída do Mumble, eles serão atenuados também.</translation>
+        <translation>&lt;b&gt;Atenuar módulos do retorno do PulseAudio&lt;/b&gt;&lt;br /&gt;Se módulos do retorno estão ligados aos dispositivos/destinos de saída do Mumble, eles também serão atenuados.</translation>
     </message>
     <message>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation>Atenuar módulos de retorno do PulseAudio</translation>
+        <translation>Atenuar os módulos do retorno do PulseAudio</translation>
     </message>
     <message>
         <source>Audio output</source>
-        <translation>Saída de áudio</translation>
+        <translation>Saída do áudio</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Este é o método de saída para uso do áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o método de saída a ser utilizado para o áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Atenuar outros usuários enquanto fala como Falante Prioritário&lt;/b&gt;&lt;br /&gt;O Mumble suporta reduzir o volume de outros usuários enquanto você fala como o &lt;i&gt;Falante Priotário&lt;/i&gt; para evitar distúrbio. Marcar essa caixa de seleção ativa esse recurso.</translation>
+        <translation>&lt;b&gt;Atenuar as outras pessoas enquanto você fala na condição de ‘Falante prioritário’&lt;/b&gt;&lt;br /&gt;Se esta opção for selecionada, o Mumble permite diminuir o volume das outras pessoas enquanto você fala na condição de ‘&lt;i&gt;Falante prioritário&lt;/i&gt;’ para evitar distúrbio ou interrupções.</translation>
     </message>
     <message>
         <source>Attenuate other users while talking as Priority Speaker</source>
-        <translation>Atenuar outos usuários enquanto fala como Falante Prioritário</translation>
+        <translation>Atenuar as outras pessoas enquanto você fala na condição de ‘Falante prioritário’</translation>
     </message>
     <message>
         <source>Enable</source>
@@ -1589,23 +1589,23 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Positional audio cannot work with mono output devices!</source>
-        <translation>Áudio posicional não funciona com dispositivos de saída mono!</translation>
+        <translation>O áudio posicional não funciona com os dispositivos de saída que sejam mono!</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation>Sistema de saída de áudio</translation>
+        <translation>Sistema de saída do áudio</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation>Dispositivo de saída de áudio</translation>
+        <translation>Dispositivo de saída do áudio</translation>
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation>Atraso na saída do áudio recebido</translation>
+        <translation>Atraso na saída do áudio que é recebido</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
-        <translation>Tempo de oscilação de buffer</translation>
+        <translation>Tempo de oscilação do ‘buffer’</translation>
     </message>
     <message>
         <source>Attenuation percentage</source>
@@ -1613,11 +1613,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation>Durante a reprodução de áudio, o volume de outros programas será reduzido por essa quantidade</translation>
+        <translation>Durante a reprodução do áudio, o volume dos outros programas irá diminuir nesta quantidade</translation>
     </message>
     <message>
         <source>Minimum volume</source>
-        <translation>Volume Mínimo</translation>
+        <translation>Volume mínimo</translation>
     </message>
     <message>
         <source>Minimum distance</source>
@@ -1633,15 +1633,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Loopback artificial packet loss</source>
-        <translation>Perda de pacote artificial do retorno</translation>
+        <translation>Perda artificial dos pacotes do retorno</translation>
     </message>
     <message>
         <source>Loopback test mode</source>
-        <translation>Modo de teste de retorno</translation>
+        <translation>Modo de teste do retorno</translation>
     </message>
     <message>
         <source>The loopback test can be used to test your audio configuration. While the loopback test is enabled, others will not be able to hear you.</source>
-        <translation>O teste de retorno pode ser usado para testar sua configuração de áudio. Enquanto o teste de retorno estiver ativo, outros usuários não poderão te escutar.</translation>
+        <translation>O teste do retorno pode ser utilizado para testar as suas configurações do áudio. Enquanto o teste do retorno estiver ativado, as outras pessoas não conseguirão te ouvir.</translation>
     </message>
     <message>
         <source>at</source>
@@ -1657,7 +1657,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Attenuate listeners by...</source>
-        <translation>Atenuar ouvintes em...</translation>
+        <translation>Atenuar os ouvintes por meio de...</translation>
     </message>
 </context>
 <context>
@@ -1676,7 +1676,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Audio Output</source>
-        <translation>Saída de Áudio</translation>
+        <translation>Saída do áudio</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -1688,19 +1688,19 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Distance at which audio volume from another player starts decreasing</source>
-        <translation>Distância na qual o volume de áudio de outro jogador começa a diminuir</translation>
+        <translation>Distância na qual o volume do áudio da outra pessoa começa a diminuir</translation>
     </message>
     <message>
         <source>Distance at which a player&apos;s audio volume has reached its minimum value</source>
-        <translation>Distância na qual o volume de áudio de um jogador atingiu seu valor mínimo</translation>
+        <translation>Distância na qual o volume do áudio da outra pessoa atingiu o seu valor mínimo</translation>
     </message>
     <message>
         <source>The minimum volume a player&apos;s audio will fade out to with increasing distance. Set to 0% for it to fade into complete silence for a realistic maximum hearing distance.</source>
-        <translation>O volume mínimo de áudio de um jogador diminuirá com o aumento da distância. Defina como 0% para desvanecer em silêncio total para uma distância de audição máxima realista.</translation>
+        <translation>O volume mínimo no qual do áudio de uma pessoa diminuirá com o aumento da distância. Defina como 0% para que o som desapareça completamente, simulando uma distância máxima de audição realista.</translation>
     </message>
     <message>
         <source>If an audio source is close enough, blooming will cause the audio to be played on all speakers more or less regardless of their position (albeit with lower volume)</source>
-        <translation>Se uma fonte de áudio estiver próxima o suficiente, blooming fará com que o áudio seja reproduzido em todos os alto-falantes, mais ou menos, independentemente de sua posição (embora com volume mais baixo)</translation>
+        <translation>Se uma fonte de áudio estiver próxima o suficiente, o efeito de espalhamento fará com que o áudio seja reproduzido em todos os alto-falantes, mais ou menos, independentemente da sua posição (embora com volume mais baixo)</translation>
     </message>
     <message>
         <source>milliseconds</source>
@@ -1715,15 +1715,15 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <name>AudioOutputSample</name>
     <message>
         <source>Choose sound file</source>
-        <translation>Escolha o arquivo de som</translation>
+        <translation>Escolha o arquivo de áudio</translation>
     </message>
     <message>
         <source>Invalid sound file</source>
-        <translation>Arquivo de som inválido</translation>
+        <translation>O arquivo de áudio não é válido</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>O arquivo &apos;%1&apos; não pode ser usado pelo Mumble. Por favor escolha um arquivo de formato e codificação compatíveis.</translation>
+        <translation>O arquivo ‘%1’ não pode ser utilizado pelo Mumble. Por favor, escolha um arquivo com formato e codificação que sejam compatíveis.</translation>
     </message>
 </context>
 <context>
@@ -1735,11 +1735,11 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>Audio Statistics</source>
-        <translation>Estatísticas de Áudio</translation>
+        <translation>Estatísticas do áudio</translation>
     </message>
     <message>
         <source>Input Levels</source>
-        <translation>Níveis de Entrada</translation>
+        <translation>Níveis de entrada</translation>
     </message>
     <message>
         <source>Peak microphone level</source>
@@ -1751,24 +1751,24 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Mostra a potência máxima no último quadro (20 ms), e é a mesma medida que você geralmente encontra como &quot;potência de entrada&quot;. Por favor desconsidere isto e veja &lt;b&gt;Potência do microfone&lt;/b&gt;, que é muito mais regular e desconsidera extremos.</translation>
+        <translation>Esta opção permite exibir a potência máxima do último quadro (20 ms) e corresponde à mesma medida que, geralmente você encontra como ‘potência de entrada’. Por favor, desconsidere este valor e observe, a ‘&lt;b&gt;Potência do microfone&lt;/b&gt;’, que é muito mais estável e desconsidera os valores extremos.</translation>
     </message>
     <message>
         <source>Peak speaker level</source>
-        <translation>Nível máximo de alto-falante</translation>
+        <translation>Nível máximo do alto-falante</translation>
     </message>
     <message>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Mostra o pico de potência dos alto-falantes no último quadro (20ms). A menos que você esteja usando um método de amostra multicanal (como ASIO) com alto-falantes configurados, isto será 0. Se você possui tal instalação configurada, e isto ainda mostra 0 enquanto você está tocando áudio de outros programas, sua configuração não está funcionando.</translation>
+        <translation>Esta opção permite exibir a potência máxima dos alto-falantes no último quadro (20ms). A menos que você esteja utilizando um método de amostragem do tipo multicanal (como ocorre com o ASIO) configurados com os canais dos alto-falantes, este valor será igual a 0 (zero). Se você possui uma configuração deste tipo e o valor ainda for 0 enquanto reproduz o áudio dos outros programas, então significa que a sua configuração não está funcionando adequadamente.</translation>
     </message>
     <message>
         <source>Peak clean level</source>
-        <translation>Pico de nível limpo</translation>
+        <translation>Limpar o nível máximo</translation>
     </message>
     <message>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Mostra a potência máxima no último quadro (20ms) depois de todo processamento. Idealmente, isto deve ser -96 dB quando você não está falando. Na realidade, um estúdio sonoro deve ver -60 dB, e com sorte você deve ver algo ao redor de -20 dB. Quando você está falando, isto deve aumentar para algo em torno de -5 e -10 dB.&lt;br /&gt;Se você está usando anulação de eco, e isto aumenta para mais de -15 dB quando você não está falando, sua configuração não está funcionando, e você vai incomodar outros usuários com ecos.</translation>
+        <translation>Esta opção permite exibir a potência máxima do último quadro (20ms) após todo o processamento. O ideal é que este valor seja de -96 dB quando você não estiver falando. Conforme um estúdio sobre o som, o valor esperado deveria ser -60 dB em condições normais, e com sorte, você deveria visualizar algo em torno de -20 dB. Quando você estiver falando, este valor deve aumentar para algo em torno de -5 a -10 dB.&lt;br /&gt;Se você estiver utilizando a opção da ‘Atenuação do eco’ e este valor ultrapassar os -15 dB enquanto você não estiver falando, então significa que a sua configuração não está funcionando corretamente, o que causará ecos que irão incomodar as outras pessoas.</translation>
     </message>
     <message>
         <source>Signal Analysis</source>
@@ -1780,31 +1780,31 @@ Este valor permite que você especifique o número máximo de usuários permitid
     </message>
     <message>
         <source>How close the current input level is to ideal</source>
-        <translation>Quão próximo o nível de entrada atual está do ideal</translation>
+        <translation>O quão próximo o nível da entrada atual está do ideal</translation>
     </message>
     <message>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Mostra quão perto seu volume de entrada atual está do ideal. Para ajustar o nível do seu microfone, abra seja qual for o programa que você usa para configurar o volume de gravação, e olha para o valor enquanto fala.&lt;br /&gt;&lt;b&gt;Fale alto, como você faria quando você está incomodado por ser morto por um novato.&lt;/b&gt;&lt;br /&gt;Ajuste o volume até que este valor esteja próximo a 100%, mas certifique-se que ele não vá acima, é provável que você consiga cliques em partes da sua fala que vão degradar a qualidade do som.</translation>
+        <translation>Esta opção permite exibir o quão perto o seu volume de entrada atual está próximo do ideal. Para ajustar o nível do seu microfone, inicie um programa que permite configurar o volume da gravação do microfone, em seguida, observe o valor que é exibido enquanto você fala.&lt;br /&gt;&lt;b&gt;Fale alto, da mesma maneira como você falaria se perdesse em um jogo para um jogador que é totalmente inexperiente.&lt;/b&gt;&lt;br /&gt;Ajuste o volume até que este valor esteja próximo a 100%, mas certifique-se que ele não ultrapasse este limite. Se o valor ultrapassar, é provável que ocorra a distorção em partes da sua fala, o que prejudicará a qualidade do som da pessoa que irá te ouvir.</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation>Relação sinal/ruído</translation>
+        <translation>Relação entre o sinal/ruído</translation>
     </message>
     <message>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation>Taxa sinal/ruído do microfone</translation>
+        <translation>Relação entre o sinal/ruído do microfone</translation>
     </message>
     <message>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Esta é a relação sinal/ruído (SNR) do microfone no último quadro (20 ms). Ele mostra quão mais clara a voz é compara com o ruído.&lt;br /&gt;Se este valor está abaixo de 1.0, há muito mais ruído do que voz no sinal, e então a qualidade é reduzida.&lt;br /&gt;Não há um limite superior para este valor, mas não espere ver muito acima de 40-50 sem um estúdio de som.</translation>
+        <translation>Esta é a relação entre o sinal e o ruído, (que na sigla em inglês ‘SNR’ significa ‘Signal-to-Noise’ ou ‘relação entre o sinal e o ruído’) do microfone no último quadro (20 ms). Esta relação indica o quanto a voz está mais nítida em comparação ao ruído.&lt;br /&gt;Se este valor está abaixo de 1.0, então significa que há muito mais ruído do que voz no sinal, o que resulta em uma qualidade reduzida.&lt;br /&gt;Não existe um limite superior para este valor, mas não espere encontrar valores muito acima de 40 ou 50 sem que tenha que realizar um estúdio de som.</translation>
     </message>
     <message>
         <source>Speech Probability</source>
-        <translation>Probabilidade de Fala</translation>
+        <translation>Probabilidade da fala</translation>
     </message>
     <message>
         <source>Probability of speech</source>
-        <translation>Provabilidade de fala</translation>
+        <translation>Probabilidade da fala</translation>
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
@@ -1992,7 +1992,7 @@ Você deve ouvir um exemplo de fala. Mude a barra deslizante abaixo para o menor
     </message>
     <message>
         <source>Amount of data to buffer</source>
-        <translation>Quantia de dados a armazenar em buffer</translation>
+        <translation>Quantidade de dados a serem armazenados no ‘buffer’</translation>
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
@@ -2064,7 +2064,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Voice Activity Detection</source>
-        <translation>Detecção de Atividade de Voz</translation>
+        <translation>Detecção da ativação por voz</translation>
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
@@ -2080,7 +2080,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Signal-To-Noise ratio</source>
-        <translation>Relação sinal-ruído</translation>
+        <translation>Relação do sinal/ruído</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
@@ -2101,7 +2101,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Push To Talk:</source>
-        <translation>Pressionar para Falar:</translation>
+        <translation>Pressionar uma tecla para falar:</translation>
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
@@ -2283,7 +2283,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation>Nível de detecção de atividade de voz</translation>
+        <translation>Nível de detecção da ativação por voz</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
@@ -2291,7 +2291,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Push to talk</source>
-        <translation>Pressione para falar</translation>
+        <translation>Pressionar uma tecla para falar</translation>
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
@@ -2299,7 +2299,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Set push to talk shortcut</source>
-        <translation>Definir atalho do Pressione para Falar</translation>
+        <translation>Definir a tecla de atalho da opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
@@ -3066,7 +3066,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Priority speaker</source>
-        <translation>Falante prioritária</translation>
+        <translation>Falante prioritário</translation>
     </message>
     <message>
         <source>Recording</source>
@@ -3161,7 +3161,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Defaults (All)</source>
-        <translation>Padrões (Todas)</translation>
+        <translation>Padrões (Todos)</translation>
     </message>
 </context>
 <context>
@@ -3256,7 +3256,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Show All</source>
-        <translation>Exibir Tudo</translation>
+        <translation>Exibir tudo</translation>
     </message>
     <message>
         <source>Show Populated</source>
@@ -3268,7 +3268,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>All</source>
-        <translation>Tud</translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <source>Africa</source>
@@ -4156,7 +4156,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Other self-muted/deafened</source>
-        <translation>Outro se emudeceu/ensurdeceu</translation>
+        <translation>A outra pessoa se emudeceu/ensurdeceu</translation>
     </message>
     <message>
         <source>User recording state changed</source>
@@ -5244,7 +5244,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Pressionar-para-Falar</translation>
+        <translation>Pressionar-uma-tecla-para-falar</translation>
     </message>
     <message>
         <source>Push and hold this button to send voice.</source>
@@ -5399,7 +5399,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Transmit Mode set to Continuous</source>
-        <translation>Modo de Transmissão ajustado para Contínuo</translation>
+        <translation>O modo da transmissão foi modificado para ‘Transmissão contínua’</translation>
     </message>
     <message>
         <source>Register yourself as %1</source>
@@ -5506,12 +5506,12 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     <message>
         <source>Set Transmit Mode to Push-To-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Definir o modo de transmissão para Pressionar-para-Falar</translation>
+        <translation>Definir o modo de transmissão para a opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>Set Transmit Mode to Continuous</source>
         <comment>Global Shortcut</comment>
-        <translation>Definir modo de transmissão para contínuo</translation>
+        <translation>Definir o modo para a ‘Transmissão contínua’</translation>
     </message>
     <message>
         <source>Set Transmit Mode to VAD</source>
@@ -5535,15 +5535,15 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Continuous</source>
-        <translation>Contínuo</translation>
+        <translation>Transmissão contínua</translation>
     </message>
     <message>
         <source>Voice Activity</source>
-        <translation>Atividade de Voz</translation>
+        <translation>Ativação por voz</translation>
     </message>
     <message>
         <source>Push-to-Talk</source>
-        <translation>Pressionar-para-Falar</translation>
+        <translation>Pressionar-uma-tecla-para-falar</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5567,11 +5567,11 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation>Modo de transmissão ajustado para Atividade de Voz</translation>
+        <translation>O modo da transmissão foi modificado para a ‘Ativação por voz’</translation>
     </message>
     <message>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation>Modo de transmissão ajustado para Pressionar-para-Falar</translation>
+        <translation>O modo da transmissão foi modificado para a opção ‘Pressionar uma tecla para falar’</translation>
     </message>
     <message>
         <source>&amp;View Certificate</source>
@@ -6206,43 +6206,43 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>You revoked your priority speaker status.</source>
-        <translation>Você revogou seu status de falante prioritária.</translation>
+        <translation>Você revogou a sua condição de ‘Falante prioritário’.</translation>
     </message>
     <message>
         <source>You assumed priority speaker status.</source>
-        <translation>Você assumiu status de falante prioritária.</translation>
+        <translation>Você assumiu a condição de ‘Falante prioritário’.</translation>
     </message>
     <message>
         <source>%1 revoked your priority speaker status.</source>
-        <translation>%1 revogou seu status de falante prioritária.</translation>
+        <translation>O(A) %1 revogou a sua condição de ‘Falante prioritário’.</translation>
     </message>
     <message>
         <source>%1 gave you priority speaker status.</source>
-        <translation>%1 lhe concedeu status de falante prioritária.</translation>
+        <translation>O(A) %1 concedeu a você a condição de ‘Falante prioritário’.</translation>
     </message>
     <message>
         <source>You revoked priority speaker status for %1.</source>
-        <translation>Você revogou status de falante prioritária de %1.</translation>
+        <translation>Você revogou a condição de ‘Falante prioritário’ do(a) %1.</translation>
     </message>
     <message>
         <source>You gave priority speaker status to %1.</source>
-        <translation>Você concedeu status de falante prioritária para %1.</translation>
+        <translation>Você concedeu a condição de ‘Falante prioritário’ ao(a) %1.</translation>
     </message>
     <message>
         <source>%1 revoked own priority speaker status.</source>
-        <translation>%1 revogou o próprio status de falante prioritária.</translation>
+        <translation>O(A) %1 revogou a própria condição de ‘Falante prioritário’.</translation>
     </message>
     <message>
         <source>%1 assumed priority speaker status.</source>
-        <translation>%1 assumiu status de falante prioritária.</translation>
+        <translation>O(A) %1 assumiu a condição de ‘Falante prioritário’.</translation>
     </message>
     <message>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation>%1 revogou status de falante prioritária de %2.</translation>
+        <translation>O(A) %1 revogou a condição de ‘Falante prioritário’ do(a) %2.</translation>
     </message>
     <message>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation>%1 concedeu status de falante prioritária para %2.</translation>
+        <translation>O(A) %1 concedeu a condição de ‘Falante prioritário’ ao(a) %2.</translation>
     </message>
     <message>
         <source>You were unmuted and undeafened by %1.</source>
@@ -6457,7 +6457,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>&amp;Self</source>
-        <translation>&amp;Perfil</translation>
+        <translation>Perfi&amp;l</translation>
     </message>
     <message>
         <source>&amp;Unlink Plugins</source>
@@ -6559,7 +6559,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>&amp;Audio Wizard...</source>
-        <translation>&amp;Assistente de Áudio...</translation>
+        <translation>&amp;Assistente do áudio...</translation>
     </message>
     <message>
         <source>About &amp;Speex...</source>
@@ -6850,12 +6850,12 @@ no menu contextual do canal.</translation>
     <message>
         <source>Toggle priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alternar o ‘Falante prioritário’</translation>
     </message>
     <message>
         <source>This will enable/disable the priority speaker</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Esta opção permite ativar ou desativar o alto-falante prioritário</translation>
     </message>
     <message>
         <source>Open recording dialog</source>
@@ -6923,7 +6923,7 @@ no menu contextual do canal.</translation>
     <message>
         <source>Start audio wizard</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Iniciar o assistente do áudio</translation>
     </message>
     <message>
         <source>This will open the audio wizard dialog</source>
@@ -7096,7 +7096,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>&amp;Priority Speaker</source>
-        <translation>&amp;Falante Prioritário</translation>
+        <translation>&amp;Falante prioritário</translation>
     </message>
     <message>
         <source>&amp;Record...</source>
@@ -7128,7 +7128,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
-        <translation>&amp;Pesquisar...</translation>
+        <translation>Pe&amp;squisar...</translation>
     </message>
     <message>
         <source>Filtered channels and users</source>
@@ -8625,11 +8625,11 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation>Cancelamento de eco misto (speex)</translation>
+        <translation>Cancelamento do eco no modo ‘misto’ (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
-        <translation>Misto tem baixo impacto na CPU, mas só funciona bem se os alto-falantes forem igualmente altos e equidistantes do microfone.</translation>
+        <translation>A opção &quot;Misto&quot; (Mixed) exige pouco processamento, mas só funciona adequadamente se os seus alto-falantes estiverem com o mesmo volume em cada uma das caixas de som e equidistantes do microfone.</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
@@ -8637,7 +8637,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation>O cancelamento de eco multicanal fornece um cancelamento de eco muito melhor, mas com um custo de CPU mais alto. O cancelamento de eco multicanal requer mais CPU, então você deve tentar misto primeiro.</translation>
+        <translation>O cancelamento do eco no multicanal oferece um resultado muito melhor, porém com um custo maior de processamento. Como o cancelamento do eco no multicanal exige mais processamento, então é melhor tentar primeiro o modo ‘misto’.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -8724,15 +8724,15 @@ You can register them again.</source>
     </message>
     <message>
         <source>muted and deafened</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudo e surdo</translation>
     </message>
     <message>
         <source>muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudo</translation>
     </message>
     <message>
         <source>locally muted</source>
-        <translation type="unfinished"></translation>
+        <translation>Silenciado localmente</translation>
     </message>
     <message>
         <source>unmuted</source>
@@ -8744,7 +8744,7 @@ You can register them again.</source>
     </message>
     <message>
         <source>priority speaker</source>
-        <translation type="unfinished"></translation>
+        <translation>Falante prioritário</translation>
     </message>
     <message>
         <source>has a long comment</source>
@@ -10096,7 +10096,7 @@ Por favor, contate seu administrador de servidor para mais informações.</trans
     </message>
     <message>
         <source>Local volume adjustment</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste de volume local</translation>
     </message>
 </context>
 <context>

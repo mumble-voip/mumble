@@ -671,11 +671,11 @@ Questo valore ti permette di impostare il numero massimo di utenti consentiti ne
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Dipendenze di terze parti</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>In base alla configurazione di compilazione, la tua versione di Mumble potrebbe non dipendere da tutte le voci elencate</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -3701,15 +3701,15 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Salva password su questo dispositivo</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le password possono essere salvate solo per i server nei tuoi preferiti.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Le password possono essere salvate solo per i server nei tuoi preferiti</translation>
     </message>
 </context>
 <context>
@@ -7624,11 +7624,11 @@ Previene l&apos;invio da parte del client di informazioni potenzialmente identif
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Questo sopprimerà le informazioni di identità dal client.&lt;/b&gt;&lt;p&gt;Il client non identificherà se stesso con un certificato, anche se definito. Questa è principalmente un&apos;opzione di test e non viene salvata.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate information</source>
-        <translation type="unfinished"></translation>
+        <translation>Sopprimi informazioni certificato</translation>
     </message>
 </context>
 <context>
