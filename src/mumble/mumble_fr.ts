@@ -671,11 +671,11 @@ Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autor
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Dépendances tierces parties</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>En fonction de la configuration de la compilation, votre version de Mumble pourrait ne pas dépendre de tous les éléments listés</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -3701,15 +3701,15 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder le mot de passe sur cet appareil</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les mots de passe ne peuvent être enregistrés que pour les serveurs se trouvant dans vos favoris.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Les mots de passe ne peuvent être enregistrés que pour les serveurs se trouvant dans vos favoris</translation>
     </message>
 </context>
 <context>
@@ -5228,11 +5228,11 @@ Le paramètre ne s&apos;applique qu&apos;aux nouveaux messages, ceux déjà affi
     </message>
     <message>
         <source>Whether to change the local volume adjustment for the selected user when scrolling the mouse wheel up (increase) or down (decrease) while Control is pressed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Détermine si le volume local pour l&apos;utilisateur sélectionné doit être modifié lors du défilement de la roulette de la souris vers le haut (augmentation) ou vers le bas (diminution) alors que la touche Contrôle est maintenue appuyée.</translation>
     </message>
     <message>
         <source>CTRL + Scroll to change selected user&apos;s volume</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL + Défilement pour modifier le volume de l&apos;utilisateur sélectionné</translation>
     </message>
 </context>
 <context>
@@ -7624,11 +7624,11 @@ Empêche le client d&apos;envoyer des informations pouvant identifier le systèm
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Cela masquera les informations d&apos;identité provenant du client.&lt;/b&gt;&lt;p&gt;Le client ne s&apos;identifiera pas avec un certificat, même s&apos;il est défini. Cela est avant tout une option de test et n&apos;est pas sauvegardée.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate information</source>
-        <translation type="unfinished"></translation>
+        <translation>Masquer les informations de certificat</translation>
     </message>
 </context>
 <context>
@@ -8414,7 +8414,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec de la mise à jour pour l&apos;extension « %1 » car elle redirige vers un URL non HTTPS (%2)</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
