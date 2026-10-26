@@ -12,7 +12,8 @@
 
 #define VAD_SOURCE_VALUES                                \
 	PROCESS(Settings::VADSource, Amplitude, "Amplitude") \
-	PROCESS(Settings::VADSource, SignalToNoise, "SignalToNoise")
+	PROCESS(Settings::VADSource, SignalToNoise, "SignalToNoise") \
+	PROCESS(Settings::VADSource, WebRTC, "WebRTC")
 
 #define LOOP_MODE_VALUES                        \
 	PROCESS(Settings::LoopMode, None, "None")   \
