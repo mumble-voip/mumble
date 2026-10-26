@@ -11,10 +11,38 @@
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
 
+class QTimer;
+
 class LogTextBrowser : public QTextBrowser {
 private:
 	Q_OBJECT
 	Q_DISABLE_COPY(LogTextBrowser)
+
+	QTimer *m_imageFitTimer;
+
+	/// Refits the images between the given document positions (toPosition < 0
+	/// meaning "to the end of the document"). If updateResources is true, the
+	/// displayed image resources are regenerated as smoothly prescaled
+	/// variants of the original wherever their pixel size no longer matches
+	/// the displayed size.
+	void refitImages(int fromPosition, int toPosition, bool updateResources);
+
+	/// Cheap geometry-only refit of the images visible in the viewport. Fast
+	/// enough to run on every resize event, at the cost of painting the
+	/// images from their previously prescaled resources.
+	void fitVisibleImageGeometry();
+
+	/// The reading position to keep stable while a resize or an image refit
+	/// reflows the log: either pinned to the bottom, or the piece of content
+	/// at the top of the viewport together with its on-screen y position.
+	struct ScrollAnchor {
+		bool atBottom;
+		int position;
+		int offset;
+	};
+
+	ScrollAnchor captureScrollAnchor();
+	void restoreScrollAnchor(const ScrollAnchor &anchor);
 
 public:
 	LogTextBrowser(QWidget *p = nullptr);
@@ -22,6 +50,19 @@ public:
 	int getLogScroll();
 	void setLogScroll(int scroll_pos);
 	bool isScrolledToBottom();
+
+	/// Scales down images in the document so that they fit the width of the
+	/// viewport, starting at the given document position. Images smaller than
+	/// the viewport are never scaled up.
+	void fitImagesToViewport(int fromPosition = 0);
+
+	/// Refits all images in the document (see fitImagesToViewport()) while
+	/// keeping the reading position stable.
+	void refitImagesKeepingScrollPosition();
+
+protected:
+	void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
+	bool event(QEvent *e) Q_DECL_OVERRIDE;
 };
 
 class ChatbarTextEdit : public QTextEdit {
