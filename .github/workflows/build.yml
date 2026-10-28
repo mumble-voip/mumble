@@ -52,35 +52,17 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-24.04, ubuntu-26.04]
-            type: [shared]
-            arch: [x86_64, arm64]
-            compiler: [gcc]
             include:
-            - os: ubuntu-26.04
-              type: shared
-              arch: x86_64
-              compiler: gcc-16
-            - os: ubuntu-26.04
-              type: shared
-              arch: x86_64
-              compiler: clang-22
-            - os: windows-2025
-              type: static
-              arch: x86_64
-              compiler: cl
-            - os: windows-2025
-              type: static
-              arch: x86_64
-              compiler: clang-cl
-            - os: macos-15
-              type: static
-              arch: x86_64
-              compiler: clang
-            - os: macos-15
-              type: static
-              arch: arm64
-              compiler: clang
+            - {os: ubuntu-24.04, type: shared, arch: x86_64, compiler: gcc}
+            - {os: ubuntu-24.04, type: shared, arch: arm64, compiler: gcc}
+            - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: gcc}
+            - {os: ubuntu-26.04, type: shared, arch: arm64, compiler: gcc}
+            - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: gcc-16}
+            - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: clang-22}
+            - {os: windows-2025, type: static, arch: x86_64, compiler: cl}
+            - {os: windows-2025, type: static, arch: x86_64, compiler: clang-cl}
+            - {os: macos-15, type: static, arch: x86_64, compiler: clang}
+            - {os: macos-15, type: static, arch: arm64, compiler: clang}
 
     runs-on: ${{ matrix.os }}${{ (matrix.arch == 'arm64' && startsWith(matrix.os, 'ubuntu')) && '-arm' || '' }}
 
