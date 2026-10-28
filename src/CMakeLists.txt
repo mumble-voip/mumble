@@ -34,7 +34,12 @@ find_pkg(OpenSSL
 	REQUIRED
 )
 
+# Linux distros currently ship old versions of Protobuf without the CMake config files
+# Prefer config mode, and then fall back to module mode when needed
+# https://cmake.org/cmake/help/latest/module/FindProtobuf.html#example-finding-protobuf-in-config-mode
+set(CMAKE_FIND_PACKAGE_PREFER_CONFIG ON)
 find_pkg(Protobuf REQUIRED)
+unset(CMAKE_FIND_PACKAGE_PREFER_CONFIG)
 
 add_compile_options(${MUMBLE_COMPILER_FLAGS})
 
