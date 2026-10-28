@@ -85,3 +85,9 @@ cmake -G Ninja \
 # Actually build
 cmake --build . --config $BUILD_TYPE
 
+if [[ "$os" = "macos" ]]; then
+	# Build the .dmg file
+	cd ..
+	RELEASE_VERSION="$(./scripts/mumble-version.py).${MUMBLE_BUILD_NUMBER}"
+	./macx/scripts/osxdist.py --version ${RELEASE_VERSION} --source-dir . --binary-dir "$buildDir"
+fi
