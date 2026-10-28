@@ -601,9 +601,9 @@ void MainWindow::setupGui() {
 void MainWindow::updateWindowTitle() {
 	QString title;
 	if (Global::get().s.bMinimalView) {
-		title = tr("Mumble - Minimal View");
+		title = tr("LuxMumble - Minimal View");
 	} else {
-		title = tr("Mumble");
+		title = tr("LuxMumble");
 	}
 
 	if (!Global::get().windowTitlePostfix.isEmpty()) {

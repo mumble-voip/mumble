@@ -38,9 +38,14 @@ public:
 
 		/// @return Returns platform specific qss or defaultQss if none available
 		QFileInfo getPlatformQss() const;
+		/// @return Returns platform specific base QSS or baseQss if none available
+		QFileInfo getPlatformBaseQss() const;
 
 		/// Default QSS file for the style
 		QFileInfo defaultQss;
+		/// Optional QSS file to apply before the style's own overrides
+		QFileInfo baseQss;
+		QMap< QString, QFileInfo > baseQssFiles;
 		/// Platform specific QSS files available
 		QMap< QString, QFileInfo > qssFiles;
 	};
@@ -84,7 +89,7 @@ public:
 
 inline bool operator==(const ThemeInfo::StyleInfo &lhs, const ThemeInfo::StyleInfo &rhs) {
 	return lhs.themeName == rhs.themeName && lhs.name == rhs.name && lhs.defaultQss == rhs.defaultQss
-		   && lhs.qssFiles == rhs.qssFiles;
+		   && lhs.baseQss == rhs.baseQss && lhs.baseQssFiles == rhs.baseQssFiles && lhs.qssFiles == rhs.qssFiles;
 }
 
 Q_DECLARE_METATYPE(ThemeInfo)

@@ -122,6 +122,17 @@ bool Themes::applyConfigured() {
 	}
 #endif
 
+	QString themeQss;
+	const QFileInfo baseQssFile = style->getPlatformBaseQss();
+	if (baseQssFile.exists()) {
+		QFile baseFile(baseQssFile.absoluteFilePath());
+		if (!baseFile.open(QFile::ReadOnly)) {
+			qWarning() << "Failed to open base theme stylesheet:" << baseFile.errorString();
+			return false;
+		}
+		themeQss = QString::fromUtf8(baseFile.readAll());
+	}
+
 	QFile file(qssFile.absoluteFilePath());
 	if (!file.open(QFile::ReadOnly)) {
 		qWarning() << "Failed to open theme stylesheet:" << file.errorString();
@@ -132,7 +143,7 @@ bool Themes::applyConfigured() {
 	skinPaths << qssFile.path();
 	skinPaths << QLatin1String(":/themes/Default"); // Some skins might want to fall-back on our built-in resources
 
-	QString themeQss = QString::fromUtf8(file.readAll());
+	themeQss += QLatin1Char('\n') + QString::fromUtf8(file.readAll());
 	setTheme(themeQss, skinPaths);
 	return true;
 }

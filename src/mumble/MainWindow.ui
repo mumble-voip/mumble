@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Mumble</string>
+   <string>LuxMumble</string>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AnimatedDocks</set>
@@ -248,7 +248,7 @@
   </widget>
   <action name="qaQuit">
    <property name="text">
-    <string>&amp;Quit Mumble</string>
+    <string>&amp;Quit LuxMumble</string>
    </property>
    <property name="toolTip">
     <string>Closes the program</string>

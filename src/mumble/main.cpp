@@ -398,6 +398,7 @@ int main(int argc, char **argv) {
 	// Initialize application object.
 	MumbleApplication a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));
+	a.setApplicationDisplayName(QLatin1String("LuxMumble"));
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.info"));
 	a.setQuitOnLastWindowClosed(false);

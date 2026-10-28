@@ -24,9 +24,22 @@ QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 #endif
 }
 
+QFileInfo ThemeInfo::StyleInfo::getPlatformBaseQss() const {
+#if defined(Q_OS_WIN)
+	return baseQssFiles.value(QLatin1String("WIN"), baseQss);
+#elif defined(Q_OS_LINUX)
+	return baseQssFiles.value(QLatin1String("LINUX"), baseQss);
+#elif defined(Q_OS_MAC)
+	return baseQssFiles.value(QLatin1String("MAC"), baseQss);
+#else
+	return baseQss;
+#endif
+}
+
 std::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConfig, const QString &styleId,
 														  const ThemeInfo &theme, const QDir &themeDir) {
 	const QRegularExpression qssPlatformRegex(QString::fromLatin1("^%1/qss_(.*)").arg(styleId));
+	const QRegularExpression baseQssPlatformRegex(QString::fromLatin1("^%1/baseqss_(.*)").arg(styleId));
 
 	ThemeInfo::StyleInfo style;
 
@@ -34,6 +47,15 @@ std::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConfig
 	style.themeName = theme.name;
 	style.defaultQss =
 		QFileInfo(themeDir.filePath(themeConfig.value(QString::fromLatin1("%1/qss").arg(styleId)).toString()));
+	const QString baseQssPath = themeConfig.value(QString::fromLatin1("%1/baseqss").arg(styleId)).toString();
+	if (!baseQssPath.isEmpty()) {
+		style.baseQss = QFileInfo(themeDir.filePath(baseQssPath));
+		if (!style.baseQss.exists() || !style.baseQss.isFile()) {
+			qWarning() << "Style" << style.name << "of theme" << theme.name << "references invalid base qss"
+					   << style.baseQss.filePath() << ", skipping";
+			return std::nullopt;
+		}
+	}
 
 	if (style.name.isNull()) {
 		qWarning() << "Style " << styleId << " of theme" << theme.name << " has no name, skipping theme";
@@ -44,6 +66,17 @@ std::optional< ThemeInfo::StyleInfo > readStyleFromConfig(QSettings &themeConfig
 		qWarning() << "Style " << style.name << " of theme " << theme.name << " references invalid qss "
 				   << style.defaultQss.filePath() << ", skipping theme";
 		return std::nullopt;
+	}
+
+	for (const QString &platformBaseQssConfig : themeConfig.allKeys().filter(baseQssPlatformRegex)) {
+		const QString platform = baseQssPlatformRegex.match(platformBaseQssConfig).captured(1);
+		const QFileInfo platformBaseQss(themeDir.filePath(themeConfig.value(platformBaseQssConfig).toString()));
+		if (!platformBaseQss.exists() || !platformBaseQss.isFile()) {
+			qWarning() << "Style" << style.name << "of theme" << theme.name << "references invalid base qss"
+					   << platformBaseQss.filePath() << "for platform" << platform << ", skipping";
+			return std::nullopt;
+		}
+		style.baseQssFiles.insert(platform, platformBaseQss);
 	}
 
 	for (const QString &platformQssConfig : themeConfig.allKeys().filter(qssPlatformRegex)) {

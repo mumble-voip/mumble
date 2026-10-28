@@ -407,13 +407,13 @@ struct Settings {
 
 	StyleType styleType = StyleType::Auto;
 	/// Name of the theme to use. @see Themes
-	QString themeName = QStringLiteral("Mumble");
+	QString themeName = QStringLiteral("LuxMumble");
 	/// Name of the style to use from theme. @see Themes
-	QString themeStyleName = QStringLiteral("Lite");
+	QString themeStyleName = QStringLiteral("Pearl");
 	/// Name of the theme to use. @see Themes
-	QString themeDarkName = QStringLiteral("Mumble");
+	QString themeDarkName = QStringLiteral("LuxMumble");
 	/// Name of the style to use from theme. @see Themes
-	QString themeDarkStyleName = QStringLiteral("Dark");
+	QString themeDarkStyleName = QStringLiteral("Midnight");
 
 	QByteArray qbaMainWindowGeometry     = {};
 	QByteArray qbaMainWindowState        = {};

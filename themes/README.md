@@ -2,6 +2,11 @@
 
 This directory contains the theme(s) Mumble ships with by default.
 
+LuxMumble is the default dark/light appearance, and Aurora is an alternative dark
+appearance. The original Mumble theme remains available as the classic option.
+They can be selected in **Configure > Settings > User Interface**; choose the
+theme separately for light and dark mode, or choose Auto to follow the system.
+
 A theme consists of the following components:
 - Style definitions (e.g. used colors, border widths, etc.) that are defined as QSS files (Qt's version of CSS)
 - Icons
@@ -9,6 +14,11 @@ A theme consists of the following components:
 
 The heart of a theme is its corresponding `.qrc` file. This file contains the Icon-Mapping and also a mapping for the QSS files. It is responsible of
 bringing all required resources into the final binary and making these resources available under the name chosen in it.
+
+Theme styles may specify `baseqss` (and optional platform-specific keys such as
+`baseqss_MAC`) in `theme.ini`. The base stylesheet is loaded first, then the
+style's `qss` file is applied as an override. This lets a theme reuse the
+built-in widget rules and icons while defining its own palette and surfaces.
 
 
 ## Editing icons
@@ -60,4 +70,3 @@ sass Lite.scss ../Lite.qss
 
 To make sure you did not forget to regenerate the QSS for one of the variants, we recommend to simply always regenerate _all_ variants to make sure
 they are all updated as needed.
-

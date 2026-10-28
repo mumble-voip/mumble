@@ -105,4 +105,20 @@
     <file alias="OSX Lite.qss">Default/OSX Lite.qss</file>
     <file alias="status/text-missing.svg">Default/status/text-missing.svg</file>
 </qresource>
+<qresource prefix="themes/LuxMumble">
+    <file alias="theme.ini">LuxMumble/theme.ini</file>
+    <file alias="BaseDark.qss">Default/Dark.qss</file>
+    <file alias="BaseLite.qss">Default/Lite.qss</file>
+    <file alias="BaseOSXDark.qss">Default/OSX Dark.qss</file>
+    <file alias="BaseOSXLite.qss">Default/OSX Lite.qss</file>
+    <file alias="Midnight.qss">LuxMumble/Midnight.qss</file>
+    <file alias="Pearl.qss">LuxMumble/Pearl.qss</file>
+    <file alias="mumble.svg">LuxMumble/mumble.svg</file>
+</qresource>
+<qresource prefix="themes/Aurora">
+    <file alias="theme.ini">Aurora/theme.ini</file>
+    <file alias="BaseDark.qss">Default/Dark.qss</file>
+    <file alias="BaseOSXDark.qss">Default/OSX Dark.qss</file>
+    <file alias="Aurora.qss">Aurora/Aurora.qss</file>
+</qresource>
 </RCC>
