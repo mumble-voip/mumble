@@ -157,7 +157,7 @@ void LCDConfig::on_qsSplitterWidth_valueChanged(int v) {
 /* --- */
 
 LCD::LCD() : QObject() {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	qfNormal.setStyleStrategy(QFont::NoAntialias);
 	qfNormal.setKerning(false);
 	qfNormal.setPointSize(10);

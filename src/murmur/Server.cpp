@@ -1462,7 +1462,7 @@ void Server::newClient() {
 			}
 		}
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 		// One unexpected behavior of Qt's SSL backend is: it will add the key pair
 		// it uses in a connection into the default keychain, and when access the private
 		// key afterwards, a pop up will show up asking for user's permission.

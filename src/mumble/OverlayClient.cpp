@@ -128,7 +128,7 @@ void OverlayClient::updateTime() {
 	}
 }
 
-#if !defined(Q_OS_MAC) || (defined(Q_OS_MAC) && defined(USE_MAC_UNIVERSAL))
+#if !defined(Q_OS_MACOS) || (defined(Q_OS_MACOS) && defined(USE_MAC_UNIVERSAL))
 void OverlayClient::updateMouse() {
 #	if defined(Q_OS_WIN)
 	QPixmap pm;
@@ -247,7 +247,7 @@ void OverlayClient::showGui() {
 	qgpiCursor->setPos(iMouseX, iMouseY);
 
 	qgs.setFocus();
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 	Global::get().mw->qteChat->activateWindow();
 #endif
 	Global::get().mw->qteChat->setFocus();
