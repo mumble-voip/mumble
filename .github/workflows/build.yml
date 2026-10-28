@@ -55,8 +55,10 @@ jobs:
             include:
             - {os: ubuntu-24.04, type: shared, arch: x86_64, compiler: gcc}
             - {os: ubuntu-24.04, type: shared, arch: arm64, compiler: gcc}
+            - {os: ubuntu-24.04, type: static, arch: x86_64, compiler: gcc}
             - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: gcc}
             - {os: ubuntu-26.04, type: shared, arch: arm64, compiler: gcc}
+            - {os: ubuntu-26.04, type: static, arch: x86_64, compiler: gcc}
             - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: gcc-16}
             - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: clang-22}
             - {os: windows-2025, type: static, arch: x86_64, compiler: cl}
