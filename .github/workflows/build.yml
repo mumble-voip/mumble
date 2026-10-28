@@ -89,7 +89,7 @@ jobs:
     - uses: hendrikmuhs/ccache-action@v1.2.24
       with:
         key: ${{ github.base_ref || github.ref_name }}_${{ matrix.os }}_${{ matrix.type }}.${{ matrix.compiler }}.${{ matrix.arch }}
-        save: ${{ github.event_name != 'pull_request' }}
+        save: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
 
     - uses: ./.github/actions/install-dependencies
       with:
