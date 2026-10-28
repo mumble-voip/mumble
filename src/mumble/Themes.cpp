@@ -9,7 +9,7 @@
 #include "Settings.h"
 #include "Global.h"
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #	include <QProcess>
 #endif
 
@@ -17,7 +17,7 @@
 
 #include <optional>
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 // declared in ThemeSwitch_macx.mm
 extern void setLightAppearance();
 extern void setDarkAppearance();
@@ -108,7 +108,7 @@ bool Themes::applyConfigured() {
 	qWarning() << "Style:" << style->name;
 	qWarning() << "--> qss:" << qssFile.absoluteFilePath();
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	switch (Global::get().s.styleType) {
 		case StyleType::Light:
 			setLightAppearance();
@@ -176,7 +176,7 @@ bool Themes::detectSystemDarkTheme() {
 	QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
 					   QSettings::NativeFormat);
 	return settings.value("AppsUseLightTheme", 1).toInt() == 0; // 0 means dark mode
-#	elif defined(Q_OS_MAC)
+#	elif defined(Q_OS_MACOS)
 	QProcess process;
 	process.start("defaults", { "read", "-g", "AppleInterfaceStyle" });
 	process.waitForFinished(100);

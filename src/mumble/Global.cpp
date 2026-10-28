@@ -32,13 +32,13 @@ void Global::migrateDataDir(const QDir &toDir) {
 
 	QStringList oldPaths;
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	oldPaths << QDir::homePath() + "/Library/Preferences/Mumble";
 #endif
 
 // Qt4 used another data directory on Unix-like systems, to ensure a seamless
 // transition we must first move the users data to the new directory.
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 	oldPaths << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/data/Mumble";
 #endif
 
