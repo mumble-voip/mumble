@@ -46,7 +46,7 @@ bool Database::findOrCreateDatabase() {
 
 	datapaths << Global::get().qdBasePath.absolutePath();
 	datapaths << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-#if defined(Q_OS_UNIX) && !defined(Q_OS_MAC)
+#if defined(Q_OS_UNIX) && !defined(Q_OS_MACOS)
 	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
 	datapaths << QDir::homePath();

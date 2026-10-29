@@ -37,7 +37,7 @@
 #endif
 
 QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	QString qsIdentifier;
 
 	QFile appBundle(QString::fromLatin1("%1/Contents/Info.plist").arg(path));
@@ -77,7 +77,7 @@ QString OverlayAppInfo::applicationIdentifierForPath(const QString &path) {
 OverlayAppInfo OverlayAppInfo::applicationInfoForId(const QString &identifier) {
 	QString qsAppName(identifier);
 	QIcon qiAppIcon;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 	CFStringRef id  = identifier.toCFString();
 	CFArrayRef urls = LSCopyApplicationURLsForBundleIdentifier(id, nullptr);
 	CFRelease(id);

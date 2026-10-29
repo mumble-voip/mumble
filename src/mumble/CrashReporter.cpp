@@ -125,7 +125,7 @@ void CrashReporter::run() {
 		return;
 	qbaDumpContents = qfCrashDump.readAll();
 
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	/*
 	 * On OSX, the .dmp file is simply a dummy file that we
 	 * use to find the *real* crash dump, made by the OSX

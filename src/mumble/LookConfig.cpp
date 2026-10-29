@@ -36,7 +36,7 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		qgbTray->hide();
 	}
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	// Qt can not hide the window via the native macOS hide function. This should be re-evaluated with new Qt versions.
 	qcbHideTray->hide();
 #endif

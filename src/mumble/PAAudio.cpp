@@ -123,7 +123,7 @@ PortAudioSystem::PortAudioSystem() : bOk(false) {
 #ifdef Q_OS_WIN
 	alternatives << QLatin1String("portaudio_x64.dll");
 	alternatives << QLatin1String("portaudio_x86.dll");
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	alternatives << QLatin1String("libportaudio.dylib");
 	alternatives << QLatin1String("libportaudio.2.dylib");
 #else

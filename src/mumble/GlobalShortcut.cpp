@@ -23,7 +23,7 @@
 #include <QtWidgets/QItemEditorFactory>
 #include <QtWidgets/QToolTip>
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #	include <ApplicationServices/ApplicationServices.h>
 #	include <QtCore/QOperatingSystemVersion>
 #endif
@@ -52,7 +52,7 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QWidget(p) {
 	m_comboBox = new MUComboBox();
 	m_comboBox->insertItem(idx, tr("Unassigned"));
 	m_comboBox->setItemData(idx, -1);
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 	m_comboBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 #endif
 
@@ -640,7 +640,7 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	}
 #endif
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	// Help Mac users enable accessibility access for Mumble...
 	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
 	if (current >= QOperatingSystemVersion::OSXMavericks) {
@@ -665,7 +665,7 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 }
 
 bool GlobalShortcutConfig::eventFilter(QObject * /*object*/, QEvent *e) {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	if (e->type() == QEvent::WindowActivate) {
 		if (!Global::get().s.bSuppressMacEventTapWarning) {
 			qwWarningContainer->setVisible(showWarning());
@@ -678,7 +678,7 @@ bool GlobalShortcutConfig::eventFilter(QObject * /*object*/, QEvent *e) {
 }
 
 bool GlobalShortcutConfig::showWarning() const {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #	if MAC_OS_X_VERSION_MAX_ALLOWED >= 1090
 	const QOperatingSystemVersion current = QOperatingSystemVersion::current();
 	if (current >= QOperatingSystemVersion::OSXMavericks) {
@@ -885,7 +885,7 @@ void GlobalShortcutConfig::reload() {
 		qtwShortcuts->addTopLevelItem(item);
 		on_qtwShortcuts_itemChanged(item, 0);
 	}
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	if (!Global::get().s.bSuppressMacEventTapWarning) {
 		qwWarningContainer->setVisible(showWarning());
 	} else {

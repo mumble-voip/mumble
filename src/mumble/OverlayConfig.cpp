@@ -594,7 +594,7 @@ void OverlayConfig::on_qcbOverlayExclusionMode_currentIndexChanged(int) {
 void OverlayConfig::on_qpbLaunchersAdd_clicked() {
 #if defined(Q_OS_WIN)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose application"), QString(), QLatin1String("*.app"));
 #else
 	QString file = QString();
@@ -654,7 +654,7 @@ void OverlayConfig::addWhitelistPath(const QString &path) {
 void OverlayConfig::on_qpbWhitelistAdd_clicked() {
 #if defined(Q_OS_WIN)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose application"), QString(), QLatin1String("*.app"));
 #else
 	QString file = QString();
@@ -730,7 +730,7 @@ void OverlayConfig::on_qlwBlacklist_itemSelectionChanged() {
 void OverlayConfig::on_qpbBlacklistAdd_clicked() {
 #if defined(Q_OS_WIN)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose executable"), QString(), QLatin1String("*.exe"));
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	QString file = QFileDialog::getOpenFileName(this, tr("Choose application"), QString(), QLatin1String("*.app"));
 #else
 	QString file = QString();

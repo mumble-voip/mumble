@@ -17,7 +17,7 @@ QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 	return qssFiles.value(QLatin1String("WIN"), defaultQss);
 #elif defined(Q_OS_LINUX)
 	return qssFiles.value(QLatin1String("LINUX"), defaultQss);
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	return qssFiles.value(QLatin1String("MAC"), defaultQss);
 #else
 	return defaultQss;

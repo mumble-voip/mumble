@@ -103,7 +103,7 @@ void TrayIcon::on_icon_update() {
 void TrayIcon::on_icon_clicked(QSystemTrayIcon::ActivationReason reason) {
 	switch (reason) {
 		case QSystemTrayIcon::Trigger:
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 			// macOS is special as it both shows the context menu AND triggers the action.
 			// We only want at most one of those and since we can not prevent showing
 			// the menu, we skip the action.
@@ -165,7 +165,7 @@ void TrayIcon::on_hideAction_triggered() {
 		return;
 	}
 
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 	Global::get().mw->hide();
 #else
 	// Qt can not hide the window via the native macOS hide function. This should be re-evaluated with new Qt versions.
