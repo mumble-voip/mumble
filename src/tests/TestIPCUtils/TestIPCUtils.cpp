@@ -6,6 +6,7 @@
 #include "IPCUtils.h"
 
 #include <cerrno>
+#include <cstdio>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
@@ -20,9 +21,16 @@
 #include <unistd.h>
 
 extern "C" int test_overlay_pipe_path(const char *expected);
+extern "C" int test_overlay_pipe_path_warning(const char *expected, const char *warning);
 
 namespace {
 namespace fs = std::filesystem;
+
+#ifdef __APPLE__
+constexpr bool supportsXdg = false;
+#else
+constexpr bool supportsXdg = true;
+#endif
 
 void require(bool condition, const std::string &message) {
 	if (!condition) {
@@ -62,11 +70,22 @@ bool unchanged(const struct stat &before, const struct stat &after) {
 }
 
 void expectSuccess(const fs::path &expected) {
-	require(Mumble::getRuntimeDirectory() == expected, "Unexpected runtime directory");
+	const std::string warning =
+		supportsXdg && expected.filename() != "info.mumble.Mumble"
+			? "$XDG_RUNTIME_DIR is not available, falling back to \"" + expected.string() + "\" for IPC endpoints"
+			: "";
+	const Mumble::IPCPath runtime = Mumble::getRuntimeDirectory();
+	require(runtime.path == expected, "Unexpected runtime directory");
+	require(runtime.warning == warning, "Unexpected runtime warning");
 	require(fs::is_directory(expected), "Runtime directory does not exist");
-	require(Mumble::getOverlayPipePath() == expected / "MumbleOverlayPipe", "Unexpected overlay endpoint");
-	require(Mumble::getSocketPath("TestRPC") == expected / "TestRPCSocket", "Unexpected RPC endpoint");
-	require(test_overlay_pipe_path((expected / "MumbleOverlayPipe").c_str()), "C caller received wrong endpoint");
+	const Mumble::IPCPath overlay = Mumble::getOverlayPipePath();
+	require(overlay.path == expected / "MumbleOverlayPipe", "Unexpected overlay endpoint");
+	require(overlay.warning == warning, "Overlay warning was not propagated");
+	const Mumble::IPCPath rpc = Mumble::getSocketPath("TestRPC");
+	require(rpc.path == expected / "TestRPCSocket", "Unexpected RPC endpoint");
+	require(rpc.warning == warning, "RPC warning was not propagated");
+	require(test_overlay_pipe_path(overlay.path.c_str()), "C caller received wrong endpoint");
+	require(test_overlay_pipe_path_warning(overlay.path.c_str(), warning.c_str()), "C warning buffer contract failed");
 }
 
 template< typename Function > void expectFilesystemError(Function function) {
@@ -85,6 +104,7 @@ void expectFailure(const fs::path &root) {
 	expectFilesystemError([] { Mumble::getOverlayPipePath(); });
 	expectFilesystemError([] { Mumble::getSocketPath("TestRPC"); });
 	require(test_overlay_pipe_path(nullptr), "C caller did not receive NULL on failure");
+	require(test_overlay_pipe_path_warning(nullptr, ""), "C failure did not clear the warning buffer");
 	require(!fs::exists(root / "cwd" / "info.mumble.Mumble"), "Failure created a cwd fallback");
 }
 
@@ -181,6 +201,9 @@ int main() {
 	// The parent never resolves a runtime directory. Every case starts with an uninitialized
 	// function-local cache, while tests that need repeated calls do so inside their own child.
 	for (const bool useXdg : { false, true }) {
+		if (useXdg && !supportsXdg) {
+			continue;
+		}
 		const std::string kind = useXdg ? "XDG" : "temp";
 		for (const mode_t mask : std::initializer_list< mode_t >{ 0077, 0022, 0000 }) {
 			run(kind + " creates a leaf under umask " + std::to_string(mask), [=](const fs::path &root) {
@@ -276,6 +299,7 @@ int main() {
 		expectSuccess(base / ("info.mumble.Mumble-" + std::to_string(::getuid())));
 	});
 
+#ifndef __APPLE__
 	run("Symlinked XDG base with trailing separators is supported", [](const fs::path &root) {
 		makeDirectory(root / "target");
 		fs::create_directory_symlink(root / "target", root / "xdg");
@@ -288,6 +312,8 @@ int main() {
 		setEnvironment("XDG_RUNTIME_DIR", (root / "xdg").string() + "///");
 		expectSuccess(fs::path((root / "xdg").string() + "///") / "info.mumble.Mumble");
 	});
+
+#endif
 
 	for (const bool empty : { false, true }) {
 		run(empty ? "Empty XDG uses temp" : "Absent XDG uses temp", [=](const fs::path &root) {
@@ -319,13 +345,16 @@ int main() {
 
 	run("Failed initialization can be retried after repair", [](const fs::path &root) {
 		const fs::path base = root / "xdg";
-		setEnvironment("XDG_RUNTIME_DIR", base.string());
+		setEnvironment(supportsXdg ? "XDG_RUNTIME_DIR" : "TMPDIR", base.string());
 		expectFailure(root);
 		makeDirectory(base);
-		expectSuccess(base / "info.mumble.Mumble");
+		expectSuccess(base / (supportsXdg ? "info.mumble.Mumble" : "info.mumble.Mumble-" + std::to_string(::getuid())));
 	});
 
 	for (const bool useXdg : { false, true }) {
+		if (useXdg && !supportsXdg) {
+			continue;
+		}
 		run(std::string(useXdg ? "XDG" : "temp") + " resolves identically in independent processes",
 			[=](const fs::path &root) {
 				const fs::path base = root / "xdg";
@@ -350,9 +379,43 @@ int main() {
 		for (const std::string name : { "first", "second" }) {
 			const fs::path base = root / name;
 			makeDirectory(base);
-			setEnvironment("XDG_RUNTIME_DIR", base.string());
-			require(freshProcess([&] { expectSuccess(base / "info.mumble.Mumble"); }) == 0, "Child failed");
+			setEnvironment(supportsXdg ? "XDG_RUNTIME_DIR" : "TMPDIR", base.string());
+			const fs::path expected =
+				base / (supportsXdg ? "info.mumble.Mumble" : "info.mumble.Mumble-" + std::to_string(::getuid()));
+			require(freshProcess([&] { expectSuccess(expected); }) == 0, "Child failed");
 		}
+	});
+
+#ifdef __APPLE__
+	for (const std::string value : { "relative", "/nonexistent/mumble-xdg" }) {
+		run("macOS ignores XDG value " + value, [=](const fs::path &root) {
+			setEnvironment("XDG_RUNTIME_DIR", value);
+			expectSuccess(tempLeaf(root));
+		});
+	}
+	run("macOS ignores a usable absolute XDG directory", [](const fs::path &root) {
+		makeDirectory(root / "xdg");
+		setEnvironment("XDG_RUNTIME_DIR", (root / "xdg").string());
+		expectSuccess(tempLeaf(root));
+		require(!fs::exists(root / "xdg" / "info.mumble.Mumble"), "macOS used XDG");
+	});
+#endif
+
+	run("IPC helpers leave stderr to the caller", [](const fs::path &root) {
+		FILE *capture = std::tmpfile();
+		require(capture != nullptr, "tmpfile failed");
+		const int saved = ::dup(STDERR_FILENO);
+		require(saved >= 0 && ::dup2(::fileno(capture), STDERR_FILENO) >= 0, "redirect stderr failed");
+		const Mumble::IPCPath path = Mumble::getOverlayPipePath();
+		const bool cResult         = test_overlay_pipe_path(path.path.c_str());
+		std::fflush(stderr);
+		const long length  = std::ftell(capture);
+		const int restored = ::dup2(saved, STDERR_FILENO);
+		::close(saved);
+		std::fclose(capture);
+		require(restored >= 0, "restore stderr failed");
+		require(cResult && path.path == tempLeaf(root) / "MumbleOverlayPipe", "Wrong captured endpoint");
+		require(length == 0, "IPC helper printed to stderr");
 	});
 
 	std::cout << total << " cases, " << failures << " failed, " << skipped << " skipped" << std::endl;

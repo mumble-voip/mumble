@@ -6,7 +6,6 @@
 #include "IPCUtils.h"
 
 #ifndef _WIN32
-#	include <cstdio>
 #	include <cstdlib>
 #	include <string>
 
@@ -15,17 +14,21 @@
 
 namespace Mumble {
 
-std::filesystem::path getRuntimeDirectory() {
+IPCPath getRuntimeDirectory() {
 #ifdef _WIN32
 	return {};
 #else
-	static const std::filesystem::path s_dir = [] {
-		const char *xdgRuntimeDir  = std::getenv("XDG_RUNTIME_DIR");
-		std::filesystem::path base = xdgRuntimeDir ? xdgRuntimeDir : "";
+	static const IPCPath s_dir = [] {
+		std::filesystem::path base;
+		bool useXdg               = false;
+#	ifndef __APPLE__
+		const char *xdgRuntimeDir = std::getenv("XDG_RUNTIME_DIR");
+		base                      = xdgRuntimeDir ? xdgRuntimeDir : "";
 		// The XDG specification requires relative values to be ignored. Select a location from
 		// the environment before checking the filesystem, so a temporary failure cannot send
 		// the client and overlay to different directories. They must share the same environment.
-		const bool useXdg = !base.empty() && base.is_absolute();
+		useXdg = !base.empty() && base.is_absolute();
+#	endif
 		if (!useXdg) {
 			base = std::filesystem::temp_directory_path();
 		}
@@ -33,37 +36,42 @@ std::filesystem::path getRuntimeDirectory() {
 		const std::filesystem::path dir =
 			base / (useXdg ? "info.mumble.Mumble" : "info.mumble.Mumble-" + std::to_string(getuid()));
 		std::filesystem::create_directory(dir);
+		std::string warning;
+#	ifndef __APPLE__
 		if (!useXdg) {
-			std::fprintf(stderr,
-						 "Mumble: $XDG_RUNTIME_DIR is not available, falling back to \"%s\" for IPC endpoints\n",
-						 dir.c_str());
+			warning = "$XDG_RUNTIME_DIR is not available, falling back to \"" + dir.string() + "\" for IPC endpoints";
 		}
-		return dir;
+#	endif
+		return IPCPath{ dir, warning };
 	}();
 
 	return s_dir;
 #endif
 }
 
-std::filesystem::path getOverlayPipePath() {
+IPCPath getOverlayPipePath() {
 #ifdef _WIN32
-	return "MumbleOverlayPipe";
+	return { "MumbleOverlayPipe", {} };
 #else
-	return getRuntimeDirectory() / "MumbleOverlayPipe";
+	IPCPath result = getRuntimeDirectory();
+	result.path /= "MumbleOverlayPipe";
+	return result;
 #endif
 }
 
 #ifdef _WIN32
 std::wstring getOverlayPipeDevicePath() {
-	return LR"(\\.\pipe\)" + getOverlayPipePath().wstring();
+	return LR"(\\.\pipe\)" + getOverlayPipePath().path.wstring();
 }
 #endif
 
-std::filesystem::path getSocketPath(std::string_view basename) {
+IPCPath getSocketPath(std::string_view basename) {
 #ifdef _WIN32
-	return basename;
+	return { basename, {} };
 #else
-	return getRuntimeDirectory() / (std::string(basename) + "Socket");
+	IPCPath result = getRuntimeDirectory();
+	result.path /= std::string(basename) + "Socket";
+	return result;
 #endif
 }
 

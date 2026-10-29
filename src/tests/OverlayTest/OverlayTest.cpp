@@ -100,7 +100,11 @@ void OverlayWidget::paintEvent(QPaintEvent *) {
 		connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 		connect(qlsSocket, SIGNAL(errorOccurred(QLocalSocket::LocalSocketError)), this,
 				SLOT(error(QLocalSocket::LocalSocketError)));
-		const QString pipepath = QString::fromStdString(Mumble::getOverlayPipePath().string());
+		const Mumble::IPCPath ipcPath = Mumble::getOverlayPipePath();
+		if (!ipcPath.warning.empty()) {
+			qWarning("%s", ipcPath.warning.c_str());
+		}
+		const QString pipepath = QString::fromStdString(ipcPath.path.string());
 		qWarning() << "connectToServer(" << pipepath << ")";
 		qlsSocket->connectToServer(pipepath);
 	}

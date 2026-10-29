@@ -22,3 +22,9 @@ g++ -std=c++20 -Wall -Wextra -Werror -Iipcutils \
 Run as an unprivileged user to exercise the unwritable-parent case. The suite
 uses only its own temporary fixtures. Directory permissions follow the process
 umask; existing directory permissions and symlink targets are preserved.
+
+On macOS, XDG values are ignored and the system temporary directory is used
+without a warning. On other POSIX systems, an absolute XDG value is honored;
+fallback warnings are returned to callers instead of being printed by IPCUtils.
+The C tests cover both the legacy entry point and bounded warning buffers,
+including truncation, zero capacity, NULL buffers and clearing on failure.

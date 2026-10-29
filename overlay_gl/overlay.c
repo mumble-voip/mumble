@@ -158,7 +158,11 @@ static void newContext(Context *ctx) {
 	ctx->timeT             = monotonicSeconds();
 	ctx->frameCount        = 0;
 
-	char *pipePath = get_overlay_pipe_path();
+	char warning[512];
+	char *pipePath = get_overlay_pipe_path_with_warning(warning, sizeof(warning));
+	if (warning[0] != '\0') {
+		ods("%s", warning);
+	}
 	if (pipePath != NULL) {
 		// ctx->saName.sun_path is a statically sized char array, therefore sizeof is correct here
 		size_t sunPathBufLen = sizeof(ctx->saName.sun_path) / sizeof(ctx->saName.sun_path[0]);

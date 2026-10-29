@@ -234,7 +234,11 @@ void SocketRPCClient::processXml() {
 SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 	qlsServer = new QLocalServer(this);
 
-	const QString pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
+	const Mumble::IPCPath ipcPath = Mumble::getSocketPath(basename.toStdString());
+	if (!ipcPath.warning.empty()) {
+		qWarning("%s", ipcPath.warning.c_str());
+	}
+	const QString pipepath = QString::fromStdString(ipcPath.path.string());
 
 #ifndef Q_OS_WIN
 	{
@@ -265,7 +269,11 @@ void SocketRPC::newConnection() {
 }
 
 bool SocketRPC::send(const QString &basename, const QString &request, const QMap< QString, QVariant > &param) {
-	const QString pipepath = QString::fromStdString(Mumble::getSocketPath(basename.toStdString()).string());
+	const Mumble::IPCPath ipcPath = Mumble::getSocketPath(basename.toStdString());
+	if (!ipcPath.warning.empty()) {
+		qWarning("%s", ipcPath.warning.c_str());
+	}
+	const QString pipepath = QString::fromStdString(ipcPath.path.string());
 
 	QLocalSocket qls;
 	qls.connectToServer(pipepath);

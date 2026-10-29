@@ -239,7 +239,11 @@ void Overlay::createPipe() {
 	// Allow anyone to access the pipe in order to communicate with the overlay
 	qlsServer->setSocketOptions(QLocalServer::WorldAccessOption);
 
-	const QString pipepath = QString::fromStdString(Mumble::getOverlayPipePath().string());
+	const Mumble::IPCPath ipcPath = Mumble::getOverlayPipePath();
+	if (!ipcPath.warning.empty()) {
+		qWarning("%s", ipcPath.warning.c_str());
+	}
+	const QString pipepath = QString::fromStdString(ipcPath.path.string());
 
 #ifndef Q_OS_WIN
 	{
