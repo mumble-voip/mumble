@@ -140,6 +140,7 @@ jobs:
         path: |
           build/mumble
           build/Mumble.app
+          build/Mumble*.dmg
           build/mumble-server
           build/**/mumble*.msi
           build/**/mumble*.exe
