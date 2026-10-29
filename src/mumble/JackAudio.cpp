@@ -198,7 +198,7 @@ JackAudioSystem::JackAudioSystem() : bAvailable(false), users(0), client(nullptr
 #ifdef Q_OS_WIN
 	alternatives << QLatin1String("libjack64.dll");
 	alternatives << QLatin1String("libjack32.dll");
-#elif defined(Q_OS_MAC)
+#elif defined(Q_OS_MACOS)
 	alternatives << QLatin1String("libjack.dylib");
 	alternatives << QLatin1String("libjack.0.dylib");
 #else

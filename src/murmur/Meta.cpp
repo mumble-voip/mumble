@@ -222,7 +222,7 @@ void MetaParams::read(QString fname) {
 		datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 		/* Old Mac data path. */
 		datapaths << QDir::homePath() + QLatin1String("/Library/Preferences/Mumble/");
 #endif

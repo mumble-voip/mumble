@@ -59,7 +59,7 @@ PluginManager::PluginManager(QSet< QString > *additionalSearchPaths, QObject *p)
 		pluginPaths.insert(pluginPaths.end(), additionalSearchPaths->begin(), additionalSearchPaths->end());
 	}
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 	// Path to plugins inside AppBundle
 	pluginPaths.push_back(QString::fromLatin1("%1/../Plugins").arg(qApp->applicationDirPath()));
 #endif
