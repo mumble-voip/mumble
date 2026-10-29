@@ -17,12 +17,17 @@ brew update && brew install \
   boost \
   libogg \
   libvorbis \
+  opus \
   flac \
   libsndfile \
   protobuf \
   openssl \
   poco \
-  ice
+  ice \
+  utf8cpp \
+  cli11 \
+  nlohmann-json \
+  soci
 ```
 
 
