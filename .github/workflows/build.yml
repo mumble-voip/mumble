@@ -16,7 +16,13 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
-  CMAKE_OPTIONS: -Dtests=ON -Dsymbols=ON -Ddisplay-install-paths=ON -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_C_COMPILER_LAUNCHER=ccache
+  CMAKE_OPTIONS: >
+    -Dtests=ON
+    -Dsymbols=ON
+    -Ddisplay-install-paths=ON
+    -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+    -DCMAKE_C_COMPILER_LAUNCHER=ccache
+  CCACHE_COMPRESSLEVEL: 10
 
 
 jobs:
@@ -46,35 +52,16 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ubuntu-24.04, ubuntu-26.04]
-            type: [shared]
-            arch: [x86_64, arm64]
-            compiler: [gcc]
             include:
-            - os: ubuntu-26.04
-              type: shared
-              arch: x86_64
-              compiler: gcc-16
-            - os: ubuntu-26.04
-              type: shared
-              arch: x86_64
-              compiler: clang-22
-            - os: windows-2025
-              type: static
-              arch: x86_64
-              compiler: cl
-            - os: windows-2025
-              type: static
-              arch: x86_64
-              compiler: clang-cl
-            - os: macos-15
-              type: static
-              arch: x86_64
-              compiler: clang
-            - os: macos-15
-              type: static
-              arch: arm64
-              compiler: clang
+            - {os: ubuntu-24.04, type: shared, arch: x86_64, compiler: gcc}
+            - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: gcc}
+            - {os: ubuntu-26.04, type: shared, arch: arm64, compiler: gcc}
+            - {os: ubuntu-26.04, type: static, arch: x86_64, compiler: gcc}
+            - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: gcc-16}
+            - {os: ubuntu-26.04, type: shared, arch: x86_64, compiler: clang-22}
+            - {os: windows-2025, type: static, arch: x86_64, compiler: cl}
+            - {os: windows-2025, type: static, arch: x86_64, compiler: clang-cl}
+            - {os: macos-15, type: static, arch: arm64, compiler: clang}
 
     runs-on: ${{ matrix.os }}${{ (matrix.arch == 'arm64' && startsWith(matrix.os, 'ubuntu')) && '-arm' || '' }}
 
@@ -102,8 +89,7 @@ jobs:
     - uses: hendrikmuhs/ccache-action@v1.2.24
       with:
         key: ${{ github.base_ref || github.ref_name }}_${{ matrix.os }}_${{ matrix.type }}.${{ matrix.compiler }}.${{ matrix.arch }}
-        save: ${{ github.event_name != 'pull_request' }}
-        append-timestamp: false
+        save: ${{ github.event_name != 'pull_request' && github.ref_name == 'master' }}
 
     - uses: ./.github/actions/install-dependencies
       with:
