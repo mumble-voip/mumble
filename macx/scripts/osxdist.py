@@ -79,6 +79,13 @@ def prodsign(inf, outf):
 		return retval
 	return 0
 
+def adhocsign(path):
+	'''Call the codesign executable on app bundle to perform an "ad-hoc" sign.'''
+
+	p = Popen(('codesign', '-s', '-', path))
+	retval = p.wait()
+	return retval
+
 class AppBundle(object):
 	def copy_helper(self, fn):
 		'''
@@ -278,6 +285,12 @@ def package_client():
 		)
 		availableBinaries = [bin for bin in binaries if os.path.exists(bin)]
 		codesign(availableBinaries)
+		print()
+	else:
+		print(' * Ad-Hoc signing the app bundle')
+		if adhocsign(os.path.join(options.binary_dir, 'Mumble.app')) != 0:
+			print('Ad-Hoc signing failed!')
+			exit(1)
 		print()
 
 	if options.only_appbundle:
