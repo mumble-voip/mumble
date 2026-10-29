@@ -35,11 +35,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p),
 		queryItems << qMakePair(QString::fromLatin1("ver"),
 								QString::fromLatin1(QUrl::toPercentEncoding(Version::getRelease())));
 #if defined(Q_OS_WIN)
-#	if defined(Q_OS_WIN64)
-		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("WinX64"));
-#	else
-		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Win32"));
-#	endif
+		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Windows"));
 #elif defined(Q_OS_MACOS)
 		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("MacOSX"));
 #else
@@ -48,10 +44,13 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p),
 
 		queryItems << qMakePair(QString::fromLatin1("arch"), QString::fromUtf8(MUMBLE_TARGET_ARCH));
 
-		if (!Global::get().s.bUsage)
+		if (!Global::get().s.bUsage) {
 			queryItems << qMakePair(QString::fromLatin1("nousage"), QString::fromLatin1("1"));
-		if (autocheck)
+		}
+
+		if (autocheck) {
 			queryItems << qMakePair(QString::fromLatin1("auto"), QString::fromLatin1("1"));
+		}
 
 		queryItems << qMakePair(QString::fromLatin1("locale"), Global::get().s.qsLanguage.isEmpty()
 																   ? QLocale::system().name()
