@@ -6,7 +6,9 @@
 #include "IPCUtils.h"
 
 #ifndef _WIN32
+#	include <cstdio>
 #	include <cstdlib>
+#	include <string>
 
 #	include <unistd.h>
 #endif
@@ -17,18 +19,29 @@ std::filesystem::path getRuntimeDirectory() {
 #ifdef _WIN32
 	return {};
 #else
-	std::filesystem::path runtimeDir;
+	static const std::filesystem::path s_dir = [] {
+		const char *xdgRuntimeDir  = std::getenv("XDG_RUNTIME_DIR");
+		std::filesystem::path base = xdgRuntimeDir ? xdgRuntimeDir : "";
+		// The XDG specification requires relative values to be ignored. Select a location from
+		// the environment before checking the filesystem, so a temporary failure cannot send
+		// the client and overlay to different directories. They must share the same environment.
+		const bool useXdg = !base.empty() && base.is_absolute();
+		if (!useXdg) {
+			base = std::filesystem::temp_directory_path();
+		}
 
-	const char *xdgRuntimeDir = std::getenv("XDG_RUNTIME_DIR");
-	if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
-		runtimeDir = std::filesystem::path(xdgRuntimeDir) / "info.mumble.Mumble";
-	} else {
-		runtimeDir = std::filesystem::path("/run/user") / std::to_string(getuid()) / "info.mumble.Mumble";
-	}
+		const std::filesystem::path dir =
+			base / (useXdg ? "info.mumble.Mumble" : "info.mumble.Mumble-" + std::to_string(getuid()));
+		std::filesystem::create_directory(dir);
+		if (!useXdg) {
+			std::fprintf(stderr,
+						 "Mumble: $XDG_RUNTIME_DIR is not available, falling back to \"%s\" for IPC endpoints\n",
+						 dir.c_str());
+		}
+		return dir;
+	}();
 
-	std::filesystem::create_directories(runtimeDir);
-
-	return runtimeDir;
+	return s_dir;
 #endif
 }
 
