@@ -26,7 +26,7 @@ std::filesystem::path getRuntimeDirectory() {
 	if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
 		runtimeDir = std::filesystem::path(xdgRuntimeDir) / "info.mumble.Mumble";
 	} else {
-		runtimeDir = std::filesystem::temp_directory_path() / "info.mumble.Mumble";
+		runtimeDir = std::filesystem::temp_directory_path() / "info.mumble.Mumble" / std::to_string(getuid());
 	}
 #	endif
 
