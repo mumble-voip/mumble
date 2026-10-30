@@ -6,6 +6,7 @@
 #include "IPCUtils.h"
 
 #ifndef _WIN32
+#	include <format>
 #	include <cstdlib>
 
 #	include <unistd.h>
@@ -26,7 +27,7 @@ std::filesystem::path getRuntimeDirectory() {
 	if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
 		runtimeDir = std::filesystem::path(xdgRuntimeDir) / "info.mumble.Mumble";
 	} else {
-		runtimeDir = std::filesystem::temp_directory_path() / "info.mumble.Mumble" / std::to_string(getuid());
+		runtimeDir = std::filesystem::temp_directory_path() / std::format("info.mumble.Mumble_{}", getuid());
 	}
 #	endif
 
