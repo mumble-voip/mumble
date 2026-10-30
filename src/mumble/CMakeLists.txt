@@ -104,6 +104,7 @@ set(MUMBLE_SOURCES
 	"AudioInput.ui"
 	"AudioOutput.cpp"
 	"AudioOutput.h"
+	"AudioRestart.h"
 	"AudioOutputSample.cpp"
 	"AudioOutputSample.h"
 	"AudioOutputSpeech.cpp"
