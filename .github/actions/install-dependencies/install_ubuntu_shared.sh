@@ -64,6 +64,7 @@ sudo apt -y install \
 	libpoco-dev \
 	nlohmann-json3-dev \
 	libcli11-dev \
+	libspdlog-dev \
 	libsoci-dev \
 	libutfcpp-dev \
 	libsqlite3-dev
