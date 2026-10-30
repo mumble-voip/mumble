@@ -121,6 +121,7 @@ public:
 	int iTimeout;
 	std::chrono::seconds handshakeTimeout;
 	int iMaxBandwidth;
+	unsigned int m_maxVideoBandwidth;
 	unsigned int iMaxUsers;
 	unsigned int iMaxUsersPerChannel;
 	unsigned int iDefaultChan;
@@ -145,6 +146,7 @@ public:
 	bool bBonjour;
 	bool bAllowPing;
 	bool allowRecording;
+	bool allowScreenSharing;
 	unsigned int rollingStatsWindow;
 
 	QRegularExpression qrUserName;
@@ -341,6 +343,7 @@ public:
 	void addListener(QHash< ServerUser *, VolumeAdjustment > &listeners, ServerUser &user, const Channel &channel);
 	void processMsg(ServerUser *u, Mumble::Protocol::AudioData audioData, AudioReceiverBuffer &buffer,
 					Mumble::Protocol::UDPAudioEncoder< Mumble::Protocol::Role::Server > &encoder);
+	void processVideoMsg(ServerUser *u, MumbleUDP::Video &videoMsg);
 	void sendMessage(ServerUser &u, const unsigned char *data, int len, QByteArray &cache, bool force = false);
 	void run();
 
@@ -395,6 +398,11 @@ public:
 	/// Removes the user from qhHostUsers. Requires the write lock on qrwlVoiceThread to be held.
 	void removeHostUser(ServerUser *u);
 	void userEnterChannel(User *u, Channel *c, MumbleProto::UserState &mpus);
+	/// Ends the user's screen share, e.g. because screen sharing is not allowed for them anymore, and tells
+	/// everyone about it.
+	void stopScreenSharing(ServerUser *u);
+	/// Ends all subscriptions to the user's screen share. Must not be called while holding the voice thread lock.
+	void endVideoSubscriptionsTo(ServerUser *sharer);
 	bool unregisterUser(int id);
 
 	Server(unsigned int snum, const ::mumble::db::ConnectionParameter &connectionParam, QObject *parent = nullptr);
