@@ -127,7 +127,7 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 	}
 
 	// Default permissions
-	Permissions def = Traverse | Enter | Speak | Whisper | TextMessage | Listen;
+	Permissions def = Traverse | Enter | Speak | Whisper | TextMessage | Listen | ScreenShare;
 
 	granted = def;
 
@@ -226,8 +226,8 @@ QFlags< ChanACL::Perm > ChanACL::effectivePermissions(ServerUser *p, Channel *ch
 	}
 
 	if (granted & Write) {
-		granted |=
-			Traverse | Enter | MuteDeafen | Move | MakeChannel | LinkChannel | TextMessage | MakeTempChannel | Listen;
+		granted |= Traverse | Enter | MuteDeafen | Move | MakeChannel | LinkChannel | TextMessage | MakeTempChannel
+				   | Listen | ScreenShare;
 		if (chan->iId == 0)
 			granted |= Kick | Ban | ResetUserContent | Register | SelfRegister;
 	}
@@ -314,6 +314,8 @@ QString ChanACL::whatsThis(Perm p) {
 		case Listen:
 			return tr("This represents the permission to use the listen-feature allowing to listen to a channel "
 					  "without being in it.");
+		case ScreenShare:
+			return tr("This represents the permission to share one's screen with the other users in this channel.");
 		default:
 			break;
 	}
@@ -369,6 +371,8 @@ QString ChanACL::permName(Perm p) {
 			return tr("Register Self");
 		case Listen:
 			return tr("Listen");
+		case ScreenShare:
+			return tr("Share screen");
 		default:
 			break;
 	}
