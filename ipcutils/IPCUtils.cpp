@@ -26,7 +26,12 @@ std::filesystem::path getRuntimeDirectory() {
 	if (xdgRuntimeDir != nullptr && xdgRuntimeDir[0] != '\0') {
 		runtimeDir = std::filesystem::path(xdgRuntimeDir) / "info.mumble.Mumble";
 	} else {
-		runtimeDir = std::filesystem::temp_directory_path() / "info.mumble.Mumble" / std::to_string(getuid());
+		auto baseRuntimeDir = std::filesystem::temp_directory_path() / "info.mumble.Mumble";
+		if (std::filesystem::create_directories(baseRuntimeDir)) {
+			std::filesystem::permissions(baseRuntimeDir, std::filesystem::perms::all,
+										 std::filesystem::perm_options::replace);
+		}
+		runtimeDir = baseRuntimeDir / std::to_string(getuid());
 	}
 #	endif
 
