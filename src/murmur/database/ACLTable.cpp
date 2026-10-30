@@ -503,6 +503,12 @@ namespace server {
 							soci::use(accessToken, accessTokenInd), soci::use(groupModifiers, groupModInd),
 							soci::use(applyHere), soci::use(applySub), soci::use(grantPriv), soci::use(revokePriv);
 					}
+				} else if (fromSchemaVersion < 12) {
+					::mdb::TransactionHolder transaction = ensureTransaction();
+					m_sql << "UPDATE " << NAME << " SET "
+						  << column::granted_flags << "= " << column::granted_flags << "| ((" << column::granted_flags << " & 0x200) << 3), "
+						  << column::revoked_flags << "= " << column::revoked_flags << "| ((" << column::revoked_flags << " & 0x200) << 3);";
+					transaction.commit();
 				} else {
 					// Use default implementation to handle migration without change of format
 					mdb::Table::migrate(fromSchemaVersion, toSchemaVersion);
