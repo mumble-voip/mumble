@@ -10,6 +10,8 @@
 
 #include <QUuid>
 
+#include <array>
+#include <optional>
 #include <stdint.h>
 
 /// XBOXINPUT_MAX_DEVICES defines the maximum
@@ -59,6 +61,10 @@ public:
 	/// is usable.
 	bool isValid() const;
 
+	/// Poll a slot, returning true when its state changes. A disconnect produces
+	/// one neutral state so that callers can release any held buttons.
+	bool poll(uint32_t deviceIndex, XboxInputState &state);
+
 	/// Query the state of the Xbox controller at deviceIndex.
 	/// If the function succeeds, it returns 0 (Windows's ERROR_SUCCESS).
 	/// If no device is connected, it returns 0x48F (Windows's ERROR_DEVICE_NOT_CONNECTED).
@@ -79,6 +85,9 @@ protected:
 	/// m_valid determines whether or not the XboxInputLibrary
 	/// is valid for use.
 	bool m_valid;
+
+private:
+	std::array< std::optional< uint32_t >, XBOXINPUT_MAX_DEVICES > m_lastPackets;
 };
 
 #endif
