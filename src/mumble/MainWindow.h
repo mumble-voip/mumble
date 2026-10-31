@@ -42,6 +42,8 @@ class UserInformation;
 class VoiceRecorderDialog;
 class PositionalAudioViewer;
 class PTTButtonWidget;
+class QLabel;
+class QToolButton;
 
 namespace Search {
 class SearchDialog;
@@ -115,6 +117,7 @@ public:
 	GlobalShortcut *gsMoveBack;
 	GlobalShortcut *gsCycleListenerAttenuationMode, *gsListenerAttenuationUp, *gsListenerAttenuationDown;
 	GlobalShortcut *gsAdaptivePush;
+	GlobalShortcut *m_whisperToggleShortcut;
 
 	DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
@@ -171,7 +174,16 @@ protected:
 	QList< QAction * > qlChannelActions;
 	QList< QAction * > qlUserActions;
 
+	/// Active regular Whisper/Shout targets, including pending delayed releases.
 	QHash< ShortcutTarget, int > qmCurrentTargets;
+	/// Resolved recipients, independent of the reusable voice-target cache.
+	QList< ShortcutTarget > m_activeWhisperTargets;
+	qt_unique_ptr< QToolButton > m_clearWhisperButton;
+	qt_unique_ptr< QLabel > m_whisperTargetLabel;
+	void updateWhisperTargetLabel();
+	void resetWhisperToggle();
+	bool m_whisperToggleActive = false;
+	ShortcutTarget m_whisperToggleTarget;
 	/// A map that contains information about the currently active
 	/// shout/whisper targets. The mapping is between a List of
 	/// ShortcutTargets that are all triggered together and the
@@ -359,6 +371,7 @@ public slots:
 	void on_gsListenerAttenuationUp_triggered(bool, QVariant);
 	void on_gsListenerAttenuationDown_triggered(bool, QVariant);
 	void on_gsAdaptivePush_triggered(bool, QVariant);
+	void on_whisperToggle_triggered(bool, QVariant);
 
 	void on_Reconnect_timeout();
 	void on_qaTalkingUIToggle_triggered();
@@ -414,6 +427,7 @@ public slots:
 	void highlightWindow();
 	void on_user_moved(unsigned int sessionID, const std::optional< unsigned int > &prevChannelID,
 					   unsigned int newChannelID);
+	void on_localUserChannelChanged(unsigned int prevChannelID, unsigned int newChannelID);
 	void on_qaMoveBack_triggered();
 signals:
 	/// Signal emitted when the server and the client have finished
