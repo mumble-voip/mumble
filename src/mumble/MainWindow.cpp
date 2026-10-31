@@ -78,8 +78,10 @@
 #include <QtGui/QWindow>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QInputDialog>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QScrollBar>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QToolTip>
 #include <QtWidgets/QWhatsThis>
 
@@ -105,7 +107,9 @@ OpenURLEvent::OpenURLEvent(QUrl u) : QEvent(static_cast< QEvent::Type >(OU_QEVEN
 }
 
 MainWindow::MainWindow(QWidget *p)
-	: QMainWindow(p), m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
+	: QMainWindow(p), m_clearWhisperButton(make_qt_unique< QToolButton >(this)),
+	  m_whisperTargetLabel(make_qt_unique< QLabel >(this)),
+	  m_localVolumeLabel(make_qt_unique< MenuLabel >(tr("Local Volume Adjustment:"), this)),
 	  m_userLocalVolumeSlider(make_qt_unique< UserLocalVolumeSlider >(this)),
 	  m_listenerVolumeSlider(make_qt_unique< ListenerVolumeSlider >(this)) {
 	SvgIcon::addSvgPixmapsToIcon(qiIconMuteSelf, QLatin1String("skin:muted_self.svg"));
@@ -464,6 +468,17 @@ void MainWindow::createActions() {
 	gsAdaptivePush->qsToolTip = tr("When using the push-to-talk transmission mode, this will act as the push-to-talk "
 								   "action. Otherwise, it will act as a push-to-mute action.",
 								   "Global Shortcut");
+
+	m_whisperToggleShortcut =
+		new GlobalShortcut(this, GlobalShortcutType::WhisperToggle, tr("Whisper Toggle", "Global Shortcut"),
+						   QVariant::fromValue(ShortcutTarget()));
+	m_whisperToggleShortcut->setObjectName("whisperToggle");
+	m_whisperToggleShortcut->qsToolTip = tr("Toggle whispering to the configured target.", "Global Shortcut");
+	m_whisperToggleShortcut->qsWhatsThis =
+		tr("This toggles transmitting all voice to the configured whisper target. "
+		   "Switch targets using additional shortcuts or override with Whisper/Shout. "
+		   "Press the same shortcut again or use the toolbar button to clear the target.",
+		   "Global Shortcut");
 }
 
 void MainWindow::setupGui() {
@@ -504,6 +519,7 @@ void MainWindow::setupGui() {
 	QObject::connect(Global::get().channelListenerManager.get(), &ChannelListenerManager::localVolumeAdjustmentsChanged,
 					 pmModel, &UserModel::on_channelListenerLocalVolumeAdjustmentChanged);
 	QObject::connect(pmModel, &UserModel::userMoved, this, &MainWindow::on_user_moved);
+	QObject::connect(pmModel, &UserModel::localUserChannelChanged, this, &MainWindow::on_localUserChannelChanged);
 
 	// connect slots to PluginManager
 	QObject::connect(pmModel, &UserModel::userAdded, Global::get().pluginManager, &PluginManager::on_userAdded);
@@ -584,6 +600,27 @@ void MainWindow::setupGui() {
 	connect(qcbTransmitMode, SIGNAL(activated(int)), this, SLOT(qcbTransmitMode_activated(int)));
 
 	updateTransmitModeComboBox(Global::get().s.atTransmit);
+
+	m_whisperTargetLabel->setObjectName(QLatin1String("whisperTargetLabel"));
+	m_whisperTargetLabel->setTextFormat(Qt::PlainText);
+	m_whisperTargetLabel->setMargin(4);
+	m_clearWhisperButton->setObjectName(QLatin1String("clearWhisperButton"));
+	m_clearWhisperButton->setText(QString::fromUtf8("\xC3\x97"));
+	m_clearWhisperButton->setToolButtonStyle(Qt::ToolButtonTextOnly);
+	m_clearWhisperButton->setAutoRaise(true);
+	m_clearWhisperButton->setToolTip(tr("Clear whisper target"));
+	m_clearWhisperButton->setAccessibleName(m_clearWhisperButton->toolTip());
+	QObject::connect(m_clearWhisperButton.get(), &QToolButton::clicked, this, &MainWindow::resetWhisperToggle);
+	qtIconToolbar->addSeparator();
+	qtIconToolbar->addWidget(m_clearWhisperButton.get());
+	qtIconToolbar->addWidget(m_whisperTargetLabel.get());
+	updateWhisperTargetLabel();
+
+	QObject::connect(pmModel, &UserModel::dataChanged, this, &MainWindow::updateWhisperTargetLabel);
+	QObject::connect(pmModel, &UserModel::rowsInserted, this, &MainWindow::updateWhisperTargetLabel);
+	QObject::connect(pmModel, &UserModel::userRemoved, this, &MainWindow::updateWhisperTargetLabel);
+	QObject::connect(pmModel, &UserModel::channelRemoved, this, &MainWindow::updateWhisperTargetLabel);
+	QObject::connect(pmModel, &UserModel::channelRenamed, this, &MainWindow::updateWhisperTargetLabel);
 
 #ifdef Q_OS_WIN
 	setupView(false);
@@ -1192,6 +1229,14 @@ void MainWindow::on_user_moved(unsigned int sessionID, const std::optional< unsi
 	}
 
 	(void) newChannelID;
+}
+
+void MainWindow::on_localUserChannelChanged(unsigned int prevChannelID, unsigned int newChannelID) {
+	if (m_whisperToggleActive && qmCurrentTargets.isEmpty() && !m_whisperToggleTarget.bUsers
+		&& !m_whisperToggleTarget.bCurrentSelection && m_whisperToggleTarget.iChannel == SHORTCUT_TARGET_CURRENT
+		&& prevChannelID != newChannelID) {
+		updateTarget();
+	}
 }
 
 void MainWindow::on_qaMoveBack_triggered() {
@@ -3016,16 +3061,54 @@ Channel *MainWindow::mapChannel(int idx) const {
 	return c;
 }
 
-void MainWindow::updateTarget() {
-	Global::get().iPrevTarget = Global::get().iTarget;
+void MainWindow::updateWhisperTargetLabel() {
+	QString text = tr("Whisper: None");
+	if (Global::get().uiSession != 0 && Global::get().iTarget != 0) {
+		QStringList names;
+		for (const ShortcutTarget &target : m_activeWhisperTargets) {
+			if (target.bUsers) {
+				for (unsigned int session : target.qlSessions) {
+					const ClientUser *user = ClientUser::get(session);
+					if (user) {
+						names.append(user->qsName);
+					}
+				}
+			} else {
+				ShortcutTarget description    = target;
+				description.bCurrentSelection = false;
+				if (m_whisperToggleActive && qmCurrentTargets.isEmpty() && !m_whisperToggleTarget.bUsers
+					&& !m_whisperToggleTarget.bCurrentSelection
+					&& m_whisperToggleTarget.iChannel == SHORTCUT_TARGET_CURRENT) {
+					description.iChannel = SHORTCUT_TARGET_CURRENT;
+				}
+				names.append(ShortcutTargetWidget::targetString(description));
+			}
+		}
+		names.removeDuplicates();
+		names.sort();
+		text = tr("Whisper: %1").arg(names.isEmpty() ? tr("Unavailable") : names.join(tr(", ")));
+	}
+	m_whisperTargetLabel->setText(m_whisperTargetLabel->fontMetrics().elidedText(text, Qt::ElideRight, 260));
+	m_whisperTargetLabel->setToolTip(QString::fromLatin1("<qt>%1</qt>").arg(text.toHtmlEscaped()));
+	m_whisperTargetLabel->setAccessibleName(text);
+}
 
-	if (qmCurrentTargets.isEmpty()) {
+void MainWindow::updateTarget() {
+	Global::get().iPrevTarget = Global::get().uiSession != 0 ? Global::get().iTarget : 0;
+	m_activeWhisperTargets.clear();
+
+	QList< ShortcutTarget > targets = qmCurrentTargets.keys();
+	if (targets.isEmpty() && m_whisperToggleActive) {
+		targets.append(m_whisperToggleTarget);
+	}
+
+	if (Global::get().uiSession == 0 || targets.isEmpty()) {
 		Global::get().bCenterPosition = false;
 		Global::get().iTarget         = 0;
 	} else {
 		bool center = false;
 		QList< ShortcutTarget > ql;
-		for (const ShortcutTarget &st : qmCurrentTargets.keys()) {
+		for (const ShortcutTarget &st : targets) {
 			ShortcutTarget nt;
 			center               = center || st.bForceCenter;
 			nt.bUsers            = st.bUsers;
@@ -3069,6 +3152,7 @@ void MainWindow::updateTarget() {
 				}
 			}
 		}
+		m_activeWhisperTargets = ql;
 		if (ql.isEmpty()) {
 			Global::get().iTarget = -1;
 		} else {
@@ -3161,6 +3245,7 @@ void MainWindow::updateTarget() {
 			Global::get().iTarget         = idx;
 		}
 	}
+	updateWhisperTargetLabel();
 }
 
 void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
@@ -3222,6 +3307,32 @@ void MainWindow::removeTarget(ShortcutTarget *st) {
 		qmCurrentTargets.remove(*st);
 	else
 		qmCurrentTargets[*st] -= 1;
+}
+
+void MainWindow::resetWhisperToggle() {
+	m_whisperToggleActive = false;
+	updateTarget();
+}
+
+void MainWindow::on_whisperToggle_triggered(bool down, QVariant shortcutData) {
+	if (!down || Global::get().uiSession == 0) {
+		return;
+	}
+
+	if (!shortcutData.canConvert< ShortcutTarget >()) {
+		return;
+	}
+
+	ShortcutTarget target = shortcutData.value< ShortcutTarget >();
+
+	if (m_whisperToggleActive && m_whisperToggleTarget == target) {
+		resetWhisperToggle();
+		return;
+	}
+
+	m_whisperToggleTarget = target;
+	m_whisperToggleActive = true;
+	updateTarget();
 }
 
 void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant) {
@@ -3619,7 +3730,8 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	m_previousChannels = {};
 	m_movedBackFromChannel.reset();
 
-	Global::get().uiSession        = 0;
+	Global::get().uiSession = 0;
+	resetWhisperToggle();
 	Global::get().pPermissions     = ChanACL::None;
 	Global::get().bAttenuateOthers = false;
 	qaServerDisconnect->setEnabled(false);
