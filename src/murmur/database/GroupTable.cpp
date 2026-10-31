@@ -230,6 +230,28 @@ namespace server {
 			}
 		}
 
+		void GroupTable::removeGroups(unsigned int serverID, const std::vector< unsigned int > &groupIDs) {
+			std::vector< unsigned int > serverIDs(groupIDs.size(), serverID);
+			try {
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverIDs AND \""
+					  << column::group_id << "\" = :groupIDs",
+					soci::use(serverIDs), soci::use(groupIDs);
+
+				transaction.commit();
+
+			} catch (const soci::soci_error &) {
+				std::string groups = "";
+				for (unsigned int id : groupIDs) {
+					groups = groups + std::to_string(id) + " ";
+				}
+				std::throw_with_nested(::mdb::AccessException("Failed at bulk deleting groups on server with ID "
+															  + std::to_string(serverID) + " with group IDs" + "[ "
+															  + groups + "]"));
+			}
+		}
+
 		void GroupTable::clearGroups(unsigned int serverID, unsigned int channelID) {
 			try {
 				::mdb::TransactionHolder transaction = ensureTransaction();

@@ -57,6 +57,7 @@
 
 #include <cassert>
 #include <limits>
+#include <map>
 #include <optional>
 #include <sstream>
 #include <stdexcept>
@@ -631,21 +632,50 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 	m_serverDB.getChannelPropertyTable().setProperty(serverID, channel.iId, ::msdb::ChannelProperty::MaxUsers,
 													 std::to_string(channel.uiMaxUsers));
 
-	// First, clear old groups and ACLs
+	// Remove deleted groups from DB
 	// (Clearing the groups automatically clear all entries referencing that group - in particular any members of that
-	// group)
-	m_serverDB.getGroupTable().clearGroups(serverID, channel.iId);
+	// group, but also ACLs using this group in **any** channel)
+	std::vector<::msdb::DBGroup > existingGroups = m_serverDB.getGroupTable().getAllGroups(serverID, channel.iId);
+	std::map< QString, ::msdb::DBGroup > existingGroupMap;
+	std::vector< unsigned int > deletedGroups;
+	for (::msdb::DBGroup &group : existingGroups) {
+		QString groupName = QString::fromStdString(group.name);
+		if (!channel.qhGroups.contains(groupName)) {
+			deletedGroups.push_back(group.groupID);
+			continue;
+		}
+
+		existingGroupMap.insert({ groupName, group });
+	}
+
+	if (!deletedGroups.empty()) {
+		m_serverDB.getGroupTable().removeGroups(serverID, deletedGroups);
+	}
+
+	// Clear old ACLs
 	m_serverDB.getACLTable().clearACLs(serverID, channel.iId);
 
 	// Add current groups with their member information
 	for (const Group *currentGroup : channel.qhGroups) {
 		assert(currentGroup);
 
-		unsigned int groupID = m_serverDB.getGroupTable().getFreeGroupID(serverID);
+		unsigned int groupID;
+		::msdb::DBGroup group;
 
-		::msdb::DBGroup group = groupToDB(serverID, groupID, *currentGroup);
+		if (existingGroupMap.contains(currentGroup->qsName)) {
+			// Update existing Group
+			groupID = existingGroupMap[currentGroup->qsName].groupID;
+			group   = groupToDB(serverID, groupID, *currentGroup);
+			m_serverDB.getGroupTable().updateGroup(group);
 
-		m_serverDB.getGroupTable().addGroup(group);
+			// Clear existing memberships. These are being recreated from scratch in the next step.
+			m_serverDB.getGroupMemberTable().removeAllEntries(serverID, groupID);
+		} else {
+			// Create new Group
+			groupID = m_serverDB.getGroupTable().getFreeGroupID(serverID);
+			group   = groupToDB(serverID, groupID, *currentGroup);
+			m_serverDB.getGroupTable().addGroup(group);
+		}
 
 		for (int addedGroupMemberID : currentGroup->qsAdd) {
 			assert(addedGroupMemberID >= 0);
