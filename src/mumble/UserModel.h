@@ -71,6 +71,7 @@ private:
 	Q_DISABLE_COPY(UserModel)
 protected:
 	QIcon qiTalkingOn, qiTalkingMuted, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
+	QIcon qiCustomTalkingOn, qiCustomTalkingMuted, qiCustomTalkingWhisper, qiCustomTalkingShout;
 	QIcon qiMutedPushToMute, qiMutedSelf, qiMutedServer, qiMutedLocal, qiIgnoredLocal, qiMutedSuppressed;
 	QIcon qiPrioritySpeaker;
 	QIcon qiRecording;
@@ -106,6 +107,9 @@ protected:
 public:
 	UserModel(QObject *parent = 0);
 	~UserModel() Q_DECL_OVERRIDE;
+
+	static QString mergeIconsToImg(const QList< QPair< QIcon, QRect > > &iconsWithRect, const QSize &fullSize,
+								   const QString &format = "png");
 
 	QModelIndex index(ClientUser *, int column = 0) const;
 	QModelIndex index(Channel *, int column = 0) const;
