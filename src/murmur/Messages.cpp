@@ -1887,10 +1887,17 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				p = nullptr;
 		}
 
+		QSet< QString > allgroups = Group::groupNames(c);
+
 		while (!chans.isEmpty()) {
 			p = chans.pop();
 			for (ChanACL *acl : p->qlACL) {
 				if ((p == c) || (acl->bApplySubs)) {
+					if (acl->iUserId < 0) {
+						if (!validateGroupACL(acl->qsGroup, allgroups)) {
+							continue;
+						}
+					}
 					MumbleProto::ACL_ChanACL *mpacl = msg.add_acls();
 
 					mpacl->set_inherited(p != c);
@@ -1899,17 +1906,17 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 					if (acl->iUserId >= 0) {
 						mpacl->set_user_id(static_cast< unsigned int >(acl->iUserId));
 						qsId.insert(static_cast< unsigned int >(acl->iUserId));
-					} else
+					} else {
 						mpacl->set_group(u8(acl->qsGroup));
+					}
 					mpacl->set_grant(acl->pAllow);
 					mpacl->set_deny(acl->pDeny);
 				}
 			}
 		}
 
-		p                        = c->cParent;
-		QSet< QString > allnames = Group::groupNames(c);
-		for (const QString &name : allnames) {
+		p = c->cParent;
+		for (const QString &name : allgroups) {
 			Group *g  = c->qhGroups.value(name);
 			Group *pg = p ? Group::getGroup(p, name) : nullptr;
 
