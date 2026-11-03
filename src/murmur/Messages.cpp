@@ -19,6 +19,7 @@
 #include "Version.h"
 #include "crypto/CryptState.h"
 
+#include "murmur/database/ACLCompat.h"
 #include "murmur/database/UserProperty.h"
 
 #include <algorithm>
@@ -2014,19 +2015,28 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				logGroups(this, c, QLatin1String("And these are the new groups:"));
 			}
 
+			QSet< QString > allgroups = Group::groupNames(c);
+
 			// Add new ACLs
 			for (int i = 0; i < msg.acls_size(); ++i) {
 				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
-				if (mpacl.has_user_id() && !userIDs.contains(static_cast< int >(mpacl.user_id())))
+				if (mpacl.has_user_id() && !userIDs.contains(static_cast< int >(mpacl.user_id()))) {
 					continue;
+				}
+				if (mpacl.has_group()) {
+					if (!validateGroupACL(u8(mpacl.group()), allgroups)) {
+						continue;
+					}
+				}
 
 				ChanACL *a    = new ChanACL(c);
 				a->bApplyHere = mpacl.apply_here();
 				a->bApplySubs = mpacl.apply_subs();
-				if (mpacl.has_user_id())
+				if (mpacl.has_user_id()) {
 					a->iUserId = static_cast< int >(mpacl.user_id());
-				else
+				} else {
 					a->qsGroup = u8(mpacl.group());
+				}
 				a->pDeny  = static_cast< ChanACL::Permissions >(mpacl.deny()) & ChanACL::All;
 				a->pAllow = static_cast< ChanACL::Permissions >(mpacl.grant()) & ChanACL::All;
 			}
