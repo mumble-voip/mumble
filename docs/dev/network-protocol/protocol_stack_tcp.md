@@ -42,6 +42,8 @@ If not mentioned otherwise all fields outside the protobuf encoding are *big-end
 | `24` | ServerConfig           |
 | `25` | SuggestConfig          |
 | `26` | PluginDataTransmission |
+| `27` | VideoKeyFrameRequest   |
+| `28` | VideoSubscription      |
 
 For raw representation of each packet type see the [`Mumble.proto`](https://github.com/mumble-voip/mumble/blob/master/src/Mumble.proto)
 and [`MumbleUDP.proto`](https://github.com/mumble-voip/mumble/blob/master/src/MumbleUDP.proto) files.
