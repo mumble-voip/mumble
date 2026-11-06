@@ -2418,6 +2418,10 @@ bool Server::validateGroupACL(const QString &group, const QSet< QString > &allgr
 		return true;
 	}
 
+	if (groupData.isCertHash) {
+		return true;
+	}
+
 	if (::mumble::server::db::parseMetaGroup(groupData.name)) {
 		return true;
 	}
