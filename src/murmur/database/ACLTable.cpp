@@ -447,6 +447,15 @@ namespace server {
 								}
 								accessToken    = std::move(data.name);
 								accessTokenInd = soci::i_ok;
+							} else if (data.isCertHash) {
+								if (data.name.empty()) {
+									throw ::mdb::MigrationException(
+										"Invalid certificate hash (empty) encountered (original entry is '" + groupName
+										+ "')");
+								}
+								// We treat the cert/user hash as a special case of access tokens
+								accessToken    = std::move(data.name);
+								accessTokenInd = soci::i_ok;
 							} else {
 								std::optional< DBAcl::MetaGroup > metaGroup = parseMetaGroup(data.name);
 
