@@ -596,6 +596,8 @@ if(WIN32)
 		"GlobalShortcut_win.h"
 		"SharedMemory_win.cpp"
 		"TaskList.cpp"
+		"UniversalMute.cpp"
+		"UniversalMute.h"
 		"UserLockFile_win.cpp"
 		"WinGUIDs.cpp"
 		"os_early_win.cpp"
@@ -609,6 +611,8 @@ if(WIN32)
 	# Thus we must not package this source file in a unity build allowing other files
 	# to include plain guiddef.h without having to worry about side-effects.
 	set_source_files_properties("WinGUIDs.cpp" PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE)
+	# UniversalMute.cpp raises _WIN32_WINNT for itself, which must not leak into other sources.
+	set_source_files_properties("UniversalMute.cpp" PROPERTIES SKIP_UNITY_BUILD_INCLUSION TRUE)
 
 	find_package("Boost"
 		COMPONENTS
@@ -652,6 +656,7 @@ if(WIN32)
 			dbghelp.lib
 			dxguid.lib
 			hid.lib
+			runtimeobject.lib
 			wintrust.lib
 	)
 else()
