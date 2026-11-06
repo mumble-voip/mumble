@@ -24,6 +24,9 @@ namespace server {
 						  != existingGroupModifiers.end()) {
 				if (groupSpec[0] == '#') {
 					data.isAccessToken = true;
+				} else if (groupSpec[0] == '$') {
+					data.isCertHash = true;
+					data.modifiers.push_back(std::string(1, groupSpec[0]));
 				} else {
 					data.modifiers.push_back(std::string(1, groupSpec[0]));
 				}
@@ -100,8 +103,14 @@ namespace server {
 				// The main ChanACL class doesn't distinguish real groups from meta groups
 				groupData = metaGroupName(acl.affectedMetaGroup.value());
 			} else if (acl.accessToken) {
-				// "Group names" containing the # modifier are understood to represent access tokens
-				groupData = '#' + acl.accessToken.value();
+				if (std::find(acl.groupModifiers.begin(), acl.groupModifiers.end(), "$") != acl.groupModifiers.end()) {
+					// "Group names" containing the $ modifier are understood to represent certificate hashes
+					// The "$" is going to be added back by the modifiers
+					groupData = acl.accessToken.value();
+				} else {
+					// "Group names" containing the # modifier are understood to represent access tokens
+					groupData = '#' + acl.accessToken.value();
+				}
 			} else {
 				return {};
 			}

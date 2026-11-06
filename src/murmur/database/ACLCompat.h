@@ -21,6 +21,7 @@ namespace server {
 		struct LegacyGroupData {
 			std::string name;
 			bool isAccessToken = false;
+			bool isCertHash    = false;
 			std::vector< std::string > modifiers;
 		};
 

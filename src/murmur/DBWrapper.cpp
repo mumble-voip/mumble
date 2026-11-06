@@ -712,6 +712,9 @@ void DBWrapper::updateChannelData(unsigned int serverID, const Channel &channel)
 
 			if (data.isAccessToken) {
 				accessToken = std::move(data.name);
+			} else if (data.isCertHash) {
+				// We treat the cert/user hash as a special case of access tokens
+				accessToken = std::move(data.name);
 			} else {
 				metaGroup = ::msdb::parseMetaGroup(data.name);
 			}
