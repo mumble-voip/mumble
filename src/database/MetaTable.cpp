@@ -15,6 +15,7 @@
 #include <soci/soci.h>
 
 #include <cassert>
+#include <exception>
 #include <optional>
 #include <string>
 
