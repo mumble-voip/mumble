@@ -33,6 +33,7 @@
 
 #include "crypto/CryptState.h"
 
+#include "murmur/database/ACLCompat.h"
 #include "murmur/database/DBUserData.h"
 #include "murmur/database/UserProperty.h"
 
@@ -2380,6 +2381,21 @@ bool Server::validateChannelName(const QString &name) {
 	qrChannelName.setPatternOptions(QRegularExpression::UseUnicodePropertiesOption);
 
 	return qrChannelName.match(name).hasMatch();
+}
+
+bool Server::validateGroupACL(const QString &group, const QSet< QString > &allgroups) {
+	::mumble::server::db::LegacyGroupData groupData =
+		::mumble::server::db::parseLegacyGroupSpecification(group.toStdString());
+
+	if (groupData.isAccessToken) {
+		return true;
+	}
+
+	if (::mumble::server::db::parseMetaGroup(groupData.name)) {
+		return true;
+	}
+
+	return allgroups.contains(QString::fromStdString(groupData.name));
 }
 
 void Server::recheckCodecVersions(ServerUser *connectingUser) {

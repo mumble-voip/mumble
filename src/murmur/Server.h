@@ -347,6 +347,8 @@ public:
 	bool validateChannelName(const QString &name);
 	bool validateUserName(const QString &name);
 
+	bool validateGroupACL(const QString &group, const QSet< QString > &allgroups);
+
 	bool checkDecrypt(ServerUser *u, const unsigned char *encrypted, unsigned char *plain, unsigned int cryptlen);
 
 	bool hasPermission(ServerUser *p, Channel *c, QFlags< ChanACL::Perm > perm);
