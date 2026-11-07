@@ -188,6 +188,7 @@ private:
 class Meta : public QObject {
 private:
 	Q_OBJECT
+	Q_MOC_INCLUDE("Server.h")
 	Q_DISABLE_COPY(Meta)
 
 public:
