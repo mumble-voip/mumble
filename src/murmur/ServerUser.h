@@ -15,11 +15,14 @@
 #include "ClientType.h"
 #include "Connection.h"
 #include "HostAddress.h"
+#include "Mumble.pb.h"
 #include "MumbleProtocol.h"
 #include "ServerUserInfo.h"
 #include "Timer.h"
 
 #include <QtCore/QElapsedTimer>
+#include <QtCore/QHash>
+#include <QtCore/QSet>
 #include <QtCore/QStringList>
 
 #ifdef Q_OS_WIN
@@ -31,6 +34,7 @@
 #include <atomic>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <vector>
 
 // Unfortunately, this needs to be "large enough" to hold
@@ -66,6 +70,39 @@ struct WhisperTarget {
 
 	std::vector< unsigned int > sessions;
 	std::vector< WhisperTarget::Channel > channels;
+};
+
+/// Limits the bandwidth of a user's screen share.
+///
+/// This is a token bucket that is refilled at the allowed rate. It holds what may be sent within a couple of
+/// seconds, as key frames are much larger than the frames in between: a stream that stays within the limit on
+/// average still gets through, even though it exceeds it for a moment with every key frame.
+///
+/// Whole frames are dropped rather than single fragments, as a frame that misses a fragment can't be decoded and only
+/// wastes the bandwidth of the fragments that got through.
+class VideoBandwidthLimiter {
+public:
+	/// @param frameNumber The number of the frame the packet belongs to
+	/// @param size The size of the packet in bytes
+	/// @param maxBitsPerSecond The allowed bandwidth in bits per second, or 0 if there is no limit
+	/// @returns Whether the packet may be relayed
+	bool allow(std::uint64_t frameNumber, std::size_t size, unsigned int maxBitsPerSecond);
+
+private:
+	/// How much may be sent at once, as time at the allowed rate
+	static constexpr double BURST_SECONDS = 2.0;
+
+	std::mutex m_mutex;
+	/// Time since the bucket was last refilled
+	Timer m_lastRefill;
+	/// Number of bytes that may be sent right now. Negative while a frame that was let through is paid back.
+	double m_budget = 0;
+	/// Whether a frame has been seen yet, i.e. whether m_frameNumber and m_frameAllowed are set
+	bool m_hasFrame = false;
+	/// The frame the last packet belonged to
+	std::uint64_t m_frameNumber = 0;
+	/// Whether the packets of that frame are let through
+	bool m_frameAllowed = false;
 };
 
 class ServerUser;
@@ -150,6 +187,15 @@ public:
 
 	QList< int > qlCodecs;
 	bool bOpus;
+	/// The video capabilities the user's client announced, as they are relayed to other clients, or nothing if the
+	/// client never announced them.
+	std::optional< MumbleProto::UserState_VideoCapabilities > m_videoCapabilities;
+	/// Video codecs (MumbleUDP::Video::Codec values) the user's client can decode, or nothing if the client
+	/// never announced them.
+	std::optional< std::vector< unsigned int > > m_videoDecoders;
+	/// Sessions of the users whose screen share this user wants to receive. As this is used by the voice
+	/// thread when relaying video, it is only changed while holding the voice thread lock.
+	QSet< unsigned int > m_videoSubscriptions;
 
 	QStringList qslAccessTokens;
 
@@ -159,6 +205,18 @@ public:
 
 	LeakyBucket leakyBucket;
 	LeakyBucket m_pluginMessageBucket;
+	/// For video subscriptions and key frame requests, which clients send automatically (key frame requests up to
+	/// twice a second per watched stream). Kept apart from leakyBucket so that they don't use up its budget for what
+	/// the user does, and so that a dropped subscription, which the client can't notice, stays unlikely.
+	LeakyBucket m_videoControlBucket;
+
+	/// The frame of each sharing user's video that is currently being tunneled to this user through TCP, and whether
+	/// it is sent or dropped. Only used by the main thread.
+	struct TunneledVideoFrame {
+		std::uint64_t frameNumber;
+		bool send;
+	};
+	QHash< unsigned int, TunneledVideoFrame > m_tunneledVideoFrames;
 
 	int iLastPermissionCheck;
 	QMap< int, unsigned int > qmPermissionSent;
@@ -168,6 +226,7 @@ public:
 	SOCKET sUdpSocket;
 #endif
 	BandwidthRecord bwr;
+	VideoBandwidthLimiter m_videoBandwidth;
 	struct sockaddr_storage saiUdpAddress;
 	struct sockaddr_storage saiTcpLocalAddress;
 

@@ -27,6 +27,8 @@
 #include "ChannelListenerManager.h"
 #include "PluginManager.h"
 #include "ProtoUtils.h"
+#include "ScreenCapture.h"
+#include "ScreenShareReceiver.h"
 #include "ServerHandler.h"
 #include "TalkingUI.h"
 #include "User.h"
@@ -190,6 +192,17 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 	Global::get().sh->setServerSynchronized(true);
 
+#ifdef USE_SCREEN_SHARING
+	// The server only relays video to clients that can decode it
+	MumbleProto::UserState mpus;
+	mpus.set_session(Global::get().uiSession);
+	MumbleProto::UserState_VideoCapabilities *capabilities = mpus.mutable_video_capabilities();
+	for (MumbleUDP::Video::Codec codec : ScreenShareReceiver::supportedCodecs()) {
+		capabilities->add_decoders(static_cast< unsigned int >(codec));
+	}
+	Global::get().sh->sendMessage(mpus);
+#endif
+
 	emit serverSynchronized();
 }
 
@@ -217,6 +230,15 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 		Global::get().uiMaxUsers = msg.max_users();
 	if (msg.has_recording_allowed()) {
 		Global::get().mw->enableRecording(msg.recording_allowed());
+	}
+	if (msg.has_screen_sharing_allowed()) {
+		Global::get().screenSharingSupported = true;
+		Global::get().screenSharingAllowed   = msg.screen_sharing_allowed();
+		updateScreenShareAction();
+	}
+	if (msg.has_max_video_bandwidth()) {
+		Global::get().maxVideoBandwidth = msg.max_video_bandwidth();
+		updateScreenShareBitrate();
 	}
 }
 
@@ -597,6 +619,47 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
+	if (msg.has_video_capabilities()) {
+		const auto &decoders = msg.video_capabilities().decoders();
+		pDst->setVideoDecoders(std::vector< unsigned int >(decoders.begin(), decoders.end()));
+	}
+
+	if (msg.has_screen_sharing()) {
+		pDst->setScreenSharing(msg.screen_sharing());
+
+		// Do nothing during initial sync
+		if (pSelf) {
+			if (pDst == pSelf) {
+				// The server may end our screen share as well, e.g. because it isn't allowed anymore
+				if (!pDst->bScreenSharing)
+					stopScreenShareCapture();
+
+				// Reflect the toggle state back onto the toolbar button.
+				Global::get().mw->qaScreenShare->setChecked(pDst->bScreenSharing);
+				updateScreenShareAction();
+				if (pDst->bScreenSharing) {
+					Global::get().l->log(Log::Information, tr("Screen sharing started."));
+				} else {
+					Global::get().l->log(Log::Information, tr("Screen sharing stopped."));
+				}
+			} else if (pDst->cChannel == pSelf->cChannel || pDst->cChannel->allLinks().contains(pSelf->cChannel)) {
+				if (pDst->bScreenSharing) {
+					Global::get().l->log(
+						Log::Information,
+						tr("%1 started sharing their screen.").arg(Log::formatClientUser(pDst, Log::Source)));
+				} else {
+					Global::get().l->log(
+						Log::Information,
+						tr("%1 stopped sharing their screen.").arg(Log::formatClientUser(pDst, Log::Source)));
+				}
+			}
+		}
+
+		// Also when the user isn't in our channel (anymore), as their screen share may have been watched before
+		if (!pDst->bScreenSharing)
+			Global::get().mw->onRemoteScreenShareStopped(pDst->uiSession);
+	}
+
 	if (msg.has_priority_speaker()) {
 		if (pSelf
 			&& ((pDst->cChannel == pSelf->cChannel) || (pDst->cChannel->allLinks().contains(pSelf->cChannel))
@@ -816,6 +879,19 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		pmModel->setCommentHash(pDst, blob(msg.comment_hash()));
 	if (msg.has_comment())
 		pmModel->setComment(pDst, u8(msg.comment()));
+
+	// Someone joined or left our channel, we changed channel, or someone's video capabilities changed
+	if (msg.has_channel_id() || msg.has_video_capabilities())
+		updateScreenShareEncoderSelection();
+
+	// Whether we may share our screen depends on the permissions in our channel. The server doesn't send them again
+	// for channels whose permissions we know already.
+	if (msg.has_channel_id() && pSelf && pDst == pSelf)
+		updateScreenShareAction();
+
+	// Someone started or stopped sharing their screen, or we or someone else changed channel
+	if (msg.has_screen_sharing() || msg.has_channel_id())
+		updateScreenShareSubscriptions();
 }
 
 /// This message is being received when a user was removed. This might be because the user disconnected or because
@@ -870,8 +946,11 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 								  Q_ARG(unsigned int, pDst->uiSession));
 	}
 
-	if (pDst != pSelf)
+	if (pDst != pSelf) {
 		pmModel->removeUser(pDst);
+		updateScreenShareEncoderSelection();
+		updateScreenShareSubscriptions();
+	}
 }
 
 /// This message is being received when the server informs the local client about channel properties (either during
@@ -1074,25 +1153,33 @@ void MainWindow::msgPing(const MumbleProto::Ping &) {
 }
 
 void MainWindow::msgCryptSetup(const MumbleProto::CryptSetup &msg) {
+	ServerHandlerPtr sh = Global::get().sh;
+
+	QMutexLocker qml(&sh->qmUdp);
+
+	if (!sh->csCrypt) {
+		return;
+	}
+
 	if (msg.has_key() && msg.has_client_nonce() && msg.has_server_nonce()) {
 		const std::string &key          = msg.key();
 		const std::string &client_nonce = msg.client_nonce();
 		const std::string &server_nonce = msg.server_nonce();
-		if (!Global::get().sh->csCrypt->setKey(key, client_nonce, server_nonce)) {
+		if (!sh->csCrypt->setKey(key, client_nonce, server_nonce)) {
 			qWarning("Messages: Cipher resync failed: Invalid key/nonce from the server!");
 		}
 	} else if (msg.has_server_nonce()) {
 		const std::string &server_nonce = msg.server_nonce();
 		if (server_nonce.size() == AES_BLOCK_SIZE) {
-			Global::get().sh->csCrypt->m_statsLocal.resync++;
-			if (!Global::get().sh->csCrypt->setDecryptIV(server_nonce)) {
+			sh->csCrypt->m_statsLocal.resync++;
+			if (!sh->csCrypt->setDecryptIV(server_nonce)) {
 				qWarning("Messages: Cipher resync failed: Invalid nonce from the server!");
 			}
 		}
 	} else {
 		MumbleProto::CryptSetup mpcs;
-		mpcs.set_client_nonce(Global::get().sh->csCrypt->getEncryptIV());
-		Global::get().sh->sendMessage(mpcs);
+		mpcs.set_client_nonce(sh->csCrypt->getEncryptIV());
+		sh->sendMessage(mpcs);
 	}
 }
 
@@ -1211,6 +1298,9 @@ void MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg) {
 			updateMenuPermissions();
 		}
 	}
+
+	// Whether we may share our screen depends on the permissions in our own channel
+	updateScreenShareAction();
 }
 
 /// This message is being received in order for the server to instruct this client which codec it should use.
@@ -1294,6 +1384,15 @@ void MainWindow::msgPluginDataTransmission(const MumbleProto::PluginDataTransmis
 		Global::get().pluginManager->on_receiveData(sender, reinterpret_cast< const uint8_t * >(msgData.c_str()),
 													msgData.size(), msg.dataid().c_str());
 	}
+}
+
+void MainWindow::msgVideoKeyFrameRequest(const MumbleProto::VideoKeyFrameRequest &) {
+	// The server only forwards requests for our own stream to us
+	if (Global::get().sc && Global::get().sc->isCapturing())
+		Global::get().sc->requestKeyFrame();
+}
+
+void MainWindow::msgVideoSubscription(const MumbleProto::VideoSubscription &) {
 }
 
 #undef ACTOR_INIT
