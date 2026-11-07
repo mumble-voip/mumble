@@ -27,6 +27,7 @@ class ClientUser;
 class Channel : public QObject {
 private:
 	Q_OBJECT
+	Q_MOC_INCLUDE("User.h")
 	Q_DISABLE_COPY(Channel)
 private:
 	QSet< Channel * > qsUnseen;
