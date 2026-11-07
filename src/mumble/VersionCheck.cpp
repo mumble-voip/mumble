@@ -6,6 +6,7 @@
 #include "VersionCheck.h"
 
 #include "MainWindow.h"
+#include "OSInfo.h"
 #include "Utils.h"
 #include "WebFetch.h"
 #include "Global.h"
@@ -45,6 +46,8 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p),
 #else
 		queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Unix"));
 #endif
+		queryItems << qMakePair(QString::fromLatin1("arch"), OSInfo::getArchitecture(true));
+
 		if (!Global::get().s.bUsage)
 			queryItems << qMakePair(QString::fromLatin1("nousage"), QString::fromLatin1("1"));
 		if (autocheck)
