@@ -138,16 +138,18 @@ void Connection::socketRead() {
 			m_type        = static_cast< Mumble::Protocol::TCPMessageType >(qFromBigEndian< quint16 >(&a_ucBuffer[0]));
 			iPacketLength = qFromBigEndian< int >(&a_ucBuffer[2]);
 			iAvailable -= 6;
+
+			// Check the length before waiting for the body, so a peer cannot make us buffer
+			// a body we would reject anyway.
+			if (iPacketLength < 0 || iPacketLength > 0x7fffff) {
+				warn("Host tried to send huge packet");
+				disconnectSocket(true);
+				return;
+			}
 		}
 
-		if ((iPacketLength == -1) || (iAvailable < iPacketLength))
+		if (iAvailable < iPacketLength)
 			return;
-
-		if (iPacketLength > 0x7fffff) {
-			warn("Host tried to send huge packet");
-			disconnectSocket(true);
-			return;
-		}
 
 		QByteArray qbaBuffer = qtsSocket->read(iPacketLength);
 		iPacketLength        = -1;
