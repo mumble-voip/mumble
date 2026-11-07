@@ -46,7 +46,14 @@ void PluginUpdater::checkForUpdates() {
 				QUrl updateURL = plugin->getUpdateDownloadURL();
 
 				if (updateURL.isValid() && !updateURL.isEmpty() && !updateURL.fileName().isEmpty()) {
-					m_pluginsToUpdate.append(UpdateEntry(plugin->getID(), updateURL, updateURL.fileName()));
+					if (updateURL.scheme() == QLatin1String("https")) {
+						m_pluginsToUpdate.append(UpdateEntry(plugin->getID(), updateURL, updateURL.fileName()));
+					} else {
+						// The downloaded file gets installed and loaded, so it must not come over a
+						// connection that anyone on the network path can tamper with
+						qWarning() << "PluginUpdater: Ignoring update for" << plugin->getName()
+								   << "because its download URL is not HTTPS:" << updateURL.toString();
+					}
 				}
 			}
 
@@ -323,6 +330,15 @@ void PluginUpdater::on_updateDownloaded(QNetworkReply *reply) {
 			// Because the redirection url can be relative,
 			// we have to use the previous one to resolve it
 			redirectedUrl = reply->url().resolved(redirectedUrl);
+
+			if (redirectedUrl.scheme() != QLatin1String("https")) {
+				Log::logOrDefer(Log::Warning,
+								tr("Update for plugin \"%1\" failed because it redirected to a non-HTTPS URL (%2)")
+									.arg(plugin->getName())
+									.arg(redirectedUrl.toString()));
+
+				return;
+			}
 
 			// Re-insert the current plugin into the list of updating plugins (using the
 			// new URL so that it will be associated with that instead of the old one)
