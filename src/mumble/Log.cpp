@@ -12,6 +12,7 @@
 #include "Channel.h"
 #include "MainWindow.h"
 #include "NetworkConfig.h"
+#include "QtUtils.h"
 #include "RichTextEditor.h"
 #include "Screen.h"
 #include "ServerHandler.h"
@@ -801,8 +802,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 		tc.insertFrame(qttf);
 
-		const QString timeString =
-			dt.time().toString(QLatin1String(Global::get().s.bLog24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
+		const QString timeString = Mumble::QtUtils::formatTime(dt.time(), Global::get().s.bLog24HourClock);
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timeString.toHtmlEscaped()), Log::Time));
 
 		validHtml(console, &tc);
