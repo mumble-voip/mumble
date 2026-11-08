@@ -1087,7 +1087,7 @@ static void impl_Server_getConf(const ::MumbleServer::AMD_Server_getConfPtr cb, 
 		cb->ice_exception(WriteOnlyException());
 	} else {
 		std::string conf;
-		server->m_dbWrapper.getConfigurationTo(static_cast< unsigned int >(server_id), key, conf);
+		meta->dbWrapper.getConfigurationTo(static_cast< unsigned int >(server_id), key, conf);
 		cb->ice_response(iceString(conf));
 	}
 
@@ -1104,7 +1104,7 @@ static void impl_Server_getAllConf(const ::MumbleServer::AMD_Server_getAllConfPt
 	::MumbleServer::ConfigMap cm;
 
 	std::vector< std::pair< std::string, std::string > > configs =
-		server->m_dbWrapper.getAllConfigurations(static_cast< unsigned int >(server_id));
+		meta->dbWrapper.getAllConfigurations(static_cast< unsigned int >(server_id));
 	for (const std::pair< std::string, std::string > &currentConf : configs) {
 		if (currentConf.first == "key" || currentConf.first == "passphrase") {
 			continue;
@@ -1123,9 +1123,9 @@ static void impl_Server_setConf(const ::MumbleServer::AMD_Server_setConfPtr cb, 
 
 	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
-	server->m_dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key, value);
+	meta->dbWrapper.setConfiguration(static_cast< unsigned int >(server_id), key, value);
 
-	{
+	if (server) {
 		QWriteLocker wl(&server->qrwlVoiceThread);
 		server->setLiveConf(u8(key), u8(value));
 	}
@@ -1141,7 +1141,7 @@ static void impl_Server_setSuperuserPassword(const ::MumbleServer::AMD_Server_se
 
 	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
-	server->m_dbWrapper.setSuperUserPassword(static_cast< unsigned int >(server_id), pw);
+	meta->dbWrapper.setSuperUserPassword(static_cast< unsigned int >(server_id), pw);
 	cb->ice_response();
 
 	ICE_IMPL_END
@@ -1157,8 +1157,8 @@ static void impl_Server_getLog(const ::MumbleServer::AMD_Server_getLogPtr cb, in
 
 	::MumbleServer::LogList ll;
 
-	std::vector< mumble::server::db::DBLogEntry > dblog = server->m_dbWrapper.getLogs(
-		static_cast< unsigned int >(server_id), static_cast< unsigned int >(min), max - min);
+	std::vector< mumble::server::db::DBLogEntry > dblog =
+		meta->dbWrapper.getLogs(static_cast< unsigned int >(server_id), static_cast< unsigned int >(min), max - min);
 	for (const mumble::server::db::DBLogEntry &entry : dblog) {
 		::MumbleServer::LogEntry le;
 		logToLog(entry, le);
@@ -1176,7 +1176,7 @@ static void impl_Server_getLogLen(const ::MumbleServer::AMD_Server_getLogLenPtr 
 	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER_EXISTS;
 
-	std::size_t len = server->m_dbWrapper.getLogSize(static_cast< unsigned int >(server_id));
+	std::size_t len = meta->dbWrapper.getLogSize(static_cast< unsigned int >(server_id));
 	cb->ice_response(static_cast< Ice::Int >(len));
 
 	ICE_IMPL_END
