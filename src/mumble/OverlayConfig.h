@@ -80,6 +80,7 @@ protected slots:
 	void on_qcbEnable_stateChanged(int);
 	void on_qcbShowFps_stateChanged(int);
 	void on_qcbShowTime_stateChanged(int);
+	void on_qcb24HourClock_stateChanged(int);
 	void on_qpbFpsFont_clicked();
 	void on_qpbFpsColor_clicked();
 	void on_qpbLoadPreset_clicked();

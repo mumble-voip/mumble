@@ -294,6 +294,7 @@
 	PROCESS(overlay, OVERLAY_SHOW_BOX_KEY, bBox)                         \
 	PROCESS(overlay, OVERLAY_SHOW_FPS_KEY, bFps)                         \
 	PROCESS(overlay, OVERLAY_SHOW_TIME_KEY, bTime)                       \
+	PROCESS(overlay, OVERLAY_USE_24H_CLOCK_KEY, b24HourClock)            \
 	PROCESS(overlay, OVERLAY_USERNAME_OPACITY_KEY, fUserName)            \
 	PROCESS(overlay, OVERLAY_CHANNEL_OPACITY_KEY, fChannel)              \
 	PROCESS(overlay, OVERLAY_MUTEDEAF_OPACITY_KEY, fMutedDeafened)       \
