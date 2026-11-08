@@ -269,6 +269,11 @@ Server::Server(unsigned int snum, const ::mumble::db::ConnectionParameter &conne
 
 	initializeCert();
 
+	if (qscCert.isNull() || qskKey.isNull()) {
+		log("Unable to start server without certificate");
+		bValid = false;
+	}
+
 	if (bValid) {
 #ifdef USE_ZEROCONF
 		if (bBonjour)
