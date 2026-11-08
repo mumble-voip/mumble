@@ -7858,6 +7858,14 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Blacklisted programs</source>
         <translation>Barlistigitaj programoj</translation>
     </message>
+    <message>
+        <source>If checked the overlay clock will be displayed in the 24-hour format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use 24-hour clock</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverlayEditor</name>
