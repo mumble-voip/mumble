@@ -19,7 +19,6 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
                                        CGEventRef event, void *udata) {
 	GlobalShortcutMac *gs = reinterpret_cast<GlobalShortcutMac *>(udata);
 	unsigned int keycode;
-	bool suppress = false;
 	bool down = false;
 	int64_t repeat = 0;
 
@@ -34,10 +33,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 		case kCGEventRightMouseUp:
 		case kCGEventOtherMouseUp: {
 			keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGMouseEventButtonNumber));
-			suppress = gs->handleButton(MOUSE_OFFSET+keycode, down);
-			/* Suppressing "the" mouse button is probably not a good idea :-) */
-			if (keycode == 0)
-				suppress = false;
+			Q_UNUSED(gs->handleButton(MOUSE_OFFSET+keycode, down));
 			break;
 		}
 
@@ -54,7 +50,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			repeat = CGEventGetIntegerValueField(event, kCGKeyboardEventAutorepeat);
 			if (! repeat) {
 				keycode = static_cast<unsigned int>(CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode));
-				suppress = gs->handleButton(keycode, down);
+				Q_UNUSED(gs->handleButton(keycode, down));
 			}
 			break;
 
@@ -66,7 +62,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			if ((f & ctrlAltCmd) == ctrlAltCmd)
 				gs->dumpEventTaps();
 
-			suppress = gs->handleModButton(f);
+			gs->handleModButton(f);
 			break;
 		}
 
@@ -87,7 +83,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			break;
 	}
 
-	return suppress ? nullptr : event;
+	return event;
 }
 
 GlobalShortcutMac::GlobalShortcutMac()
@@ -98,6 +94,8 @@ GlobalShortcutMac::GlobalShortcutMac()
 	qWarning("GlobalShortcutMac: Debug build detected. Disabling shortcut engine.");
 	return;
 #endif
+
+	CGRequestListenEventAccess();
 
 	CGEventMask evmask = CGEventMaskBit(kCGEventLeftMouseDown) |
 	                     CGEventMaskBit(kCGEventLeftMouseUp) |
@@ -115,7 +113,7 @@ GlobalShortcutMac::GlobalShortcutMac()
 	                     CGEventMaskBit(kCGEventScrollWheel);
 	port = CGEventTapCreate(kCGSessionEventTap,
 	                        kCGTailAppendEventTap,
-	                        kCGEventTapOptionDefault, // active filter (not only a listener)
+	                        kCGEventTapOptionListenOnly,
 	                        evmask,
 	                        GlobalShortcutMac::callback,
 	                        this);
@@ -196,16 +194,15 @@ void GlobalShortcutMac::needRemap() {
 	remap();
 }
 
-bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
+void GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 	bool down;
-	bool suppress = false;
 
 #define MOD_CHANGED(mask, btn) do { \
 	    if ((newmask & mask) != (modmask & mask)) { \
 	        down = newmask & mask; \
-	        suppress = handleButton(MOD_OFFSET+btn, down); \
+	        Q_UNUSED(handleButton(MOD_OFFSET+btn, down)); \
 	        modmask = newmask; \
-	        return suppress; \
+	        return;
 	    }} while (0)
 
 	MOD_CHANGED(kCGEventFlagMaskAlphaShift, 0);
@@ -216,8 +213,6 @@ bool GlobalShortcutMac::handleModButton(const CGEventFlags newmask) {
 	MOD_CHANGED(kCGEventFlagMaskHelp, 5);
 	MOD_CHANGED(kCGEventFlagMaskSecondaryFn, 6);
 	MOD_CHANGED(kCGEventFlagMaskNumericPad, 7);
-
-	return false;
 }
 
 QString GlobalShortcutMac::translateMouseButton(const unsigned int keycode) const {
@@ -333,10 +328,6 @@ bool GlobalShortcutMac::enabled() {
 	}
 
 	return CGEventTapIsEnabled(port);
-}
-
-bool GlobalShortcutMac::canSuppress() {
-	return true;
 }
 
 bool GlobalShortcutMac::canDisable() {
