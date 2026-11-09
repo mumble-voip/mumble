@@ -3877,6 +3877,10 @@ Sans cette option, l&apos;utilisation des raccourcis globaux de Mumble dans les 
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can allow Mumble to monitor inputs in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Input Monitoring in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Shortcuts</source>
         <translation>Raccourcis</translation>
     </message>
@@ -3904,10 +3908,6 @@ Sans cette option, l&apos;utilisation des raccourcis globaux de Mumble dans les 
     <message>
         <source>Shortcut input combinations</source>
         <translation>Combinaisons d&apos;entrée du raccourci</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble peut actuellement n&apos;utiliser que les bouton s de la souris et les touches de modification du clavier (Alt, Ctrl, Cmd, etc.) pour les raccourcis généraux. &lt;/p&gt;&lt;p&gt;Si vous voulez davantage de flexibilité, vous pouvez ajouter Mumble en tant que programme d&apos;accessibilité de confiance dans la section Vie privée et sécurité des réglages système de votre Mac.&lt;/p&gt;&lt;p&gt;Dans les Réglages système, ouvrez Vie privée et sécurité, puis faites dérouler la liste pour trouver Accessibilité. Enfin, ajoutez Mumble à la liste des programmes d&apos;accessibilité de confiance.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
