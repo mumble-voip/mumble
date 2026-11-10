@@ -19,6 +19,7 @@
 #include "Version.h"
 #include "crypto/CryptState.h"
 
+#include "murmur/database/ACLCompat.h"
 #include "murmur/database/UserProperty.h"
 
 #include <algorithm>
@@ -1892,10 +1893,17 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				p = nullptr;
 		}
 
+		QSet< QString > allgroups = Group::groupNames(c);
+
 		while (!chans.isEmpty()) {
 			p = chans.pop();
 			for (ChanACL *acl : p->qlACL) {
 				if ((p == c) || (acl->bApplySubs)) {
+					if (acl->iUserId < 0) {
+						if (!validateGroupACL(acl->qsGroup, allgroups)) {
+							continue;
+						}
+					}
 					MumbleProto::ACL_ChanACL *mpacl = msg.add_acls();
 
 					mpacl->set_inherited(p != c);
@@ -1904,17 +1912,17 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 					if (acl->iUserId >= 0) {
 						mpacl->set_user_id(static_cast< unsigned int >(acl->iUserId));
 						qsId.insert(static_cast< unsigned int >(acl->iUserId));
-					} else
+					} else {
 						mpacl->set_group(u8(acl->qsGroup));
+					}
 					mpacl->set_grant(acl->pAllow);
 					mpacl->set_deny(acl->pDeny);
 				}
 			}
 		}
 
-		p                        = c->cParent;
-		QSet< QString > allnames = Group::groupNames(c);
-		for (const QString &name : allnames) {
+		p = c->cParent;
+		for (const QString &name : allgroups) {
 			Group *g  = c->qhGroups.value(name);
 			Group *pg = p ? Group::getGroup(p, name) : nullptr;
 
@@ -2020,19 +2028,28 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 				logGroups(this, c, QLatin1String("And these are the new groups:"));
 			}
 
+			QSet< QString > allgroups = Group::groupNames(c);
+
 			// Add new ACLs
 			for (int i = 0; i < msg.acls_size(); ++i) {
 				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
-				if (mpacl.has_user_id() && !userIDs.contains(static_cast< int >(mpacl.user_id())))
+				if (mpacl.has_user_id() && !userIDs.contains(static_cast< int >(mpacl.user_id()))) {
 					continue;
+				}
+				if (mpacl.has_group()) {
+					if (!validateGroupACL(u8(mpacl.group()), allgroups)) {
+						continue;
+					}
+				}
 
 				ChanACL *a    = new ChanACL(c);
 				a->bApplyHere = mpacl.apply_here();
 				a->bApplySubs = mpacl.apply_subs();
-				if (mpacl.has_user_id())
+				if (mpacl.has_user_id()) {
 					a->iUserId = static_cast< int >(mpacl.user_id());
-				else
+				} else {
 					a->qsGroup = u8(mpacl.group());
+				}
 				a->pDeny  = static_cast< ChanACL::Permissions >(mpacl.deny()) & ChanACL::All;
 				a->pAllow = static_cast< ChanACL::Permissions >(mpacl.grant()) & ChanACL::All;
 			}

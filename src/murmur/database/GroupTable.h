@@ -59,6 +59,8 @@ namespace server {
 
 			DBGroup getGroup(unsigned int serverID, unsigned int groupID);
 
+			void removeGroups(unsigned int serverID, const std::vector< unsigned int > &groupIDs);
+
 			void clearGroups(unsigned int serverID, unsigned int channelID);
 
 			std::optional< unsigned int > findGroupID(unsigned int serverID, const std::string &name);
