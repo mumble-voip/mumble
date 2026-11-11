@@ -81,6 +81,11 @@ namespace QtUtils {
 		QString m_str;
 	};
 
+	inline std::size_t qHash(const CaseInsensitiveQString &str, std::size_t seed = 0) {
+		const QString &lower = static_cast< const QString & >(str).toLower();
+		return static_cast< std::size_t (*)(const QString &, std::size_t) >(&::qHash)(lower, seed);
+	}
+
 	/**
 	 * Creates a platform agnostic path from a QString
 	 */
@@ -88,11 +93,6 @@ namespace QtUtils {
 
 } // namespace QtUtils
 } // namespace Mumble
-
-inline std::size_t qHash(const Mumble::QtUtils::CaseInsensitiveQString &str, std::size_t seed = 0) {
-	const QString &lower = static_cast< const QString & >(str).toLower();
-	return static_cast< std::size_t (*)(const QString &, std::size_t) >(&qHash)(lower, seed);
-}
 
 template< typename T > using qt_unique_ptr = std::unique_ptr< T, decltype(&Mumble::QtUtils::deleteQObject) >;
 
