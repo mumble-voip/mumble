@@ -1994,8 +1994,11 @@ void Server::removeHostUser(ServerUser *u) {
 void Server::removeTemporaryChannelIfEmpty(unsigned int id) {
 	// The removal is deferred, so the channel might have been refilled or replaced by a different one in the meantime
 	Channel *c = qhChannels.value(id);
-	if (c && c->bTemporary && c->qlUsers.isEmpty())
+	while (c && c->bTemporary && c->qlUsers.isEmpty() && c->qlChannels.isEmpty()) {
+		Channel *parent = c->cParent;
 		removeChannel(c);
+		c = parent;
+	}
 }
 
 void Server::removeChannel(Channel *chan, Channel *dest) {

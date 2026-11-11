@@ -28,6 +28,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QStack>
 #include <QtCore/QTimeZone>
 #include <QtCore/QtEndian>
@@ -1411,7 +1412,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 		}
 
-		if (p->bTemporary) {
+		if (p->bTemporary && !msg.temporary()) {
 			PERM_DENIED_TYPE(TemporaryChannel);
 			return;
 		}
@@ -1497,7 +1498,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 				ip = ip->cParent;
 			}
 
-			if (p->bTemporary) {
+			if (p->bTemporary && !c->bTemporary) {
 				PERM_DENIED_TYPE(TemporaryChannel);
 				return;
 			}
@@ -1568,11 +1569,15 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 		if (p) {
 			log(uSource, QString("Moved channel %1 from %2 to %3").arg(QString(*c), QString(*c->cParent), QString(*p)));
-
+			Channel *oldParent = c->cParent;
 			{
 				QWriteLocker wl(&qrwlVoiceThread);
 				c->cParent->removeChannel(c);
 				p->addChannel(c);
+			}
+			if (oldParent->bTemporary && oldParent->qlUsers.isEmpty()) {
+				auto func_ptr = std::mem_fn(&Server::removeTemporaryChannelIfEmpty);
+				QCoreApplication::instance()->postEvent(this, new ExecEvent(std::bind(func_ptr, this, oldParent->iId)));
 			}
 		}
 		if (!qsName.isNull()) {
