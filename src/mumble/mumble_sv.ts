@@ -3877,6 +3877,10 @@ Om alternativet inte är aktiverat fungerar inte Mumbles globala kortkommandon i
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can allow Mumble to monitor inputs in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Input Monitoring in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Shortcuts</source>
         <translation>Kortkommandon</translation>
     </message>
@@ -3904,10 +3908,6 @@ Om alternativet inte är aktiverat fungerar inte Mumbles globala kortkommandon i
     <message>
         <source>Shortcut input combinations</source>
         <translation>Tangentkombinationer för kortkommandot</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Privacy &amp; Security section of your Mac&apos;s System Settings.&lt;/p&gt;&lt;p&gt;In System Settings, open Privacy &amp; Security, then scroll to find Accessibility in the list. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan för närvarande endast använda musknappar och tangentbordsmodifierare (Alt, Ctrl, Cmd osv.) för globala kortkommandon.&lt;/p&gt;&lt;p&gt;Om du vill ha större flexibilitet kan du lägga till Mumble som ett betrott hjälpmedelsprogram i avsnittet Integritet och säkerhet i Macens Systeminställningar.&lt;/p&gt;&lt;p&gt;Öppna Integritet och säkerhet i Systeminställningar och bläddra sedan tills du hittar Hjälpmedel i listan. Lägg slutligen till Mumble i listan över betrodda hjälpmedelsprogram.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Unassigned</source>
