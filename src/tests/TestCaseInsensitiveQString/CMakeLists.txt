@@ -10,3 +10,11 @@ set_target_properties(TestCaseInsensitiveQString PROPERTIES AUTOMOC ON)
 target_link_libraries(TestCaseInsensitiveQString PRIVATE shared Qt6::Test)
 
 add_test(NAME TestCaseInsensitiveQString COMMAND $<TARGET_FILE:TestCaseInsensitiveQString>)
+
+add_executable(TestCaseInsensitiveQStringQHashFirst TestCaseInsensitiveQStringQHashFirst.cpp)
+
+set_target_properties(TestCaseInsensitiveQStringQHashFirst PROPERTIES AUTOMOC ON)
+
+target_link_libraries(TestCaseInsensitiveQStringQHashFirst PRIVATE shared Qt6::Test)
+
+add_test(NAME TestCaseInsensitiveQStringQHashFirst COMMAND $<TARGET_FILE:TestCaseInsensitiveQStringQHashFirst>)
