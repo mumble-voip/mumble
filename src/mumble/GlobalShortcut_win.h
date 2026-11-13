@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_WIN_H_
 #define MUMBLE_MUMBLE_GLOBALSHORTCUT_WIN_H_
 
+#include "win.h"
 #include "GlobalShortcut.h"
 
 #ifdef USE_XBOXINPUT
@@ -14,6 +15,7 @@
 
 #include <condition_variable>
 #include <memory>
+#include <mutex>
 #include <span>
 #include <string>
 #include <unordered_map>
@@ -47,7 +49,11 @@ public:
 	ButtonInfo buttonInfo(const QVariant &button) override;
 	void run() override;
 
+#ifdef USE_XBOXINPUT
+	explicit GlobalShortcutWin(std::unique_ptr< XboxInput > xboxInput = nullptr);
+#else
 	GlobalShortcutWin();
+#endif
 	~GlobalShortcutWin() override;
 public slots:
 	void deviceRemoved(const HANDLE deviceHandle);
@@ -55,7 +61,7 @@ public slots:
 protected:
 	class MsgRaw {
 	public:
-		enum Type : uint8_t { Hid, Keyboard, Mouse };
+		enum Type : uint8_t { Hid, Keyboard, Mouse, DeviceRemoved };
 
 		constexpr Type type() { return m_type; };
 
@@ -99,6 +105,13 @@ protected:
 		USHORT buttonFlags;
 	};
 
+	class MsgDeviceRemoved : public MsgRaw {
+	public:
+		explicit MsgDeviceRemoved(HANDLE deviceHandle) : MsgRaw(DeviceRemoved), deviceHandle(deviceHandle) {}
+
+		HANDLE deviceHandle;
+	};
+
 	struct Device {
 		std::string name;
 		std::string prefix;
@@ -114,8 +127,10 @@ protected:
 	void processMsgHid(MsgHid &msg);
 	void processMsgKeyboard(MsgKeyboard &msg);
 	void processMsgMouse(const MsgMouse &msg);
+	void processDeviceRemoved(HANDLE deviceHandle);
 	void processOther();
 
+	std::mutex m_queueMutex;
 	std::condition_variable m_condVar;
 
 	moodycamel::ReaderWriterQueue< std::unique_ptr< MsgRaw > > m_msgQueue;
@@ -124,14 +139,8 @@ protected:
 	DeviceMap m_devices;
 #ifdef USE_XBOXINPUT
 	std::unique_ptr< XboxInput > m_xinput;
-	/// Holds the number of XInput devices available on the system.
-	/// It is filled out by addDevice().
-	uint8_t m_xinputDevices;
-	/// Holds the last packet number that was processed.
-	/// Any new data queried for a device is only valid
-	/// if the packet number is different than last time we queried it.
-	uint32_t m_xinputLastPacket[XBOXINPUT_MAX_DEVICES];
 
+	void processXboxInput();
 	static bool xinputIsPressed(const uint8_t bit, const XboxInputState &state);
 #endif
 #ifdef USE_GKEY
