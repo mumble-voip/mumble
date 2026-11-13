@@ -757,7 +757,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Esta opção permite definir quando a sua fala deve ser transmitida durante a conversa.&lt;/b&gt;&lt;br /&gt;A opção ‘&lt;i&gt;Transmissão contínua&lt;/i&gt;’, onde a transmissão da sua fala ocorre o tempo todo.&lt;br /&gt;A opção ‘&lt;i&gt;Ativação por voz&lt;/i&gt;’, onde a transmissão da sua fala ocorre quando você fala perto do microfone.&lt;br /&gt;A opção ‘&lt;i&gt;Pressionar a tecla para falar&lt;/i&gt;’, onde a transmissão da sua fala ocorre quando você pressionar a tecla de atalho que você definiu na opção dos ‘&lt;i&gt;Atalhos&lt;/i&gt;’.</translation>
+        <translation>&lt;b&gt;Esta opção permite definir quando a sua fala deve ser transmitida durante a conversa.&lt;/b&gt;&lt;br /&gt;A opção da ‘&lt;i&gt;Transmissão contínua&lt;/i&gt;’ onde a transmissão da sua fala ocorre o tempo todo.&lt;br /&gt;A opção da ‘&lt;i&gt;Ativação por voz&lt;/i&gt;’ onde a transmissão da sua fala ocorre quando você fala perto do microfone.&lt;br /&gt;A opção de ‘&lt;i&gt;Pressionar a tecla para falar&lt;/i&gt;’ onde a transmissão da sua fala ocorre quando você pressionar a tecla de atalho que você definiu na opção dos ‘&lt;i&gt;Atalhos&lt;/i&gt;’.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -889,7 +889,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Se você ativar este recurso irá eliminar o eco dos seus alto-falantes. O modo ‘misto’ exige pouco processamento, mas só funciona adequadamente se os seus alto-falantes estiverem com o mesmo volume em cada uma das caixas de som e equidistantes do microfone. O cancelamento do eco no multicanal oferece um resultado muito melhor, porém com um custo maior de processamento.</translation>
+        <translation>Se você ativar este recurso irá atenuar o eco dos seus alto-falantes. O modo ‘misto’ exige pouco processamento, mas só funciona adequadamente se os seus alto-falantes estiverem com o mesmo volume em cada uma das caixas de som e equidistantes do microfone. A atenuação do eco no multicanal oferece um resultado muito melhor, porém com um custo maior de processamento.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -901,7 +901,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Esta opção permite exibir as configurações atuais da detecção da fala.&lt;/b&gt;&lt;br /&gt;Você pode modificar as configurações na janela das ‘Configurações’ ou no ‘Assistente do áudio’.</translation>
+        <translation>&lt;b&gt;Esta opção permite exibir as configurações atuais da detecção da fala.&lt;/b&gt;&lt;br /&gt;Você pode modificar as configurações na janela das ‘Configurações’ ou no ‘Assistente de configurações do áudio’.</translation>
     </message>
     <message>
         <source>Signal values below this count as silence</source>
@@ -1185,7 +1185,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation>A fala é amplificada dinamicamente até, no máximo, nesta quantidade</translation>
+        <translation>O áudio da fala é amplificado dinamicamente até, no máximo, este valor</translation>
     </message>
     <message>
         <source>Noise suppression strength</source>
@@ -1193,7 +1193,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Echo cancellation mode</source>
-        <translation>Modo de cancelamento do eco</translation>
+        <translation>Modo de atenuação do eco</translation>
     </message>
     <message>
         <source>Path to audio file</source>
@@ -1300,7 +1300,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Disable echo cancellation.</source>
-        <translation>Desativar o cancelamento do eco.</translation>
+        <translation>Desativar a atenuação do eco.</translation>
     </message>
     <message>
         <source>milliseconds</source>
@@ -1367,15 +1367,15 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Esta opção permite definir a distância mínima para os cálculos do som. O volume da fala de outros usuários não irá diminuir até que eles estejam, pelo menos, a esta distância de você.</translation>
+        <translation>Esta opção permite definir a distância mínima para os cálculos do som. O volume da fala das outras pessoas não irá diminuir até que eles estejam, pelo menos, a esta distância de você.</translation>
     </message>
     <message>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Esta opção permite definir a distância máxima para os cálculos do som. A partir dessa distância, o volume da voz dos outros usuários não irá diminuir mais.</translation>
+        <translation>Esta opção permite definir a distância máxima para os cálculos do som. A partir desta distância, o volume da voz das outras pessoas não irá diminuir mais.</translation>
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Esta opção permite ativar os métodos de testes do retorno.&lt;/b&gt;&lt;br /&gt;A opção ‘&lt;i&gt;Nenhum&lt;/i&gt;’, serve para desativar o retorno&lt;br /&gt;. A opção ‘&lt;i&gt;Local&lt;/i&gt;’, emula um servidor local.&lt;br /&gt;A opção ‘&lt;i&gt;Servidor&lt;/i&gt;’, solicita o retorno ao servidor.&lt;br /&gt;Por favor, observe que quando o retorno está ativado, nenhum outro usuário ouvirá a sua voz. Esta configuração não é salva ao finalizar o programa.</translation>
+        <translation>&lt;b&gt;Esta opção permite ativar os métodos de testes do retorno.&lt;/b&gt;&lt;br /&gt;A opção de ‘&lt;i&gt;Nenhum&lt;/i&gt;’ serve para desativar o retorno&lt;br /&gt;. A opção do ‘&lt;i&gt;Local&lt;/i&gt;’ emula um servidor local.&lt;br /&gt;A opção do ‘&lt;i&gt;Servidor&lt;/i&gt;’ solicita o retorno ao servidor.&lt;br /&gt;Por favor, observe que quando o retorno está ativado, nenhum outro usuário ouvirá a sua voz. Esta configuração não é salva ao finalizar o programa.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1383,7 +1383,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Volume of incoming speech</source>
-        <translation>Volume da fala que é recebida</translation>
+        <translation>Volume do áudio da fala que é recebido</translation>
     </message>
     <message>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
@@ -1601,7 +1601,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Output delay of incoming speech</source>
-        <translation>Atraso na saída do áudio que é recebido</translation>
+        <translation>Atraso na saída do áudio da fala que é recebido</translation>
     </message>
     <message>
         <source>Jitter buffer time</source>
@@ -1613,7 +1613,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>During speech, the volume of other applications will be reduced by this amount</source>
-        <translation>Durante a reprodução do áudio, o volume dos outros programas irá diminuir nesta quantidade</translation>
+        <translation>Durante a reprodução do áudio, o volume dos outros programas irá diminuir neste valor</translation>
     </message>
     <message>
         <source>Minimum volume</source>
@@ -1808,15 +1808,15 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Este é provavelmente o último quadro (20 ms) que era fala e não ruído ambiente.&lt;br /&gt;Transmissão da atividade vocal depende disto estar certo. O truque com isto é que o meio da sentença é sempre detectado como fala; o problema são as pausas entre as palavras e o começo da fala. É difícil distinguir um suspiro de uma palavra começando com &apos;h&apos;.&lt;br /&gt;Se isto está em negrito, significa que o Mumble está transmitindo atualmente (se você está conectado).</translation>
+        <translation>Este é provavelmente o último quadro (20 ms) que era fala e não era ruído do ambiente.&lt;br /&gt;A transmissão da ‘Ativação por voz’ depende da precisão desta estimativa. O desafio aqui é que o meio de uma frase é sempre detectado como fala, onde o problema está nas pausas entre as palavras e no início da fala. É difícil distinguir um suspiro ‘Ahhh...’ ou ‘Uff...’ de uma palavra que inicia com a letra ‘a’ ou ‘u’.&lt;br /&gt;Se este elemento estiver em negrito, então significa que o Mumble está transmitindo neste exato momento (caso você esteja conectado).</translation>
     </message>
     <message>
         <source>Configuration feedback</source>
-        <translation>Retroalimentação de configuração</translation>
+        <translation>Retroalimentação das configurações</translation>
     </message>
     <message>
         <source>Current audio bitrate</source>
-        <translation>Velocidade atual de transmissão de áudio</translation>
+        <translation>Velocidade atual da transmissão do áudio</translation>
     </message>
     <message>
         <source>Bitrate of last frame</source>
@@ -1824,58 +1824,58 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>DoublePush interval</source>
-        <translation>Intervalo de DuploPressionar</translation>
+        <translation>Intervalo de pressionar duas vezes a tecla</translation>
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Tempo entre os dois últimos pressionamentos de Pressionar-para-Falar</translation>
+        <translation>Intervalo de tempo entre os dois últimos pressionamentos que serve para ‘Pressionar a tecla para falar’</translation>
     </message>
     <message>
         <source>Speech Detection</source>
-        <translation>Deteção de fala</translation>
+        <translation>Detecção da fala</translation>
     </message>
     <message>
         <source>Current speech detection chance</source>
-        <translation>Probabilidade atual de deteção de fala</translation>
+        <translation>Probabilidade atual da detecção da fala</translation>
     </message>
     <message>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Isso mostra as configurações atuais de detecção de fala.&lt;/b&gt;&lt;br /&gt;Você pode alterar as configurações na caixa de diálogo Configurações ou no Assistente de Áudio.</translation>
+        <translation>&lt;b&gt;Esta opção permite exibir as configurações atuais da detecção da fala.&lt;/b&gt;&lt;br /&gt;Você pode modificar as configurações na janela das ‘Configurações’ ou no ‘Assistente de configurações do áudio’.</translation>
     </message>
     <message>
         <source>Signal and noise power spectrum</source>
-        <translation>Espectro de potência de sinal e ruído</translation>
+        <translation>Espectro da potência do sinal e do ruído</translation>
     </message>
     <message>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation>Espectro de potência do sinal de entrada e estimativa de ruído</translation>
+        <translation>Espectro da potência do sinal da entrada e da estimativa do ruído</translation>
     </message>
     <message>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Mostra o espectro da potência do sinal de entrada atual (linha vermelha) e a estimativa de ruído atual (azul preenchido).&lt;br /&gt;Todas amplitudes são multiplicadas por 30 para mostrar as partes interessantes (quão mais sinal do que ruído está presente em cada banda de onda).&lt;br /&gt;Provavelmente isto só é de interesse se você está tentando afinar condições de ruído no seu microfone. Sob boas condições, deve haver apenas uma pequena agitação de azul no fundo. Se o azul é mais do que metade do gráfico, você tem um ambiente bem ruidoso.</translation>
+        <translation>Esta opção permite exibir o espectro da potência do sinal da entrada atual (linha em cor vermelha) e a estimativa do ruído atual (área preenchida em cor azul).&lt;br /&gt;Todas amplitudes são multiplicadas por 30 para evidenciar os aspectos relevantes (a proporção entre sinal e ruído em cada faixa de frequência).&lt;br /&gt;Provavelmente, isto só é útil se você esteja tentando ajustar as configurações do ruído no seu microfone. Em condições ideais, deve haver apenas uma leve oscilação azul na parte inferior. Se a área em cor azul ultrapassar a metade do gráfico, então significa que o ambiente apresenta níveis de ruído muito elevados.</translation>
     </message>
     <message>
         <source>Echo Analysis</source>
-        <translation>Análise de eco</translation>
+        <translation>Análises do eco</translation>
     </message>
     <message>
         <source>Weights of the echo canceller</source>
-        <translation>Pesos do anulador de eco</translation>
+        <translation>Pesos da atenuação do eco</translation>
     </message>
     <message>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Mostra os pesos do cancelador de ecos, com o tempo aumentando para baixo e a frequência para a direita.&lt;br /&gt;Idealmente, isto deve ser preto, indicando que nenhum eco existe. Mais comumente, você verá uma ou mais listras horizontais de tom azul representando eco com tempo atrasado. Você deve ser capaz de ver os pesos atualizados em tempo real.&lt;br /&gt;Por favor note que enquanto você não tiver nada para ecoar, você não verá muitos dados úteis aqui. Toque alguma música e as coisas devem estabilizar.&lt;br /&gt;Você pode escolher ver as partes reais ou imaginárias dos pesos no domínio da frequência, ou alternativamente a fase e o módulo calculados. Os mais úteis destes provavelmente serão o módulo, que é a amplitude do eco, e mostra quanto do sinal transmitido está sendo eliminado naquela etapa no tempo. Os outros modos de visão são mais úteis para pessoas que querem melhorar os algoritmos de anulação de echo.&lt;br /&gt;Por favor note: Se a imagem inteira flutua massivamente no modo de módulo, o anulador de eco falha ao encontrar qualquer correlação entre as duas fontes de entrada (alto-falantes e microfone). Ou você possui um atraso muito longo no eco, ou as fontes de entrada estão configuradas errado.</translation>
+        <translation>Esta opção permite exibir a intensidade da atenuação do eco, com o tempo aumentando na direção inferior e a frequência para a direita.&lt;br /&gt;Idealmente, a imagem deveria estar totalmente em cor preta, indicando que não há eco algum. Mas comumente, você observará uma ou mais listras horizontais em cor azul representando o eco com tempo atrasado. Você pode observar a atualização da intensidade em tempo real.&lt;br /&gt;Por favor, observe que se não houver nada que gere o eco, você não observará nenhum dado relevante aqui. Você pode reproduzir um arquivo de áudio de uma música e poderá visualizar a estabilização ocorrendo em tempo real.&lt;br /&gt;Você pode optar por visualizar as partes reais ou imaginárias da intensidade no domínio da frequência, ou alternativamente, a fase e o módulo calculados. O parâmetro mais útil é, provavelmente, os dados do módulo, que corresponde à amplitude do eco e indica quanto do sinal da saída está sendo removido em um determinado intervalo de tempo. Os outros modos de visualização são mais úteis para pessoas que querem melhorar os algoritmos da atenuação do eco.&lt;br /&gt;Por favor, atente-se de que se a imagem inteira apresentar flutuações intensas no modo de visualização por módulo, então significa que a atenuação do eco não conseguiu encontrar nenhuma correlação entre as duas fontes de entrada (alto-falantes e microfone). Isto pode ocorrer devido a um atraso muito longo no eco ou por causa de alguma configuração que não esteja correta em uma das fontes de entrada.</translation>
     </message>
     <message>
         <source>This is the audio bitrate of the last compressed frame (20 ms). The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Taxa de bits de áudio do último quadro comprimido (20 ms). O valor máximo da taxa de bits pode ser ajustado nas Configurações.</translation>
+        <translation>Esta é a taxa de bits do áudio do último quadro compactado (20 ms). O valor máximo da taxa de bits pode ser ajustado na janela das ‘Configurações’.</translation>
     </message>
 </context>
 <context>
     <name>AudioWizard</name>
     <message>
         <source>Audio Tuning Wizard</source>
-        <translation>Assistente para Ajuste do Áudio</translation>
+        <translation>Assistente de configurações do áudio</translation>
     </message>
     <message>
         <source>Introduction</source>
@@ -1883,7 +1883,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Bem-vindo ao Assistente para Ajuste do Áudio do Mumble</translation>
+        <translation>Seja bem-vindo ao assistente de configurações do áudio do Mumble</translation>
     </message>
     <message>
         <source>Finished</source>
@@ -1891,15 +1891,15 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Enjoy using Mumble</source>
-        <translation>Desfrute do uso do Mumble</translation>
+        <translation>Desfrute do Mumble da melhor maneira possível</translation>
     </message>
     <message>
         <source>Device selection</source>
-        <translation>Escolha de dispositivo</translation>
+        <translation>Escolha o dispositivo</translation>
     </message>
     <message>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation>Selecionar o dispositivo de entrada e saída para usar com o Mumble.</translation>
+        <translation>Selecionar o dispositivo de entrada e de saída a ser utilizado com o Mumble.</translation>
     </message>
     <message>
         <source>This is the device your microphone is connected to.</source>
@@ -1911,7 +1911,7 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Input method for audio</source>
-        <translation>Método de entrada para áudio</translation>
+        <translation>Método de entrada do áudio</translation>
     </message>
     <message>
         <source>Device</source>
@@ -1919,60 +1919,60 @@ Este valor permite especificar o número máximo de usuários que são permitido
     </message>
     <message>
         <source>Input device to use</source>
-        <translation>Dispositivo de entrada a usar</translation>
+        <translation>Dispositivo de entrada a ser utilizado</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Seleciona qual placa de som a usar para entrada de áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Selecionar qual placa de som a ser utilizada para a entrada de áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Cancel echo from headset or speakers</source>
-        <translation>Anular eco das caixas de som ou fones de ouvido</translation>
+        <translation>Atenuar o eco das caixas de som ou dos fones de ouvido</translation>
     </message>
     <message>
         <source>Use echo cancellation</source>
-        <translation>Usar anulação de eco</translation>
+        <translation>Utilizar a atenuação do eco</translation>
     </message>
     <message>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation>Isto ativa a anulação de eco para o áudio enviado, o que ajuda em ambos fones de ouvido e alto-falantes.</translation>
+        <translation>Esta opção permite ativar a atenuação do eco para o áudio que é enviado, o que ajuda tanto ao utilizar os fones de ouvido quanto os alto-falantes.</translation>
     </message>
     <message>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Este é o dispositivo ao qual seus alto-falantes ou fones de ouvido estão conectados.</translation>
+        <translation>Este é o dispositivo ao qual os seus alto-falantes ou fones de ouvido estão conectados.</translation>
     </message>
     <message>
         <source>Output method for audio</source>
-        <translation>Método de saída para áudio</translation>
+        <translation>Método de saída do áudio</translation>
     </message>
     <message>
         <source>Output device to use</source>
-        <translation>Dispositivo de saída a usar</translation>
+        <translation>Dispositivo de saída a ser utilizado</translation>
     </message>
     <message>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Seleciona qual placa de som a usar para saída de áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Selecionar qual placa de som a ser utilizada para a saída de áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Enable positional audio</source>
-        <translation>Ativar áudio posicional</translation>
+        <translation>Ativar o áudio posicional</translation>
     </message>
     <message>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation>Permitir posicionamento de som</translation>
+        <translation>Permitir o posicionamento de som</translation>
     </message>
     <message>
         <source>Input Device</source>
-        <translation>Dispositivo de Entrada</translation>
+        <translation>Dispositivo de entrada</translation>
     </message>
     <message>
         <source>Output Device</source>
-        <translation>Dispositivo de Saída</translation>
+        <translation>Dispositivo de saída</translation>
     </message>
     <message>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>Isto permite que o Mumble use áudio posicional para posicionar vozes.</translation>
+        <translation>Esta opção permite que o Mumble utilize o áudio posicional para posicionar as vozes.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -1983,10 +1983,10 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Para manter a latência em um mínimo absoluto, é importante que o buffer na placa de som tenha menor tamanho possível. No entanto, muitas placas de som anunciam precisar de um buffer muito menor do que elas realmente aceitam, então o único modo de configurar este valor é por tentativa e erro.
+Para manter a latência no nível mais baixo possível, é importante tentar utilizar o menor ‘buffer’ de áudio possível na placa de som. No entanto, muitas placas de som informam que exigem um ‘buffer’ muito menor do que aquele com o qual realmente conseguem operar, portanto, a única maneira de definir este valor é por meio de tentativas e erros.
 &lt;/p&gt;
 &lt;p&gt;
-Você deve ouvir um exemplo de fala. Mude a barra deslizante abaixo para o menor valor que garanta &lt;b&gt;nenhuma&lt;/b&gt; interrupção ou irregularidade no som. Por favor note que o eco local é desativado durante este teste.
+Você deverá ouvir uma amostra de voz durante os testes. Em seguida, ajuste o controle deslizante para baixo, tente definir o menor valor possível e que &lt;b&gt;não&lt;/b&gt; cause interrupções ou instabilidades no som. Por favor, observe que o eco local é desativado durante este teste.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1996,7 +1996,7 @@ Você deve ouvir um exemplo de fala. Mude a barra deslizante abaixo para o menor
     </message>
     <message>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Configura a quantidade de dados a pré-armazenar no buffer de saída. Experimente com diferentes valores e use o menor que não cause irregularidades no som.</translation>
+        <translation>Esta opção permite definir a quantidade de dados a serem pré-armazenados no ‘buffer’ de saída. Experimente diferentes valores e escolha o menor deles que não cause irregularidades e instabilidades acentuadas no som.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2007,24 +2007,24 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Abra seus painel de controle de som e vá para as configurações de gravação. Tenha certeza de que o microfone está marcado como ativo e com o máximo de volume. Se houver uma opção para ativar o &quot;Aumento de sensibilidade&quot;, certifique-se de marcá-la.
+Inicie o painel de controle de som e acesse as opções de configurações da gravação. Certifique-se de que o microfone esteja selecionado como a entrada ativa e com o volume de gravação no volume máximo. Se houver uma opção que permita ativar o ‘Aumento de sensibilidade do microfone’ (Microphone Boost), certifique-se de selecioná-la para ativá-la.
 &lt;/p&gt;
 &lt;p&gt;
-Fale alto, como quando você está incomodado ou animado. Diminua o volume no painel de controle até que a barra baixo fique o mais alto possível no azul e verde, mas &lt;b&gt;não&lt;/b&gt; na zona vermelha enquanto você fala.
+Fale em voz alta, como se você estivesse irritado ou empolgado. Ajuste o volume no painel de controle de som, ou seja, diminua o volume até que a barra fique abaixo e o mais alto possível, dentro das faixas nas cores azul e verde, mas &lt;b&gt;sem&lt;/b&gt; atingir na área em cor vermelha enquanto você fala.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Positional Audio</source>
-        <translation>Áudio Posicional</translation>
+        <translation>Áudio posicional</translation>
     </message>
     <message>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>Ajustar atenuação do áudio posicional.</translation>
+        <translation>Ajustar a atenuação do áudio posicional.</translation>
     </message>
     <message>
         <source>Use headphones instead of speakers</source>
-        <translation>Use fones de ouvido ao invés de alto-falantes</translation>
+        <translation>Utilizar os fones de ouvido ao invés dos alto-falantes</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2035,32 +2035,32 @@ Mumble is under continuous development, and the development team wants to focus 
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Parabéns. Você deve estar pronto para aproveitar uma experiência de som mais rica com o Mumble.
+Parabéns. Agora você já deve estar pronto para ter uma experiência de som mais rica e poderá aproveitar as funcionalidades do Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer se focar nos recursos que beneficiem a maioria dos usuários. Para este fim, o Mumble suporta o envio de estatísticas anônimas sobre a sua configuração para os desenvolvedores. Estas estatísticas são essenciais para o desenvolvimento futuro, e também asseguram que recursos que você use não serão depreciados.
+Saiba que, o Mumble está em constante desenvolvimento e que a equipe de desenvolvedores tem a intenção de focar na criação de novas funcionalidades que beneficiam o maior número possível de usuários. Para isso, o Mumble possibilita o envio de estatísticas anônimas sobre as suas configurações para os desenvolvedores. Estas estatísticas são fundamentais para o desenvolvimento futuro, e também, asseguram que as funcionalidades que você utiliza não sejam descontinuadas no programa.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Use headphones</source>
-        <translation>Usar fones de ouvido</translation>
+        <translation>Utilizar os fones de ouvido</translation>
     </message>
     <message>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation>Ignora a configuração de alto-falantes do SO e configura o posicionamento para fones de ouvido em seu lugar.</translation>
+        <translation>Esta opção permite ignorar as configurações dos alto-falantes do sistema operacional e, ao invés disso, permite configurar o posicionamento do áudio para os fones de ouvido.</translation>
     </message>
     <message>
         <source>Volume tuning</source>
-        <translation>Ajuste de Volume</translation>
+        <translation>Ajustar o volume</translation>
     </message>
     <message>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation>Ajustando o volume do hardware para níveis ideais.</translation>
+        <translation>Ajustar o volume do microfone para os níveis ideais.</translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Agora fale suavemente, como você falaria tarde da noite, quando você não quer perturbar ninguém. Ajuste a barra de rolagem abaixo de modo que a barra se mova até o verde quando você fala, mas permaneça no azul do contrário.</translation>
+        <translation>Agora, fale suavemente e em voz baixa, exatamente como você faria ao conversar tarde da noite e como se não quisesse incomodar ninguém na sua casa que estivesse dormindo. Ajuste o controle deslizante para baixo de modo que a barra se mova até o sinal ficar em cor verde enquanto você falar, mas mantenha os níveis em cor azul enquanto você estiver em silêncio.</translation>
     </message>
     <message>
         <source>Voice Activity Detection</source>
@@ -2068,11 +2068,11 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Permitir que o Mumble suponha quando você está falando e quando você está calado.</translation>
+        <translation>Permitir que o Mumble tente identificar quando você está falando e quando você está em silêncio.</translation>
     </message>
     <message>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Ajuda o Mumble a supor quando você fala. O primeiro passo é selecionar que valor de dados a usar.</translation>
+        <translation>Esta opção permite que o Mumble tente identificar quando você está falando. O primeiro passo é selecionar qual valor de dados devem ser utilizados.</translation>
     </message>
     <message>
         <source>Raw amplitude from input</source>
@@ -2085,19 +2085,19 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>A seguir você precisa ajustar a seguinte barra de rolagem. As primeiras palavras que você falar devem chegar a área verde (definitivamente fala). Enquanto você fala você deve ficar dentro do amarelo (pode ser fala) e quando você não estiver falando tudo deve ficar no vermelho (definitivamente não é fala).</translation>
+        <translation>Em seguida, você precisa ajustar o controle deslizante da barra de rolagem. As primeiras palavras que você falar devem ser identificadas com os níveis da área em cor verde (definitivamente é uma fala). Enquanto você estiver falando, o indicador deve permanecer na área em cor amarela (possivelmente é uma fala), e quando você não estiver falando, os níveis devem ser exibidos em cor vermelha (definitivamente não é uma fala).</translation>
     </message>
     <message>
         <source>Device tuning</source>
-        <translation>Ajuste de dispositivo</translation>
+        <translation>Ajustar o dispositivo</translation>
     </message>
     <message>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation>Alterar os atrasos de saída de hardware para o seu valor mínimo.</translation>
+        <translation>Alterar os atrasos da saída do dispositivo para o seu valor mínimo.</translation>
     </message>
     <message>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Enviar estatísticas anônimas ao projeto Mumble</translation>
+        <translation>Enviar anonimamente as estatísticas aos desenvolvedores do Mumble</translation>
     </message>
     <message>
         <source>Push To Talk:</source>
@@ -2105,15 +2105,15 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Quality &amp; Notifications</source>
-        <translation>Qualidade &amp; Notificações</translation>
+        <translation>Qualidade e notificações</translation>
     </message>
     <message>
         <source>Adjust quality and notification settings.</source>
-        <translation>Ajustar qualidade e configurações de notificações.</translation>
+        <translation>Ajustar a qualidade e as configurações das notificações.</translation>
     </message>
     <message>
         <source>Quality settings</source>
-        <translation>Configurações de qualidade</translation>
+        <translation>Configurações da qualidade</translation>
     </message>
     <message>
         <source>Low</source>
@@ -2125,15 +2125,15 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Notification settings</source>
-        <translation>Configurações de notificação</translation>
+        <translation>Configurações das notificações</translation>
     </message>
     <message>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation>Usar Texto-para-Fala para ler mensagens de notificação para você.</translation>
+        <translation>Utilizar a funcionalidade da conversão do ‘Texto para fala’ para que notificações e mensagens sejam lidas para você.</translation>
     </message>
     <message>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation>Desativar Texto-para-Fala e usar sons em seu lugar.</translation>
+        <translation>Desativar a funcionalidade da conversão do ‘Texto para fala’ e utilizar os sons em seu lugar.</translation>
     </message>
     <message>
         <source>%1 ms</source>
@@ -2141,11 +2141,11 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você</translation>
+        <translation>Ativar a atenuação dos outros programas enquanto as pessoas conversam com você</translation>
     </message>
     <message>
         <source>Attenuate applications while other users talk</source>
-        <translation>Atenuar aplicativos enquanto outros falam</translation>
+        <translation>Atenuar os programas enquanto as outras pessoas conversam</translation>
     </message>
     <message>
         <source>High</source>
@@ -2153,27 +2153,27 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     </message>
     <message>
         <source>Custom</source>
-        <translation>Pessoal</translation>
+        <translation>Personalizado</translation>
     </message>
     <message>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation>Você já escolheu uma configuração pessoal de qualidade no Mumble. Selecione esta opção para mantê-la.</translation>
+        <translation>Você já definiu uma configuração pessoal da qualidade no Mumble. Selecione esta opção para mantê-la definida.</translation>
     </message>
     <message>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você. Isso significa que, assim que alguém começa a falar com você no Mumble, o som de todos os outros programas (como reprodutores de áudio) será atenuado para que você possa ouvi-los mais claramente.</translation>
+        <translation>Ativar a atenuação dos outros programas enquanto as outras pessoas conversam com você. Isto significa que, assim que alguém começar a falar com você no Mumble, o som de todos os outros programas (como reprodutores de áudio) será atenuado para que você possa ouvir a pessoa com mais clareza.</translation>
     </message>
     <message>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation>Aplica algumas otimizações de alto contraste para usuários com deficiência visual</translation>
+        <translation>Aplicar algumas otimizações do alto contraste para os usuários que possuem algum tipo de deficiência visual</translation>
     </message>
     <message>
         <source>Use high contrast graphics</source>
-        <translation>Usar gráficos de alto contraste</translation>
+        <translation>Utilizar os gráficos do alto contraste</translation>
     </message>
     <message>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation>Manter configurações personalizadas de Texto-para-Fala.</translation>
+        <translation>Manter as configurações personalizadas da funcionalidade da conversão do ‘Texto para fala’.</translation>
     </message>
     <message>
         <source>&lt;p&gt;
@@ -2192,50 +2192,50 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Abra o seu painel de controle de som e bá para as configurações de gravação. Certifique-se de que o Microfone está seleciona como a entrada ativa e está com o máximo de volume. Se há uma opção para ativar o &quot;Aumento de sensibilidade&quot; lembre-se de marcá-la.
+Inicie o painel de controle de som e acesse as opções de configurações da gravação. Certifique-se de que o microfone esteja selecionado como a entrada ativa e com o volume de gravação no volume máximo. Se houver uma opção que permita ativar o ‘Aumento de sensibilidade do microfone’ (Microphone Boost), certifique-se de selecioná-la para ativá-la.
 &lt;/p&gt;
 &lt;p&gt;
-Fale alto, como quando você está incomodado ou animado. Diminua o volume no painel de controle até que a barra abaixo fique o mais alto possível na listrada e vazia, mas &lt;b&gt;não&lt;/b&gt; na zona xadrez enquanto você fala.
+Fale em voz alta, como se você estivesse irritado ou empolgado. Ajuste o volume no painel de controle de som, ou seja, diminua o volume até que a barra fique abaixo e o mais alto possível, dentro da área com faixas ou da área vazia, mas &lt;b&gt;sem&lt;/b&gt; atingir na área com as marcações cruzadas enquanto você fala.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation>Agora fale suavemente, como você falaria tarde da noite, quando você não quer perturbar ninguém. Ajuste a barra de rolagem abaixo de modo que a barra se mova até a zona vazia quando você fala, mas, permaneça na listrada assim que você ficar em silêncio.</translation>
+        <translation>Agora, fale suavemente e em voz baixa, exatamente como você faria ao conversar tarde da noite e como se não quisesse incomodar ninguém na sua casa que estivesse dormindo. Ajuste o controle deslizante para baixo de modo que a barra se mova até a área vazia quando você fala, mas permaneça na área listrada enquanto você estiver em silêncio.</translation>
     </message>
     <message>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>A seguir você precisa ajustar a barra de rolagem abaixo. As primeiras palavras que você falar devem chegar até a área vazia (definitivamente fala). Enquanto você fala, ela deve ficar dentro da área listrada (pode ser fala) e, quando você não estiver falando, tudo deve ficar na área xadrez (definitivamente não é fala).</translation>
+        <translation>Em seguida, você precisa ajustar o controle deslizante da barra de rolagem. As primeiras palavras que você falar devem ser identificadas com os níveis da área vazia (definitivamente é uma fala). Enquanto você estiver falando, o indicador deve permanecer na área listrada (possivelmente é uma fala), e quando você não estiver falando, os níveis devem ser exibidos na área com as linhas cruzadas (definitivamente não é uma fala).</translation>
     </message>
     <message>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>Nesta configuração o Mumble usará &lt;b&gt;baixa quantia de banda&lt;/b&gt;. Isso inevitavelmente resultará em alta latência e qualidade ruim. Escolha essa opção somente se sua conexão não suportar as outras configurações. (16kbit/s, 60ms por pacote)</translation>
+        <translation>Nesta configuração, o Mumble utilizará uma &lt;b&gt;baixa quantidade de largura de banda&lt;/b&gt;. Isto inevitavelmente resultará em alta latência e uma qualidade ruim. Escolha esta opção somente se a sua conexão não suportar as outras configurações. (16kbit/s, 60ms por pacote)</translation>
     </message>
     <message>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation>Esta é a configuração &lt;b&gt;padrão recomendada&lt;/b&gt;. Ela fornece um bom equilíbrio entre qualidade, latência e uso de banda. (40 bit/s, 20ms por pacote)</translation>
+        <translation>Esta é a configuração é a &lt;b&gt;padrão recomendada&lt;/b&gt;. Porque proporciona um bom equilíbrio entre a qualidade, latência e a utilização da largura de banda. (40kbit/s, 20ms por pacote)</translation>
     </message>
     <message>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>Esta configuração só é recomendada em situações em que a largura de banda não é problema, como uma rede local. Ela fornece a menor latência suportada pelo Mumble e &lt;b&gt;alta qualidade&lt;/b&gt;. (72kbit/s, 10ms por pacote)</translation>
+        <translation>Esta configuração é recomendada somente nas situações em que a largura de banda não é um problema, como em uma rede local. Porque proporciona a menor latência suportada pelo Mumble e uma &lt;b&gt;alta qualidade&lt;/b&gt;. (72kbit/s, 10ms por pacote)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Esse é o método de entrada a usar para áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o método de entrada a ser utilizado para o áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Esse é o método de saída a usar para áudio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o método de saída a ser utilizado para o áudio.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the audio tuning wizard for Mumble. This will help you correctly set the input levels of your sound card, and also set the correct parameters for sound processing in Mumble. &lt;/p&gt;&lt;p&gt;Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server. &lt;/p&gt;&lt;p&gt;Note that you can cancel this wizard at any time without it having an effect on your current audio systems. The settings are only applied once this wizard has been completed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Essa é a assistente de ajuste de áudio do Mumble. Isso ajudará você a definir corretamente os níveis de entrada da sua placa de som, e também pode definir os parâmetros corretos para processamento sonoro no Mumble. &lt;/p&gt;&lt;p&gt;Por favor, saiba que enquanto a assistente estiver ativa, o áudio será retornado localmente para permitir que você escute-o, e nenhum som será enviado para o servidor. &lt;/p&gt;&lt;p&gt;Note que você pode cancelar essa assistente a qualquer momento sem que isso afete seus sistemas de som atuais. As configurações só são alteradas uma vez que a assistente seja finalizada.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Este é o assistente de configurações do áudio do Mumble, você pode definir corretamente os níveis de entrada da sua placa de som, bem como, os parâmetros adequados para o processamento do áudio no Mumble. &lt;/p&gt;&lt;p&gt;Por favor, observe que enquanto este assistente estiver ativo, o áudio será reproduzido localmente para permitir que você escute-o e nenhum som será enviado para o servidor. &lt;/p&gt;&lt;p&gt;Você pode cancelar esta assistente a qualquer momento sem que isso afete as suas configurações de áudio atuais. As configurações só serão aplicadas após você fechar este assistente de configurações.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble supports positional audio for some games, and will position the voice of other users relative to their position in game. Depending on their position, the volume of the voice will be changed between the speakers to simulate the direction and distance the other user is at. Such positioning depends on your speaker configuration being correct in your operating system, so a test is done here. &lt;/p&gt;&lt;p&gt;The graph below shows the position of &lt;span style=&quot; color:#56b4e9;&quot;&gt;you&lt;/span&gt;, the &lt;span style=&quot; color:#d55e00;&quot;&gt;speakers&lt;/span&gt; and a &lt;span style=&quot; color:#009e73;&quot;&gt;moving sound source&lt;/span&gt; as if seen from above. You should hear the audio move between the channels. &lt;/p&gt;&lt;p&gt;You can also use your mouse to position the &lt;span style=&quot; color:#009e73;&quot;&gt;sound source&lt;/span&gt; manually.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O Mumble suporta áudio posicional para alguns jogos, e vai posicionar a voz de outros usuários relativo a posição delos no jogo. Dependendo da posição delas, o volume da voz será alterado nos alto-falantes para simular a direção e distância que o outro usuário está. Tal posicionamento depende da configuração do seu alto-falante estar correta no seu sistema operativo, então um teste é feito aqui. &lt;/p&gt;&lt;p&gt;O gráfico abaixo mostra a posição de &lt;span style=&quot; color:#56b4e9;&quot;&gt;você&lt;/span&gt;, os &lt;span style=&quot; color:#d55e00;&quot;&gt;alto-falantes&lt;/span&gt; e uma &lt;span style=&quot; color:#009e73;&quot;&gt;fonte móvel de áudio&lt;/span&gt; vista de cima. Você deve ouvir o áudio mover-se entre os canais.&lt;/p&gt;&lt;p&gt;Você também pode usar o mouse para posicionar a &lt;span style=&quot; color:#009e73;&quot;&gt;fonte sonora&lt;/span&gt; manualmente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;O Mumble oferece suporte ao áudio posicional em alguns jogos, posicionando a voz das outras pessoas de acordo com a localização deles dentro do jogo. Dependendo da posição de cada jogador no jogo, o volume da voz será ajustado nos alto-falantes para simular a direção e a distância em que o outro jogador está. Este posicionamento depende das configurações dos seus alto-falantes estarem corretas no seu sistema operacional, por isso, um teste é realizado aqui.&lt;/p&gt;&lt;p&gt;O gráfico abaixo exibe a &lt;span style=&quot; color:#56b4e9;&quot;&gt;sua posição&lt;/span&gt; (você), a dos &lt;span style=&quot; color:#d55e00;&quot;&gt;alto-falantes&lt;/span&gt; e a de uma &lt;span style=&quot; color:#009e73;&quot;&gt;fonte sonora em movimento&lt;/span&gt; como se fossem vistas de cima. Você deve ouvir o áudio se deslocando entre os canais.&lt;/p&gt;&lt;p&gt;Você também pode utilizar o cursor ou a seta para posicionar a &lt;span style=&quot; color:#009e73;&quot;&gt;fonte sonora&lt;/span&gt; manualmente.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Maximum amplification</source>
@@ -2243,51 +2243,51 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>No buttons assigned</source>
-        <translation>Nenhuma tecla atribuída</translation>
+        <translation>Nenhuma tecla foi atribuída</translation>
     </message>
     <message>
         <source>Audio input system</source>
-        <translation>Sistema de entrada de áudio</translation>
+        <translation>Sistema de entrada do áudio</translation>
     </message>
     <message>
         <source>Audio input device</source>
-        <translation>Dispositivo de entrada de áudio</translation>
+        <translation>Dispositivo de entrada do áudio</translation>
     </message>
     <message>
         <source>Select audio output device</source>
-        <translation>Selecione o dispositivo de saída de áudio</translation>
+        <translation>Selecione o dispositivo de saída do áudio</translation>
     </message>
     <message>
         <source>Audio output system</source>
-        <translation>Sistema de saída de áudio</translation>
+        <translation>Sistema de saída do áudio</translation>
     </message>
     <message>
         <source>Audio output device</source>
-        <translation>Dispositivo de saída de áudio</translation>
+        <translation>Dispositivo de saída do áudio</translation>
     </message>
     <message>
         <source>The Mumble positional audio system enables users to link the relative position of their voice to third party applications such as games.</source>
-        <translation>O sistema de áudio posicional do Mumble permite que os usuários compartilhem a posição relativa de suas vozes com programas de terceiros, como jogos.</translation>
+        <translation>O sistema do áudio posicional do Mumble permite que os usuários compartilhem a posição relativa das suas vozes com os programas de terceiros, como os jogos e os emuladores de jogos.</translation>
     </message>
     <message>
         <source>Output delay for incoming speech</source>
-        <translation>Atraso de saída do áudio recebido</translation>
+        <translation>Atraso na saída do áudio da fala que é recebido</translation>
     </message>
     <message>
         <source>Maximum amplification of input sound</source>
-        <translation>Amplificação máxima do som de entrada</translation>
+        <translation>Amplificação máxima do som da entrada</translation>
     </message>
     <message>
         <source>Speech is dynamically amplified by at most this amount</source>
-        <translation>O áudio é amplificado dinamicamente até, no máximo, essa quantidade</translation>
+        <translation>O áudio da fala é amplificado dinamicamente até, no máximo, este valor</translation>
     </message>
     <message>
         <source>Voice activity detection level</source>
-        <translation>Nível de detecção da ativação por voz</translation>
+        <translation>Nível da detecção da ativação por voz</translation>
     </message>
     <message>
         <source>This will set the range in which Mumble will consider a signal speech. Increase value to make voice activation more sensitive.</source>
-        <translation>Define o intervalo no qual o Mumble considera como sinal de fala. Aumente o valor para fazer a ativação de voz mais sensível.</translation>
+        <translation>Esta opção permite definir o intervalo no qual o Mumble considerará um sinal como fala. Aumente o valor para tornar a ativação por voz mais sensível.</translation>
     </message>
     <message>
         <source>Push to talk</source>
@@ -2295,7 +2295,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Use the &quot;push to talk shortcut&quot; button to assign a key</source>
-        <translation>Use o botão de atalho do &quot;Pressione para Falar&quot; para definir uma tecla</translation>
+        <translation>Utilize o atalho que serve para ‘Pressionar uma tecla para falar’ para definir uma tecla para esta funcionalidade</translation>
     </message>
     <message>
         <source>Set push to talk shortcut</source>
@@ -2303,22 +2303,22 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>This will open a shortcut edit dialog</source>
-        <translation>Isso abrirá uma janela de edição de atalhos</translation>
+        <translation>Esta opção permite exibir uma janela de edição das teclas de atalho</translation>
     </message>
     <message>
         <source>Graphical positional audio simulation view</source>
-        <translation>Visualização gráfica da simulação de áudio posicional</translation>
+        <translation>Visualização gráfica da simulação do áudio posicional</translation>
     </message>
     <message>
         <source>This visually represents the positional audio that is currently being played</source>
-        <translation>Representa visualmente o áudio posicional que está sendo reproduzido no momento</translation>
+        <translation>Esta opção permite exibir uma representação gráfica do áudio posicional que está sendo reproduzido neste exato momento</translation>
     </message>
 </context>
 <context>
     <name>BanDialog</name>
     <message>
         <source>Banning user</source>
-        <translation>Banindo usuário</translation>
+        <translation>Banir um usuário</translation>
     </message>
     <message>
         <source>Enter reason</source>
@@ -2326,11 +2326,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Ban User Certificate</source>
-        <translation>Banir certificado de usuário</translation>
+        <translation>Banir o certificado do usuário</translation>
     </message>
     <message>
         <source>Ban IP</source>
-        <translation>Banir endereço IP</translation>
+        <translation>Banir o endereço do IP</translation>
     </message>
     <message>
         <source>Ban</source>
@@ -2342,14 +2342,14 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Banning user %1</source>
-        <translation>Banindo usuário %1</translation>
+        <translation>Banindo o usuário %1</translation>
     </message>
 </context>
 <context>
     <name>BanEditor</name>
     <message>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - Editar Banimentos</translation>
+        <translation>Editar os banimentos que foram feitos no Mumble</translation>
     </message>
     <message>
         <source>&amp;Address</source>
@@ -2373,11 +2373,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>User</source>
-        <translation>Usuária</translation>
+        <translation>Usuário</translation>
     </message>
     <message>
         <source>Hash</source>
-        <translation>Hash</translation>
+        <translation>Identificador</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -2389,23 +2389,23 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Eliminar</translation>
+        <translation>&amp;Remover</translation>
     </message>
     <message>
         <source>Ban List</source>
-        <translation>Lista de Banidas</translation>
+        <translation>Lista de banimentos</translation>
     </message>
     <message>
         <source>Search field</source>
-        <translation>Campo de busca</translation>
+        <translation>Campo da busca</translation>
     </message>
     <message>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation>Este é o campo de busca. Use-o para encontrar banidas que possuem esse nome de usuária no campo de nome de usuária.</translation>
+        <translation>O campo da busca permite encontrar ou localizar as pessoas (nome de usuário) que foram banidas que contenham este nome de usuário que foi definido no campo do nome do usuário.</translation>
     </message>
     <message>
         <source>Who are you looking for?</source>
-        <translation>Quem você procura?</translation>
+        <translation>Quem é que você está procurando?</translation>
     </message>
     <message>
         <source>No nickname</source>
@@ -2413,15 +2413,15 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>IP address</source>
-        <translation>Endereço IP</translation>
+        <translation>Endereço do IP</translation>
     </message>
     <message>
         <source>No IP address</source>
-        <translation>Nenhum endereço IP</translation>
+        <translation>Nenhum endereço do IP</translation>
     </message>
     <message>
         <source>Reason for the ban</source>
-        <translation>Motivo para o banimento</translation>
+        <translation>Motivo do banimento</translation>
     </message>
     <message>
         <source>No reason</source>
@@ -2429,39 +2429,39 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Ban end date</source>
-        <translation>Data final do banimento</translation>
+        <translation>Data do término do banimento</translation>
     </message>
     <message>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation>Data final do banimento. Se você definir a mesma data para início e fim, o banimento será permanente (não expira).</translation>
+        <translation>Sobre a data do término do banimento, se você definir a mesma data para o início e para o término, o banimento será permanente, ou seja, não irá expirar.</translation>
     </message>
     <message>
         <source>Certificate hash</source>
-        <translation>Hash de certificado</translation>
+        <translation>Identificador do certificado</translation>
     </message>
     <message>
         <source>No certificate hash</source>
-        <translation>Nenhum hash de certificado</translation>
+        <translation>Nenhum identificador do certificado</translation>
     </message>
     <message>
         <source>Banned users</source>
-        <translation>Usuários banidos</translation>
+        <translation>Usuários(as) banidos</translation>
     </message>
     <message>
         <source>This is a list with banned users.</source>
-        <translation>Esta é uma lista de usuários banidos.</translation>
+        <translation>Esta é uma lista dos usuários(as) banidos(as).</translation>
     </message>
     <message>
         <source>Use this button if you want to add a new ban.</source>
-        <translation>Use esse botão se você quer adicionar um novo banimento.</translation>
+        <translation>Utilize este botão se você quiser banir um(a) usuário(a).</translation>
     </message>
     <message>
         <source>Use this button if you want to update ban information.</source>
-        <translation>Use esse botão se você quer atualizar a informação de banimento.</translation>
+        <translation>Utilize este botão se você quiser atualizar as informações sobre os banimentos.</translation>
     </message>
     <message>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation>Use esse botão se você quer remover a usuária da lista de banidas.</translation>
+        <translation>Utilize este botão se você quiser remover um(a) usuário(a) da lista de banimentos.</translation>
     </message>
     <message>
         <source>Clear all fields</source>
@@ -2469,7 +2469,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation>Esse botão limpa todos os campos. Use-o se quiser adicionar um novo banimento.</translation>
+        <translation>Este botão permite limpar todos os campos. Utilize-o se quiser adicionar um novo banimento.</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -2478,8 +2478,8 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message numerus="yes">
         <source>Ban List - %n Ban(s)</source>
         <translation>
-            <numerusform>Lista de Banidos - %n Banimento(s)</numerusform>
-            <numerusform>Lista de Banidas - %n Banimento(s)</numerusform>
+            <numerusform>Lista de banimentos - %n Banimento</numerusform>
+            <numerusform>Lista de banimentos - %n Banimentos</numerusform>
         </translation>
     </message>
     <message>
@@ -2488,15 +2488,15 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Search for banned user</source>
-        <translation>Pesquisar por usuário banido</translation>
+        <translation>Buscar um(a) usuário(a) que foi banido(a)</translation>
     </message>
     <message>
         <source>Username to ban</source>
-        <translation>Nome de usuário para banir</translation>
+        <translation>Nome do(a) usuário(a) a ser banido(a)</translation>
     </message>
     <message>
         <source>IP address to ban</source>
-        <translation>Endereço IP para banir</translation>
+        <translation>Endereço do IP a ser banido</translation>
     </message>
     <message>
         <source>Ban reason</source>
@@ -2508,15 +2508,15 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Ban end date/time</source>
-        <translation>Data e hora do fim do banimento</translation>
+        <translation>Data e hora do término do banimento</translation>
     </message>
     <message>
         <source>Certificate hash to ban</source>
-        <translation>Hash do certificado para banir</translation>
+        <translation>Identificador do certificado a ser banido</translation>
     </message>
     <message>
         <source>List of banned users</source>
-        <translation>Lista de usuários banidos</translation>
+        <translation>Lista dos(as) usuários(as) banidos(as)</translation>
     </message>
 </context>
 <context>
@@ -2527,7 +2527,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation>E-mail</translation>
     </message>
     <message>
         <source>Issuer</source>
@@ -2535,7 +2535,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Expiry Date</source>
-        <translation>Data de Expiração</translation>
+        <translation>Data da validade</translation>
     </message>
     <message>
         <source>(none)</source>
@@ -2550,70 +2550,70 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <name>CertWizard</name>
     <message>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Impossível validar email.&lt;br /&gt;Especifique um email válido (ou em branco) para continuar.</translation>
+        <translation>Não foi possível validar o endereço de e-mail.&lt;br /&gt;Especifique um endereço de e-mail válido para continuar ou deixe o campo em branco ou vazio.</translation>
     </message>
     <message>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Houve um erro gerando seu certificado.&lt;br /&gt;Por favor tente novamente.</translation>
+        <translation>Ocorreu um erro ao gerar o seu certificado.&lt;br /&gt;Por favor, tente novamente.</translation>
     </message>
     <message>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Seu certificado e chave não podem ser exportados para o formato PKCS#12. Pode haver um erro em seu certificado.</translation>
+        <translation>Não foi possível exportar o seu certificado e a sua chave para o formato PKCS#12. Pode ter um erro no seu certificado.</translation>
     </message>
     <message>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>O arquivo não pôde ser aberto para escrita. Por favor use outro arquivo.</translation>
+        <translation>Não foi possível abrir o arquivo para realizar a escrita. Por favor, utilize um outro arquivo.</translation>
     </message>
     <message>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation>As permissões de arquivo não puderam ser alteradas. Nenhum certificado e chave foram escritos. Por favor use outro arquivo.</translation>
+        <translation>Não foi possível definir as permissões do arquivo. Nenhum certificado ou chave foi gravado. Por favor, utilize um outro arquivo.</translation>
     </message>
     <message>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation>O arquivo não pôde ser escrito com sucesso. Por favor use outro arquivo.</translation>
+        <translation>Não foi possível gravar o arquivo. Por favor, utilize um outro arquivo.</translation>
     </message>
     <message>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation>O arquivo não pôde ser aberto para leitura. Por favor use outro arquivo.</translation>
+        <translation>Não foi possível abrir o arquivo para realizar a leitura. Por favor, utilize um outro arquivo.</translation>
     </message>
     <message>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation>O arquivo está vazio ou não pôde ser lido. Por favor use outro arquivo.</translation>
+        <translation>O arquivo está vazio ou não pôde ser lido. Por favor, utilize um outro arquivo.</translation>
     </message>
     <message>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>O arquivo não continha um certificado e chave válidos. Por favor use outro arquivo.</translation>
+        <translation>O arquivo não continha um certificado e uma chave válidos. Por favor, utilize um outro arquivo.</translation>
     </message>
     <message>
         <source>Select file to export certificate to</source>
-        <translation>Selecione o arquivo para o qual exportar o certificado</translation>
+        <translation>Selecione um arquivo para exportar o certificado</translation>
     </message>
     <message>
         <source>Select file to import certificate from</source>
-        <translation>Selecione o arquivo do qual importar o certificado</translation>
+        <translation>Selecione o arquivo que você quer importar o certificado</translation>
     </message>
     <message>
         <source>Unable to import. Missing password or incompatible file type.</source>
-        <translation>Impossível importar. Senha perdida ou arquivo incompatível.</translation>
+        <translation>Não foi possível importar o arquivo. A senha não está presente ou o tipo do arquivo não é compatível.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Expiração do Certificado:&lt;/b&gt; Seu certificado está para expirar. Você precisa renová-lo, ou você não será mais capaz de conectar aos servidores em que está registrado.</translation>
+        <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está prestes a expirar. Você precisa renová-lo, caso contrário, não conseguirá mais ser conectar aos servidores nos quais está registrado.</translation>
     </message>
 </context>
 <context>
     <name>Certificates</name>
     <message>
         <source>Certificate Management</source>
-        <translation>Gerenciamento de Certificados</translation>
+        <translation>Gerenciamento de certificados</translation>
     </message>
     <message>
         <source>Certificate Authentication</source>
-        <translation>Autenticação de Certificado</translation>
+        <translation>Autenticação do certificado</translation>
     </message>
     <message>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Autenticar em servidores sem usar senhas</translation>
+        <translation>Autenticar nos servidores que não utilizam as senhas</translation>
     </message>
     <message>
         <source>Current certificate</source>
@@ -2621,11 +2621,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Este é o certificado que o Mumble usa atualmente.</translation>
+        <translation>Este é o certificado que o Mumble utiliza atualmente.</translation>
     </message>
     <message>
         <source>Current Certificate</source>
-        <translation>Certificado Atual</translation>
+        <translation>Certificado atual</translation>
     </message>
     <message>
         <source>Create a new certificate</source>
@@ -2633,15 +2633,15 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>This will create a new certificate.</source>
-        <translation>Criará um novo certificado.</translation>
+        <translation>Esta opção permite criar um novo certificado.</translation>
     </message>
     <message>
         <source>Import certificate from file</source>
-        <translation>Importar certificado de arquivo</translation>
+        <translation>Importar o certificado de um arquivo</translation>
     </message>
     <message>
         <source>This will import a certificate from file.</source>
-        <translation>Importará certificado de arquivo.</translation>
+        <translation>Esta opção permite importar um certificado a partir de arquivo.</translation>
     </message>
     <message>
         <source>Import a certificate</source>
@@ -2649,28 +2649,28 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Export Certificate</source>
-        <translation>Exportar Certificado</translation>
+        <translation>Exportar um certificado</translation>
     </message>
     <message>
         <source>This will export a certificate to file.</source>
-        <translation>Exportará um certificado para um arquivo.</translation>
+        <translation>Esta opção permite exportar um certificado para um arquivo.</translation>
     </message>
     <message>
         <source>Export current certificate</source>
-        <translation>Exportar certificado atual</translation>
+        <translation>Exportar o certificado atual</translation>
     </message>
     <message>
         <source>Import Certificate</source>
-        <translation>Importar Certificado</translation>
+        <translation>Importar o certificado</translation>
     </message>
     <message>
         <source>PKCS #12 Certificate import</source>
-        <translation>Importar certificado PKCS #12</translation>
+        <translation>Importar o certificado do PKCS #12</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;O Mumble pode importar certificados salvos no formato PKCS #12. Esse é o formato usado ao exportar uma chave do Mumble, e também ao exportar chaves do Firefox, Internet Explorer, Opera, etc.&lt;/p&gt;&lt;p&gt;Se o arquivo é protegido com senha, você precisará da senha para importar o certificado.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;O Mumble pode importar certificados salvos no formato PKCS #12. Este é o formato utilizado ao exportar uma chave do Mumble, bem como, ao exportar as chaves do navegador de internet (Chrome, Chromium, Firefox, Opera, etc.)&lt;/p&gt;&lt;p&gt;Se o arquivo é protegido com uma senha, você precisará da senha para conseguir importar o certificado.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Import from</source>
@@ -2678,7 +2678,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Filename to import from</source>
-        <translation>Nome do arquivo do qual importar</translation>
+        <translation>Nome do arquivo a ser importado</translation>
     </message>
     <message>
         <source>This is the filename you wish to import a certificate from.</source>
@@ -2686,7 +2686,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Select file to import from</source>
-        <translation>Selecione um arquivo do qual importar</translation>
+        <translation>Selecione um arquivo a ser importado</translation>
     </message>
     <message>
         <source>Open...</source>
@@ -2698,15 +2698,15 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Password for PKCS#12 file</source>
-        <translation>Senha para arquivo PKCS #12</translation>
+        <translation>Senha para o arquivo PKCS #12</translation>
     </message>
     <message>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation>Esta é a senha para o arquivo PKCS #12 contendo seu certificado.</translation>
+        <translation>Esta é a senha do arquivo PKCS #12 que contém o seu certificado.</translation>
     </message>
     <message>
         <source>Certificate to import</source>
-        <translation>Certificado a importar</translation>
+        <translation>Certificado a ser importado</translation>
     </message>
     <message>
         <source>This is the certificate you are importing.</source>
@@ -2718,11 +2718,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     </message>
     <message>
         <source>Replace Certificate</source>
-        <translation>Substituir certificado</translation>
+        <translation>Substituir o certificado</translation>
     </message>
     <message>
         <source>Replace existing certificate with new certificate?</source>
-        <translation>Substituir certificado atual com novo certificado?</translation>
+        <translation>Você quer substituir o certificado atual por um novo certificado?</translation>
     </message>
     <message>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
@@ -2734,10 +2734,10 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Você já possui um certificado salvo no Mumble, e esta prestes a substituí-lo.&lt;/p&gt;
-&lt;p&gt;Se você está atualizando um certificado emitido pela sua AC confiável e o endereço de e-mail coincide com o seu certificado atual, isto é totalmente seguro, e servidores aos quais você se conectar vão reconhecer automaticamente o certificado robusto para seu endereço de email.
+        <translation>&lt;p&gt;Você já possui um certificado salvo no Mumble e está prestes a substituí-lo.&lt;/p&gt;
+&lt;p&gt;Se você está atualizando um certificado emitido por uma autoridade certificadora (CA) confiável e o endereço de e-mail coincide com o seu certificado atual, o procedimento é totalmente seguro e os servidores aos quais você se conectar reconhecerão automaticamente o novo certificado que é mais robusto para o seu endereço de e-mail.
 &lt;/p&gt;
-&lt;p&gt;Se este não é o caso, você não será mais reconhecido em nenhum servidor onde você se autenticou. Se você ainda não se registrou em nenhum servidor, isto também não é nada para se preocupar.
+&lt;p&gt;Se este não é o caso, você não será mais reconhecido em qualquer servidor no qual tenha se autenticado anteriormente. Se você ainda não se registrou em nenhum servidor, então, não há com o que se preocupar.
 &lt;/p&gt;
 &lt;p&gt;
 Você tem certeza de que quer substituir o seu certificado?
@@ -2746,7 +2746,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>Este é o certificado que o Mumble usa atualmente. Ele será substituído.</translation>
+        <translation>Este é o certificado que o Mumble utiliza atualmente e será substituído.</translation>
     </message>
     <message>
         <source>New certificate</source>
@@ -2758,11 +2758,11 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>New Certificate</source>
-        <translation>Novo cerificado</translation>
+        <translation>Novo certificado</translation>
     </message>
     <message>
         <source>Make a backup of your certificate</source>
-        <translation>Fazer uma cópia de segurança do seu certificado</translation>
+        <translation>Criar uma cópia de segurança do seu certificado</translation>
     </message>
     <message>
         <source>Export to</source>
@@ -2770,7 +2770,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Filename to export to</source>
-        <translation>Nome do arquivo para o qual exportar</translation>
+        <translation>Nome do arquivo a ser exportado</translation>
     </message>
     <message>
         <source>This is the filename you wish to export a certificate to.</source>
@@ -2782,11 +2782,11 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation>Este é o certificado que o Mumble usa atualmente. Ele será exportado.</translation>
+        <translation>Este é o certificado que o Mumble utiliza atualmente e será exportado.</translation>
     </message>
     <message>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Gerar um novo certificado para autenticação robusta</translation>
+        <translation>Gerar um novo certificado para realizar uma autenticação forte</translation>
     </message>
     <message>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
@@ -3098,7 +3098,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Local Ignore (Text-To-Speech)</source>
-        <translation>Ignorar Localmente (Texto-Para-Fala)</translation>
+        <translation>Ignorar localmente o ‘Texto para fala’</translation>
     </message>
 </context>
 <context>
@@ -3172,7 +3172,7 @@ Você tem certeza de que quer substituir o seu certificado?
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Especifique um nome de usuária</translation>
+        <translation>Insira o nome do(a) usuário(a)</translation>
     </message>
     <message>
         <source>Servername</source>
@@ -3434,17 +3434,17 @@ Porta que o servidor escuta. Se o servidor é identificado por um identificador 
     </message>
     <message>
         <source>&amp;Username</source>
-        <translation>Nome de &amp;usuário</translation>
+        <translation>Nome do(a) &amp;usuário(a)</translation>
     </message>
     <message>
         <source>Username to send to the server</source>
-        <translation>Nome de usuária enviado ao servidor</translation>
+        <translation>Nome do(a) usuário(a) a ser enviado ao servidor</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation>&lt;b&gt;Nome de usuária&lt;/b&gt;&lt;br/&gt;
-Nome de usuária para enviar ao servidor. Lembre-se que o servidor pode impor restrições em como um nome de usuária pode parecer. Além disso, seu nome pode já ter sido adotado por outra usuária.</translation>
+        <translation>&lt;b&gt;Nome do(a) usuário(a)&lt;/b&gt;&lt;br/&gt;
+O nome do(a) usuário(a) a ser enviado ao servidor. Lembre-se de que, o servidor pode impor algumas restrições quanto ao formato do nome do(a) usuário(a). Além disso, o nome do(a) usuário(a) que você escolheu já pode estar sendo utilizado por outra pessoa.</translation>
     </message>
     <message>
         <source>Label</source>
@@ -3508,7 +3508,7 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Your username</source>
-        <translation>Seu nome de usuária</translation>
+        <translation>Seu nome do(a) usuário(a)</translation>
     </message>
     <message>
         <source>Your password</source>
@@ -3532,7 +3532,7 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Username</source>
-        <translation>Nome de usuário</translation>
+        <translation>Nome do(a) usuário(a)</translation>
     </message>
     <message>
         <source>Label for server</source>
@@ -3649,19 +3649,19 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation>Você conectou com um nome de usuário inválido, por favor tente outro.</translation>
+        <translation>Você conectou com um nome do(a) usuário(a) que não é válido, por favor, tente um outro nome.</translation>
     </message>
     <message>
         <source>The chosen username is already in use, please try another one.</source>
-        <translation>O nome de usuário escolhido já está em uso, por favor tente outro.</translation>
+        <translation>O nome do(a) usuário(a) que você inseriu/escolheu já está em uso, por favor, tente um outro nome.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>Nome de usuário</translation>
+        <translation>Nome do(a) usuário(a)</translation>
     </message>
     <message>
         <source>The chosen username belongs to a registered user on this server.</source>
-        <translation>O nome de usuário escolhido pertence a um usuário registrado neste servidor.</translation>
+        <translation>O nome do(a) usuário(a) que você inseriu/escolheu pertence a uma outra pessoa que está cadastrada neste servidor.</translation>
     </message>
     <message>
         <source>The provided password is not valid for this user. Please try a different one or use certificate-based authentication by not specifying a password.</source>
@@ -3677,7 +3677,7 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     </message>
     <message>
         <source>Username:</source>
-        <translation>Nome de usuário:</translation>
+        <translation>Nome do(a) usuário(a):</translation>
     </message>
     <message>
         <source>Password:</source>
@@ -4321,7 +4321,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation>Alternar Texto-para-Fala para eventos %1</translation>
+        <translation>Alternar entre a conversão do ‘Texto para fala’ para os eventos do tipo %1</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events</source>
@@ -4355,12 +4355,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Clique aqui para alternar Texto-para-Fala para eventos %1.&lt;br /&gt;Se marcado, o Mumble usa Texto-para-Fala para ler eventos %1 para você. Texto-para-Fala também é capaz de ler o conteúdo do evento, o que não é possível para arquivos sonoros. Texto-para-Fala e arquivos sonoros não podem ser usados ao mesmo tempo.</translation>
+        <translation>Clique aqui para alternar entre a funcionalidade da conversão do ‘Texto para fala’ para os eventos do tipo %1.&lt;br /&gt;Se esta opção for selecionada, o Mumble utilizará a conversão do ‘Texto para fala’ para ler em voz alta os eventos do tipo %1 para você. A funcionalidade da conversão do ‘Texto para fala’ também é capaz de ler o conteúdo do evento, o que não é possível com os arquivos de som. A funcionalidade da conversão do ‘Texto para fala’ e os arquivos de som e não podem ser utilizados ao mesmo tempo.</translation>
     </message>
     <message>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Clique aqui para alternar notificações sonoras para eventos %1.&lt;br /&gt;Se marcado, o Mumble usará um arquivo de som predefinido por você para indicar eventos %1. Arquivos de som e Texto-para-Fala não podem ser usados ao mesmo tempo.</translation>
+        <translation>Clique aqui para alternar entre as notificações sonoras para os eventos do tipo %1.&lt;br /&gt;Se esta opção for selecionada, o Mumble utilizará um arquivo de som predefinido por você para indicar os eventos do tipo %1. Os arquivos de som e a funcionalidade da conversão do ‘Texto para fala’ não podem ser utilizados ao mesmo tempo.</translation>
     </message>
     <message>
         <source>Messages</source>
@@ -4380,7 +4380,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Text-To-Speech</source>
-        <translation>Texto-para-Fala</translation>
+        <translation>Texto para fala</translation>
     </message>
     <message>
         <source>Soundfile</source>
@@ -4392,15 +4392,15 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Text To Speech</source>
-        <translation>Texto-para-Fala</translation>
+        <translation>Texto para fala</translation>
     </message>
     <message>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation>Volume do motor de Texto-para-Fala</translation>
+        <translation>Volume da funcionalidade da conversão do ‘Texto para fala’</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Este é o volume usado para síntese da fala.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Este é o volume utilizado para a síntese da fala.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Length threshold</source>
@@ -4408,11 +4408,11 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Limite de tamanho de mensagem para o motor de Texto-para-Fala</translation>
+        <translation>Limite do tamanho da mensagem para a funcionalidade da conversão do ‘Texto para fala’</translation>
     </message>
     <message>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation>&lt;b&gt;Este é o limite usado para o motor de Texto-para-Fala.&lt;/b&gt;&lt;br /&gt;Mensagens maiores do que o limite não serão lidas até o fim.</translation>
+        <translation>&lt;b&gt;Este é o limite do tamanho que será utilizado na funcionalidade da conversão do ‘Texto para fala’.&lt;/b&gt;&lt;br /&gt;As mensagens que excederem o limite não serão lidas em voz alta até o fim.</translation>
     </message>
     <message>
         <source> Characters</source>
@@ -4480,7 +4480,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Use 24-hour clock</source>
-        <translation>Usar relógio no formato 24 horas</translation>
+        <translation>Utilizar o relógio no formato de 24 horas</translation>
     </message>
     <message>
         <source>How far individual messages are spaced out from one another.</source>
@@ -4524,11 +4524,11 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Click to enable Text-to-Speech</source>
-        <translation>Clique para ativar o Texto-para-Fala</translation>
+        <translation>Clique para ativar o ‘Texto para fala’</translation>
     </message>
     <message>
         <source>Enable Text-to-Speech</source>
-        <translation>Ativar Texto-para-Fala</translation>
+        <translation>Ativar o ‘Texto para fala’</translation>
     </message>
     <message>
         <source>Click here to toggle limiting for %1 events.&lt;br /&gt;If checked, notifications for this event type will not be played when the user count on the server exceeds the set threshold.</source>
@@ -4552,7 +4552,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Text-to-Speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume do ‘Texto para fala’</translation>
     </message>
     <message>
         <source>Notification volume adjustment</source>
@@ -4592,7 +4592,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Text to speech volume</source>
-        <translation type="unfinished"></translation>
+        <translation>Volume do ‘Texto para fala’</translation>
     </message>
     <message>
         <source>Maximum chat log length</source>
@@ -4620,7 +4620,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Read message using text to speech checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Caixa de seleção para ler a mensagem utilizando a funcionalidade da conversão do ‘Texto para fala’</translation>
     </message>
     <message>
         <source>Limit message notification if user count is high checkbox</source>
@@ -4711,7 +4711,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Language to use (requires restart)</source>
-        <translation>Idioma a usar (exige reinicio)</translation>
+        <translation>Idioma a ser utilizado (esta opção requer a reinicialização)</translation>
     </message>
     <message>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
@@ -4800,11 +4800,11 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Displays talking status in system tray</source>
-        <translation>Mostrar estado de fala na bandeja de sistema</translation>
+        <translation>Exibir o estado da fala na bandeja de sistema</translation>
     </message>
     <message>
         <source>Show talking status in tray icon</source>
-        <translation>Mostrar estado de fala no ícone da bandeja</translation>
+        <translation>Exibir o estado da fala no ícone da bandeja do sistema</translation>
     </message>
     <message>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
@@ -4840,7 +4840,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Use selected item as the chat bar target</source>
-        <translation>Usar item selecionado como o alvo da barra de conversa</translation>
+        <translation>Utilizar o item que foi selecionado como o destino da barra de bate-papo</translation>
     </message>
     <message>
         <source>Filter automatically hides empty channels</source>
@@ -4888,7 +4888,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Talking UI</source>
-        <translation>IU de Falantes</translation>
+        <translation>Interface de voz</translation>
     </message>
     <message>
         <source>A user that is silent for the given amount of seconds will be removed from the Talkin UI.</source>
@@ -4900,7 +4900,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>If this is checked, the local user (yourself) will always be visible in the TalkingUI (regardless of talking state).</source>
-        <translation>Se a opção está marcada, o usuário local (você mesmo) sempre estará visível na UI de Falantes (independentemente do estado de fala).</translation>
+        <translation>Se esta opção for selecionada, o usuário local (você) sempre ficará visível na opção da ‘Interface de voz’, independentemente de estar falando ou não.</translation>
     </message>
     <message>
         <source>Always keep local user visible</source>
@@ -4924,7 +4924,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>The names of how many parent channels should be included in the channel&apos;s name when displaying it in the TalkingUI?</source>
-        <translation>Os nomes de quantos canais pais devem ser incluídos no nome do canal ao exibi-lo na UI dos falantes?</translation>
+        <translation>Quantos nomes dos canais pai devem ser incluídos no nome do canal ao exibi-lo na ‘Interface de voz’?</translation>
     </message>
     <message>
         <source>How many characters from the original name to display at the end of an abbreviated name.</source>
@@ -4968,7 +4968,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Relative font size to use in the Talking UI in percent.</source>
-        <translation>Tamanho relativo de fonte em porcento a usar na UI de Falantes.</translation>
+        <translation>Tamanho relativo da fonte em porcentagem a ser utilizada na ‘Interface de voz’.</translation>
     </message>
     <message>
         <source>Rel. font size (%)</source>
@@ -5004,7 +5004,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Hide the username for each user if they have a nickname.</source>
-        <translation>Oculta o nome de usuário de cada usuário se eles tiverem um apelido.</translation>
+        <translation>Ocultar o nome do(a) usuário(a) de cada pessoa se eles possuam um apelido.</translation>
     </message>
     <message>
         <source>Show nicknames only</source>
@@ -5387,7 +5387,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Enter username</source>
-        <translation>Especifique o nome de usuário</translation>
+        <translation>Insira o nome do(a) usuário(a)</translation>
     </message>
     <message>
         <source>Connecting to server %1.</source>
@@ -5407,7 +5407,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Você está prestes a se registrar nesse servidor. Esta ação não pode ser desfeita, e, seu nome de usuário não pode ser alterado após isso ser feito. Para sempre você será conhecido como &apos;%1&apos; nesse servidor.&lt;/p&gt;&lt;p&gt;Você tem certeza de que quer se registrar?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Você está prestes a se cadastrar neste servidor. Esta ação não poderá ser desfeita e, uma vez concluída, o seu nome do(a) usuário(a) não poderá ser alterado. Você será conhecido(a) para sempre como ‘%1’ neste servidor.&lt;/p&gt;&lt;p&gt;Você tem certeza de que quer se registrar com este nome?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Register user %1</source>
@@ -5415,7 +5415,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Você está para registrar %1 no servidor. Essa ação não pode ser desfeita, o nome de usuário não pode ser alterado e como um usuário registrado, %1 terá acesso ao servidor mesmo se você trocar a senha do servidor.&lt;/p&gt;&lt;p&gt;Deste ponto em diante, %1 será autenticado com o certificado em uso atualmente.&lt;/p&gt;&lt;p&gt;Você tem certeza de que quer registrar %1?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Você está prestes a se registrar com o nome ‘%1’ no servidor. Esta ação não poderá ser desfeita, o nome do(a) usuário(a) não poderá ser modificado e, com um usuário registrado, o(a) ‘%1’ terá acesso ao servidor mesmo que você modifique a senha do servidor.&lt;/p&gt;&lt;p&gt;A partir deste momento, o(a) ‘%1’ será autenticado por meio do certificado que está sendo utilizado atualmente.&lt;/p&gt;&lt;p&gt;Você tem certeza de que quer se registrar com o nome ‘%1’?&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Kicking user %1</source>
@@ -5676,7 +5676,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>Username in use</source>
-        <translation>Nome de usuário em uso</translation>
+        <translation>O nome do(a) usuário(a) está em uso</translation>
     </message>
     <message>
         <source>Wrong certificate or password</source>
@@ -5902,15 +5902,15 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>&amp;Text-To-Speech</source>
-        <translation>&amp;Texto-para-Fala</translation>
+        <translation>&amp;Texto para fala</translation>
     </message>
     <message>
         <source>Toggle Text-To-Speech</source>
-        <translation>Alternar Texto-para-Fala</translation>
+        <translation>Alternar para o ‘Texto para fala’</translation>
     </message>
     <message>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Ativar ou desativar o motor de texto-para-fala. Apenas mensagens ativadas para TPF no diálogo de configuração serão realmente faladas.</translation>
+        <translation>Ativar ou desativar a funcionalidade da conversão do ‘Texto para fala’. Apenas as mensagens que estiverem ativadas da conversão do ‘Texto para fala’ na janela das ‘Configurações’ serão realmente lidas em voz alta.</translation>
     </message>
     <message>
         <source>Display audio statistics</source>
@@ -6275,7 +6275,7 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>According to the server&apos;s configuration, your username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>De acordo com as configurações do servidor, o nome do(a) usuário(a) não é válido.</translation>
     </message>
     <message>
         <source>Denied: According to the server&apos;s configuration, the channel name is considered invalid.</source>
@@ -6283,11 +6283,11 @@ Essa configuração só se aplica para novas mensagens. As mensagens já exibida
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username %1 is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>De acordo com as configurações do servidor, o nome do(a) usuário(a) ‘%1’ não é válido.</translation>
     </message>
     <message>
         <source>According to the server&apos;s configuration, the username is considered invalid.</source>
-        <translation type="unfinished"></translation>
+        <translation>De acordo com as configurações do servidor, o nome do(a) usuário(a) não é válido.</translation>
     </message>
     <message>
         <source>You moved %1 to %2.</source>
@@ -6643,11 +6643,11 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Locally disable Text-To-Speech for this user&apos;s text chat messages.</source>
-        <translation>Desativar localmente Texto-Para-Fala para as mensagens de texto desse usuário.</translation>
+        <translation>Desativar localmente a funcionalidade da conversão do ‘Texto para fala’ para as mensagens de texto deste usuário.</translation>
     </message>
     <message>
         <source>Silently disables Text-To-Speech for all text messages from the user.</source>
-        <translation>Silenciosamente desativa Texto-Para-Fala para todas as mensagens de texto da usuária.</translation>
+        <translation>Desativar silenciosamente a conversão do ‘Texto para fala’ para todas as mensagens de texto do usuário.</translation>
     </message>
     <message>
         <source>Tree</source>
@@ -6697,12 +6697,12 @@ no menu contextual do canal.</translation>
     <message>
         <source>Toggle TalkingUI</source>
         <comment>Global shortcut</comment>
-        <translation>Alternar TalkingUI</translation>
+        <translation>Alternar para a ‘Interface de voz’</translation>
     </message>
     <message>
         <source>Toggles the visibility of the TalkingUI.</source>
         <comment>Global Shortcut</comment>
-        <translation>Alterna a visibilidade da IU de Fala.</translation>
+        <translation>Alternar a visibilidade da ‘Interface de voz’.</translation>
     </message>
     <message>
         <source>Toggle the channel filter (Alt+F)</source>
@@ -6941,11 +6941,11 @@ no menu contextual do canal.</translation>
     <message>
         <source>Toggle text to speech</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alternar para o ‘Texto para fala’</translation>
     </message>
     <message>
         <source>This will enable/disable the text to speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta opção permite ativar ou desativar a funcionalidade da conversão do ‘Texto para fala’</translation>
     </message>
     <message>
         <source>Open about dialog</source>
@@ -7108,7 +7108,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Talking &amp;UI</source>
-        <translation>IU de &amp;Falantes</translation>
+        <translation>Interface de vo&amp;z</translation>
     </message>
     <message>
         <source>&amp;Join User&apos;s Channel</source>
@@ -7124,7 +7124,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Disable Te&amp;xt-To-Speech</source>
-        <translation type="unfinished"></translation>
+        <translation>Desativar o ‘Te&amp;xto para fala’</translation>
     </message>
     <message>
         <source>&amp;Search...</source>
@@ -7410,7 +7410,7 @@ no menu contextual do canal.</translation>
     <message>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation>Usar modo de compatibilidade TCP</translation>
+        <translation>Utilizar modo de compatibilidade do TCP</translation>
     </message>
     <message>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
@@ -7474,7 +7474,7 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Use Quality of Service</source>
-        <translation>Usar qualidade de serviços (QoS)</translation>
+        <translation>Utilizar a qualidade dos serviços (QoS)</translation>
     </message>
     <message>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
@@ -7502,15 +7502,15 @@ no menu contextual do canal.</translation>
     </message>
     <message>
         <source>Username</source>
-        <translation>Usuário</translation>
+        <translation>Nome do(a) usuário(a)</translation>
     </message>
     <message>
         <source>Username for proxy authentication</source>
-        <translation>Usuário para autenticação no proxy</translation>
+        <translation>Nome do(a) usuário(a) para a autenticação do proxy</translation>
     </message>
     <message>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Nome de usuário para autenticação no proxy.&lt;/b&gt;&lt;br /&gt;Isto especifica o nome de usuário que você usa para se autenticar no proxy. Caso o proxy não utilize autenticação, ou se você desejar se conectar anonimamente, simplesmente deixe este campo em branco.</translation>
+        <translation>&lt;b&gt;Nome do(a) usuário(a) para a autenticação no proxy.&lt;/b&gt;&lt;br /&gt;Esta opção permite especificar o nome do usuário que você utiliza para se autenticar no proxy. Caso o proxy não exija a autenticação, ou se você quer realizar uma conexão anônima, basta deixar este campo em branco ou vazio.</translation>
     </message>
     <message>
         <source>Password</source>
@@ -7616,7 +7616,7 @@ Evita que o cliente envie informações potencialmente capazes de identificaçã
     </message>
     <message>
         <source>Proxy username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome do(a) usuário(a) do proxy</translation>
     </message>
     <message>
         <source>Proxy password</source>
@@ -7983,7 +7983,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Username</source>
-        <translation>Nome de usuário</translation>
+        <translation>Nome do(a) usuário(a)</translation>
     </message>
     <message>
         <source>Name of user&apos;s channel, if outside your current channel</source>
@@ -8517,11 +8517,11 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <name>QObject</name>
     <message>
         <source>Talking UI</source>
-        <translation>UI de Falantes</translation>
+        <translation>Interface de voz</translation>
     </message>
     <message>
         <source>Echo cancellation is not supported for the interface combination &quot;%1&quot; (in) and &quot;%2&quot; (out).</source>
-        <translation>Cancelamento de eco não é suportado para a configuração de interface &quot;%1&quot; (entrada) e &quot;%2&quot; (saída).</translation>
+        <translation>A atenuação do eco não é compatível com as configurações da interface de entrada ‘%1’ e com a interface de saída ‘%2’.</translation>
     </message>
     <message>
         <source>Local Mute</source>
@@ -8533,7 +8533,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Disable Text-To-Speech</source>
-        <translation>Desativar Texto-Para-Fala</translation>
+        <translation>Desativar o ‘Texto para fala’</translation>
     </message>
     <message>
         <source>&quot;%1&quot; could not be saved permanently and is lost on restart because %2 does not have a certificate.</source>
@@ -8573,7 +8573,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Toggle Text-to-Speech for all events</source>
-        <translation>Alternar Texto-Para-Fala para todos os eventos</translation>
+        <translation>Alternar do ‘Texto para fala’ para todos os eventos</translation>
     </message>
     <message>
         <source>RNNoise is not available due to a sample rate mismatch.</source>
@@ -8613,7 +8613,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>If enabled this tries to cancel out echo from the audio stream.</source>
-        <translation>Se ativado, tenta cancelar o eco do fluxo de áudio.</translation>
+        <translation>Se esta opção for ativada, tentará atenuar o eco do fluxo do áudio.</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -8621,11 +8621,11 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Echo cancellation is disabled.</source>
-        <translation>Cancelamento de eco está desativado.</translation>
+        <translation>A atenuação do eco está desativada.</translation>
     </message>
     <message>
         <source>Mixed echo cancellation (speex)</source>
-        <translation>Cancelamento do eco no modo ‘misto’ (speex)</translation>
+        <translation>Atenuação do eco no modo ‘misto’ (speex)</translation>
     </message>
     <message>
         <source>Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone.</source>
@@ -8633,11 +8633,11 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>Multichannel echo cancellation (speex)</source>
-        <translation>Cancelamento de eco multicanal (speex)</translation>
+        <translation>Atenuação do eco no multicanal (speex)</translation>
     </message>
     <message>
         <source>Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost. Multichannel echo cancellation requires more CPU, so you should try mixed first.</source>
-        <translation>O cancelamento do eco no multicanal oferece um resultado muito melhor, porém com um custo maior de processamento. Como o cancelamento do eco no multicanal exige mais processamento, então é melhor tentar primeiro o modo ‘misto’.</translation>
+        <translation>A atenuação do eco no multicanal oferece um resultado muito melhor, porém com um custo maior de processamento. Como o cancelamento do eco no multicanal exige mais processamento, então é melhor tentar primeiro o modo ‘misto’.</translation>
     </message>
     <message>
         <source>The provided URL uses an invalid version format: &quot;%1&quot;</source>
@@ -8655,7 +8655,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     </message>
     <message>
         <source>EXPERIMENTAL: Acoustic echo cancellation (Apple).</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta é uma opção experimental: Atenuação do eco acústico (Apple).</translation>
     </message>
     <message>
         <source>The support for this option is experimental only! This option works best when using built-in microphone and speaker.</source>
@@ -9670,7 +9670,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <source>Not talking.</source>
-        <translation>Não falando.</translation>
+        <translation>Não está falando.</translation>
     </message>
     <message>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
@@ -10073,7 +10073,7 @@ Por favor, contate seu administrador de servidor para mais informações.</trans
     </message>
     <message>
         <source>Multichannel + Transport (JACK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Multicanal + Transporte (JACK)</translation>
     </message>
     <message>
         <source>Transport (JACK, standalone)</source>
