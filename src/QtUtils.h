@@ -15,6 +15,7 @@
 #include <type_traits>
 
 class QObject;
+class QTime;
 
 namespace Mumble {
 namespace QtUtils {
@@ -35,6 +36,12 @@ namespace QtUtils {
 	 * given list. If the list is empty an empty String is returned.
 	 */
 	QString decode_first_utf8_qssl_string(const QStringList &list);
+
+	/**
+	 * Formats the given time as a string using either 24-hour ("HH:mm:ss")
+	 * or 12-hour ("hh:mm:ss AP") format.
+	 */
+	QString formatTime(const QTime &time, bool use24HourClock);
 
 	/**
 	 * A wrapper around a QString object that ensures all comparisons and hashes are performed

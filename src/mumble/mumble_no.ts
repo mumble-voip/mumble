@@ -7933,6 +7933,14 @@ Trykk på knappen nedefor for å oppgradere.</translation>
         <source>Blacklisted programs</source>
         <translation>Svartelistede programmer</translation>
     </message>
+    <message>
+        <source>If checked the overlay clock will be displayed in the 24-hour format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use 24-hour clock</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverlayEditor</name>

@@ -11,6 +11,7 @@
 #include "OverlayEditor.h"
 #include "OverlayPositionableItem.h"
 #include "OverlayText.h"
+#include "QtUtils.h"
 #include "ServerHandler.h"
 #include "Themes.h"
 #include "User.h"
@@ -22,6 +23,7 @@
 #	include <QtGui/QBitmap>
 #endif
 
+#include <QtCore/QTime>
 #include <QtGui/QImageReader>
 #include <QtWidgets/QGraphicsProxyWidget>
 
@@ -117,7 +119,8 @@ void OverlayClient::updateFPS() {
 void OverlayClient::updateTime() {
 	if (Global::get().s.os.bTime) {
 		const BasepointPixmap &pm =
-			OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), Global::get().s.os.qfFps)
+			OverlayTextLine(Mumble::QtUtils::formatTime(QTime::currentTime(), Global::get().s.os.b24HourClock),
+							Global::get().s.os.qfFps)
 				.createPixmap(Global::get().s.os.qcFps);
 		qgpiTime->setVisible(true);
 		qgpiTime->setPixmap(pm);

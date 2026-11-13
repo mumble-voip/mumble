@@ -321,6 +321,7 @@ const SettingsKey OVERLAY_SHOW_AVATAR_KEY           = { "show_avatar" };
 const SettingsKey OVERLAY_SHOW_BOX_KEY              = { "show_box" };
 const SettingsKey OVERLAY_SHOW_FPS_KEY              = { "show_fps_counter" };
 const SettingsKey OVERLAY_SHOW_TIME_KEY             = { "show_time" };
+const SettingsKey OVERLAY_USE_24H_CLOCK_KEY         = { "use_24h_clock_format" };
 const SettingsKey OVERLAY_USERNAME_OPACITY_KEY      = { "username_opacity" };
 const SettingsKey OVERLAY_CHANNEL_OPACITY_KEY       = { "channel_opacity" };
 const SettingsKey OVERLAY_MUTEDEAF_OPACITY_KEY      = { "mute_deaf_opacity" };

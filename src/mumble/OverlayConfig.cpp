@@ -14,6 +14,7 @@
 #include "OverlayText.h"
 #include "OverlayUserGroup.h"
 #include "PathListWidget.h"
+#include "QtUtils.h"
 #include "Screen.h"
 #include "ServerHandler.h"
 #include "User.h"
@@ -27,6 +28,7 @@
 #endif
 
 #include <QSettings>
+#include <QtCore/QTime>
 #include <QtGui/QScreen>
 #include <QtGui/QWindow>
 #include <QtWidgets/QColorDialog>
@@ -135,10 +137,13 @@ void OverlayConfig::refreshFpsLive() {
 
 void OverlayConfig::refreshTimeLive() {
 	if (s.os.bTime) {
-		bpTimeDemo = OverlayTextLine(QString::fromLatin1("%1").arg(QTime::currentTime().toString()), s.os.qfFps)
+		bpTimeDemo = OverlayTextLine(Mumble::QtUtils::formatTime(QTime::currentTime(), s.os.b24HourClock), s.os.qfFps)
 						 .createPixmap(s.os.qcFps);
 		qgpiTimeLive->setPixmap(bpTimeDemo.scaled(bpTimeDemo.size() * fViewScale));
 		qgpiTimeLive->setOffset((-bpTimeDemo.qpBasePoint + QPoint(0, bpTimeDemo.iAscent)) * fViewScale);
+		if (qgpiTimeLive->scene()) {
+			qgpiTimeLive->updateRender();
+		}
 	} else {
 		qgpiTimeLive->setPixmap(QPixmap());
 	}
@@ -146,8 +151,8 @@ void OverlayConfig::refreshTimeLive() {
 }
 
 OverlayConfig::OverlayConfig(Settings &st)
-	: ConfigWidget(st), qgpiScreen(nullptr), qgs(), qgsFpsPreview(), qgpiFpsDemo(nullptr), oug(nullptr),
-	  qgtiInstructions(nullptr), fViewScale(1.0f) {
+	: ConfigWidget(st), qgpiScreen(nullptr), qgs(), qgsFpsPreview(), qgpiFpsDemo(nullptr), qgpiTimeLive(nullptr),
+	  oug(nullptr), qgtiInstructions(nullptr), fViewScale(1.0f) {
 	setupUi(this);
 
 	qlwPaths->setPathType(PathListWidget::FOLDER);
@@ -255,6 +260,8 @@ void OverlayConfig::load(const Settings &r) {
 	loadCheckBox(qcbEnable, s.os.bEnable);
 	qcbShowFps->setChecked(s.os.bFps);
 	qcbShowTime->setChecked(s.os.bTime);
+	qcb24HourClock->setChecked(s.os.b24HourClock);
+	qcb24HourClock->setEnabled(s.os.bTime);
 	qgpFps->setEnabled(s.os.bEnable);
 
 	qcbOverlayExclusionMode->setCurrentIndex(static_cast< int >(s.os.oemOverlayExcludeMode));
@@ -420,9 +427,10 @@ QIcon OverlayConfig::icon() const {
 }
 
 void OverlayConfig::save() const {
-	s.os.bEnable = qcbEnable->isChecked();
-	s.os.bFps    = qcbShowFps->isChecked();
-	s.os.bTime   = qcbShowTime->isChecked();
+	s.os.bEnable      = qcbEnable->isChecked();
+	s.os.bFps         = qcbShowFps->isChecked();
+	s.os.bTime        = qcbShowTime->isChecked();
+	s.os.b24HourClock = qcb24HourClock->isChecked();
 
 	s.os.oemOverlayExcludeMode =
 		static_cast< OverlaySettings::OverlayExclusionMode >(qcbOverlayExclusionMode->currentIndex());
@@ -791,6 +799,13 @@ void OverlayConfig::on_qcbShowFps_stateChanged(int state) {
 void OverlayConfig::on_qcbShowTime_stateChanged(int state) {
 	Q_UNUSED(state);
 	s.os.bTime = qcbShowTime->isChecked();
+	qcb24HourClock->setEnabled(s.os.bTime);
+	refreshTimeLive();
+}
+
+void OverlayConfig::on_qcb24HourClock_stateChanged(int state) {
+	Q_UNUSED(state);
+	s.os.b24HourClock = qcb24HourClock->isChecked();
 	refreshTimeLive();
 }
 
