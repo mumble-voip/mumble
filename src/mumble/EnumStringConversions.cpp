@@ -88,6 +88,11 @@
 	PROCESS(Settings::RecordingMode, RecordingMultichannelAndTransport, "MultichannelAndTransport") \
 	PROCESS(Settings::RecordingMode, RecordingTransportStandalone, "TransportStandalone")
 
+#define VIDEO_ENCODER_MODE_VALUES                     \
+	PROCESS(VideoEncoderMode, Best, "Best")           \
+	PROCESS(VideoEncoderMode, Optimised, "Optimised") \
+	PROCESS(VideoEncoderMode, Manual, "Manual")
+
 #define STYLETYPE_VALUES               \
 	PROCESS(StyleType, Auto, "Auto")   \
 	PROCESS(StyleType, Light, "Light") \
@@ -200,6 +205,9 @@
 	AFTER_CODE                                         \
 	BEFORE_CODE(Settings::RecordingMode)               \
 	RECORDING_MODE_VALUES                              \
+	AFTER_CODE                                         \
+	BEFORE_CODE(VideoEncoderMode)                      \
+	VIDEO_ENCODER_MODE_VALUES                          \
 	AFTER_CODE                                         \
 	BEFORE_CODE(StyleType)                             \
 	STYLETYPE_VALUES                                   \

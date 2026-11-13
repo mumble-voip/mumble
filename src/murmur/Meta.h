@@ -46,6 +46,7 @@ public:
 	/// it is dropped. A value <= 0 disables this timeout.
 	std::chrono::seconds handshakeTimeout;
 	int iMaxBandwidth;
+	unsigned int maxVideoBandwidth;
 	unsigned int iMaxUsers;
 	unsigned int iMaxUsersPerChannel;
 	int iMaxListenersPerChannel;
@@ -162,6 +163,9 @@ public:
 
 	/// A flag indicating whether recording is allowed on this server
 	bool allowRecording;
+
+	/// A flag indicating whether screen sharing is allowed on this server
+	bool allowScreenSharing;
 
 	/// The number of seconds to keep rolling stats for per client
 	unsigned int rollingStatsWindow;
