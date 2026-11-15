@@ -649,9 +649,11 @@ if(WIN32)
 
 	target_link_libraries(mumble_client_lib
 		PUBLIC
+			crypt32.lib
 			dbghelp.lib
 			dxguid.lib
 			hid.lib
+			shlwapi.lib
 			wintrust.lib
 	)
 else()
