@@ -276,6 +276,8 @@
 	PROCESS(overlay, OVERLAY_X_POS_KEY, fX)                              \
 	PROCESS(overlay, OVERLAY_Y_POS_KEY, fY)                              \
 	PROCESS(overlay, OVERLAY_ZOOM_KEY, fZoom)                            \
+	PROCESS(overlay, OVERLAY_FPS_COUNTER_ZOOM_KEY, fFpsZoom)             \
+	PROCESS(overlay, OVERLAY_TIME_ZOOM_KEY, fTimeZoom)                   \
 	PROCESS(overlay, OVERLAY_COLUMNS_KEY, uiColumns)                     \
 	PROCESS(overlay, OVERLAY_USERNAME_COLORS_KEY, qcUserName)            \
 	PROCESS(overlay, OVERLAY_USERNAME_FONT_KEY, qfUserName)              \
