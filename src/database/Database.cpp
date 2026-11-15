@@ -495,7 +495,7 @@ namespace db {
 				break;
 			case Backend::PostgreSQL:
 				query = "SELECT table_name FROM information_schema.tables WHERE table_catalog=(SELECT "
-						"CURRENT_DATABASE()) AND table_schema = 'public'";
+						"CURRENT_DATABASE()) AND table_schema = (SELECT CURRENT_SCHEMA())";
 				break;
 		}
 
