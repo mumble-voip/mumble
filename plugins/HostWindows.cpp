@@ -7,6 +7,7 @@
 
 #include <windows.h>
 #include <tlhelp32.h>
+#include <utility>
 
 HostWindows::HostWindows(const procid_t pid) : m_pid(pid) {
 	m_handle = OpenProcess(PROCESS_VM_READ, false, m_pid);

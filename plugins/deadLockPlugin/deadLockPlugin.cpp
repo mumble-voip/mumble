@@ -9,6 +9,7 @@
 
 #include <condition_variable>
 #include <cstring>
+#include <exception>
 #include <iostream>
 #include <mutex>
 #include <thread>

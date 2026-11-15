@@ -8,6 +8,7 @@
 #include "../MumblePlugin.h"
 
 #include <cstring>
+#include <exception>
 #include <iostream>
 
 // These are just some utility functions facilitating writing logs and the like
