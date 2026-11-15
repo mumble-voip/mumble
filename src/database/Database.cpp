@@ -469,7 +469,7 @@ namespace db {
 				break;
 			case Backend::PostgreSQL:
 				query = "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_name=:tableName AND "
-						"table_catalog=(SELECT CURRENT_DATABASE()))";
+						"table_catalog=(SELECT CURRENT_DATABASE()) AND table_schema=(SELECT CURRENT_SCHEMA()))";
 				break;
 		}
 

@@ -68,7 +68,8 @@ namespace db {
 			case Backend::PostgreSQL:
 				// Note: index names are global (for a given schema), hence the table's name
 				// does not appear in the query
-				return "SELECT 1 FROM pg_indexes WHERE indexname = '" + m_name + "'";
+				return "SELECT 1 FROM pg_indexes WHERE schemaname = (SELECT CURRENT_SCHEMA()) AND indexname = '"
+					   + m_name + "'";
 			case Backend::MySQL:
 				// Note: the statistics table contains information about table indices
 				return "SELECT 1 FROM information_schema.statistics WHERE table_schema=(SELECT DATABASE()) AND "
