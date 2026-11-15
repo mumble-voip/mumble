@@ -2848,13 +2848,10 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 			return usedReservedName ? AUTHENTICATION_FAILED : UNKNOWN_USER;
 		}
 
-		// Ensure that the user will use the name exactly as we have stored it in our DB. For password
+		// Ensure that the user will use the name exactly as we have stored it in our DB.
 		::mumble::server::db::DBUserData userData =
 			m_dbWrapper.getRegisteredUserData(iServerNum, static_cast< unsigned int >(userID));
-
-		// Make sure the user name uses the same casing that is stored in the DB
 		name = QString::fromStdString(userData.name);
-
 
 		// If provided, store this user's certificate hash
 		const bool isSuperUser = static_cast< unsigned int >(userID) == Mumble::SUPERUSER_ID;
