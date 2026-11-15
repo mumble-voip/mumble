@@ -2818,6 +2818,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 			// Use certificate-based authentication
 			std::optional< unsigned int > potentialID =
 				m_dbWrapper.findRegisteredUserByCert(iServerNum, certhash.toStdString());
+
 			if (potentialID) {
 				// A user with the given certHash has been found
 				userID = static_cast< int >(potentialID.value());
@@ -2841,6 +2842,12 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 						break;
 					}
 				}
+			}
+
+			if (userID == Mumble::SUPERUSER_ID) {
+				qWarning("Cert- or Email-based lookup returned SuperUser ID; This violates the requirement of "
+						 "SuperUser requiring to use password-based auth -> rejecting login");
+				return AUTHENTICATION_FAILED;
 			}
 		}
 		if (userID < 0) {
