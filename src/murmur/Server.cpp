@@ -2778,12 +2778,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 						return AUTHENTICATION_FAILED;
 					}
 				}
-			} else if (!password.isEmpty()) {
-				// A password was provided for a user account that doesn't have password authentication enabled -> fail
-				// Note: The provided password could be intended to be used as a server-password but given that the
-				// chosen name matches a registered user, we can't allow this user to authenticate via server password.
-				return AUTHENTICATION_FAILED;
-			} else if (userID == Mumble::SUPERUSER_ID) {
+			} else if (knownUserID == Mumble::SUPERUSER_ID) {
 				// We force SuperUser to use password authentication
 				return AUTHENTICATION_FAILED;
 			}
@@ -2801,6 +2796,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 			// Use certificate-based authentication
 			std::optional< unsigned int > potentialID =
 				m_dbWrapper.findRegisteredUserByCert(iServerNum, certhash.toStdString());
+
 			if (potentialID) {
 				// A user with the given certHash has been found
 				userID = static_cast< int >(potentialID.value());
@@ -2825,19 +2821,22 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 					}
 				}
 			}
+
+			if (userID == Mumble::SUPERUSER_ID) {
+				qWarning("Cert- or Email-based lookup returned SuperUser ID; This violates the requirement of "
+						 "SuperUser requiring to use password-based auth -> rejecting login");
+				return AUTHENTICATION_FAILED;
+			}
 		}
 		if (userID < 0) {
 			// Authentication has failed
 			return usedReservedName ? AUTHENTICATION_FAILED : UNKNOWN_USER;
 		}
 
-		// Ensure that the user will use the name exactly as we have stored it in our DB. For password
+		// Ensure that the user will use the name exactly as we have stored it in our DB.
 		::mumble::server::db::DBUserData userData =
 			m_dbWrapper.getRegisteredUserData(iServerNum, static_cast< unsigned int >(userID));
-
-		// Make sure the user name uses the same casing that is stored in the DB
 		name = QString::fromStdString(userData.name);
-
 
 		// If provided, store this user's certificate hash
 		const bool isSuperUser = static_cast< unsigned int >(userID) == Mumble::SUPERUSER_ID;
