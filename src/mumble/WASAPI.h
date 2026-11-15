@@ -14,6 +14,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QUuid>
 
+#include <cstddef>
+
 #include <audioclient.h>
 #include <avrt.h>
 #include <functiondiscoverykeys.h>
