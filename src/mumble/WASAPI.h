@@ -41,7 +41,7 @@ public:
 struct WASAPIDevice {
 public:
 	WASAPIDevice();
-	WASAPIDevice(nullptr_t);
+	WASAPIDevice(std::nullptr_t);
 	WASAPIDevice(WASAPIDevice &&other);
 	WASAPIDevice(const WASAPIDevice &) = delete;
 	~WASAPIDevice();
