@@ -2783,7 +2783,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 				// Note: The provided password could be intended to be used as a server-password but given that the
 				// chosen name matches a registered user, we can't allow this user to authenticate via server password.
 				return AUTHENTICATION_FAILED;
-			} else if (userID == Mumble::SUPERUSER_ID) {
+			} else if (knownUserID == Mumble::SUPERUSER_ID) {
 				// We force SuperUser to use password authentication
 				return AUTHENTICATION_FAILED;
 			}
