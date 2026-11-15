@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cstdio>
+#include <exception>
 #include <limits>
 #include <memory>
 #include <unordered_set>
@@ -631,15 +632,12 @@ namespace db {
 					int lo_installed = false;
 					m_sql << "SELECT 1 FROM pg_extension WHERE extname='lo'", soci::into(lo_installed);
 					if (!lo_installed) {
-						// The "lo" extension was marked "trusted" in Postgresql v13, which means that from then on, we
-						// can install this extension without requiring superuser privileges. For older versions, the
-						// user will have to do this manually.
-						if (backendVersion < Version(13, 0, 0)) {
-							throw InitException(
-								"The extension \"lo\" is not installed, but is required. For your version of "
-								"Postgresql, you'll have to manually install this extension for the Mumble database.");
-						} else {
+						try {
 							m_sql << "CREATE EXTENSION \"lo\";";
+						} catch (const soci::soci_error &) {
+							std::throw_with_nested(InitException(
+								"The required extension \"lo\" is not available and also could not be installed. "
+								"You'll have to install this extension manually for the Mumble database."));
 						}
 					}
 
