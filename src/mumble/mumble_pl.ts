@@ -9002,7 +9002,7 @@ Zapoznaj się z &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;
     </message>
 </context>
 <context>
-    <name>ServerInformation</name>
+    <name>ServerInformationDialog</name>
     <message>
         <source>Server information</source>
         <translation>Informacje o serwerze</translation>
