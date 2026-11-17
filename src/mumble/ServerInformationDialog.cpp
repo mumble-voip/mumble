@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "ServerInformation.h"
+#include "ServerInformationDialog.h"
 #include "Connection.h"
 #include "MainWindow.h"
 #include "NetworkConfig.h"
@@ -22,9 +22,9 @@
 
 #include <cmath>
 
-QString ServerInformation::m_unknownStr = tr("Unknown");
+QString ServerInformationDialog::m_unknownStr = tr("Unknown");
 
-ServerInformation::ServerInformation(QWidget *parent) : QDialog(parent) {
+ServerInformationDialog::ServerInformationDialog(QWidget *parent) : QDialog(parent) {
 	setupUi(this);
 
 	updateFields();
@@ -38,17 +38,17 @@ ServerInformation::ServerInformation(QWidget *parent) : QDialog(parent) {
 	});
 }
 
-void ServerInformation::updateFields() {
+void ServerInformationDialog::updateFields() {
 	updateServerInformation();
 	updateAudioBandwidth();
 	updateConnectionDetails();
 }
 
-void ServerInformation::on_okButton_clicked() {
+void ServerInformationDialog::on_okButton_clicked() {
 	accept();
 }
 
-void ServerInformation::on_viewCertButton_clicked() {
+void ServerInformationDialog::on_viewCertButton_clicked() {
 	hide();
 
 	ViewCert certViewer(Global::get().sh->qscCert, this);
@@ -57,7 +57,7 @@ void ServerInformation::on_viewCertButton_clicked() {
 	accept();
 }
 
-void ServerInformation::updateServerInformation() {
+void ServerInformationDialog::updateServerInformation() {
 	QString host, userName, password;
 	unsigned short port;
 
@@ -92,7 +92,7 @@ static const QString currentCodec() {
 	return "Opus";
 }
 
-void ServerInformation::updateAudioBandwidth() {
+void ServerInformationDialog::updateAudioBandwidth() {
 	// The bandwidths are in bit/s, so we divide by 1000 to get kBit/s
 	const float maxBandwidthAllowed = static_cast< float >(Global::get().iMaxBandwidth) / 1000.0f;
 	const float currentBandwidth    = static_cast< float >(Global::get().iAudioBandwidth) / 1000.0f;
@@ -104,7 +104,7 @@ void ServerInformation::updateAudioBandwidth() {
 	qgbAudioBandwidth->updateAccessibleText();
 }
 
-void ServerInformation::updateConnectionDetails() {
+void ServerInformationDialog::updateConnectionDetails() {
 	QString latencyString          = QString::fromUtf8("%1 ms (σ = %2 ms)");
 	const ConnectionPtr connection = Global::get().sh->cConnection;
 
@@ -157,7 +157,7 @@ void ServerInformation::updateConnectionDetails() {
 	qgbTCPParameters->updateAccessibleText();
 }
 
-void ServerInformation::populateUDPStatistics() {
+void ServerInformationDialog::populateUDPStatistics() {
 	// statistics
 	constexpr int TO_SERVER_COL   = 0;
 	constexpr int FROM_SERVER_COL = 1;
