@@ -9001,7 +9001,7 @@ Katso &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt;projektin 
     </message>
 </context>
 <context>
-    <name>ServerInformation</name>
+    <name>ServerInformationDialog</name>
     <message>
         <source>Server information</source>
         <translation>Palvelimen tiedot</translation>
