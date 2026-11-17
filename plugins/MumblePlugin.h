@@ -43,7 +43,7 @@
 #		define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_MINOR_MACRO
-#		define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+#		define MUMBLE_PLUGIN_API_MINOR_MACRO 3
 #	endif
 #	ifndef MUMBLE_PLUGIN_API_PATCH_MACRO
 #		define MUMBLE_PLUGIN_API_PATCH_MACRO 0
@@ -1808,6 +1808,36 @@ struct MUMBLE_API_STRUCT_NAME {
 	 */
 	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *playSample)(mumble_plugin_id_t callerID,
 																 const char *samplePath PARAM_v1_2(float volume));
+
+#	if SELECTED_API_VERSION >= MUMBLE_PLUGIN_VERSION_CHECK(1, 3, 0)
+	/**
+	 * Checks whether the given user has muted themselves.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection to use as a context
+	 * @param userID The ID of the user to check for
+	 * @param[out] muted A pointer to where the self-mute state of that user shall be written
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the passed pointer
+	 * may be accessed
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *isUserSelfMuted)(mumble_plugin_id_t callerID,
+																	  mumble_connection_t connection,
+																	  mumble_userid_t userID, bool *muted);
+
+	/**
+	 * Checks whether the given user has deafened themselves.
+	 *
+	 * @param callerID The ID of the plugin calling this function
+	 * @param connection The ID of the server-connection to use as a context
+	 * @param userID The ID of the user to check for
+	 * @param[out] deafened A pointer to where the self-deaf state of that user shall be written
+	 * @returns The error code. If everything went well, STATUS_OK will be returned. Only then the passed pointer
+	 * may be accessed
+	 */
+	mumble_error_t(MUMBLE_PLUGIN_CALLING_CONVENTION *isUserSelfDeafened)(mumble_plugin_id_t callerID,
+																		 mumble_connection_t connection,
+																		 mumble_userid_t userID, bool *deafened);
+#	endif
 };
 
 #	ifdef MUMBLE_PLUGIN_CREATE_MUMBLE_API_TYPEDEF
