@@ -81,8 +81,7 @@ public slots:
 	void setLocalIgnore(bool ignore);
 	void setLocalIgnoreTTS(bool ignoreTTS);
 	void setLocalMute(bool mute);
-	void setSelfMute(bool mute);
-	void setSelfDeaf(bool deaf);
+	void setSelfMuteDeaf(bool mute, bool deaf);
 	void setPrioritySpeaker(bool priority);
 	void setRecording(bool recording);
 	void setLocalVolumeAdjustment(float adjustment);
@@ -90,6 +89,7 @@ public slots:
 signals:
 	void talkingStateChanged();
 	void muteDeafStateChanged();
+	void selfMuteDeafStateChanged();
 	void prioritySpeakerStateChanged();
 	void recordingStateChanged();
 	void localVolumeAdjustmentsChanged(float newAdjustment, float oldAdjustment);

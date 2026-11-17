@@ -481,6 +481,13 @@ void mumble_onKeyEvent(uint32_t keyCode, bool wasPress) {
 	pLog() << "Encountered key " << (wasPress ? "press" : "release") << " of key with code " << keyCode << std::endl;
 }
 
+void mumble_onUserSelfMuteDeafStateChanged(mumble_connection_t connection, mumble_userid_t userID, bool selfMuted,
+										   bool selfDeafened) {
+	pLog() << "User with ID " << userID << " changed their self-mute state to " << (selfMuted ? "muted" : "unmuted")
+		   << " and their self-deaf state to " << (selfDeafened ? "deafened" : "undeafened")
+		   << " (ServerConnection: " << connection << ")" << std::endl;
+}
+
 bool mumble_hasUpdate() {
 	// This plugin never has an update
 	return false;

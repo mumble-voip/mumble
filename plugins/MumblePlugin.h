@@ -1141,6 +1141,19 @@ MUMBLE_PLUGIN_EXPORT void MUMBLE_PLUGIN_CALLING_CONVENTION mumble_onChannelRenam
  */
 MUMBLE_PLUGIN_EXPORT void MUMBLE_PLUGIN_CALLING_CONVENTION mumble_onKeyEvent(uint32_t keyCode, bool wasPress);
 
+/**
+ * Called when any user changes their self-mute or self-deaf state. Note that this is only called if at least one of
+ * the two states has actually changed. Muting or deafening a user from the outside (e.g. by the server) or locally
+ * does not trigger this callback.
+ *
+ * @param connection An object used to identify the current connection
+ * @param userID The ID of the user whose self-mute or self-deaf state has been changed
+ * @param selfMuted Whether the user has now muted themselves
+ * @param selfDeafened Whether the user has now deafened themselves
+ */
+MUMBLE_PLUGIN_EXPORT void MUMBLE_PLUGIN_CALLING_CONVENTION mumble_onUserSelfMuteDeafStateChanged(
+	mumble_connection_t connection, mumble_userid_t userID, bool selfMuted, bool selfDeafened);
+
 
 
 // >>>>>>>>>>>>>>>>>>>> PLUGIN UPDATE functions <<<<<<<<<<<<<<<<<<<<

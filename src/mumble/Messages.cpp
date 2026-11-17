@@ -552,13 +552,11 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 
 	if (msg.has_self_deaf() || msg.has_self_mute()) {
-		if (msg.has_self_mute()) {
-			pDst->setSelfMute(msg.self_mute());
-		}
+		// Fields missing from the message keep their current value. Unmuting implies undeafening though.
+		const bool selfMute = msg.has_self_mute() ? msg.self_mute() : pDst->bSelfMute;
+		const bool selfDeaf = msg.has_self_deaf() ? msg.self_deaf() : (pDst->bSelfDeaf && selfMute);
 
-		if (msg.has_self_deaf()) {
-			pDst->setSelfDeaf(msg.self_deaf());
-		}
+		pDst->setSelfMuteDeaf(selfMute, selfDeaf);
 
 		if (pSelf && pDst != pSelf && pDst->cChannel == pSelf->cChannel) {
 			if (pDst->bSelfMute && pDst->bSelfDeaf) {
