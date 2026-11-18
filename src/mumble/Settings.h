@@ -147,6 +147,7 @@ struct OverlaySettings {
 	bool bBox           = false;
 	bool bFps           = false;
 	bool bTime          = false;
+	bool b24HourClock   = true;
 
 	qreal fUserName              = 0.0f;
 	qreal fChannel               = 0.0f;
