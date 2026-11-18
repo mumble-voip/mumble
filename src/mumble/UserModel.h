@@ -62,6 +62,8 @@ public:
 	void wipe();
 };
 
+enum class BlobRequestType { Window, Tooltip };
+
 class UserModel : public QAbstractItemModel {
 	friend struct ModelItem;
 	friend class UserView;
@@ -102,6 +104,12 @@ protected:
 	/// 	is in. The listener has to be a direct child of this item. If this is nullptr,
 	/// 	the parent of the provided item is used directly.
 	void removeChannelListener(ModelItem *item, ModelItem *citem = nullptr);
+
+	/// Shows the tooltip (comment or description) for the item at the given index, either anchored
+	/// to the item (when it was clicked) or at the cursor position (when it was hovered).
+	///
+	/// @param idx The QModelIndex of the item whose tooltip shall be shown
+	void showBlobTooltip(const QModelIndex &idx);
 
 public:
 	UserModel(QObject *parent = 0);
@@ -196,6 +204,7 @@ public:
 
 	QVariant otherRoles(const QModelIndex &idx, int role) const;
 
+	BlobRequestType blobRequestType;
 	unsigned int uiSessionComment;
 	int iChannelDescription;
 
