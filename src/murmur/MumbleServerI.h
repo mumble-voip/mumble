@@ -28,6 +28,9 @@ public:
 	virtual void setAuthenticator_async(const ::MumbleServer::AMD_Server_setAuthenticatorPtr &,
 										const ::MumbleServer::ServerAuthenticatorPrx &, const ::Ice::Current &);
 
+	virtual void removeAuthenticator_async(const ::MumbleServer::AMD_Server_removeAuthenticatorPtr &,
+										   const ::Ice::Current &);
+
 	virtual void id_async(const ::MumbleServer::AMD_Server_idPtr &, const Ice::Current &);
 
 	virtual void getConf_async(const ::MumbleServer::AMD_Server_getConfPtr &, const ::std::string &,
