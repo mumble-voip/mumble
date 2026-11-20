@@ -1629,12 +1629,16 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 			p = nullptr;
 	}
 
-	bool inherit = channel->bInheritACL;
+	bool inherit                    = channel->bInheritACL;
+	const QSet< QString > allgroups = ::Group::groupNames(channel);
 
 	while (!chans.isEmpty()) {
 		p = chans.pop();
 		for (::ChanACL *acl : p->qlACL) {
 			if ((p == channel) || (acl->bApplySubs)) {
+				if (!acl->qsGroup.isEmpty() && !server->validateGroupACL(acl->qsGroup, allgroups)) {
+					continue;
+				}
 				::MumbleServer::ACL ma;
 				ACLtoACL(acl, ma);
 				if (p != channel)
@@ -1644,9 +1648,8 @@ static void impl_Server_getACL(const ::MumbleServer::AMD_Server_getACLPtr cb, in
 		}
 	}
 
-	p                              = channel->cParent;
-	const QSet< QString > allnames = ::Group::groupNames(channel);
-	for (const QString &name : allnames) {
+	p = channel->cParent;
+	for (const QString &name : allgroups) {
 		::Group *g  = channel->qhGroups.value(name);
 		::Group *pg = p ? ::Group::getGroup(p, name) : nullptr;
 		if (!g && !pg)
@@ -1734,7 +1737,13 @@ static void impl_Server_setACL(const ::MumbleServer::AMD_Server_setACLPtr cb, in
 
 			g->qsTemporary = hOldTemp.value(name);
 		}
+
+		const QSet< QString > allgroups = ::Group::groupNames(channel);
+
 		for (const ::MumbleServer::ACL &ai : acls) {
+			if (!ai.group.empty() && !server->validateGroupACL(u8(ai.group), allgroups)) {
+				continue;
+			}
 			::ChanACL *acl  = new ChanACL(channel);
 			acl->bApplyHere = ai.applyHere;
 			acl->bApplySubs = ai.applySubs;

@@ -113,6 +113,22 @@ namespace server {
 			}
 		}
 
+		void GroupMemberTable::removeAllEntries(unsigned int serverID, unsigned int groupID) {
+			try {
+				::mdb::TransactionHolder transaction = ensureTransaction();
+
+				m_sql << "DELETE FROM \"" << NAME << "\" WHERE \"" << column::server_id << "\" = :serverID AND \""
+					  << column::group_id << "\" = :groupID",
+					soci::use(serverID), soci::use(groupID);
+
+				transaction.commit();
+			} catch (const soci::soci_error &) {
+				std::throw_with_nested(::mdb::AccessException("Failed at clearing group memberships from group with ID "
+															  + std::to_string(groupID) + " on server with ID "
+															  + std::to_string(serverID)));
+			}
+		}
+
 		bool GroupMemberTable::entryExists(const DBGroupMember &member) {
 			return entryExists(member.serverID, member.groupID, member.userID);
 		}
