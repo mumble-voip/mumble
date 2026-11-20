@@ -671,11 +671,11 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     </message>
     <message>
         <source>Third-party Dependencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Tredjeparts-beroenden</translation>
     </message>
     <message>
         <source>Depending on the build configuration, your version of Mumble might not depend on all of the listed entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Beroende på byggkonfigurationen kanske din version av Mumble inte är beroende av alla de angivna posterna</translation>
     </message>
     <message>
         <source>&amp;About Mumble</source>
@@ -757,7 +757,7 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     </message>
     <message>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Anger när tal ska överföras.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Kontinuerligt&lt;/i&gt; – hela tiden&lt;br /&gt;&lt;i&gt;Röstaktivitet&lt;/i&gt; – när du talar tydligt&lt;br /&gt;&lt;i&gt;Tryck för att tala&lt;/i&gt; – när du håller ned kortkommandot som angetts under &lt;i&gt;Kortkommandon&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Detta ställer in när talet ska sändas.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Kontinuerligt&lt;/i&gt; – Hela tiden&lt;br /&gt;&lt;i&gt;Röstaktivitet&lt;/i&gt; – När du talar tydligt.&lt;br /&gt;&lt;i&gt;Tryck för att prata&lt;/i&gt; – När du håller ned snabb-knappen som ställts in under &lt;i&gt;Genvägar&lt;/i&gt;.</translation>
     </message>
     <message>
         <source>DoublePush Time</source>
@@ -1375,7 +1375,7 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     </message>
     <message>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Aktiverar ett av testlägena för återkoppling.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ingen&lt;/i&gt; – återkoppling inaktiverad&lt;br /&gt;&lt;i&gt;Lokal&lt;/i&gt; – emulera en lokal server&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; – begär återkoppling från servern&lt;br /&gt;När återkoppling är aktiverad kan inga andra användare höra dig. Inställningen sparas inte när Mumble avslutas.</translation>
+        <translation>&lt;b&gt;Detta aktiverar ett av loopback-testlägena.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Inget&lt;/i&gt; – Loopback inaktiverat&lt;br /&gt;&lt;i&gt;Lokalt&lt;/i&gt; – Emulerar en lokal server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; – Begär loopback från servern.&lt;br /&gt;Observera att när loopback är aktiverat kommer inga andra användare att höra din röst. Denna inställning sparas inte när programmet stängs.</translation>
     </message>
     <message>
         <source>Volume</source>
@@ -1537,7 +1537,7 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     </message>
     <message>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation>&lt;b&gt;Dämpa endast program som använder samma utgångskälla som Mumble.&lt;/b&gt;&lt;br /&gt;Vid markering kommer program som använder en annan utgångskälla än Mumble inte att bli dämpat.</translation>
+        <translation>&lt;b&gt;Dämpa endast program som använder samma utgång som Mumble&lt;/b&gt;&lt;br /&gt;Om denna ruta är markerad kommer program som använder en annan utgång än Mumble inte att dämpas.</translation>
     </message>
     <message>
         <source>Only attenuate applications using the same output device</source>
@@ -1561,7 +1561,7 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     </message>
     <message>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Det här är utmatningsmetoden för att använda till ljudet&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Det här är utmatningsmetoden som ska användas till ljudet.&lt;/b&gt;</translation>
     </message>
     <message>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
@@ -1828,7 +1828,7 @@ Anger hur många användare som högst får finnas i kanalen. Ett värde över n
     </message>
     <message>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Tid mellan de två senaste PTT-tryckningarna</translation>
+        <translation>Tid mellan de två senaste Tryck-för-att-prata-tryckningarna</translation>
     </message>
     <message>
         <source>Speech Detection</source>
@@ -3408,7 +3408,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation>Serverns URL eller IP-adress.</translation>
+        <translation>Serverns adress på internet.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
@@ -3701,15 +3701,15 @@ Serverns namn. Detta är vad servern kommer att kallas i din serverlista, som du
     </message>
     <message>
         <source>Save password on this device</source>
-        <translation type="unfinished"></translation>
+        <translation>Spara lösenord i den här enheten</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösenorden kan endast sparas för servrar i dina favoriter.</translation>
     </message>
     <message>
         <source>Passwords can only be saved for servers in your favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösenord kan endast sparas för servrarna i dina favoriter</translation>
     </message>
 </context>
 <context>
@@ -7227,7 +7227,7 @@ kanalens innehållsmeny.</translation>
     </message>
     <message>
         <source>This will open the rich text editor to change your comment. Comments are separate for each server. Other users can read your comment by hovering over the comment icon in the user and channel tree.</source>
-        <translation>Öppnar RTF-redigeraren så att du kan ändra din kommentar. Kommentarer sparas separat för varje server. Andra användare kan läsa kommentaren genom att hålla pekaren över kommentarsikonen i användar- och kanalträdet.</translation>
+        <translation>Det här kommer rich text-redigeraren så att du kan ändra din kommentar. Kommentarerna är separata för varje server. Andra användare kan läsa din kommentar genom att hålla muspekaren över kommentarikonen i användar- och kanalträdet.</translation>
     </message>
     <message>
         <source>This will open the audio recording dialog.</source>
@@ -7624,11 +7624,11 @@ Förhindrar klienten från att skicka potentiellt identifierande information om 
     </message>
     <message>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Detta döljer identitetsinformationen från klienten.&lt;/b&gt;&lt;p&gt;Klienten kommer inte att identifiera sig med ett certifikat, även om ett sådant har angetts. Detta är främst ett testalternativ och sparas inte.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Suppress certificate information</source>
-        <translation type="unfinished"></translation>
+        <translation>Dölj certifikatinformation</translation>
     </message>
 </context>
 <context>
@@ -8414,7 +8414,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     </message>
     <message>
         <source>Update for plugin &quot;%1&quot; failed because it redirected to a non-HTTPS URL (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppdateringen för insticksprogrammet &quot;%1&quot; misslyckades eftersom att det dirigerade om till en URL utan HTTPS (%2)</translation>
     </message>
     <message>
         <source>Unable to download plugin update for &quot;%1&quot; from &quot;%2&quot; (HTTP status code %3)</source>
