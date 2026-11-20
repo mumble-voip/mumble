@@ -219,7 +219,9 @@ namespace db {
 				return "SELECT 1 FROM sqlite_master WHERE type = 'trigger' AND name = '" + m_name + "'";
 			case Backend::PostgreSQL:
 				return "SELECT 1 FROM pg_trigger tr, pg_class tab WHERE tab.relname = '" + table.getName()
-					   + "' AND tab.oid = tr.tgrelid AND tr.tgname = '" + m_name + "'";
+					   + "' AND tab.relnamespace = (SELECT CURRENT_SCHEMA()::regnamespace) AND tab.oid = tr.tgrelid "
+						 "AND tr.tgname = '"
+					   + m_name + "'";
 			case Backend::MySQL:
 				// Triggers are counted as stored routines whose name is global and hence not
 				// scoped to the associated table. Hence, we don't include the table's name in the query
