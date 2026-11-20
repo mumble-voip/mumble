@@ -110,12 +110,14 @@ public:
 		PrivateTextMessage,
 		ChannelListeningAdd,
 		ChannelListeningRemove,
-		PluginMessage
+		PluginMessage,
+		ImageMessage,
+		PrivateImageMessage
 	};
 
 	enum LogColorType { Time, Server, Privilege, Source, Target };
 	static const MsgType firstMsgType = DebugInfo;
-	static const MsgType lastMsgType  = ChannelListeningRemove;
+	static const MsgType lastMsgType  = PrivateImageMessage;
 
 	// Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older
 	// versions.
