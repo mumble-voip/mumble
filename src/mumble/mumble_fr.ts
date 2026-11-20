@@ -9001,7 +9001,7 @@ Référez vous au &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&g
     </message>
 </context>
 <context>
-    <name>ServerInformation</name>
+    <name>ServerInformationDialog</name>
     <message>
         <source>Server information</source>
         <translation>Informations sur le serveur</translation>

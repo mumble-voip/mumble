@@ -9002,7 +9002,7 @@ Consulte &lt;a href=&quot;https://github.com/mumble-voip/mumble&quot;&gt; el rep
     </message>
 </context>
 <context>
-    <name>ServerInformation</name>
+    <name>ServerInformationDialog</name>
     <message>
         <source>Server information</source>
         <translation>Información del servidor</translation>

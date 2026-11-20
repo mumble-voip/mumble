@@ -9000,7 +9000,7 @@ Hangi alternatiflerin olduğunu görmek için &lt;a href=&quot;https://github.co
     </message>
 </context>
 <context>
-    <name>ServerInformation</name>
+    <name>ServerInformationDialog</name>
     <message>
         <source>Server information</source>
         <translation>Sunucu bilgileri</translation>
