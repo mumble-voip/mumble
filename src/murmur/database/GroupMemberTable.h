@@ -50,6 +50,8 @@ namespace server {
 			void removeEntry(const DBGroupMember &member);
 			void removeEntry(unsigned int serverID, unsigned int groupID, unsigned int userID);
 
+			void removeAllEntries(unsigned int serverID, unsigned int groupID);
+
 			bool entryExists(const DBGroupMember &member);
 			bool entryExists(unsigned int serverID, unsigned int groupID, unsigned int userID);
 
