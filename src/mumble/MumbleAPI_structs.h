@@ -22,6 +22,13 @@
 #undef MUMBLE_PLUGIN_API_MAJOR_MACRO
 #define MUMBLE_PLUGIN_API_MAJOR_MACRO 1
 #undef MUMBLE_PLUGIN_API_MINOR_MACRO
+#define MUMBLE_PLUGIN_API_MINOR_MACRO 2
+
+#include "MumblePlugin.h"
+
+// And once more for the oldest version
+#undef EXTERNAL_MUMBLE_PLUGIN_MUMBLE_API_
+#undef MUMBLE_PLUGIN_API_MINOR_MACRO
 #define MUMBLE_PLUGIN_API_MINOR_MACRO 0
 
 #include "MumblePlugin.h"

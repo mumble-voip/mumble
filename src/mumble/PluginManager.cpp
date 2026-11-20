@@ -756,6 +756,30 @@ void PluginManager::on_userTalkingStateChanged() const {
 	}
 }
 
+void PluginManager::on_userSelfMuteDeafStateChanged() const {
+	const ClientUser *user = qobject_cast< ClientUser * >(QObject::sender());
+#ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG
+	if (user) {
+		qDebug() << "PluginManager: User" << user->qsName << "changed self-mute/self-deaf state to" << user->bSelfMute
+				 << user->bSelfDeaf;
+	} else {
+		qCritical() << "PluginManager: Unable to identify ClientUser";
+	}
+#endif
+
+	if (user) {
+		const mumble_connection_t connectionID = Global::get().sh->getConnectionID();
+		const bool selfMuted                   = user->bSelfMute;
+		const bool selfDeafened                = user->bSelfDeaf;
+
+		foreachPlugin([user, connectionID, selfMuted, selfDeafened](Plugin &plugin) {
+			if (plugin.isLoaded()) {
+				plugin.onUserSelfMuteDeafStateChanged(connectionID, user->uiSession, selfMuted, selfDeafened);
+			}
+		});
+	}
+}
+
 void PluginManager::on_audioInput(short *inputPCM, unsigned int sampleCount, unsigned int channelCount,
 								  unsigned int sampleRate, bool isSpeech) const {
 #ifdef MUMBLE_PLUGIN_CALLBACK_DEBUG

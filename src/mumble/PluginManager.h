@@ -203,6 +203,9 @@ public slots:
 	/// Slot that gets called when the local client changes its talking state. It will delegate it to the respective
 	/// plugin callback.
 	void on_userTalkingStateChanged() const;
+	/// Slot that gets called when a user changes their self-mute or self-deaf state. It will delegate it to the
+	/// respective plugin callback.
+	void on_userSelfMuteDeafStateChanged() const;
 	/// Slot that gets called when the local client receives audio input. It will delegate it to the respective plugin
 	/// callback.
 	///
