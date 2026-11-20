@@ -110,9 +110,9 @@ protected:
 	HostAddress qhaRemote;
 	HostAddress qhaLocal;
 	QUdpSocket *qusUdp;
-	QMutex qmUdp;
 
 	void handleVoicePacket(const Mumble::Protocol::AudioData &audioData);
+	void handleVideoPacket(const Mumble::Protocol::VideoData &videoData);
 
 public:
 	Timer tTimestamp;
@@ -121,6 +121,7 @@ public:
 	QList< QSslError > qlErrors;
 	QList< QSslCertificate > qscCert;
 	QSslCipher qscCipher;
+	QMutex qmUdp;
 	std::unique_ptr< CryptState > csCrypt;
 	ConnectionPtr cConnection;
 	QByteArray qbaDigest;

@@ -120,6 +120,10 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 				&& (perm == ChanACL::ResetUserContent || perm == ChanACL::Listen)) {
 				continue;
 			}
+			// Likewise for servers that don't support screen sharing
+			if (perm == ChanACL::ScreenShare && !Global::get().screenSharingSupported) {
+				continue;
+			}
 
 			QCheckBox *qcb;
 			l = new QLabel(name, qgbACLpermissions);
@@ -187,8 +191,8 @@ ACLEditor::ACLEditor(unsigned int channelid, const MumbleProto::ACL &mea, QWidge
 	def->bInherited = true;
 	def->iUserId    = -1;
 	def->qsGroup    = QLatin1String("all");
-	def->pAllow =
-		ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage | ChanACL::Listen;
+	def->pAllow     = ChanACL::Traverse | ChanACL::Enter | ChanACL::Speak | ChanACL::Whisper | ChanACL::TextMessage
+				  | ChanACL::Listen | ChanACL::ScreenShare;
 	def->pDeny = (~def->pAllow) & ChanACL::All;
 
 	qlACLs << def;
