@@ -628,10 +628,9 @@ void ServerHandler::sendPingInternal() {
 
 	quint64 t = static_cast< quint64 >(tTimestamp.elapsed().count());
 
-	// Skip the UDP ping while TCP mode is forced (or UDP has already been given up on for this
-	// connection). Sending it anyway would let the server discover a working UDP path for this
-	// client and start routing voice packets over UDP again, defeating "Force TCP Mode".
-	const bool forcedTcp = NetworkConfig::TcpModeEnabled() || !bUdp;
+	// Skip the UDP ping only while TCP mode is forced: if UDP was merely given up on for this
+	// connection, the ping is the probe that lets the client switch back once UDP works again.
+	const bool forcedTcp = NetworkConfig::TcpModeEnabled();
 	if (qusUdp && !forcedTcp) {
 		Mumble::Protocol::PingData pingData;
 		pingData.timestamp                    = t;
