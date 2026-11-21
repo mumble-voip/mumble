@@ -61,14 +61,16 @@ void OverlayConfig::initDisplayFps() {
 	qgvFpsPreview->setScene(&qgsFpsPreview);
 	qgvFpsPreview->centerOn(qgpiFpsDemo);
 
-	qgpiFpsLive = new OverlayPositionableItem(&s.os.qrfFps, true);
+	qgpiFpsLive = new OverlayPositionableItem(&s.os.qrfFps, true, &s.os.fFpsZoom);
 	qgpiFpsLive->setZValue(-2.0f);
+	connect(qgpiFpsLive, &OverlayPositionableItem::zoomChanged, this, &OverlayConfig::refreshFpsLive);
 	refreshFpsLive();
 }
 
 void OverlayConfig::initDisplayClock() {
-	qgpiTimeLive = new OverlayPositionableItem(&s.os.qrfTime, true);
+	qgpiTimeLive = new OverlayPositionableItem(&s.os.qrfTime, true, &s.os.fTimeZoom);
 	qgpiTimeLive->setZValue(-2.0f);
+	connect(qgpiTimeLive, &OverlayPositionableItem::zoomChanged, this, &OverlayConfig::refreshTimeLive);
 	refreshTimeLive();
 }
 
@@ -125,24 +127,33 @@ void OverlayConfig::refreshFpsDemo() {
 
 void OverlayConfig::refreshFpsLive() {
 	if (s.os.bFps) {
-		qgpiFpsLive->setPixmap(bpFpsDemo.scaled(bpFpsDemo.size() * fViewScale));
-		qgpiFpsLive->setOffset((-bpFpsDemo.qpBasePoint + QPoint(0, bpFpsDemo.iAscent)) * fViewScale);
+		const BasepointPixmap bpFpsLive =
+			OverlayTextLine(QString::fromLatin1("%1").arg(42), s.os.qfFps, s.os.fFpsZoom).createPixmap(s.os.qcFps);
+		qgpiFpsLive->setPixmap(bpFpsLive.scaled(bpFpsLive.size() * fViewScale));
+		qgpiFpsLive->setOffset((-bpFpsLive.qpBasePoint + QPoint(0, bpFpsLive.iAscent)) * fViewScale);
 	} else {
 		qgpiFpsLive->setPixmap(QPixmap());
 	}
 	qgpiFpsLive->setItemVisible(s.os.bFps);
+	if (qgpiFpsLive->scene()) {
+		qgpiFpsLive->updateRender();
+	}
 }
 
 void OverlayConfig::refreshTimeLive() {
 	if (s.os.bTime) {
-		bpTimeDemo = OverlayTextLine(QString::fromLatin1("%1").arg(QTime::currentTime().toString()), s.os.qfFps)
-						 .createPixmap(s.os.qcFps);
+		bpTimeDemo =
+			OverlayTextLine(QString::fromLatin1("%1").arg(QTime::currentTime().toString()), s.os.qfFps, s.os.fTimeZoom)
+				.createPixmap(s.os.qcFps);
 		qgpiTimeLive->setPixmap(bpTimeDemo.scaled(bpTimeDemo.size() * fViewScale));
 		qgpiTimeLive->setOffset((-bpTimeDemo.qpBasePoint + QPoint(0, bpTimeDemo.iAscent)) * fViewScale);
 	} else {
 		qgpiTimeLive->setPixmap(QPixmap());
 	}
 	qgpiTimeLive->setItemVisible(s.os.bTime);
+	if (qgpiTimeLive->scene()) {
+		qgpiTimeLive->updateRender();
+	}
 }
 
 OverlayConfig::OverlayConfig(Settings &st)

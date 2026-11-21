@@ -5,14 +5,16 @@
 
 #include "OverlayPositionableItem.h"
 
+#include "Overlay.h"
 #include "Utils.h"
 
 #include <QtCore/QEvent>
 #include <QtGui/QPen>
 #include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsSceneWheelEvent>
 
-OverlayPositionableItem::OverlayPositionableItem(QRectF *posPtr, const bool isPositionable)
-	: m_position(posPtr), m_isPositionEditable(isPositionable), m_qgeiHandle(nullptr) {
+OverlayPositionableItem::OverlayPositionableItem(QRectF *posPtr, const bool isPositionable, qreal *zoomPtr)
+	: m_position(posPtr), m_isPositionEditable(isPositionable), m_zoom(zoomPtr), m_qgeiHandle(nullptr) {
 }
 
 OverlayPositionableItem::~OverlayPositionableItem() {
@@ -37,10 +39,25 @@ bool OverlayPositionableItem::sceneEventFilter(QGraphicsItem *watched, QEvent *e
 		case QEvent::GraphicsSceneMouseRelease:
 			QMetaObject::invokeMethod(this, "onMove", Qt::QueuedConnection);
 			break;
+		case QEvent::GraphicsSceneWheel:
+			wheelEvent(static_cast< QGraphicsSceneWheelEvent * >(e));
+			return e->isAccepted();
 		default:
 			break;
 	}
 	return QGraphicsItem::sceneEventFilter(watched, e);
+}
+
+void OverlayPositionableItem::wheelEvent(QGraphicsSceneWheelEvent *e) {
+	if (!m_zoom) {
+		QGraphicsPixmapItem::wheelEvent(e);
+		return;
+	}
+
+	e->accept();
+	if (Overlay::applyWheelZoom(*m_zoom, e->delta())) {
+		emit zoomChanged();
+	}
 }
 
 void OverlayPositionableItem::onMove() {

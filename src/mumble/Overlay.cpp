@@ -211,6 +211,23 @@ Overlay::~Overlay() {
 	}
 }
 
+bool Overlay::applyWheelZoom(qreal &zoom, int delta) {
+	if (delta == 0) {
+		return false;
+	}
+
+	const qreal scaleFactor = (delta > 0) ? (1.0f / 0.875f) : 0.875f;
+
+	if ((scaleFactor < 1.0f) && (zoom <= (1.0f / 4.0f))) {
+		return false;
+	} else if ((scaleFactor > 1.0f) && (zoom >= 4.0f)) {
+		return false;
+	}
+
+	zoom *= scaleFactor;
+	return true;
+}
+
 void Overlay::initialize() {
 	if (!m_initialized.load()) {
 		platformInit();

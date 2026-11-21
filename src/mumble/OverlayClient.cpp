@@ -61,16 +61,18 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	qgs.addItem(&ougUsers);
 	ougUsers.show();
 
-	qgpiFPS.reset(new OverlayPositionableItem(&Global::get().s.os.qrfFps));
+	qgpiFPS.reset(new OverlayPositionableItem(&Global::get().s.os.qrfFps, false, &Global::get().s.os.fFpsZoom));
 	qgs.addItem(qgpiFPS.data());
 	qgpiFPS->setPos(Global::get().s.os.qrfFps.x(), Global::get().s.os.qrfFps.y());
 	qgpiFPS->show();
+	connect(qgpiFPS.data(), &OverlayPositionableItem::zoomChanged, this, &OverlayClient::updateFPS);
 
 	// Time
-	qgpiTime.reset(new OverlayPositionableItem(&Global::get().s.os.qrfTime));
+	qgpiTime.reset(new OverlayPositionableItem(&Global::get().s.os.qrfTime, false, &Global::get().s.os.fTimeZoom));
 	qgs.addItem(qgpiTime.data());
 	qgpiTime->setPos(Global::get().s.os.qrfTime.x(), Global::get().s.os.qrfTime.y());
 	qgpiTime->show();
+	connect(qgpiTime.data(), &OverlayPositionableItem::zoomChanged, this, &OverlayClient::updateTime);
 
 	iOffsetX = iOffsetY = 0;
 
@@ -101,7 +103,7 @@ void OverlayClient::updateFPS() {
 	if (Global::get().s.os.bFps) {
 		const BasepointPixmap &pm =
 			OverlayTextLine(QString(QLatin1String("%1")).arg(static_cast< int >(framesPerSecond + 0.5f)),
-							Global::get().s.os.qfFps)
+							Global::get().s.os.qfFps, Global::get().s.os.fFpsZoom)
 				.createPixmap(Global::get().s.os.qcFps);
 		qgpiFPS->setVisible(true);
 		qgpiFPS->setPixmap(pm);
@@ -116,9 +118,9 @@ void OverlayClient::updateFPS() {
 
 void OverlayClient::updateTime() {
 	if (Global::get().s.os.bTime) {
-		const BasepointPixmap &pm =
-			OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), Global::get().s.os.qfFps)
-				.createPixmap(Global::get().s.os.qcFps);
+		const BasepointPixmap &pm = OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()),
+													Global::get().s.os.qfFps, Global::get().s.os.fTimeZoom)
+										.createPixmap(Global::get().s.os.qcFps);
 		qgpiTime->setVisible(true);
 		qgpiTime->setPixmap(pm);
 		qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));

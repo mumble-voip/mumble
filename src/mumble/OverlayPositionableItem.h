@@ -9,20 +9,29 @@
 #include <QtCore/QtGlobal>
 #include <QtWidgets/QGraphicsItem>
 
+class QGraphicsSceneWheelEvent;
+
 class OverlayPositionableItem : public QObject, public QGraphicsPixmapItem {
 	Q_OBJECT
 	Q_DISABLE_COPY(OverlayPositionableItem)
 
 public:
-	OverlayPositionableItem(QRectF *posPtr, const bool isPositionable = false);
+	OverlayPositionableItem(QRectF *posPtr, const bool isPositionable = false, qreal *zoomPtr = nullptr);
 	virtual ~OverlayPositionableItem();
 	void updateRender();
 	void setItemVisible(const bool &visible);
+
+signals:
+	void zoomChanged();
+
+protected:
+	void wheelEvent(QGraphicsSceneWheelEvent *e) Q_DECL_OVERRIDE;
 
 private:
 	/// Float value between 0 and 1 where 0,0 is top left, and 1,1 is bottom right
 	QRectF *m_position;
 	const bool m_isPositionEditable;
+	qreal *m_zoom;
 	QGraphicsEllipseItem *m_qgeiHandle;
 	void createPositioningHandle();
 	bool sceneEventFilter(QGraphicsItem *, QEvent *) Q_DECL_OVERRIDE;

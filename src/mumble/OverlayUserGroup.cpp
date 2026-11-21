@@ -188,19 +188,9 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *e) {
 	e->accept();
 
-	qreal scaleFactor = 0.875f;
-
-	if (e->delta() > 0)
-		scaleFactor = 1.0f / 0.875f;
-
-	if ((scaleFactor < 1.0f) && (os->fZoom <= (1.0f / 4.0f)))
-		return;
-	else if ((scaleFactor > 1.0f) && (os->fZoom >= 4.0f))
-		return;
-
-	os->fZoom *= scaleFactor;
-
-	updateLayout();
+	if (Overlay::applyWheelZoom(os->fZoom, e->delta())) {
+		updateLayout();
+	}
 }
 
 bool OverlayUserGroup::sceneEventFilter(QGraphicsItem *watched, QEvent *e) {
