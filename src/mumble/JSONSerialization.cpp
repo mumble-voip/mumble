@@ -172,7 +172,8 @@ void migrateSettings(nlohmann::json &json, int settingsVersion) {
 }
 
 void from_json(const nlohmann::json &j, Settings &settings) {
-	int settingsVersion = j.at(SettingsKeys::SETTINGS_VERSION_KEY).get< int >();
+	// Older/hand-modified files may lack the version key; treat that as version 0
+	int settingsVersion = j.value(static_cast< const char * >(SettingsKeys::SETTINGS_VERSION_KEY), 0);
 
 	// Copy since we might have to make modifications
 	nlohmann::json json = j;
