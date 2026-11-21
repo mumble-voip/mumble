@@ -1513,7 +1513,9 @@ bool UserModel::removeChannel(Channel *c, const bool onlyIfUnoccupied) {
 	if (onlyIfUnoccupied && item->iUsers != 0)
 		return false; // Checks full hierarchy
 
-	for (const ModelItem *i : item->qlChildren) {
+	// removeUser() removes from this very list, so iterate over a copy
+	const QList< ModelItem * > children = item->qlChildren;
+	for (const ModelItem *i : children) {
 		if (i->pUser) {
 			if (i->isListener) {
 				removeChannelListener(i->pUser, c);
@@ -1599,13 +1601,16 @@ void UserModel::removeAll() {
 	bClicked            = false;
 
 	// in order to avoid complications, we remove all ChannelListeners first
-	for (ModelItem *i : item->qlChildren) {
+	// Both loops below remove from qlChildren, so they must iterate over a copy
+	const QList< ModelItem * > listeners = item->qlChildren;
+	for (ModelItem *i : listeners) {
 		if (i->pUser && i->isListener) {
 			removeChannelListener(i, item);
 		}
 	}
 
-	for (ModelItem *i : item->qlChildren) {
+	const QList< ModelItem * > children = item->qlChildren;
+	for (ModelItem *i : children) {
 		if (i->pUser)
 			removeUser(i->pUser);
 		else
