@@ -374,7 +374,7 @@ void WASAPIDevice::Move(WASAPIDevice &&other) {
 
 WASAPIDevice::WASAPIDevice() {
 }
-WASAPIDevice::WASAPIDevice(nullptr_t) {
+WASAPIDevice::WASAPIDevice(std::nullptr_t) {
 }
 WASAPIDevice::WASAPIDevice(WASAPIDevice &&other) {
 	Move(std::move(other));
