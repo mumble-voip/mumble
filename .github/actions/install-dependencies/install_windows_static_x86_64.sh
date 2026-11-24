@@ -8,6 +8,8 @@ source "$( dirname "$0" )/common.sh"
 # All of these are already installed on the runner
 # choco install cmake ninja vswhere
 choco install aria2 7zip
+# Ensure we have the latest LLVM
+choco upgrade llvm -y
 
 verify_required_env_variables_set
 
