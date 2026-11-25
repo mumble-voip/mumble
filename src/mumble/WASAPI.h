@@ -14,6 +14,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QUuid>
 
+#include <cstddef>
+
 #include <audioclient.h>
 #include <avrt.h>
 #include <functiondiscoverykeys.h>
@@ -41,7 +43,7 @@ public:
 struct WASAPIDevice {
 public:
 	WASAPIDevice();
-	WASAPIDevice(nullptr_t);
+	WASAPIDevice(std::nullptr_t);
 	WASAPIDevice(WASAPIDevice &&other);
 	WASAPIDevice(const WASAPIDevice &) = delete;
 	~WASAPIDevice();
