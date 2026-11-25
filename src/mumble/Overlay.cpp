@@ -216,15 +216,17 @@ bool Overlay::applyWheelZoom(qreal &zoom, int delta) {
 		return false;
 	}
 
+	const qreal minZoom     = 1.0f / 4.0f;
+	const qreal maxZoom     = 4.0f;
 	const qreal scaleFactor = (delta > 0) ? (1.0f / 0.875f) : 0.875f;
 
-	if ((scaleFactor < 1.0f) && (zoom <= (1.0f / 4.0f))) {
+	if ((scaleFactor < 1.0f) && (zoom <= minZoom)) {
 		return false;
-	} else if ((scaleFactor > 1.0f) && (zoom >= 4.0f)) {
+	} else if ((scaleFactor > 1.0f) && (zoom >= maxZoom)) {
 		return false;
 	}
 
-	zoom *= scaleFactor;
+	zoom = qBound(minZoom, zoom * scaleFactor, maxZoom);
 	return true;
 }
 
