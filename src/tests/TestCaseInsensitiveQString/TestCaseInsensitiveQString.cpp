@@ -5,6 +5,7 @@
 
 #include "QtUtils.h"
 
+#include <QChar>
 #include <QHash>
 #include <QObject>
 #include <QTest>
@@ -82,6 +83,11 @@ private slots:
 	void hash() const {
 		QVERIFY(qHash(CaseInsensitiveQString("test")) == qHash(CaseInsensitiveQString("TEST")));
 		QVERIFY(qHash(CaseInsensitiveQString("test")) != qHash(CaseInsensitiveQString("TESTER")));
+
+		const CaseInsensitiveQString sigma(QString(QChar(0x03C3)));
+		const CaseInsensitiveQString finalSigma(QString(QChar(0x03C2)));
+		QVERIFY(sigma == finalSigma);
+		QCOMPARE(qHash(sigma), qHash(finalSigma));
 	}
 
 	void use_in_qhash() const {
@@ -92,6 +98,10 @@ private slots:
 		QCOMPARE(hash[QString("test")], 42);
 		QCOMPARE(static_cast< const QString & >(hash.begin().key()), QString("TeSt"));
 		QVERIFY(static_cast< const QString & >(hash.begin().key()) != QString("test"));
+
+		hash.insert(QString(QChar(0x03C3)), 7);
+		QVERIFY(hash.contains(QString(QChar(0x03C2))));
+		QCOMPARE(hash[QString(QChar(0x03C2))], 7);
 	}
 };
 

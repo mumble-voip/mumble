@@ -82,8 +82,8 @@ namespace QtUtils {
 	};
 
 	inline std::size_t qHash(const CaseInsensitiveQString &str, std::size_t seed = 0) {
-		const QString &lower = static_cast< const QString & >(str).toLower();
-		return static_cast< std::size_t (*)(const QString &, std::size_t) >(&::qHash)(lower, seed);
+		const QString &folded = static_cast< const QString & >(str).toCaseFolded();
+		return static_cast< std::size_t (*)(const QString &, std::size_t) >(&::qHash)(folded, seed);
 	}
 
 	/**

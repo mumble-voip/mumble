@@ -9,6 +9,7 @@
 
 #include "QtUtils.h"
 
+#include <QChar>
 #include <QObject>
 #include <QTest>
 
@@ -20,12 +21,23 @@ private slots:
 
 		QVERIFY(qHash(CaseInsensitiveQString("test")) == qHash(CaseInsensitiveQString("TEST")));
 
+		const CaseInsensitiveQString sigma(QString(QChar(0x03C3)));
+		const CaseInsensitiveQString finalSigma(QString(QChar(0x03C2)));
+		QVERIFY(sigma == finalSigma);
+		QCOMPARE(qHash(sigma), qHash(finalSigma));
+
 		QHash< CaseInsensitiveQString, int > hash;
 		hash.insert(QString("TeSt"), 42);
 
 		QVERIFY(hash.contains(QString("test")));
 		QCOMPARE(hash.value(QString("TEST")), 42);
 		QVERIFY(hash.remove(QString("tEsT")));
+		QVERIFY(hash.isEmpty());
+
+		hash.insert(sigma, 7);
+		QVERIFY(hash.contains(finalSigma));
+		QCOMPARE(hash.value(finalSigma), 7);
+		QVERIFY(hash.remove(finalSigma));
 		QVERIFY(hash.isEmpty());
 	}
 };
