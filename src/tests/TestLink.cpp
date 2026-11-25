@@ -21,7 +21,7 @@
 #endif
 
 struct LinkedMem {
-#ifdef WIN32
+#ifdef _WIN32
 	UINT32 uiVersion;
 	DWORD uiTick;
 #else
@@ -36,7 +36,7 @@ struct LinkedMem {
 	float fCameraFront[3];
 	float fCameraTop[3];
 	wchar_t identity[256];
-#ifdef WIN32
+#ifdef _WIN32
 	UINT32 context_len;
 #else
 	uint32_t context_len;
@@ -49,7 +49,7 @@ LinkedMem *lm = nullptr;
 
 
 void initMumble() {
-#ifdef WIN32
+#ifdef _WIN32
 	HANDLE hMapObject = OpenFileMappingW(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
 	if (!hMapObject)
 		return;
@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
 	while (true) {
 		qWarning("Tick!");
 		updateMumble();
-#ifdef WIN32
+#ifdef _WIN32
 		Sleep(100);
 #else
 		usleep(100 * 1000);

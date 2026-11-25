@@ -8,7 +8,7 @@
 
 #include "mumble_positional_audio_main.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 // Memory offsets
 const procptr_t camera_pos_offset   = 0x1A2A338;
 const procptr_t camera_front_offset = 0x1A2A320;
