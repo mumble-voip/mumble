@@ -67,3 +67,24 @@ XboxInput::~XboxInput() {
 bool XboxInput::isValid() const {
 	return m_valid;
 }
+
+bool XboxInput::poll(uint32_t deviceIndex, XboxInputState &state) {
+	if (!GetState || deviceIndex >= m_lastPackets.size()) {
+		return false;
+	}
+
+	std::optional< uint32_t > &lastPacket = m_lastPackets[deviceIndex];
+	if (GetState(deviceIndex, &state) != ERROR_SUCCESS) {
+		const bool wasConnected = lastPacket.has_value();
+		lastPacket.reset();
+		state = {};
+		return wasConnected;
+	}
+
+	if (lastPacket && *lastPacket == state.packetNumber) {
+		return false;
+	}
+
+	lastPacket = state.packetNumber;
+	return true;
+}
