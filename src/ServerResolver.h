@@ -6,12 +6,12 @@
 #ifndef MUMBLE_MUMBLE_SERVERRESOLVER_H_
 #define MUMBLE_MUMBLE_SERVERRESOLVER_H_
 
+#include "HostAddress.h"
+#include "ServerResolverRecord.h"
+
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-
-#include "Net.h" // for HostAddress
-#include "ServerResolverRecord.h"
 
 class ServerResolverPrivate;
 

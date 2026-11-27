@@ -6,10 +6,10 @@
 #ifndef MUMBLE_MUMBLE_SERVERRESOLVERRECORD_H_
 #define MUMBLE_MUMBLE_SERVERRESOLVERRECORD_H_
 
+#include "HostAddress.h"
+
 #include <QtCore/QList>
 #include <QtCore/QString>
-
-#include "Net.h" // for HostAddress
 
 class ServerResolverRecord {
 public:
