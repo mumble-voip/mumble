@@ -5,6 +5,8 @@
 
 #include "ServerResolver.h"
 
+#include <QMap>
+
 #include <QtNetwork/QDnsLookup>
 #include <QtNetwork/QHostInfo>
 
