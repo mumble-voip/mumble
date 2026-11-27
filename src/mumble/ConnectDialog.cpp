@@ -438,7 +438,7 @@ ServerItem *ServerItem::fromUrl(QUrl url, QWidget *p) {
 
 	ServerItem *si =
 		new ServerItem(query.queryItemValue(QLatin1String("title")), url.host(),
-					   static_cast< unsigned short >(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
+					   static_cast< unsigned short >(url.port(Mumble::DEFAULT_PORT)), url.userName(), url.password());
 
 	if (query.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = query.queryItemValue(QLatin1String("url"));
@@ -659,7 +659,7 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));
 	url.setHost(host);
-	if (port != DEFAULT_MUMBLE_PORT)
+	if (port != Mumble::DEFAULT_PORT)
 		url.setPort(port);
 	url.setPath(channel);
 
@@ -802,7 +802,7 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *parent) : QDialog(parent) {
 	// If connected to a server assume the user wants to add it
 	if (Global::get().sh && Global::get().sh->isRunning()) {
 		QString host, name, user, pw;
-		unsigned short port = DEFAULT_MUMBLE_PORT;
+		unsigned short port = Mumble::DEFAULT_PORT;
 
 		Global::get().sh->getConnectionInfo(host, port, user, pw);
 		Channel *c = Channel::get(Mumble::ROOT_CHANNEL_ID);
@@ -827,7 +827,7 @@ void ConnectDialogEdit::init() {
 	qwInlineNotice->hide();
 
 	qlePort->setValidator(new QIntValidator(1, 65535, qlePort));
-	qlePort->setText(QString::number(DEFAULT_MUMBLE_PORT));
+	qlePort->setText(QString::number(Mumble::DEFAULT_PORT));
 	qlePassword->setEchoMode(QLineEdit::Password);
 
 	connect(qleName, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));

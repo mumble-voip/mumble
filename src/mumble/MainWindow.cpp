@@ -20,7 +20,6 @@
 #include "DeveloperConsole.h"
 #include "Log.h"
 #include "MumbleConstants.h"
-#include "Net.h"
 #include "NetworkConfig.h"
 #include "GlobalShortcut.h"
 #include "GlobalShortcutTypes.h"
@@ -1331,7 +1330,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	}
 
 	QString host        = url.host();
-	unsigned short port = static_cast< unsigned short >(url.port(DEFAULT_MUMBLE_PORT));
+	unsigned short port = static_cast< unsigned short >(url.port(Mumble::DEFAULT_PORT));
 	QString user        = url.userName();
 	QString pw          = url.password();
 	qsDesiredChannel    = url.path();

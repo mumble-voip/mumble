@@ -6,7 +6,7 @@
 #include "Database.h"
 
 #include "MumbleApplication.h"
-#include "Net.h"
+#include "MumbleConstants.h"
 #include "Utils.h"
 #include "Version.h"
 #include "Global.h"
@@ -156,10 +156,11 @@ Database::Database(const QString &dbname) {
 
 	QSqlQuery query(db);
 
-	execQueryAndLogFailure(query,
-						   QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY "
-										 "AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT " MUMTEXT(
-											 DEFAULT_MUMBLE_PORT) ", `username` TEXT, `password` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY "
+												"AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT ")
+									  + QString::number(Mumble::DEFAULT_PORT)
+									  + QLatin1String(", `username` TEXT, `password` TEXT)"));
+
 	query.exec(QLatin1String(
 		"ALTER TABLE `servers` ADD COLUMN `url` TEXT")); // Upgrade path, failing this query is not noteworthy
 

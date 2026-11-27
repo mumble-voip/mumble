@@ -7,6 +7,11 @@
 #define MUMBLE_MUMBLECONSTANTS_H_
 
 namespace Mumble {
+#ifdef DEFAULT_MUMBLE_PORT
+constexpr unsigned short DEFAULT_PORT = DEFAULT_MUMBLE_PORT;
+#else
+constexpr unsigned short DEFAULT_PORT = 64738;
+#endif
 
 constexpr unsigned int ROOT_CHANNEL_ID = 0;
 constexpr unsigned int SUPERUSER_ID    = 0;
