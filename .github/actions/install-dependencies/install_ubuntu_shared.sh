@@ -66,7 +66,10 @@ sudo apt -y install \
 	libcli11-dev \
 	libsoci-dev \
 	libutfcpp-dev \
-	libsqlite3-dev
+	libsqlite3-dev \
+	libavcodec-dev \
+	libswscale-dev \
+	libavutil-dev
 
 # MySQL and PostgreSQL are pre-installed on GitHub-hosted runners.
 # Set them up for the Mumble tests
