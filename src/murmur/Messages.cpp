@@ -29,6 +29,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QStack>
 #include <QtCore/QTimeZone>
 #include <QtCore/QtEndian>
@@ -57,6 +58,11 @@
 	if (!pDstServerUser)                               \
 		return;                                        \
 	Q_UNUSED(pDstServerUser)
+
+static void scheduleTemporaryChannelPrune(Server *server, unsigned int channelId) {
+	auto func_ptr = std::mem_fn(&Server::removeTemporaryChannelIfEmpty);
+	QCoreApplication::instance()->postEvent(server, new ExecEvent(std::bind(func_ptr, server, channelId)));
+}
 
 #define PERM_DENIED(who, where, what)                                                                                \
 	{                                                                                                                \
@@ -1412,7 +1418,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			return;
 		}
 
-		if (p->bTemporary) {
+		if (p->bTemporary && !msg.temporary()) {
 			PERM_DENIED_TYPE(TemporaryChannel);
 			return;
 		}
@@ -1498,7 +1504,7 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 				ip = ip->cParent;
 			}
 
-			if (p->bTemporary) {
+			if (p->bTemporary && !c->bTemporary) {
 				PERM_DENIED_TYPE(TemporaryChannel);
 				return;
 			}
@@ -1569,11 +1575,14 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 
 		if (p) {
 			log(uSource, QString("Moved channel %1 from %2 to %3").arg(QString(*c), QString(*c->cParent), QString(*p)));
-
+			Channel *oldParent = c->cParent;
 			{
 				QWriteLocker wl(&qrwlVoiceThread);
 				c->cParent->removeChannel(c);
 				p->addChannel(c);
+			}
+			if (oldParent->bTemporary && oldParent->qlUsers.isEmpty()) {
+				scheduleTemporaryChannelPrune(this, oldParent->iId);
 			}
 		}
 		if (!qsName.isNull()) {
@@ -1627,7 +1636,15 @@ void Server::msgChannelRemove(ServerUser *uSource, MumbleProto::ChannelRemove &m
 
 	log(uSource, QString("Removed channel %1").arg(*c));
 
+	Channel *parent             = c->cParent;
+	const unsigned int parentId = parent ? parent->iId : 0;
+	const bool parentTemporary  = parent && parent->bTemporary;
+
 	removeChannel(c);
+
+	if (parentTemporary) {
+		scheduleTemporaryChannelPrune(this, parentId);
+	}
 }
 
 void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) {
