@@ -7253,6 +7253,18 @@ pour filtrage depuis le menu du salon.</translation>
         <source>Added %1 to favorites.</source>
         <translation>%1 ajouté aux favoris.</translation>
     </message>
+    <message>
+        <source>Vie&amp;w Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View full channel description in a separate window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View description of channel %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Manual</name>
