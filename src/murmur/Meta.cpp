@@ -141,8 +141,8 @@ MetaParams::MetaParams() {
 	iChannelNestingLimit = 10;
 	iChannelCountLimit   = 1000;
 
-	userNamePattern    = QLatin1String("[ -=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+");
-	channelNamePattern = QLatin1String("[ -=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
+	userNamePattern    = QLatin1String("[ \\-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+");
+	channelNamePattern = QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+");
 
 	iMessageLimit = 1;
 	iMessageBurst = 5;
