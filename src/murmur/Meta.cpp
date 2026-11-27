@@ -8,7 +8,7 @@
 #include "Connection.h"
 #include "EnvUtils.h"
 #include "FFDHE.h"
-#include "Net.h"
+#include "MumbleConstants.h"
 #include "OSInfo.h"
 #include "PBKDF2.h"
 #include "SSL.h"
@@ -91,7 +91,7 @@ static HANDLE loadQoS() {
 
 MetaParams::MetaParams() {
 	qsPassword       = QString();
-	usPort           = DEFAULT_MUMBLE_PORT;
+	usPort           = Mumble::DEFAULT_PORT;
 	iTimeout         = 30;
 	handshakeTimeout = std::chrono::seconds(10);
 	// This represents the maximum possible bandwidth using 10 ms audio TCP packets with position data

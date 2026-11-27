@@ -102,7 +102,6 @@ set(SHARED_HEADERS
 	"License.h"
 	"Logger.h"
 	"MumbleProtocol.h"
-	"Net.h"
 	"OSInfo.h"
 	"PasswordGenerator.h"
 	"PlatformCheck.h"

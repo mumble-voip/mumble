@@ -27,7 +27,6 @@
 
 #include "HostAddress.h"
 #include "MumbleProtocol.h"
-#include "Net.h"
 #include "ServerAddress.h"
 #include "Timer.h"
 #include "UnresolvedServerAddress.h"

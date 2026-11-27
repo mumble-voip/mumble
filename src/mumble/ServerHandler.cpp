@@ -19,7 +19,7 @@
 #include "Database.h"
 #include "HostAddress.h"
 #include "MainWindow.h"
-#include "Net.h"
+#include "MumbleConstants.h"
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 #include "PacketDataStream.h"
@@ -1235,7 +1235,7 @@ QUrl ServerHandler::getServerURL(bool withPassword) const {
 
 	url.setScheme(QLatin1String("mumble"));
 	url.setHost(qsHostName);
-	if (usPort != DEFAULT_MUMBLE_PORT) {
+	if (usPort != Mumble::DEFAULT_PORT) {
 		url.setPort(usPort);
 	}
 
