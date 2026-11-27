@@ -226,8 +226,12 @@ def generateTestBody(settingsFields, settingsClassName, excludeFields = []):
             continue
         if settingsFields[fieldName] == "OverlaySettings":
             for overlayField in structs["OverlaySettings"]:
-                contents += "\t\tsettings." + fieldName + "." + overlayField + " = "\
-                        + getDefaultValueForType(structs["OverlaySettings"][overlayField]) + ";"
+                if structs["OverlaySettings"][overlayField] == "bool":
+                    # For boolean values, we simply use the inverse of whatever the default is
+                    contents += "\t\tsettings." + fieldName + "." + overlayField + " = !settings." + fieldName + "." + overlayField + ";\n"
+                else:
+                    contents += "\t\tsettings." + fieldName + "." + overlayField + " = "\
+                            + getDefaultValueForType(structs["OverlaySettings"][overlayField]) + ";\n"
         elif settingsFields[fieldName] == "bool":
             # For boolean values, we simply use the inverse of whatever the default is
             contents += "\t\tsettings." + fieldName + " = !settings." + fieldName + ";\n"

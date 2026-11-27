@@ -7,6 +7,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QTime>
 #include <QUrl>
 
 #include <filesystem>
@@ -25,6 +26,10 @@ namespace QtUtils {
 			return decode_utf8_qssl_string(list.at(0));
 		}
 		return QString();
+	}
+
+	QString formatTime(const QTime &time, bool use24HourClock) {
+		return time.toString(QLatin1String(use24HourClock ? "HH:mm:ss" : "hh:mm:ss AP"));
 	}
 
 	CaseInsensitiveQString::CaseInsensitiveQString(const QString &str) : m_str(str) {}
