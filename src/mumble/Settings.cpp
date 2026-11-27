@@ -697,6 +697,8 @@ void OverlaySettings::legacyLoad(QSettings *settings_ptr) {
 	LOAD(fX, "x");
 	LOAD(fY, "y");
 	LOAD(fZoom, "zoom");
+	LOAD(fFpsZoom, "fpszoom");
+	LOAD(fTimeZoom, "timezoom");
 	LOAD(uiColumns, "columns");
 
 	settings_ptr->beginReadArray(QLatin1String("states"));

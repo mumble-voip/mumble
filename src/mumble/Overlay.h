@@ -109,6 +109,7 @@ public:
 	bool isActive() const;
 	void verifyTexture(ClientUser *cp, bool allowupdate = true);
 	void requestTexture(ClientUser *);
+	static bool applyWheelZoom(qreal &zoom, int delta);
 
 public slots:
 	void updateOverlay();

@@ -6,6 +6,7 @@
 #ifndef MUMBLE_MUMBLE_OVERLAYTEXT_H_
 #define MUMBLE_MUMBLE_OVERLAYTEXT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtGui/QFont>
 #include <QtGui/QPainterPath>
 #include <QtGui/QPixmap>
@@ -51,7 +52,7 @@ private:
 	BasepointPixmap render(int, int, const QColor &, const QPoint &) const;
 
 public:
-	OverlayTextLine(const QString &, const QFont &);
+	OverlayTextLine(const QString &, const QFont &, qreal zoom = 1.0f);
 
 	void setFont(const QFont &);
 	void setEdge(float);

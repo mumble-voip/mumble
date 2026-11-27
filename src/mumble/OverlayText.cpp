@@ -27,13 +27,20 @@ BasepointPixmap::BasepointPixmap(int w, int h, const QPoint &bp)
 	: QPixmap(w, h), qpBasePoint(bp), iAscent(-1), iDescent(-1) {
 }
 
-OverlayTextLine::OverlayTextLine(const QString &s, const QFont &f)
+OverlayTextLine::OverlayTextLine(const QString &s, const QFont &f, qreal zoom)
 	: fEdgeFactor(0.05f), qsText(s), qfFont(f), fXCorrection(0.0), fYCorrection(0.0), iCurWidth(-1), iCurHeight(-1),
 	  fBaseliningThreshold(0.5f), bElided(false) {
-	QFontMetrics fm(f);
+	if (zoom > 0.0 && !qFuzzyCompare(zoom, static_cast< qreal >(1.0))) {
+		if (qfFont.pointSizeF() > 0.0) {
+			qfFont.setPointSizeF(qfFont.pointSizeF() * zoom);
+		} else if (qfFont.pixelSize() > 0) {
+			qfFont.setPixelSize(qMax(1, static_cast< int >(qfFont.pixelSize() * zoom + 0.5f)));
+		}
+	}
+	QFontMetrics fm(qfFont);
 	fAscent  = static_cast< float >(fm.ascent());
 	fDescent = static_cast< float >(fm.descent());
-	fEdge    = qMax(static_cast< float >(f.pointSizeF()) * fEdgeFactor, 1.0f);
+	fEdge    = qMax(static_cast< float >(qfFont.pointSizeF()) * fEdgeFactor, 1.0f);
 }
 
 BasepointPixmap OverlayTextLine::render(int w, int h, const QColor &col, const QPoint &bp) const {

@@ -124,6 +124,8 @@ struct OverlaySettings {
 	float fY = 0.0f;
 
 	qreal fZoom            = 0.875f;
+	qreal fFpsZoom         = 1.0f;
+	qreal fTimeZoom        = 1.0f;
 	unsigned int uiColumns = 1;
 
 	std::array< QColor, 5 > qcUserName = {};
