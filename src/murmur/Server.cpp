@@ -1059,6 +1059,9 @@ void Server::run() {
 							}
 							break;
 						}
+						case Mumble::Protocol::UDPMessageType::Video:
+							// Video packets are not handled by the decoder path; silently discard.
+							break;
 					}
 				}
 #ifdef Q_OS_UNIX
@@ -1098,7 +1101,7 @@ void Server::sendMessage(ServerUser &u, const unsigned char *data, int len, QByt
 
 	if ((u.aiUdpFlag.loadRelaxed() == 1 || force) && (u.sUdpSocket != INVALID_SOCKET)) {
 #if defined(__LP64__)
-		static std::vector< char > ebuffer;
+		static thread_local std::vector< char > ebuffer;
 		ebuffer.resize(static_cast< std::size_t >(len + 4 + 16));
 		char *buffer = reinterpret_cast< char * >(
 			((reinterpret_cast< quint64 >(ebuffer.data()) + 8) & static_cast< quint64 >(~7)) + 4);
