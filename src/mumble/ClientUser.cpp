@@ -66,6 +66,8 @@ ClientUser *ClientUser::add(unsigned int uiSession, QObject *po) {
 
 	QObject::connect(p, &ClientUser::talkingStateChanged, Global::get().pluginManager,
 					 &PluginManager::on_userTalkingStateChanged);
+	QObject::connect(p, &ClientUser::selfMuteDeafStateChanged, Global::get().pluginManager,
+					 &PluginManager::on_userSelfMuteDeafStateChanged);
 
 	return p;
 }
@@ -214,18 +216,16 @@ void ClientUser::setDeaf(bool deaf) {
 	emit muteDeafStateChanged();
 }
 
-void ClientUser::setSelfMute(bool mute) {
-	bSelfMute = mute;
-	if (!mute)
-		bSelfDeaf = false;
-	emit muteDeafStateChanged();
-}
+void ClientUser::setSelfMuteDeaf(bool mute, bool deaf) {
+	// Being deafened implies being muted
+	mute = mute || deaf;
 
-void ClientUser::setSelfDeaf(bool deaf) {
+	if (bSelfMute == mute && bSelfDeaf == deaf)
+		return;
+	bSelfMute = mute;
 	bSelfDeaf = deaf;
-	if (deaf)
-		bSelfMute = true;
 	emit muteDeafStateChanged();
+	emit selfMuteDeafStateChanged();
 }
 
 void ClientUser::setPrioritySpeaker(bool priority) {

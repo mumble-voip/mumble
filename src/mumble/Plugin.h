@@ -66,6 +66,7 @@ struct MumblePluginFunctions {
 	decltype(&mumble_onChannelRemoved) onChannelRemoved;
 	decltype(&mumble_onChannelRenamed) onChannelRenamed;
 	decltype(&mumble_onKeyEvent) onKeyEvent;
+	decltype(&mumble_onUserSelfMuteDeafStateChanged) onUserSelfMuteDeafStateChanged;
 
 	// Plugin updates
 	decltype(&mumble_hasUpdate) hasUpdate;
@@ -363,6 +364,14 @@ protected:
 	/// 	always the upper-case letter code will be used for letters.
 	/// @param wasPress Whether the key has been pressed (instead of released)
 	virtual void onKeyEvent(mumble_keycode_t keyCode, bool wasPress) const;
+	/// Called to indicate that a user has changed their self-mute or self-deaf state
+	///
+	/// @param connection An object used to identify the current connection
+	/// @param userID The ID of the user whose state has changed
+	/// @param selfMuted Whether the user has now muted themselves
+	/// @param selfDeafened Whether the user has now deafened themselves
+	virtual void onUserSelfMuteDeafStateChanged(mumble_connection_t connection, mumble_userid_t userID, bool selfMuted,
+												bool selfDeafened) const;
 
 
 public:
