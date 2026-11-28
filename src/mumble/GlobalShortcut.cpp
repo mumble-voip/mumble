@@ -646,12 +646,11 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 					  "etc.) for global shortcuts."
 					  "</p>"
 					  "<p>"
-					  "If you want more flexibility, you can add Mumble as a trusted accessibility program in the "
-					  "Privacy & Security section "
-					  "of your Mac's System Settings."
+					  "If you want more flexibility, you can allow Mumble to monitor inputs in the Privacy & Security "
+					  "section of your Mac's System Settings."
 					  "</p>"
 					  "<p>"
-					  "In System Settings, open Privacy & Security, then scroll to find Accessibility in the list. "
+					  "In System Settings, open Privacy & Security, then scroll to find Input Monitoring in the list. "
 					  "Finally, add Mumble to the list of trusted accessibility programs."
 					  "</body></html>"));
 #endif
@@ -672,7 +671,7 @@ bool GlobalShortcutConfig::eventFilter(QObject * /*object*/, QEvent *e) {
 
 bool GlobalShortcutConfig::showWarning() const {
 #ifdef Q_OS_MACOS
-	return !AXIsProcessTrustedWithOptions(nullptr);
+	return !CGPreflightListenEventAccess();
 #endif
 	return false;
 }

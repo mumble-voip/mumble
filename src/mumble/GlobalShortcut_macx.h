@@ -24,8 +24,7 @@ public:
 	ButtonInfo buttonInfo(const QVariant &) Q_DECL_OVERRIDE;
 	void dumpEventTaps();
 	void needRemap() Q_DECL_OVERRIDE;
-	bool handleModButton(CGEventFlags newmask);
-	bool canSuppress() Q_DECL_OVERRIDE;
+	void handleModButton(CGEventFlags newmask);
 
 	void setEnabled(bool) Q_DECL_OVERRIDE;
 	bool enabled() Q_DECL_OVERRIDE;
