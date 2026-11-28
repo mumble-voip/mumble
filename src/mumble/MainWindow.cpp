@@ -40,7 +40,7 @@
 #include "Screen.h"
 #include "SearchDialog.h"
 #include "ServerHandler.h"
-#include "ServerInformation.h"
+#include "ServerInformationDialog.h"
 #include "Settings.h"
 #include "SvgIcon.h"
 #include "TalkingUI.h"
@@ -4111,7 +4111,7 @@ void MainWindow::addServerAsFavorite() {
 }
 
 void MainWindow::openServerInformationDialog() {
-	ServerInformation *infoDialog = new ServerInformation(this);
+	ServerInformationDialog *infoDialog = new ServerInformationDialog(this);
 	infoDialog->show();
 }
 

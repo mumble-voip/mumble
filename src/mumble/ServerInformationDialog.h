@@ -8,14 +8,14 @@
 
 #include <QDialog>
 
-#include "ui_ServerInformation.h"
+#include "ui_ServerInformationDialog.h"
 
-class ServerInformation : public QDialog, private Ui::ServerInformation {
+class ServerInformationDialog : public QDialog, private Ui::ServerInformationDialog {
 	Q_OBJECT
-	Q_DISABLE_COPY(ServerInformation)
+	Q_DISABLE_COPY(ServerInformationDialog)
 
 public:
-	ServerInformation(QWidget *parent = nullptr);
+	ServerInformationDialog(QWidget *parent = nullptr);
 
 	void updateFields();
 

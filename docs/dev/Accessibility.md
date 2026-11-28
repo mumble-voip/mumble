@@ -90,7 +90,7 @@ When changing a UI element or implementing a new one, make sure that the changes
 
 * [ ] Additional visual context **MUST** be made available to screen reader users
   * Sometimes information is displayed as a plain label or a series of plain labels. Plain labels can not be focused using a screen reader, and therefore the information has to be made available differently
-  * For example, the ``ServerInformation.ui`` uses the ``AccessibleGroupBox`` class instead of ``QGroupBox`` to solve that problem
+  * For example, the ``ServerInformationDialog.ui`` uses the ``AccessibleGroupBox`` class instead of ``QGroupBox`` to solve that problem
   * Sometimes it might be enough to include that information in the ``accessibleDescription`` of another element
 
 * [ ] New status for users or channels **MUST** be made accessible using the ``userToText`` and ``channelToText`` functions in ``Accessibility.cpp``
