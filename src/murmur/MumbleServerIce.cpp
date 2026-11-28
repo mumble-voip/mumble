@@ -1939,7 +1939,7 @@ static void impl_Server_getTexture(const ::MumbleServer::AMD_Server_getTexturePt
 
 	NEED_SERVER;
 
-	if (!server->getRegisteredUserName(userid).isEmpty()) {
+	if (server->getRegisteredUserName(userid).isEmpty()) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
@@ -1964,7 +1964,7 @@ static void impl_Server_setTexture(const ::MumbleServer::AMD_Server_setTexturePt
 	VERIFY_DB_NOT_IN_READONLY;
 	NEED_SERVER;
 
-	if (!server->getRegisteredUserName(userid).isEmpty()) {
+	if (server->getRegisteredUserName(userid).isEmpty()) {
 		cb->ice_exception(InvalidUserException());
 		return;
 	}
