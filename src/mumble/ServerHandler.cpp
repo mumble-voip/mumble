@@ -256,9 +256,6 @@ void ServerHandler::udpReady() {
 		if (!connection)
 			continue;
 
-		if (!connection->csCrypt->isValid())
-			continue;
-
 		if (buflen < 5)
 			continue;
 
@@ -267,16 +264,23 @@ void ServerHandler::udpReady() {
 		// 4 bytes is the overhead of the encryption
 		assert(buffer.size() >= buflen - 4);
 
-		if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(),
-										  buflen)) {
-			if (connection->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
-				if (connection->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
-					connection->csCrypt->tLastRequest.restart();
-					MumbleProto::CryptSetup mpcs;
-					sendMessage(mpcs);
+		{
+			QMutexLocker qml(&qmUdp);
+
+			if (!csCrypt->isValid())
+				continue;
+
+			if (!connection->csCrypt->decrypt(reinterpret_cast< const unsigned char * >(encrypted), buffer.data(),
+											  buflen)) {
+				if (connection->csCrypt->tLastGood.elapsed() > std::chrono::seconds(5)) {
+					if (connection->csCrypt->tLastRequest.elapsed() > std::chrono::seconds(5)) {
+						connection->csCrypt->tLastRequest.restart();
+						MumbleProto::CryptSetup mpcs;
+						sendMessage(mpcs);
+					}
 				}
+				continue;
 			}
-			continue;
 		}
 
 		if (m_udpDecoder.decode(buffer.subspan(0, buflen - 4))) {
@@ -318,9 +322,6 @@ void ServerHandler::handleVoicePacket(const Mumble::Protocol::AudioData &audioDa
 }
 
 void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) {
-	static std::vector< unsigned char > crypto;
-	crypto.resize(static_cast< std::size_t >(len + 4));
-
 	QMutexLocker qml(&qmUdp);
 
 	if (!qusUdp)
@@ -343,6 +344,9 @@ void ServerHandler::sendMessage(const unsigned char *data, int len, bool force) 
 		QApplication::postEvent(this,
 								new ServerHandlerMessageEvent(qba, Mumble::Protocol::TCPMessageType::UDPTunnel, true));
 	} else {
+		static std::vector< unsigned char > crypto;
+		crypto.resize(static_cast< std::size_t >(len + 4));
+
 		if (!connection->csCrypt->encrypt(reinterpret_cast< const unsigned char * >(data), crypto.data(),
 										  static_cast< unsigned int >(len))) {
 			return;
