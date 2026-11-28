@@ -275,7 +275,7 @@ void Settings::load(const QString &path, bool skipSettingsBackupPrompt) {
 				msgBox.exec();
 			}
 		}
-	} catch (const nlohmann::json::parse_error &e) {
+	} catch (const nlohmann::json::exception &e) {
 		qWarning() << "Failed to load settings from" << path << "due to invalid format: " << e.what();
 
 		if (!path.endsWith(QLatin1String(BACKUP_FILE_EXTENSION)) && QFileInfo(path + BACKUP_FILE_EXTENSION).exists()) {
